@@ -50,7 +50,7 @@ function Utils.calculateLowKickDamage(weight)
 	elseif weight < 100.0 then
 		return "80"
 	elseif weight < 200.0 then
-		return "80"
+		return "100"
 	else
 		return "120"
 	end
