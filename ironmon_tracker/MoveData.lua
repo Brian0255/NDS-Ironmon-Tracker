@@ -3266,5 +3266,14 @@ MoveData = {
 		pp = "5",
 		accuracy = "90",
 		category = MoveCategories.SPECIAL,
+	},
+	{
+		id = "355",
+		name = "Roost",
+		type = PokemonTypes.FLYING,
+		power = PLACEHOLDER,
+		pp = "10",
+		accuracy = PLACEHOLDER,
+		category = MoveCategories.STATUS,
 	}
 }

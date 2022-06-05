@@ -9,7 +9,7 @@ function Input.update()
 	Input.mousetab = input.getmouse()
 	if Input.mousetab["Left"] and not Input.mousetab_prev["Left"] then
 		local xmouse = Input.mousetab["X"]
-		local ymouse = Input.mousetab["Y"] + GraphicConstants.UP_GAP
+		local ymouse = (Input.mousetab["Y"] + 384) /2
 		Input.check(xmouse, ymouse)
 	end
 	Input.mousetab_prev = Input.mousetab
@@ -22,16 +22,17 @@ function Input.update()
 			if Tracker.Data.selectedPlayer == 1 then
 				Tracker.Data.selectedSlot = 1
 				Tracker.Data.targetPlayer = 2
-				Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
+				--Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
 			elseif Tracker.Data.selectedPlayer == 2 then
-				local enemySlotOne = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
-				Tracker.Data.selectedSlot = enemySlotOne
+				--local enemySlotOne = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
+				--Tracker.Data.selectedSlot = enemySlotOne
 				Tracker.Data.targetPlayer = 1
-				Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesSelfSlotOne) + 1
+				--Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesSelfSlotOne) + 1
 			end
 		end
 
 		Tracker.redraw = true
+		Tracker.waitFrames = 0
 	end
 
 	-- "Settings.controls.CYCLE_STAT" pressed, display box over next stat
@@ -110,6 +111,7 @@ function Input.check(xmouse, ymouse)
 				if Buttons[i].type == ButtonType.singleButton then
 					if Input.isInRange(xmouse, ymouse, Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[3], Buttons[i].box[4]) then
 						Buttons[i].onclick()
+						Tracker.waitFrames = 0
 						Tracker.redraw = true
 					end
 				end

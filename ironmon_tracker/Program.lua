@@ -61,24 +61,58 @@ function Program.main()
 		end
 		Program.eventCallbacks = {}
 
-		-- Only redraw the UI when an event has occurred which requires the UI to be redrawn.
-		-- TODO: This could be more granular for even more performance gains. In general, drawing to the UI is very cheap but reading values from emulated memory is very expensive
-		if Tracker.redraw == true and Tracker.waitFrames == 0 then
-			if Tracker.Data.inBattle == 1 then
-				Program.UpdateMonPartySlots()
-			end
-			Program.UpdatePokemonTeamDataFromMemory()
-			Program.UpdateSelectedPokemonData()
+	-- Only redraw the UI when an event has occurred which requires the UI to be redrawn.
+	-- TODO: This could be more granular for even more performance gains. In general, drawing to the UI is very cheap but reading values from emulated memory is very expensive
+	if Tracker.redraw == true and Tracker.waitFrames == 0 then
+		--Tracker.Data.selectedPlayer = 1
+		--local playerBattleFirstPID = memory.read_u32_le(GameSettings.playerBattleBase)
+		--local enemyBattleFirstPID = memory.read_u32_le(GameSettings.enemyBase)
+		local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
+
+		if battleStatus == 0x2100 or battleStatus == 0x2101 then
+			Tracker.Data.inBattle = 1
+		else
+			Tracker.Data.inBattle = 0
+		end
+		if Tracker.Data.inBattle ~= 1 then
+			Tracker.Data.selectedPlayer = 1
+		end
+		--if Tracker.Data.inBattle == 1 then
+	--		Program.UpdateMonPartySlots()
+	--	end
+	--	Program.UpdatePokemonTeamDataFromMemory()
+		Program.UpdateSelectedPokemonData()
+		if Tracker.Data.targetedPokemon ~= 1 then
 			Program.UpdateTargetedPokemonData()
-			Program.UpdatePrimaryMonAbilityData()
-			Program.UpdateMonStatStages()
-			Program.UpdateMonPartySlots()
-			Program.UpdateBagHealingItems()
+		end
+	--	Program.UpdatePrimaryMonAbilityData()
+	--	Program.UpdateMonStatStages()
+	--	Program.UpdateMonPartySlots()
+	Program.UpdateBagHealingItems()
+	--print(Tracker.Data.selectedPlayer)
+	if Tracker.Data.inBattle == 1 then
+		local target = Tracker.Data.targetedPokemon
+		if target ~= nil then
+			for i,moveValue in pairs(target.moves) do
+				local currentPP = target.movePPs[i]
+				local maxPP = MoveData[moveValue+1].pp
+				if tostring(currentPP) < maxPP then
+					--table.insert(Program.tracker.movesToUpdate, { pokemonId = target.pokemonID + 1, move = moveValue+1, level = target.level })
+				end
+			end
+		end
+	end	
+	
 
-			Program.StatButtonState = Tracker.getButtonState()
-			Buttons = Program.updateButtons(Program.StatButtonState)
+		Program.StatButtonState = Tracker.getButtonState()
+		Buttons = Program.updateButtons(Program.StatButtonState)
 
-			if Tracker.Data.selectedPlayer == 2 then
+		if Tracker.Data.selectedPlayer == 2 then
+			Drawing.DrawTracker(Tracker.Data.selectedPokemon, true, Tracker.Data.targetedPokemon)
+		else
+			if Tracker.Data.needCheckSummary == 0 then
+				Drawing.DrawTracker(Tracker.Data.selectedPokemon, false, Tracker.Data.targetedPokemon)
+			else
 				Drawing.DrawTracker(Tracker.Data.selectedPokemon, true, Tracker.Data.targetedPokemon)
 			else
 				if Tracker.Data.needCheckSummary == 0 then
@@ -87,10 +121,11 @@ function Program.main()
 					Drawing.DrawTracker(Tracker.Data.selectedPokemon, true, Tracker.Data.targetedPokemon)
 				end
 			end
-
-			Tracker.redraw = false
-			Tracker.saveData()
 		end
+		Tracker.waitFrames = 1
+		--Tracker.redraw = false
+		Tracker.saveData()
+	end
 
 		if Tracker.waitFrames > 0 then
 			Tracker.waitFrames = Tracker.waitFrames - 1
@@ -123,11 +158,13 @@ function Program.UpdateSelectedPokemonData()
 end
 
 function Program.UpdateTargetedPokemonData()
-	local pokemontarget = Program.getPokemonData({ player = Tracker.Data.targetPlayer, slot = Tracker.Data.targetSlot })
-	if Program.validPokemonData(pokemontarget) then
-		Tracker.Data.targetedPokemon = pokemontarget
-	else
-		Tracker.Data.targetedPokemon = nil
+	if Tracker.Data.inBattle == 1 then
+		local pokemontarget = Program.getPokemonData({ player = Tracker.Data.targetPlayer, slot = Tracker.Data.targetSlot })
+		if Program.validPokemonData(pokemontarget) then
+			Tracker.Data.targetedPokemon = pokemontarget
+		else
+			Tracker.Data.targetedPokemon = nil
+		end
 	end
 end
 
@@ -171,7 +208,7 @@ function Program.UpdateMonPartySlots()
 end
 
 function Program.UpdateBagHealingItems()
-	local healingItems = Program.getBagHealingItems(Tracker.Data.selectedPokemon)
+	local healingItems = Program.getBagHealingItemsGen4(Tracker.Data.selectedPokemon)
 	if healingItems ~= nil then
 		Tracker.Data.healingItems = healingItems
 	end
@@ -364,6 +401,8 @@ function Program.HandleExit()
 end
 
 function Program.HandleMove()
+
+	--[[
 	local moveValue = Memory.readword(GameSettings.gChosenMove) + 1
 	local attackerValue = Memory.readbyte(GameSettings.gBattlerAttacker)
 
@@ -394,7 +433,7 @@ function Program.HandleMove()
 				Tracker.Data.targetSlot = selfSlotOne
 			end
 		end
-
+		
 		-- Stop tracking moves temporarily while transformed
 		if not Program.transformedPokemon.isTransformed then
 			table.insert(Program.tracker.movesToUpdate, { pokemonId = pokemonId + 1, move = moveValue, level = level })
@@ -412,7 +451,7 @@ function Program.HandleMove()
 	end
 
 	Tracker.redraw = true
-	Tracker.waitFrames = 30
+	Tracker.waitFrames = 30--]]
 end
 
 function Program.HandleAbilityActivate(abilityId)
@@ -467,6 +506,51 @@ function Program.getTrainerData(index)
 end
 
 function Program.getPokemonData(index)
+	--if GameSettings.version == "HGSS" then
+		if index.player == 1 then 
+			if Tracker.Data.inBattle == 1 then 
+				local currentBase = GameSettings.playerBattleBase
+				local activePID = memory.read_u32_le(GameSettings.playerBattleMonPID)
+				local firstPID = memory.read_u32_le(GameSettings.playerBattleBase)
+				local found = false
+				for i = 1,6,1 do
+					firstPID = memory.read_u32_le(currentBase)
+					if firstPID ~= activePID then
+						currentBase = currentBase + 236
+					else
+						found = true
+						break
+					end
+				end
+				if not found then return nil end
+				return Decrypter.decrypt(currentBase,false)
+			else
+				return Decrypter.decrypt(GameSettings.playerBase,true)
+			end
+		else
+			if Tracker.Data.inBattle == 1 and memory.read_u16_le(GameSettings.battleStatus) == 0x2101 then
+				local currentBase = GameSettings.enemyBase
+				local activePID = memory.read_u32_le(GameSettings.enemyBattleMonPID)
+				local firstPID = memory.read_u32_le(GameSettings.enemyBase)
+				local found = false
+				for i = 1,6,1 do
+					firstPID = memory.read_u32_le(currentBase)
+					if firstPID ~= activePID then
+						currentBase = currentBase + 236
+					else
+						found = true
+						break
+					end
+				end
+				if not found then return nil end
+				return Decrypter.decrypt(currentBase,false)
+			else
+				return Decrypter.decrypt(GameSettings.enemyBase,false)
+			end
+		end
+		return nil
+	--end
+	--[[
 	local start
 	if index.player == 1 then
 		start = GameSettings.pstats + 100 * (index.slot - 1)
@@ -552,17 +636,22 @@ function Program.getPokemonData(index)
 		sleep_turns = sleep_turns_result,
 		ability = 0,
 	}
+	--]]
 end
 
 function Program.validPokemonData(pokemonData)
-	if pokemonData["pokemonID"] < 0 or pokemonData["pokemonID"] > 412 or pokemonData["heldItem"] < 0 or pokemonData["heldItem"] > 376 then
-		return false
-	elseif pokemonData["move1"] < 0 or pokemonData["move2"] < 0 or pokemonData["move3"] < 0 or pokemonData["move4"] < 0 then
-		return false
-	elseif pokemonData["move1"] > 354 or pokemonData["move2"] > 354 or pokemonData["move3"] > 354 or pokemonData["move4"] > 354 then
-		return false
-	else
-		return true
+	if pokemonData == nil then return false end
+	local id = tonumber(pokemonData["pokemonID"])
+	if id ~= nil then
+		if id < 0 or id > 412 then-- or pokemonData["heldItem"] < 0 or pokemonData["heldItem"] > 376 then
+			return false
+		elseif pokemonData["move1"] < 0 or pokemonData["move2"] < 0 or pokemonData["move3"] < 0 or pokemonData["move4"] < 0 then
+			return false
+		elseif pokemonData["move1"] > 400 or pokemonData["move2"] > 400 or pokemonData["move3"] > 400 or pokemonData["move4"] > 400 then
+			return false
+		else
+			return true
+		end
 	end
 end
 
@@ -700,3 +789,70 @@ function Program.getBagStatusItems()
 
 	return statusItems
 end
+<<<<<<< HEAD
+=======
+
+function Program.scanItemsForHeals()
+	local healingItems = {}
+	local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
+	if battleStatus == 0x2100 or battleStatus == 0x2101 then
+		Tracker.Data.inBattle = 1
+	else
+		Tracker.Data.inBattle = 0
+	end
+	local itemStart = Utils.inlineIf(Tracker.Data.inBattle == 1,GameSettings.itemStartBattle,GameSettings.itemStartNoBattle)
+	local currentAddress = itemStart
+	local keepScanning = true
+	while keepScanning do
+		local idAndQuantity = memory.read_u32_le(currentAddress)
+		local id = bit.band(idAndQuantity,0xFFFF)
+		if id ~= 0 then
+			local quantity = bit.band(bit.rshift(idAndQuantity,16),0xFFFF)
+			healingItems[id] = quantity
+			currentAddress = currentAddress + 4
+		else
+			keepScanning = false
+		end
+	end
+	return healingItems
+end
+
+function Program.getBagHealingItemsGen4(pkmn)
+	local totals = {
+		healing = 0,
+		numHeals = 0,
+	}
+	-- Need a null check before getting maxHP
+	if pkmn == nil then
+		return totals
+	end
+
+	local maxHP = pkmn["maxHP"]
+	if maxHP == 0 then
+		return totals
+	end
+
+	local healingItems = Program.scanItemsForHeals()
+
+	for id, quantity in pairs(healingItems) do
+		local item = MiscData.healingItems_GEN4[id]
+		if item ~= nil then
+			local healing = 0
+				if item.type == HealingType.Constant then
+					local percentage = ((item.amount / maxHP) * 100)
+					if percentage > 100 then
+						percentage = 100
+					end
+					healing = percentage * quantity
+				elseif item.type == HealingType.Percentage then
+					healing = item.amount * quantity
+				end
+				-- Healing is in a percentage compared to the mon's max HP
+				totals.healing = totals.healing + healing
+				totals.numHeals = totals.numHeals + quantity
+		end
+	end	
+
+	return totals
+end
+>>>>>>> d2372ab (code push)

@@ -1,4 +1,12 @@
 GameSettings = {
+	playerBase = 0x27C330,
+	playerBattleBase = 0x2CAD20, --0x2CAD20,
+	enemyBase = 0x2CB2F0,
+	playerBattleMonPID = 0x2C6104,--0x2A1E28,--0x2C6104,
+	enemyBattleMonPID = 0x2C61C4,
+	battleStatus = 0x246F48,
+	itemStartNoBattle = 0x27CDFC,
+	itemStartBattle = 0x2C2D60,
 	game = 0,
 	gamename = "",
 	pstats = 0,
@@ -51,10 +59,20 @@ GameSettings = {
 GameSettings.VERSIONS = {
 	RS = 1,
 	E = 2,
-	FRLG = 3
+	FRLG = 3,
+	HGSS = 4
 }
 
 function GameSettings.initialize()
+	local base = 0x27C330--0x2CB2F0--
+	local enemyBase = 0x2CB2F0
+
+
+	GameSettings.version = GameSettings.VERSIONS.HGSS
+	GameSettings.game = 4
+	GameSettings.gamename = "HGSS"
+	GameSettings.versiongroup = 1
+--[[
 	local gamecode = memory.read_u32_be(0x0000AC, "ROM")
 	local gameversion = memory.read_u32_be(0x0000BC, "ROM")
 	local pstats = { 0x3004360, 0x20244EC, 0x2024284, 0x3004290, 0x2024190, 0x20241E4 } -- Player stats
@@ -314,5 +332,5 @@ function GameSettings.initialize()
 	if GameSettings.game > 0 then
 		GameSettings.pstats = pstats[GameSettings.game]
 		GameSettings.estats = estats[GameSettings.game]
-	end
+	end--]]
 end

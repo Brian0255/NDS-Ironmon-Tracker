@@ -38,6 +38,7 @@ dofile(DATA_FOLDER .. "/Drawing.lua")
 dofile(DATA_FOLDER .. "/Program.lua")
 dofile(DATA_FOLDER .. "/Pickle.lua")
 dofile(DATA_FOLDER .. "/Tracker.lua")
+dofile(DATA_FOLDER .. "/Decrypter.lua") 
 
 Main = {}
 Main.LoadNextSeed = false
@@ -69,7 +70,7 @@ function Main.Run()
 		gui.defaultTextBackground(0)
 
 		event.onloadstate(Tracker.loadData, "OnLoadState")
-
+		--[[
 		-- Core events
 		event.onmemoryexecute(Program.HandleEndBattle, GameSettings.ReturnFromBattleToOverworld, "HandleEndBattle")
 		event.onmemoryexecute(Program.HandleMove, GameSettings.ChooseMoveUsedParticle, "HandleMove")
@@ -80,8 +81,8 @@ function Main.Run()
 		event.onmemoryexecute(Program.HandleCalculateMonStats, GameSettings.CalculateMonStats, "HandleHandleCalculateMonStats")
 		event.onmemoryexecute(Program.HandleDisplayMonLearnedMove, GameSettings.DisplayMonLearnedMove, "HandleDisplayMonLearnedMove")
 		event.onmemoryexecute(Program.HandleSwitchSelectedMons, GameSettings.SwitchSelectedMons, "HandleSwitchSelectedMons")
-		event.onmemoryexecute(Program.HandleDoPoisonFieldEffect, GameSettings.DoPoisonFieldEffect, "HandleDoPoisonFieldEffect")
-
+		event.onmemoryexecute(Program.HandleUpdatePoisonStepCounter, GameSettings.UpdatePoisonStepCounter, "HandleUpdatePoisonStepCounter")
+		--]]
 		-- Ability events
 		-- event.onmemoryread(Program.HandleBattleScriptDrizzleActivates, GameSettings.BattleScriptDrizzleActivates, "HandleBattleScriptDrizzleActivates")
 		-- event.onmemoryread(Program.HandleBattleScriptSpeedBoostActivates, GameSettings.BattleScriptSpeedBoostActivates, "HandleBattleScriptSpeedBoostActivates")
