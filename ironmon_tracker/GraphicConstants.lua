@@ -3,7 +3,7 @@ GraphicConstants = {
 	DOWN_GAP = 0,
 	RIGHT_GAP = 150,
 	SCREEN_HEIGHT = 160,
-	SCREEN_WIDTH = 240,
+	SCREEN_WIDTH = 255,
 
 	TYPECOLORS = {
 		normal = 0xFFA8A878,

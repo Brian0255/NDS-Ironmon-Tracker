@@ -22,16 +22,17 @@ function Input.update()
 			if Tracker.Data.selectedPlayer == 1 then
 				Tracker.Data.selectedSlot = 1
 				Tracker.Data.targetPlayer = 2
-				Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
+				--Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
 			elseif Tracker.Data.selectedPlayer == 2 then
-				local enemySlotOne = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
-				Tracker.Data.selectedSlot = enemySlotOne
+				--local enemySlotOne = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
+				--Tracker.Data.selectedSlot = enemySlotOne
 				Tracker.Data.targetPlayer = 1
-				Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesSelfSlotOne) + 1
+				--Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesSelfSlotOne) + 1
 			end
 		end
 
 		Tracker.redraw = true
+		Tracker.waitFrames = 0
 	end
 
 	-- "Settings.controls.CYCLE_STAT" pressed, display box over next stat
@@ -106,9 +107,13 @@ function Input.check(xmouse, ymouse)
 	for i = 1, table.getn(Buttons), 1 do
 		if Buttons[i].visible() then
 			if Buttons[i].type == ButtonType.singleButton then
+				print("maybe click")
 				if Input.isInRange(xmouse, ymouse, Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[3], Buttons[i].box[4]) then
 					Buttons[i].onclick()
+					Tracker.waitFrames = 0
 					Tracker.redraw = true
+				else
+					print("not in range")
 				end
 			end
 		end
@@ -116,7 +121,7 @@ function Input.check(xmouse, ymouse)
 		--note box
 		if Input.isInRange(xmouse, ymouse, GraphicConstants.SCREEN_WIDTH + 6, 141, GraphicConstants.RIGHT_GAP - 12, 12) and Input.noteForm == nil then
 			Input.noteForm = forms.newform(290, 60, "Note (70 char. max)", function() Input.noteForm = nil end)
-			textBox = forms.textbox(Input.noteForm, Tracker.GetNote(), 200, 20)
+			local textBox = forms.textbox(Input.noteForm, Tracker.GetNote(), 200, 20)
 			forms.button(Input.noteForm, "Set", function()
 				Tracker.SetNote(forms.gettext(textBox))
 				Tracker.redraw = true
