@@ -56,7 +56,7 @@ function Main.Run()
 
 	Options.buildTrackerOptionsButtons()
 	GameSettings.initialize()
-
+	GameSettings.initMoveData()
 	if GameSettings.game == 0 then
 		client.SetGameExtraPadding(0, 0, 0, 0)
 		while true do
@@ -70,6 +70,7 @@ function Main.Run()
 		gui.defaultTextBackground(0)
 
 		event.onloadstate(Tracker.loadData, "OnLoadState")
+
 		--[[
 		-- Core events
 		event.onmemoryexecute(Program.HandleEndBattle, GameSettings.ReturnFromBattleToOverworld, "HandleEndBattle")
