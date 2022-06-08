@@ -9,7 +9,7 @@ function Input.update()
 	Input.mousetab = input.getmouse()
 	if Input.mousetab["Left"] and not Input.mousetab_prev["Left"] then
 		local xmouse = Input.mousetab["X"]
-		local ymouse = Input.mousetab["Y"] + GraphicConstants.UP_GAP
+		local ymouse = (Input.mousetab["Y"] + 384) /2
 		Input.check(xmouse, ymouse)
 	end
 	Input.mousetab_prev = Input.mousetab
@@ -107,13 +107,10 @@ function Input.check(xmouse, ymouse)
 	for i = 1, table.getn(Buttons), 1 do
 		if Buttons[i].visible() then
 			if Buttons[i].type == ButtonType.singleButton then
-				print("maybe click")
 				if Input.isInRange(xmouse, ymouse, Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[3], Buttons[i].box[4]) then
 					Buttons[i].onclick()
 					Tracker.waitFrames = 0
 					Tracker.redraw = true
-				else
-					print("not in range")
 				end
 			end
 		end
