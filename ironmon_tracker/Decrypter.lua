@@ -41,6 +41,7 @@ Decrypter.GEN_4_BLOCK_SIZE = 32
 
 Decrypter.DecryptedDataInit = {
     pokemonID = 0,
+    trainerID = 0,
     heldItem = 0,
     friendship = 0,
     ability = 0,
@@ -54,7 +55,7 @@ Decrypter.DecryptedDataInit = {
     move4PP = 0,
     status = 0,
     level = 0,
-    currentHP = 0,
+    curHP = 0,
     maxHP = 0,
     atk = 0,
     def = 0,
@@ -63,8 +64,15 @@ Decrypter.DecryptedDataInit = {
     spd = 0,
     nature = 0,
     encounterType = 0,
-    moves = {},
-    movePPs = {}
+    moves = {
+        move1 = 0,
+        move2 = 0,
+        move3 = 0,
+        move4 = 0
+    },
+    movePPs = {
+        "","","",""
+    }
 }
 
 Decrypter.DecryptedData = {}
@@ -88,6 +96,7 @@ Decrypter.GEN_4_IMPORTANT_BLOCK_DATA = {
     A = {
             {0,{"pokemonID"}},
             {2,{"heldItem"}},
+            {4,{"trainerID"}},
             {12, { "friendship","ability"  }}
     
     },
@@ -143,7 +152,7 @@ end
 
 function Decrypter.decrypt(base,checkingParty)
     Decrypter.DecryptedData = {}
-    table.insert(Decrypter.DecryptedData,Decrypter.DecryptedDataInit)
+    local trainerID = memory.read_u16_le(GameSettings.trainerID)
 	local memdomain = "Main RAM"
     memory.usememorydomain(memdomain)
     local currentBase = base
@@ -161,7 +170,7 @@ function Decrypter.decrypt(base,checkingParty)
             Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
             local battleStatStart = currentBase+0x88
             Decrypter.decryptBattleStats(pid,battleStatStart)
-            Decrypter.DecryptedData.moves = {
+            Decrypter.DecryptedData.actualMoves = {
                 Decrypter.DecryptedData.move1,
                 Decrypter.DecryptedData.move2,
                 Decrypter.DecryptedData.move3,
@@ -180,9 +189,6 @@ function Decrypter.decrypt(base,checkingParty)
             else
                 break
             end
-            print(currentBase)
-            print(i)
-            print("KEEP GOING")
             currentBase = currentBase + 236
         else
             break
