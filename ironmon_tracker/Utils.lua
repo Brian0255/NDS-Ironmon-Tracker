@@ -91,4 +91,3 @@ function Utils.playerHasMove(moveName)
 	end
 	return false
 end
-

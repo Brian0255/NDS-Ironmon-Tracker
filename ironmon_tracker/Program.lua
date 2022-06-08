@@ -77,6 +77,7 @@ function Program.main()
 	--	Program.UpdatePokemonTeamDataFromMemory()
 		Program.UpdateSelectedPokemonData()
 		Program.UpdateTargetedPokemonData()
+
 	--	Program.UpdatePrimaryMonAbilityData()
 	--	Program.UpdateMonStatStages()
 	--	Program.UpdateMonPartySlots()
@@ -98,12 +99,13 @@ function Program.main()
 		end
 	end	
 	
-	
+	if Tracker.Data.targetedPokemon ~= nil and Tracker.Data.inBattle == 1 then
 		Program.StatButtonState = Tracker.getButtonState()
 		Buttons = Program.updateButtons(Program.StatButtonState)
+	end
 		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
-		Tracker.waitFrames = 5
+		Tracker.waitFrames = 30
 		Tracker.redraw = true
 		Tracker.saveData()
 	end
@@ -498,7 +500,8 @@ function Program.getPokemonData(index)
 				if not found then return nil end
 				return Decrypter.decrypt(currentBase,false)
 			else
-				return Decrypter.decrypt(GameSettings.playerBase,true)
+				local data =  Decrypter.decrypt(GameSettings.playerBase,true)
+				return data
 			end
 		else
 			if Tracker.Data.inBattle == 1 and memory.read_u16_le(GameSettings.battleStatus) == 0x2100 then
@@ -636,7 +639,7 @@ function Program.validPokemonData(pokemonData)
 			return false
 		elseif pokemonData["move1"] < 0 or pokemonData["move2"] < 0 or pokemonData["move3"] < 0 or pokemonData["move4"] < 0 then
 			return false
-		elseif pokemonData["move1"] > 400 or pokemonData["move2"] > 400 or pokemonData["move3"] > 400 or pokemonData["move4"] > 400 then
+		elseif pokemonData["move1"] > 700 or pokemonData["move2"] > 700 or pokemonData["move3"] > 700 or pokemonData["move4"] > 700 then
 			return false
 		else
 			return true

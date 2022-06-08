@@ -211,7 +211,7 @@ function Tracker.getAbilities(pokemonId)
 end
 
 function Tracker.getButtonState()
-	if Tracker.Data.stats[Tracker.Data.selectedPokemon.pokemonID] == nil then
+	if Tracker.Data.stats[Tracker.Data.targetedPokemon.pokemonID] == nil then
 		return {
 			hp = 1,
 			att = 1,
