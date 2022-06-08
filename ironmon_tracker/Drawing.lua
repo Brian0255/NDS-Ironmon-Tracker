@@ -257,7 +257,9 @@ function Drawing.drawInputOverlay()
 	end
 end
 
-function Drawing.DrawTracker(monToDraw, monIsEnemy, targetMon)
+function Drawing.DrawTracker(monIsEnemy)
+	local monToDraw = Utils.inlineIf(monIsEnemy,Tracker.Data.targetedPokemon,Tracker.Data.selectedPokemon)
+	if monToDraw == nil then return end
 	local borderMargin = 5
 	local statBoxWidth = 101
 	local statBoxHeight = 52
@@ -316,7 +318,7 @@ function Drawing.DrawTracker(monToDraw, monIsEnemy, targetMon)
 
 	local abilityString = Utils.inlineIf(monIsEnemy, "---", MiscData.ability[monToDraw["ability"] + 1])
 	if monIsEnemy then
-		for k, v in pairs(Tracker.Data.selectedPokemon.abilities) do
+		for k, v in pairs(Tracker.Data.targetedPokemon.abilities) do
 			if v == monToDraw["ability"] then
 				local abilityId = monToDraw["ability"] + 1
 				abilityString = MiscData.ability[abilityId]
@@ -388,18 +390,20 @@ function Drawing.DrawTracker(monToDraw, monIsEnemy, targetMon)
 	local movesLearnedSinceThird = 0
 	local movesLearnedSinceFourth = 0
 
-	for k, v in pairs(moveLevels) do
-		if v > Tracker.Data.selectedPokemon.moves.first.level and v <= monLevel then
-			movesLearnedSinceFirst = movesLearnedSinceFirst + 1
-		end
-		if v > Tracker.Data.selectedPokemon.moves.second.level and v <= monLevel then
-			movesLearnedSinceSecond = movesLearnedSinceSecond + 1
-		end
-		if v > Tracker.Data.selectedPokemon.moves.third.level and v <= monLevel then
-			movesLearnedSinceThird = movesLearnedSinceThird + 1
-		end
-		if v > Tracker.Data.selectedPokemon.moves.fourth.level and v <= monLevel then
-			movesLearnedSinceFourth = movesLearnedSinceFourth + 1
+	if Tracker.Data.targetedPokemon~=nil then
+		for k, v in pairs(moveLevels) do
+			if v > Tracker.Data.targetedPokemon.moves.first.level and v <= monLevel then
+				movesLearnedSinceFirst = movesLearnedSinceFirst + 1
+			end
+			if v > Tracker.Data.targetedPokemon.moves.second.level and v <= monLevel then
+				movesLearnedSinceSecond = movesLearnedSinceSecond + 1
+			end
+			if v > Tracker.Data.targetedPokemon.moves.third.level and v <= monLevel then
+				movesLearnedSinceThird = movesLearnedSinceThird + 1
+			end
+			if v > Tracker.Data.targetedPokemon.moves.fourth.level and v <= monLevel then
+				movesLearnedSinceFourth = movesLearnedSinceFourth + 1
+			end
 		end
 	end
 
@@ -409,30 +413,49 @@ function Drawing.DrawTracker(monToDraw, monIsEnemy, targetMon)
 		third = 1,
 		fourth = 1
 	}
-	for k, v in pairs(Tracker.Data.selectedPokemon.moves) do
-		for k2, v2 in pairs(Tracker.Data.selectedPokemon.moves) do
-			if k ~= k2 then
-				if v.level > v2.level then
-					moveAgeRank[k] = moveAgeRank[k] + 1
+	
+	if Tracker.Data.targetedPokemon~=nil then
+		for k, v in pairs(Tracker.Data.targetedPokemon.moves) do
+			for k2, v2 in pairs(Tracker.Data.targetedPokemon.moves) do
+				if k ~= k2 then
+					if v.level > v2.level then
+						moveAgeRank[k] = moveAgeRank[k] + 1
+					end
 				end
 			end
 		end
 	end
 
 	local stars = {
-		(monIsEnemy == true and Tracker.Data.selectedPokemon.moves.first.level ~= 1 and movesLearnedSinceFirst >= moveAgeRank.first) and "*" or "",
-		(monIsEnemy == true and Tracker.Data.selectedPokemon.moves.second.level ~= 1 and movesLearnedSinceSecond >= moveAgeRank.second) and "*" or "",
-		(monIsEnemy == true and Tracker.Data.selectedPokemon.moves.third.level ~= 1 and movesLearnedSinceThird >= moveAgeRank.third) and "*" or "",
-		(monIsEnemy == true and Tracker.Data.selectedPokemon.moves.fourth.level ~= 1 and movesLearnedSinceFourth >= moveAgeRank.fourth) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.first.level ~= 1 and movesLearnedSinceFirst >= moveAgeRank.first) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.second.level ~= 1 and movesLearnedSinceSecond >= moveAgeRank.second) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.third.level ~= 1 and movesLearnedSinceThird >= moveAgeRank.third) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.fourth.level ~= 1 and movesLearnedSinceFourth >= moveAgeRank.fourth) and "*" or "",
 	}
 
+	--[[
 	-- Determine which moves to show based on if the tracker is showing the enemy Pokémon or the player's.
 	local moves = {
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.selectedPokemon.moves.first.move], MoveData[monToDraw["move1"] + 1]),
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.selectedPokemon.moves.second.move], MoveData[monToDraw["move2"] + 1]),
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.selectedPokemon.moves.third.move], MoveData[monToDraw["move3"] + 1]),
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.selectedPokemon.moves.fourth.move], MoveData[monToDraw["move4"] + 1]),
-	}
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.first.move], MoveData[Tracker.Data.selectedPokemon["move1"] + 1]),
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.second.move], MoveData[Tracker.Data.selectedPokemon["move2"] + 1]),
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.third.move], MoveData[Tracker.Data.selectedPokemon["move3"] + 1]),
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.fourth.move], MoveData[Tracker.Data.selectedPokemon["move4"] + 1]),
+	}--]]--
+	local moves = {}
+
+	local playerMon = Tracker.Data.selectedPokemon
+	local enemyMon = Tracker.Data.targetedPokemon
+	if not monIsEnemy then
+		moves = {MoveData[playerMon["move1"]+1], 
+				 MoveData[playerMon["move2"]+1], 
+				 MoveData[playerMon["move3"]+1], 
+				 MoveData[playerMon["move4"]+1]}
+	else
+		moves = {MoveData[enemyMon.moves.first.move], 
+				 MoveData[enemyMon.moves.second.move], 
+				 MoveData[enemyMon.moves.third.move], 
+				 MoveData[enemyMon.moves.fourth.move]}
+	end
 
 	local distanceBetweenMoves = 10
 

@@ -67,6 +67,7 @@ function Program.main()
 		--Tracker.Data.selectedPlayer = 1
 		--local playerBattleFirstPID = memory.read_u32_le(GameSettings.playerBattleBase)
 		--local enemyBattleFirstPID = memory.read_u32_le(GameSettings.enemyBase)
+
 		local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
 
 		if battleStatus == 0x2100 or battleStatus == 0x2101 then
@@ -82,9 +83,7 @@ function Program.main()
 	--	end
 	--	Program.UpdatePokemonTeamDataFromMemory()
 		Program.UpdateSelectedPokemonData()
-		if Tracker.Data.targetedPokemon ~= 1 then
-			Program.UpdateTargetedPokemonData()
-		end
+		Program.UpdateTargetedPokemonData()
 	--	Program.UpdatePrimaryMonAbilityData()
 	--	Program.UpdateMonStatStages()
 	--	Program.UpdateMonPartySlots()
@@ -93,37 +92,26 @@ function Program.main()
 	if Tracker.Data.inBattle == 1 then
 		local target = Tracker.Data.targetedPokemon
 		if target ~= nil then
-			for i,moveValue in pairs(target.moves) do
+			for i,moveValue in pairs(target.actualMoves) do
+				local data = MoveData[moveValue+1]
 				local currentPP = target.movePPs[i]
-				local maxPP = MoveData[moveValue+1].pp
-				if tostring(currentPP) < maxPP then
-					--table.insert(Program.tracker.movesToUpdate, { pokemonId = target.pokemonID + 1, move = moveValue+1, level = target.level })
+				local maxPP = data.pp
+				if data.id ~= "---" then
+					if currentPP < tonumber(maxPP) then
+						table.insert(Program.tracker.movesToUpdate, { pokemonId = target.pokemonID + 1, move = moveValue+1, level = target.level })
+					end
 				end
 			end
 		end
 	end	
 	
-
+	
 		Program.StatButtonState = Tracker.getButtonState()
 		Buttons = Program.updateButtons(Program.StatButtonState)
+		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
-		if Tracker.Data.selectedPlayer == 2 then
-			Drawing.DrawTracker(Tracker.Data.selectedPokemon, true, Tracker.Data.targetedPokemon)
-		else
-			if Tracker.Data.needCheckSummary == 0 then
-				Drawing.DrawTracker(Tracker.Data.selectedPokemon, false, Tracker.Data.targetedPokemon)
-			else
-				Drawing.DrawTracker(Tracker.Data.selectedPokemon, true, Tracker.Data.targetedPokemon)
-			else
-				if Tracker.Data.needCheckSummary == 0 then
-					Drawing.DrawTracker(Tracker.Data.selectedPokemon, false, Tracker.Data.targetedPokemon)
-				else
-					Drawing.DrawTracker(Tracker.Data.selectedPokemon, true, Tracker.Data.targetedPokemon)
-				end
-			end
-		end
-		Tracker.waitFrames = 1
-		--Tracker.redraw = false
+		Tracker.waitFrames = 5
+		Tracker.redraw = true
 		Tracker.saveData()
 	end
 
@@ -144,27 +132,28 @@ function Program.UpdatePokemonTeamDataFromMemory()
 end
 
 function Program.UpdateSelectedPokemonData()
-	local pokemonaux = Program.getPokemonData({ player = Tracker.Data.selectedPlayer, slot = Tracker.Data.selectedSlot })
+	local pokemonaux = Program.getPokemonData({ player = 1, slot = Tracker.Data.selectedSlot })
 	if Program.validPokemonData(pokemonaux) then
 		Tracker.Data.selectedPokemon = pokemonaux
-	end
-
-	if Tracker.Data.selectedPokemon ~= nil then
-		if Tracker.Data.selectedPokemon.pokemonID ~= nil then
-			Tracker.Data.selectedPokemon.moves = Tracker.getMoves(Tracker.Data.selectedPokemon.pokemonID + 1)
-			Tracker.Data.selectedPokemon.abilities = Tracker.getAbilities(Tracker.Data.selectedPokemon.pokemonID + 1)
-		end
 	end
 end
 
 function Program.UpdateTargetedPokemonData()
 	if Tracker.Data.inBattle == 1 then
-		local pokemontarget = Program.getPokemonData({ player = Tracker.Data.targetPlayer, slot = Tracker.Data.targetSlot })
+		local pokemontarget = Program.getPokemonData({ player = 2, slot = Tracker.Data.targetSlot })
 		if Program.validPokemonData(pokemontarget) then
 			Tracker.Data.targetedPokemon = pokemontarget
 		else
 			Tracker.Data.targetedPokemon = nil
 		end
+		if Tracker.Data.targetedPokemon ~= nil then
+			if Tracker.Data.targetedPokemon.pokemonID ~= nil then
+				Tracker.Data.targetedPokemon.moves = Tracker.getMoves(Tracker.Data.targetedPokemon.pokemonID + 1)
+				Tracker.Data.targetedPokemon.abilities = Tracker.getAbilities(Tracker.Data.targetedPokemon.pokemonID + 1)
+			end
+		end
+	else
+		Tracker.Data.targetedPokemon = nil
 	end
 end
 
@@ -528,19 +517,26 @@ function Program.getPokemonData(index)
 				return Decrypter.decrypt(GameSettings.playerBase,true)
 			end
 		else
-			if Tracker.Data.inBattle == 1 and memory.read_u16_le(GameSettings.battleStatus) == 0x2101 then
+			if Tracker.Data.inBattle == 1 and memory.read_u16_le(GameSettings.battleStatus) == 0x2100 then
 				local currentBase = GameSettings.enemyBase
 				local activePID = memory.read_u32_le(GameSettings.enemyBattleMonPID)
 				local firstPID = memory.read_u32_le(GameSettings.enemyBase)
 				local found = false
 				for i = 1,6,1 do
 					firstPID = memory.read_u32_le(currentBase)
-					if firstPID ~= activePID then
-						currentBase = currentBase + 236
-					else
-						found = true
-						break
+					if firstPID == activePID then
+						--trainers can have multiple pokes with same PID, need to find first one that is alive
+						local data = Decrypter.decrypt(currentBase,false)
+						--Check for empty table.
+						if next(data) ~= nil then
+							if data.curHP > 0 then
+								return data
+							end
+						else
+							return nil
+						end
 					end
+					currentBase = currentBase + 236
 				end
 				if not found then return nil end
 				return Decrypter.decrypt(currentBase,false)
@@ -641,6 +637,15 @@ end
 
 function Program.validPokemonData(pokemonData)
 	if pokemonData == nil then return false end
+	--Sometimes the player's pokemon stats are just wildly out of bounds(despite having the correct pokemonID), not sure why...
+	local STAT_LIMIT = 2000
+	local statsToCheck = {
+		pokemonData.curHP, pokemonData.maxHP, pokemonData.level,
+		pokemonData.atk, pokemonData.spe, pokemonData.def, pokemonData.spd, pokemonData.spa
+	}
+	for _, stat in pairs(statsToCheck) do
+		if stat > STAT_LIMIT then return false end
+	end
 	local id = tonumber(pokemonData["pokemonID"])
 	if id ~= nil then
 		if id < 0 or id > 412 then-- or pokemonData["heldItem"] < 0 or pokemonData["heldItem"] > 376 then
@@ -789,8 +794,6 @@ function Program.getBagStatusItems()
 
 	return statusItems
 end
-<<<<<<< HEAD
-=======
 
 function Program.scanItemsForHeals()
 	local healingItems = {}
@@ -801,9 +804,16 @@ function Program.scanItemsForHeals()
 		Tracker.Data.inBattle = 0
 	end
 	local itemStart = Utils.inlineIf(Tracker.Data.inBattle == 1,GameSettings.itemStartBattle,GameSettings.itemStartNoBattle)
+	
+	--battle can be set a few frames before item bag for battle gets updated, need to check this value as well
+	local garbageValue = 36449608
+	if memory.read_u32_le(GameSettings.itemStartBattle) == garbageValue then
+		itemStart = GameSettings.itemStartNoBattle
+	end
 	local currentAddress = itemStart
 	local keepScanning = true
 	while keepScanning do
+		--read 4 bytes at once, should be less expensive than reading 2 sets of 2 bytes..
 		local idAndQuantity = memory.read_u32_le(currentAddress)
 		local id = bit.band(idAndQuantity,0xFFFF)
 		if id ~= 0 then
@@ -834,10 +844,11 @@ function Program.getBagHealingItemsGen4(pkmn)
 
 	local healingItems = Program.scanItemsForHeals()
 
-	for id, quantity in pairs(healingItems) do
-		local item = MiscData.healingItems_GEN4[id]
-		if item ~= nil then
-			local healing = 0
+	if healingItems ~= nil then
+		for id, quantity in pairs(healingItems) do
+			local item = MiscData.healingItems_GEN4[id]
+			if item ~= nil then
+				local healing = 0
 				if item.type == HealingType.Constant then
 					local percentage = ((item.amount / maxHP) * 100)
 					if percentage > 100 then
@@ -850,9 +861,10 @@ function Program.getBagHealingItemsGen4(pkmn)
 				-- Healing is in a percentage compared to the mon's max HP
 				totals.healing = totals.healing + healing
 				totals.numHeals = totals.numHeals + quantity
-		end
-	end	
+			end
+		end	
+	end
+		
 
 	return totals
 end
->>>>>>> d2372ab (code push)
