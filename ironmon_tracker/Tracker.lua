@@ -158,7 +158,7 @@ function Tracker.GetNote()
 end
 
 function Tracker.getMoves(pokemonId)
-	--[[if Tracker.Data.moves[pokemonId] == nil then
+	if Tracker.Data.moves[pokemonId] == nil then
 		return {
 			first = {
 				move = 1,
@@ -179,7 +179,7 @@ function Tracker.getMoves(pokemonId)
 		}
 	else
 		return Tracker.Data.moves[pokemonId]
-	end--]]
+	end
 	return {
 		first = {
 			move = 1,

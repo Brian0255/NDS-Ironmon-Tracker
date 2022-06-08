@@ -1,5 +1,6 @@
 GameSettings = {
-	playerBase = 0x27C330,
+	--3265629915
+	playerBase = 0x27C330,--0x27C330,
 	playerBattleBase = 0x2CAD20, --0x2CAD20,
 	enemyBase = 0x2CB2F0,
 	playerBattleMonPID = 0x2C6104,--0x2A1E28,--0x2C6104,
@@ -7,8 +8,10 @@ GameSettings = {
 	battleStatus = 0x246F48,
 	itemStartNoBattle = 0x27CDFC,
 	itemStartBattle = 0x2C2D60,
+	trainerID = 0x27C30C,
 	game = 0,
 	gamename = "",
+	gen = 0,
 	pstats = 0,
 	estats = 0,
 	version = 0,
@@ -56,22 +59,80 @@ GameSettings = {
 	bagPocket_Items_Size = 0,
 	bagPocket_Berries_Size = 0,
 }
-GameSettings.VERSIONS = {
-	RS = 1,
-	E = 2,
-	FRLG = 3,
-	HGSS = 4
+
+VERSIONS = {
+    'red-blue',
+    'yellow',
+    'gold-silver',
+    'crystal',
+    'ruby-sapphire',
+    'emerald',
+    'firered-leafgreen',
+    'diamond-pearl',
+    'platinum',
+    'heartgold-soulsilver',
+    'black-white',
+    'colosseum',
+    'xd',
+    'black-2-white-2',
+    'x-y',
+    'omega-ruby-alpha-sapphire',
+    'sun-moon',
+    'ultra-sun-ultra-moon',
 }
+
+VERSION_TO_GEN_NUMBER = {
+    ["red-blue"] = 1,
+    yellow = 1,
+    ["gold-silver"] = 2,
+    crystal = 2,
+    ["ruby-sapphire"] = 3,
+    emerald = 3,
+    ["firered-leafgreen"] = 3,
+    ["diamond-pearl"] = 4,
+    platinum = 4,
+    ["heartgold-soulsilver"] = 4,
+    ["black-white"] = 5,
+    colosseum = 3,
+    xd = 3,
+    ["black-2-white-2"] = 5,
+    ["x-y"] = 6,
+    ["omega-ruby-alpha-sapphire"]= 6,
+    ["sun-moon"] = 7,
+    ["ultra-sun-ultra-moon"] = 7,
+}
+
+
+function GameSettings.initMoveData()
+	for _,move in pairs(MoveDataMasterList) do
+		local moveToInsert = {
+			id = "---",
+			name = "---",
+			type = "---",
+			power = "",
+			pp = NOPP,
+			accuracy = "",
+			category = MoveCategories.NONE,
+		}
+		for name, moveAttribute in pairs(move) do
+			if type(moveAttribute) == "table" then
+				moveToInsert[name] = moveAttribute[GameSettings.gen]
+			else
+				moveToInsert[name] = moveAttribute
+			end
+		end
+		table.insert(MoveData,moveToInsert)
+	end
+end
 
 function GameSettings.initialize()
 	local base = 0x27C330--0x2CB2F0--
 	local enemyBase = 0x2CB2F0
 
-
-	GameSettings.version = GameSettings.VERSIONS.HGSS
-	GameSettings.game = 4
-	GameSettings.gamename = "HGSS"
-	GameSettings.versiongroup = 1
+	GameSettings.game = 10
+	GameSettings.gamename = VERSIONS[GameSettings.game]
+	GameSettings.versiongroup = 10
+	GameSettings.gen = VERSION_TO_GEN_NUMBER[GameSettings.gamename]
 --[[
 	local gamecode = memory.read_u32_be(0x0000AC, "ROM")
 	local gameversion = memory.read_u32_be(0x0000BC, "ROM")
