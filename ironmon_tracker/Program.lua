@@ -635,7 +635,7 @@ function Program.validPokemonData(pokemonData)
 	end
 	local id = tonumber(pokemonData["pokemonID"])
 	if id ~= nil then
-		if id < 0 or id > 412 then-- or pokemonData["heldItem"] < 0 or pokemonData["heldItem"] > 376 then
+		if id < 0 or id > 600 then-- or pokemonData["heldItem"] < 0 or pokemonData["heldItem"] > 376 then
 			return false
 		elseif pokemonData["move1"] < 0 or pokemonData["move2"] < 0 or pokemonData["move3"] < 0 or pokemonData["move4"] < 0 then
 			return false
