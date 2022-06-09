@@ -38,6 +38,10 @@ function Utils.netEffectiveness(move, pkmnData)
 		return 1.0
 	end
 
+	if move["name"] == "Future Sight" or move["name"] == "Doom Desire" then
+		return 1.0
+	end
+
 	for _, type in ipairs(pkmnData["type"]) do
 		local moveType = move["type"]
 		if move["name"] == "Hidden Power" and Tracker.Data.selectedPlayer == 1 then
@@ -79,6 +83,34 @@ function Utils.calculateWeightBasedDamage(weight)
 	else
 		return "120"
 	end
+end
+
+-- For Flail & Reversal
+function Utils.calculateLowHPBasedDamage(currentHP, maxHP)
+	local percentHP = (currentHP / maxHP) * 100
+	if percentHP < 4.17 then
+		return "200"
+	elseif percentHP < 10.42 then
+		return "150"
+	elseif percentHP < 20.83 then
+		return "100"
+	elseif percentHP < 35.42 then
+		return "80"
+	elseif percentHP < 68.75 then
+		return "40"
+	else
+		return "20"
+	end
+end
+
+-- For Water Spout & Eruption
+function Utils.calculateHighHPBasedDamage(currentHP, maxHP)
+	local basePower = (150 * currentHP) / maxHP
+	if basePower < 1 then 
+		basePower = 1 
+	end
+	local roundedPower = math.floor(basePower + 0.5)
+	return tostring(roundedPower)
 end
 
 function Utils.playerHasMove(moveName)
