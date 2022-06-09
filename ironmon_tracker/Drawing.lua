@@ -5,12 +5,11 @@ function Drawing.clearGUI()
 end
 
 function Drawing.drawPokemonIcon(id, x, y)
-	if id < 0 or id > 412 then
+	if id < 0 or id > 600 then
 		id = 0
 	end
-
-	--gui.drawImage(DATA_FOLDER .. "/images/pokemon_Gen4/" .. "200" .. ".png", x+3, y+2, 25, 25)
-	gui.drawImage(DATA_FOLDER .. "/images/pokemon/" .. id .. ".gif", x+6, y-6, 32, 32)
+	gui.drawImage(DATA_FOLDER .. "/images/pokemonGen4/" .. id .. ".png", x+3, y+2, 25, 25)
+	--gui.drawImage(DATA_FOLDER .. "/images/pokemon/" .. id .. ".gif", x+6, y-6, 32, 32)
 
 	if PokemonData[id + 1].type[1] ~= "" then
 		gui.drawImage(DATA_FOLDER .. "/images/types/" .. PokemonData[id + 1].type[1] .. ".png", x + 1, y + 28, 30, 12)
@@ -468,7 +467,7 @@ function Drawing.DrawTracker(monIsEnemy)
 	local nextMove = 0
 	local foundNextMove = false
 
-	for k, v in pairs(movelevellist[1]) do--GameSettings.versiongroup]) do -- game
+	for k, v in pairs(movelevellist[GameSettings.versiongroup]) do 
 		moveCount = moveCount + 1
 		if v <= monToDraw["level"] then
 			movesLearned = movesLearned + 1
