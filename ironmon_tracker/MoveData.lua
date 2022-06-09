@@ -98,7 +98,7 @@ MoveDataMasterList = {
 		name = "Karate Chop",
 		type = {PokemonTypes.NORMAL,PokemonTypes.FIGHTING,PokemonTypes.FIGHTING,PokemonTypes.FIGHTING,PokemonTypes.FIGHTING},
 		power = "50",
-		pp = "35",
+		pp = "25",
 		accuracy = "100",
 		category = MoveCategories.PHYSICAL,
 	},
@@ -3731,7 +3731,7 @@ MoveDataMasterList = {
 	},
 	{
 		id = "406",
-		name = "",
+		name = "Dragon Pulse",
 		type = PokemonTypes.DRAGON,
 		power = "90",
 		pp = "10",
