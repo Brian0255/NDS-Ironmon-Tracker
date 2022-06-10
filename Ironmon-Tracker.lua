@@ -38,6 +38,7 @@ dofile(DATA_FOLDER .. "/Drawing.lua")
 dofile(DATA_FOLDER .. "/Program.lua")
 dofile(DATA_FOLDER .. "/Pickle.lua")
 dofile(DATA_FOLDER .. "/Tracker.lua")
+dofile(DATA_FOLDER .. "/Decrypter.lua") 
 
 Main = {}
 Main.LoadNextSeed = false
@@ -55,7 +56,7 @@ function Main.Run()
 
 	Options.buildTrackerOptionsButtons()
 	GameSettings.initialize()
-
+	GameSettings.initMoveData()
 	if GameSettings.game == 0 then
 		client.SetGameExtraPadding(0, 0, 0, 0)
 		while true do
@@ -69,41 +70,6 @@ function Main.Run()
 		gui.defaultTextBackground(0)
 
 		event.onloadstate(Tracker.loadData, "OnLoadState")
-
-		-- Core events
-		event.onmemoryexecute(Program.HandleEndBattle, GameSettings.ReturnFromBattleToOverworld, "HandleEndBattle")
-		event.onmemoryexecute(Program.HandleMove, GameSettings.ChooseMoveUsedParticle, "HandleMove")
-		event.onmemoryexecute(Program.HandleDoPokeballSendOutAnimation, GameSettings.DoPokeballSendOutAnimation, "HandleDoPokeballSendOutAnimation")
-
-		-- Additional events to re-render on
-		event.onmemoryexecute(Program.HandleShowSummary, GameSettings.ShowPokemonSummaryScreen, "HandleShowSummary")
-		event.onmemoryexecute(Program.HandleCalculateMonStats, GameSettings.CalculateMonStats, "HandleHandleCalculateMonStats")
-		event.onmemoryexecute(Program.HandleDisplayMonLearnedMove, GameSettings.DisplayMonLearnedMove, "HandleDisplayMonLearnedMove")
-		event.onmemoryexecute(Program.HandleSwitchSelectedMons, GameSettings.SwitchSelectedMons, "HandleSwitchSelectedMons")
-		event.onmemoryexecute(Program.HandleDoPoisonFieldEffect, GameSettings.DoPoisonFieldEffect, "HandleDoPoisonFieldEffect")
-
-		-- Ability events
-		-- event.onmemoryread(Program.HandleBattleScriptDrizzleActivates, GameSettings.BattleScriptDrizzleActivates, "HandleBattleScriptDrizzleActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptSpeedBoostActivates, GameSettings.BattleScriptSpeedBoostActivates, "HandleBattleScriptSpeedBoostActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptTraceActivates, GameSettings.BattleScriptTraceActivates, "HandleBattleScriptTraceActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptRainDishActivates, GameSettings.BattleScriptRainDishActivates, "HandleBattleScriptRainDishActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptSandstreamActivates, GameSettings.BattleScriptSandstreamActivates, "HandleBattleScriptSandstreamActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptShedSkinActivates, GameSettings.BattleScriptShedSkinActivates, "HandleBattleScriptShedSkinActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptIntimidateActivates, GameSettings.BattleScriptIntimidateActivates, "HandleBattleScriptIntimidateActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptDroughtActivates, GameSettings.BattleScriptDroughtActivates, "HandleBattleScriptDroughtActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptStickyHoldActivates, GameSettings.BattleScriptStickyHoldActivates, "HandleBattleScriptStickyHoldActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptColorChangeActivates, GameSettings.BattleScriptColorChangeActivates, "HandleBattleScriptColorChangeActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptRoughSkinActivates, GameSettings.BattleScriptRoughSkinActivates, "HandleBattleScriptRoughSkinActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptCuteCharmActivates, GameSettings.BattleScriptCuteCharmActivates, "HandleBattleScriptCuteCharmActivates")
-		-- event.onmemoryread(Program.HandleBattleScriptSynchronizeActivates, GameSettings.BattleScriptSynchronizeActivates, "HandleBattleScriptSynchronizeActivates")
-		--event.onmemoryread(Program.Handle, GameSettings., "")
-
-		-- For some reason if I put this onmemory read before the ability event ones, it doesn't work. No idea why, probably just Bizhawk things.
-		-- event.onmemoryread(Program.HandleWeHopeToSeeYouAgain, GameSettings.WeHopeToSeeYouAgain)
-		-- event.onmemoryread(Program.HandleTrainerSentOutPkmn, GameSettings.TrainerSentOutPkmn)
-
-		-- Item events
-
 		event.onexit(Program.HandleExit, "HandleExit")
 
 		while Main.LoadNextSeed == false do
@@ -134,10 +100,10 @@ function Main.LoadNext()
 	local romnumber = tonumber(string.match(romname, '[0-9]+')) + 1
 	local nextromname = ""
 	if rombasename == nil then
-		nextromname = Settings.config.ROMS_FOLDER .. "\\" .. romnumber .. ".gba"
+		nextromname = Settings.config.ROMS_FOLDER .. "\\" .. romnumber .. ".nds"
 	else
 		rombasename = rombasename:gsub(" ", "_")
-		nextromname = Settings.config.ROMS_FOLDER .. "\\" .. rombasename .. romnumber .. ".gba"
+		nextromname = Settings.config.ROMS_FOLDER .. "\\" .. rombasename .. romnumber .. ".nds"
 		print(nextromname)
 	end
 

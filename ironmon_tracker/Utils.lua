@@ -114,12 +114,15 @@ function Utils.calculateHighHPBasedDamage(currentHP, maxHP)
 end
 
 function Utils.playerHasMove(moveName)
-	local pokemon = Tracker.Data.selectedPokemon 
-	local currentMoves = {pokemon["move1"],pokemon["move2"],pokemon["move3"],pokemon["move4"]}
-	for index, move in pairs(currentMoves) do
-		if MoveData[move+1].name == moveName then
-			return true
+	local pokemon = Tracker.Data.playerPokemon 
+	if pokemon~= nil then
+		local currentMoves = {pokemon["move1"],pokemon["move2"],pokemon["move3"],pokemon["move4"]}
+		for index, move in pairs(currentMoves) do
+			if MoveData[move+1].name == moveName then
+				return true
+			end
 		end
+		return false
 	end
 	return false
 end

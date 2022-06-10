@@ -15,7 +15,7 @@ Tracker.Data = {}
 
 function Tracker.InitTrackerData()
 	local trackerData = {
-		selectedPokemon = {},
+		selectedPokemon = Decrypter.DecryptedDataInit,
 		targetedPokemon = {},
 		main = {
 			ability = 0
@@ -146,14 +146,14 @@ function Tracker.SetNote(note)
 	if string.len(note) > 70 then
 		print("Note truncated to 70 characters")
 	end
-	Tracker.Data.notes[Tracker.Data.selectedPokemon.pokemonID] = string.sub(note, 1, 70)
+	Tracker.Data.notes[Tracker.Data.playerPokemon.pokemonID] = string.sub(note, 1, 70)
 end
 
 function Tracker.GetNote()
-	if Tracker.Data.notes[Tracker.Data.selectedPokemon.pokemonID] == nil then
+	if Tracker.Data.notes[Tracker.Data.playerPokemon.pokemonID] == nil then
 		return ""
 	else
-		return Tracker.Data.notes[Tracker.Data.selectedPokemon.pokemonID]
+		return Tracker.Data.notes[Tracker.Data.playerPokemon.pokemonID]
 	end
 end
 
@@ -180,6 +180,24 @@ function Tracker.getMoves(pokemonId)
 	else
 		return Tracker.Data.moves[pokemonId]
 	end
+	return {
+		first = {
+			move = 1,
+			level = 1
+		},
+		second = {
+			move = 1,
+			level = 1
+		},
+		third = {
+			move = 1,
+			level = 1
+		},
+		fourth = {
+			move = 1,
+			level = 1
+		}
+	}
 end
 
 function Tracker.getAbilities(pokemonId)
@@ -193,7 +211,7 @@ function Tracker.getAbilities(pokemonId)
 end
 
 function Tracker.getButtonState()
-	if Tracker.Data.stats[Tracker.Data.selectedPokemon.pokemonID] == nil then
+	if Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID] == nil then
 		return {
 			hp = 1,
 			att = 1,
@@ -203,7 +221,7 @@ function Tracker.getButtonState()
 			spe = 1
 		}
 	else
-		return Tracker.Data.stats[Tracker.Data.selectedPokemon.pokemonID].stats
+		return Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID].stats
 	end
 end
 
