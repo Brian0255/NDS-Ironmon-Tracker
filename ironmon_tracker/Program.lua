@@ -72,6 +72,8 @@ function Program.main()
 		end
 		Program.UpdatePlayerPokemonData()
 		Program.UpdateEnemyPokemonData()
+		Decrypter.currentBase = GameSettings.statStagesPlayer
+		Tracker.Data.playerPokemon["statStages"] = Decrypter.readBattleStatStages()
 	--	Program.UpdateMonStatStages()
 
 	Program.UpdateBagHealingItems()
@@ -92,12 +94,14 @@ function Program.main()
 	end	
 	
 	if Tracker.Data.enemyPokemon ~= nil and Tracker.Data.inBattle == 1 then
+		Decrypter.currentBase = GameSettings.statStagesEnemy
+		Tracker.Data.enemyPokemon["statStages"] = Decrypter.readBattleStatStages()
 		Program.StatButtonState = Tracker.getButtonState()
 		Buttons = Program.updateButtons(Program.StatButtonState)
 	end
 		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
-		Tracker.waitFrames = 30
+		Tracker.waitFrames = 60
 		Tracker.redraw = true
 		Tracker.saveData()
 	end
@@ -205,7 +209,7 @@ function Program.getPokemonDataPlayer()
 		return Decrypter.decrypt(false)
 	else
 		Decrypter.currentBase = GameSettings.playerBase
-		local data =  Decrypter.decrypt(true)
+		local data = Decrypter.decrypt(true)
 		return data
 	end
 end
