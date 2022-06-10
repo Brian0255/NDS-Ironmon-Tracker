@@ -48,7 +48,7 @@ EvolutionTypes = {
 	RAZOR_CLAW = "RAZ. CLAW",  -- Razor Claw held item
 	DUBIOUS_DISC = "DUB. DISC", -- Dubious Disc held item
 	REAPER_CLOTH = "RE. CLOTH", -- Reaper Cloth held item
-	UP_GRADE = "UP-GRADE", 			--Up-Grade held item
+	UPGRADE = "UP-GRADE", 			--Up-Grade held item
 	DRAGON_SCALE = "DRG. SCALE", 	--Dragon Scale held item
 	METAL_COAT = "MTL COAT", 		--Metal Coat held item
 	KINGS_ROCK = "KING'S RCK",		--King's Rock held item
@@ -9226,7 +9226,7 @@ PokemonData = {
 	{
 		name = "Mantyke",
 		type = { PokemonTypes.WATER,PokemonTypes.FLYING },
-		evolution = "REMORAID",
+		evolution = "REMRAID",
 		bst = "345",
 		movelvls = {
 		{},
@@ -9466,7 +9466,7 @@ PokemonData = {
 	{
 		name = "Leafeon",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.LEAF,
+		evolution = EvolutionTypes.EMPTY,
 		bst = "525",
 		movelvls = {
 		{},
@@ -9486,7 +9486,7 @@ PokemonData = {
 	{
 		name = "Glaceon",
 		type = { PokemonTypes.ICE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.DAWN,
+		evolution = EvolutionTypes.EMPTY,
 		bst = "525",
 		movelvls = {
 		{},
