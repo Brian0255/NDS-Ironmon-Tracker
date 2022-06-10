@@ -1,14 +1,7 @@
-Decrypter = {}
-
---[[
-    For Gen 4+, documentation on Pokemon data encryption can be found here:
-    https://projectpokemon.org/home/docs/gen-4/pkm-structure-r65/
-]]
-
-Decrypter.BLOCK_A_SHUFFLE_ORDER = {1,1,1,1,1,1,2,2,3,4,3,4,2,2,3,4,3,4,2,2,3,4,3,4}
-Decrypter.BLOCK_B_SHUFFLE_ORDER = {2,2,3,4,3,4,1,1,1,1,1,1,3,4,2,2,4,3,3,4,2,2,4,3}
-Decrypter.BLOCK_C_SHUFFLE_ORDER = {3,4,2,2,4,3,3,4,2,2,4,3,1,1,1,1,1,1,4,3,4,3,2,2}
-Decrypter.BLOCK_D_SHUFFLE_ORDER = {4,3,4,3,2,2,4,3,4,3,2,2,4,3,4,3,2,2,1,1,1,1,1,1}
+Decrypter = {
+    pokemonDataSize = 0,
+    startAddress = 0
+}
 
 Decrypter.BLOCK_SHUFFLE_ORDER = {
     "ABCD",
@@ -37,8 +30,6 @@ Decrypter.BLOCK_SHUFFLE_ORDER = {
     "DCBA"
 }
 
-Decrypter.GEN_4_BLOCK_SIZE = 32
-
 Decrypter.DecryptedDataInit = {
     pokemonID = 0,
     trainerID = 0,
@@ -64,7 +55,7 @@ Decrypter.DecryptedDataInit = {
     spd = 0,
     nature = 0,
     encounterType = 0,
-    moves = {
+    actualMoves = {
         move1 = 0,
         move2 = 0,
         move3 = 0,
@@ -83,16 +74,12 @@ Reading these 128 byte structures could get super costly, so I think we should n
 Offsets to read must be even (since the RNG is advanced every 2 bytes of encrypted data).
 
 Format: 
-[offsetFromBlockStart] = {
-    byte1Data, byte2Data
-}
+{offsetFromBlock, {byte1Data,byte2Data}}
 or
-[offsetFromBlockStart] = {
-    2ByteData
-}
+{offsetFromBlock, {2ByteData}}
 --]]
 
-Decrypter.GEN_4_IMPORTANT_BLOCK_DATA = {
+Decrypter.GEN_4_5_IMPORTANT_BLOCK_DATA = {
     A = {
             {0,{"pokemonID"}},
             {2,{"heldItem"}},
@@ -114,7 +101,7 @@ Decrypter.GEN_4_IMPORTANT_BLOCK_DATA = {
     }
 }
 
-Decrypter.GEN_4_BATTLE_STAT_OFFSETS = {
+Decrypter.GEN_4_5_BATTLE_STAT_OFFSETS = {
     {0, {"status","unused"}},
     {4,{"level","unused"}},
     {6,{"curHP"}},
@@ -126,8 +113,11 @@ Decrypter.GEN_4_BATTLE_STAT_OFFSETS = {
     {18,{"spd"}},
 }
 
-
-Decrypter.GEN_4_BLOCK_TOTAL = 4
+Decrypter.GEN_4_5_BLOCK_TOTAL = 4
+Decrypter.GEN_4_5_BLOCK_TOTAL = 4
+Decrypter.GEN_4_5_BLOCK_SIZE = 32
+Decrypter.GEN_4_TOTAL_DATA_SIZE = 236
+Decrypter.GEN_5_TOTAL_DATA_SIZE = 220
 
 --[[
 function Decrypter.unshuffleBlocks(blocks, shiftValue)
@@ -146,23 +136,22 @@ function Decrypter.unshuffleBlocks(blocks, shiftValue)
     return correctedBlocks
 end--]]
 
-function Decrypter.rand(seed)
-    return (0x41C64E6D * seed) + 0x00006073
+function Decrypter.init()
+    local gen = GameSettings.gen
+    Decrypter.pokemonDataSize = Utils.inlineIf(gen == 4,Decrypter.GEN_4_TOTAL_DATA_SIZE,Decrypter.GEN_5_TOTAL_DATA_SIZE)
 end
 
-function Decrypter.decrypt(base,checkingParty)
+function Decrypter.decrypt(checkingParty)
     Decrypter.DecryptedData = {}
-    local trainerID = memory.read_u16_le(GameSettings.trainerID)
 	local memdomain = "Main RAM"
     memory.usememorydomain(memdomain)
-    local currentBase = base
+    local currentBase = Decrypter.currentBase
     --Find the first mon that hasn't fainted.
     for i = 1,6,1 do
         local pid = memory.read_u32_le(currentBase)
         local checksum = memory.read_u16_le(currentBase+0x06)
         if checksum ~= 0 then
             Decrypter.DecryptedData.nature = (pid % 25)
-
             local blockShift = bit.rshift(bit.band(pid, 0x3E000),0xD) % 24
             local blockOrder = Decrypter.BLOCK_SHUFFLE_ORDER[blockShift+1]
             local blockReadingStart = currentBase+0x08
@@ -184,25 +173,26 @@ function Decrypter.decrypt(base,checkingParty)
             }
             if checkingParty then 
                 if Decrypter.DecryptedData.curHP ~= 0 then
-                     break
+                     return Decrypter.DecryptedData
                 end
             else
                 break
             end
-            currentBase = currentBase + 236
+            currentBase = currentBase + Decrypter.pokemonDataSize
         else
             break
         end
     end
+
     return Decrypter.DecryptedData
 end
 
 function Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
-    for i = 0, Decrypter.GEN_4_BLOCK_TOTAL-1, 1 do
-        local currentBlockStart = blockReadingStart + (Decrypter.GEN_4_BLOCK_SIZE*i)
+    for i = 0, Decrypter.GEN_4_5_BLOCK_TOTAL-1, 1 do
+        local currentBlockStart = blockReadingStart + (Decrypter.GEN_4_5_BLOCK_SIZE*i)
         local totalBytesAdvanced = 0
         local currentBlockLetter = string.sub(blockOrder,i+1,i+1)
-        local offsets = Decrypter.GEN_4_IMPORTANT_BLOCK_DATA[currentBlockLetter]
+        local offsets = Decrypter.GEN_4_5_IMPORTANT_BLOCK_DATA[currentBlockLetter]
         local previousOffset = 0
         seed = Decrypter.advanceRNG(seed)
         totalBytesAdvanced = totalBytesAdvanced + 2
@@ -216,7 +206,7 @@ function Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
                 previousOffset = offsetAmount
             end
         end
-        local remainder = Decrypter.GEN_4_BLOCK_SIZE - totalBytesAdvanced
+        local remainder = Decrypter.GEN_4_5_BLOCK_SIZE - totalBytesAdvanced
         for i = 2, remainder, 2 do
             seed = Decrypter.advanceRNG(seed)
         end
@@ -225,7 +215,7 @@ function Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
 end
 
 function Decrypter.decryptBattleStats(pid,battleStatStart)
-    local offsets = Decrypter.GEN_4_BATTLE_STAT_OFFSETS
+    local offsets = Decrypter.GEN_4_5_BATTLE_STAT_OFFSETS
     local previousOffset = 0
     local seed = pid
     seed = Decrypter.advanceRNG(seed)
@@ -297,6 +287,19 @@ function Decrypter.mult32(num1,num2)
     return result
 end
 
+function Decrypter.find4ByteValueAddr(base,searchFor,limit)
+    local currentBase = base
+    while currentBase < 0x27C400 do
+        local value = memory.read_u32_le(currentBase)
+        if  value == searchFor then
+            return currentBase
+        end
+        currentBase = currentBase + 0x04
+    end
+    return -1
+end
+
+--function Decrypter.readBattleStats()
 
 
 
