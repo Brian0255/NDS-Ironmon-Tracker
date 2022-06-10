@@ -15,8 +15,8 @@ Tracker.Data = {}
 
 function Tracker.InitTrackerData()
 	local trackerData = {
-		selectedPokemon = Decrypter.DecryptedDataInit,
-		targetedPokemon = {},
+		playerPokemon = Decrypter.DecryptedDataInit,
+		enemyPokemon = {},
 		main = {
 			ability = 0
 		},
