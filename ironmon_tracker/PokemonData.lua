@@ -24,17 +24,34 @@ PokemonTypes = {
 
 -- Enumerated constants that defines various evolution possibilities
 -- This enum does NOT include levels for evolution, only stones, friendship, no evolution, etc.
+
+--max 7 characters
 EvolutionTypes = {
 	NONE = PLACEHOLDER, -- This Pokémon does not evolve.
-	FRIEND = "FRND", -- High friendship
-	STONES = "STONE", -- Various evolution stone items
-	THUNDER = "THNDR", -- Thunder stone item
+	FRIEND = "FRIEND", -- High friendship
+	STONES = "STONES", -- Various evolution stone items
+	THUNDER = "THUNDER", -- Thunder stone item
 	FIRE = "FIRE", -- Fire stone item
 	WATER = "WATER", -- Water stone item
 	MOON = "MOON", -- Moon stone item
+	DAWN = "DAWN", -- Dawn stone item
+	DUSK = "DUSK", -- Dusk stone item
 	LEAF = "LEAF", -- Leaf stone item
 	SUN = "SUN", -- Sun stone item
-	LEAF_SUN = "LF/SN", -- Leaf or Sun stone items
+	OVAL = "OVAL", --Oval stone item
+	LEAF_SUN = "LEAF/SUN", -- Leaf or Sun stone items
+	PROTECTOR = "PROTECTR", -- Protector held item
+	ELECTIRIZER = "ELECTRZR.", -- Elecirizer held item
+	MAGMARIZER = "MAGMARZR", -- Magmarizer held item
+	SHINY_STONE = "SHINY ST.", -- Magmarizer held item
+	RAZOR_FANG = "RAZ. FANG",  -- Razor Fang held item
+	RAZOR_CLAW = "RAZ. CLAW",  -- Razor Claw held item
+	DUBIOUS_DISC = "DUB. DISC", -- Dubious Disc held item
+	REAPER_CLOTH = "RE. CLOTH", -- Reaper Cloth held item
+	UP_GRADE = "UP-GRADE", 			--Up-Grade held item
+	DRAGON_SCALE = "DRG. SCALE", 	--Dragon Scale held item
+	METAL_COAT = "MTL COAT", 		--Metal Coat held item
+	KINGS_ROCK = "KING'S RCK",		--King's Rock held item
 }
 
 --[[
@@ -1266,7 +1283,7 @@ PokemonData = {
 	{
 		name = "Poliwhirl",
 		type = { PokemonTypes.WATER, PokemonTypes.EMPTY },
-		evolution = "37/WTR", -- Level 37 replaces trade evolution for Politoed
+		evolution = EvolutionTypes.KINGS_ROCK, 
 		bst = "385",
 		movelvls = {
 			{16,19,26,33,41,49},
@@ -1626,7 +1643,7 @@ PokemonData = {
 	{
 		name = "Slowpoke",
 		type = { PokemonTypes.WATER, PokemonTypes.PSYCHIC },
-		evolution = "37/WTR", -- Water stone replaces trade evolution to Slowking
+		evolution = "WTR", -- Water stone replaces trade evolution to Slowking
 		bst = "315",
 		movelvls = {
 			{18,22,27,33,40,48},
@@ -1686,7 +1703,7 @@ PokemonData = {
 	{
 		name = "Magneton",
 		type = { PokemonTypes.ELECTRIC, PokemonTypes.STEEL },
-		evolution = EvolutionTypes.NONE,
+		evolution = "40",
 		bst = "465",
 		movelvls = {
 			{21,25,29,38,46,54},
@@ -1946,7 +1963,7 @@ PokemonData = {
 	{
 		name = "Onix",
 		type = { PokemonTypes.ROCK, PokemonTypes.GROUND },
-		evolution = "30", -- Level 30 replaces trade evolution
+		evolution = EvolutionTypes.METAL_COAT,
 		bst = "385",
 		movelvls = {
 			{15,19,25,33,43},
@@ -2206,7 +2223,7 @@ PokemonData = {
 	{
 		name = "Lickitung",
 		type = { PokemonTypes.NORMAL, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "33",
 		bst = "385",
 		movelvls = {
 			{7,15,23,31,39},
@@ -2286,7 +2303,7 @@ PokemonData = {
 	{
 		name = "Rhydon",
 		type = { PokemonTypes.GROUND, PokemonTypes.ROCK },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.PROTECTOR,
 		bst = "485",
 		movelvls = {
 			{30,35,40,48,55,64},
@@ -2326,7 +2343,7 @@ PokemonData = {
 	{
 		name = "Tangela",
 		type = { PokemonTypes.GRASS, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "33",
 		bst = "435",
 		movelvls = {
 			{29,32,36,39,45,49},
@@ -2386,7 +2403,7 @@ PokemonData = {
 	{
 		name = "Seadra",
 		type = { PokemonTypes.WATER, PokemonTypes.EMPTY },
-		evolution = "40", -- Level 40 replaces trade evolution
+		evolution = EvolutionTypes.DRAGON_SCALE,
 		bst = "440",
 		movelvls = {
 			{19,24,30,41,52},
@@ -2506,7 +2523,7 @@ PokemonData = {
 	{
 		name = "Scyther",
 		type = { PokemonTypes.BUG, PokemonTypes.FLYING },
-		evolution = "30", -- Level 30 replaces trade evolution
+		evolution = EvolutionTypes.METAL_COAT,
 		bst = "500",
 		movelvls = {
 			{17,20,24,29,35,42},
@@ -2546,7 +2563,7 @@ PokemonData = {
 	{
 		name = "Electabuzz",
 		type = { PokemonTypes.ELECTRIC, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.ELECTIRIZER,
 		bst = "490",
 		movelvls = {
 			{34,37,42,49,54},
@@ -2566,7 +2583,7 @@ PokemonData = {
 	{
 		name = "Magmar", -- MAMGAR
 		type = { PokemonTypes.FIRE, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.MAGMARIZER,
 		bst = "495",
 		movelvls = {
 			{36,39,43,48,52,55},
@@ -2786,7 +2803,7 @@ PokemonData = {
 	{
 		name = "Porygon",
 		type = { PokemonTypes.NORMAL, PokemonTypes.EMPTY },
-		evolution = "30", -- Level 30 replaces trade evolution
+		evolution = EvolutionTypes.UPGRADE,
 		bst = "395",
 		movelvls = {
 			{23,28,35,42},
@@ -3566,7 +3583,7 @@ PokemonData = {
 	{
 		name = "Togetic",
 		type = { PokemonTypes.NORMAL, PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.SHINY_STONE,
 		bst = "405",
 		movelvls = {
 			{},
@@ -3846,7 +3863,7 @@ PokemonData = {
 	{
 		name = "Aipom",
 		type = { PokemonTypes.NORMAL, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "32",
 		bst = "360",
 		movelvls = {
 			{},
@@ -3906,7 +3923,7 @@ PokemonData = {
 	{
 		name = "Yanma",
 		type = { PokemonTypes.BUG, PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "33",
 		bst = "390",
 		movelvls = {
 			{},
@@ -4006,7 +4023,7 @@ PokemonData = {
 	{
 		name = "Murkrow",
 		type = { PokemonTypes.DARK, PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.DUSK,
 		bst = "405",
 		movelvls = {
 			{},
@@ -4046,7 +4063,7 @@ PokemonData = {
 	{
 		name = "Misdreavus",
 		type = { PokemonTypes.GHOST, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.DUSK,
 		bst = "435",
 		movelvls = {
 			{},
@@ -4186,7 +4203,7 @@ PokemonData = {
 	{
 		name = "Gligar",
 		type = { PokemonTypes.GROUND, PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.RAZOR_FANG,
 		bst = "430",
 		movelvls = {
 			{},
@@ -4346,7 +4363,7 @@ PokemonData = {
 	{
 		name = "Sneasel",
 		type = { PokemonTypes.DARK, PokemonTypes.ICE },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.RAZOR_CLAW,
 		bst = "430",
 		movelvls = {
 			{},
@@ -4466,7 +4483,7 @@ PokemonData = {
 	{
 		name = "Piloswine",
 		type = { PokemonTypes.ICE, PokemonTypes.GROUND },
-		evolution = EvolutionTypes.NONE,
+		evolution = "45",
 		bst = "450",
 		movelvls = {
 			{},
@@ -4706,7 +4723,7 @@ PokemonData = {
 	{
 		name = "Porygon2",
 		type = { PokemonTypes.NORMAL, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.DUBIOUS_DISC,
 		bst = "515",
 		movelvls = {
 			{},
@@ -5666,7 +5683,7 @@ PokemonData = {
 	{
 		name = "Kirlia",
 		type = { PokemonTypes.PSYCHIC, PokemonTypes.EMPTY },
-		evolution = "30",
+		evolution = "30/DAWN",
 		bst = "278",
 		movelvls = {
 			{},
@@ -6026,7 +6043,7 @@ PokemonData = {
 	{
 		name = "Nosepass",
 		type = { PokemonTypes.ROCK, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "40",
 		bst = "375",
 		movelvls = {
 			{},
@@ -6346,7 +6363,7 @@ PokemonData = {
 	{
 		name = "Roselia",
 		type = { PokemonTypes.GRASS, PokemonTypes.POISON },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.SHINY_STONE,
 		bst = "400",
 		movelvls = {
 			{},
@@ -7026,7 +7043,7 @@ PokemonData = {
 	{
 		name = "Feebas",
 		type = { PokemonTypes.WATER, PokemonTypes.EMPTY },
-		evolution = "35", -- Level 35 replaces beauty condition
+		evolution = "35", 
 		bst = "200",
 		movelvls = {
 			{},
@@ -7166,7 +7183,7 @@ PokemonData = {
 	{
 		name = "Dusclops",
 		type = { PokemonTypes.GHOST, PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.REAPER_CLOTH,
 		bst = "455",
 		movelvls = {
 			{},
@@ -7266,7 +7283,7 @@ PokemonData = {
 	{
 		name = "Snorunt",
 		type = { PokemonTypes.ICE, PokemonTypes.EMPTY },
-		evolution = "42",
+		evolution = "42/DAWN",
 		bst = "300",
 		movelvls = {
 			{},
@@ -7366,7 +7383,7 @@ PokemonData = {
 	{
 		name = "Clamperl",
 		type = { PokemonTypes.WATER, PokemonTypes.EMPTY },
-		evolution = "30/WTR", -- Level 30 and stone replace trade evolution
+		evolution = "DST/DSS",
 		bst = "345",
 		movelvls = {
 			{},
@@ -7802,7 +7819,7 @@ PokemonData = {
 		{9,13,17,21,25,29,33,37,41,45},
 		{9,13,17,21,25,29,33,37,41,45},
 		},
-		evolution = EvolutionTypes.NONE,
+		evolution = "18",
 		bst = "318",
 		weight = 10.2
 	},
@@ -7822,7 +7839,7 @@ PokemonData = {
 		{9,13,17,22,27,32,37,42,47,52},
 		{9,13,17,22,27,32,37,42,47,52},
 		},
-		evolution = EvolutionTypes.NONE,
+		evolution = "32",
 		bst = "405",
 		weight = 97.0
 	},
@@ -7862,7 +7879,7 @@ PokemonData = {
 		{7,9,15,17,23,25,31,33,39,41},
 		{7,9,15,17,23,25,31,33,39,41,47},
 		},
-		evolution = EvolutionTypes.NONE,
+		evolution = "14",
 		bst = "309",
 		weight = 6.2
 	},
@@ -7882,7 +7899,7 @@ PokemonData = {
 		{7,9,14,16,19,26,29,36,39,46,49},
 		{7,9,14,16,19,26,29,36,39,46,49,56},
 		},
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "405",
 		weight = 22.0
 	},
@@ -7922,7 +7939,7 @@ PokemonData = {
 		{8,11,15,18,22,25,29,32,36,39,43},
 		{8,11,15,18,22,25,29,32,36,39,43},
 		},
-		evolution = EvolutionTypes.NONE,
+		evolution = "16",
 		bst = "314",
 		weight = 5.2
 	},
@@ -7942,7 +7959,7 @@ PokemonData = {
 		{8,11,15,16,19,24,28,33,37,42,46,51},
 		{8,11,15,16,19,24,28,33,37,42,46,51},
 		},
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "405",
 		weight = 23.0
 	},
@@ -7969,7 +7986,7 @@ PokemonData = {
 	{
 		name = "Starly",
 		type = { PokemonTypes.NORMAL,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "14",
 		bst = "245",
 		movelvls = {
 		{},
@@ -7989,7 +8006,7 @@ PokemonData = {
 	{
 		name = "Staravia",
 		type = { PokemonTypes.NORMAL,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "34",
 		bst = "340",
 		movelvls = {
 		{},
@@ -8029,7 +8046,7 @@ PokemonData = {
 	{
 		name = "Bidoof",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "15",
 		bst = "250",
 		movelvls = {
 		{},
@@ -8069,7 +8086,7 @@ PokemonData = {
 	{
 		name = "Kricketot",
 		type = { PokemonTypes.BUG,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "10",
 		bst = "194",
 		movelvls = {
 		{},
@@ -8109,7 +8126,7 @@ PokemonData = {
 	{
 		name = "Shinx",
 		type = { PokemonTypes.ELECTRIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "15",
 		bst = "263",
 		movelvls = {
 		{},
@@ -8129,7 +8146,7 @@ PokemonData = {
 	{
 		name = "Luxio",
 		type = { PokemonTypes.ELECTRIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "30",
 		bst = "363",
 		movelvls = {
 		{},
@@ -8169,7 +8186,7 @@ PokemonData = {
 	{
 		name = "Budew",
 		type = { PokemonTypes.GRASS,PokemonTypes.POISON },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FRIEND,
 		bst = "280",
 		movelvls = {
 		{},
@@ -8209,7 +8226,7 @@ PokemonData = {
 	{
 		name = "Cranidos",
 		type = { PokemonTypes.ROCK,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "30",
 		bst = "350",
 		movelvls = {
 		{},
@@ -8249,7 +8266,7 @@ PokemonData = {
 	{
 		name = "Shieldon",
 		type = { PokemonTypes.ROCK,PokemonTypes.STEEL },
-		evolution = EvolutionTypes.NONE,
+		evolution = "30",
 		bst = "350",
 		movelvls = {
 		{},
@@ -8289,7 +8306,7 @@ PokemonData = {
 	{
 		name = "Burmy",
 		type = { PokemonTypes.BUG,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "20",
 		bst = "224",
 		movelvls = {
 		{},
@@ -8307,8 +8324,8 @@ PokemonData = {
 		weight = 3.4
 	},
 	{
-		name = "Wormadam",
-		type = { PokemonTypes.BUG,PokemonTypes.EMPTY },
+		name = "Wormadam-P",
+		type = { PokemonTypes.BUG,PokemonTypes.GRASS },
 		evolution = EvolutionTypes.NONE,
 		bst = "424",
 		movelvls = {
@@ -8349,7 +8366,7 @@ PokemonData = {
 	{
 		name = "Combee",
 		type = { PokemonTypes.BUG,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "21",
 		bst = "244",
 		movelvls = {
 		{},
@@ -8409,7 +8426,7 @@ PokemonData = {
 	{
 		name = "Buizel",
 		type = { PokemonTypes.WATER,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "26",
 		bst = "330",
 		movelvls = {
 		{},
@@ -8449,7 +8466,7 @@ PokemonData = {
 	{
 		name = "Cherubi",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "25",
 		bst = "275",
 		movelvls = {
 		{},
@@ -8489,7 +8506,7 @@ PokemonData = {
 	{
 		name = "Shellos",
 		type = { PokemonTypes.WATER,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "30",
 		bst = "325",
 		movelvls = {
 		{},
@@ -8549,7 +8566,7 @@ PokemonData = {
 	{
 		name = "Drifloon",
 		type = { PokemonTypes.GHOST,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "28",
 		bst = "348",
 		movelvls = {
 		{},
@@ -8589,7 +8606,7 @@ PokemonData = {
 	{
 		name = "Buneary",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FRIEND,
 		bst = "350",
 		movelvls = {
 		{},
@@ -8669,7 +8686,7 @@ PokemonData = {
 	{
 		name = "Glameow",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "38",
 		bst = "310",
 		movelvls = {
 		{},
@@ -8709,7 +8726,7 @@ PokemonData = {
 	{
 		name = "Chingling",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FRIEND,
 		bst = "285",
 		movelvls = {
 		{},
@@ -8729,7 +8746,7 @@ PokemonData = {
 	{
 		name = "Stunky",
 		type = { PokemonTypes.POISON,PokemonTypes.DARK },
-		evolution = EvolutionTypes.NONE,
+		evolution = "34",
 		bst = "329",
 		movelvls = {
 		{},
@@ -8769,7 +8786,7 @@ PokemonData = {
 	{
 		name = "Bronzor",
 		type = { PokemonTypes.STEEL,PokemonTypes.PSYCHIC },
-		evolution = EvolutionTypes.NONE,
+		evolution = "33",
 		bst = "300",
 		movelvls = {
 		{},
@@ -8809,7 +8826,7 @@ PokemonData = {
 	{
 		name = "Bonsly",
 		type = { PokemonTypes.ROCK,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "17",
 		bst = "290",
 		movelvls = {
 		{},
@@ -8827,9 +8844,9 @@ PokemonData = {
 		weight = 15.0
 	},
 	{
-		name = "Mime-jr",
+		name = "Mime Jr.",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.FAIRY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "18",
 		bst = "310",
 		movelvls = {
 		{},
@@ -8849,7 +8866,7 @@ PokemonData = {
 	{
 		name = "Happiny",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.OVAL,
 		bst = "220",
 		movelvls = {
 		{},
@@ -8909,7 +8926,7 @@ PokemonData = {
 	{
 		name = "Gible",
 		type = { PokemonTypes.DRAGON,PokemonTypes.GROUND },
-		evolution = EvolutionTypes.NONE,
+		evolution = "24",
 		bst = "300",
 		movelvls = {
 		{},
@@ -8929,7 +8946,7 @@ PokemonData = {
 	{
 		name = "Gabite",
 		type = { PokemonTypes.DRAGON,PokemonTypes.GROUND },
-		evolution = EvolutionTypes.NONE,
+		evolution = "48",
 		bst = "410",
 		movelvls = {
 		{},
@@ -8969,7 +8986,7 @@ PokemonData = {
 	{
 		name = "Munchlax",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FRIEND,
 		bst = "390",
 		movelvls = {
 		{},
@@ -8989,7 +9006,7 @@ PokemonData = {
 	{
 		name = "Riolu",
 		type = { PokemonTypes.FIGHTING,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FRIEND,
 		bst = "285",
 		movelvls = {
 		{},
@@ -9029,7 +9046,7 @@ PokemonData = {
 	{
 		name = "Hippopotas",
 		type = { PokemonTypes.GROUND,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "34",
 		bst = "330",
 		movelvls = {
 		{},
@@ -9069,7 +9086,7 @@ PokemonData = {
 	{
 		name = "Skorupi",
 		type = { PokemonTypes.POISON,PokemonTypes.BUG },
-		evolution = EvolutionTypes.NONE,
+		evolution = "40",
 		bst = "330",
 		movelvls = {
 		{},
@@ -9109,7 +9126,7 @@ PokemonData = {
 	{
 		name = "Croagunk",
 		type = { PokemonTypes.POISON,PokemonTypes.FIGHTING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "37",
 		bst = "300",
 		movelvls = {
 		{},
@@ -9169,7 +9186,7 @@ PokemonData = {
 	{
 		name = "Finneon",
 		type = { PokemonTypes.WATER,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "31",
 		bst = "330",
 		movelvls = {
 		{},
@@ -9209,7 +9226,7 @@ PokemonData = {
 	{
 		name = "Mantyke",
 		type = { PokemonTypes.WATER,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "REMORAID",
 		bst = "345",
 		movelvls = {
 		{},
@@ -9229,7 +9246,7 @@ PokemonData = {
 	{
 		name = "Snover",
 		type = { PokemonTypes.GRASS,PokemonTypes.ICE },
-		evolution = EvolutionTypes.NONE,
+		evolution = "40",
 		bst = "334",
 		movelvls = {
 		{},
@@ -9309,7 +9326,7 @@ PokemonData = {
 	{
 		name = "Lickilicky",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "33",
 		bst = "515",
 		movelvls = {
 		{},
@@ -9449,7 +9466,7 @@ PokemonData = {
 	{
 		name = "Leafeon",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.LEAF,
 		bst = "525",
 		movelvls = {
 		{},
@@ -9469,7 +9486,7 @@ PokemonData = {
 	{
 		name = "Glaceon",
 		type = { PokemonTypes.ICE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.DAWN,
 		bst = "525",
 		movelvls = {
 		{},
@@ -9952,7 +9969,7 @@ PokemonData = {
 	{
 		name = "Snivy",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "17",
 		bst = "308",
 		movelvls = {
 		{},
@@ -9972,7 +9989,7 @@ PokemonData = {
 	{
 		name = "Servine",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "413",
 		movelvls = {
 		{},
@@ -10012,7 +10029,7 @@ PokemonData = {
 	{
 		name = "Tepig",
 		type = { PokemonTypes.FIRE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "17",
 		bst = "308",
 		movelvls = {
 		{},
@@ -10032,7 +10049,7 @@ PokemonData = {
 	{
 		name = "Pignite",
 		type = { PokemonTypes.FIRE,PokemonTypes.FIGHTING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "418",
 		movelvls = {
 		{},
@@ -10072,7 +10089,7 @@ PokemonData = {
 	{
 		name = "Oshawott",
 		type = { PokemonTypes.WATER,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "17",
 		bst = "308",
 		movelvls = {
 		{},
@@ -10092,7 +10109,7 @@ PokemonData = {
 	{
 		name = "Dewott",
 		type = { PokemonTypes.WATER,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "413",
 		movelvls = {
 		{},
@@ -10132,7 +10149,7 @@ PokemonData = {
 	{
 		name = "Patrat",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "20",
 		bst = "255",
 		movelvls = {
 		{},
@@ -10172,7 +10189,7 @@ PokemonData = {
 	{
 		name = "Lillipup",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "16",
 		bst = "275",
 		movelvls = {
 		{},
@@ -10192,7 +10209,7 @@ PokemonData = {
 	{
 		name = "Herdier",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "32",
 		bst = "370",
 		movelvls = {
 		{},
@@ -10232,7 +10249,7 @@ PokemonData = {
 	{
 		name = "Purrloin",
 		type = { PokemonTypes.DARK,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "20",
 		bst = "281",
 		movelvls = {
 		{},
@@ -10272,7 +10289,7 @@ PokemonData = {
 	{
 		name = "Pansage",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.LEAF,
 		bst = "316",
 		movelvls = {
 		{},
@@ -10312,7 +10329,7 @@ PokemonData = {
 	{
 		name = "Pansear",
 		type = { PokemonTypes.FIRE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FIRE,
 		bst = "316",
 		movelvls = {
 		{},
@@ -10352,7 +10369,7 @@ PokemonData = {
 	{
 		name = "Panpour",
 		type = { PokemonTypes.WATER,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.WATER,
 		bst = "316",
 		movelvls = {
 		{},
@@ -10392,7 +10409,7 @@ PokemonData = {
 	{
 		name = "Munna",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.MOON,
 		bst = "292",
 		movelvls = {
 		{},
@@ -10432,7 +10449,7 @@ PokemonData = {
 	{
 		name = "Pidove",
 		type = { PokemonTypes.NORMAL,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "21",
 		bst = "264",
 		movelvls = {
 		{},
@@ -10452,7 +10469,7 @@ PokemonData = {
 	{
 		name = "Tranquill",
 		type = { PokemonTypes.NORMAL,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "32",
 		bst = "358",
 		movelvls = {
 		{},
@@ -10492,7 +10509,7 @@ PokemonData = {
 	{
 		name = "Blitzle",
 		type = { PokemonTypes.ELECTRIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "27",
 		bst = "295",
 		movelvls = {
 		{},
@@ -10532,7 +10549,7 @@ PokemonData = {
 	{
 		name = "Roggenrola",
 		type = { PokemonTypes.ROCK,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "25",
 		bst = "280",
 		movelvls = {
 		{},
@@ -10552,7 +10569,7 @@ PokemonData = {
 	{
 		name = "Boldore",
 		type = { PokemonTypes.ROCK,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "37",
 		bst = "390",
 		movelvls = {
 		{},
@@ -10592,7 +10609,7 @@ PokemonData = {
 	{
 		name = "Woobat",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FRIEND,
 		bst = "323",
 		movelvls = {
 		{},
@@ -10632,7 +10649,7 @@ PokemonData = {
 	{
 		name = "Drilbur",
 		type = { PokemonTypes.GROUND,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "31",
 		bst = "328",
 		movelvls = {
 		{},
@@ -10692,7 +10709,7 @@ PokemonData = {
 	{
 		name = "Timburr",
 		type = { PokemonTypes.FIGHTING,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "25",
 		bst = "305",
 		movelvls = {
 		{},
@@ -10712,7 +10729,7 @@ PokemonData = {
 	{
 		name = "Gurdurr",
 		type = { PokemonTypes.FIGHTING,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "37",
 		bst = "405",
 		movelvls = {
 		{},
@@ -10752,7 +10769,7 @@ PokemonData = {
 	{
 		name = "Tympole",
 		type = { PokemonTypes.WATER,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "25",
 		bst = "294",
 		movelvls = {
 		{},
@@ -10772,7 +10789,7 @@ PokemonData = {
 	{
 		name = "Palpitoad",
 		type = { PokemonTypes.WATER,PokemonTypes.GROUND },
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "384",
 		movelvls = {
 		{},
@@ -10852,7 +10869,7 @@ PokemonData = {
 	{
 		name = "Sewaddle",
 		type = { PokemonTypes.BUG,PokemonTypes.GRASS },
-		evolution = EvolutionTypes.NONE,
+		evolution = "20",
 		bst = "310",
 		movelvls = {
 		{},
@@ -10872,7 +10889,7 @@ PokemonData = {
 	{
 		name = "Swadloon",
 		type = { PokemonTypes.BUG,PokemonTypes.GRASS },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.FRIEND,
 		bst = "380",
 		movelvls = {
 		{},
@@ -10912,7 +10929,7 @@ PokemonData = {
 	{
 		name = "Venipede",
 		type = { PokemonTypes.BUG,PokemonTypes.POISON },
-		evolution = EvolutionTypes.NONE,
+		evolution = "22",
 		bst = "260",
 		movelvls = {
 		{},
@@ -10932,7 +10949,7 @@ PokemonData = {
 	{
 		name = "Whirlipede",
 		type = { PokemonTypes.BUG,PokemonTypes.POISON },
-		evolution = EvolutionTypes.NONE,
+		evolution = "30",
 		bst = "360",
 		movelvls = {
 		{},
@@ -10972,7 +10989,7 @@ PokemonData = {
 	{
 		name = "Cottonee",
 		type = { PokemonTypes.GRASS,PokemonTypes.FAIRY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.SUN,
 		bst = "280",
 		movelvls = {
 		{},
@@ -10991,7 +11008,7 @@ PokemonData = {
 	},
 	{
 		name = "Whimsicott",
-		type = { PokemonTypes.GRASS,PokemonTypes.FAIRY },
+		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
 		evolution = EvolutionTypes.NONE,
 		bst = "480",
 		movelvls = {
@@ -11012,7 +11029,7 @@ PokemonData = {
 	{
 		name = "Petilil",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.SUN,
 		bst = "280",
 		movelvls = {
 		{},
@@ -11072,7 +11089,7 @@ PokemonData = {
 	{
 		name = "Sandile",
 		type = { PokemonTypes.GROUND,PokemonTypes.DARK },
-		evolution = EvolutionTypes.NONE,
+		evolution = "29",
 		bst = "292",
 		movelvls = {
 		{},
@@ -11092,7 +11109,7 @@ PokemonData = {
 	{
 		name = "Krokorok",
 		type = { PokemonTypes.GROUND,PokemonTypes.DARK },
-		evolution = EvolutionTypes.NONE,
+		evolution = "40",
 		bst = "351",
 		movelvls = {
 		{},
@@ -11132,7 +11149,7 @@ PokemonData = {
 	{
 		name = "Darumaka",
 		type = { PokemonTypes.FIRE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "35",
 		bst = "315",
 		movelvls = {
 		{},
@@ -11192,7 +11209,7 @@ PokemonData = {
 	{
 		name = "Dwebble",
 		type = { PokemonTypes.BUG,PokemonTypes.ROCK },
-		evolution = EvolutionTypes.NONE,
+		evolution = "34",
 		bst = "325",
 		movelvls = {
 		{},
@@ -11232,7 +11249,7 @@ PokemonData = {
 	{
 		name = "Scraggy",
 		type = { PokemonTypes.DARK,PokemonTypes.FIGHTING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "39",
 		bst = "348",
 		movelvls = {
 		{},
@@ -11292,7 +11309,7 @@ PokemonData = {
 	{
 		name = "Yamask",
 		type = { PokemonTypes.GHOST,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "34",
 		bst = "303",
 		movelvls = {
 		{},
@@ -11332,7 +11349,7 @@ PokemonData = {
 	{
 		name = "Tirtouga",
 		type = { PokemonTypes.WATER,PokemonTypes.ROCK },
-		evolution = EvolutionTypes.NONE,
+		evolution = "37",
 		bst = "355",
 		movelvls = {
 		{},
@@ -11372,7 +11389,7 @@ PokemonData = {
 	{
 		name = "Archen",
 		type = { PokemonTypes.ROCK,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "37",
 		bst = "401",
 		movelvls = {
 		{},
@@ -11412,7 +11429,7 @@ PokemonData = {
 	{
 		name = "Trubbish",
 		type = { PokemonTypes.POISON,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "329",
 		movelvls = {
 		{},
@@ -11452,7 +11469,7 @@ PokemonData = {
 	{
 		name = "Zorua",
 		type = { PokemonTypes.DARK,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "30",
 		bst = "330",
 		movelvls = {
 		{},
@@ -11492,7 +11509,7 @@ PokemonData = {
 	{
 		name = "Minccino",
 		type = { PokemonTypes.NORMAL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.SHINY_STONE,
 		bst = "300",
 		movelvls = {
 		{},
@@ -11532,7 +11549,7 @@ PokemonData = {
 	{
 		name = "Gothita",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "32",
 		bst = "290",
 		movelvls = {
 		{},
@@ -11552,7 +11569,7 @@ PokemonData = {
 	{
 		name = "Gothorita",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "41",
 		bst = "390",
 		movelvls = {
 		{},
@@ -11592,7 +11609,7 @@ PokemonData = {
 	{
 		name = "Solosis",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "32",
 		bst = "290",
 		movelvls = {
 		{},
@@ -11612,7 +11629,7 @@ PokemonData = {
 	{
 		name = "Duosion",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "41",
 		bst = "370",
 		movelvls = {
 		{},
@@ -11652,7 +11669,7 @@ PokemonData = {
 	{
 		name = "Ducklett",
 		type = { PokemonTypes.WATER,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "35",
 		bst = "305",
 		movelvls = {
 		{},
@@ -11692,7 +11709,7 @@ PokemonData = {
 	{
 		name = "Vanillite",
 		type = { PokemonTypes.ICE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "35",
 		bst = "305",
 		movelvls = {
 		{},
@@ -11712,7 +11729,7 @@ PokemonData = {
 	{
 		name = "Vanillish",
 		type = { PokemonTypes.ICE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "47",
 		bst = "395",
 		movelvls = {
 		{},
@@ -11752,7 +11769,7 @@ PokemonData = {
 	{
 		name = "Deerling",
 		type = { PokemonTypes.NORMAL,PokemonTypes.GRASS },
-		evolution = EvolutionTypes.NONE,
+		evolution = "34",
 		bst = "335",
 		movelvls = {
 		{},
@@ -11812,7 +11829,7 @@ PokemonData = {
 	{
 		name = "Karrablast",
 		type = { PokemonTypes.BUG,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "SHELLMET",
 		bst = "315",
 		movelvls = {
 		{},
@@ -11852,7 +11869,7 @@ PokemonData = {
 	{
 		name = "Foongus",
 		type = { PokemonTypes.GRASS,PokemonTypes.POISON },
-		evolution = EvolutionTypes.NONE,
+		evolution = "39",
 		bst = "294",
 		movelvls = {
 		{},
@@ -11892,7 +11909,7 @@ PokemonData = {
 	{
 		name = "Frillish",
 		type = { PokemonTypes.WATER,PokemonTypes.GHOST },
-		evolution = EvolutionTypes.NONE,
+		evolution = "40",
 		bst = "335",
 		movelvls = {
 		{},
@@ -11952,7 +11969,7 @@ PokemonData = {
 	{
 		name = "Joltik",
 		type = { PokemonTypes.BUG,PokemonTypes.ELECTRIC },
-		evolution = EvolutionTypes.NONE,
+		evolution = "36",
 		bst = "319",
 		movelvls = {
 		{},
@@ -11992,7 +12009,7 @@ PokemonData = {
 	{
 		name = "Ferroseed",
 		type = { PokemonTypes.GRASS,PokemonTypes.STEEL },
-		evolution = EvolutionTypes.NONE,
+		evolution = "40",
 		bst = "305",
 		movelvls = {
 		{},
@@ -12032,7 +12049,7 @@ PokemonData = {
 	{
 		name = "Klink",
 		type = { PokemonTypes.STEEL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "38",
 		bst = "300",
 		movelvls = {
 		{},
@@ -12052,7 +12069,7 @@ PokemonData = {
 	{
 		name = "Klang",
 		type = { PokemonTypes.STEEL,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "49",
 		bst = "440",
 		movelvls = {
 		{},
@@ -12092,7 +12109,7 @@ PokemonData = {
 	{
 		name = "Tynamo",
 		type = { PokemonTypes.ELECTRIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "39",
 		bst = "275",
 		movelvls = {
 		{},
@@ -12112,7 +12129,7 @@ PokemonData = {
 	{
 		name = "Eelektrik",
 		type = { PokemonTypes.ELECTRIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.THUNDER,
 		bst = "405",
 		movelvls = {
 		{},
@@ -12152,7 +12169,7 @@ PokemonData = {
 	{
 		name = "Elgyem",
 		type = { PokemonTypes.PSYCHIC,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "42",
 		bst = "335",
 		movelvls = {
 		{},
@@ -12192,7 +12209,7 @@ PokemonData = {
 	{
 		name = "Litwick",
 		type = { PokemonTypes.GHOST,PokemonTypes.FIRE },
-		evolution = EvolutionTypes.NONE,
+		evolution = "41",
 		bst = "275",
 		movelvls = {
 		{},
@@ -12212,7 +12229,7 @@ PokemonData = {
 	{
 		name = "Lampent",
 		type = { PokemonTypes.GHOST,PokemonTypes.FIRE },
-		evolution = EvolutionTypes.NONE,
+		evolution = EvolutionTypes.DUSK,
 		bst = "370",
 		movelvls = {
 		{},
@@ -12252,7 +12269,7 @@ PokemonData = {
 	{
 		name = "Axew",
 		type = { PokemonTypes.DRAGON,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "38",
 		bst = "320",
 		movelvls = {
 		{},
@@ -12272,7 +12289,7 @@ PokemonData = {
 	{
 		name = "Fraxure",
 		type = { PokemonTypes.DRAGON,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "48",
 		bst = "410",
 		movelvls = {
 		{},
@@ -12312,7 +12329,7 @@ PokemonData = {
 	{
 		name = "Cubchoo",
 		type = { PokemonTypes.ICE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "37",
 		bst = "305",
 		movelvls = {
 		{},
@@ -12372,7 +12389,7 @@ PokemonData = {
 	{
 		name = "Shelmet",
 		type = { PokemonTypes.BUG,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "KARABLST",
 		bst = "305",
 		movelvls = {
 		{},
@@ -12432,7 +12449,7 @@ PokemonData = {
 	{
 		name = "Mienfoo",
 		type = { PokemonTypes.FIGHTING,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.NONE,
+		evolution = "50",
 		bst = "350",
 		movelvls = {
 		{},
@@ -12492,7 +12509,7 @@ PokemonData = {
 	{
 		name = "Golett",
 		type = { PokemonTypes.GROUND,PokemonTypes.GHOST },
-		evolution = EvolutionTypes.NONE,
+		evolution = "43",
 		bst = "303",
 		movelvls = {
 		{},
@@ -12532,7 +12549,7 @@ PokemonData = {
 	{
 		name = "Pawniard",
 		type = { PokemonTypes.DARK,PokemonTypes.STEEL },
-		evolution = EvolutionTypes.NONE,
+		evolution = "52",
 		bst = "340",
 		movelvls = {
 		{},
@@ -12592,7 +12609,7 @@ PokemonData = {
 	{
 		name = "Rufflet",
 		type = { PokemonTypes.NORMAL,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "54",
 		bst = "350",
 		movelvls = {
 		{},
@@ -12632,7 +12649,7 @@ PokemonData = {
 	{
 		name = "Vullaby",
 		type = { PokemonTypes.DARK,PokemonTypes.FLYING },
-		evolution = EvolutionTypes.NONE,
+		evolution = "54",
 		bst = "370",
 		movelvls = {
 		{},
@@ -12712,7 +12729,7 @@ PokemonData = {
 	{
 		name = "Deino",
 		type = { PokemonTypes.DARK,PokemonTypes.DRAGON },
-		evolution = EvolutionTypes.NONE,
+		evolution = "50",
 		bst = "300",
 		movelvls = {
 		{},
@@ -12732,7 +12749,7 @@ PokemonData = {
 	{
 		name = "Zweilous",
 		type = { PokemonTypes.DARK,PokemonTypes.DRAGON },
-		evolution = EvolutionTypes.NONE,
+		evolution = "64",
 		bst = "420",
 		movelvls = {
 		{},
@@ -12772,7 +12789,7 @@ PokemonData = {
 	{
 		name = "Larvesta",
 		type = { PokemonTypes.BUG,PokemonTypes.FIRE },
-		evolution = EvolutionTypes.NONE,
+		evolution = "59",
 		bst = "360",
 		movelvls = {
 		{},
@@ -13049,6 +13066,248 @@ PokemonData = {
 		},
 		weight = 82.5
 	},
-	
 }	
+
+Gen4AlternateForms = {
+	{
+		name = "Deoxys-A",
+		type = { PokemonTypes.PSYCHIC, PokemonTypes.EMPTY },
+		evolution = EvolutionTypes.NONE,
+		bst = "600",
+		movelvls = {
+			{},
+			{},
+			{},
+			{},
+			{10,15,20,25,30,35,40,45,50},
+			{10,15,20,25,30,35,40,45,50},
+			{10,15,20,25,30,35,40,45,50},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			},
+		weight = 60.8
+	},
+	{
+		name = "Deoxys-D",
+		type = { PokemonTypes.PSYCHIC, PokemonTypes.EMPTY },
+		evolution = EvolutionTypes.NONE,
+		bst = "600",
+		movelvls = {
+			{},
+			{},
+			{},
+			{},
+			{10,15,20,25,30,35,40,45,50},
+			{10,15,20,25,30,35,40,45,50},
+			{10,15,20,25,30,35,40,45,50},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			},
+		weight = 60.8
+	},
+	{
+		name = "Deoxys-S",
+		type = { PokemonTypes.PSYCHIC, PokemonTypes.EMPTY },
+		evolution = EvolutionTypes.NONE,
+		bst = "600",
+		movelvls = {
+			{},
+			{},
+			{},
+			{},
+			{10,15,20,25,30,35,40,45,50},
+			{10,15,20,25,30,35,40,45,50},
+			{10,15,20,25,30,35,40,45,50},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			{9,17,25,33,41,49,57,65,73,81,89,97},
+			},
+		weight = 60.8
+	},
+	{
+		name = "Wormadam-S",
+		type = { PokemonTypes.BUG,PokemonTypes.GROUND },
+		evolution = EvolutionTypes.NONE,
+		bst = "424",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{10,20,23,26,29,32,35,38,41,44,47},
+		{10,15,20,23,26,29,32,35,38,41,44,47},
+		{10,15,20,23,26,29,32,35,38,41,44,47},
+		{10,15,20,23,26,29,32,35,38,41,44,47},
+		},
+		weight = 6.5
+	},
+	{
+		name = "Wormadam-T",
+		type = { PokemonTypes.BUG,PokemonTypes.STEEL },
+		evolution = EvolutionTypes.NONE,
+		bst = "424",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{10,20,23,26,29,32,35,38,41,44,47},
+		{10,15,20,23,26,29,32,35,38,41,44,47},
+		{10,15,20,23,26,29,32,35,38,41,44,47},
+		{10,15,20,23,26,29,32,35,38,41,44,47},
+		},
+		weight = 6.5
+	},
+	{
+		name = "Giratina-O",
+		type = { PokemonTypes.GHOST,PokemonTypes.DRAGON },
+		evolution = EvolutionTypes.NONE,
+		bst = "680",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{10,20,30,40,50,60,70,80,90},
+		{10,20,30,40,50,60,70,80,90},
+		{6,10,15,19,24,28,33,37,42,46},
+		{6,10,15,19,24,28,33,37,42,46,50},
+		},
+		weight = 750.0
+	},
+	{
+		name = "Shaymin-Sky",
+		type = { PokemonTypes.GRASS,PokemonTypes.FLYING },
+		evolution = EvolutionTypes.NONE,
+		bst = "600",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{10,19,28,37,46,55,64,73,82,91,100},
+		{10,19,28,37,46,55,64,73,82,91,100},
+		{10,19,28,37,46,55,64,73,82,91,100},
+		{10,19,28,37,46,55,64,73,82,91,100},
+		},
+		weight = 2.1
+	},
+	{
+		name = "Rotom-Heat",
+		type = { PokemonTypes.ELECTRIC,PokemonTypes.FIRE },
+		evolution = EvolutionTypes.NONE,
+		bst = "440",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50,57,64},
+		},
+		weight = .3
+	},
+	{
+		name = "Rotom-Wash",
+		type = { PokemonTypes.ELECTRIC,PokemonTypes.WATER },
+		evolution = EvolutionTypes.NONE,
+		bst = "440",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50,57,64},
+		},
+		weight = .3
+	},
+	{
+		name = "Rotom-Frost",
+		type = { PokemonTypes.ELECTRIC,PokemonTypes.ICE },
+		evolution = EvolutionTypes.NONE,
+		bst = "440",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50,57,64},
+		},
+		weight = .3
+	},
+	{
+		name = "Rotom-Fan",
+		type = { PokemonTypes.ELECTRIC,PokemonTypes.FLYING },
+		evolution = EvolutionTypes.NONE,
+		bst = "440",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50,57,64},
+		},
+		weight = .3
+	},
+	{
+		name = "Rotom-Mow",
+		type = { PokemonTypes.ELECTRIC,PokemonTypes.GRASS },
+		evolution = EvolutionTypes.NONE,
+		bst = "440",
+		movelvls = {
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50},
+		{8,15,22,29,36,43,50,57,64},
+		},
+		weight = .3
+	},
+}
 	
