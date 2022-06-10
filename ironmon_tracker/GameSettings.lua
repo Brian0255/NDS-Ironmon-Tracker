@@ -9,6 +9,8 @@ GameSettings = {
 	itemStartNoBattle = 0x27CDFC,
 	itemStartBattle = 0x2C2D60,
 	trainerID = 0x27C300,
+	statStagesPlayer = 0x2C60B4,
+	statStagesEnemy = 0x2C6174,
 
 --[[	playerBase = 0x2349B4,
 	playerBattleBase = 0x26A234,
