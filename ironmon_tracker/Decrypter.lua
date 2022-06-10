@@ -119,23 +119,6 @@ Decrypter.GEN_4_5_BLOCK_SIZE = 32
 Decrypter.GEN_4_TOTAL_DATA_SIZE = 236
 Decrypter.GEN_5_TOTAL_DATA_SIZE = 220
 
---[[
-function Decrypter.unshuffleBlocks(blocks, shiftValue)
-    local correctedBlocks = {}
-
-    local ABlockPosition = Decrypter.BLOCK_A_SHUFFLE_ORDER[shiftValue+1]
-    local BBlockPosition = Decrypter.BLOCK_B_SHUFFLE_ORDER[shiftValue+1]
-    local CBlockPosition = Decrypter.BLOCK_C_SHUFFLE_ORDER[shiftValue+1]
-    local DBlockPosition = Decrypter.BLOCK_D_SHUFFLE_ORDER[shiftValue+1]
-
-    table.insert(correctedBlocks,blocks[ABlockPosition])
-    table.insert(correctedBlocks,blocks[BBlockPosition])
-    table.insert(correctedBlocks,blocks[CBlockPosition])
-    table.insert(correctedBlocks,blocks[DBlockPosition])
-
-    return correctedBlocks
-end--]]
-
 function Decrypter.init()
     local gen = GameSettings.gen
     Decrypter.pokemonDataSize = Utils.inlineIf(gen == 4,Decrypter.GEN_4_TOTAL_DATA_SIZE,Decrypter.GEN_5_TOTAL_DATA_SIZE)
@@ -299,7 +282,36 @@ function Decrypter.find4ByteValueAddr(base,searchFor,limit)
     return -1
 end
 
---function Decrypter.readBattleStats()
+function Decrypter.readBattleStatStages()
+
+    local first4Bytes = memory.read_u32_le(Decrypter.currentBase)
+    local last4Bytes = memory.read_u32_le(Decrypter.currentBase+4)
+
+    --format:
+    --HP, ATK, DEF, SPEED, SPATK, SPDEF, ACC, EVASION, 
+    local SPE = bit.band(bit.rshift(first4Bytes,24),0xFF)
+    local DEF = bit.band(bit.rshift(first4Bytes,16),0xFF)
+    local ATK = bit.band(bit.rshift(first4Bytes,8),0xFF)
+    local HP = bit.band(first4Bytes,0xFF)
+
+    local EVA = bit.band(bit.rshift(last4Bytes,24),0xFF)
+    local ACC = bit.band(bit.rshift(last4Bytes,16),0xFF)
+    local SPD = bit.band(bit.rshift(last4Bytes,8),0xFF)
+    local SPA = bit.band(last4Bytes,0xFF)
+
+    local statStages = {
+        ["HP"] = HP,
+        ["ATK"] = ATK,
+        ["DEF"] = DEF,
+        ["SPE"] = SPE,
+        ["SPA"] = SPA,
+        ["SPD"] = SPD,
+        ["ACC"] = ACC,
+        ["EVA"] = EVA
+    }
+
+    return statStages
+end
 
 
 
