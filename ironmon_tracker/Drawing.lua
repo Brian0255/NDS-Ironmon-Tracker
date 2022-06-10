@@ -5,12 +5,11 @@ function Drawing.clearGUI()
 end
 
 function Drawing.drawPokemonIcon(id, x, y)
-	if id < 0 or id > 600 then
+	if id < 0 or id > #PokemonData then
 		id = 0
 	end
-	gui.drawImage(DATA_FOLDER .. "/images/pokemonGen4/" .. id .. ".png", x+3, y+2, 25, 25)
+	gui.drawImage(DATA_FOLDER .. "/images/pokemon_gen4/" .. id .. ".png", x-2, y+1, 34,26)
 	--gui.drawImage(DATA_FOLDER .. "/images/pokemon/" .. id .. ".gif", x+6, y-6, 32, 32)
-
 	if PokemonData[id + 1].type[1] ~= "" then
 		gui.drawImage(DATA_FOLDER .. "/images/types/" .. PokemonData[id + 1].type[1] .. ".png", x + 1, y + 28, 30, 12)
 	end
@@ -258,7 +257,7 @@ function Drawing.drawInputOverlay()
 end
 
 function Drawing.DrawTracker(monIsEnemy)
-	local monToDraw = Utils.inlineIf(monIsEnemy,Tracker.Data.targetedPokemon,Tracker.Data.selectedPokemon)
+	local monToDraw = Utils.inlineIf(monIsEnemy,Tracker.Data.enemyPokemon,Tracker.Data.playerPokemon)
 	if monToDraw == nil then return end
 	local borderMargin = 5
 	local statBoxWidth = 101
@@ -293,7 +292,7 @@ function Drawing.DrawTracker(monIsEnemy)
 	-- Level and evolution
 	local levelDetails = "Lv." .. monToDraw.level
 	local evolutionDetails = " (" .. PokemonData[monToDraw["pokemonID"] + 1].evolution .. ")"
-	if Tracker.Data.selectedPokemon.friendship >= 220 and PokemonData[monToDraw["pokemonID"] + 1].evolution == EvolutionTypes.FRIEND then
+	if Tracker.Data.playerPokemon.friendship >= 220 and PokemonData[monToDraw["pokemonID"] + 1].evolution == EvolutionTypes.FRIEND then
 		-- Let the player know that evolution is right around the corner!
 		evolutionDetails = " (SOON)"
 	end
@@ -307,18 +306,9 @@ function Drawing.DrawTracker(monIsEnemy)
 		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 6, 67, string.format("%.0f%%", Tracker.Data.healingItems.healing) .. " HP (" .. Tracker.Data.healingItems.numHeals .. ")", GraphicConstants.LAYOUTCOLORS.INCREASE)
 	end
 
-	-- Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 35, 67, "4", GraphicConstants.LAYOUTCOLORS.NEUTRAL)
-	-- local statusItems = Program.getBagStatusItems()
-	-- Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 60, 57, statusItems.poison, 0xFFFF00FF)
-	-- Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 70, 57, statusItems.burn, 0xFFFF0000)
-	-- Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 80, 57, statusItems.freeze, 0xFF0000FF)
-	-- Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 60, 67, statusItems.sleep, "white")
-	-- Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 70, 67, statusItems.paralyze, "yellow")
-	-- Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 80, 67, statusItems.all, 0xFFFF00FF)
-
 	local abilityString = Utils.inlineIf(monIsEnemy, "---", MiscData.ability[monToDraw["ability"] + 1])
 	if monIsEnemy then
-		for k, v in pairs(Tracker.Data.targetedPokemon.abilities) do
+		for k, v in pairs(Tracker.Data.enemyPokemon.abilities) do
 			if v == monToDraw["ability"] then
 				local abilityId = monToDraw["ability"] + 1
 				abilityString = MiscData.ability[abilityId]
@@ -390,18 +380,18 @@ function Drawing.DrawTracker(monIsEnemy)
 	local movesLearnedSinceThird = 0
 	local movesLearnedSinceFourth = 0
 
-	if Tracker.Data.targetedPokemon~=nil then
+	if Tracker.Data.enemyPokemon~=nil then
 		for k, v in pairs(moveLevels) do
-			if v > Tracker.Data.targetedPokemon.moves.first.level and v <= monLevel then
+			if v > Tracker.Data.enemyPokemon.moves.first.level and v <= monLevel then
 				movesLearnedSinceFirst = movesLearnedSinceFirst + 1
 			end
-			if v > Tracker.Data.targetedPokemon.moves.second.level and v <= monLevel then
+			if v > Tracker.Data.enemyPokemon.moves.second.level and v <= monLevel then
 				movesLearnedSinceSecond = movesLearnedSinceSecond + 1
 			end
-			if v > Tracker.Data.targetedPokemon.moves.third.level and v <= monLevel then
+			if v > Tracker.Data.enemyPokemon.moves.third.level and v <= monLevel then
 				movesLearnedSinceThird = movesLearnedSinceThird + 1
 			end
-			if v > Tracker.Data.targetedPokemon.moves.fourth.level and v <= monLevel then
+			if v > Tracker.Data.enemyPokemon.moves.fourth.level and v <= monLevel then
 				movesLearnedSinceFourth = movesLearnedSinceFourth + 1
 			end
 		end
@@ -414,9 +404,9 @@ function Drawing.DrawTracker(monIsEnemy)
 		fourth = 1
 	}
 	
-	if Tracker.Data.targetedPokemon~=nil then
-		for k, v in pairs(Tracker.Data.targetedPokemon.moves) do
-			for k2, v2 in pairs(Tracker.Data.targetedPokemon.moves) do
+	if Tracker.Data.enemyPokemon~=nil then
+		for k, v in pairs(Tracker.Data.enemyPokemon.moves) do
+			for k2, v2 in pairs(Tracker.Data.enemyPokemon.moves) do
 				if k ~= k2 then
 					if v.level > v2.level then
 						moveAgeRank[k] = moveAgeRank[k] + 1
@@ -427,24 +417,24 @@ function Drawing.DrawTracker(monIsEnemy)
 	end
 
 	local stars = {
-		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.first.level ~= 1 and movesLearnedSinceFirst >= moveAgeRank.first) and "*" or "",
-		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.second.level ~= 1 and movesLearnedSinceSecond >= moveAgeRank.second) and "*" or "",
-		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.third.level ~= 1 and movesLearnedSinceThird >= moveAgeRank.third) and "*" or "",
-		(monIsEnemy == true and Tracker.Data.targetedPokemon.moves.fourth.level ~= 1 and movesLearnedSinceFourth >= moveAgeRank.fourth) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.enemyPokemon.moves.first.level ~= 1 and movesLearnedSinceFirst >= moveAgeRank.first) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.enemyPokemon.moves.second.level ~= 1 and movesLearnedSinceSecond >= moveAgeRank.second) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.enemyPokemon.moves.third.level ~= 1 and movesLearnedSinceThird >= moveAgeRank.third) and "*" or "",
+		(monIsEnemy == true and Tracker.Data.enemyPokemon.moves.fourth.level ~= 1 and movesLearnedSinceFourth >= moveAgeRank.fourth) and "*" or "",
 	}
 
 	--[[
 	-- Determine which moves to show based on if the tracker is showing the enemy Pokémon or the player's.
 	local moves = {
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.first.move], MoveData[Tracker.Data.selectedPokemon["move1"] + 1]),
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.second.move], MoveData[Tracker.Data.selectedPokemon["move2"] + 1]),
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.third.move], MoveData[Tracker.Data.selectedPokemon["move3"] + 1]),
-		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.targetedPokemon.moves.fourth.move], MoveData[Tracker.Data.selectedPokemon["move4"] + 1]),
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.enemyPokemon.moves.first.move], MoveData[Tracker.Data.playerPokemon["move1"] + 1]),
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.enemyPokemon.moves.second.move], MoveData[Tracker.Data.playerPokemon["move2"] + 1]),
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.enemyPokemon.moves.third.move], MoveData[Tracker.Data.playerPokemon["move3"] + 1]),
+		Utils.inlineIf(monIsEnemy, MoveData[Tracker.Data.enemyPokemon.moves.fourth.move], MoveData[Tracker.Data.playerPokemon["move4"] + 1]),
 	}--]]--
 	local moves = {}
 
-	local playerMon = Tracker.Data.selectedPokemon
-	local enemyMon = Tracker.Data.targetedPokemon
+	local playerMon = Tracker.Data.playerPokemon
+	local enemyMon = Tracker.Data.enemyPokemon
 	if not monIsEnemy then
 		moves = {MoveData[playerMon["move1"]+1], 
 				 MoveData[playerMon["move2"]+1], 
@@ -492,7 +482,7 @@ function Drawing.DrawTracker(monIsEnemy)
 	for moveIndex = 1, 4, 1 do
 		table.insert(moveColors, Drawing.moveToColor(moves[moveIndex]))
 	end
-
+	local targetMon = Utils.inlineIf(monIsEnemy,Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
 	local stabColors = {}
 	for moveIndex = 1, 4, 1 do
 		if moves[moveIndex].name == "Low Kick" then
@@ -508,29 +498,32 @@ function Drawing.DrawTracker(monIsEnemy)
 	end
 
 	-- Move category: physical, special, or status effect
-	local moveOffset = 7
-	local physicalCatLocation = DATA_FOLDER .. "/images/icons/physical.png"
-	local specialCatLocation = DATA_FOLDER .. "/images/icons/special.png"
-	local isStatusMove = {}
-	for moveIndex = 1, 4, 1 do
-		table.insert(isStatusMove, Utils.inlineIf(moves[moveIndex].category == MoveCategories.PHYSICAL or moves[moveIndex].category == MoveCategories.SPECIAL, false, true))
-	end
+	local moveOffset = 9
+	local physicalCatLocation = DATA_FOLDER .. "/images/icons/physical2.png"
+	local specialCatLocation =  DATA_FOLDER .. "/images/icons/special3.png"
+	local moveCategoryToIcon = {
+		[MoveCategories.PHYSICAL] = physicalCatLocation,
+		[MoveCategories.SPECIAL] = specialCatLocation,
+		[MoveCategories.STATUS] = "",
+		[MoveCategories.NONE] = ""
+	}
 	local categories = {}
 	for moveIndex = 1, 4, 1 do
 		local currentHiddenPowerCat = MoveTypeCategories[Tracker.Data.currentHiddenPowerType]
 		local category = Utils.inlineIf(moves[moveIndex].name == "Hidden Power", currentHiddenPowerCat, moves[moveIndex].category)
-		table.insert(categories, Utils.inlineIf(category == MoveCategories.PHYSICAL, physicalCatLocation, Utils.inlineIf(category == MoveCategories.SPECIAL, specialCatLocation, "")))
+		table.insert(categories, moveCategoryToIcon[category])
 	end
 	if Settings.tracker.SHOW_MOVE_CATEGORIES then
 		for catIndex = 0, 3, 1 do
-			if not isStatusMove[catIndex + 1] then
-				gui.drawImage(categories[catIndex + 1], GraphicConstants.SCREEN_WIDTH + moveOffset, moveStartY + 2 + (distanceBetweenMoves * catIndex))
+			local category = categories[catIndex+1]
+			if category ~= "" then
+				gui.drawImage(categories[catIndex + 1], GraphicConstants.SCREEN_WIDTH + moveOffset, moveStartY + 3 + (distanceBetweenMoves * catIndex))
 			end
 		end
 	end
 
 	-- Move names (longest name is 12 characters?)
-	local nameOffset = Utils.inlineIf(Settings.tracker.SHOW_MOVE_CATEGORIES, 14, moveOffset - 1)
+	local nameOffset = Utils.inlineIf(Settings.tracker.SHOW_MOVE_CATEGORIES, 17, moveOffset - 1)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + moveOffset - 2, moveStartY - moveTableHeaderHeightDiff, movesString)
 	for moveIndex = 1, 4, 1 do
 		if moves[moveIndex].name == "Hidden Power" and not monIsEnemy then
@@ -541,11 +534,31 @@ function Drawing.DrawTracker(monIsEnemy)
 		end
 	end
 
+	local PPs = {}
+
+	if monIsEnemy then
+		--The tracked moves are not a 1:1 index to the actual moves the enemy mon has.
+		--Match them up with the actual move and map the PP correctly.
+		for i, move in pairs(moves) do
+			local id = move.id
+			if id ~= "---" then
+				for j, actualMove in pairs(monToDraw.actualMoves) do
+					if actualMove == tonumber(id) then
+						PPs[i] = monToDraw.movePPs[j]
+					end
+				end
+			else
+				PPs[i] = ""
+			end
+		end
+	end
+
 	-- Move power points
 	local ppOffset = 82
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + ppOffset, moveStartY - moveTableHeaderHeightDiff, "PP")
 	for moveIndex = 1, 4, 1 do
-		Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + ppOffset, moveStartY + (distanceBetweenMoves * (moveIndex - 1)), Utils.inlineIf(monIsEnemy or moves[moveIndex].pp == NOPP, moves[moveIndex].pp, monToDraw.movePPs[moveIndex]),2)--Utils.getbits(monToDraw.pp, (moveIndex - 1) * 8, 8)), 2)
+		local pp = Utils.inlineIf(monIsEnemy,PPs[moveIndex],monToDraw.movePPs[moveIndex])
+		Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + ppOffset, moveStartY + (distanceBetweenMoves * (moveIndex - 1)),pp,2)--Utils.getbits(monToDraw.pp, (moveIndex - 1) * 8, 8)), 2)
 	end
 
 	-- Move attack power
