@@ -72,12 +72,12 @@ function Program.main()
 		end
 		Program.UpdatePlayerPokemonData()
 		Program.UpdateEnemyPokemonData()
-		Decrypter.currentBase = GameSettings.statStagesPlayer
-		Tracker.Data.playerPokemon["statStages"] = Decrypter.readBattleStatStages()
 	--	Program.UpdateMonStatStages()
 
 	Program.UpdateBagHealingItems()
 	if Tracker.Data.inBattle == 1 then
+		Decrypter.currentBase = GameSettings.statStagesPlayer
+		Tracker.Data.playerPokemon["statStages"] = Decrypter.readBattleStatStages()
 		local target = Tracker.Data.enemyPokemon
 		if target ~= nil then
 			for i,moveValue in pairs(target.actualMoves) do
@@ -276,8 +276,10 @@ function Program.scanItemsForHeals()
 	local itemStart = Utils.inlineIf(Tracker.Data.inBattle == 1,GameSettings.itemStartBattle,GameSettings.itemStartNoBattle)
 	
 	--battle can be set a few frames before item bag for battle gets updated, need to check this value as well
-	local garbageValue = 36449608
-	if memory.read_u32_le(GameSettings.itemStartBattle) == garbageValue then
+	local idAndQuantity = memory.read_u32_le(GameSettings.itemStartBattle)
+	local id = bit.band(idAndQuantity,0xFFFF)
+	local quantity = bit.band(bit.rshift(idAndQuantity,16),0xFFFF)
+	if quantity > 1000 or id > 600 then
 		itemStart = GameSettings.itemStartNoBattle
 	end
 	local currentAddress = itemStart
