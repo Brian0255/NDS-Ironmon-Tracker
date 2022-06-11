@@ -37,7 +37,6 @@ function Input.update()
 
 	-- "Settings.controls.CYCLE_STAT" pressed, display box over next stat
 	if joypadButtons[Settings.controls.CYCLE_STAT] == true and Input.joypad[Settings.controls.CYCLE_STAT] ~= joypadButtons[Settings.controls.CYCLE_STAT] then
-		print("PRESSED")
 		Tracker.controller.statIndex = (Tracker.controller.statIndex % 6) + 1
 		Tracker.waitFrames = 0
 	end
@@ -55,24 +54,6 @@ function Input.update()
 
 	-- "Settings.controls.CYCLE_PREDICTION" pressed, cycle stat prediction for selected stat
 	if joypadButtons[Settings.controls.CYCLE_PREDICTION] == true and Input.joypad[Settings.controls.CYCLE_PREDICTION] ~= joypadButtons[Settings.controls.CYCLE_PREDICTION] then
-		--[[local statButtonStates = {
-			Program.StatButtonState.hp,
-			Program.StatButtonState.att,
-			Program.StatButtonState.def,
-			Program.StatButtonState.spa,
-			Program.StatButtonState.spd,
-			Program.StatButtonState.spe,
-		}
-		local index = Tracker.controller.statIndex
-		local state = statButtonStates[index]
-		print(state)
-		print(StatButtonStates[state])
-		state = ((state + 1) % 3) + 1
-		Buttons[index].text = StatButtonStates[state]
-		print(Buttons[index].text)
-		Buttons[index].textcolor = StatButtonColors[state]
-		Tracker.TrackStatPrediction(Tracker.Data.selectedPokemon.pokemonID, Program.StatButtonState)
-		Tracker.waitFrames = 0--]]
 		Buttons[Tracker.controller.statIndex].onclick()
 		Tracker.waitFrames = 0
 	end
