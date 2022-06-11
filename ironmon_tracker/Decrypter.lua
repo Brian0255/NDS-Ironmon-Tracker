@@ -56,10 +56,7 @@ Decrypter.DecryptedDataInit = {
     nature = 0,
     encounterType = 0,
     actualMoves = {
-        move1 = 0,
-        move2 = 0,
-        move3 = 0,
-        move4 = 0
+        0,0,0,0
     },
     movePPs = {
         "","","",""
@@ -126,8 +123,6 @@ end
 
 function Decrypter.decrypt(checkingParty)
     Decrypter.DecryptedData = {}
-	local memdomain = "Main RAM"
-    memory.usememorydomain(memdomain)
     local currentBase = Decrypter.currentBase
     --Find the first mon that hasn't fainted.
     for i = 1,6,1 do
