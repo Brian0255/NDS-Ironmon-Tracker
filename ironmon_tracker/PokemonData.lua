@@ -40,18 +40,18 @@ EvolutionTypes = {
 	SUN = "SUN", -- Sun stone item
 	OVAL = "OVAL", --Oval stone item
 	LEAF_SUN = "LEAF/SUN", -- Leaf or Sun stone items
-	PROTECTOR = "PROTECTR", -- Protector held item
-	ELECTIRIZER = "ELECTRZR.", -- Elecirizer held item
-	MAGMARIZER = "MAGMARZR", -- Magmarizer held item
-	SHINY_STONE = "SHINY ST.", -- Magmarizer held item
-	RAZOR_FANG = "RAZ. FANG",  -- Razor Fang held item
-	RAZOR_CLAW = "RAZ. CLAW",  -- Razor Claw held item
-	DUBIOUS_DISC = "DUB. DISC", -- Dubious Disc held item
-	REAPER_CLOTH = "RE. CLOTH", -- Reaper Cloth held item
+	PROTECTOR = "PROTCTR", -- Protector held item
+	ELECTIRIZER = "ELECTRZR", -- Elecirizer held item
+	MAGMARIZER = "MAGMZR", -- Magmarizer held item
+	SHINY_STONE = "SHINY ST", -- Magmarizer held item
+	RAZOR_FANG = "RAZ. FNG",  -- Razor Fang held item
+	RAZOR_CLAW = "RAZ. CLW",  -- Razor Claw held item
+	DUBIOUS_DISC = "DUB. DSC", -- Dubious Disc held item
+	REAPER_CLOTH = "RE. CLTH", -- Reaper Cloth held item
 	UPGRADE = "UP-GRADE", 			--Up-Grade held item
-	DRAGON_SCALE = "DRG. SCALE", 	--Dragon Scale held item
+	DRAGON_SCALE = "DRG SCLE", 	--Dragon Scale held item
 	METAL_COAT = "MTL COAT", 		--Metal Coat held item
-	KINGS_ROCK = "KING'S RCK",		--King's Rock held item
+	KINGS_ROCK = "KNG RCK",		--King's Rock held item
 }
 
 --[[
@@ -9466,7 +9466,7 @@ PokemonData = {
 	{
 		name = "Leafeon",
 		type = { PokemonTypes.GRASS,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.EMPTY,
+		evolution = EvolutionTypes.NONE,
 		bst = "525",
 		movelvls = {
 		{},
@@ -9486,7 +9486,7 @@ PokemonData = {
 	{
 		name = "Glaceon",
 		type = { PokemonTypes.ICE,PokemonTypes.EMPTY },
-		evolution = EvolutionTypes.EMPTY,
+		evolution = EvolutionTypes.NONE,
 		bst = "525",
 		movelvls = {
 		{},

@@ -3475,7 +3475,7 @@ MoveDataMasterList = {
 		power = NOPOWER,
 		pp = "15",
 		accuracy = "100",
-		category = MoveCategories.SPECIAL,
+		category = MoveCategories.STATUS,
 	},
 	{
 		id = "378",
