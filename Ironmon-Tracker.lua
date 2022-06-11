@@ -45,6 +45,8 @@ Main.LoadNextSeed = false
 
 -- Main loop
 function Main.Run()
+	local memdomain = "Main RAM"
+    memory.usememorydomain(memdomain)
 	print("Waiting 5s before loading...")
 	local frames = 0
 	local waitBeforeHook = 300
@@ -57,7 +59,7 @@ function Main.Run()
 	Options.buildTrackerOptionsButtons()
 	GameSettings.initialize()
 	GameSettings.initMoveData()
-	if GameSettings.game == 0 then
+	if GameSettings.gameversion == 0 then
 		client.SetGameExtraPadding(0, 0, 0, 0)
 		while true do
 			gui.text(0, 0, "Lua error: " .. GameSettings.gamename)
