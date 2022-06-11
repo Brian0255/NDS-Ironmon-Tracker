@@ -106,82 +106,40 @@ end
 
 function Drawing.getNatureColor(stat, nature)
 	local color = GraphicConstants.LAYOUTCOLORS.NEUTRAL
-	if not Settings.tracker.NATURE_WITH_FONT_STYLE then
-		if nature % 6 == 0 then
-			color = GraphicConstants.LAYOUTCOLORS.NEUTRAL
-		elseif stat == "atk" then
-			if nature < 5 then
-				color = GraphicConstants.LAYOUTCOLORS.INCREASE
-			elseif nature % 5 == 0 then
-				color = GraphicConstants.LAYOUTCOLORS.DECREASE
-			end
-		elseif stat == "def" then
-			if nature > 4 and nature < 10 then
-				color = GraphicConstants.LAYOUTCOLORS.INCREASE
-			elseif nature % 5 == 1 then
-				color = GraphicConstants.LAYOUTCOLORS.DECREASE
-			end
-		elseif stat == "spe" then
-			if nature > 9 and nature < 15 then
-				color = GraphicConstants.LAYOUTCOLORS.INCREASE
-			elseif nature % 5 == 2 then
-				color = GraphicConstants.LAYOUTCOLORS.DECREASE
-			end
-		elseif stat == "spa" then
-			if nature > 14 and nature < 20 then
-				color = GraphicConstants.LAYOUTCOLORS.INCREASE
-			elseif nature % 5 == 3 then
-				color = GraphicConstants.LAYOUTCOLORS.DECREASE
-			end
-		elseif stat == "spd" then
-			if nature > 19 then
-				color = GraphicConstants.LAYOUTCOLORS.INCREASE
-			elseif nature % 5 == 4 then
-				color = GraphicConstants.LAYOUTCOLORS.DECREASE
-			end
+	if nature % 6 == 0 then
+		color = GraphicConstants.LAYOUTCOLORS.NEUTRAL
+	elseif stat == "atk" then
+		if nature < 5 then
+			color = GraphicConstants.LAYOUTCOLORS.INCREASE
+		elseif nature % 5 == 0 then
+			color = GraphicConstants.LAYOUTCOLORS.DECREASE
+		end
+	elseif stat == "def" then
+		if nature > 4 and nature < 10 then
+			color = GraphicConstants.LAYOUTCOLORS.INCREASE
+		elseif nature % 5 == 1 then
+			color = GraphicConstants.LAYOUTCOLORS.DECREASE
+		end
+	elseif stat == "spe" then
+		if nature > 9 and nature < 15 then
+			color = GraphicConstants.LAYOUTCOLORS.INCREASE
+		elseif nature % 5 == 2 then
+			color = GraphicConstants.LAYOUTCOLORS.DECREASE
+		end
+	elseif stat == "spa" then
+		if nature > 14 and nature < 20 then
+			color = GraphicConstants.LAYOUTCOLORS.INCREASE
+		elseif nature % 5 == 3 then
+			color = GraphicConstants.LAYOUTCOLORS.DECREASE
+		end
+	elseif stat == "spd" then
+		if nature > 19 then
+			color = GraphicConstants.LAYOUTCOLORS.INCREASE
+		elseif nature % 5 == 4 then
+			color = GraphicConstants.LAYOUTCOLORS.DECREASE
 		end
 	end
 	return color
-end
-
-function Drawing.getNatureStyle(monIsEnemy, stat, nature)
-	local style = "regular"
-	if Settings.tracker.NATURE_WITH_FONT_STYLE and not monIsEnemy then
-		if nature % 6 == 0 then
-			style = "regular"
-		elseif stat == "atk" then
-			if nature < 5 then
-				style = "bold"
-			elseif nature % 5 == 0 then
-				style = "italic"
-			end
-		elseif stat == "def" then
-			if nature > 4 and nature < 10 then
-				style = "bold"
-			elseif nature % 5 == 1 then
-				style = "italic"
-			end
-		elseif stat == "spe" then
-			if nature > 9 and nature < 15 then
-				style = "bold"
-			elseif nature % 5 == 2 then
-				style = "italic"
-			end
-		elseif stat == "spa" then
-			if nature > 14 and nature < 20 then
-				style = "bold"
-			elseif nature % 5 == 3 then
-				style = "italic"
-			end
-		elseif stat == "spd" then
-			if nature > 19 then
-				style = "bold"
-			elseif nature % 5 == 4 then
-				style = "italic"
-			end
-		end
-	end
-	return style
 end
 
 function Drawing.drawStatusLevel(x, y, value)
@@ -286,10 +244,12 @@ function Drawing.drawHeals(monIsEnemy)
 end
 
 function Drawing.drawAccEvasion(monToDraw)
-	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 75, 58, "ACC", GraphicConstants.LAYOUTCOLORS.NEUTRAL)
-	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 75, 68, "EVA", GraphicConstants.LAYOUTCOLORS.NEUTRAL)
-	Drawing.drawStatusLevel(GraphicConstants.SCREEN_WIDTH + 94,58,monToDraw.statStages["ACC"])
-	Drawing.drawStatusLevel(GraphicConstants.SCREEN_WIDTH + 94,68,monToDraw.statStages["EVA"])
+	if Settings.tracker.SHOW_ACCURACY_AND_EVASION then
+		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 75, 58, "ACC", GraphicConstants.LAYOUTCOLORS.NEUTRAL)
+		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 75, 68, "EVA", GraphicConstants.LAYOUTCOLORS.NEUTRAL)
+		Drawing.drawStatusLevel(GraphicConstants.SCREEN_WIDTH + 94,58,monToDraw.statStages["ACC"])
+		Drawing.drawStatusLevel(GraphicConstants.SCREEN_WIDTH + 94,68,monToDraw.statStages["EVA"])
+	end
 end
 
 function Drawing.drawAbilityAndHeldItem(monIsEnemy,monToDraw)
@@ -329,16 +289,16 @@ function Drawing.drawStatsAndStages(monIsEnemy,monToDraw)
 
 	for i,stat in pairs(stats) do
 		local color = Utils.inlineIf(monIsEnemy, GraphicConstants.LAYOUTCOLORS.NEUTRAL, Drawing.getNatureColor(stat, monToDraw["nature"]))
-		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX-2, hpY+((i-1)*statInc), " "..string.upper(stat), color, Drawing.getNatureStyle(monIsEnemy, stat, monToDraw.nature))
+		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX-2, hpY+((i-1)*statInc), " "..string.upper(stat), color, "regular")
 	end
 
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX, bstY, "BST", GraphicConstants.LAYOUTCOLORS.NEUTRAL)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statValueOffsetX, bstY, PokemonData[monToDraw["pokemonID"] + 1].bst, GraphicConstants.LAYOUTCOLORS.NEUTRAL)
 
 	if monIsEnemy == false then
-		Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + statValueOffsetX, hpY, monToDraw["maxHP"], 3, Drawing.getNatureColor("hp", monToDraw["nature"]), Drawing.getNatureStyle(monIsEnemy, "hp", monToDraw.nature))
+		Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + statValueOffsetX, hpY, monToDraw["maxHP"], 3, Drawing.getNatureColor("hp", monToDraw["nature"]), "regular")
 		for i, stat in pairs(stats) do
-			Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + statValueOffsetX, hpY+((i-1)*statInc), monToDraw[stat], 3, Drawing.getNatureColor(stat, monToDraw["nature"]), Drawing.getNatureStyle(monIsEnemy, stat, monToDraw.nature))
+			Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + statValueOffsetX, hpY+((i-1)*statInc), monToDraw[stat], 3, Drawing.getNatureColor(stat, monToDraw["nature"]), "regular")
 		end
 	end
 
@@ -519,8 +479,7 @@ function Drawing.drawMoveCategories(moves)
 	}
 	local categories = {}
 	for moveIndex = 1, 4, 1 do
-		local currentHiddenPowerCat = MoveTypeCategories[Tracker.Data.currentHiddenPowerType]
-		local category = Utils.inlineIf(moves[moveIndex].name == "Hidden Power", currentHiddenPowerCat, moves[moveIndex].category)
+		local category = moves[moveIndex].category
 		table.insert(categories, moveCategoryToIcon[category])
 	end
 	if Settings.tracker.SHOW_MOVE_CATEGORIES then
@@ -581,10 +540,14 @@ function Drawing.fillMovePPs(moves, monToDraw, monIsEnemy)
 		for i, move in pairs(moves) do
 			local id = move.id
 			if id ~= "---" then
-				for j, actualMove in pairs(monToDraw.actualMoves) do
-					if actualMove == tonumber(id) then
-						PPs[i] = monToDraw.movePPs[j]
+				if Settings.tracker.SHOW_ACTUAL_ENEMY_PP then
+					for j, actualMove in pairs(monToDraw.actualMoves) do
+						if actualMove == tonumber(id) then
+							PPs[i] = monToDraw.movePPs[j]
+						end
 					end
+				else
+					PPs[i] = MoveData[id+1].pp
 				end
 			else
 				PPs[i] = ""
@@ -702,8 +665,8 @@ function Drawing.drawSettings()
 		Drawing.drawText(button.box[1] + button.box[3] + 1, button.box[2] - 1, button.text, button.textColor)
 		-- Draw a mark if the feature is on
 		if button.optionState then
-			gui.drawLine(button.box[1], button.box[2], button.box[1] + button.box[3], button.box[2] + button.box[4], button.optionColor)
-			gui.drawLine(button.box[1], button.box[2] + button.box[4], button.box[1] + button.box[3], button.box[2], button.optionColor)
+			gui.drawLine(button.box[1]+1,button.box[2]+4,button.box[1]+3,button.box[2]+7, button.optionColor)
+			gui.drawLine(button.box[1]+3,button.box[2]+7,button.box[1]+button.box[3]-1,button.box[2]+1, button.optionColor)
 		end
 	end
 end
