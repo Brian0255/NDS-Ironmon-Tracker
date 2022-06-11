@@ -286,7 +286,6 @@ function Decrypter.readBattleStatStages()
 
     local first4Bytes = memory.read_u32_le(Decrypter.currentBase)
     local last4Bytes = memory.read_u32_le(Decrypter.currentBase+4)
-
     --format:
     --HP, ATK, DEF, SPEED, SPATK, SPDEF, ACC, EVASION, 
     local SPE = bit.band(bit.rshift(first4Bytes,24),0xFF)
@@ -309,6 +308,26 @@ function Decrypter.readBattleStatStages()
         ["ACC"] = ACC,
         ["EVA"] = EVA
     }
+
+    local validStats = true
+    local all0 = true
+
+    --Make sure all are in range.
+    for i,stat in pairs(statStages) do
+        if stat < 0 or stat > 12 then
+            validStats = false
+        else
+            if stat ~= 0 then all0 = false end
+        end
+    end
+
+
+
+    if not validStats or all0 then
+        for i, stat in pairs(statStages) do
+            statStages[i] = 6
+        end
+    end
 
     return statStages
 end
