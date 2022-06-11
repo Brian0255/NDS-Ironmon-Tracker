@@ -20,7 +20,7 @@ function Drawing.drawPokemonIcon(id, x, y)
 	if id < 0 or id > #PokemonData then
 		id = 0
 	end
-	gui.drawImage(DATA_FOLDER .. "/images/gen5_icons2/" .. id .. ".png", x+1, y-5)
+	gui.drawImage(DATA_FOLDER .. "/images/pokemonIcons/" .. id .. ".png", x+1, y-5)
 	--gui.drawImage(DATA_FOLDER .. "/images/pokemon/" .. id .. ".gif", x+6, y-6, 32, 32)
 	if PokemonData[id + 1].type[1] ~= "" then
 		gui.drawImage(DATA_FOLDER .. "/images/types/" .. PokemonData[id + 1].type[1] .. ".png", x + 1, y + 28, 30, 12)
@@ -469,8 +469,8 @@ end
 
 function Drawing.drawMoveCategories(moves)
 	-- Move category: physical, special, or status effect
-	local physicalCatLocation = DATA_FOLDER .. "/images/icons/physical2.png"
-	local specialCatLocation =  DATA_FOLDER .. "/images/icons/special4.png"
+	local physicalCatLocation = DATA_FOLDER .. "/images/icons/physical.png"
+	local specialCatLocation =  DATA_FOLDER .. "/images/icons/special.png"
 	local moveCategoryToIcon = {
 		[MoveCategories.PHYSICAL] = physicalCatLocation,
 		[MoveCategories.SPECIAL] = specialCatLocation,
