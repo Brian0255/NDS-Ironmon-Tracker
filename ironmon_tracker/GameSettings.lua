@@ -1,29 +1,59 @@
 GameSettings = {
-	--3265629915
-	playerBase = 0x27C330,--0x27C330,--0x27C330,
-	playerBattleBase = 0x2CAD20, --0x2CAD20,
-	enemyBase = 0x2CB2F0,
-	playerBattleMonPID = 0x2C6104,--0x2A1E28,--0x2C6104,
-	enemyBattleMonPID = 0x2C61C4,
-	battleStatus = 0x246F48,
-	itemStartNoBattle = 0x27CDFC,
-	itemStartBattle = 0x2C2D60,
-	trainerID = 0x27C300,
-	statStagesPlayer = 0x2C60B4,
-	statStagesEnemy = 0x2C6174,
-
---[[	playerBase = 0x2349B4,
-	playerBattleBase = 0x26A234,
-	activeBattleMonPID = 0x2A7E70,
-
-	BASE_SEARCH_START = 0x27C200,
-	BASE_SEARCH_VALUE = 0xE97E0000,--]]
-	game = 0,
+	playerBase = 0,
+	playerBattleBase = 0, 
+	enemyBase = 0,
+	playerBattleMonPID = 0,
+	enemyBattleMonPID = 0,
+	battleStatus = 0,
+	itemStartNoBattle = 0,
+	itemStartBattle = 0,
+	statStagesPlayer = 0,
+	statStagesEnemy = 0,
+	versiongroup = 0,
 	gamename = "",
 	gen = 0,
 }
 
-VERSIONS = {
+function GameSettings.setAsHeartGoldSoulSilver()
+	GameSettings.playerBase = 0x27C330
+	GameSettings.playerBattleBase = 0x2CAD20
+	GameSettings.enemyBase = 0x2CB2F0
+	GameSettings.playerBattleMonPID = 0x2C6104
+	GameSettings.enemyBattleMonPID = 0x2C61C4
+	GameSettings.battleStatus = 0x246F48
+	GameSettings.itemStartNoBattle = 0x27CDFC
+	GameSettings.itemStartBattle = 0x2C2D60
+	GameSettings.statStagesPlayer = 0x2C60B4
+	GameSettings.statStagesEnemy = 0x2C6174
+end
+
+function GameSettings.setAsPlatinum()
+	GameSettings.playerBase = 0x27E24C
+	GameSettings.playerBattleBase = 0x2C9A44
+	GameSettings.enemyBase = 0x2C9FF4
+	GameSettings.playerBattleMonPID = 0x2C57B8
+	GameSettings.enemyBattleMonPID = 0x2C5878
+	GameSettings.battleStatus = 0x24A55A
+	GameSettings.itemStartNoBattle = 0x27ecf8
+	GameSettings.itemStartBattle = 0x2C2454
+	GameSettings.statStagesPlayer = 0x2C5768
+	GameSettings.statStagesEnemy = 0x2C5828
+end
+
+function GameSettings.setAsDiamondPearl()
+	GameSettings.playerBase = 0x26D5AC
+	GameSettings.playerBattleBase = 0x2B9AD8
+	GameSettings.enemyBase = 0x2BA088
+	GameSettings.playerBattleMonPID = 0x2B58E8
+	GameSettings.enemyBattleMonPID = 0x2B59A8
+	GameSettings.battleStatus = 0x23BB38
+	GameSettings.itemStartNoBattle = 0x26E054
+	GameSettings.itemStartBattle = 0x2B276C
+	GameSettings.statStagesPlayer = 0x2B5898
+	GameSettings.statStagesEnemy = 0x2B5958
+end
+
+GameSettings.VERSIONS = {
     'red-blue',
     'yellow',
     'gold-silver',
@@ -44,7 +74,7 @@ VERSIONS = {
     'ultra-sun-ultra-moon',
 }
 
-VERSION_TO_GEN_NUMBER = {
+GameSettings.VERSION_TO_GEN_NUMBER = {
     ["red-blue"] = 1,
     yellow = 1,
     ["gold-silver"] = 2,
@@ -65,6 +95,24 @@ VERSION_TO_GEN_NUMBER = {
     ["ultra-sun-ultra-moon"] = 7,
 }
 
+GameSettings.GAMECODE_TO_VERSION_GROUP = {
+	[0x45415041] = 8,
+	[0x45414441] = 8,
+	[0x45555043] = 9,
+	[0x454B5049] = 10,
+	[0x45475049] = 10,
+}
+
+GameSettings.GAMECODE_TO_GAME_NAME = {
+	[0x45415041] = "Pokemon Pearl",
+	[0x45414441] = "Pokemon Diamond",
+	[0x45555043] = "Pokemon Platinum",
+	[0x454B5049] = "Pokemon HeartGold",
+	[0x45475049] = "Pokemon SoulSilver",
+}
+
+
+GameSettings.CARTRIDGE_HEADER = 0x3FFE00
 
 function GameSettings.initMoveData()
 	for _,move in pairs(MoveDataMasterList) do
@@ -89,24 +137,23 @@ function GameSettings.initMoveData()
 end
 
 function GameSettings.initialize()
-	--[[local val = Decrypter.find4ByteValueAddr(GameSettings.BASE_SEARCH_START,GameSettings.BASE_SEARCH_VALUE,400)
-	local oldBase = GameSettings.playerBase
-	GameSettings.playerBase = val - 0x08
-	local diff = GameSettings.playerBase - oldBase
-	print(diff)
-	print(GameSettings.playerBase)
-	
-	GameSettings.playerBattleBase = GameSettings.playerBattleBase + diff
-	GameSettings.enemyBase = GameSettings.enemyBase + diff
-	GameSettings.playerBattleMonPID = GameSettings.playerBattleMonPID + diff
-	GameSettings.enemyBattleMonPID = GameSettings.enemyBattleMonPID + diff
-	GameSettings.itemStartNoBattle = GameSettings.itemStartNoBattle + diff
-	GameSettings.itemStartBattle = GameSettings.itemStartBattle + diff--]]
+	local gameCode = memory.read_u32_le(GameSettings.CARTRIDGE_HEADER+0x0C)
+	GameSettings.versiongroup = GameSettings.GAMECODE_TO_VERSION_GROUP[gameCode]
+	GameSettings.gamename = GameSettings.GAMECODE_TO_GAME_NAME[gameCode]
+	local versionName = GameSettings.VERSIONS[GameSettings.versiongroup]
+	GameSettings.gen = GameSettings.VERSION_TO_GEN_NUMBER[versionName]
+	print(GameSettings.gen)
 
-	GameSettings.game = 10
-	GameSettings.gamename = VERSIONS[GameSettings.game]
-	GameSettings.versiongroup = 10
-	GameSettings.gen = VERSION_TO_GEN_NUMBER[GameSettings.gamename]
+	print(GameSettings.gamename.. " detected.")
+
+	if GameSettings.versiongroup == 8 then 
+		GameSettings.setAsDiamondPearl()
+	elseif GameSettings.versiongroup == 9 then 
+		GameSettings.setAsPlatinum()
+	elseif GameSettings.versiongroup == 10 then 
+		GameSettings.setAsHeartGoldSoulSilver()
+	end
+
 	Decrypter.init()
 	local alternateStart = 496
 	for i,pokemon in pairs(Gen4AlternateForms) do
