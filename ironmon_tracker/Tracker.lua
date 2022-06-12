@@ -2,7 +2,6 @@ Tracker = {}
 
 Tracker.userDataKey = "ironmon_tracker_data"
 
-Tracker.redraw = true
 Tracker.waitFrames = 0
 
 Tracker.controller = {
@@ -210,5 +209,4 @@ function Tracker.loadData()
 	end
 
 	Tracker.Data.romHash = gameinfo.getromhash()
-	Tracker.redraw = true
 end
