@@ -2,7 +2,6 @@ Tracker = {}
 
 Tracker.userDataKey = "ironmon_tracker_data"
 
-Tracker.redraw = true
 Tracker.waitFrames = 0
 
 Tracker.controller = {
@@ -15,8 +14,8 @@ Tracker.Data = {}
 
 function Tracker.InitTrackerData()
 	local trackerData = {
-		selectedPokemon = Decrypter.DecryptedDataInit,
-		targetedPokemon = {},
+		playerPokemon = Decrypter.DecryptedDataInit,
+		enemyPokemon = {},
 		main = {
 			ability = 0
 		},
@@ -72,55 +71,38 @@ function Tracker.TrackMove(pokemonId, moveId, level)
 	local currentMoves = Tracker.Data.moves[pokemonId]
 	if currentMoves == nil then
 		Tracker.Data.moves[pokemonId] = {}
-		Tracker.Data.moves[pokemonId].first = {
+		Tracker.Data.moves[pokemonId][1] = {
 			move = moveId,
 			level = level
 		}
-		Tracker.Data.moves[pokemonId].second = {
-			move = 1,
-			level = 1
+		for i = 2,4,1 do
+		Tracker.Data.moves[pokemonId][i] = {
+			move = 1, level = 1
 		}
-		Tracker.Data.moves[pokemonId].third = {
-			move = 1,
-			level = 1
-		}
-		Tracker.Data.moves[pokemonId].fourth = {
-			move = 1,
-			level = 1
-		}
+		end
 	else
 		local moveSeen = false
 		local moveCount = 0
 		local whichMove = 0
-		for key, value in pairs(currentMoves) do
+		for i, moveData in pairs(currentMoves) do
 			moveCount = moveCount + 1
-			if value.move == moveId then
+			if moveData.move == moveId then
 				moveSeen = true
-				whichMove = key
+				whichMove = i
 			end
 		end
 
 		if moveSeen == false then
-			if moveCount == 1 then
-				Tracker.Data.moves[pokemonId].second = {
+			if moveCount < 4 then
+				Tracker.Data.moves[pokemonId[moveCount+1]] = {
 					move = moveId,
 					level = level
 				}
-			elseif moveCount == 2 then
-				Tracker.Data.moves[pokemonId].third = {
-					move = moveId,
-					level = level
-				}
-			elseif moveCount == 3 then
-				Tracker.Data.moves[pokemonId].fourth = {
-					move = moveId,
-					level = level
-				}
-			elseif moveCount == 4 then
-				Tracker.Data.moves[pokemonId].fourth = Tracker.Data.moves[pokemonId].third
-				Tracker.Data.moves[pokemonId].third = Tracker.Data.moves[pokemonId].second
-				Tracker.Data.moves[pokemonId].second = Tracker.Data.moves[pokemonId].first
-				Tracker.Data.moves[pokemonId].first = {
+			else
+				for i = 4,2,-1 do
+					Tracker.Data.moves[pokemonId][i] = Tracker.Data.moves[pokemonId][i-1]
+				end
+				Tracker.Data.moves[pokemonId][1] = {
 					move = moveId,
 					level = level
 				}
@@ -158,46 +140,18 @@ function Tracker.GetNote()
 end
 
 function Tracker.getMoves(pokemonId)
+	local returnVal = {}
 	if Tracker.Data.moves[pokemonId] == nil then
-		return {
-			first = {
+		for i = 1,4,1 do
+			table.insert(returnVal,{
 				move = 1,
 				level = 1
-			},
-			second = {
-				move = 1,
-				level = 1
-			},
-			third = {
-				move = 1,
-				level = 1
-			},
-			fourth = {
-				move = 1,
-				level = 1
-			}
-		}
+			})
+		end
+		return returnVal
 	else
 		return Tracker.Data.moves[pokemonId]
 	end
-	return {
-		first = {
-			move = 1,
-			level = 1
-		},
-		second = {
-			move = 1,
-			level = 1
-		},
-		third = {
-			move = 1,
-			level = 1
-		},
-		fourth = {
-			move = 1,
-			level = 1
-		}
-	}
 end
 
 function Tracker.getAbilities(pokemonId)
@@ -255,5 +209,4 @@ function Tracker.loadData()
 	end
 
 	Tracker.Data.romHash = gameinfo.getromhash()
-	Tracker.redraw = true
 end

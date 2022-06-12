@@ -56,10 +56,7 @@ Decrypter.DecryptedDataInit = {
     nature = 0,
     encounterType = 0,
     actualMoves = {
-        move1 = 0,
-        move2 = 0,
-        move3 = 0,
-        move4 = 0
+        0,0,0,0
     },
     movePPs = {
         "","","",""
@@ -119,32 +116,16 @@ Decrypter.GEN_4_5_BLOCK_SIZE = 32
 Decrypter.GEN_4_TOTAL_DATA_SIZE = 236
 Decrypter.GEN_5_TOTAL_DATA_SIZE = 220
 
---[[
-function Decrypter.unshuffleBlocks(blocks, shiftValue)
-    local correctedBlocks = {}
-
-    local ABlockPosition = Decrypter.BLOCK_A_SHUFFLE_ORDER[shiftValue+1]
-    local BBlockPosition = Decrypter.BLOCK_B_SHUFFLE_ORDER[shiftValue+1]
-    local CBlockPosition = Decrypter.BLOCK_C_SHUFFLE_ORDER[shiftValue+1]
-    local DBlockPosition = Decrypter.BLOCK_D_SHUFFLE_ORDER[shiftValue+1]
-
-    table.insert(correctedBlocks,blocks[ABlockPosition])
-    table.insert(correctedBlocks,blocks[BBlockPosition])
-    table.insert(correctedBlocks,blocks[CBlockPosition])
-    table.insert(correctedBlocks,blocks[DBlockPosition])
-
-    return correctedBlocks
-end--]]
+--Each battle mon's hp/maxHP in gen 5 are separated by 548 bytes.
+Decrypter.GEN_5_BATTLE_HP_OFFSET = 548
 
 function Decrypter.init()
     local gen = GameSettings.gen
     Decrypter.pokemonDataSize = Utils.inlineIf(gen == 4,Decrypter.GEN_4_TOTAL_DATA_SIZE,Decrypter.GEN_5_TOTAL_DATA_SIZE)
 end
 
-function Decrypter.decrypt(checkingParty)
+function Decrypter.decrypt(checkingParty,monIndex)
     Decrypter.DecryptedData = {}
-	local memdomain = "Main RAM"
-    memory.usememorydomain(memdomain)
     local currentBase = Decrypter.currentBase
     --Find the first mon that hasn't fainted.
     for i = 1,6,1 do
@@ -158,7 +139,7 @@ function Decrypter.decrypt(checkingParty)
             local seed = checksum
             Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
             local battleStatStart = currentBase+0x88
-            Decrypter.decryptBattleStats(pid,battleStatStart)
+            Decrypter.decryptBattleStats(pid,battleStatStart,monIndex)
             Decrypter.DecryptedData.actualMoves = {
                 Decrypter.DecryptedData.move1,
                 Decrypter.DecryptedData.move2,
@@ -214,7 +195,7 @@ function Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
     return seed
 end
 
-function Decrypter.decryptBattleStats(pid,battleStatStart)
+function Decrypter.decryptBattleStats(pid,battleStatStart,monIndex)
     local offsets = Decrypter.GEN_4_5_BATTLE_STAT_OFFSETS
     local previousOffset = 0
     local seed = pid
@@ -227,6 +208,11 @@ function Decrypter.decryptBattleStats(pid,battleStatStart)
             Decrypter.decryptWord(seed,offsetData,battleStatStart)
             previousOffset = offsetAmount
         end
+    end
+    --Gen 5 does not update the current HP in the player's battle party. It's stored elsewhere as unencrypted data.
+    if Tracker.Data.inBattle == 1 and GameSettings.gen == 5 then
+        Decrypter.DecryptedData.curHP = memory.read_u16_le(GameSettings.curHPBattlePlayer+monIndex*548)
+        Decrypter.DecryptedData.maxHP = memory.read_u16_le(GameSettings.maxHPBattlePlayer+monIndex*548)
     end
 end
 
@@ -299,7 +285,89 @@ function Decrypter.find4ByteValueAddr(base,searchFor,limit)
     return -1
 end
 
---function Decrypter.readBattleStats()
+function Decrypter.readBattleStatStages()
+
+    local statStages = {}
+
+    local first4Bytes = memory.read_u32_le(Decrypter.currentBase)
+    local last4Bytes = memory.read_u32_le(Decrypter.currentBase+4)
+    local HP = 6
+    local ATK = 6
+    local DEF = 6
+    local SPE = 6
+    local SPA = 6
+    local SPD = 6
+    local ACC = 6
+    local EVA = 6
+
+    if GameSettings.gen ==  4 then
+        --format(gen 4):
+        --HP, ATK, DEF, SPEED, SPATK, SPDEF, ACC, EVASION, 
+        HP = bit.band(first4Bytes,0xFF)
+        ATK = bit.band(bit.rshift(first4Bytes,8),0xFF)
+        DEF = bit.band(bit.rshift(first4Bytes,16),0xFF)
+        SPE = bit.band(bit.rshift(first4Bytes,24),0xFF)
+
+        SPA = bit.band(last4Bytes,0xFF)
+        SPD = bit.band(bit.rshift(last4Bytes,8),0xFF)
+        ACC = bit.band(bit.rshift(last4Bytes,16),0xFF)
+        EVA = bit.band(bit.rshift(last4Bytes,24),0xFF)
+    end
+    --[[elseif GameSettings.gen == 5 then
+        ATK = bit.band(first4Bytes,0xFF)
+        DEF = bit.band(bit.rshift(first4Bytes,8),0xFF)
+        SPA = bit.band(bit.rshift(first4Bytes,16),0xFF)
+        SPD = bit.band(bit.rshift(first4Bytes,24),0xFF)
+
+        SPE = bit.band(last4Bytes,0xFF)
+        ACC = bit.band(bit.rshift(last4Bytes,8),0xFF)
+        EVA = bit.band(bit.rshift(last4Bytes,16),0xFF)
+        HP = 6
+    end--]]
+
+    statStages = {
+        ["HP"] = HP,
+        ["ATK"] = ATK,
+        ["DEF"] = DEF,
+        ["SPE"] = SPE,
+        ["SPA"] = SPA,
+        ["SPD"] = SPD,
+        ["ACC"] = ACC,
+        ["EVA"] = EVA
+    }
+
+   --[[ if GameSettings.gen == 5 then
+        statStages = {
+            ["ATK"] = ATK,
+            ["DEF"] = DEF,
+            ["SPE"] = SPE,
+            ["SPA"] = SPA,
+            ["SPD"] = SPD,
+            ["ACC"] = ACC,
+            ["EVA"] = EVA
+        }
+    end--]]
+
+    local validStats = true
+    local all0 = true
+
+    --Make sure all are in range.
+    for i,stat in pairs(statStages) do
+        if stat < 0 or stat > 12 then
+            validStats = false
+        else
+            if stat ~= 0 then all0 = false end
+        end
+    end
+
+    if not validStats or all0 then
+        for i, stat in pairs(statStages) do
+            statStages[i] = 6
+        end
+    end
+
+    return statStages
+end
 
 
 

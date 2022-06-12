@@ -1,13 +1,11 @@
--- IronMon Tracker
--- Created by besteon, based on the PokemonBizhawkLua project by MKDasher
+-- NDS Ironnon Tracker
+-- Created by OnlySpaghettiCode, largely based on the Ironmon Tracker by besteon and other contributors
 
 -- The latest version of the tracker. Should be updated with each PR.
-TRACKER_VERSION = "0.3.1"
+TRACKER_VERSION = "0.0.1"
 
 -- A frequently used placeholder when a data field is not applicable
 PLACEHOLDER = "---" -- TODO: Consider moving into a better global constant location? Placed here for now to ensure it is available to all subscripts.
-
-print("\nIronmon-Tracker v" .. TRACKER_VERSION)
 
 -- Check the version of BizHawk that is running
 if string.sub(client.getversion(), 1) ~= "2.8" then
@@ -45,19 +43,19 @@ Main.LoadNextSeed = false
 
 -- Main loop
 function Main.Run()
-	print("Waiting 5s before loading...")
-	local frames = 0
-	local waitBeforeHook = 300
-	while frames < waitBeforeHook do
+	local loaded = false
+	while not loaded do
+		if gameinfo.getromname() ~= "Null" then
+			loaded = true
+		end
 		emu.frameadvance()
-		frames = frames + 1
 	end
-	print("Loading...")
-
+	print("\nNDS-Ironmon-Tracker v" .. TRACKER_VERSION)
+	print("NDS ROM detected. Loading...")
 	Options.buildTrackerOptionsButtons()
 	GameSettings.initialize()
 	GameSettings.initMoveData()
-	if GameSettings.game == 0 then
+	if GameSettings.gameversion == 0 then
 		client.SetGameExtraPadding(0, 0, 0, 0)
 		while true do
 			gui.text(0, 0, "Lua error: " .. GameSettings.gamename)
@@ -82,6 +80,7 @@ function Main.Run()
 end
 
 function Main.LoadNext()
+	print("CALLED")
 	userdata.clear()
 	print "Reset tracker"
 

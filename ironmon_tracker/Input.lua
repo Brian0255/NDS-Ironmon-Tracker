@@ -31,13 +31,11 @@ function Input.update()
 			end
 		end
 
-		Tracker.redraw = true
 		Tracker.waitFrames = 0
 	end
 
 	-- "Settings.controls.CYCLE_STAT" pressed, display box over next stat
 	if joypadButtons[Settings.controls.CYCLE_STAT] == true and Input.joypad[Settings.controls.CYCLE_STAT] ~= joypadButtons[Settings.controls.CYCLE_STAT] then
-		print("PRESSED")
 		Tracker.controller.statIndex = (Tracker.controller.statIndex % 6) + 1
 		Tracker.waitFrames = 0
 	end
@@ -55,24 +53,6 @@ function Input.update()
 
 	-- "Settings.controls.CYCLE_PREDICTION" pressed, cycle stat prediction for selected stat
 	if joypadButtons[Settings.controls.CYCLE_PREDICTION] == true and Input.joypad[Settings.controls.CYCLE_PREDICTION] ~= joypadButtons[Settings.controls.CYCLE_PREDICTION] then
-		--[[local statButtonStates = {
-			Program.StatButtonState.hp,
-			Program.StatButtonState.att,
-			Program.StatButtonState.def,
-			Program.StatButtonState.spa,
-			Program.StatButtonState.spd,
-			Program.StatButtonState.spe,
-		}
-		local index = Tracker.controller.statIndex
-		local state = statButtonStates[index]
-		print(state)
-		print(StatButtonStates[state])
-		state = ((state + 1) % 3) + 1
-		Buttons[index].text = StatButtonStates[state]
-		print(Buttons[index].text)
-		Buttons[index].textcolor = StatButtonColors[state]
-		Tracker.TrackStatPrediction(Tracker.Data.selectedPokemon.pokemonID, Program.StatButtonState)
-		Tracker.waitFrames = 0--]]
 		Buttons[Tracker.controller.statIndex].onclick()
 		Tracker.waitFrames = 0
 	end
@@ -107,9 +87,9 @@ function Input.check(xmouse, ymouse)
 			local textBox = forms.textbox(Input.noteForm, Tracker.GetNote(), 200, 20)
 			forms.button(Input.noteForm, "Set", function()
 				Tracker.SetNote(forms.gettext(textBox))
-				Tracker.redraw = true
 				forms.destroy(Input.noteForm)
 				Input.noteForm = nil
+				Tracker.waitFrames = 0
 			end, 200, 0)
 		end
 
@@ -120,6 +100,8 @@ function Input.check(xmouse, ymouse)
 			if Input.isInRange(xmouse, ymouse, value.box[1], value.box[2], GraphicConstants.RIGHT_GAP - (value.box[3] * 2), value.box[4]) then
 				value.optionState = value.onClick()
 				Options.redraw = true
+				Tracker.waitFrames = 0
+				INI.save("Settings.ini", Settings)
 			end
 		end
 
@@ -127,21 +109,19 @@ function Input.check(xmouse, ymouse)
 		if Input.isInRange(xmouse, ymouse, Options.romsFolderOption.box[1], Options.romsFolderOption.box[2], GraphicConstants.RIGHT_GAP - (Options.romsFolderOption.box[3] * 2), Options.romsFolderOption.box[4]) then
 			-- Use the standard file open dialog to get the roms folder
 			local file = forms.openfile(nil, Settings.config.ROMS_FOLDER)
-			-- Since the user had to pick a file, strip out the file name to just get the folder.
-			Settings.config.ROMS_FOLDER = string.sub(file, 0, string.match(file, "^.*()\\") - 1)
+			if file ~= "" then
+				-- Since the user had to pick a file, strip out the file name to just get the folder.
+				Settings.config.ROMS_FOLDER = string.sub(file, 0, string.match(file, "^.*()\\") - 1)
+				INI.save("Settings.ini", Settings)
+			end
 			Options.redraw = true
-			Options.updated = true
+			Tracker.waitFrames = 0
 		end
 
 		-- Settings close button
 		if Input.isInRange(xmouse, ymouse, Options.closeButton.box[1], Options.closeButton.box[2], Options.closeButton.box[3], Options.closeButton.box[4]) then
-			-- Save the Settings.ini file if any changes were made
-			if Options.updated then
-				Options.updated = false
-				INI.save("Settings.ini", Settings)
-			end
-			Tracker.redraw = true
 			Program.state = State.TRACKER
+			Tracker.waitFrames = 0
 		end
 	end
 end
