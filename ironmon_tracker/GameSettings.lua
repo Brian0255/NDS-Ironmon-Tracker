@@ -9,6 +9,8 @@ GameSettings = {
 	itemStartBattle = 0,
 	statStagesPlayer = 0,
 	statStagesEnemy = 0,
+	curHPBattlePlayer = nil,
+	maxHPBattlePLayer = nil,
 	versiongroup = 0,
 	gamename = "",
 	gen = 0,
@@ -53,6 +55,51 @@ function GameSettings.setAsDiamondPearl()
 	GameSettings.statStagesEnemy = 0x2B5958
 end
 
+function GameSettings.setAsBlack()
+	GameSettings.playerBase = 0x2349B4
+	GameSettings.playerBattleBase = 0x26A794
+	GameSettings.enemyBase = 0x26B254
+	GameSettings.playerBattleMonPID = 0x2A7E70
+	GameSettings.enemyBattleMonPID = 0x2A7E14
+	GameSettings.battleStatus = 0x1D0798
+	GameSettings.itemStartNoBattle = 0x234784
+	GameSettings.itemStartBattle = 0x234784
+	GameSettings.statStagesPlayer = 0x26D7A0
+	GameSettings.statStagesEnemy = 0x26D9C4
+	GameSettings.maxHPBattlePlayer = 0x26D6B2
+	GameSettings.curHPBattlePlayer = 0x26D6B4
+end
+
+function GameSettings.setAsWhite()
+	GameSettings.playerBase = 0x2349B4+0x20
+	GameSettings.playerBattleBase = 0x26A794+0x20
+	GameSettings.enemyBase = 0x26B254+0x20
+	GameSettings.playerBattleMonPID = 0x2A7E70+0x20
+	GameSettings.enemyBattleMonPID = 0x2A7E14+0x20
+	GameSettings.battleStatus = 0x1D0798+0x20
+	GameSettings.itemStartNoBattle = 0x234784+0x20
+	GameSettings.itemStartBattle = 0x234784+0x20
+	GameSettings.statStagesPlayer = 0x26D7A0+0x20
+	GameSettings.statStagesEnemy = 0x26D9C4+0x20
+	GameSettings.maxHPBattlePlayer = 0x26D6B2+0x20
+	GameSettings.curHPBattlePlayer = 0x26D6B4+0x20
+end
+
+function GameSettings.setAsBlack2White2()
+	GameSettings.playerBase = 0x21E3EC
+	GameSettings.playerBattleBase = 0x2582D4
+	GameSettings.enemyBase = 0x258D94 --or 258834
+	GameSettings.playerBattleMonPID = 0x2968F0
+	GameSettings.enemyBattleMonPID = 0x258D94
+	GameSettings.battleStatus = 0x1B5138
+	GameSettings.itemStartNoBattle = 0x21E1BC
+	GameSettings.itemStartBattle = 0x21E1BC
+	GameSettings.statStagesPlayer = 0x26D7A0
+	GameSettings.statStagesEnemy = 0x26D9C4
+	GameSettings.maxHPBattlePlayer = 0x25B1F2
+	GameSettings.curHPBattlePlayer = 0x25B1F4
+end
+
 GameSettings.VERSIONS = {
     'red-blue',
     'yellow',
@@ -65,34 +112,22 @@ GameSettings.VERSIONS = {
     'platinum',
     'heartgold-soulsilver',
     'black-white',
-    'colosseum',
-    'xd',
     'black-2-white-2',
-    'x-y',
-    'omega-ruby-alpha-sapphire',
-    'sun-moon',
-    'ultra-sun-ultra-moon',
 }
 
 GameSettings.VERSION_TO_GEN_NUMBER = {
     ["red-blue"] = 1,
-    yellow = 1,
+    ["yellow"] = 1,
     ["gold-silver"] = 2,
-    crystal = 2,
+    ["crystal"] = 2,
     ["ruby-sapphire"] = 3,
-    emerald = 3,
+    ["emerald"] = 3,
     ["firered-leafgreen"] = 3,
     ["diamond-pearl"] = 4,
-    platinum = 4,
+    ["platinum"] = 4,
     ["heartgold-soulsilver"] = 4,
     ["black-white"] = 5,
-    colosseum = 3,
-    xd = 3,
     ["black-2-white-2"] = 5,
-    ["x-y"] = 6,
-    ["omega-ruby-alpha-sapphire"]= 6,
-    ["sun-moon"] = 7,
-    ["ultra-sun-ultra-moon"] = 7,
 }
 
 GameSettings.GAMECODE_TO_VERSION_GROUP = {
@@ -101,6 +136,10 @@ GameSettings.GAMECODE_TO_VERSION_GROUP = {
 	[0x45555043] = 9,
 	[0x454B5049] = 10,
 	[0x45475049] = 10,
+	[0x4F425249] = 11,
+	[0x4F415249] = 11,
+	[0x4F455249] = 12,
+	[0x4F445249] = 12,
 }
 
 GameSettings.GAMECODE_TO_GAME_NAME = {
@@ -109,6 +148,10 @@ GameSettings.GAMECODE_TO_GAME_NAME = {
 	[0x45555043] = "Pokemon Platinum",
 	[0x454B5049] = "Pokemon HeartGold",
 	[0x45475049] = "Pokemon SoulSilver",
+	[0x4F425249] = "Pokemon Black",
+	[0x4F415249] = "Pokemon White",
+	[0x4F455249] = "Pokemon Black 2",
+	[0x4F445249] = "Pokemon White 2",
 }
 
 
@@ -137,12 +180,13 @@ function GameSettings.initMoveData()
 end
 
 function GameSettings.initialize()
+	local memdomain = "Main RAM"
+    memory.usememorydomain(memdomain)
 	local gameCode = memory.read_u32_le(GameSettings.CARTRIDGE_HEADER+0x0C)
 	GameSettings.versiongroup = GameSettings.GAMECODE_TO_VERSION_GROUP[gameCode]
 	GameSettings.gamename = GameSettings.GAMECODE_TO_GAME_NAME[gameCode]
 	local versionName = GameSettings.VERSIONS[GameSettings.versiongroup]
 	GameSettings.gen = GameSettings.VERSION_TO_GEN_NUMBER[versionName]
-	print(GameSettings.gen)
 
 	print(GameSettings.gamename.. " detected.")
 
@@ -152,11 +196,15 @@ function GameSettings.initialize()
 		GameSettings.setAsPlatinum()
 	elseif GameSettings.versiongroup == 10 then 
 		GameSettings.setAsHeartGoldSoulSilver()
+	elseif GameSettings.versiongroup == 11 then 
+		if GameSettings.gamename == "Pokemon White" then
+			GameSettings.setAsWhite()
+		else
+			GameSettings.setAsBlack()
+		end
+	elseif GameSettings.versiongroup == 12 then 
+		GameSettings.setAsBlack2White2()
 	end
 
 	Decrypter.init()
-	local alternateStart = 496
-	for i,pokemon in pairs(Gen4AlternateForms) do
-		PokemonData[i+alternateStart] = pokemon
-	end
 end
