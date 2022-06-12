@@ -1,4 +1,4 @@
-Thank you for using Ironmon-Tracker!
+Thank you for using NDS-Ironmon-Tracker!
 
 This tool REQUIRES the Bizhawk emulator v2.8 or greater. You can find the emulator at https://tasvideos.org/BizHawk/ReleaseHistory. Other versions have had issues and are not supported.
 
