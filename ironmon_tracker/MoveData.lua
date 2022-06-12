@@ -3641,11 +3641,11 @@ MoveDataMasterList = {
 	},
 	{
 		id = "396",
-		name = "20",
+		name = "Aura Sphere",
 		type = PokemonTypes.FIGHTING,
 		power = "90",
 		pp = "20",
-		accuracy = "",
+		accuracy = PLACEHOLDER,
 		category = MoveCategories.SPECIAL,
 	},
 	{
@@ -5064,11 +5064,11 @@ MoveDataMasterList = {
 	{
 		id = "554",
 		name = "Ice Burn",
-		type = PokemonTypes.SPECIAL,
+		type = PokemonTypes.ICE,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
-		category = MoveCategories.ICE,
+		category = MoveCategories.SPECIAL,
 	},
 	{
 		id = "555",
