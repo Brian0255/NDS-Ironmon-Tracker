@@ -59,15 +59,7 @@ function Options.buildTrackerOptionsButtons()
 				optionState = value,
 				-- TODO: Need a better way to internally update the optionState member rather than depending on the caller to save it...
 				onClick = function() -- return the updated value to be saved into this button's optionState value
-					-- I learned a lot about Lua today... You can't just use `not` to toggle a boolean state. You HAVE to do this if-else block... WTF...
-					if Settings.tracker[key] == true then
-						Settings.tracker[key] = false
-					else
-						Settings.tracker[key] = true
-					end
-					if not Options.updated then
-						Options.updated = true
-					end
+					Settings.tracker[key] = not(Settings.tracker[key])
 					return Settings.tracker[key]
 				end
 			}
