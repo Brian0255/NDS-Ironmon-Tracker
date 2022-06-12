@@ -58,7 +58,7 @@ function Program.main()
 		end
 		Program.eventCallbacks = {}
 
-	if Tracker.redraw == true and Tracker.waitFrames == 0 then
+	if Tracker.waitFrames == 0 then
 
 		local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
 
@@ -102,7 +102,6 @@ function Program.main()
 		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
 		Tracker.waitFrames = 60
-		Tracker.redraw = true
 		Tracker.saveData()
 	end
 
@@ -194,22 +193,25 @@ function Program.getPokemonDataPlayer()
 		local currentBase = GameSettings.playerBattleBase
 		local activePID = memory.read_u32_le(GameSettings.playerBattleMonPID)
 		local firstPID = memory.read_u32_le(GameSettings.playerBattleBase)
-		local found = false
-		for i = 1,6,1 do
-			firstPID = memory.read_u32_le(currentBase)
-			if firstPID ~= activePID then
-				currentBase = currentBase + 236
-			else
-				found = true
-				break
-			end
-		end
-		if not found then return nil end
 		Decrypter.currentBase = currentBase
-		return Decrypter.decrypt(false)
+		if activePID ~= 0x00000000 then
+			for i = 0,5,1 do
+				firstPID = memory.read_u32_le(currentBase)
+				if firstPID ~= activePID then
+					currentBase = currentBase + Decrypter.pokemonDataSize
+				else
+					Decrypter.currentBase = currentBase
+					return Decrypter.decrypt(false,i)
+				end
+			end
+			Decrypter.currentBase = GameSettings.playerBattleBase
+			return Decrypter.decrypt(false,0)
+		else
+			return Decrypter.decrypt(false,0)
+		end
 	else
 		Decrypter.currentBase = GameSettings.playerBase
-		local data = Decrypter.decrypt(true)
+		local data = Decrypter.decrypt(true,0)
 		return data
 	end
 end
@@ -219,29 +221,42 @@ function Program.getPokemonDataEnemy()
 		local currentBase = GameSettings.enemyBase
 		local activePID = memory.read_u32_le(GameSettings.enemyBattleMonPID)
 		local firstPID = memory.read_u32_le(GameSettings.enemyBase)
-		local found = false
-		for i = 1,6,1 do
-			Decrypter.currentBase = currentBase
-			firstPID = memory.read_u32_le(currentBase)
-			if firstPID == activePID then
-				--trainers can have multiple pokes with same PID, need to find first one that is alive
-				local data = Decrypter.decrypt(false)
-				--Check for empty table.
-				if next(data) ~= nil then
-					if data.curHP > 0 then
-						return data
+		local lastMatchedAddress = 0
+		local lastMatchedIndex = 0
+		Decrypter.currentBase = currentBase
+		if activePID ~= 0x00000000 then
+			for i = 0,5,1 do
+				Decrypter.currentBase = currentBase
+				firstPID = memory.read_u32_le(currentBase)
+				if firstPID == activePID then
+					--trainers can have multiple pokes with same PID, need to find first one that is alive
+					lastMatchedAddress = currentBase
+					lastMatchedIndex = i
+					local data = Decrypter.decrypt(false,i)
+					--Check for empty table.
+					if next(data) ~= nil then
+						if data.curHP > 0 then
+							return data
+						end
+					else
+						return nil
 					end
-				else
-					return nil
 				end
+				currentBase = currentBase + Decrypter.pokemonDataSize
 			end
-			currentBase = currentBase + Decrypter.pokemonDataSize
+		else
+			return Decrypter.decrypt(false,0)
 		end
-		if not found then return nil end
-		return Decrypter.decrypt(false)
+		if lastMatchedAddress ~= 0 then
+			--We found a match but all the enemy's pokemon have fainted, so just use the last match.
+			Decrypter.currentBase = lastMatchedAddress
+			return Decrypter.decrypt(false,lastMatchedIndex)
+		else
+			return nil
+		end
 	else
 		Decrypter.currentBase = GameSettings.enemyBase
-		return Decrypter.decrypt(false)
+		return Decrypter.decrypt(false,0)
 	end
 end
 
