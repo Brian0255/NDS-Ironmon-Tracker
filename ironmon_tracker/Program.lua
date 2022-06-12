@@ -101,7 +101,7 @@ function Program.main()
 	end
 		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
-		Tracker.waitFrames = 60
+		Tracker.waitFrames = 30
 		Tracker.saveData()
 	end
 
