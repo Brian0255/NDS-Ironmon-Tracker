@@ -206,5 +206,11 @@ function GameSettings.initialize()
 		GameSettings.setAsBlack2White2()
 	end
 
+	if GameSettings.gen == 5 then
+		MiscData.item = MiscData.items_gen5
+	else
+		MiscData.item = MiscData.items_gen4
+	end
+
 	Decrypter.init()
 end
