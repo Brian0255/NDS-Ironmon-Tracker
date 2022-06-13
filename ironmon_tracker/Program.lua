@@ -7,6 +7,7 @@ Program = {
 	trainerPokemonTeam = {},
 	enemyPokemonTeam = {},
 	state = State.TRACKER,
+	firstBattleComplete = false
 }
 
 Program.tracker = {
@@ -65,14 +66,24 @@ function Program.main()
 		if battleStatus == 0x2100 or battleStatus == 0x2101 then
 			Tracker.Data.inBattle = 1
 		else
+			if Tracker.Data.inBattle == 1 then
+				Program.firstBattleComplete = true
+			end
 			Tracker.Data.inBattle = 0
 		end
 		if Tracker.Data.inBattle ~= 1 then
 			Tracker.Data.selectedPlayer = 1
 		end
+	local canUpdate = true
+	if not Settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM
+	and Program.firstBattleComplete == false and GameSettings.gamename == "Pokemon Platinum" then
+		canUpdate = false
+	end
+	if canUpdate then
 		Program.UpdatePlayerPokemonData()
-		Program.UpdateEnemyPokemonData()
-	--	Program.UpdateMonStatStages()
+	end
+
+	Program.UpdateEnemyPokemonData()
 
 	Program.UpdateBagHealingItems()
 	if Tracker.Data.inBattle == 1 then
