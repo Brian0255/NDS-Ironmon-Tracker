@@ -445,9 +445,9 @@ end
 function Drawing.setupMovePower(moves,targetMon)
 	for moveIndex = 1, 4, 1 do
 		if moves[moveIndex].name == "Low Kick" then
-			if Tracker.Data.inBattle == 1 then 
+			if Tracker.Data.inBattle == 1 and targetMon ~= nil then 
 				local targetWeight = PokemonData[targetMon["pokemonID"]+1].weight
-				local newPower = Utils.calculateLowKickDamage(targetWeight)
+				local newPower = Utils.calculateWeightBasedDamage(targetWeight)
 				moves[moveIndex].power = newPower
 			else
 				moves[moveIndex].power = "WT"
