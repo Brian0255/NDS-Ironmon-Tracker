@@ -44,6 +44,7 @@ Main.LoadNextSeed = false
 -- Main loop
 function Main.Run()
 	local loaded = false
+	Program.state = State.TRACKER
 	while not loaded do
 		if gameinfo.getromname() ~= "Null" then
 			loaded = true
@@ -80,9 +81,7 @@ function Main.Run()
 end
 
 function Main.LoadNext()
-	print("CALLED")
 	userdata.clear()
-	print "Reset tracker"
 
 	if Settings.config.ROMS_FOLDER == nil then
 		print("ROMS_FOLDER unspecified. Set this in Settings.ini to automatically switch ROM.")
