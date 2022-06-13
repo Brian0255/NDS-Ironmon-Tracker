@@ -719,7 +719,7 @@ MoveDataMasterList = {
 		name = "Absorb",
 		type = PokemonTypes.GRASS,
 		power = {"20","20","20","25","25"},
-		pp = "20",
+		pp = "25",
 		accuracy = "100",
 		category = MoveCategories.SPECIAL,
 	},
