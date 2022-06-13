@@ -5091,7 +5091,7 @@ MoveDataMasterList = {
 	{
 		id = "557",
 		name = "V-create",
-		type = PokemonTypes.NONE,
+		type = PokemonTypes.FIRE,
 		power = "180",
 		pp = "5",
 		accuracy = "95",
