@@ -53,8 +53,10 @@ function Input.update()
 
 	-- "Settings.controls.CYCLE_PREDICTION" pressed, cycle stat prediction for selected stat
 	if joypadButtons[Settings.controls.CYCLE_PREDICTION] == true and Input.joypad[Settings.controls.CYCLE_PREDICTION] ~= joypadButtons[Settings.controls.CYCLE_PREDICTION] then
-		Buttons[Tracker.controller.statIndex].onclick()
-		Tracker.waitFrames = 0
+		if Tracker.Data.inBattle == 1 and Tracker.Data.enemyPokemon ~= nil then
+			Buttons[Tracker.controller.statIndex].onclick()
+			Tracker.waitFrames = 0
+		end
 	end
 
 	Input.joypad = joypadButtons
