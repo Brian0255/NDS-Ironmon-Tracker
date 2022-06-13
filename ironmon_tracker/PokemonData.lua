@@ -244,7 +244,7 @@ PokemonData = {
     type = { PokemonTypes.WATER, PokemonTypes.EMPTY },
     evolution = "36",
     bst = "405",
-    mmovelvls = {
+    movelvls = {
         {8,15,24,31,39,47},
         {8,15,24,31,39,47},
         {7,10,13,19,25,31,37,45,53},
