@@ -312,8 +312,8 @@ function Decrypter.readBattleStatStages()
         SPD = bit.band(bit.rshift(last4Bytes,8),0xFF)
         ACC = bit.band(bit.rshift(last4Bytes,16),0xFF)
         EVA = bit.band(bit.rshift(last4Bytes,24),0xFF)
-    end
-    --[[elseif GameSettings.gen == 5 then
+    
+    elseif GameSettings.gen == 5 then
         ATK = bit.band(first4Bytes,0xFF)
         DEF = bit.band(bit.rshift(first4Bytes,8),0xFF)
         SPA = bit.band(bit.rshift(first4Bytes,16),0xFF)
@@ -323,7 +323,7 @@ function Decrypter.readBattleStatStages()
         ACC = bit.band(bit.rshift(last4Bytes,8),0xFF)
         EVA = bit.band(bit.rshift(last4Bytes,16),0xFF)
         HP = 6
-    end--]]
+    end
 
     statStages = {
         ["HP"] = HP,
@@ -336,7 +336,7 @@ function Decrypter.readBattleStatStages()
         ["EVA"] = EVA
     }
 
-   --[[ if GameSettings.gen == 5 then
+    if GameSettings.gen == 5 then
         statStages = {
             ["ATK"] = ATK,
             ["DEF"] = DEF,
@@ -346,21 +346,22 @@ function Decrypter.readBattleStatStages()
             ["ACC"] = ACC,
             ["EVA"] = EVA
         }
-    end--]]
+    end
 
     local validStats = true
-    local all0 = true
+    local sum = 0
 
     --Make sure all are in range.
     for i,stat in pairs(statStages) do
         if stat < 0 or stat > 12 then
             validStats = false
-        else
-            if stat ~= 0 then all0 = false end
+            break;
         end
+        sum = sum + stat
     end
 
-    if not validStats or all0 then
+    --Basic sanity check, sum of stat stages should not be anywhere near 0 
+    if not validStats or sum < 3 then
         for i, stat in pairs(statStages) do
             statStages[i] = 6
         end
