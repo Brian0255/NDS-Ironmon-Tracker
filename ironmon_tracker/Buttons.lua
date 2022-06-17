@@ -48,6 +48,7 @@ HiddenPowerButton = {
 }
 
 Buttons = {
+
 	{ -- HP button
 		type = ButtonType.singleButton,
 		visible = function() return Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 end,
@@ -162,5 +163,38 @@ Buttons = {
 			Tracker.TrackStatPrediction(Tracker.Data.enemyPokemon.pokemonID, Program.StatButtonState)
 		end
 	},
+	{ -- Pokecenter increase
+	type = ButtonType.singleButton,
+	visible = function() return Settings.tracker.SHOW_POKECENTER_HEALS end,
+	text = "+",
+	box = {
+		GraphicConstants.SCREEN_WIDTH + 134,
+		142,
+		8,
+		6
+	},
+	backgroundcolor = "",
+	textcolor = GraphicConstants.NEUTRAL,
+	onclick = function()
+		Tracker.Data.pokecenterCount = Tracker.Data.pokecenterCount + 1
+	end
+},
+
+{ -- Pokecenter decrease
+	type = ButtonType.singleButton,
+	visible = function() return Settings.tracker.SHOW_POKECENTER_HEALS end,
+	text = "--",
+	box = {
+		GraphicConstants.SCREEN_WIDTH + 134,
+		149,
+		8,
+		6
+	},
+	backgroundcolor = "",
+	textcolor = GraphicConstants.NEUTRAL,
+	onclick = function()
+		Tracker.Data.pokecenterCount = math.max(Tracker.Data.pokecenterCount - 1,0)
+	end
+},
 	HiddenPowerButton
 }
