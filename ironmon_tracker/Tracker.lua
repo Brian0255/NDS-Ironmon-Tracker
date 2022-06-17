@@ -40,6 +40,7 @@ function Tracker.InitTrackerData()
 		notes = {},
 		currentHiddenPowerType = PokemonTypes.NORMAL,
 		romHash = nil,
+		pokecenterCount = 10,
 	}
 	return trackerData
 end
@@ -125,18 +126,27 @@ function Tracker.SetNote(note)
 	if note == nil then
 		return
 	end
-	if string.len(note) > 70 then
-		print("Note truncated to 70 characters")
+	local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
+	if string.len(note) > charMax then
+		print("Note truncated to "..charMax.." characters")
 	end
-	Tracker.Data.notes[Tracker.Data.playerPokemon.pokemonID] = string.sub(note, 1, 70)
+	local note = string.sub(note,1,charMax)
+	local selected = Utils.inlineIf(Tracker.Data.selectedPlayer == 1, Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
+	if selected ~= nil then
+		Tracker.Data.notes[selected.pokemonID] = string.sub(note, 1, charMax)
+	end
 end
 
 function Tracker.GetNote()
-	if Tracker.Data.notes[Tracker.Data.playerPokemon.pokemonID] == nil then
-		return ""
-	else
-		return Tracker.Data.notes[Tracker.Data.playerPokemon.pokemonID]
+	local selected = Utils.inlineIf(Tracker.Data.selectedPlayer == 1, Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
+	if selected ~= nil then
+		if Tracker.Data.notes[selected.pokemonID] == nil then
+			return ""
+		else
+			return Tracker.Data.notes[selected.pokemonID]
+		end
 	end
+	return ""
 end
 
 function Tracker.getMoves(pokemonId)
@@ -165,17 +175,19 @@ function Tracker.getAbilities(pokemonId)
 end
 
 function Tracker.getButtonState()
-	if Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID] == nil then
-		return {
-			hp = 1,
-			att = 1,
-			def = 1,
-			spa = 1,
-			spd = 1,
-			spe = 1
-		}
-	else
-		return Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID].stats
+	if Tracker.Data.enemyPokemon ~= nil then
+		if Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID] == nil then
+			return {
+				hp = 1,
+				att = 1,
+				def = 1,
+				spa = 1,
+				spd = 1,
+				spe = 1
+			}
+		else
+			return Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID].stats
+		end
 	end
 end
 
