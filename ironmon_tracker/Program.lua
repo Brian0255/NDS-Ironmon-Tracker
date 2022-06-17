@@ -4,9 +4,16 @@ State = {
 }
 
 Program = {
-	trainerPokemonTeam = {},
-	enemyPokemonTeam = {},
+	battleDataFetched = false,
+	playerBattleTeamPIDs = {},
+	enemyBattleTeamPIDs = {},
+	playerMonIndex = 0,
+	enemyMonIndex = 0,
+	lastValidPlayerBattlePID = -1,
+	lastValidEnemyBattlePID = -1,
+
 	state = State.TRACKER,
+
 	firstBattleComplete = false
 }
 
@@ -36,6 +43,67 @@ function Program.main()
 	Input.update()
 
 	if Program.state == State.TRACKER then
+		Program.updateTracker()
+	if Tracker.waitFrames == 0 then
+
+		local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
+
+		if battleStatus == 0x2100 or battleStatus == 0x2101 then
+			if Tracker.Data.inBattle == 0 then
+				--Just started battle.
+				Program.battleDataFetched = false
+				Program.playerBattleTeamPIDs = {}
+				Program.enemyBattleTeamPIDs = {}
+				Program.battleDataFetched = Program.tryToFetchBattleData()
+			end
+			Tracker.Data.inBattle = 1
+		else
+			if Tracker.Data.inBattle == 1 then
+				Program.firstBattleComplete = true
+			end
+			Tracker.Data.inBattle = 0
+		end
+		if Tracker.Data.inBattle ~= 1 then
+			Tracker.Data.selectedPlayer = 1
+		end
+		if Tracker.Data.inBattle == 1 and not Program.battleDataFetched then
+			Program.battleDataFetched = Program.tryToFetchBattleData()
+		end
+		local canUpdate = true
+		if not Settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM
+		and Program.firstBattleComplete == false and GameSettings.gamename == "Pokemon Platinum" then
+			canUpdate = false
+		end
+		if canUpdate then
+			Program.UpdatePlayerPokemonData()
+		end
+		Program.UpdateEnemyPokemonData()
+
+		Program.UpdateBagHealingItems()
+		Program.checkEnemyPP()
+		Program.updateStatStages()
+		if Tracker.Data.inBattle == 1 and Tracker.Data.enemyPokemon ~= nil then
+			Program.StatButtonState = Tracker.getButtonState()
+			Buttons = Program.updateButtons(Program.StatButtonState)
+		end
+		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
+
+		Tracker.waitFrames = 30
+		Tracker.saveData()
+		end
+
+		if Tracker.waitFrames > 0 then
+			Tracker.waitFrames = Tracker.waitFrames - 1
+		end
+	elseif Program.state == State.SETTINGS then
+		if Options.redraw then
+			Drawing.drawSettings()
+			Options.redraw = false
+		end
+	end
+end
+
+function Program.updateTracker()
 		-- Update moves in the tracker
 		for _, move in ipairs(Program.tracker.movesToUpdate) do
 			Tracker.TrackMove(move.pokemonId, move.move, move.level)
@@ -58,37 +126,10 @@ function Program.main()
 			callback()
 		end
 		Program.eventCallbacks = {}
+end
 
-	if Tracker.waitFrames == 0 then
-
-		local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
-
-		if battleStatus == 0x2100 or battleStatus == 0x2101 then
-			Tracker.Data.inBattle = 1
-		else
-			if Tracker.Data.inBattle == 1 then
-				Program.firstBattleComplete = true
-			end
-			Tracker.Data.inBattle = 0
-		end
-		if Tracker.Data.inBattle ~= 1 then
-			Tracker.Data.selectedPlayer = 1
-		end
-	local canUpdate = true
-	if not Settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM
-	and Program.firstBattleComplete == false and GameSettings.gamename == "Pokemon Platinum" then
-		canUpdate = false
-	end
-	if canUpdate then
-		Program.UpdatePlayerPokemonData()
-	end
-
-	Program.UpdateEnemyPokemonData()
-
-	Program.UpdateBagHealingItems()
+function Program.checkEnemyPP()
 	if Tracker.Data.inBattle == 1 then
-		Decrypter.currentBase = GameSettings.statStagesPlayer
-		Tracker.Data.playerPokemon["statStages"] = Decrypter.readBattleStatStages()
 		local target = Tracker.Data.enemyPokemon
 		if target ~= nil then
 			for i,moveValue in pairs(target.actualMoves) do
@@ -103,28 +144,72 @@ function Program.main()
 			end
 		end
 	end	
-	
-	if Tracker.Data.enemyPokemon ~= nil and Tracker.Data.inBattle == 1 then
-		Decrypter.currentBase = GameSettings.statStagesEnemy
-		Tracker.Data.enemyPokemon["statStages"] = Decrypter.readBattleStatStages()
-		Program.StatButtonState = Tracker.getButtonState()
-		Buttons = Program.updateButtons(Program.StatButtonState)
-	end
-		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
+end
 
-		Tracker.waitFrames = 30
-		Tracker.saveData()
+function Program.checkForPlayerTransform()
+	local activePID = Program.getPlayerBattleMonPID()
+	if Program.enemyBattleTeamPIDs[activePID] ~= nil then
+		return true
+	end
+	return false
+end
+
+function Program.getPlayerBattleMonPID()
+	local activePID = memory.read_u32_le(GameSettings.playerBattleMonPID)
+	if activePID  == 0 then
+		return memory.read_u32_le(GameSettings.playerBattleBase)
+	else
+		return activePID
+	end
+end
+
+function Program.checkForEnemyTransform()
+	local activePID = Program.getEnemyBattleMonPID()
+	if Program.playerBattleTeamPIDs[activePID] ~= nil then
+		return true
+	end
+	return false
+end
+
+function Program.getEnemyBattleMonPID()
+	local activePID = memory.read_u32_le(GameSettings.enemyBattleMonPID)
+	if activePID  == 0 then
+		return memory.read_u32_le(GameSettings.enemyBase)
+	else
+		return activePID
+	end
+end
+
+
+function Program.tryToFetchBattleData()
+	local firstPlayerPID = memory.read_u32_le(GameSettings.playerBattleBase)
+	local firstEnemyPID = memory.read_u32_le(GameSettings.enemyBase)
+	if firstPlayerPID == 0 or firstEnemyPID == 0 then return false end
+
+	local currentBase = GameSettings.playerBattleBase
+
+	for i = 0,5,1 do
+		local pid = memory.read_u32_le(currentBase)
+		if pid ~= 0 then
+			Program.playerBattleTeamPIDs[pid] = i
+		else
+			break
+		end
+		currentBase = currentBase + Decrypter.pokemonDataSize
 	end
 
-		if Tracker.waitFrames > 0 then
-			Tracker.waitFrames = Tracker.waitFrames - 1
+	currentBase = GameSettings.enemyBase
+	for i = 0,5,1 do
+		local pid = memory.read_u32_le(currentBase)
+		if pid ~= 0 then
+			Program.enemyBattleTeamPIDs[pid] = i
+		else
+			break
 		end
-	elseif Program.state == State.SETTINGS then
-		if Options.redraw then
-			Drawing.drawSettings()
-			Options.redraw = false
-		end
+		currentBase = currentBase + Decrypter.pokemonDataSize
 	end
+
+	return true
 end
 
 function Program.HandleExit()
@@ -160,18 +245,6 @@ function Program.UpdateEnemyPokemonData()
 	end
 end
 
-function Program.UpdateMonStatStages()
-	-- TODO: Update for double battles
-	local battleMonSlot = Tracker.Data.selectedPlayer - 1
-	local battleMon = Program.getBattleMon(battleMonSlot)
-	if battleMon.statStages["HP"] ~= 0 then
-		Tracker.Data.playerPokemon.statStages = battleMon.statStages
-		Tracker.Data.playerPokemon.ability = battleMon.ability
-	else
-		Tracker.Data.playerPokemon.statStages = { HP = 6, ATK = 6, DEF = 6, SPEED = 6, SPATK = 6, SPDEF = 6, ACC = 6, EVASION = 6 }
-	end
-end
-
 function Program.UpdateBagHealingItems()
 	local healingItems = Program.getBagHealingItemsGen4(Tracker.Data.playerPokemon)
 	if healingItems ~= nil then
@@ -199,30 +272,44 @@ function Program.getPokemonData(index)
 	end
 end
 
-function Program.getPokemonDataPlayer()
-	if Tracker.Data.inBattle == 1 then 
-		local currentBase = GameSettings.playerBattleBase
-		local activePID = memory.read_u32_le(GameSettings.playerBattleMonPID)
-		local firstPID = memory.read_u32_le(GameSettings.playerBattleBase)
-		Decrypter.currentBase = currentBase
-		if activePID ~= 0x00000000 then
-			for i = 0,5,1 do
-				firstPID = memory.read_u32_le(currentBase)
-				if firstPID ~= activePID then
-					currentBase = currentBase + Decrypter.pokemonDataSize
-				else
-					Decrypter.currentBase = currentBase
-					return Decrypter.decrypt(false,i)
-				end
-			end
-			Decrypter.currentBase = GameSettings.playerBattleBase
-			return Decrypter.decrypt(false,0)
+function Program.updateStatStages()
+	if Tracker.Data.inBattle == 1 and Program.battleDataFetched then
+		if GameSettings.gen == 5 then
+			Decrypter.currentBase = GameSettings.statStagesStart
 		else
-			return Decrypter.decrypt(false,0)
+			if Tracker.Data.selectedPlayer == 2 then
+				Decrypter.currentBase = GameSettings.statStagesEnemy
+			else
+				Decrypter.currentBase = GameSettings.statStagesPlayer
+			end
+		end
+		if Tracker.Data.enemyPokemon~= nil and Tracker.Data.playerPokemon ~= nil then
+			Tracker.Data.enemyPokemon.statStages = Decrypter.readBattleStatStages(true, Program.enemyMonIndex)
+			Tracker.Data.playerPokemon.statStages = Decrypter.readBattleStatStages(false, Program.playerMonIndex)
+		end
+	end
+end
+
+function Program.getPokemonDataPlayer()
+	if Tracker.Data.inBattle == 1 and Program.battleDataFetched then 
+		local currentBase = GameSettings.playerBattleBase
+		local activePID = -1
+		local transformed = Program.checkForPlayerTransform()
+		if transformed then
+			activePID = Program.lastValidPlayerBattlePID
+		else
+			activePID = Program.getPlayerBattleMonPID()
+			Program.lastValidPlayerBattlePID = activePID
+		end
+		local monIndex = Program.playerBattleTeamPIDs[activePID]
+		if monIndex ~= nil then
+			Program.playerMonIndex = monIndex
+			Decrypter.currentBase = currentBase + monIndex * Decrypter.pokemonDataSize
+			return Decrypter.decrypt(false,monIndex,false)
 		end
 	else
 		Decrypter.currentBase = GameSettings.playerBase
-		local data = Decrypter.decrypt(true,0)
+		local data = Decrypter.decrypt(true,0,false)
 		return data
 	end
 end
@@ -230,44 +317,49 @@ end
 function Program.getPokemonDataEnemy()
 	if Tracker.Data.inBattle == 1 and memory.read_u16_le(GameSettings.battleStatus) == 0x2100 then
 		local currentBase = GameSettings.enemyBase
-		local activePID = memory.read_u32_le(GameSettings.enemyBattleMonPID)
+		local activePID = -1
+		local transformed = Program.checkForEnemyTransform()
+		if transformed then
+			activePID = Program.lastValidEnemyBattlePID()
+		else
+			activePID = Program.getEnemyBattleMonPID()
+			Program.lastValidEnemyBattlePID = activePID
+		end
 		local firstPID = memory.read_u32_le(GameSettings.enemyBase)
 		local lastMatchedAddress = 0
 		local lastMatchedIndex = 0
 		Decrypter.currentBase = currentBase
-		if activePID ~= 0x00000000 then
-			for i = 0,5,1 do
-				Decrypter.currentBase = currentBase
-				firstPID = memory.read_u32_le(currentBase)
-				if firstPID == activePID then
-					--trainers can have multiple pokes with same PID, need to find first one that is alive
-					lastMatchedAddress = currentBase
-					lastMatchedIndex = i
-					local data = Decrypter.decrypt(false,i)
-					--Check for empty table.
-					if next(data) ~= nil then
-						if data.curHP > 0 then
-							return data
-						end
-					else
-						return nil
+		for i = 0,5,1 do
+			Decrypter.currentBase = currentBase
+			firstPID = memory.read_u32_le(currentBase)
+			if firstPID == activePID then
+				--trainers can have multiple pokes with same PID, need to find first one that is alive
+				lastMatchedAddress = currentBase
+				lastMatchedIndex = i
+				Program.enemyMonIndex = i
+				local data = Decrypter.decrypt(false,i,true)
+				--Check for empty table.
+				if next(data) ~= nil then
+					if data.curHP > 0 then
+						return data
 					end
+				else
+					return nil
 				end
-				currentBase = currentBase + Decrypter.pokemonDataSize
 			end
-		else
-			return Decrypter.decrypt(false,0)
+			currentBase = currentBase + Decrypter.pokemonDataSize
 		end
 		if lastMatchedAddress ~= 0 then
 			--We found a match but all the enemy's pokemon have fainted, so just use the last match.
+			Program.enemyMonIndex = 0
 			Decrypter.currentBase = lastMatchedAddress
-			return Decrypter.decrypt(false,lastMatchedIndex)
+			return Decrypter.decrypt(false,lastMatchedIndex,true)
 		else
 			return nil
 		end
 	else
 		Decrypter.currentBase = GameSettings.enemyBase
-		return Decrypter.decrypt(false,0)
+		return Decrypter.decrypt(false,0,true)
 	end
 end
 
@@ -308,18 +400,24 @@ function Program.scanItemsForHeals()
 	if quantity > 1000 or id > 600 then
 		itemStart = GameSettings.itemStartNoBattle
 	end
-	local currentAddress = itemStart
-	local keepScanning = true
-	while keepScanning do
-		--read 4 bytes at once, should be less expensive than reading 2 sets of 2 bytes..
-		local idAndQuantity = memory.read_u32_le(currentAddress)
-		local id = bit.band(idAndQuantity,0xFFFF)
-		if id ~= 0 then
-			local quantity = bit.band(bit.rshift(idAndQuantity,16),0xFFFF)
-			healingItems[id] = quantity
-			currentAddress = currentAddress + 4
-		else
-			keepScanning = false
+	local addressesToScan = {itemStart}
+	if GameSettings.gen == 5 then
+		table.insert(addressesToScan,GameSettings.berryBagStart)
+	end
+	for i,address in pairs(addressesToScan) do
+		local currentAddress = address
+		local keepScanning = true
+		while keepScanning do
+			--read 4 bytes at once, should be less expensive than reading 2 sets of 2 bytes..
+			local idAndQuantity = memory.read_u32_le(currentAddress)
+			local id = bit.band(idAndQuantity,0xFFFF)
+			if id ~= 0 then
+				local quantity = bit.band(bit.rshift(idAndQuantity,16),0xFFFF)
+				healingItems[id] = quantity
+				currentAddress = currentAddress + 4
+			else
+				keepScanning = false
+			end
 		end
 	end
 	return healingItems
