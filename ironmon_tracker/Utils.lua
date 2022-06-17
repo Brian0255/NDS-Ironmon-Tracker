@@ -126,3 +126,58 @@ function Utils.playerHasMove(moveName)
 	end
 	return false
 end
+
+function Utils.calculateTrumpCardPower(movePP)
+	movePP = tonumber(movePP)
+	local ppToPower = {
+		[0] = "0",
+		[1] = "200",
+		[2] = "80",
+		[3] = "60",
+		[4] = "50",
+		[5] = "40"
+	}
+	if movePP > 5 then movePP = 5 end
+	return ppToPower[movePP]
+end
+
+function Utils.calculatePunishmentPower(targetMon)
+	local totalIncreasedStats = 0
+	local statStages = targetMon.statStages
+	for i, stat in pairs(statStages) do
+		if stat > 6 then
+			totalIncreasedStats = totalIncreasedStats + (stat-6)
+		end
+	end
+	local newPower = 60 + (20*totalIncreasedStats)
+	if newPower < 60 then newPower = 60 end
+	if newPower > 200 then newPower = 200 end
+	return newPower
+end
+
+function  Utils.calculateWringCrushDamage(currentHP,maxHP)
+	local basePower = 120*(currentHP/maxHP)
+	local roundedPower = math.floor(basePower + 0.5)
+	if GameSettings.gen == 4 then
+		roundedPower = roundedPower + 1
+	else
+		if roundedPower < 1 then roundedPower = 1 end
+	end
+	return roundedPower
+end
+
+function Utils.calculateWeightDifferenceDamage(currentMon,targetMon)
+	local currentMonWeight =  PokemonData[currentMon["pokemonID"] + 1].weight
+	local targetWeight = PokemonData[targetMon["pokemonID"] + 1].weight
+	local ratio = targetWeight / currentMonWeight
+	if ratio <= .2 then
+		return "120"
+	elseif ratio <= .25 then
+		return "100"
+	elseif ratio <= .3334 then
+		return "80"
+	elseif ratio <= .50 then
+		return "60"
+	else return "40"
+	end
+end
