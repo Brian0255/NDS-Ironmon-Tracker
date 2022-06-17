@@ -19,16 +19,6 @@ function Input.update()
 	if joypadButtons[Settings.controls.CYCLE_VIEW] == true and Input.joypad[Settings.controls.CYCLE_VIEW] ~= joypadButtons[Settings.controls.CYCLE_VIEW] then
 		if Tracker.Data.inBattle == 1 then
 			Tracker.Data.selectedPlayer = (Tracker.Data.selectedPlayer % 2) + 1
-			if Tracker.Data.selectedPlayer == 1 then
-				Tracker.Data.selectedSlot = 1
-				Tracker.Data.targetPlayer = 2
-				--Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
-			elseif Tracker.Data.selectedPlayer == 2 then
-				--local enemySlotOne = Memory.readbyte(GameSettings.gBattlerPartyIndexesEnemySlotOne) + 1
-				--Tracker.Data.selectedSlot = enemySlotOne
-				Tracker.Data.targetPlayer = 1
-				--Tracker.Data.targetSlot = Memory.readbyte(GameSettings.gBattlerPartyIndexesSelfSlotOne) + 1
-			end
 		end
 
 		Tracker.waitFrames = 0
@@ -84,8 +74,10 @@ function Input.check(xmouse, ymouse)
 		end
 
 		--note box
-		if Input.isInRange(xmouse, ymouse, GraphicConstants.SCREEN_WIDTH + 6, 141, GraphicConstants.RIGHT_GAP - 12, 12) and Input.noteForm == nil then
-			Input.noteForm = forms.newform(290, 60, "Note (70 char. max)", function() Input.noteForm = nil end)
+		local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,46,10)
+		local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
+		if Input.isInRange(xmouse, ymouse, GraphicConstants.SCREEN_WIDTH + 6, 141, GraphicConstants.RIGHT_GAP - subAmount, 12) and Input.noteForm == nil then
+			Input.noteForm = forms.newform(290, 60, "Note ("..charMax.. " char. max)", function() Input.noteForm = nil end)
 			local textBox = forms.textbox(Input.noteForm, Tracker.GetNote(), 200, 20)
 			forms.button(Input.noteForm, "Set", function()
 				Tracker.SetNote(forms.gettext(textBox))
