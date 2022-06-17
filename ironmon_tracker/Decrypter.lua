@@ -31,6 +31,8 @@ Decrypter.BLOCK_SHUFFLE_ORDER = {
 }
 
 Decrypter.DecryptedDataInit = {
+    pid = 0,
+    alternateForm = 0,
     pokemonID = 0,
     trainerID = 0,
     heldItem = 0,
@@ -60,6 +62,16 @@ Decrypter.DecryptedDataInit = {
     },
     movePPs = {
         "","","",""
+    },
+    statStages = {
+        ["HP"] = 6,
+        ["ATK"] = 6,
+        ["DEF"] = 6,
+        ["SPE"] = 6,
+        ["SPA"] = 6,
+        ["SPD"] = 6,
+        ["ACC"] = 6,
+        ["EVA"] = 6
     }
 }
 
@@ -124,7 +136,7 @@ function Decrypter.init()
     Decrypter.pokemonDataSize = Utils.inlineIf(gen == 4,Decrypter.GEN_4_TOTAL_DATA_SIZE,Decrypter.GEN_5_TOTAL_DATA_SIZE)
 end
 
-function Decrypter.decrypt(checkingParty,monIndex)
+function Decrypter.decrypt(checkingParty,monIndex,checkingEnemy)
     Decrypter.DecryptedData = {}
     local currentBase = Decrypter.currentBase
     --Find the first mon that hasn't fainted.
@@ -132,6 +144,7 @@ function Decrypter.decrypt(checkingParty,monIndex)
         local pid = memory.read_u32_le(currentBase)
         local checksum = memory.read_u16_le(currentBase+0x06)
         if checksum ~= 0 then
+            Decrypter.DecryptedData["pid"] = pid
             Decrypter.DecryptedData.nature = (pid % 25)
             local blockShift = bit.rshift(bit.band(pid, 0x3E000),0xD) % 24
             local blockOrder = Decrypter.BLOCK_SHUFFLE_ORDER[blockShift+1]
@@ -139,13 +152,18 @@ function Decrypter.decrypt(checkingParty,monIndex)
             local seed = checksum
             Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
             local battleStatStart = currentBase+0x88
-            Decrypter.decryptBattleStats(pid,battleStatStart,monIndex)
+            Decrypter.decryptBattleStats(pid,battleStatStart,monIndex,checkingEnemy)
             Decrypter.DecryptedData.actualMoves = {
                 Decrypter.DecryptedData.move1,
                 Decrypter.DecryptedData.move2,
                 Decrypter.DecryptedData.move3,
                 Decrypter.DecryptedData.move4,
             }
+            local sum = 0
+            for i,moveID in pairs(Decrypter.DecryptedData.actualMoves) do
+               sum = sum + moveID 
+            end
+            if sum == 0 then return nil end
             Decrypter.DecryptedData.movePPs = {
                 Decrypter.DecryptedData.move1PP,
                 Decrypter.DecryptedData.move2PP,
@@ -195,7 +213,7 @@ function Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
     return seed
 end
 
-function Decrypter.decryptBattleStats(pid,battleStatStart,monIndex)
+function Decrypter.decryptBattleStats(pid,battleStatStart,monIndex,checkingEnemy)
     local offsets = Decrypter.GEN_4_5_BATTLE_STAT_OFFSETS
     local previousOffset = 0
     local seed = pid
@@ -209,10 +227,25 @@ function Decrypter.decryptBattleStats(pid,battleStatStart,monIndex)
             previousOffset = offsetAmount
         end
     end
-    --Gen 5 does not update the current HP in the player's battle party. It's stored elsewhere as unencrypted data.
+    --Gen 5 does not update the current HP or moves/PP in the player's battle party memory. It's stored elsewhere as unencrypted data.
     if Tracker.Data.inBattle == 1 and GameSettings.gen == 5 then
         Decrypter.DecryptedData.curHP = memory.read_u16_le(GameSettings.curHPBattlePlayer+monIndex*548)
         Decrypter.DecryptedData.maxHP = memory.read_u16_le(GameSettings.maxHPBattlePlayer+monIndex*548)
+        local movesStart = GameSettings.statStagesStart+8
+        if checkingEnemy then
+            local totalPlayerMons = memory.read_u8(GameSettings.totalMonsParty)
+            movesStart = movesStart + totalPlayerMons * 0x224
+        end
+        movesStart = movesStart + monIndex * 0x224
+        local moves = {"move1","move2","move3","move4"}
+        local movePPs = {"move1PP","move2PP","move3PP","move4PP"}
+        for i = 0,3,1 do
+            local currentMove = movesStart + i * 14
+            local moveID = memory.read_u16_le(currentMove)
+            local movePP = memory.read_u8(currentMove+2)
+            Decrypter.DecryptedData[moves[i+1]] = moveID
+            Decrypter.DecryptedData[movePPs[i+1]] = movePP
+        end
     end
 end
 
@@ -285,12 +318,19 @@ function Decrypter.find4ByteValueAddr(base,searchFor,limit)
     return -1
 end
 
-function Decrypter.readBattleStatStages()
+function Decrypter.readBattleStatStages(isEnemy, index)
 
     local statStages = {}
-
-    local first4Bytes = memory.read_u32_le(Decrypter.currentBase)
-    local last4Bytes = memory.read_u32_le(Decrypter.currentBase+4)
+    local base = Decrypter.currentBase
+    if GameSettings.gen == 5 then
+        base = base + (0x224*index)
+        if isEnemy then
+            local totalPlayerMons = memory.read_u8(GameSettings.totalMonsParty)
+            base = base + totalPlayerMons * 0x224
+        end
+    end
+    local first4Bytes = memory.read_u32_le(base)
+    local last4Bytes = memory.read_u32_le(base+4)
     local HP = 6
     local ATK = 6
     local DEF = 6
