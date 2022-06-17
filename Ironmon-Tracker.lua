@@ -1,11 +1,11 @@
 -- NDS Ironnon Tracker
 -- Created by OnlySpaghettiCode, largely based on the Ironmon Tracker by besteon and other contributors
 
--- The latest version of the tracker. Should be updated with each PR.
 TRACKER_VERSION = "0.0.1"
 
 -- A frequently used placeholder when a data field is not applicable
-PLACEHOLDER = "---" -- TODO: Consider moving into a better global constant location? Placed here for now to ensure it is available to all subscripts.
+PLACEHOLDER = "---" 
+
 
 -- Check the version of BizHawk that is running
 if string.sub(client.getversion(), 1) ~= "2.8" then
@@ -19,7 +19,7 @@ DATA_FOLDER = "ironmon_tracker"
 
 -- Get the user settings saved on disk and create the base Settings object
 INI = dofile(DATA_FOLDER .. "/Inifile.lua")
-Settings = INI.parse("Settings.ini")
+Settings = INI.parse(io.open("Settings.ini"):read("*a"), "memory")
 
 -- Import all scripts before starting the main loop
 dofile(DATA_FOLDER .. "/PokemonData.lua")
@@ -54,6 +54,7 @@ function Main.Run()
 	print("\nNDS-Ironmon-Tracker v" .. TRACKER_VERSION)
 	print("NDS ROM detected. Loading...")
 	Options.buildTrackerOptionsButtons()
+	Tracker.Data.inBattle = 0
 	GameSettings.initialize()
 	GameSettings.initMoveData()
 	if GameSettings.gameversion == 0 then
@@ -93,19 +94,34 @@ function Main.LoadNext()
 	client.SetSoundOn(false)
 	local romname = gameinfo.getromname()
 	client.closerom()
+	-- Split the ROM name into its prefix and numerical values
+	local romprefix = string.match(romname, '[^0-9]+')
+	local romnumber = string.match(romname, '[0-9]+')
+	if romprefix == nil then romprefix = "" end
+	-- Increment to the next ROM and determine its full file path
+	local nextromname = string.format(romprefix .. "%0" .. string.len(romnumber) .. "d", romnumber + 1)
+	local nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".gba"
 
-	local rombasename = string.match(romname, '[^0-9]+')
-	local romnumber = tonumber(string.match(romname, '[0-9]+')) + 1
-	local nextromname = ""
-	if rombasename == nil then
-		nextromname = Settings.config.ROMS_FOLDER .. "\\" .. romnumber .. ".nds"
+	-- First try loading the next rom as-is with spaces, otherwise replace spaces with underscores and try again
+	local filecheck = io.open(nextrompath,"r")
+	if filecheck ~= nil then
+		-- This means the file exists, so proceed with opening it.
+		io.close(filecheck)
 	else
-		rombasename = rombasename:gsub(" ", "_")
-		nextromname = Settings.config.ROMS_FOLDER .. "\\" .. rombasename .. romnumber .. ".nds"
-		print(nextromname)
+		nextromname = nextromname:gsub(" ", "_")
+		nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".NDS"
+		filecheck = io.open(nextrompath,"r")
+		if filecheck == nil then
+			-- This means there doesn't exist a ROM file with spaces or underscores
+			print("Unable to locate next ROM file to load. Current ROM: " .. romname)
+			Main.LoadNextSeed = false
+			Main.Run()
+		else
+			io.close(filecheck)
+		end
 	end
 
-	client.openrom(nextromname)
+	client.openrom(client.openrom(nextrompath))
 	client.SetSoundOn(true)
 
 	if gameinfo.getromname() ~= "Null" then
