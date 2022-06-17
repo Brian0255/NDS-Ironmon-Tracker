@@ -9,6 +9,7 @@ GameSettings = {
 	itemStartBattle = 0,
 	statStagesPlayer = 0,
 	statStagesEnemy = 0,
+	activeMonIndex = 0,
 	curHPBattlePlayer = nil,
 	maxHPBattlePLayer = nil,
 	versiongroup = 0,
@@ -59,30 +60,34 @@ function GameSettings.setAsBlack()
 	GameSettings.playerBase = 0x2349B4
 	GameSettings.playerBattleBase = 0x26A794
 	GameSettings.enemyBase = 0x26B254
-	GameSettings.playerBattleMonPID = 0x2A7E70
+	GameSettings.playerBattleMonPID = 0x2a7e70
 	GameSettings.enemyBattleMonPID = 0x2A7E14
 	GameSettings.battleStatus = 0x1D0798
 	GameSettings.itemStartNoBattle = 0x234784
 	GameSettings.itemStartBattle = 0x234784
-	GameSettings.statStagesPlayer = 0x26D7A0
+	GameSettings.statStagesStart = 0x26D7A0
 	GameSettings.statStagesEnemy = 0x26D9C4
 	GameSettings.maxHPBattlePlayer = 0x26D6B2
 	GameSettings.curHPBattlePlayer = 0x26D6B4
+	GameSettings.totalMonsParty = 0x2349B0
+	GameSettings.berryBagStart = 0x234844
 end
 
 function GameSettings.setAsWhite()
 	GameSettings.playerBase = 0x2349B4+0x20
 	GameSettings.playerBattleBase = 0x26A794+0x20
 	GameSettings.enemyBase = 0x26B254+0x20
-	GameSettings.playerBattleMonPID = 0x2A7E70+0x20
+	GameSettings.playerBattleMonPID = 0x2a7e70+0x20
 	GameSettings.enemyBattleMonPID = 0x2A7E14+0x20
 	GameSettings.battleStatus = 0x1D0798+0x20
 	GameSettings.itemStartNoBattle = 0x234784+0x20
 	GameSettings.itemStartBattle = 0x234784+0x20
-	GameSettings.statStagesPlayer = 0x26D7A0+0x20
+	GameSettings.statStagesStart = 0x26D7A0+0x20
 	GameSettings.statStagesEnemy = 0x26D9C4+0x20
 	GameSettings.maxHPBattlePlayer = 0x26D6B2+0x20
 	GameSettings.curHPBattlePlayer = 0x26D6B4+0x20
+	GameSettings.totalMonsParty = 0x2349B0+0x20
+	GameSettings.berryBagStart = 0x234844+0x20
 end
 
 function GameSettings.setAsBlack2White2()
