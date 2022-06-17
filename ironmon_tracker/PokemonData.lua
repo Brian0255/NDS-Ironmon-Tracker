@@ -30,7 +30,7 @@ EvolutionTypes = {
 	NONE = PLACEHOLDER, -- This Pokémon does not evolve.
 	FRIEND = "FRIEND", -- High friendship
 	STONES = "STONES", -- Various evolution stone items
-	THUNDER = "THUNDER", -- Thunder stone item
+	THUNDER = "THUNDR", -- Thunder stone item
 	FIRE = "FIRE", -- Fire stone item
 	WATER = "WATER", -- Water stone item
 	MOON = "MOON", -- Moon stone item
@@ -41,13 +41,13 @@ EvolutionTypes = {
 	OVAL = "OVAL", --Oval stone item
 	LEAF_SUN = "LEAF/SUN", -- Leaf or Sun stone items
 	PROTECTOR = "PROTCTR", -- Protector held item
-	ELECTIRIZER = "ELECTRZR", -- Elecirizer held item
+	ELECTIRIZER = "ELECRZR", -- Elecirizer held item
 	MAGMARIZER = "MAGMZR", -- Magmarizer held item
-	SHINY_STONE = "SHINY ST", -- Magmarizer held item
-	RAZOR_FANG = "RAZ. FNG",  -- Razor Fang held item
-	RAZOR_CLAW = "RAZ. CLW",  -- Razor Claw held item
-	DUBIOUS_DISC = "DUB. DSC", -- Dubious Disc held item
-	REAPER_CLOTH = "RE. CLTH", -- Reaper Cloth held item
+	SHINY_STONE = "SHNY ST", -- Magmarizer held item
+	RAZOR_FANG = "RAZ FNG",  -- Razor Fang held item
+	RAZOR_CLAW = "RAZ CLW",  -- Razor Claw held item
+	DUBIOUS_DISC = "DUB DSC", -- Dubious Disc held item
+	REAPER_CLOTH = "RE CLTH", -- Reaper Cloth held item
 	UPGRADE = "UP-GRADE", 			--Up-Grade held item
 	DRAGON_SCALE = "DRG SCLE", 	--Dragon Scale held item
 	METAL_COAT = "MTL COAT", 		--Metal Coat held item
@@ -1182,7 +1182,7 @@ PokemonData = {
         {6,9,14,17,22,25,30,33,38,41,46,49,54},
         {6,9,14,17,22,25,30,33,38,41,46,49,54},
         },
-    weight = 66.6
+    weight = 4.2
 },
 {
     name = "Persian",
