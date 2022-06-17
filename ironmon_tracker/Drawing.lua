@@ -209,7 +209,7 @@ function Drawing.drawButtons()
 	for i = 1, table.getn(Buttons), 1 do
 		if Buttons[i].visible() then
 			if Buttons[i].type == ButtonType.singleButton then
-				if Buttons[i] ~= HiddenPowerButton then
+				if Buttons[i] ~= HiddenPowerButton and Buttons[i].backgroundcolor ~= "" then
 					gui.drawRectangle(Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[3], Buttons[i].box[4], Buttons[i].backgroundcolor[1], Buttons[i].backgroundcolor[2])
 				end
 				local extraY = 1
@@ -228,10 +228,12 @@ end
 
 function Drawing.drawHPColor(monToDraw)
 	local colorbar = GraphicConstants.LAYOUTCOLORS.NEUTRAL
-	if monToDraw["curHP"] / monToDraw["maxHP"] <= 0.2 then
-		colorbar = GraphicConstants.LAYOUTCOLORS.DECREASE
-	elseif monToDraw["curHP"] / monToDraw["maxHP"] <= 0.5 then
-		colorbar = "yellow"
+	if Tracker.Data.selectedPlayer == 1 then
+		if monToDraw["curHP"] / monToDraw["maxHP"] <= 0.2 then
+			colorbar = GraphicConstants.LAYOUTCOLORS.DECREASE
+		elseif monToDraw["curHP"] / monToDraw["maxHP"] <= 0.5 then
+			colorbar = "yellow"
+		end
 	end
 	return colorbar
 end
@@ -303,7 +305,7 @@ function Drawing.drawStatsAndStages(monIsEnemy,monToDraw)
 	end
 
 	-- Stat stages -6 -> +6
-	if Tracker.Data.inBattle == 1 then
+	if Tracker.Data.inBattle == 1 and monToDraw["statStages"] then
 		Drawing.drawAccEvasion(monToDraw)
 		for i,stat in pairs(stats) do
 			local statStage = string.upper(stat)
@@ -322,7 +324,7 @@ function Drawing.DrawTracker(monIsEnemy)
 	gui.drawImage(DATA_FOLDER .. "/images/icons/gear.png", GraphicConstants.SCREEN_WIDTH + Drawing.statBoxWidth - 8, 7)
 
 	Drawing.drawPokemonIcon(monToDraw["pokemonID"], GraphicConstants.SCREEN_WIDTH + 5, 5)
-
+	if Settings.tracker.SHOW_POKECENTER_HEALS then Drawing.drawPokecenterHeals() end
 	local colorbar = Drawing.drawHPColor(monToDraw)
 	local currentHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["curHP"])
 	local maxHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["maxHP"])
@@ -341,6 +343,12 @@ function Drawing.DrawTracker(monIsEnemy)
 	Drawing.drawMoves(monToDraw,monIsEnemy)
 end
 
+function Drawing.drawPokecenterHeals()
+	local pokecenterIcon = DATA_FOLDER .. "/images/icons/healicon2.png"
+	gui.drawImage(pokecenterIcon,GraphicConstants.SCREEN_WIDTH + 113,144)
+	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 122,143,Tracker.Data.pokecenterCount)
+end
+
 function Drawing.drawMoves(monToDraw,monIsEnemy)
 	local borderMargin = 5
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, Drawing.movesBoxStartY, GraphicConstants.RIGHT_GAP - (2 * borderMargin), 46, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
@@ -349,15 +357,14 @@ function Drawing.drawMoves(monToDraw,monIsEnemy)
 	local stars = Drawing.getStars(movesLearnedSinceLevel,monIsEnemy,moveAgeRank)
 	local moves = Drawing.setupInitialMovesArray(monIsEnemy)
 
+	local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,46,10)
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, 140, GraphicConstants.RIGHT_GAP-subAmount, 14, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
 	-- Moves Learned
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, 140, GraphicConstants.RIGHT_GAP - (2 * borderMargin), 14, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
-
 	local moveColors = {}
 	for moveIndex = 1, 4, 1 do
 		table.insert(moveColors, Drawing.moveToColor(moves[moveIndex]))
 	end
 	local targetMon = Utils.inlineIf(monIsEnemy,Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
-	moves = Drawing.setupMovePower(moves,targetMon)
 	local stabColors = Drawing.setupSTABColors(moves,monToDraw)
 
 	local movesString = Drawing.getMovesString(monToDraw)
@@ -366,7 +373,7 @@ function Drawing.drawMoves(monToDraw,monIsEnemy)
 	local PPs = Drawing.fillMovePPs(moves,monToDraw,monIsEnemy)
 	Drawing.drawMoveCategories(moves)
 	Drawing.drawMovePPs(moves,monToDraw,monIsEnemy,PPs)
-	Drawing.drawMovePowers(moves,monToDraw,monIsEnemy,stabColors)
+	Drawing.drawMovePowers(moves,monIsEnemy,stabColors,PPs)
 	Drawing.drawMoveAccuracies(moves)
 	Drawing.drawAllMovesEffectiveness(targetMon,moves)
 	Drawing.drawButtons()
@@ -438,21 +445,6 @@ function Drawing.setupInitialMovesArray(monIsEnemy)
 			insertValue = MoveData[enemyMon.moves[i].move]
 		end
 		table.insert(moves,insertValue)
-	end
-	return moves
-end
-
-function Drawing.setupMovePower(moves,targetMon)
-	for moveIndex = 1, 4, 1 do
-		if moves[moveIndex].name == "Low Kick" then
-			if Tracker.Data.inBattle == 1 and targetMon ~= nil then 
-				local targetWeight = PokemonData[targetMon["pokemonID"]+1].weight
-				local newPower = Utils.calculateWeightBasedDamage(targetWeight)
-				moves[moveIndex].power = newPower
-			else
-				moves[moveIndex].power = "WT"
-			end
-		end
 	end
 	return moves
 end
@@ -567,24 +559,42 @@ function Drawing.drawMovePPs(moves,monToDraw,monIsEnemy,PPs)
 	end
 end
 
-function Drawing.drawMovePowers(moves,targetMon,monIsEnemy,stabColors)
+function Drawing.drawMovePowers(moves,monIsEnemy,stabColors,movePPs)
+	local currentMon = Utils.inlineIf(monIsEnemy,Tracker.Data.enemyPokemon,Tracker.Data.playerPokemon)
+	local targetMon = Utils.inlineIf(monIsEnemy,Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
 	local powerOffset = 102
-	local currentHP = Utils.inlineIf(monIsEnemy, "?", targetMon["curHP"])
-	local maxHP = Utils.inlineIf(monIsEnemy, "?", targetMon["maxHP"])
+	local currentHP = Utils.inlineIf(monIsEnemy, "?", currentMon["curHP"])
+	local maxHP = Utils.inlineIf(monIsEnemy, "?", currentMon["maxHP"])
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + powerOffset, Drawing.moveStartY - Drawing.moveTableHeaderHeightDiff, "Pow")
 	for moveIndex = 1, 4, 1 do
+		local pp = Utils.inlineIf(monIsEnemy,movePPs[moveIndex],currentMon.movePPs[moveIndex])
 		local movePower = moves[moveIndex].power
+		local name = moves[moveIndex].name
 		if Settings.tracker.CALCULATE_VARIABLE_DAMAGE == true then
 			local newPower = movePower
-			if movePower == "WT" and Tracker.Data.inBattle == 1 then
+			if movePower == "WT" and targetMon ~= nil and Tracker.Data.inBattle == 1 then
 				local targetWeight = PokemonData[targetMon["pokemonID"] + 1].weight
 				newPower = Utils.calculateWeightBasedDamage(targetWeight)
-			elseif movePower == "<HP" and not monIsEnemy then
-				newPower = Utils.calculateLowHPBasedDamage(currentHP, maxHP)
-			elseif movePower == ">HP" and not monIsEnemy then
-				newPower = Utils.calculateHighHPBasedDamage(currentHP, maxHP)
-			else 
-				newPower = movePower
+			end
+			if not monIsEnemy then
+				if name == "Flail" or name == "Reversal" and not monIsEnemy then
+					newPower = Utils.calculateLowHPBasedDamage(currentHP, maxHP)
+				elseif name == "Eruption" or name == "Water Spout" and not monIsEnemy then
+					newPower = Utils.calculateHighHPBasedDamage(currentHP, maxHP)
+				end
+			end
+			if name == "Trump Card" then
+				newPower = Utils.calculateTrumpCardPower(pp)
+			else
+				if targetMon ~= nil  and Tracker.Data.inBattle == 1 then
+					if name == "Punishment" and targetMon.statStages ~= nil then
+						newPower = Utils.calculatePunishmentPower(targetMon)
+					elseif name == "Wring Out" or name == "Crush Grip" then
+						newPower = Utils.calculateWringCrushDamage(targetMon.curHP, targetMon.maxHP)
+					elseif name == "Heat Crash" or name == "Heavy Slam" then
+						newPower = Utils.calculateWeightDifferenceDamage(currentMon,targetMon)
+					end
+				end
 			end
 			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + powerOffset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), newPower, stabColors[moveIndex])
 		else
@@ -616,6 +626,10 @@ end
 function Drawing.drawNoteBox()
 	local borderMargin = 5
 	local note = Tracker.GetNote()
+	local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
+	if string.len(note) > charMax then
+		note = string.sub(note,1,charMax) .. ".."
+	end
 	if note == '' then
 		gui.drawImage(DATA_FOLDER .. "/images/icons/editnote.png", GraphicConstants.SCREEN_WIDTH + borderMargin + 2, Drawing.movesBoxStartY + 48, 11, 11)
 	else
@@ -623,7 +637,6 @@ function Drawing.drawNoteBox()
 		--work around limitation of drawText not having width limit: paint over any spillover
 		local x = GraphicConstants.SCREEN_WIDTH + GraphicConstants.RIGHT_GAP - 5
 		local y = 141
-		gui.drawLine(x, 141, x, y + 12, GraphicConstants.LAYOUTCOLORS.BOXBORDER)
 		gui.drawRectangle(x + 1, y, 12, 12, 0xFF000000, 0xFF000000)
 	end
 end
