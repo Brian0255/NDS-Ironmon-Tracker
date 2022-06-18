@@ -12,6 +12,8 @@ Program = {
 	lastValidPlayerBattlePID = -1,
 	lastValidEnemyBattlePID = -1,
 
+	frameCounter = 0,
+
 	state = State.TRACKER,
 
 	firstBattleComplete = false
@@ -44,8 +46,11 @@ function Program.main()
 
 	if Program.state == State.TRACKER then
 		Program.updateTracker()
+	if Program.frameCounter == 600 then
+		Tracker.saveData()
+		Program.frameCounter = 0
+	end
 	if Tracker.waitFrames == 0 then
-
 		local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
 
 		if battleStatus == 0x2100 or battleStatus == 0x2101 then
@@ -89,12 +94,12 @@ function Program.main()
 		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
 		Tracker.waitFrames = 30
-		Tracker.saveData()
-		end
+	end
 
-		if Tracker.waitFrames > 0 then
-			Tracker.waitFrames = Tracker.waitFrames - 1
-		end
+	if Tracker.waitFrames > 0 then
+		Tracker.waitFrames = Tracker.waitFrames - 1
+		Program.frameCounter = Program.frameCounter + 1
+	end
 	elseif Program.state == State.SETTINGS then
 		if Options.redraw then
 			Drawing.drawSettings()
@@ -368,7 +373,7 @@ function Program.validPokemonData(pokemonData)
 	--Sometimes the player's pokemon stats are just wildly out of bounds(despite having the correct pokemonID), not sure why...
 	local STAT_LIMIT = 2000
 	local statsToCheck = {
-		pokemonData.curHP, pokemonData.maxHP, pokemonData.level,
+		pokemonData.curHP, pokemonData.maxHP, 
 		pokemonData.atk, pokemonData.spe, pokemonData.def, pokemonData.spd, pokemonData.spa
 	}
 	for _, stat in pairs(statsToCheck) do
