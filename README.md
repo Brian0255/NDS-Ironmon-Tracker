@@ -30,7 +30,7 @@ A lot of this project came directly from https://github.com/besteon/Ironmon-Trac
 6. Open the Lua Console (Tools -> Lua Console). Click on the folder icon and open `Ironmon_Tracker.lua` in the location you extracted it to.
    - If you installed the tracker in Bizhawk's `Lua` folder, this location is shown by default and you should see the `Ironmon_Tracker.lua` file right away.
 
-**IMPORTANT: Do not change the system clock in the melonDS settings.** This will shift the memory around and the tracker will not work. Currently there is no workaround for this yet. The settings should look like this (under NDS -> Settings -> Sync Settings once the NDS ROM is loaded).
+**IMPORTANT (GEN 4 GAMES): Do not change the system clock in the melonDS settings.** This will shift the memory around and the tracker will not work. Currently there is no workaround for this yet. The settings should look like this (under NDS -> Settings -> Sync Settings once the NDS ROM is loaded).
 
 ![image](https://user-images.githubusercontent.com/61294586/173255514-90c40ced-dcbd-4fae-bc41-a4ede0046db9.png)
 
