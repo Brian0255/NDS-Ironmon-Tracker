@@ -46,7 +46,7 @@ function Program.main()
 
 	if Program.state == State.TRACKER then
 		Program.updateTracker()
-	if Program.frameCounter == 600 then
+	if Program.frameCounter == 300 then
 		Tracker.saveData()
 		Program.frameCounter = 0
 	end
