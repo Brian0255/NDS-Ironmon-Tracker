@@ -103,6 +103,7 @@ Decrypter.GEN_4_5_IMPORTANT_BLOCK_DATA = {
             {6 , {"move4"}},
             {8, { "move1PP","move2PP"  }},
             {10, { "move3PP","move4PP"  }},
+            {24,{"alternateForm","nature"}}
     },
     C = {},
     D = {
@@ -182,7 +183,6 @@ function Decrypter.decrypt(checkingParty,monIndex,checkingEnemy)
             break
         end
     end
-
     return Decrypter.DecryptedData
 end
 
@@ -273,7 +273,13 @@ function Decrypter.decryptWord(seed,offsetData,address)
         Decrypter.DecryptedData[dataName[1]] = combinedBytes
     else
         Decrypter.DecryptedData[dataName[1]] = byte1Data
-        Decrypter.DecryptedData[dataName[2]] = byte2Data
+        if dataName[2] == "nature"  then
+            if GameSettings.gen == 5 then
+                Decrypter.DecryptedData[dataName[2]] = byte2Data
+            end
+        else
+            Decrypter.DecryptedData[dataName[2]] = byte2Data
+        end
     end
 end
 
