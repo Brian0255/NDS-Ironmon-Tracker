@@ -325,7 +325,7 @@ function Program.getPokemonDataEnemy()
 		local activePID = -1
 		local transformed = Program.checkForEnemyTransform()
 		if transformed then
-			activePID = Program.lastValidEnemyBattlePID()
+			activePID = Program.lastValidEnemyBattlePID
 		else
 			activePID = Program.getEnemyBattleMonPID()
 			Program.lastValidEnemyBattlePID = activePID
