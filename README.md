@@ -34,8 +34,12 @@ A lot of this project came directly from https://github.com/besteon/Ironmon-Trac
 
 ![image](https://user-images.githubusercontent.com/61294586/173255514-90c40ced-dcbd-4fae-bc41-a4ede0046db9.png)
 
+## Newest Features
+- Full Black and White support!
+- Pokecenter manual heal tracking for Survival Ironmon! Now you have this information right at the bottom of the tracker instead of notepad or whatever else you were using. If you aren't doing survival, you can toggle it off in the settings gear.
+![image](https://user-images.githubusercontent.com/61294586/174353977-5b7dce47-6677-4184-8282-122764bf46a3.png)
 
-## Features
+## Main Features
 
 - **Automatic Pokémon Tracking**: All of your Pokémon's data are updated as you play! Its stats, nature, moves(and various information about them), ability, and typing are all shown for you. No more having to bring up the summary constantly!
 
