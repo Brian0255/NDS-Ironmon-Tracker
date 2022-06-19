@@ -109,7 +109,7 @@ function Main.LoadNext()
 		io.close(filecheck)
 	else
 		nextromname = nextromname:gsub(" ", "_")
-		nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".NDS"
+		nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".nds"
 		filecheck = io.open(nextrompath,"r")
 		if filecheck == nil then
 			-- This means there doesn't exist a ROM file with spaces or underscores
