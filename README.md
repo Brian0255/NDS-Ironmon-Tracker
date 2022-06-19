@@ -37,6 +37,7 @@ A lot of this project came directly from https://github.com/besteon/Ironmon-Trac
 ## Newest Features
 - Full Black and White support!
 - Pokecenter manual heal tracking for Survival Ironmon! Now you have this information right at the bottom of the tracker instead of notepad or whatever else you were using. If you aren't doing survival, you can toggle it off in the settings gear.
+
 ![image](https://user-images.githubusercontent.com/61294586/174353977-5b7dce47-6677-4184-8282-122764bf46a3.png)
 
 ## Main Features
