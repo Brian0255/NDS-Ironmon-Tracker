@@ -1,11 +1,10 @@
 -- NDS Ironnon Tracker
 -- Created by OnlySpaghettiCode, largely based on the Ironmon Tracker by besteon and other contributors
 
-TRACKER_VERSION = "0.1.2"
+TRACKER_VERSION = "0.1.3"
 
 -- A frequently used placeholder when a data field is not applicable
 PLACEHOLDER = "---" 
-
 
 -- Check the version of BizHawk that is running
 if string.sub(client.getversion(), 1) ~= "2.8" then
