@@ -161,7 +161,7 @@ end
 
 function Program.getPlayerBattleMonPID()
 	local activePID = memory.read_u32_le(GameSettings.playerBattleMonPID)
-	if activePID  == 0 then
+	if activePID == 0 then
 		return memory.read_u32_le(GameSettings.playerBattleBase)
 	else
 		return activePID
