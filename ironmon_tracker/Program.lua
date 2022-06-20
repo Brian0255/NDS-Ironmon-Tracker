@@ -343,10 +343,12 @@ function Program.getPokemonDataEnemy()
 				lastMatchedIndex = i
 				Program.enemyMonIndex = i
 				local data = Decrypter.decrypt(false,i,true)
-				--Check for empty table.
-				if next(data) ~= nil then
-					if data.curHP > 0 then
-						return data
+				
+				if data ~= nil then
+					if next(data) ~= nil then
+						if data.curHP > 0 then
+							return data
+						end
 					end
 				else
 					return nil
