@@ -562,11 +562,6 @@ end
 function Drawing.drawMovePowers(moves,monIsEnemy,stabColors,movePPs)
 	local currentMon = Utils.inlineIf(monIsEnemy,Tracker.Data.enemyPokemon,Tracker.Data.playerPokemon)
 	local targetMon = Utils.inlineIf(monIsEnemy,Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
-	print("-")
-	print(Tracker.Data.playerPokemon)
-	print("--")
-	print(Tracker.Data.enemyPokemon)
-	print(monIsEnemy)
 	local powerOffset = 102
 	local currentHP = Utils.inlineIf(monIsEnemy, "?", currentMon["curHP"])
 	local maxHP = Utils.inlineIf(monIsEnemy, "?", currentMon["maxHP"])
