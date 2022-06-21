@@ -99,7 +99,7 @@ function Main.LoadNext()
 	if romprefix == nil then romprefix = "" end
 	-- Increment to the next ROM and determine its full file path
 	local nextromname = string.format(romprefix .. "%0" .. string.len(romnumber) .. "d", romnumber + 1)
-	local nextrompath = Settings.config.ROMS_FOLDER .. "\\" .. nextromname .. ".nds"
+	local nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".nds"
 
 	-- First try loading the next rom as-is with spaces, otherwise replace spaces with underscores and try again
 	local filecheck = io.open(nextrompath,"r")
@@ -108,7 +108,7 @@ function Main.LoadNext()
 		io.close(filecheck)
 	else
 		nextromname = nextromname:gsub(" ", "_")
-		nextrompath = Settings.config.ROMS_FOLDER .. "" .. nextromname .. ".nds"
+		nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".nds"
 		filecheck = io.open(nextrompath,"r")
 		if filecheck == nil then
 			-- This means there doesn't exist a ROM file with spaces or underscores
