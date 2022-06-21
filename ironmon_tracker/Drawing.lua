@@ -321,7 +321,7 @@ function Drawing.DrawTracker(monIsEnemy)
 
 
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, borderMargin, Drawing.statBoxWidth - borderMargin, Drawing.statBoxHeight, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
-	gui.drawImage(DATA_FOLDER .. "/images/icons/gear.png", GraphicConstants.SCREEN_WIDTH + Drawing.statBoxWidth - 8, 7)
+	gui.drawImage(DATA_FOLDER .. "/images/icons/gear2.png", GraphicConstants.SCREEN_WIDTH + Drawing.statBoxWidth - 9, 7)
 
 	Drawing.drawPokemonIcon(monToDraw["pokemonID"], GraphicConstants.SCREEN_WIDTH + 5, 5)
 	if Settings.tracker.SHOW_POKECENTER_HEALS then Drawing.drawPokecenterHeals() end
