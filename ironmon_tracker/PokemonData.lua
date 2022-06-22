@@ -88,6 +88,7 @@ PokemonData = {
         {},
         {},
         {},
+        {},
         {} 
         },
     weight = 0.0
