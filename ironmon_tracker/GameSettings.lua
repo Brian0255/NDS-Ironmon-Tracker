@@ -159,6 +159,18 @@ GameSettings.GAMECODE_TO_GAME_NAME = {
 	[0x4F445249] = "Pokemon White 2",
 }
 
+GameSettings.GAMECODE_TO_BADGE_PREFIX = {
+	[0x45415041] = "DPPT",
+	[0x45414441] = "DPPT",
+	[0x45555043] = "DPPT",
+	[0x454B5049] = "HGSS",
+	[0x45475049] = "HGSS",
+	[0x4F425249] = "BW",
+	[0x4F415249] = "BW",
+	[0x4F455249] = "BW2",
+	[0x4F445249] = "BW2",
+}
+
 
 GameSettings.CARTRIDGE_HEADER = 0x3FFE00
 
@@ -190,6 +202,7 @@ function GameSettings.initialize()
 	local gameCode = memory.read_u32_le(GameSettings.CARTRIDGE_HEADER+0x0C)
 	GameSettings.versiongroup = GameSettings.GAMECODE_TO_VERSION_GROUP[gameCode]
 	GameSettings.gamename = GameSettings.GAMECODE_TO_GAME_NAME[gameCode]
+	ButtonManager.BADGE_GAME_PREFIX = GameSettings.GAMECODE_TO_BADGE_PREFIX[gameCode]
 	local versionName = GameSettings.VERSIONS[GameSettings.versiongroup]
 	GameSettings.gen = GameSettings.VERSION_TO_GEN_NUMBER[versionName]
 
