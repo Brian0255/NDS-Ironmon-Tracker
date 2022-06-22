@@ -67,6 +67,16 @@ function Input.check(xmouse, ymouse)
 			end
 		end
 
+		--badges
+		for index, button in pairs(ButtonManager.badgeButtons) do
+			if button.visible() then
+				if Input.isInRange(xmouse, ymouse, button.box[1], button.box[2], button.box[3], button.box[4]) then
+					button:onclick()
+					Tracker.waitFrames = 0
+				end
+			end
+		end
+
 		-- settings gear
 		if Input.isInRange(xmouse, ymouse, GraphicConstants.SCREEN_WIDTH + 101 - 8, 7, 7, 7) then
 			Options.redraw = true
@@ -76,7 +86,8 @@ function Input.check(xmouse, ymouse)
 		--note box
 		local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,46,10)
 		local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
-		if Input.isInRange(xmouse, ymouse, GraphicConstants.SCREEN_WIDTH + 6, 141, GraphicConstants.RIGHT_GAP - subAmount, 12) and Input.noteForm == nil then
+		if Input.isInRange(xmouse, ymouse, GraphicConstants.SCREEN_WIDTH + 6, 141, GraphicConstants.RIGHT_GAP - subAmount, 12) 
+		and Input.noteForm == nil and Tracker.Data.selectedPlayer == 2 then
 			Input.noteForm = forms.newform(290, 60, "Note ("..charMax.. " char. max)", function() Input.noteForm = nil end)
 			local textBox = forms.textbox(Input.noteForm, Tracker.GetNote(), 200, 20)
 			forms.button(Input.noteForm, "Set", function()
