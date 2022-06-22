@@ -29,7 +29,7 @@ dofile(DATA_FOLDER .. "/GameSettings.lua")
 dofile(DATA_FOLDER .. "/GraphicConstants.lua")
 dofile(DATA_FOLDER .. "/Options.lua")
 dofile(DATA_FOLDER .. "/Utils.lua")
-dofile(DATA_FOLDER .. "/Buttons.lua")
+dofile(DATA_FOLDER .. "/ButtonManager.lua")
 dofile(DATA_FOLDER .. "/Input.lua")
 dofile(DATA_FOLDER .. "/Drawing.lua")
 dofile(DATA_FOLDER .. "/Program.lua")
@@ -64,7 +64,7 @@ function Main.Run()
 		end
 	else
 		Tracker.loadData()
-
+		ButtonManager.initializeBadgeButtons()
 		client.SetGameExtraPadding(0, GraphicConstants.UP_GAP, GraphicConstants.RIGHT_GAP, GraphicConstants.DOWN_GAP)
 		gui.defaultTextBackground(0)
 
