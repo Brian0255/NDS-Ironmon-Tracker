@@ -3840,7 +3840,7 @@ MoveDataMasterList = {
 	{
 		id = "418",
 		name = "Bullet Punch",
-		type = PokemonTypes.BUG,
+		type = PokemonTypes.STEEL,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
