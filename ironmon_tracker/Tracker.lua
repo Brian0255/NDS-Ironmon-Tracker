@@ -41,6 +41,7 @@ function Tracker.InitTrackerData()
 		currentHiddenPowerType = PokemonTypes.NORMAL,
 		romHash = nil,
 		pokecenterCount = 10,
+		badges = {0,0,0,0,0,0,0,0}
 	}
 	return trackerData
 end
@@ -207,6 +208,7 @@ function Tracker.loadData()
 
 		if Tracker.Data.romHash then
 			if gameinfo.getromhash() == Tracker.Data.romHash then
+				ButtonManager.updateBadges()
 				print("Loaded tracker data")
 			else
 				print("New ROM detected, resetting tracker data")
