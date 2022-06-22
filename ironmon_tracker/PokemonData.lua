@@ -5975,7 +5975,7 @@ PokemonData = {
 {
     name = "Kirlia",
     type = { PokemonTypes.PSYCHIC, PokemonTypes.EMPTY },
-    evolution = "30/DAWN",
+    evolution = "30/DWN",
     bst = "278",
     movelvls = {
         {},
