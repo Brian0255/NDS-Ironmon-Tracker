@@ -176,7 +176,7 @@ Buttons = {
 	},
 	{ -- Pokecenter increase
 	type = ButtonType.singleButton,
-	visible = function() return Settings.tracker.SHOW_POKECENTER_HEALS end,
+	visible = function() return false end,--Settings.tracker.SHOW_POKECENTER_HEALS end,
 	text = "+",
 	box = {
 		GraphicConstants.SCREEN_WIDTH + 134,
@@ -193,7 +193,7 @@ Buttons = {
 
 { -- Pokecenter decrease
 	type = ButtonType.singleButton,
-	visible = function() return Settings.tracker.SHOW_POKECENTER_HEALS end,
+	visible = function() return false end,--Settings.tracker.SHOW_POKECENTER_HEALS end,
 	text = "--",
 	box = {
 		GraphicConstants.SCREEN_WIDTH + 134,

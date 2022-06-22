@@ -353,9 +353,11 @@ function Drawing.DrawTracker(monIsEnemy)
 end
 
 function Drawing.drawPokecenterHeals()
+	--[[
 	local pokecenterIcon = DATA_FOLDER .. "/images/icons/healicon2.png"
 	gui.drawImage(pokecenterIcon,GraphicConstants.SCREEN_WIDTH + 113,144)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 122,143,Tracker.Data.pokecenterCount)
+	--]]
 end
 
 function Drawing.drawMoves(monToDraw,monIsEnemy)
