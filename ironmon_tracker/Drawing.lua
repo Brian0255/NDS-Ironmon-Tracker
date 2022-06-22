@@ -218,6 +218,15 @@ function Drawing.drawButtons()
 			end
 		end
 	end
+	local badgePrefix = ButtonManager.BADGE_GAME_PREFIX
+	for index, button in pairs(ButtonManager.badgeButtons) do
+		if button.visible() then
+			local addForOff = ""
+			if button.state == 0 then addForOff = "_OFF" end
+			local path = DATA_FOLDER .. "/images/icons/" .. badgePrefix .. "_badge"..index..addForOff..".png"
+			gui.drawImage(path,button.box[1], button.box[2])
+		end
+	end
 end
 
 function Drawing.drawInputOverlay()
@@ -357,8 +366,8 @@ function Drawing.drawMoves(monToDraw,monIsEnemy)
 	local stars = Drawing.getStars(movesLearnedSinceLevel,monIsEnemy,moveAgeRank)
 	local moves = Drawing.setupInitialMovesArray(monIsEnemy)
 
-	local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,46,10)
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, 140, GraphicConstants.RIGHT_GAP-subAmount, 14, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
+	local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,10,10)
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, 140, GraphicConstants.RIGHT_GAP-subAmount, 19, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
 	-- Moves Learned
 	local moveColors = {}
 	for moveIndex = 1, 4, 1 do
@@ -490,7 +499,6 @@ function Drawing.getMovesString(monToDraw)
 	local movesLearned = 0
 	local nextMove = 0
 	local foundNextMove = false
-
 	for k, v in pairs(movelevellist[GameSettings.versiongroup]) do 
 		moveCount = moveCount + 1
 		if v <= monToDraw["level"] then
@@ -622,20 +630,22 @@ function Drawing.drawAllMovesEffectiveness(targetMon,moves)
 end
 
 function Drawing.drawNoteBox()
-	local borderMargin = 5
-	local note = Tracker.GetNote()
-	local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
-	if string.len(note) > charMax then
-		note = string.sub(note,1,charMax) .. ".."
-	end
-	if note == '' then
-		gui.drawImage(DATA_FOLDER .. "/images/icons/editnote.png", GraphicConstants.SCREEN_WIDTH + borderMargin + 2, Drawing.movesBoxStartY + 48, 11, 11)
-	else
-		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + borderMargin, Drawing.movesBoxStartY + 47, note)
-		--work around limitation of drawText not having width limit: paint over any spillover
-		local x = GraphicConstants.SCREEN_WIDTH + GraphicConstants.RIGHT_GAP - 5
-		local y = 141
-		gui.drawRectangle(x + 1, y, 12, 12, 0xFF000000, 0xFF000000)
+	if Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 then
+		local borderMargin = 5
+		local note = Tracker.GetNote()
+		local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
+		if string.len(note) > charMax then
+			note = string.sub(note,1,charMax) .. ".."
+		end
+		if note == '' then
+			gui.drawImage(DATA_FOLDER .. "/images/icons/editnote.png", GraphicConstants.SCREEN_WIDTH + borderMargin + 3, Drawing.movesBoxStartY + 50)
+		else
+			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + borderMargin+1, Drawing.movesBoxStartY + 53, note)
+			--work around limitation of drawText not having width limit: paint over any spillover
+			local x = GraphicConstants.SCREEN_WIDTH + GraphicConstants.RIGHT_GAP - 5
+			local y = 141
+			gui.drawRectangle(x + 1, y, 12, 12, 0xFF000000, 0xFF000000)
+		end
 	end
 end
 
