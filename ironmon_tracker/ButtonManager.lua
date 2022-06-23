@@ -1,6 +1,6 @@
 ButtonManager = {
 	BADGE_GAME_PREFIX = "",
-	BADGE_X_POS_START = 264,
+	BADGE_X_POS_START = GraphicConstants.SCREEN_WIDTH+9,
 	BADGE_Y_POS = 142,
 	BADGE_WIDTH_LENGTH = 16,
 	badgeButtons = {}
@@ -176,11 +176,11 @@ Buttons = {
 	},
 	{ -- Pokecenter increase
 	type = ButtonType.singleButton,
-	visible = function() return false end,--Settings.tracker.SHOW_POKECENTER_HEALS end,
+	visible = function() return Settings.tracker.SHOW_POKECENTER_HEALS and Tracker.Data.inBattle == 0 end,
 	text = "+",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + 134,
-		142,
+		GraphicConstants.SCREEN_WIDTH + 90,
+		62,
 		8,
 		6
 	},
@@ -193,11 +193,12 @@ Buttons = {
 
 { -- Pokecenter decrease
 	type = ButtonType.singleButton,
-	visible = function() return false end,--Settings.tracker.SHOW_POKECENTER_HEALS end,
+	visible = function() 
+		return Settings.tracker.SHOW_POKECENTER_HEALS and Tracker.Data.inBattle == 0 end,
 	text = "--",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + 134,
-		149,
+		GraphicConstants.SCREEN_WIDTH + 90,
+		70,
 		8,
 		6
 	},
