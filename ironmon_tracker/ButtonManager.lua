@@ -176,7 +176,16 @@ Buttons = {
 	},
 	{ -- Pokecenter increase
 	type = ButtonType.singleButton,
-	visible = function() return Settings.tracker.SHOW_POKECENTER_HEALS and Tracker.Data.inBattle == 0 end,
+	visible = function() 
+		if Settings.tracker.SHOW_POKECENTER_HEALS then
+			if not Settings.tracker.SHOW_ACCURACY_AND_EVASION then
+				return true
+			else
+				return Tracker.Data.inBattle == 0
+			end
+		end
+		return false
+	end,
 	text = "+",
 	box = {
 		GraphicConstants.SCREEN_WIDTH + 90,
@@ -194,7 +203,15 @@ Buttons = {
 { -- Pokecenter decrease
 	type = ButtonType.singleButton,
 	visible = function() 
-		return Settings.tracker.SHOW_POKECENTER_HEALS and Tracker.Data.inBattle == 0 end,
+		if Settings.tracker.SHOW_POKECENTER_HEALS then
+			if not Settings.tracker.SHOW_ACCURACY_AND_EVASION then
+				return true
+			else
+				return Tracker.Data.inBattle == 0
+			end
+		end
+		return false
+	end,
 	text = "--",
 	box = {
 		GraphicConstants.SCREEN_WIDTH + 90,

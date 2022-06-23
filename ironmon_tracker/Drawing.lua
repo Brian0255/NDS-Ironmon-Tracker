@@ -346,17 +346,19 @@ function Drawing.DrawTracker(monIsEnemy)
 	local infoBoxHeight = 23
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, borderMargin + Drawing.statBoxHeight, Drawing.statBoxWidth - borderMargin, infoBoxHeight, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
 	Drawing.drawHeals(monIsEnemy)
-	if Settings.tracker.SHOW_POKECENTER_HEALS then Drawing.drawPokecenterHeals() end
+	Drawing.drawPokecenterHeals()
 	Drawing.drawAbilityAndHeldItem(monIsEnemy,monToDraw)
 	Drawing.drawStatsAndStages(monIsEnemy,monToDraw)
 	Drawing.drawMoves(monToDraw,monIsEnemy)
 end
 
 function Drawing.drawPokecenterHeals()
-	if Tracker.Data.inBattle == 0 then
-		local pokecenterIcon = DATA_FOLDER .. "/images/icons/healicon2.png"
-		gui.drawImage(pokecenterIcon,GraphicConstants.SCREEN_WIDTH + 69,65)
-		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 78,64,Tracker.Data.pokecenterCount)
+	if Settings.tracker.SHOW_POKECENTER_HEALS then
+		if Tracker.Data.inBattle == 0 or not Settings.tracker.SHOW_ACCURACY_AND_EVASION then
+			local pokecenterIcon = DATA_FOLDER .. "/images/icons/healicon2.png"
+			gui.drawImage(pokecenterIcon,GraphicConstants.SCREEN_WIDTH + 69,65)
+			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 78,64,Tracker.Data.pokecenterCount)
+		end
 	end
 end
 
