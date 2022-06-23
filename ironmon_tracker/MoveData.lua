@@ -199,7 +199,7 @@ MoveDataMasterList = {
 		power = "80",
 		pp = "10",
 		accuracy = {"75","75","100","100","100"},
-		category = MoveCategories.PHYSICAL,
+		category = MoveCategories.SPECIAL,
 	},
 	{
 		id = "14",
@@ -887,7 +887,7 @@ MoveDataMasterList = {
 	},
 	{
 		id = "90",
-		name = "Fissure",
+		name = "Flamethrower",
 		type = PokemonTypes.GROUND,
 		power = NOPOWER,
 		pp = "5",
