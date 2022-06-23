@@ -1,7 +1,7 @@
 -- NDS Ironnon Tracker
 -- Created by OnlySpaghettiCode, largely based on the Ironmon Tracker by besteon and other contributors
 
-TRACKER_VERSION = "0.2.0"
+TRACKER_VERSION = "0.2.1"
 
 -- A frequently used placeholder when a data field is not applicable
 PLACEHOLDER = "---" 
