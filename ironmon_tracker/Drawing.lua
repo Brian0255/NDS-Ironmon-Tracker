@@ -333,7 +333,6 @@ function Drawing.DrawTracker(monIsEnemy)
 	gui.drawImage(DATA_FOLDER .. "/images/icons/gear.png", GraphicConstants.SCREEN_WIDTH + Drawing.statBoxWidth - 9, 7)
 
 	Drawing.drawPokemonIcon(monToDraw["pokemonID"], GraphicConstants.SCREEN_WIDTH + 5, 5)
-	if Settings.tracker.SHOW_POKECENTER_HEALS then Drawing.drawPokecenterHeals() end
 	local colorbar = Drawing.drawHPColor(monToDraw)
 	local currentHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["curHP"])
 	local maxHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["maxHP"])
@@ -347,17 +346,18 @@ function Drawing.DrawTracker(monIsEnemy)
 	local infoBoxHeight = 23
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, borderMargin + Drawing.statBoxHeight, Drawing.statBoxWidth - borderMargin, infoBoxHeight, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
 	Drawing.drawHeals(monIsEnemy)
+	if Settings.tracker.SHOW_POKECENTER_HEALS then Drawing.drawPokecenterHeals() end
 	Drawing.drawAbilityAndHeldItem(monIsEnemy,monToDraw)
 	Drawing.drawStatsAndStages(monIsEnemy,monToDraw)
 	Drawing.drawMoves(monToDraw,monIsEnemy)
 end
 
 function Drawing.drawPokecenterHeals()
-	--[[
-	local pokecenterIcon = DATA_FOLDER .. "/images/icons/healicon2.png"
-	gui.drawImage(pokecenterIcon,GraphicConstants.SCREEN_WIDTH + 113,144)
-	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 122,143,Tracker.Data.pokecenterCount)
-	--]]
+	if Tracker.Data.inBattle == 0 then
+		local pokecenterIcon = DATA_FOLDER .. "/images/icons/healicon2.png"
+		gui.drawImage(pokecenterIcon,GraphicConstants.SCREEN_WIDTH + 69,65)
+		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 78,64,Tracker.Data.pokecenterCount)
+	end
 end
 
 function Drawing.drawMoves(monToDraw,monIsEnemy)
@@ -369,6 +369,7 @@ function Drawing.drawMoves(monToDraw,monIsEnemy)
 	local moves = Drawing.setupInitialMovesArray(monIsEnemy)
 
 	local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,10,10)
+	--Bottom rectangle
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + borderMargin, 140, GraphicConstants.RIGHT_GAP-subAmount, 19, GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL)
 	-- Moves Learned
 	local moveColors = {}
