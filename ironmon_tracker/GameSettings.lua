@@ -229,6 +229,5 @@ function GameSettings.initialize()
 	else
 		MiscData.item = MiscData.items_gen4
 	end
-
 	Decrypter.init()
 end
