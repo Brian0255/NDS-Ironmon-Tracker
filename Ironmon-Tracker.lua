@@ -7,18 +7,23 @@ TRACKER_VERSION = "0.2.1"
 PLACEHOLDER = "---" 
 
 -- Check the version of BizHawk that is running
-if string.sub(client.getversion(), 1) ~= "2.8" then
+if client.getversion == nil or client.getversion() ~= "2.8" then
 	print("This version of BizHawk is not supported. Please update to version 2.8 or higher.")
 	-- Bounce out... Don't pass Go! Don't collect $200.
 	return
 end
 
--- Root folder for the project data and sub scripts
-DATA_FOLDER = "ironmon_tracker"
 
 -- Get the user settings saved on disk and create the base Settings object
+DATA_FOLDER = "ironmon_tracker"
 INI = dofile(DATA_FOLDER .. "/Inifile.lua")
 Settings = INI.parse(io.open("Settings.ini"):read("*a"), "memory")
+-- If ROMS_FOLDER is left empty, Inifile.lua doesn't add it to the settings table, resulting in the ROMS_FOLDER 
+-- being deleted entirely from Settings.ini if another setting is toggled in the tracker options menu
+if Settings.config.ROMS_FOLDER == nil then Settings.config.ROMS_FOLDER = "" end
+
+-- Root folder for the project data and sub scripts
+
 
 -- Import all scripts before starting the main loop
 dofile(DATA_FOLDER .. "/PokemonData.lua")
@@ -36,6 +41,7 @@ dofile(DATA_FOLDER .. "/Program.lua")
 dofile(DATA_FOLDER .. "/Pickle.lua")
 dofile(DATA_FOLDER .. "/Tracker.lua")
 dofile(DATA_FOLDER .. "/Decrypter.lua") 
+dofile(DATA_FOLDER .. "/ColorPicker.lua") 
 
 Main = {}
 Main.LoadNextSeed = false
@@ -65,6 +71,9 @@ function Main.Run()
 	else
 		Tracker.loadData()
 		ButtonManager.initializeBadgeButtons()
+		local picker = ColorPicker.new("Default text color")
+		picker:show()
+		Input.currentColorPicker = picker
 		client.SetGameExtraPadding(0, GraphicConstants.UP_GAP, GraphicConstants.RIGHT_GAP, GraphicConstants.DOWN_GAP)
 		gui.defaultTextBackground(0)
 
@@ -83,20 +92,26 @@ end
 function Main.LoadNext()
 	userdata.clear()
 
-	if Settings.config.ROMS_FOLDER == nil then
+	if Settings.config.ROMS_FOLDER == nil or Settings.config.ROMS_FOLDER == "" then
 		print("ROMS_FOLDER unspecified. Set this in Settings.ini to automatically switch ROM.")
 		Main.LoadNextSeed = false
 		Main.Run()
 		return
 	end
 
-	client.SetSoundOn(false)
 	local romname = gameinfo.getromname()
-	client.closerom()
+
 	-- Split the ROM name into its prefix and numerical values
 	local romprefix = string.match(romname, '[^0-9]+')
 	local romnumber = string.match(romname, '[0-9]+')
 	if romprefix == nil then romprefix = "" end
+
+	if romnumber == "" or romnumber == nil then
+		print("Current ROM does not have any numbers in its name, unable to load next seed.\nReloaded current ROM: " .. romname)
+		Main.LoadNextSeed = false
+		Main.Run()
+	end
+
 	-- Increment to the next ROM and determine its full file path
 	local nextromname = string.format(romprefix .. "%0" .. string.len(romnumber) .. "d", romnumber + 1)
 	local nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".nds"
@@ -112,7 +127,7 @@ function Main.LoadNext()
 		filecheck = io.open(nextrompath,"r")
 		if filecheck == nil then
 			-- This means there doesn't exist a ROM file with spaces or underscores
-			print("Unable to locate next ROM file to load. Current ROM: " .. romname)
+			print("Unable to locate next ROM file to load.")
 			Main.LoadNextSeed = false
 			Main.Run()
 		else
@@ -120,6 +135,9 @@ function Main.LoadNext()
 		end
 	end
 
+	client.SetSoundOn(false)
+	client.closerom()
+	print("Loading next ROM: " .. nextromname)
 	client.openrom(nextrompath)
 	client.SetSoundOn(true)
 
