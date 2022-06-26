@@ -3,7 +3,8 @@ ButtonManager = {
 	BADGE_X_POS_START = GraphicConstants.SCREEN_WIDTH+9,
 	BADGE_Y_POS = 142,
 	BADGE_WIDTH_LENGTH = 16,
-	badgeButtons = {}
+	badgeButtons = {},
+	textBoxes = {}
 }
 
 ButtonType = {
@@ -29,9 +30,9 @@ StatButtonStates = {
 }
 
 StatButtonColors = {
-	GraphicConstants.LAYOUTCOLORS.NEUTRAL,
-	GraphicConstants.LAYOUTCOLORS.DECREASE,
-	GraphicConstants.LAYOUTCOLORS.INCREASE
+	GraphicConstants.layoutColors["Default text color"],
+	GraphicConstants.layoutColors["Negative text color"],
+	GraphicConstants.layoutColors["Positive text color"]
 }
 
 local buttonXOffset = 129
@@ -48,7 +49,7 @@ HiddenPowerButton = {
 		65,
 		10
 	},
-	backgroundcolor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
+	backgroundcolor = { GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"] },
 	textcolor = GraphicConstants.TYPECOLORS[HiddenPowerTypeList[HiddenPowerState+1]],
 	onclick = function()
 		HiddenPowerState = (HiddenPowerState + 1) % #HiddenPowerTypeList
@@ -70,7 +71,7 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
+		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
 		textcolor = 0xFF00AAFF,
 		onclick = function()
 			Program.StatButtonState.hp = ((Program.StatButtonState.hp + 1) % 3) + 1
@@ -89,7 +90,7 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
+		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
 		textcolor = 0xFF00AAFF,
 		onclick = function()
 			Program.StatButtonState.att = ((Program.StatButtonState.att + 1) % 3) + 1
@@ -108,7 +109,7 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
+		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
 		textcolor = 0xFF00AAFF,
 		onclick = function()
 			Program.StatButtonState.def = ((Program.StatButtonState.def + 1) % 3) + 1
@@ -127,7 +128,7 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
+		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
 		textcolor = 0xFF00AAFF,
 		onclick = function()
 			Program.StatButtonState.spa = ((Program.StatButtonState.spa + 1) % 3) + 1
@@ -146,7 +147,7 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
+		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
 		textcolor = 0xFF00AAFF,
 		onclick = function()
 			Program.StatButtonState.spd = ((Program.StatButtonState.spd + 1) % 3) + 1
@@ -165,7 +166,7 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
+		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
 		textcolor = 0xFF00AAFF,
 		onclick = function()
 			Program.StatButtonState.spe = ((Program.StatButtonState.spe + 1) % 3) + 1
