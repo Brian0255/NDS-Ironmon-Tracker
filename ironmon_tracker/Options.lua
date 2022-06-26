@@ -15,21 +15,38 @@ Options.closeButton = {
 		30,
 		11,
 	},
-	backgroundColor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
-	textColor = GraphicConstants.LAYOUTCOLORS.NEUTRAL,
+	backgroundColor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
+	textColor = GraphicConstants.layoutColors["Default text color"],
 	-- onClick = function(): currently handled in the Input object
+}
+
+-- Opens the Color Options interface.
+Options.openColorOptions = {
+	text = "Edit colors",
+	box = {
+		GraphicConstants.SCREEN_WIDTH + GraphicConstants.RIGHT_GAP - 94,
+		GraphicConstants.SCREEN_HEIGHT - 20,
+		48,
+		11,
+	},
+	backgroundColor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
+	textColor = GraphicConstants.layoutColors["Default text color"],
+	onClick = function()
+		Program.state = State.COLOR_CUSTOMIZING
+		Options.redraw = false
+	end
 }
 
 -- Not a visible button, but is used by the Input script to see if clicks occurred on the setting
 Options.romsFolderOption = {
 	text = "Roms folder: ",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + 6, -- 6 = borderMargin + 1
-		8, -- 8 = borderMargin + 3
+		GraphicConstants.SCREEN_WIDTH + 6, -- 6 = GraphicConstants.BORDER_MARGIN + 1
+		8, -- 8 = GraphicConstants.BORDER_MARGIN + 3
 		8,
 		8,
 	},
-	textColor = GraphicConstants.LAYOUTCOLORS.NEUTRAL,
+	textColor = GraphicConstants.layoutColors["Default text color"],
 }
 
 -- Stores the options in the Settings.ini file into configurable toggles in the Tracker
@@ -37,7 +54,6 @@ Options.optionsButtons = {}
 
 --[[]]
 function Options.buildTrackerOptionsButtons()
-	local borderMargin = 5
 	-- Used for the position offests.
 	local optionIndex = 1
 	for key, value in pairs(Settings.tracker) do
@@ -48,14 +64,14 @@ function Options.buildTrackerOptionsButtons()
 			local button = {
 				text = string.sub(key, 1, 1) .. string.sub(string.lower(string.gsub(key, "_", " ")), 2),
 				box = {
-					GraphicConstants.SCREEN_WIDTH + borderMargin + 3,
+					GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + 3,
 					(optionIndex * 10),
 					8,
 					8,
 				},
-				backgroundColor = { GraphicConstants.LAYOUTCOLORS.BOXBORDER, GraphicConstants.LAYOUTCOLORS.BOXFILL },
-				textColor = GraphicConstants.LAYOUTCOLORS.NEUTRAL,
-				optionColor = GraphicConstants.LAYOUTCOLORS.INCREASE,
+				backgroundColor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
+				textColor = GraphicConstants.layoutColors["Default text color"],
+				optionColor = GraphicConstants.layoutColors["Positive text color"],
 				optionState = value,
 				-- TODO: Need a better way to internally update the optionState member rather than depending on the caller to save it...
 				onClick = function() -- return the updated value to be saved into this button's optionState value
