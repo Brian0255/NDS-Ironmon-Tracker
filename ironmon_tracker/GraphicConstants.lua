@@ -4,6 +4,7 @@ GraphicConstants = {
 	RIGHT_GAP = 150,
 	SCREEN_HEIGHT = 160,
 	SCREEN_WIDTH = 256,
+	BORDER_MARGIN = 5,
 
 	TYPECOLORS = {
 		normal = 0xFFA7A879,
@@ -26,13 +27,16 @@ GraphicConstants = {
 		fairy = 0xFFEE99AC,
 		unknown = 0xFF68A090, -- For the "Curse" move in Gen 2 - 4
 	},
-
-	LAYOUTCOLORS = {
-		BOXFILL = 0xFF222222,
-		BOXBORDER = 0xFFAAAAAA,
-		NEUTRAL = 0xFFFFFFFF,
-		INCREASE = 0xFF00FF00,
-		DECREASE = 0xFFFF0000,
-		HIGHLIGHT = "yellow",
+	layoutColors = {
+		["Overall background color"] = 		0xFF222222,
+		["Default text color"] = 			0xFFFF00FF,
+		["Positive text color"] = 			0xFF0000FF,
+		["Negative text color"] = 			0xFFFF0000,
+		["Intermediate text color"] = 		0xFF00FF00,
+		["Move header text color"] = 		0xFF00FF00,
+		["Top box border color"] =			0xFFAAAAAA,
+		["Bottom box border color"] = 		0xFF0000FF,
+		["Top box background color"] = 		0xFF222222,
+		["Bottom box background color"] = 	0xFF444444,
 	}
 }
