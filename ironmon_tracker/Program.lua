@@ -1,6 +1,8 @@
 State = {
 	TRACKER = "Tracker",
 	SETTINGS = "Settings",
+	COLOR_CUSTOMIZING = "Color Customizing",
+	COLOR_PICKER_DIALOG = "Color Picking Dialog",
 }
 
 Program = {
@@ -46,65 +48,72 @@ function Program.main()
 
 	if Program.state == State.TRACKER then
 		Program.updateTracker()
-	if Program.frameCounter == 300 then
-		Tracker.saveData()
-		Program.frameCounter = 0
-	end
-	if Tracker.waitFrames == 0 then
-		local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
+		if Program.frameCounter == 300 then
+			Tracker.saveData()
+			Program.frameCounter = 0
+		end
+		if Tracker.waitFrames == 0 then
+			local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
 
-		if battleStatus == 0x2100 or battleStatus == 0x2101 then
-			if Tracker.Data.inBattle == 0 then
-				--Just started battle.
-				Program.battleDataFetched = false
-				Program.playerBattleTeamPIDs = {}
-				Program.enemyBattleTeamPIDs = {}
+			if battleStatus == 0x2100 or battleStatus == 0x2101 then
+				if Tracker.Data.inBattle == 0 then
+					--Just started battle.
+					Program.battleDataFetched = false
+					Program.playerBattleTeamPIDs = {}
+					Program.enemyBattleTeamPIDs = {}
+					Program.battleDataFetched = Program.tryToFetchBattleData()
+				end
+				Tracker.Data.inBattle = 1
+			else
+				if Tracker.Data.inBattle == 1 then
+					Program.firstBattleComplete = true
+				end
+				Tracker.Data.inBattle = 0
+			end
+			if Tracker.Data.inBattle ~= 1 then
+				Tracker.Data.selectedPlayer = 1
+			end
+			if Tracker.Data.inBattle == 1 and not Program.battleDataFetched then
 				Program.battleDataFetched = Program.tryToFetchBattleData()
 			end
-			Tracker.Data.inBattle = 1
-		else
-			if Tracker.Data.inBattle == 1 then
-				Program.firstBattleComplete = true
+			local canUpdate = true
+			if not Settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM
+			and Program.firstBattleComplete == false and GameSettings.gamename == "Pokemon Platinum" then
+				canUpdate = false
 			end
-			Tracker.Data.inBattle = 0
-		end
-		if Tracker.Data.inBattle ~= 1 then
-			Tracker.Data.selectedPlayer = 1
-		end
-		if Tracker.Data.inBattle == 1 and not Program.battleDataFetched then
-			Program.battleDataFetched = Program.tryToFetchBattleData()
-		end
-		local canUpdate = true
-		if not Settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM
-		and Program.firstBattleComplete == false and GameSettings.gamename == "Pokemon Platinum" then
-			canUpdate = false
-		end
-		if canUpdate then
-			Program.UpdatePlayerPokemonData()
-		end
-		Program.UpdateEnemyPokemonData()
+			if canUpdate then
+				Program.UpdatePlayerPokemonData()
+			end
+			Program.UpdateEnemyPokemonData()
 
-		Program.UpdateBagHealingItems()
-		Program.checkEnemyPP()
-		Program.updateStatStages()
-		if Tracker.Data.inBattle == 1 and Tracker.Data.enemyPokemon ~= nil then
-			Program.StatButtonState = Tracker.getButtonState()
-			Buttons = Program.updateButtons(Program.StatButtonState)
+			Program.UpdateBagHealingItems()
+			Program.checkEnemyPP()
+			Program.updateStatStages()
+			if Tracker.Data.inBattle == 1 and Tracker.Data.enemyPokemon ~= nil then
+				Program.StatButtonState = Tracker.getButtonState()
+				Buttons = Program.updateButtons(Program.StatButtonState)
+			end
+			Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
+
+			Tracker.waitFrames = 30
 		end
-		Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
-		Tracker.waitFrames = 30
-	end
-
-	if Tracker.waitFrames > 0 then
-		Tracker.waitFrames = Tracker.waitFrames - 1
-		Program.frameCounter = Program.frameCounter + 1
-	end
+		if Tracker.waitFrames > 0 then
+			Tracker.waitFrames = Tracker.waitFrames - 1
+			Program.frameCounter = Program.frameCounter + 1
+		end
 	elseif Program.state == State.SETTINGS then
 		if Options.redraw then
 			Drawing.drawSettings()
 			Options.redraw = false
 		end
+	elseif Program.state == State.COLOR_CUSTOMIZING then
+		if ColorOptions.redraw then
+			Drawing.drawColorOptions()
+			ColorOptions.redraw = false
+		end
+	elseif Program.state == State.COLOR_PICKER_DIALOG then
+		--nothing yet
 	end
 end
 
