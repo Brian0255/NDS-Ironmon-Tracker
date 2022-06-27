@@ -1,4 +1,9 @@
-Utils = {}
+Utils = {
+	POPUP_DIALOG_TYPES = {
+		WARNING = "!",
+		INFO = "Info",
+	}
+}
 
 function Utils.getbits(a, b, d)
 	return bit.rshift(a, b) % bit.lshift(1, d)
@@ -180,4 +185,16 @@ function Utils.calculateWeightDifferenceDamage(currentMon,targetMon)
 		return "60"
 	else return "40"
 	end
+end
+
+function Utils.popupDialog(info,x,y,width,height,dialogType)
+	local infoForm = forms.newform(width,height,dialogType,function() end)
+	forms.setlocation(infoForm,x,y)
+	local canvas = forms.pictureBox(infoForm,0,0,width,height)
+	forms.drawText(canvas,10,10,info,0xFF000000,0x00000000,14,"Arial")
+end
+
+function Utils.fileExists(path)
+	local file = io.open(path,"r")
+	if file ~= nil then io.close(file) return true else return false end
 end
