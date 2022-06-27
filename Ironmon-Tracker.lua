@@ -42,6 +42,9 @@ dofile(DATA_FOLDER .. "/Pickle.lua")
 dofile(DATA_FOLDER .. "/Tracker.lua")
 dofile(DATA_FOLDER .. "/Decrypter.lua") 
 dofile(DATA_FOLDER .. "/ColorPicker.lua") 
+dofile(DATA_FOLDER .. "/ColorOptions.lua") 
+dofile(DATA_FOLDER .. "/ThemeForms.lua")
+dofile(DATA_FOLDER .. "/Images.lua")  
 
 Main = {}
 Main.LoadNextSeed = false
@@ -71,12 +74,10 @@ function Main.Run()
 	else
 		Tracker.loadData()
 		ButtonManager.initializeBadgeButtons()
-		local picker = ColorPicker.new("Default text color")
-		picker:show()
-		Input.currentColorPicker = picker
+		ColorOptions.initializeButtons()
+		GraphicConstants.readSettingsColors()
 		client.SetGameExtraPadding(0, GraphicConstants.UP_GAP, GraphicConstants.RIGHT_GAP, GraphicConstants.DOWN_GAP)
 		gui.defaultTextBackground(0)
-
 		event.onloadstate(Tracker.loadData, "OnLoadState")
 		event.onexit(Program.HandleExit, "HandleExit")
 
