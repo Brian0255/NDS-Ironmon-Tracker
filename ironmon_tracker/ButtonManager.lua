@@ -30,9 +30,9 @@ StatButtonStates = {
 }
 
 StatButtonColors = {
-	GraphicConstants.layoutColors["Default text color"],
-	GraphicConstants.layoutColors["Negative text color"],
-	GraphicConstants.layoutColors["Positive text color"]
+	"Default text color",
+	"Negative text color",
+	"Positive text color"
 }
 
 local buttonXOffset = 129
@@ -49,7 +49,7 @@ HiddenPowerButton = {
 		65,
 		10
 	},
-	backgroundcolor = { GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"] },
+	backgroundcolor = { "Bottom box border color", "Bottom box background color" },
 	textcolor = GraphicConstants.TYPECOLORS[HiddenPowerTypeList[HiddenPowerState+1]],
 	onclick = function()
 		HiddenPowerState = (HiddenPowerState + 1) % #HiddenPowerTypeList
@@ -71,8 +71,8 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-		textcolor = 0xFF00AAFF,
+		backgroundcolor = { "Top box border color", "Top box background color" },
+		textcolor = "Default text color",
 		onclick = function()
 			Program.StatButtonState.hp = ((Program.StatButtonState.hp + 1) % 3) + 1
 			Buttons[1].text = StatButtonStates[Program.StatButtonState.hp]
@@ -90,8 +90,8 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-		textcolor = 0xFF00AAFF,
+		backgroundcolor = { "Top box border color", "Top box background color" },
+		textcolor = "Default text color",
 		onclick = function()
 			Program.StatButtonState.att = ((Program.StatButtonState.att + 1) % 3) + 1
 			Buttons[2].text = StatButtonStates[Program.StatButtonState.att]
@@ -109,8 +109,8 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-		textcolor = 0xFF00AAFF,
+		backgroundcolor = { "Top box border color", "Top box background color" },
+		textcolor = "Default text color",
 		onclick = function()
 			Program.StatButtonState.def = ((Program.StatButtonState.def + 1) % 3) + 1
 			Buttons[3].text = StatButtonStates[Program.StatButtonState.def]
@@ -128,8 +128,8 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-		textcolor = 0xFF00AAFF,
+		backgroundcolor = { "Top box border color", "Top box background color" },
+		textcolor = "Default text color",
 		onclick = function()
 			Program.StatButtonState.spa = ((Program.StatButtonState.spa + 1) % 3) + 1
 			Buttons[4].text = StatButtonStates[Program.StatButtonState.spa]
@@ -147,8 +147,8 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-		textcolor = 0xFF00AAFF,
+		backgroundcolor = { "Top box border color", "Top box background color" },
+		textcolor = "Default text color",
 		onclick = function()
 			Program.StatButtonState.spd = ((Program.StatButtonState.spd + 1) % 3) + 1
 			Buttons[5].text = StatButtonStates[Program.StatButtonState.spd]
@@ -166,8 +166,8 @@ Buttons = {
 			8,
 			8
 		},
-		backgroundcolor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-		textcolor = 0xFF00AAFF,
+		backgroundcolor = { "Top box border color", "Top box background color" },
+		textcolor = "Default text color",
 		onclick = function()
 			Program.StatButtonState.spe = ((Program.StatButtonState.spe + 1) % 3) + 1
 			Buttons[6].text = StatButtonStates[Program.StatButtonState.spe]
@@ -195,7 +195,7 @@ Buttons = {
 		6
 	},
 	backgroundcolor = "",
-	textcolor = GraphicConstants.NEUTRAL,
+	textcolor = "Default text color",
 	onclick = function()
 		Tracker.Data.pokecenterCount = Tracker.Data.pokecenterCount + 1
 	end
@@ -221,7 +221,7 @@ Buttons = {
 		6
 	},
 	backgroundcolor = "",
-	textcolor = GraphicConstants.NEUTRAL,
+	textcolor = "Default text color",
 	onclick = function()
 		Tracker.Data.pokecenterCount = math.max(Tracker.Data.pokecenterCount - 1,0)
 	end
