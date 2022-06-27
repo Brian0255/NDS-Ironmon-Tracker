@@ -16,7 +16,7 @@ ColorOptions = {
         X_OFFSET = 150,
         COLOR_OPTION_BOX_X = GraphicConstants.SCREEN_WIDTH+GraphicConstants.BORDER_MARGIN + 150,
         COLOR_OPTION_BOX_Y = GraphicConstants.BORDER_MARGIN,
-        COLOR_OPTION_HEIGHT = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN) + 102,
+        COLOR_OPTION_HEIGHT = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN) + 112,
         COLOR_OPTION_WIDTH = GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN),
         BUTTON_MARGIN = 8,
         BUTTON_HEIGHT = 12,
@@ -105,7 +105,7 @@ function ColorOptions.initializeMainButtons()
                 8,
                 8
             },
-            backgroundColor = {"Bottom box border color", "Bottom box background color" },
+            backgroundColor = {0xFF000000, "Bottom box background color" },
             textColor = "Default text color",
             optionColor = "Positive text color",
             optionState = Settings.ColorSettings.Colored_move_names,
@@ -116,6 +116,25 @@ function ColorOptions.initializeMainButtons()
                 INI.save("Settings.ini", Settings)
             end
     }
+    ColorOptions.toggleShadowsButton = {
+        text = "Draw shadows",
+        box = {
+            ColorOptions.constants.COLOR_OPTION_BOX_X + ColorOptions.constants.BUTTON_MARGIN+1,
+            ColorOptions.constants.COLOR_OPTION_BOX_Y + 188,
+            8,
+            8
+        },
+        backgroundColor = {0xFF000000, "Bottom box background color" },
+        textColor = "Default text color",
+        optionColor = "Positive text color",
+        optionState = Settings.ColorSettings.Draw_shadows,
+        onclick = function(self) 
+            Settings.ColorSettings.Draw_shadows = not(Settings.ColorSettings.Draw_shadows)
+            self.optionState = not (self.optionState)
+            ColorOptions.redraw = true
+            INI.save("Settings.ini", Settings)
+        end
+}
     ColorOptions.mainButtons = {ColorOptions.loadButton,ColorOptions.saveButton,ColorOptions.presetButton,
                                 ColorOptions.restoreDefaults,ColorOptions.closeButton, ColorOptions.loadThemeStringButton,
                                 ColorOptions.exportThemeStringButton}
