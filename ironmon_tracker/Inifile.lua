@@ -60,11 +60,7 @@ function inifile.parse(name, backend)
 	local sectionorder = {}
 	local cursectionorder
 
-	local file = io.open(name)
-
-	assert(file ~= nil)
-
-	for line in file:lines() do
+	for line in backends[backend].lines(name) do
 
 		-- Section headers
 		local s = line:match("^%[([^%]]+)%]$")
@@ -93,8 +89,6 @@ function inifile.parse(name, backend)
 			table.insert(cursectionorder, key)
 		end
 	end
-
-	io.close(file)
 
 	-- Store our metadata in the __inifile field in the metatable
 	return setmetatable(t, {
@@ -183,7 +177,7 @@ function inifile.save(name, t, backend)
 	end
 
 	local file = io.open(name,"w")
-	assert(file ~= nil)
+	assert(file~=nil)
 	file:write(table.concat(contents, "\n"))
 	io.close(file)
 end
