@@ -15,8 +15,8 @@ Options.closeButton = {
 		30,
 		11,
 	},
-	backgroundColor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-	textColor = GraphicConstants.layoutColors["Default text color"],
+	backgroundColor = { "Top box border color", "Top box background color" },
+	textColor = "Default text color",
 	-- onClick = function(): currently handled in the Input object
 }
 
@@ -29,11 +29,12 @@ Options.openColorOptions = {
 		48,
 		11,
 	},
-	backgroundColor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-	textColor = GraphicConstants.layoutColors["Default text color"],
+	backgroundColor = { "Top box border color", "Top box background color" },
+	textColor = "Default text color",
 	onClick = function()
 		Program.state = State.COLOR_CUSTOMIZING
-		Options.redraw = false
+		client.SetGameExtraPadding(0, GraphicConstants.UP_GAP, GraphicConstants.RIGHT_GAP+150, GraphicConstants.DOWN_GAP)
+		ColorOptions.redraw = true
 	end
 }
 
@@ -46,7 +47,7 @@ Options.romsFolderOption = {
 		8,
 		8,
 	},
-	textColor = GraphicConstants.layoutColors["Default text color"],
+	textColor = "Default text color",
 }
 
 -- Stores the options in the Settings.ini file into configurable toggles in the Tracker
@@ -69,9 +70,9 @@ function Options.buildTrackerOptionsButtons()
 					8,
 					8,
 				},
-				backgroundColor = { GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"] },
-				textColor = GraphicConstants.layoutColors["Default text color"],
-				optionColor = GraphicConstants.layoutColors["Positive text color"],
+				backgroundColor = {"Top box border color", "Top box background color" },
+				textColor = "Default text color",
+				optionColor = "Positive text color",
 				optionState = value,
 				-- TODO: Need a better way to internally update the optionState member rather than depending on the caller to save it...
 				onClick = function() -- return the updated value to be saved into this button's optionState value
