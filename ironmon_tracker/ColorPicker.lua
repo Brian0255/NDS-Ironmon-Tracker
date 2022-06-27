@@ -35,7 +35,8 @@ function ColorPicker.new(layoutColorName)
 
     self.layoutColorName = layoutColorName
 
-    self.color = 0xFFFFFFFF
+    self.color = string.format("%X",GraphicConstants.layoutColors[layoutColorName])
+    self.initialColor  = "0x"..string.format("%X",GraphicConstants.layoutColors[layoutColorName])
 
     self.draggingColor = false
     self.draggingValueSlider = false
@@ -50,18 +51,29 @@ function ColorPicker.new(layoutColorName)
     return self
 end
 
+function ColorPicker:initializeColorWheelSlider()
+    local colorText = self.color
+    self.color = "0x"..colorText
+    self:HEX_to_RGB(colorText)
+    self:RGB_to_HSL()
+    self:convertHSVtoColorPicker()
+    forms.settext(self.colorTextBox,string.sub(colorText,3))
+end
+
 function ColorPicker:setColor()
     self:HSV_to_RGB()
     self.color = self:RGB_to_Hex()
     self.color = "0xFF"..self.color
+    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.color)
+    ColorOptions.redraw = true
 end
 
 function ColorPicker:RGB_to_Hex()
     --%02x: 0 means replace " "s with "0"s, 2 is width, x means hex
 	return string.format("%02x%02x%02x", 
-		math.floor(self.red),
-		math.floor(self.green),
-		math.floor(self.blue))
+		self.red,
+		self.green,
+		self.blue)
 end
 
 function ColorPicker:updateCirclePreview()
@@ -108,8 +120,12 @@ function ColorPicker:updateVSlider()
 end
 
 function ColorPicker:onClose()
+    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.initialColor)
+    ColorOptions.redraw = true
+    GraphicConstants.saveSettings()
+    Program.state = State.COLOR_CUSTOMIZING
+    Input.currentColorPicker = nil
     forms.destroyall()
-    self.mainForm = nil
 end
 
 function ColorPicker:drawMainCanvas()
@@ -129,7 +145,8 @@ function ColorPicker:drawMainCanvas()
 end
 
 function ColorPicker:show()
-    self.mainForm = forms.newform(self.width,self.height,"Color Picker", function() self.mainForm = nil end)
+    forms.destroyall()
+    self.mainForm = forms.newform(self.width,self.height,"Color Picker", function() self:onClose() end)
     self.colorTextBox = forms.textbox(self.mainForm,"",70,10,"HEX",60,218)
 
     self.saveButton = forms.button(self.mainForm,"Save", function() self:onSave() end,15,250,85,30)
@@ -137,6 +154,7 @@ function ColorPicker:show()
 
     forms.setlocation(self.mainForm,self.xPos,self.yPos)
     self.mainCanvas = forms.pictureBox(self.mainForm,0,0,250,300)
+    self:initializeColorWheelSlider()
     self:drawMainCanvas()
 end
 
@@ -145,17 +163,22 @@ function ColorPicker:onClick()
 end
 
 function ColorPicker:onSave()
-    print("Saving color "..self.color.." to "..self.layoutColorName)
-    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.color)
-    print("Successfully saved.")
+    self.initialColor = self.color
+    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.initialColor)
+    ColorOptions.redraw = true
 end
 
 function ColorPicker:handleInput()
-    local colorText = forms.gettext(self.colorTextBox)
-    if #colorText == 6 then
-        self:HEX_to_RGB(colorText)
-        self:RGB_to_HSL()
-        self:convertHSVtoColorPicker()
+    if not self.draggingColor and not self.draggingValueSlider then
+        local colorText = forms.gettext(self.colorTextBox)
+        if #colorText == 6 then
+            self.color = "0xFF"..colorText
+            self:HEX_to_RGB(colorText)
+            if( (self.red+self.green+self.blue) < (255*3 - 3)) then
+                self:RGB_to_HSL()
+                self:convertHSVtoColorPicker()
+            end
+        end
     end
     local mouse = input.getmouse()
     local leftPress = mouse["Left"]
@@ -180,8 +203,6 @@ function ColorPicker:handleInput()
                    self.draggingValueSlider = true
                    
                 end
-            else
-                self:updateVSlider()
             end
         end
     else
@@ -218,14 +239,6 @@ function ColorPicker:pointInRange(point)
     end
 end
 
-function ColorPicker:onColorSet()
-    local colorText = forms.gettext(self.colorTextBox)
-    if #colorText == 6 then
-        self:HEX_to_RGB(colorText)
-        self:RGB_to_HSL()
-        self:convertHSVtoColorPicker()
-    end
-end
 
 function ColorPicker:convertHSVtoColorPicker()
     self.valueSliderY = 10+((100-self.val)/100*150)
@@ -235,8 +248,9 @@ function ColorPicker:convertHSVtoColorPicker()
     local relativeX = math.cos(angle) * (self.circleRadius)*sat
     local relativeY = math.sin(angle) * (self.circleRadius)*sat
     self.ellipsesPos = {relativeX+self.circleCenter[1],relativeY+self.circleCenter[2]}
-    self:setColor()
     self:drawMainCanvas()
+    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.color)
+    ColorOptions.redraw = true
 end
 
 function ColorPicker:HSV_to_RGB()
@@ -267,7 +281,6 @@ function ColorPicker:HSV_to_RGB()
 end
 
 function ColorPicker:HEX_to_RGB (hex)
-    local hex = hex:gsub("#","")
     if hex:len() == 3 then
       self.red, self.green, self.blue = (tonumber("0x"..hex:sub(1,1))*17), (tonumber("0x"..hex:sub(2,2))*17), (tonumber("0x"..hex:sub(3,3))*17)
     else
