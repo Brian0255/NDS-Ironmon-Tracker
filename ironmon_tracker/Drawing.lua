@@ -56,8 +56,9 @@ function Drawing.drawText(x, y, text, color, style, usesTopBoxFill)
 		style = nil
 		shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Main background color"])
 	end
-
-	gui.drawText(x + 1, y + 1, text, shadow, nil, 9, "Franklin Gothic Medium", style)
+	if Settings.ColorSettings.Draw_shadows then
+		gui.drawText(x + 1, y + 1, text, shadow, nil, 9, "Franklin Gothic Medium", style)
+	end
 	gui.drawText(x, y, text, color, nil, 9, "Franklin Gothic Medium", style)
 end
 
@@ -105,15 +106,16 @@ function Drawing.drawNumber(x, y, number, spacing, color, style, usesTopBoxFill)
 	end
 
 	local shadow = nil
-	if color ~= nil then
+	if Settings.ColorSettings.Draw_shadows and color ~= nil then
 		if usesTopBoxFill then
 			shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Top box background color"])
 		else
 			shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Bottom box background color"])
 		end
 	end
-
-	gui.drawText(x + 1 + new_spacing, y + 1, number, shadow, nil, 9, "Franklin Gothic Medium", style)
+	if Settings.ColorSettings.Draw_shadows then
+		gui.drawText(x + 1 + new_spacing, y + 1, number, shadow, nil, 9, "Franklin Gothic Medium", style)
+	end
 	gui.drawText(x + new_spacing, y, number, color, nil, 9, "Franklin Gothic Medium", style)
 end
 
@@ -782,7 +784,7 @@ function Drawing.drawSettings()
 	-- Draw toggleable settings
 	for _, button in pairs(Options.optionsButtons) do
 		gui.drawRectangle(button.box[1], button.box[2], button.box[3], button.box[4], 
-		GraphicConstants.layoutColors[button.backgroundColor[1]], GraphicConstants.layoutColors[button.backgroundColor[2]])
+		button.backgroundColor[1], GraphicConstants.layoutColors[button.backgroundColor[2]])
 		Drawing.drawText(button.box[1] + button.box[3] + 1, button.box[2] - 1, button.text, GraphicConstants.layoutColors["Default text color"],nil,true)
 		-- Draw a mark if the feature is on
 		if button.optionState then
@@ -795,14 +797,14 @@ end
 function Drawing.drawColorOptions()
 	local COLOR_OPTION_X_OFFSET = 150
 	--Main rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,276,
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,286,
 	0x00000000, GraphicConstants.layoutColors["Main background color"])
 
 	local rightEdge = GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN)
 	local bottomEdge = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN)
 
 	-- Color options view
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+116, 
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+126, 
 	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
 
 	-- Color options top rectangle
@@ -810,7 +812,7 @@ function Drawing.drawColorOptions()
 	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
 
 	-- Color options bottom rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 194, rightEdge, 44, 
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 204, rightEdge, 44, 
 	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
 
 	for _, button in pairs(ColorOptions.mainButtons) do
@@ -825,13 +827,16 @@ function Drawing.drawColorOptions()
 		Drawing.drawText(box[1] + 12, box[2]-1, button.text, GraphicConstants.layoutColors["Default text color"],nil,false)
 	end
 
-	local button = ColorOptions.toggleMoveColorButton
-	gui.drawRectangle(button.box[1], button.box[2], button.box[3], button.box[4], 
-	GraphicConstants.layoutColors[button.backgroundColor[1]], GraphicConstants.layoutColors[button.backgroundColor[2]])
-	Drawing.drawText(button.box[1] + 11, button.box[2] - 2, button.text, GraphicConstants.layoutColors["Default text color"],nil,false)
-	-- Draw a mark if the feature is on
-	if button.optionState then
-		gui.drawLine(button.box[1]+1,button.box[2]+4,button.box[1]+3,button.box[2]+7, GraphicConstants.layoutColors["Positive text color"])
-		gui.drawLine(button.box[1]+3,button.box[2]+7,button.box[1]+button.box[3]-1,button.box[2]+1, GraphicConstants.layoutColors["Positive text color"])
+	local toggles = {ColorOptions.toggleMoveColorButton,ColorOptions.toggleShadowsButton}
+
+	for _, button in pairs(toggles) do
+		gui.drawRectangle(button.box[1], button.box[2], button.box[3], button.box[4], 
+		button.backgroundColor[1], GraphicConstants.layoutColors[button.backgroundColor[2]])
+		Drawing.drawText(button.box[1] + 11, button.box[2] - 2, button.text, GraphicConstants.layoutColors["Default text color"],nil,false)
+		-- Draw a mark if the feature is on
+		if button.optionState then
+			gui.drawLine(button.box[1]+1,button.box[2]+4,button.box[1]+3,button.box[2]+7, GraphicConstants.layoutColors["Positive text color"])
+			gui.drawLine(button.box[1]+3,button.box[2]+7,button.box[1]+button.box[3]-1,button.box[2]+1, GraphicConstants.layoutColors["Positive text color"])
+		end
 	end
 end
