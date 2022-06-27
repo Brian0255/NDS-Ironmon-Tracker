@@ -45,7 +45,6 @@ Program.eventCallbacks = {}
 
 function Program.main()
 	Input.update()
-
 	if Program.state == State.TRACKER then
 		Program.updateTracker()
 		if Program.frameCounter == 300 then
@@ -107,13 +106,12 @@ function Program.main()
 			Drawing.drawSettings()
 			Options.redraw = false
 		end
-	elseif Program.state == State.COLOR_CUSTOMIZING then
+	elseif Program.state == State.COLOR_CUSTOMIZING or Program.state == State.COLOR_PICKER_DIALOG then
 		if ColorOptions.redraw then
 			Drawing.drawColorOptions()
+			Drawing.DrawTracker(false)
 			ColorOptions.redraw = false
 		end
-	elseif Program.state == State.COLOR_PICKER_DIALOG then
-		--nothing yet
 	end
 end
 
@@ -228,9 +226,7 @@ end
 
 function Program.HandleExit()
 	Drawing.clearGUI()
-	if Input.noteForm then
-		forms.destroy(Input.noteForm)
-	end
+	forms.destroyall()
 end
 
 function Program.UpdatePlayerPokemonData()
