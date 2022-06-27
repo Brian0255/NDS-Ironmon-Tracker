@@ -11,51 +11,52 @@ Input = {
 function Input.update()
 	if Input.currentColorPicker ~= nil then
 		Input.currentColorPicker:handleInput()
-	end
-	Input.mousetab = input.getmouse()
-	if Input.mousetab["Left"] and not Input.mousetab_prev["Left"] then
-		local xmouse = Input.mousetab["X"]
-		local ymouse = (Input.mousetab["Y"] + 384) /2
-		Input.check(xmouse, ymouse)
-	end
-	Input.mousetab_prev = Input.mousetab
-
-	local joypadButtons = joypad.get()
-	-- "Settings.controls.CYCLE_VIEW" pressed
-	if joypadButtons[Settings.controls.CYCLE_VIEW] == true and Input.joypad[Settings.controls.CYCLE_VIEW] ~= joypadButtons[Settings.controls.CYCLE_VIEW] then
-		if Tracker.Data.inBattle == 1 then
-			Tracker.Data.selectedPlayer = (Tracker.Data.selectedPlayer % 2) + 1
+	else
+		Input.mousetab = input.getmouse()
+		if Input.mousetab["Left"] and not Input.mousetab_prev["Left"] then
+			local xmouse = Input.mousetab["X"]
+			local ymouse = (Input.mousetab["Y"] + 384) /2
+			Input.check(xmouse, ymouse)
 		end
+		Input.mousetab_prev = Input.mousetab
 
-		Tracker.waitFrames = 0
-	end
+		local joypadButtons = joypad.get()
+		-- "Settings.controls.CYCLE_VIEW" pressed
+		if joypadButtons[Settings.controls.CYCLE_VIEW] == true and Input.joypad[Settings.controls.CYCLE_VIEW] ~= joypadButtons[Settings.controls.CYCLE_VIEW] then
+			if Tracker.Data.inBattle == 1 then
+				Tracker.Data.selectedPlayer = (Tracker.Data.selectedPlayer % 2) + 1
+			end
 
-	-- "Settings.controls.CYCLE_STAT" pressed, display box over next stat
-	if joypadButtons[Settings.controls.CYCLE_STAT] == true and Input.joypad[Settings.controls.CYCLE_STAT] ~= joypadButtons[Settings.controls.CYCLE_STAT] then
-		Tracker.controller.statIndex = (Tracker.controller.statIndex % 6) + 1
-		Tracker.waitFrames = 0
-	end
-
-	-- "Settings.controls.NEXT_SEED"
-	local allPressed = true
-	for button in string.gmatch(Settings.controls.NEXT_SEED, '([^,]+)') do
-		if joypadButtons[button] ~= true then
-			allPressed = false
-		end
-	end
-	if allPressed == true then
-		Main.LoadNextSeed = true
-	end
-
-	-- "Settings.controls.CYCLE_PREDICTION" pressed, cycle stat prediction for selected stat
-	if joypadButtons[Settings.controls.CYCLE_PREDICTION] == true and Input.joypad[Settings.controls.CYCLE_PREDICTION] ~= joypadButtons[Settings.controls.CYCLE_PREDICTION] then
-		if Tracker.Data.inBattle == 1 and Tracker.Data.enemyPokemon ~= nil then
-			Buttons[Tracker.controller.statIndex].onclick()
 			Tracker.waitFrames = 0
 		end
-	end
 
-	Input.joypad = joypadButtons
+		-- "Settings.controls.CYCLE_STAT" pressed, display box over next stat
+		if joypadButtons[Settings.controls.CYCLE_STAT] == true and Input.joypad[Settings.controls.CYCLE_STAT] ~= joypadButtons[Settings.controls.CYCLE_STAT] then
+			Tracker.controller.statIndex = (Tracker.controller.statIndex % 6) + 1
+			Tracker.waitFrames = 0
+		end
+
+		-- "Settings.controls.NEXT_SEED"
+		local allPressed = true
+		for button in string.gmatch(Settings.controls.NEXT_SEED, '([^,]+)') do
+			if joypadButtons[button] ~= true then
+				allPressed = false
+			end
+		end
+		if allPressed == true then
+			Main.LoadNextSeed = true
+		end
+
+		-- "Settings.controls.CYCLE_PREDICTION" pressed, cycle stat prediction for selected stat
+		if joypadButtons[Settings.controls.CYCLE_PREDICTION] == true and Input.joypad[Settings.controls.CYCLE_PREDICTION] ~= joypadButtons[Settings.controls.CYCLE_PREDICTION] then
+			if Tracker.Data.inBattle == 1 and Tracker.Data.enemyPokemon ~= nil then
+				Buttons[Tracker.controller.statIndex].onclick()
+				Tracker.waitFrames = 0
+			end
+		end
+
+		Input.joypad = joypadButtons
+	end
 end
 
 function Input.check(xmouse, ymouse)
