@@ -1,7 +1,6 @@
 Input = {
 	mousetab = {},
 	mousetab_prev = {},
-	last_keys = {},
 	joypad = {},
 	noteForm = nil,
 	currentColorPicker = nil,
@@ -172,9 +171,12 @@ function Input.check(xmouse, ymouse)
 					button.onclick()
 				end
 			end
-			local box = ColorOptions.toggleMoveColorButton.box
-			if Input.isInRange(xmouse,ymouse,box[1],box[2],box[3],box[4]) then
-				ColorOptions.toggleMoveColorButton:onclick()
+			local toggles = {ColorOptions.toggleMoveColorButton,ColorOptions.toggleShadowsButton}
+			for _, button in pairs(toggles) do
+				local box = button.box
+				if Input.isInRange(xmouse,ymouse,box[1],box[2],box[3],box[4]) then
+					button:onclick()
+				end
 			end
 		end
 	end

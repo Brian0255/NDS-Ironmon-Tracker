@@ -29,7 +29,7 @@ function Images.drawImage(imageType,x,y)
             local offsetY = rowIndex - 1
             local color = imageArray[rowIndex][colIndex]
             if color ~= -1 then
-                gui.drawPixel(x+offsetX+1,y+offsetY+1,shadow)
+                if Settings.ColorSettings.Draw_shadows then gui.drawPixel(x+offsetX+1,y+offsetY+1,shadow) end
                 gui.drawPixel(x+offsetX,y+offsetY,color)
             end
         end
