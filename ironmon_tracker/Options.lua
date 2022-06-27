@@ -70,7 +70,7 @@ function Options.buildTrackerOptionsButtons()
 					8,
 					8,
 				},
-				backgroundColor = {"Top box border color", "Top box background color" },
+				backgroundColor = {0xFF000000, "Top box background color" },
 				textColor = "Default text color",
 				optionColor = "Positive text color",
 				optionState = value,
