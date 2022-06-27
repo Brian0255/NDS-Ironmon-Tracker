@@ -97,6 +97,10 @@ function ColorPicker:updateCirclePreview()
         if degrees < 0 then degrees = (180-math.abs(degrees))+180 end
         self.hue = 360 - degrees + 0.5
         self.sat = math.min(100,distanceToRadius/self.circleRadius * 100 + 0.5)
+        if self.val < 2 or self.val > 98 then
+            self.valueSliderY = 85
+            self.val = 50
+        end
         self:setColor()
         forms.settext(self.colorTextBox,string.sub(self.color,5))
         local path = DATA_FOLDER.."/images//colorPicker/HSVwheel3.png"
@@ -162,6 +166,13 @@ function ColorPicker:onClick()
     self:updateCirclePreview()
 end
 
+function ColorPicker:isExtremeColor()
+    local sum = self.red+self.green+self.blue
+    if sum <= 5 or sum >= (255*3 - 5) then
+        return true
+    end
+end
+
 function ColorPicker:onSave()
     self.initialColor = self.color
     GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.initialColor)
@@ -174,10 +185,8 @@ function ColorPicker:handleInput()
         if #colorText == 6 then
             self.color = "0xFF"..colorText
             self:HEX_to_RGB(colorText)
-            if( (self.red+self.green+self.blue) < (255*3 - 3)) then
-                self:RGB_to_HSL()
-                self:convertHSVtoColorPicker()
-            end
+            self:RGB_to_HSL()
+            self:convertHSVtoColorPicker()
         end
     end
     local mouse = input.getmouse()
