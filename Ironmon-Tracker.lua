@@ -17,7 +17,10 @@ end
 -- Get the user settings saved on disk and create the base Settings object
 DATA_FOLDER = "ironmon_tracker"
 INI = dofile(DATA_FOLDER .. "/Inifile.lua")
-Settings = INI.parse("Settings.ini", io)
+local file = io.open("Settings.ini")
+assert(file ~= nil)
+Settings = INI.parse(file:read("*a"), "memory")
+io.close(file)
 -- If ROMS_FOLDER is left empty, Inifile.lua doesn't add it to the settings table, resulting in the ROMS_FOLDER 
 -- being deleted entirely from Settings.ini if another setting is toggled in the tracker options menu
 if Settings.config.ROMS_FOLDER == nil then Settings.config.ROMS_FOLDER = "" end
