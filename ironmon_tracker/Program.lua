@@ -107,10 +107,13 @@ function Program.main()
 			Options.redraw = false
 		end
 	elseif Program.state == State.COLOR_CUSTOMIZING or Program.state == State.COLOR_PICKER_DIALOG then
-		if ColorOptions.redraw then
+		if Tracker.waitFrames == 0 and ColorOptions.redraw then
 			Drawing.drawColorOptions()
 			Drawing.DrawTracker(false)
-			ColorOptions.redraw = false
+			Tracker.waitFrames = 5
+		end
+		if Tracker.waitFrames > 0 then
+			Tracker.waitFrames = Tracker.waitFrames - 1
 		end
 	end
 end
