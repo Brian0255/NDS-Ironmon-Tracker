@@ -303,7 +303,7 @@ function Drawing.drawHPColor(monToDraw)
 		if monToDraw["curHP"] / monToDraw["maxHP"] <= 0.2 then
 			colorbar = GraphicConstants.layoutColors["Negative text color"]
 		elseif monToDraw["curHP"] / monToDraw["maxHP"] <= 0.5 then
-			colorbar = "yellow"
+			colorbar = GraphicConstants.layoutColors["Intermediate text color"]
 		end
 	end
 	return colorbar
@@ -568,7 +568,7 @@ function Drawing.drawMoveCategories(moves)
 		local category = moves[moveIndex].category
 		table.insert(categories, moveCategoryToIcon[category])
 	end
-	if Settings.tracker.SHOW_MOVE_CATEGORIES then
+	if Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"] then
 		for catIndex = 0, 3, 1 do
 			local category = categories[catIndex+1]
 			if category ~= "" then
@@ -644,7 +644,7 @@ function Drawing.getDrawnTextLength(text)
 end
 
 function Drawing.drawMoveNames(moves,monIsEnemy,movesString,moveColors,stars)
-	local nameOffset = Utils.inlineIf(Settings.tracker.SHOW_MOVE_CATEGORIES, 15, Drawing.moveOffset - 1)
+	local nameOffset = Utils.inlineIf(Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"], 15, Drawing.moveOffset - 1)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset - 2, Drawing.moveStartY - Drawing.moveTableHeaderHeightDiff, movesString,
 	GraphicConstants.layoutColors["Move header text color"],"Move header",false)
 	for moveIndex = 1, 4, 1 do
@@ -835,7 +835,7 @@ function Drawing.drawSettings()
 		GraphicConstants.layoutColors["Default text color"],nil,true)
 
 	if folder == "" then
-		gui.drawImage(DATA_FOLDER .. "/images/icons/editnote.png", GraphicConstants.SCREEN_WIDTH + 60, GraphicConstants.BORDER_MARGIN + 2)
+		Images.drawImage(ImageTypes.NOTE,GraphicConstants.SCREEN_WIDTH + 60, GraphicConstants.BORDER_MARGIN + 2)
 	end
 
 	-- Draw toggleable settings
