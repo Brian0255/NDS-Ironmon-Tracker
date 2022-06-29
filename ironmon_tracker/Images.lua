@@ -20,10 +20,12 @@ function Images.drawImage(imageType,x,y)
         imageArray = Images.getSpecialArray()
     elseif imageType == ImageTypes.STATUS then
         imageArray = Images.getStatusArray()
+    elseif imageType == ImageTypes.NOTE then
+        imageArray = Images.getNoteArray()
     end
 
     local shadow = 0x00000000
-    if imageType == ImageTypes.PHYSICAL or imageType == ImageTypes.SPECIAL or imageType == ImageTypes.STATUS then
+    if imageType == ImageTypes.PHYSICAL or imageType == ImageTypes.SPECIAL or imageType == ImageTypes.STATUS or imageType == ImageTypes.NOTE then
         shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Bottom box background color"])
     else
         shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Top box background color"])
@@ -128,15 +130,24 @@ function Images.getStatusArray()
     return statusImageArray
 end
 
---[[
-{x,c,c,c,c,c,x},
-        {c,c,x,c,c,c,c},
-        {c,x,x,c,c,c,c},
-        {c,x,x,x,c,c,c},
-        {c,x,x,x,x,c,c},
-        {c,c,x,x,c,c,c},
-        {x,c,c,c,c,c,x}
---]]
+function Images.getNoteArray()
+    local c = "Bottom box border color"
+    local x = -1
+    local noteArray = {
+        {x,x,x,x,x,x,x,x,x,c,c},
+        {x,x,x,x,x,x,x,x,c,x,c},
+        {c,c,c,c,c,c,c,c,c,c,x},
+        {c,x,x,x,x,x,x,c,c,x,x},
+        {c,x,c,c,c,x,c,x,c,x,x},
+        {c,x,x,x,x,x,x,x,c,x,x},
+        {c,x,c,c,c,c,c,x,c,x,x},
+        {c,x,x,x,x,x,x,x,c,x,x},
+        {c,x,c,c,c,c,c,x,c,x,x},
+        {c,x,x,x,x,x,x,x,c,x,x},
+        {c,c,c,c,c,c,c,c,c,x,x},
+    }
+    return noteArray
+end
 
 function Images.initializeTypeIconArray()
     --Always drawn as the background shaded color, so we just need 1 and -1.
