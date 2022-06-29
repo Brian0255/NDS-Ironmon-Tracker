@@ -6,6 +6,17 @@ Options.redraw = true
 -- Tracks if settings were modified so we know if we need to update Settings.ini or not.
 Options.updated = false
 
+Options.OPTIONS_ORDERED_KEYS = {
+		"SHOW_PHYS/SPECIAL_MOVE_ICONS",
+		"SHOW_MOVE_EFFECTIVENESS",
+		"CALCULATE_VARIABLE_DAMAGE",
+		"SHOW_ACTUAL_ENEMY_PP",
+		"SHOW_ACCURACY_AND_EVASION",
+		"SHOW_POKECENTER_HEALS",
+		"SHOW_1ST_FIGHT_STATS_IN_PLATINUM",
+		"RIGHT_JUSTIFIED_NUMBERS"
+}
+
 -- A button to close the settings page and save the settings if any changes occurred
 Options.closeButton = {
 	text = "Close",
@@ -57,7 +68,8 @@ Options.optionsButtons = {}
 function Options.buildTrackerOptionsButtons()
 	-- Used for the position offests.
 	local optionIndex = 1
-	for key, value in pairs(Settings.tracker) do
+	for _, key in pairs(Options.OPTIONS_ORDERED_KEYS) do
+		local value = Settings.tracker[key]
 		-- All options in Settings.tracker SHOULD be boolean, but we'll verify here for now.
 		-- Eventually I want to expand this so that we can do more than just toggles, but let's get this out the door first.
 		if value == true or value == false then
