@@ -325,7 +325,6 @@ function Decrypter.find4ByteValueAddr(base,searchFor,limit)
 end
 
 function Decrypter.readBattleStatStages(isEnemy, index)
-
     local statStages = {}
     local base = Decrypter.currentBase
     if GameSettings.gen == 5 then
