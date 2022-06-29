@@ -59,21 +59,7 @@ GraphicConstants = {
 		"Gear icon color"
 	},
 
-	DEFAULT_LAYOUT_COLORS = {
-		["Main background color"] = 		0xFF000000,
-		["Default text color"] = 			0xFFFFFFFF,
-		["Positive text color"] = 			0xFF00FF00,
-		["Negative text color"] = 			0xFFFF0000,
-		["Intermediate text color"] = 		0xFFFFFF00,
-		["Move header text color"] = 		0xFFFFFFFF,
-		["Top box border color"] =			0xFFAAAAAA,
-		["Top box background color"] = 		0xFF222222,
-		["Bottom box border color"] = 		0xFFAAAAAA,
-		["Bottom box background color"] = 	0xFF222222,
-		["Physical icon color"] = 			0xFFFFC631,
-		["Special icon color"] = 			0xFF7DB6FF,
-		["Gear icon color"] = 				0xFFDBDBDB,
-	}
+	DEFAULT_THEME_STRING = "FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 "
 }
 
 function GraphicConstants.readSettingsColors()
@@ -86,9 +72,9 @@ function GraphicConstants.readSettingsColors()
 end
 
 function GraphicConstants.restoreDefaults()
-	for colorName,color in pairs(GraphicConstants.DEFAULT_LAYOUT_COLORS) do
-		GraphicConstants.layoutColors[colorName] = color
-	end
+	GraphicConstants.readThemeString(GraphicConstants.DEFAULT_THEME_STRING)
+	ColorOptions.redraw = true
+	GraphicConstants.saveSettings()
 end
 
 function GraphicConstants.saveSettings()
