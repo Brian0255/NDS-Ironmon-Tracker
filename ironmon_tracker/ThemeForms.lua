@@ -3,12 +3,14 @@ ThemeForms = {
     SAVE_THEME_HEIGHT = 70,
     EXPORT_THEME_WIDTH = 730,
     EXPORT_THEME_HEIGHT = 70,
-    IMPORT_THEME_WIDTH = 740,
+    IMPORT_THEME_WIDTH = 780,
     IMPORT_THEME_HEIGHT = 70,
     CENTER_X = client.xpos() + client.screenwidth() / 2,
     CENTER_Y = client.ypos() + client.screenheight() / 2,
-    THEMES_PATH = DATA_FOLDER.."/themes"
+    THEMES_PATH = DATA_FOLDER.."/themes",
 }
+
+
 
 function ThemeForms.createSaveThemeForm()
     Input.dialogActive = true
@@ -66,6 +68,38 @@ function ThemeForms.createSaveConfirmDialog(x,y,width,height,file)
     forms.button(confirmForm,"Cancel",
     function() 
         io.close(file) 
+        Input.dialogActive = false 
+        forms.destroy(confirmForm)
+    end, 
+    138,height-74,60,24)
+end
+
+function ThemeForms.createDefaultConfirmDialog()
+    local x,y = ThemeForms.CENTER_X-ThemeForms.SAVE_THEME_WIDTH/2,ThemeForms.CENTER_Y-ThemeForms.SAVE_THEME_HEIGHT/2
+    local width,height = ThemeForms.SAVE_THEME_WIDTH,130
+    local confirmForm = forms.newform(width,height,"Confirm", 
+    function()
+        Input.dialogActive = false
+    end
+    )
+	forms.setlocation(confirmForm,x,y)
+	local canvas = forms.pictureBox(confirmForm,0,0,width,52)
+
+	forms.drawText(canvas,40,10,"This action cannot be undone.",0xFF000000,0x00000000,14,"Arial")
+    forms.drawText(canvas,90,32,"Are you sure?",0xFF000000,0x00000000,14,"Arial")
+
+    local confirmButton = forms.button(confirmForm,"Yes",function() end ,72,height-74,60,24)
+
+    forms.addclick(confirmButton,function() 
+        forms.destroy(confirmForm)
+        Input.dialogActive = false 
+        GraphicConstants.restoreDefaults()
+        ColorOptions.redraw = true
+        GraphicConstants.saveSettings()
+    end)
+
+    forms.button(confirmForm,"Cancel",
+    function() 
         Input.dialogActive = false 
         forms.destroy(confirmForm)
     end, 
