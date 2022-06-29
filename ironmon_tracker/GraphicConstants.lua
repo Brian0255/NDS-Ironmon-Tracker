@@ -117,8 +117,9 @@ function GraphicConstants.getThemeString()
 		color = string.sub(string.format("%X",color),3)
 		completeString = completeString..color.." "
 	end
-	completeString = completeString..GraphicConstants.boolToNumber(Settings.ColorSettings.Colored_move_names).." "
-	completeString = completeString..GraphicConstants.boolToNumber(Settings.ColorSettings.Draw_shadows)
+	for _, key in pairs(ColorOptions.COLOR_SETTINGS_ORDERED_KEYS) do
+		completeString = completeString..GraphicConstants.boolToNumber(Settings.ColorSettings[key]).." "
+	end
 	return completeString
 end
 
@@ -127,14 +128,10 @@ function GraphicConstants.readThemeString(themeString)
 	local boolCounter = 1
 	for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
 		if #number == 1 then
-			if boolCounter == 1 then
-				Settings.ColorSettings.Colored_move_names = GraphicConstants.numberToBool(tonumber(number))
-				ColorOptions.toggleMoveColorButton.optionState = Settings.ColorSettings.Colored_move_names
-				boolCounter = boolCounter + 1
-			elseif boolCounter == 2 then
-				Settings.ColorSettings.Draw_shadows = GraphicConstants.numberToBool(tonumber(number))
-				ColorOptions.toggleShadowsButton.optionState = Settings.ColorSettings.Draw_shadows
-			end
+			local setting = ColorOptions.COLOR_SETTINGS_ORDERED_KEYS[boolCounter]
+			Settings.ColorSettings[setting] = GraphicConstants.numberToBool(tonumber(number))
+			ColorOptions.toggleButtons[boolCounter].optionState = Settings.ColorSettings[setting]
+			boolCounter = boolCounter + 1
 		else
 			local key = GraphicConstants.layoutColorKeysOrdered[i]
 			GraphicConstants.layoutColors[key] = tonumber("0xFF"..number)
