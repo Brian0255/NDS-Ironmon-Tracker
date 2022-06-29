@@ -331,7 +331,8 @@ function Program.getPokemonDataPlayer()
 end
 
 function Program.getPokemonDataEnemy()
-	if Tracker.Data.inBattle == 1 and memory.read_u16_le(GameSettings.battleStatus) == 0x2100 then
+	if Tracker.Data.inBattle == 1 
+	and memory.read_u16_le(GameSettings.battleStatus) == 0x2101 or memory.read_u16_le(GameSettings.battleStatus) == 0x2100 then
 		local currentBase = GameSettings.enemyBase
 		local activePID = -1
 		local transformed = Program.checkForEnemyTransform()
@@ -375,9 +376,6 @@ function Program.getPokemonDataEnemy()
 		else
 			return nil
 		end
-	else
-		Decrypter.currentBase = GameSettings.enemyBase
-		return Decrypter.decrypt(false,0,true)
 	end
 end
 
