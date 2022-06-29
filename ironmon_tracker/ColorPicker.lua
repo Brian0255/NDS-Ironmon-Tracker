@@ -38,6 +38,7 @@ function ColorPicker.new(layoutColorName)
     self.color = string.format("%X",GraphicConstants.layoutColors[layoutColorName])
     self.initialColor  = "0x"..string.format("%X",GraphicConstants.layoutColors[layoutColorName])
 
+
     self.draggingColor = false
     self.draggingValueSlider = false
 
@@ -151,6 +152,7 @@ end
 function ColorPicker:show()
     forms.destroyall()
     self.mainForm = forms.newform(self.width,self.height,"Color Picker", function() self:onClose() end)
+    forms.setproperty(self.mainForm,"Visible",false)
     self.colorTextBox = forms.textbox(self.mainForm,"",70,10,"HEX",60,218)
 
     self.saveButton = forms.button(self.mainForm,"Save", function() self:onSave() end,15,250,85,30)
@@ -159,7 +161,7 @@ function ColorPicker:show()
     forms.setlocation(self.mainForm,self.xPos,self.yPos)
     self.mainCanvas = forms.pictureBox(self.mainForm,0,0,250,300)
     self:initializeColorWheelSlider()
-    self:drawMainCanvas()
+    forms.setproperty(self.mainForm,"Visible",true)
 end
 
 function ColorPicker:onClick() 
