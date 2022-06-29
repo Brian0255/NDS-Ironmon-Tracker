@@ -366,9 +366,9 @@ function Drawing.drawStatsAndStages(monIsEnemy,monToDraw)
 		local color = Utils.inlineIf(monIsEnemy, GraphicConstants.layoutColors["Default text color"], Drawing.getNatureColor(stat, monToDraw["nature"]))
 		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX-2, hpY+((i-1)*statInc), " "..string.upper(stat), color, "regular",true)
 		if color == GraphicConstants.layoutColors["Positive text color"] then
-			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX + 15, hpY+((i-1)*statInc  - 1), "+", color,"nature+",true)
+			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX + 16, hpY+((i-1)*statInc  - 2), "+", color,"nature+",true)
 		elseif color == GraphicConstants.layoutColors["Negative text color"] then
-			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX + 15, hpY+((i-1)*statInc - 2), "---", color,"nature-",true)
+			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX + 16, hpY+((i-1)*statInc - 2), "---", color,"nature-",true)
 		end
 	end
 
