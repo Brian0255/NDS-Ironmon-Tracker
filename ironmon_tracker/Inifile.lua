@@ -80,7 +80,7 @@ function inifile.parse(name, backend)
 		end
 
 		-- Key-value pairs
-		local key, value = line:match("^([%w_]+)%s-=%s-(.+)$")
+		local key, value = line:match("^([%w/_]+)%s-=%s-(.+)$")
 		if tonumber(value) then value = tonumber(value) end
 		if value == "true" then value = true end
 		if value == "false" then value = false end
