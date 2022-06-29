@@ -56,10 +56,13 @@ function Drawing.drawText(x, y, text, color, style, usesTopBoxFill)
 		style = nil
 		shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Main background color"])
 	end
+	local font = 9
+	if style == "nature+" then font = 5 end
+	if style == "nature-" then font = 5 end
 	if Settings.ColorSettings.Draw_shadows then
-		gui.drawText(x + 1, y + 1, text, shadow, nil, 9, "Franklin Gothic Medium", style)
+		gui.drawText(x + 1, y + 1, text, shadow, nil, font, "Franklin Gothic Medium", style)
 	end
-	gui.drawText(x, y, text, color, nil, 9, "Franklin Gothic Medium", style)
+	gui.drawText(x, y, text, color, nil, font, "Franklin Gothic Medium", style)
 end
 
 function Drawing.calcShadowColor(color)
@@ -69,7 +72,7 @@ function Drawing.calcShadowColor(color)
 	local g = bit.rshift(bit.band(color_hexval, 0x00FF00), 8)
 	local b = bit.band(color_hexval,0x0000FF)
 
-	local scale = 0x10 -- read as: 6.25%
+	--[[local scale = 0x10 -- read as: 6.25%
 	local isDarkBG = (1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255) >= 0.5;
 	if isDarkBG then
 		scale = 0xB0 -- read as: 69%
@@ -77,7 +80,11 @@ function Drawing.calcShadowColor(color)
 	
 	r = r - r * scale / 0x100
 	g = g - g * scale / 0x100
-	b = b - b * scale / 0x100
+	b = b - b * scale / 0x100--]]
+
+	r = math.max(r * .92,0)
+	g = math.max(g * .92,0)
+	b = math.max(b * .92,0)
 
 	
 
@@ -100,9 +107,9 @@ with the RIGHT_JUSTIFIED_NUMBERS setting.
 function Drawing.drawNumber(x, y, number, spacing, color, style, usesTopBoxFill)
 	local new_spacing
 	new_spacing = 0
-
 	if Settings.tracker.RIGHT_JUSTIFIED_NUMBERS then
 		new_spacing = (spacing - string.len(tostring(number))) * 5
+		if number == "---" then new_spacing = 8 end
 	end
 
 	local shadow = nil
@@ -358,6 +365,11 @@ function Drawing.drawStatsAndStages(monIsEnemy,monToDraw)
 	for i,stat in pairs(stats) do
 		local color = Utils.inlineIf(monIsEnemy, GraphicConstants.layoutColors["Default text color"], Drawing.getNatureColor(stat, monToDraw["nature"]))
 		Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX-2, hpY+((i-1)*statInc), " "..string.upper(stat), color, "regular",true)
+		if color == GraphicConstants.layoutColors["Positive text color"] then
+			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX + 15, hpY+((i-1)*statInc  - 1), "+", color,"nature+",true)
+		elseif color == GraphicConstants.layoutColors["Negative text color"] then
+			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX + 15, hpY+((i-1)*statInc - 2), "---", color,"nature-",true)
+		end
 	end
 
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + statOffsetX, bstY, "BST", GraphicConstants.layoutColors["Default text color"],nil,true)
@@ -560,8 +572,7 @@ function Drawing.drawMoveCategories(moves)
 		for catIndex = 0, 3, 1 do
 			local category = categories[catIndex+1]
 			if category ~= "" then
-				Images.drawImage(category,GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset, Drawing.moveStartY + 3 + (Drawing.distanceBetweenMoves * catIndex))
-				--gui.drawImage(categories[catIndex + 1], GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset, Drawing.moveStartY + 3 + (Drawing.distanceBetweenMoves * catIndex))
+				Images.drawImage(category,GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset - 2, Drawing.moveStartY + 2 + (Drawing.distanceBetweenMoves * catIndex))
 			end
 		end
 	end
@@ -593,8 +604,47 @@ function Drawing.getMovesString(monToDraw)
 	return movesString
 end
 
+LETTER_PIXEL_LENGTHS = {
+	[" "] = 2,
+	a = 4, A = 5,
+	b = 4, B = 4,
+	c = 3, C = 3,
+	d = 4, D = 5,
+	e = 4, E = 4,
+	f = 3, F = 4,
+	g = 4, G = 5,
+	h = 4, H = 5,
+	i = 1, I = 1,
+	j = 2, J = 2, 
+	k = 4, K = 5,
+	l = 1, L = 3,
+	m = 7, M = 6,
+	n = 4, N = 5,
+	o = 3, O = 4,
+	p = 3, P = 4,
+	q = 3, Q = 5,
+	r = 2, R = 5,
+	s = 3, S = 4,
+	t = 3, T = 3,
+	u = 4, U = 4,
+	v = 3, V = 5,
+	w = 5, W = 7,
+	x = 3, X = 4,
+	y = 4, Y = 5,
+	z = 3, Z = 5,
+}
+
+function Drawing.getDrawnTextLength(text)
+	local length = 0
+	for i = 1, #text, 1 do
+		local char = string.sub(text,i,i)
+		length = length + LETTER_PIXEL_LENGTHS[char] + 1
+	end
+	return length
+end
+
 function Drawing.drawMoveNames(moves,monIsEnemy,movesString,moveColors,stars)
-	local nameOffset = Utils.inlineIf(Settings.tracker.SHOW_MOVE_CATEGORIES, 17, Drawing.moveOffset - 1)
+	local nameOffset = Utils.inlineIf(Settings.tracker.SHOW_MOVE_CATEGORIES, 15, Drawing.moveOffset - 1)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset - 2, Drawing.moveStartY - Drawing.moveTableHeaderHeightDiff, movesString,
 	GraphicConstants.layoutColors["Move header text color"],"Move header",false)
 	for moveIndex = 1, 4, 1 do
@@ -603,11 +653,16 @@ function Drawing.drawMoveNames(moves,monIsEnemy,movesString,moveColors,stars)
 			HiddenPowerButton.box[2] = Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1))
 		else
 			local color = GraphicConstants.layoutColors["Default text color"]
-			if Settings.ColorSettings.Colored_move_names then
+			if Settings.ColorSettings.Color_move_names_by_type then
 				color = moveColors[moveIndex]
 			end
-			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + nameOffset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), moves[moveIndex].name .. stars[moveIndex], 
+			local offset = nameOffset
+			if Settings.ColorSettings.Draw_move_type_icons then offset = offset + 9 end
+			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + offset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), moves[moveIndex].name .. stars[moveIndex], 
 			color,nil,false)
+			if moves[moveIndex].type ~= "---" and Settings.ColorSettings.Draw_move_type_icons then
+				Images.drawTypeIcon(moves[moveIndex].type,GraphicConstants.SCREEN_WIDTH + nameOffset +1 , Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1))+2)
+			end
 		end
 	end
 end
@@ -638,7 +693,7 @@ function Drawing.fillMovePPs(moves, monToDraw, monIsEnemy)
 end
 
 function Drawing.drawMovePPs(moves,monToDraw,monIsEnemy,PPs)
-	local ppOffset = 82
+	local ppOffset = 87
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + ppOffset, Drawing.moveStartY - Drawing.moveTableHeaderHeightDiff, "PP",
 	GraphicConstants.layoutColors["Move header text color"],"Move header",false)
 	for moveIndex = 1, 4, 1 do
@@ -652,7 +707,7 @@ end
 function Drawing.drawMovePowers(moves,monIsEnemy,stabColors,movePPs)
 	local currentMon = Utils.inlineIf(monIsEnemy,Tracker.Data.enemyPokemon,Tracker.Data.playerPokemon)
 	local targetMon = Utils.inlineIf(monIsEnemy,Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
-	local powerOffset = 102
+	local powerOffset = 105
 	local currentHP = Utils.inlineIf(monIsEnemy, "?", currentMon["curHP"])
 	local maxHP = Utils.inlineIf(monIsEnemy, "?", currentMon["maxHP"])
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + powerOffset, Drawing.moveStartY - Drawing.moveTableHeaderHeightDiff, "Pow",
@@ -685,9 +740,11 @@ function Drawing.drawMovePowers(moves,monIsEnemy,stabColors,movePPs)
 					end
 				end
 			end
-			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + powerOffset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), newPower, stabColors[moveIndex],nil,false)
+			Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + powerOffset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), 
+			newPower, 3, stabColors[moveIndex],nil,false)
 		else
-			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + powerOffset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), movePower, stabColors[moveIndex],nil,false)
+			Drawing.drawNumber(GraphicConstants.SCREEN_WIDTH + powerOffset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), 
+			movePower, 3, stabColors[moveIndex],nil,false)
 		end
 	end
 end
@@ -703,12 +760,12 @@ function Drawing.drawMoveAccuracies(moves)
 end
 
 function Drawing.drawAllMovesEffectiveness(targetMon,moves)
-	local powerOffset = 102
+	local powerOffset = 105
 	if Settings.tracker.SHOW_MOVE_EFFECTIVENESS and Tracker.Data.inBattle == 1 then
 		if targetMon ~= nil then
 			for moveIndex = 1, 4, 1 do
 				local effectiveness = Utils.netEffectiveness(moves[moveIndex], PokemonData[targetMon.pokemonID + 1])
-				Drawing.drawMoveEffectiveness(GraphicConstants.SCREEN_WIDTH + powerOffset - Drawing.statusLevelOffset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), effectiveness)
+				Drawing.drawMoveEffectiveness(GraphicConstants.SCREEN_WIDTH + powerOffset - Drawing.statusLevelOffset + 1, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), effectiveness)
 			end
 		end
 	end
@@ -784,7 +841,7 @@ function Drawing.drawSettings()
 	-- Draw toggleable settings
 	for _, button in pairs(Options.optionsButtons) do
 		gui.drawRectangle(button.box[1], button.box[2], button.box[3], button.box[4], 
-		button.backgroundColor[1], GraphicConstants.layoutColors[button.backgroundColor[2]])
+		GraphicConstants.layoutColors[button.backgroundColor[1]], GraphicConstants.layoutColors[button.backgroundColor[2]])
 		Drawing.drawText(button.box[1] + button.box[3] + 1, button.box[2] - 1, button.text, GraphicConstants.layoutColors["Default text color"],nil,true)
 		-- Draw a mark if the feature is on
 		if button.optionState then
@@ -797,14 +854,14 @@ end
 function Drawing.drawColorOptions()
 	local COLOR_OPTION_X_OFFSET = 150
 	--Main rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,286,
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,306,
 	0x00000000, GraphicConstants.layoutColors["Main background color"])
 
 	local rightEdge = GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN)
 	local bottomEdge = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN)
 
 	-- Color options view
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+126, 
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+146, 
 	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
 
 	-- Color options top rectangle
@@ -812,7 +869,7 @@ function Drawing.drawColorOptions()
 	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
 
 	-- Color options bottom rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 204, rightEdge, 44, 
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 224, rightEdge, 44, 
 	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
 
 	for _, button in pairs(ColorOptions.mainButtons) do
@@ -827,11 +884,11 @@ function Drawing.drawColorOptions()
 		Drawing.drawText(box[1] + 12, box[2]-1, button.text, GraphicConstants.layoutColors["Default text color"],nil,false)
 	end
 
-	local toggles = {ColorOptions.toggleMoveColorButton,ColorOptions.toggleShadowsButton}
+	local toggles = ColorOptions.toggleButtons
 
 	for _, button in pairs(toggles) do
 		gui.drawRectangle(button.box[1], button.box[2], button.box[3], button.box[4], 
-		button.backgroundColor[1], GraphicConstants.layoutColors[button.backgroundColor[2]])
+		GraphicConstants.layoutColors[button.backgroundColor[1]], GraphicConstants.layoutColors[button.backgroundColor[2]])
 		Drawing.drawText(button.box[1] + 11, button.box[2] - 2, button.text, GraphicConstants.layoutColors["Default text color"],nil,false)
 		-- Draw a mark if the feature is on
 		if button.optionState then
