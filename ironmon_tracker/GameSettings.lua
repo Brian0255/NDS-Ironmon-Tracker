@@ -61,7 +61,7 @@ function GameSettings.setAsBlack()
 	GameSettings.playerBattleBase = 0x26A794
 	GameSettings.enemyBase = 0x26B254
 	GameSettings.playerBattleMonPID = 0x2a7e70
-	GameSettings.enemyBattleMonPID = 0x2A7E14
+	GameSettings.enemyBattleMonPID = 0x2A7E70
 	GameSettings.battleStatus = 0x1D0798
 	GameSettings.itemStartNoBattle = 0x234784
 	GameSettings.itemStartBattle = 0x234784
@@ -90,19 +90,36 @@ function GameSettings.setAsWhite()
 	GameSettings.berryBagStart = 0x234844+0x20
 end
 
-function GameSettings.setAsBlack2White2()
-	GameSettings.playerBase = 0x21E3EC
-	GameSettings.playerBattleBase = 0x2582D4
-	GameSettings.enemyBase = 0x258D94 --or 258834
-	GameSettings.playerBattleMonPID = 0x2968F0
-	GameSettings.enemyBattleMonPID = 0x258D94
+function GameSettings.setAsBlack2()
+	GameSettings.playerBase = 0x21E42C
+	GameSettings.playerBattleBase = 0x257db4
+	GameSettings.enemyBase = 0x258DD4 
+	GameSettings.playerBattleMonPID = 0x2968D4
+	GameSettings.enemyBattleMonPID = 0x2968D4
 	GameSettings.battleStatus = 0x1B5138
-	GameSettings.itemStartNoBattle = 0x21E1BC
-	GameSettings.itemStartBattle = 0x21E1BC
-	GameSettings.statStagesPlayer = 0x26D7A0
-	GameSettings.statStagesEnemy = 0x26D9C4
-	GameSettings.maxHPBattlePlayer = 0x25B1F2
-	GameSettings.curHPBattlePlayer = 0x25B1F4
+	GameSettings.itemStartNoBattle = 0x21E1FC
+	GameSettings.itemStartBattle = 0x21E1FC
+	GameSettings.statStagesStart = 0x25B320
+	GameSettings.maxHPBattlePlayer = 0x25B232
+	GameSettings.curHPBattlePlayer = 0x25B234
+	GameSettings.totalMonsParty = 0x21E428
+	GameSettings.berryBagStart =  0x21E2BC
+end
+
+function GameSettings.setAsWhite2()
+	GameSettings.playerBase = 0x21E42C+0x80
+	GameSettings.playerBattleBase = 0x257db4+0x80
+	GameSettings.enemyBase = 0x258DD4 +0x80
+	GameSettings.playerBattleMonPID = 0x2968D4+0x80
+	GameSettings.enemyBattleMonPID = 0x2968D4+0x80
+	GameSettings.battleStatus = 0x1Bc9f2
+	GameSettings.itemStartNoBattle = 0x21E1FC+0x80
+	GameSettings.itemStartBattle = 0x21E1FC+0x80
+	GameSettings.statStagesStart = 0x25B320+0x80
+	GameSettings.maxHPBattlePlayer = 0x25B232+0x80
+	GameSettings.curHPBattlePlayer = 0x25B234+0x80
+	GameSettings.totalMonsParty = 0x21E428+0x80
+	GameSettings.berryBagStart =  0x21E2BC+0x80
 end
 
 GameSettings.VERSIONS = {
@@ -221,7 +238,11 @@ function GameSettings.initialize()
 			GameSettings.setAsBlack()
 		end
 	elseif GameSettings.versiongroup == 12 then 
-		GameSettings.setAsBlack2White2()
+		if GameSettings.gamename == "Pokemon White 2" then
+			GameSettings.setAsWhite2()
+		else
+			GameSettings.setAsBlack2()
+		end
 	end
 
 	if GameSettings.gen == 5 then
