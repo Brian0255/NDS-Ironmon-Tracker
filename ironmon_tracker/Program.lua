@@ -14,6 +14,9 @@ Program = {
 	lastValidPlayerBattlePID = -1,
 	lastValidEnemyBattlePID = -1,
 
+	GEN5_activePlayerMonPID = 0,
+	GEN5_activeEnemyMonPID = 0,
+
 	frameCounter = 0,
 
 	state = State.TRACKER,
@@ -94,7 +97,7 @@ function Program.main()
 			end
 			Drawing.DrawTracker(Tracker.Data.selectedPlayer==2)
 
-			Tracker.waitFrames = 30
+			Tracker.waitFrames = 3
 		end
 
 		if Tracker.waitFrames > 0 then
@@ -174,6 +177,9 @@ end
 
 function Program.getPlayerBattleMonPID()
 	local activePID = memory.read_u32_le(GameSettings.playerBattleMonPID)
+	if GameSettings.gen == 5 then
+		activePID = Program.GEN5_activePlayerMonPID
+	end
 	if activePID == 0 then
 		return memory.read_u32_le(GameSettings.playerBattleBase)
 	else
@@ -191,6 +197,9 @@ end
 
 function Program.getEnemyBattleMonPID()
 	local activePID = memory.read_u32_le(GameSettings.enemyBattleMonPID)
+	if GameSettings.gen == 5 then
+		activePID = Program.GEN5_activeEnemyMonPID
+	end
 	if activePID  == 0 then
 		return memory.read_u32_le(GameSettings.enemyBase)
 	else
@@ -281,6 +290,9 @@ function Program.updateButtons(state)
 end
 
 function Program.getPokemonData(index)
+	if GameSettings.gen == 5 then
+		Program.GEN5_checkLastSwitchin()
+	end
 	if index.player == 1 then 
 		return Program.getPokemonDataPlayer()
 	else
@@ -484,4 +496,20 @@ function Program.calculateHealPercent(healingItems,totals, maxHP)
 		end
 	end	
 	return totals
+end
+
+function Program.GEN5_checkLastSwitchin()
+	--In gen 5, there is no active battler PID.
+	--Instead, a memory address is updated with the next active mon's PID on switch-in
+	--This is for both player/enemy pokemon, they share the same address.
+	--So what we do is check this address. If the PID belongs to player/enemy, update accordingly. 
+
+	local lastSwitchAddr = GameSettings.playerBattleMonPID
+
+	local lastSwitchPID = memory.read_u32_le(lastSwitchAddr)
+	if Program.playerBattleTeamPIDs[lastSwitchPID] then
+		Program.GEN5_activePlayerMonPID = lastSwitchPID
+	elseif Program.enemyBattleTeamPIDs[lastSwitchPID] then
+		Program.GEN5_activeEnemyMonPID = lastSwitchPID
+	end
 end
