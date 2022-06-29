@@ -779,7 +779,7 @@ function Drawing.drawNoteBox()
 			note = string.sub(note,1,charMax) .. ".."
 		end
 		if note == '' then
-			gui.drawImage(DATA_FOLDER .. "/images/icons/editnote.png", GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + 3, Drawing.movesBoxStartY + 50)
+			Images.drawImage(ImageTypes.NOTE,GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + 3, Drawing.movesBoxStartY + 50)
 		else
 			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+1, Drawing.movesBoxStartY + 53, note,
 			GraphicConstants.layoutColors["Default text color"],nil,false)

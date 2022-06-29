@@ -104,7 +104,7 @@ function Input.check(xmouse, ymouse)
 			end
 
 			--note box
-			--[[
+			
 			local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,46,10)
 			local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
 			if Input.isInRange(xmouse, ymouse, GraphicConstants.SCREEN_WIDTH + 6, 141, GraphicConstants.RIGHT_GAP - subAmount, 12) 
@@ -117,7 +117,7 @@ function Input.check(xmouse, ymouse)
 					Input.noteForm = nil
 					Tracker.waitFrames = 0
 				end, 200, 0)
-			end--]]
+			end
 
 			-- Settings menu mouse input regions
 		elseif Program.state == State.SETTINGS then
