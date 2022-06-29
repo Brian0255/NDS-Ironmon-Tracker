@@ -76,8 +76,11 @@ function Main.Run()
 		end
 	else
 		Tracker.loadData()
+		
 		ButtonManager.initializeBadgeButtons()
 		ColorOptions.initializeButtons()
+		Images.initializeTypeIconArray()
+
 		GraphicConstants.readSettingsColors()
 		client.SetGameExtraPadding(0, GraphicConstants.UP_GAP, GraphicConstants.RIGHT_GAP, GraphicConstants.DOWN_GAP)
 		gui.defaultTextBackground(0)
