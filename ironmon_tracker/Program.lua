@@ -56,7 +56,6 @@ function Program.main()
 		end
 		if Tracker.waitFrames == 0 then
 			local battleStatus = memory.read_u16_le(GameSettings.battleStatus)
-
 			if battleStatus == 0x2100 or battleStatus == 0x2101 then
 				if Tracker.Data.inBattle == 0 then
 					--Just started battle.
@@ -113,7 +112,7 @@ function Program.main()
 		if Tracker.waitFrames == 0 and ColorOptions.redraw then
 			Drawing.drawColorOptions()
 			Drawing.DrawTracker(false)
-			Tracker.waitFrames = 5
+			Tracker.waitFrames = 30
 		end
 		if Tracker.waitFrames > 0 then
 			Tracker.waitFrames = Tracker.waitFrames - 1
@@ -507,9 +506,24 @@ function Program.GEN5_checkLastSwitchin()
 	local lastSwitchAddr = GameSettings.playerBattleMonPID
 
 	local lastSwitchPID = memory.read_u32_le(lastSwitchAddr)
-	if Program.playerBattleTeamPIDs[lastSwitchPID] then
-		Program.GEN5_activePlayerMonPID = lastSwitchPID
-	elseif Program.enemyBattleTeamPIDs[lastSwitchPID] then
-		Program.GEN5_activeEnemyMonPID = lastSwitchPID
+	if lastSwitchPID == 0 then
+		for PID, index in pairs(Program.playerBattleTeamPIDs) do
+			if index == 0 then
+				Program.GEN5_activePlayerMonPID = PID
+				break
+			end
+		end
+		for PID, index in pairs(Program.enemyBattleTeamPIDs) do
+			if index == 0 then
+				Program.GEN5_activeEnemyMonPID = PID
+				break
+			end
+		end
+	else
+		if Program.playerBattleTeamPIDs[lastSwitchPID] then
+			Program.GEN5_activePlayerMonPID = lastSwitchPID
+		elseif Program.enemyBattleTeamPIDs[lastSwitchPID] then
+			Program.GEN5_activeEnemyMonPID = lastSwitchPID
+		end
 	end
 end
