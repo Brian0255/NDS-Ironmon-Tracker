@@ -17,7 +17,7 @@ ColorOptions = {
         X_OFFSET = 150,
         COLOR_OPTION_BOX_X = GraphicConstants.SCREEN_WIDTH+GraphicConstants.BORDER_MARGIN + 150,
         COLOR_OPTION_BOX_Y = GraphicConstants.BORDER_MARGIN,
-        COLOR_OPTION_HEIGHT = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN) + 142,
+        COLOR_OPTION_HEIGHT = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN) + 152,
         COLOR_OPTION_WIDTH = GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN),
         BUTTON_MARGIN = 8,
         BUTTON_HEIGHT = 12,
@@ -32,6 +32,7 @@ ColorOptions.COLOR_SETTINGS_ORDERED_KEYS = {
     "Draw_move_type_icons",
     "Color_move_type_icons",
     "Transparent_backgrounds",
+    "Show_phys/spec_move_icons"
 }
 
 function ColorOptions.initializeButtons()

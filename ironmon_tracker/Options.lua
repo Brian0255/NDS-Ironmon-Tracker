@@ -7,7 +7,7 @@ Options.redraw = true
 Options.updated = false
 
 Options.OPTIONS_ORDERED_KEYS = {
-		"SHOW_PHYS/SPECIAL_MOVE_ICONS",
+		"Show_phys/spec_move_icons",
 		"SHOW_MOVE_EFFECTIVENESS",
 		"CALCULATE_VARIABLE_DAMAGE",
 		"SHOW_ACTUAL_ENEMY_PP",

@@ -582,7 +582,7 @@ function Drawing.drawMoveCategories(moves)
 		local category = moves[moveIndex].category
 		table.insert(categories, moveCategoryToIcon[category])
 	end
-	if Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"] then
+	if Settings.ColorSettings["Show_phys/spec_move_icons"] then
 		for catIndex = 0, 3, 1 do
 			local category = categories[catIndex+1]
 			if category ~= "" then
@@ -658,7 +658,7 @@ function Drawing.getDrawnTextLength(text)
 end
 
 function Drawing.drawMoveNames(moves,monIsEnemy,movesString,moveColors,stars)
-	local nameOffset = Utils.inlineIf(Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"], 15, Drawing.moveOffset - 3)
+	local nameOffset = Utils.inlineIf(Settings.ColorSettings["Show_phys/spec_move_icons"], 15, Drawing.moveOffset - 3)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset - 2, Drawing.moveStartY - Drawing.moveTableHeaderHeightDiff, movesString,
 	GraphicConstants.layoutColors["Move header text color"],"Move header",false)
 	for moveIndex = 1, 4, 1 do
@@ -671,9 +671,9 @@ function Drawing.drawMoveNames(moves,monIsEnemy,movesString,moveColors,stars)
 				color = moveColors[moveIndex]
 			end
 			local offset = nameOffset
-			if not Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"] and Settings.ColorSettings.Draw_move_type_icons then
+			if not Settings.ColorSettings["Show_phys/spec_move_icons"] and Settings.ColorSettings.Draw_move_type_icons then
 				offset = offset + 2
-			elseif Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"] and Settings.ColorSettings.Draw_move_type_icons then
+			elseif Settings.ColorSettings["Show_phys/spec_move_icons"] and Settings.ColorSettings.Draw_move_type_icons then
 				offset = offset + 2
 			end
 			if Settings.ColorSettings.Draw_move_type_icons then offset = offset + 8 end
@@ -873,14 +873,14 @@ end
 function Drawing.drawColorOptions()
 	local COLOR_OPTION_X_OFFSET = 150
 	--Main rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,316,
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,326,
 	0x00000000, Drawing.mainBackgroundColor)
 
 	local rightEdge = GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN)
 	local bottomEdge = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN)
 
 	-- Color options view
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+156, 
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+166, 
 	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 
 	-- Color options top rectangle
@@ -888,7 +888,7 @@ function Drawing.drawColorOptions()
 	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 
 	-- Color options bottom rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 234, rightEdge, 44, 
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 244, rightEdge, 44, 
 	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 
 	for _, button in pairs(ColorOptions.mainButtons) do
