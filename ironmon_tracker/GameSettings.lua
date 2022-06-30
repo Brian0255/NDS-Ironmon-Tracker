@@ -60,8 +60,8 @@ function GameSettings.setAsBlack()
 	GameSettings.playerBase = 0x2349B4
 	GameSettings.playerBattleBase = 0x26A794
 	GameSettings.enemyBase = 0x26B254
-	GameSettings.playerBattleMonPID = 0x2a7e70
-	GameSettings.enemyBattleMonPID = 0x2A7E70
+	GameSettings.playerBattleMonPID = 0x2a7e14
+	GameSettings.enemyBattleMonPID = 0x2A7E14
 	GameSettings.battleStatus = 0x1D0798
 	GameSettings.itemStartNoBattle = 0x234784
 	GameSettings.itemStartBattle = 0x234784
