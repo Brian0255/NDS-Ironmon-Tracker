@@ -410,13 +410,12 @@ function Drawing.DrawTracker(monIsEnemy)
 	local colorbar = Drawing.drawHPColor(monToDraw)
 	local currentHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["curHP"])
 	local maxHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["maxHP"])
-
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + Drawing.pkmnStatOffsetX,  Drawing.pkmnStatStartY, PokemonData[monToDraw["pokemonID"] + 1].name,GraphicConstants.layoutColors["Default text color"],nil,true)
-	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + Drawing. pkmnStatOffsetX,  Drawing.pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 1), "HP:",GraphicConstants.layoutColors["Default text color"],nil,true)
-	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 52,  Drawing.pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 1), currentHP .. "/" .. maxHP, colorbar,nil,true)
+	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + Drawing. pkmnStatOffsetX,  Drawing.pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 2), "HP:",GraphicConstants.layoutColors["Default text color"],nil,true)
+	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 52,  Drawing.pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 2), currentHP .. "/" .. maxHP, colorbar,nil,true)
 	local levelDetails = "Lv." .. monToDraw.level
 	local evolutionDetails = " (" .. PokemonData[monToDraw["pokemonID"] + 1].evolution .. ")"
-	Drawing.drawText(GraphicConstants.SCREEN_WIDTH +  Drawing.pkmnStatOffsetX, Drawing. pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 2), levelDetails .. evolutionDetails,
+	Drawing.drawText(GraphicConstants.SCREEN_WIDTH +  Drawing.pkmnStatOffsetX, Drawing. pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 1), levelDetails .. evolutionDetails,
 	GraphicConstants.layoutColors["Default text color"],nil,true)
 
 	local infoBoxHeight = 23
@@ -572,7 +571,7 @@ function Drawing.drawMoveCategories(moves)
 		for catIndex = 0, 3, 1 do
 			local category = categories[catIndex+1]
 			if category ~= "" then
-				Images.drawImage(category,GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset - 2, Drawing.moveStartY + 2 + (Drawing.distanceBetweenMoves * catIndex))
+				Images.drawImage(category,GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset - 1, Drawing.moveStartY + 2 + (Drawing.distanceBetweenMoves * catIndex))
 			end
 		end
 	end
@@ -644,7 +643,7 @@ function Drawing.getDrawnTextLength(text)
 end
 
 function Drawing.drawMoveNames(moves,monIsEnemy,movesString,moveColors,stars)
-	local nameOffset = Utils.inlineIf(Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"], 15, Drawing.moveOffset - 1)
+	local nameOffset = Utils.inlineIf(Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"], 15, Drawing.moveOffset - 3)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + Drawing.moveOffset - 2, Drawing.moveStartY - Drawing.moveTableHeaderHeightDiff, movesString,
 	GraphicConstants.layoutColors["Move header text color"],"Move header",false)
 	for moveIndex = 1, 4, 1 do
@@ -657,11 +656,16 @@ function Drawing.drawMoveNames(moves,monIsEnemy,movesString,moveColors,stars)
 				color = moveColors[moveIndex]
 			end
 			local offset = nameOffset
-			if Settings.ColorSettings.Draw_move_type_icons then offset = offset + 9 end
+			if not Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"] and Settings.ColorSettings.Draw_move_type_icons then
+				offset = offset + 2
+			elseif Settings.tracker["SHOW_PHYS/SPECIAL_MOVE_ICONS"] and Settings.ColorSettings.Draw_move_type_icons then
+				offset = offset + 2
+			end
+			if Settings.ColorSettings.Draw_move_type_icons then offset = offset + 8 end
 			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + offset, Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1)), moves[moveIndex].name .. stars[moveIndex], 
 			color,nil,false)
 			if moves[moveIndex].type ~= "---" and Settings.ColorSettings.Draw_move_type_icons then
-				Images.drawTypeIcon(moves[moveIndex].type,GraphicConstants.SCREEN_WIDTH + nameOffset +1 , Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1))+2)
+				Images.drawTypeIcon(moves[moveIndex].type,GraphicConstants.SCREEN_WIDTH + nameOffset + 2  , Drawing.moveStartY + (Drawing.distanceBetweenMoves * (moveIndex - 1))+2)
 			end
 		end
 	end

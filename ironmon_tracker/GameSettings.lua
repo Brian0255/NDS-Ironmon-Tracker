@@ -93,7 +93,7 @@ end
 function GameSettings.setAsBlack2()
 	GameSettings.playerBase = 0x21E42C
 	GameSettings.playerBattleBase = 0x257db4
-	GameSettings.enemyBase = 0x258DD4 
+	GameSettings.enemyBase = 0x258874 
 	GameSettings.playerBattleMonPID = 0x2968D4
 	GameSettings.enemyBattleMonPID = 0x2968D4
 	GameSettings.battleStatus = 0x1B5138
@@ -104,6 +104,7 @@ function GameSettings.setAsBlack2()
 	GameSettings.curHPBattlePlayer = 0x25B234
 	GameSettings.totalMonsParty = 0x21E428
 	GameSettings.berryBagStart =  0x21E2BC
+	--002E8688
 end
 
 function GameSettings.setAsWhite2()

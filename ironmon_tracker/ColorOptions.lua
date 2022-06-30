@@ -149,10 +149,11 @@ function ColorOptions.initializeToggleButtons()
             optionColor = "Positive text color",
             optionState = value,
             onclick = function(self) 
-            Settings.ColorSettings[settingName] = not(Settings.ColorSettings[settingName])
-            self.optionState = not (self.optionState)
-            ColorOptions.redraw = true
-            INI.save("Settings.ini", Settings)
+                Settings.ColorSettings[settingName] = not(Settings.ColorSettings[settingName])
+                self.optionState = not (self.optionState)
+                Tracker.waitFrames = 0
+                ColorOptions.redraw = true
+                INI.save("Settings.ini", Settings)
             end
         }
         table.insert(ColorOptions.toggleButtons,newButton)
