@@ -99,8 +99,7 @@ end
 function GraphicConstants.getThemeString()
 	local completeString = ""
 	for _, key in pairs(GraphicConstants.layoutColorKeysOrdered) do
-		local color = GraphicConstants.layoutColors[key]
-		color = string.sub(string.format("%X",color),3)
+		local color = string.sub(string.format("%X", GraphicConstants.layoutColors[key]),3)
 		completeString = completeString..color.." "
 	end
 	for _, key in pairs(ColorOptions.COLOR_SETTINGS_ORDERED_KEYS) do

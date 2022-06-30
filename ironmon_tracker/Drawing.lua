@@ -10,6 +10,10 @@ Drawing = {
 	distanceBetweenMoves = 10,
 	moveTableHeaderHeightDiff = 14,
 	moveOffset = 9,
+
+	topBackgroundColor = 0,
+	botBackgroundColor = 0,
+	mainBackgroundColor = 0,
 }
 
 function Drawing.clearGUI()
@@ -360,7 +364,7 @@ function Drawing.drawStatsAndStages(monIsEnemy,monToDraw)
 	local bstY = 7 + (statInc * 6)
 
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + Drawing.statBoxWidth, statBoxY, GraphicConstants.RIGHT_GAP - Drawing.statBoxWidth - margin, 75, 
-	GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"])
+	GraphicConstants.layoutColors["Top box border color"], Drawing.topBackgroundColor)
 
 	for i,stat in pairs(stats) do
 		local color = Utils.inlineIf(monIsEnemy, GraphicConstants.layoutColors["Default text color"], Drawing.getNatureColor(stat, monToDraw["nature"]))
@@ -396,13 +400,24 @@ function Drawing.DrawTracker(monIsEnemy)
 	local monToDraw = Utils.inlineIf(monIsEnemy,Tracker.Data.enemyPokemon,Tracker.Data.playerPokemon)
 	if monToDraw == nil then return end
 
+	Drawing.topBackgroundColor = GraphicConstants.layoutColors["Top box background color"]
+	Drawing.botBackgroundColor= GraphicConstants.layoutColors["Bottom box background color"]
+	Drawing.mainBackgroundColor = GraphicConstants.layoutColors["Main background color"]
+
+	if Settings.ColorSettings.Transparent_backgrounds then
+		local transparent = 0x00000000
+		Drawing.topBackgroundColor = transparent
+		Drawing.botBackgroundColor = transparent
+		Drawing.mainBackgroundColor = transparent
+	end
+
 	--Main rectangle
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH,0,GraphicConstants.RIGHT_GAP,164,
-	0x00000000, GraphicConstants.layoutColors["Main background color"])
+	0x00000000, Drawing.mainBackgroundColor)
 
 	local x,y = GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN, GraphicConstants.BORDER_MARGIN
 	gui.drawRectangle(x,y, Drawing.statBoxWidth - GraphicConstants.BORDER_MARGIN, Drawing.statBoxHeight, 
-	GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"])
+	GraphicConstants.layoutColors["Top box border color"], Drawing.topBackgroundColor)
 
 	Images.drawImage(ImageTypes.GEAR,GraphicConstants.SCREEN_WIDTH + Drawing.statBoxWidth - 9, 7)
 
@@ -421,7 +436,7 @@ function Drawing.DrawTracker(monIsEnemy)
 	local infoBoxHeight = 23
 
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN, GraphicConstants.BORDER_MARGIN + Drawing.statBoxHeight, Drawing.statBoxWidth - GraphicConstants.BORDER_MARGIN, infoBoxHeight, 
-	GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"])
+	GraphicConstants.layoutColors["Top box border color"], Drawing.topBackgroundColor)
 
 	Drawing.drawHeals(monIsEnemy)
 	Drawing.drawPokecenterHeals()
@@ -442,7 +457,7 @@ end
 
 function Drawing.drawMoves(monToDraw,monIsEnemy)
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN, Drawing.movesBoxStartY, GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN), 46, 
-	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
+	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 	local movesLearnedSinceLevel = Drawing.findMovesLearnedSinceLevel(monToDraw)
 	local moveAgeRank = Drawing.getAgeRank(monIsEnemy)
 	local stars = Drawing.getStars(movesLearnedSinceLevel,monIsEnemy,moveAgeRank)
@@ -451,7 +466,7 @@ function Drawing.drawMoves(monToDraw,monIsEnemy)
 	local subAmount = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,10,10)
 	--Bottom rectangle
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN, 140, GraphicConstants.RIGHT_GAP-subAmount, 19, 
-	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
+	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 	-- Moves Learned
 	local moveColors = {}
 	for moveIndex = 1, 4, 1 do
@@ -810,14 +825,14 @@ end
 function Drawing.drawSettings()
 	--Main rectangle
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH,0,GraphicConstants.RIGHT_GAP,160,
-	0x00000000, GraphicConstants.layoutColors["Main background color"])
+	0x00000000, Drawing.mainBackgroundColor)
 
 	local rightEdge = GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN)
 	local bottomEdge = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN)
 
 	-- Settings view box
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN, GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge, 
-	GraphicConstants.layoutColors["Top box border color"], GraphicConstants.layoutColors["Top box background color"])
+	GraphicConstants.layoutColors["Top box border color"], Drawing.topBackgroundColor)
 
 	-- Cancel/close button
 	gui.drawRectangle(Options.closeButton.box[1], Options.closeButton.box[2], Options.closeButton.box[3], Options.closeButton.box[4], 
@@ -858,23 +873,23 @@ end
 function Drawing.drawColorOptions()
 	local COLOR_OPTION_X_OFFSET = 150
 	--Main rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,306,
-	0x00000000, GraphicConstants.layoutColors["Main background color"])
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH+COLOR_OPTION_X_OFFSET,0,GraphicConstants.RIGHT_GAP,316,
+	0x00000000, Drawing.mainBackgroundColor)
 
 	local rightEdge = GraphicConstants.RIGHT_GAP - (2 * GraphicConstants.BORDER_MARGIN)
 	local bottomEdge = GraphicConstants.SCREEN_HEIGHT - (2 * GraphicConstants.BORDER_MARGIN)
 
 	-- Color options view
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+146, 
-	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+ COLOR_OPTION_X_OFFSET , GraphicConstants.BORDER_MARGIN, rightEdge, bottomEdge+156, 
+	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 
 	-- Color options top rectangle
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN, rightEdge, 28, 
-	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
+	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 
 	-- Color options bottom rectangle
-	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 224, rightEdge, 44, 
-	GraphicConstants.layoutColors["Bottom box border color"], GraphicConstants.layoutColors["Bottom box background color"])
+	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + COLOR_OPTION_X_OFFSET, GraphicConstants.BORDER_MARGIN + 234, rightEdge, 44, 
+	GraphicConstants.layoutColors["Bottom box border color"], Drawing.botBackgroundColor)
 
 	for _, button in pairs(ColorOptions.mainButtons) do
 		local box = button.box
