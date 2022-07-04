@@ -1,7 +1,7 @@
 -- NDS Ironnon Tracker
 -- Created by OnlySpaghettiCode, largely based on the Ironmon Tracker by besteon and other contributors
 
-TRACKER_VERSION = "0.3.2"
+TRACKER_VERSION = "0.3.3"
 
 -- A frequently used placeholder when a data field is not applicable
 PLACEHOLDER = "---" 
@@ -76,7 +76,7 @@ function Main.Run()
 		end
 	else
 		Tracker.loadData()
-		
+		GameSettings.initAlternateForms()
 		ButtonManager.initializeBadgeButtons()
 		ColorOptions.initializeButtons()
 		Images.initializeTypeIconArray()
@@ -107,20 +107,16 @@ function Main.LoadNext()
 	end
 
 	local romname = gameinfo.getromname()
+	local romnumber = romname:match("%d+")
 
-	-- Split the ROM name into its prefix and numerical values
-	local romprefix = string.match(romname, '[^0-9]+')
-	local romnumber = string.match(romname, '[0-9]+')
-	if romprefix == nil then romprefix = "" end
-
-	if romnumber == "" or romnumber == nil then
-		print("Current ROM does not have any numbers in its name, unable to load next seed.\nReloaded current ROM: " .. romname)
+	if romnumber == nil then
+		print("Current ROM does not have any numbers in its name, unable to load next seed.")
 		Main.LoadNextSeed = false
 		Main.Run()
 	end
 
 	-- Increment to the next ROM and determine its full file path
-	local nextromname = string.format(romprefix .. "%0" .. string.len(romnumber) .. "d", romnumber + 1)
+	local nextromname = romname:gsub(romnumber,tostring(romnumber+1))
 	local nextrompath = Settings.config.ROMS_FOLDER .. "/" .. nextromname .. ".nds"
 
 	-- First try loading the next rom as-is with spaces, otherwise replace spaces with underscores and try again
