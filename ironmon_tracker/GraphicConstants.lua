@@ -28,6 +28,7 @@ GraphicConstants = {
 		unknown = 0xFF68A090, -- For the "Curse" move in Gen 2 - 4
 	},
 	layoutColors = {
+		["black"] = 0xFF000000,
 		["Main background color"] = 		0xFF000000,
 		["Default text color"] = 			0xFFFFFFFF,
 		["Positive text color"] = 			0xFF00FF00,

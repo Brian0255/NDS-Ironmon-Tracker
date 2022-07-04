@@ -32,7 +32,7 @@ Decrypter.BLOCK_SHUFFLE_ORDER = {
 
 Decrypter.DecryptedDataInit = {
     pid = 0,
-    alternateForm = 0,
+    alternateForm = 0x0000,
     pokemonID = 0,
     trainerID = 0,
     heldItem = 0,
