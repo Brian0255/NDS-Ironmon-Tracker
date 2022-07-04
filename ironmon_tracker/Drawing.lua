@@ -29,10 +29,12 @@ function Drawing.drawPokemonIcon(pokemon, x, y)
 	if form == 0x00 then
 		gui.drawImage(DATA_FOLDER .. "/images/pokemonIcons/" .. id .. ".png", x+1, y-5)
 	else
-		local index = form / 0x08
-		local base = pokemon.baseFormName
-		local path = DATA_FOLDER.."/images/pokemonIcons/alternateForms/"..base.."/"..index..".png"
-		gui.drawImage(path, x + 1, y - 5)
+		if ALTERNATE_FORMS[pokemon.baseFormName] then
+			local index = form / 8
+			local base = pokemon.baseFormName
+			local path = DATA_FOLDER.."/images/pokemonIcons/alternateForms/"..base.."/"..index..".png"
+			gui.drawImage(path, x + 1, y - 5)
+		end
 	end
 
 	if PokemonData[id + 1].type[1] ~= "" then
