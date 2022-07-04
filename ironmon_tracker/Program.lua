@@ -247,6 +247,7 @@ function Program.UpdatePlayerPokemonData()
 	local pokemonaux = Program.getPokemonData({ player = 1, slot = Tracker.Data.selectedSlot })
 	if Program.validPokemonData(pokemonaux) then
 		Tracker.Data.playerPokemon = pokemonaux
+		Program.checkForAlternateForm(Tracker.Data.playerPokemon)
 	end
 end
 
@@ -255,6 +256,7 @@ function Program.UpdateEnemyPokemonData()
 		local pokemontarget = Program.getPokemonData({ player = 2, slot = Tracker.Data.targetSlot })
 		if Program.validPokemonData(pokemontarget) then
 			Tracker.Data.enemyPokemon = pokemontarget
+			Program.checkForAlternateForm(Tracker.Data.enemyPokemon)
 		else
 			Tracker.Data.enemyPokemon = nil
 		end
@@ -412,6 +414,20 @@ function Program.validPokemonData(pokemonData)
 			end
 		end
 		return true
+	end
+end
+
+function Program.checkForAlternateForm(pokemon)
+	pokemon.alternateForm = bit.band(pokemon.alternateForm,0xF8)
+	local form = pokemon.alternateForm
+	if form ~= 0x00 then
+		local alternateFormindex = form / 0x08
+		local data = PokemonData[pokemon.pokemonID+1]
+		pokemon["baseFormName"] = data.name
+		if ALTERNATE_FORMS[data.name] then
+			local formStartIndex = ALTERNATE_FORMS[data.name].index
+			pokemon.pokemonID = formStartIndex + (alternateFormindex - 2)
+		end
 	end
 end
 
