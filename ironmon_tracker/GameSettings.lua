@@ -92,7 +92,7 @@ end
 
 function GameSettings.setAsBlack2()
 	GameSettings.playerBase = 0x21E42C
-	GameSettings.playerBattleBase = 0x257db4
+	GameSettings.playerBattleBase = 0x258314
 	GameSettings.enemyBase = 0x258874 
 	GameSettings.playerBattleMonPID = 0x2968D4
 	GameSettings.enemyBattleMonPID = 0x2968D4
@@ -109,7 +109,7 @@ end
 
 function GameSettings.setAsWhite2()
 	GameSettings.playerBase = 0x21E42C+0x80
-	GameSettings.playerBattleBase = 0x257db4+0x80
+	GameSettings.playerBattleBase = 0x258314+0x80
 	GameSettings.enemyBase = 0x258DD4 +0x80
 	GameSettings.playerBattleMonPID = 0x2968D4+0x80
 	GameSettings.enemyBattleMonPID = 0x2968D4+0x80
