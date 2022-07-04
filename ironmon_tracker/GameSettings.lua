@@ -214,6 +214,17 @@ function GameSettings.initMoveData()
 	end
 end
 
+function GameSettings.initAlternateForms()
+    local currentIndex = #PokemonData + 1
+    for _, formTable in pairs(ALTERNATE_FORMS) do
+        formTable.index = currentIndex
+        for _, form in pairs(formTable.forms) do
+            PokemonData[currentIndex] = form
+            currentIndex = currentIndex + 1
+        end
+    end
+end
+
 function GameSettings.initialize()
 	local memdomain = "Main RAM"
     memory.usememorydomain(memdomain)
