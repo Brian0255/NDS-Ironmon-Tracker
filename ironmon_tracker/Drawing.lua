@@ -20,12 +20,21 @@ function Drawing.clearGUI()
 	gui.drawRectangle(GraphicConstants.SCREEN_WIDTH, 0, GraphicConstants.SCREEN_WIDTH + GraphicConstants.RIGHT_GAP, GraphicConstants.SCREEN_HEIGHT, 0xFF000000, 0xFF000000)
 end
 
-function Drawing.drawPokemonIcon(id, x, y)
+function Drawing.drawPokemonIcon(pokemon, x, y)
+	local id = pokemon.pokemonID
 	if id < 0 or id > #PokemonData then
 		id = 0
 	end
-	gui.drawImage(DATA_FOLDER .. "/images/pokemonIcons/" .. id .. ".png", x+1, y-5)
-	--gui.drawImage(DATA_FOLDER .. "/images/pokemon/" .. id .. ".gif", x+6, y-6, 32, 32)
+	local form = pokemon.alternateForm
+	if form == 0x00 then
+		gui.drawImage(DATA_FOLDER .. "/images/pokemonIcons/" .. id .. ".png", x+1, y-5)
+	else
+		local index = form / 0x08
+		local base = pokemon.baseFormName
+		local path = DATA_FOLDER.."/images/pokemonIcons/alternateForms/"..base.."/"..index..".png"
+		gui.drawImage(path, x + 1, y - 5)
+	end
+
 	if PokemonData[id + 1].type[1] ~= "" then
 		gui.drawImage(DATA_FOLDER .. "/images/types/" .. PokemonData[id + 1].type[1] .. ".png", x + 1, y + 28, 30, 12)
 	end
@@ -421,7 +430,7 @@ function Drawing.DrawTracker(monIsEnemy)
 
 	Images.drawImage(ImageTypes.GEAR,GraphicConstants.SCREEN_WIDTH + Drawing.statBoxWidth - 9, 7)
 
-	Drawing.drawPokemonIcon(monToDraw["pokemonID"], GraphicConstants.SCREEN_WIDTH + 5, 5)
+	Drawing.drawPokemonIcon(monToDraw, GraphicConstants.SCREEN_WIDTH + 5, 5)
 	local colorbar = Drawing.drawHPColor(monToDraw)
 	local currentHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["curHP"])
 	local maxHP = Utils.inlineIf(monIsEnemy, "?", monToDraw["maxHP"])
@@ -430,6 +439,10 @@ function Drawing.DrawTracker(monIsEnemy)
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH + 52,  Drawing.pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 2), currentHP .. "/" .. maxHP, colorbar,nil,true)
 	local levelDetails = "Lv." .. monToDraw.level
 	local evolutionDetails = " (" .. PokemonData[monToDraw["pokemonID"] + 1].evolution .. ")"
+	if Tracker.Data.playerPokemon.friendship >= 220 and PokemonData[monToDraw["pokemonID"] + 1].evolution == EvolutionTypes.FRIEND then
+		-- Let the player know that evolution is right around the corner!
+		evolutionDetails = " (SOON)"
+	  end
 	Drawing.drawText(GraphicConstants.SCREEN_WIDTH +  Drawing.pkmnStatOffsetX, Drawing. pkmnStatStartY + ( Drawing.pkmnStatOffsetY * 1), levelDetails .. evolutionDetails,
 	GraphicConstants.layoutColors["Default text color"],nil,true)
 
@@ -798,7 +811,7 @@ function Drawing.drawNoteBox()
 			note = string.sub(note,1,charMax) .. ".."
 		end
 		if note == '' then
-			Images.drawImage(ImageTypes.NOTE,GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + 3, Drawing.movesBoxStartY + 50)
+			Images.drawImage(ImageTypes.NOTE_BOTTOM,GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + 3, Drawing.movesBoxStartY + 50)
 		else
 			Drawing.drawText(GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN+1, Drawing.movesBoxStartY + 53, note,
 			GraphicConstants.layoutColors["Default text color"],nil,false)
@@ -854,7 +867,7 @@ function Drawing.drawSettings()
 		GraphicConstants.layoutColors["Default text color"],nil,true)
 
 	if folder == "" then
-		Images.drawImage(ImageTypes.NOTE,GraphicConstants.SCREEN_WIDTH + 60, GraphicConstants.BORDER_MARGIN + 2)
+		Images.drawImage(ImageTypes.NOTE_TOP,GraphicConstants.SCREEN_WIDTH + 60, GraphicConstants.BORDER_MARGIN + 2)
 	end
 
 	-- Draw toggleable settings
