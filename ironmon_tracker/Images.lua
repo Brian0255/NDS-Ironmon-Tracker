@@ -6,7 +6,10 @@ ImageTypes = {
     GEAR = "gear",
     PHYSICAL = "physical",
     SPECIAL = "special",
-    STATUS = "status"
+    STATUS = "status",
+    NOTE_TOP = "noteTop",
+    NOTE_BOTTOM = "noteBottom",
+    LEGENDARY = "legendary",
 }
 
 function Images.drawImage(imageType,x,y)
@@ -20,23 +23,31 @@ function Images.drawImage(imageType,x,y)
         imageArray = Images.getSpecialArray()
     elseif imageType == ImageTypes.STATUS then
         imageArray = Images.getStatusArray()
-    elseif imageType == ImageTypes.NOTE then
+    elseif imageType == ImageTypes.NOTE_BOTTOM or imageType == ImageTypes.NOTE_TOP then
         imageArray = Images.getNoteArray()
+    elseif imageType == ImageTypes.LEGENDARY then
+        imageArray = Images.getLegendaryArray()
     end
 
-    local shadow = 0x00000000
-    if imageType == ImageTypes.PHYSICAL or imageType == ImageTypes.SPECIAL or imageType == ImageTypes.STATUS or imageType == ImageTypes.NOTE then
-        shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Bottom box background color"])
-    else
-        shadow = Drawing.calcShadowColor(GraphicConstants.layoutColors["Top box background color"])
-    end
+    local imageTypesToBG = {
+        [ImageTypes.GEAR] = "Top box background color",
+        [ImageTypes.PHYSICAL] = "Bottom box background color",
+        [ImageTypes.SPECIAL] = "Bottom box background color",
+        [ImageTypes.STATUS] = "Bottom box background color",
+        [ImageTypes.NOTE_BOTTOM] = "Bottom box background color",
+        [ImageTypes.NOTE_TOP] = "Top box background color",
+        [ImageTypes.LEGENDARY] = "Top box background color",
+    }
+    local backColor = GraphicConstants.layoutColors[imageTypesToBG[imageType]]
+    local shadow = Drawing.calcShadowColor(backColor)
     for rowIndex = 1, #imageArray, 1 do
         for colIndex = 1,#(imageArray[1]) do
             local offsetX = colIndex - 1
             local offsetY = rowIndex - 1
             local color = imageArray[rowIndex][colIndex]
             if color ~= -1 then
-                color = GraphicConstants.layoutColors[imageArray[rowIndex][colIndex]]
+                if imageType == ImageTypes.NOTE_TOP then color = "Top box border color" end
+                color = GraphicConstants.layoutColors[color]
                 if Settings.ColorSettings.Draw_shadows then gui.drawPixel(x+offsetX+1,y+offsetY+1,shadow) end
                 gui.drawPixel(x+offsetX,y+offsetY,color)
             end
@@ -147,6 +158,36 @@ function Images.getNoteArray()
         {c,c,c,c,c,c,c,c,c,x,x},
     }
     return noteArray
+end
+
+function Images.getLegendaryArray()
+    local c = "Default text color"
+    local e = "Default text color"
+    local d = "Default text color"
+    local x = -1
+    local legendArray = {
+        {x,x,x,x,x,x,x,x,x,c,c,x,x,x,x,x,x,x},
+        {x,x,x,x,x,x,x,x,c,d,c,x,x,x,x,c,c,c},
+        {x,x,x,x,x,x,x,c,d,c,x,x,x,c,c,d,d,c},
+        {x,x,x,x,x,x,c,c,d,c,x,c,c,d,d,d,c,x},
+        {x,x,x,x,x,x,c,c,c,c,c,d,d,d,d,c,x,x},
+        {x,x,x,x,c,c,x,c,c,d,d,d,d,d,c,c,x,x},
+        {x,x,x,c,x,x,c,d,x,x,d,d,d,c,x,x,c,x},
+        {x,x,c,x,x,c,d,x,x,x,d,d,c,x,x,x,x,c},
+        {x,c,x,x,c,d,x,x,x,d,d,c,x,x,x,c,c,x},
+        {x,c,x,x,c,c,c,c,c,c,c,x,x,x,c,x,x,x},
+        {c,x,x,x,x,x,x,x,x,x,x,x,x,c,x,x,x,x},
+        {c,x,c,c,c,x,x,x,c,c,x,x,c,x,x,x,x,x},
+        {c,c,x,x,x,c,x,c,x,c,x,x,c,x,x,x,x,x},
+        {x,x,x,x,x,x,c,x,x,c,x,x,x,c,x,x,x,x},
+        {x,x,x,x,x,x,x,x,c,x,x,x,x,x,c,x,x,x},
+        {x,x,x,c,c,x,x,c,x,x,x,x,x,x,x,c,x,x},
+        {x,x,x,c,x,c,c,x,x,x,x,x,x,x,x,x,c,x},
+        {x,x,x,c,x,x,x,c,c,c,x,x,x,x,x,x,c,x},
+        {x,x,c,x,x,c,c,x,x,x,c,c,x,x,x,c,x,x},
+        {x,x,c,c,c,x,x,x,x,x,x,x,c,c,c,x,x,x}
+    }
+    return legendArray
 end
 
 function Images.initializeTypeIconArray()
