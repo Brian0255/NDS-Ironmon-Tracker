@@ -401,7 +401,7 @@ function Program.validPokemonData(pokemonData)
 		pokemonData.atk, pokemonData.spe, pokemonData.def, pokemonData.spd, pokemonData.spa
 	}
 	for _, stat in pairs(statsToCheck) do
-		if stat > STAT_LIMIT then return false end
+		if stat > STAT_LIMIT  or pokemonData.level > 100 then return false end
 	end
 	local id = tonumber(pokemonData["pokemonID"])
 	if id ~= nil then
