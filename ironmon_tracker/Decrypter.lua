@@ -295,23 +295,6 @@ function Decrypter.advanceRNG(seed)
     return Decrypter.mult32(seed,0x41C64E6D) + 0x00006073
 end
 
-
---This function was taken from https://github.com/Killklli/PokemonBWAutoPokedex/blob/master/PokemonBWOverlay/process_ram.lua.
---I honestly don't really know what this is doing.
---I'm also not sure why it's necessary to do this to the seed value after advancing the RNG, but it doesn't work otherwise for decryption.
-function Decrypter.mult32(num1,num2)
-    local num1Shift = bit.rshift(num1,16)
-    local remainderNum1 = num1 % 0x10000
-
-    local num2Shift = bit.rshift(num2,16)
-    local remainderNum2 = num2 % 0x10000
-
-    local remainderBoth = ( num1Shift * remainderNum2 + remainderNum1 * num2Shift) % 0x10000
-    local remainderProduct = remainderNum1 * remainderNum2 
-    local result = remainderBoth * 0x10000 + remainderProduct
-    return result
-end
-
 function Decrypter.find4ByteValueAddr(base,searchFor,limit)
     local currentBase = base
     while currentBase < 0x27C400 do
