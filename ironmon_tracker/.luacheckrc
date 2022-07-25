@@ -1,5 +1,5 @@
 globals = {
-    "GraphicConstants",
+    "Graphics",
     "MiscData",
     "MoveData",
     "PokemonData",
@@ -9,6 +9,7 @@ globals = {
     "MiscUtils",
     "MoveUtils",
     "MiscUtils",
+    "ThemeUtils",
     "ThemeFactory",
     "event",
     "emu",
