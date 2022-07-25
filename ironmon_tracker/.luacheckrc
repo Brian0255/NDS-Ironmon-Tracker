@@ -1,0 +1,20 @@
+globals = {
+    "BitUtils",
+    "DrawingUtils",
+    "FormsUtils",
+    "MiscUtils",
+    "MoveUtils",
+    "MiscUtils",
+    "event",
+    "emu",
+    "client",
+    "gui",
+    "userdata",
+    "gameinfo",
+    "bit",
+    "memory",
+    "love",
+    "joypad",
+    "input",
+    "forms"
+}
