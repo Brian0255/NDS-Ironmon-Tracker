@@ -5,6 +5,7 @@ globals = {
     "MiscUtils",
     "MoveUtils",
     "MiscUtils",
+    "ThemeFactory",
     "event",
     "emu",
     "client",
