@@ -1,55 +1,75 @@
-TableData = {
-	growth = { 1, 1, 1, 1, 1, 1, 2, 2, 3, 4, 3, 4, 2, 2, 3, 4, 3, 4, 2, 2, 3, 4, 3, 4 },
-	attack = { 2, 2, 3, 4, 3, 4, 1, 1, 1, 1, 1, 1, 3, 4, 2, 2, 4, 3, 3, 4, 2, 2, 4, 3 },
-	effort = { 3, 4, 2, 2, 4, 3, 3, 4, 2, 2, 4, 3, 1, 1, 1, 1, 1, 1, 4, 3, 4, 3, 2, 2 },
-	misc   = { 4, 3, 4, 3, 2, 2, 4, 3, 4, 3, 2, 2, 4, 3, 4, 3, 2, 2, 1, 1, 1, 1, 1, 1 }
-}
-
-BagPocket = {
-	PC = 0,
-	Items = 1,
-	KeyItems = 2,
-	Pokeballs = 3,
-	TMHM = 4,
-	Berries = 5,
-}
-
 HealingType = {
-	Constant = 0,
-	Percentage = 1,
+	CONSTANT = 0,
+	PERCENTAGE = 1
 }
 
 StatusType = {
-	Poison = 0,
-	Burn = 1,
-	Freeze = 2,
-	Sleep = 3,
-	Paralyze = 4,
-	Confuse = 5,
-	All = 100,
+	POISON = 0,
+	BURN = 1,
+	FREEZE = 2,
+	SLEEP = 3,
+	PARALYZE = 4,
+	CONFUSE = 5,
+	All = 100
 }
 
-MiscData = {
 	nature = {
-		"Hardy", "Lonely", "Brave", "Adamant", "Naughty",
-		"Bold", "Docile", "Relaxed", "Impish", "Lax",
-		"Timid", "Hasty", "Serious", "Jolly", "Naive",
-		"Modest", "Mild", "Quiet", "Bashful", "Rash",
-		"Calm", "Gentle", "Sassy", "Careful", "Quirky"
+		"Hardy",
+		"Lonely",
+		"Brave",
+		"Adamant",
+		"Naughty",
+		"Bold",
+		"Docile",
+		"Relaxed",
+		"Impish",
+		"Lax",
+		"Timid",
+		"Hasty",
+		"Serious",
+		"Jolly",
+		"Naive",
+		"Modest",
+		"Mild",
+		"Quiet",
+		"Bashful",
+		"Rash",
+		"Calm",
+		"Gentle",
+		"Sassy",
+		"Careful",
+		"Quirky"
 	},
 	type = {
-		"Fighting", "Flying", "Poison", "Ground",
-		"Rock", "Bug", "Ghost", "Steel",
-		"Fire", "Water", "Grass", "Electric",
-		"Psychic", "Ice", "Dragon", "Dark"
+		"Fighting",
+		"Flying",
+		"Poison",
+		"Ground",
+		"Rock",
+		"Bug",
+		"Ghost",
+		"Steel",
+		"Fire",
+		"Water",
+		"Grass",
+		"Electric",
+		"Psychic",
+		"Ice",
+		"Dragon",
+		"Dark"
 	},
 	status = {
-		"None", "Sleep", "Poison", "Burn", "Freeze",
-		"Paralysis", "Bad Poison"
+		"None",
+		"Sleep",
+		"Poison",
+		"Burn",
+		"Freeze",
+		"Paralysis",
+		"Bad Poison"
 	},
 	item = {},
 	items_gen4 = {
-		"---", 
+		"---",
 		"Master Ball",
 		"Ultra Ball",
 		"Great Ball",
@@ -586,12 +606,10 @@ MiscData = {
 		"Lock Capsule",
 		"Red Orb",
 		"Blue Orb",
-		"Enigma Stone",
+		"Enigma Stone"
 	},
-
-
 	items_gen5 = {
-		"---", 
+		"---",
 		"Master Ball",
 		"Ultra Ball",
 		"Great Ball",
@@ -704,7 +722,6 @@ MiscData = {
 		"Oval Stone",
 		"Odd Keystone",
 		"Griseous Orb",
-
 		"unknown",
 		"unknown",
 		"unknown",
@@ -1219,141 +1236,141 @@ MiscData = {
 			name = "Potion",
 			amount = 20,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[23] = {
 			id = 23,
 			name = "Full Restore",
 			amount = 100,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[24] = {
 			id = 24,
 			name = "Max Potion",
 			amount = 100,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[25] = {
 			id = 25,
 			name = "Hyper Potion",
 			amount = 200,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[26] = {
 			id = 26,
 			name = "Super Potion",
 			amount = 60,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[30] = {
 			id = 30,
 			name = "Fresh Water",
 			amount = 50,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[31] = {
 			id = 31,
 			name = "Soda Pop",
 			amount = 60,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[32] = {
 			id = 32,
 			name = "Lemonade",
 			amount = 80,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[33] = {
 			id = 29,
 			name = "Moomoo Milk",
 			amount = 100,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[34] = {
 			id = 30,
 			name = "EnergyPowder",
 			amount = 50,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[35] = {
 			id = 31,
 			name = "Energy Root",
 			amount = 200,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[43] = {
 			id = 44,
 			name = "Berry Juice",
 			amount = 20,
 			type = HealingType.Constant,
-			pocket = BagPocket.Items,
+			pocket = BagPocket.Items
 		},
 		[155] = {
 			id = 139,
 			name = "Oran Berry",
 			amount = 10,
 			type = HealingType.Constant,
-			pocket = BagPocket.Berries,
+			pocket = BagPocket.Berries
 		},
 		[158] = {
 			id = 142,
 			name = "Sitrus Berry",
 			amount = 30,
 			type = HealingType.Constant,
-			pocket = BagPocket.Berries,
+			pocket = BagPocket.Berries
 		},
 		[159] = {
 			id = 143,
 			name = "Figy Berry",
 			amount = 12.5,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Berries,
+			pocket = BagPocket.Berries
 		},
 		[160] = {
 			id = 144,
 			name = "Wiki Berry",
 			amount = 12.5,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Berries,
+			pocket = BagPocket.Berries
 		},
 		[161] = {
 			id = 145,
 			name = "Mago Berry",
 			amount = 12.5,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Berries,
+			pocket = BagPocket.Berries
 		},
 		[162] = {
 			id = 146,
 			name = "Aguav Berry",
 			amount = 12.5,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Berries,
+			pocket = BagPocket.Berries
 		},
 		[163] = {
 			id = 147,
 			name = "Iapapa Berry",
 			amount = 12.5,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Berries,
+			pocket = BagPocket.Berries
 		},
 		[208] = {
 			id = 175,
 			name = "Enigma Berry",
 			amount = 12.5,
 			type = HealingType.Percentage,
-			pocket = BagPocket.Berries,
-		},
+			pocket = BagPocket.Berries
+		}
 	},
 	ability = {
 		"---",
@@ -1525,22 +1542,53 @@ MiscData = {
 }
 
 EffectiveData = {
-	normal = { rock = 0.5, ghost = 0, steel = 0.5 },
-	fire = { fire = 0.5, water = 0.5, grass = 2, ice = 2, bug = 2, rock = 0.5, dragon = 0.5, steel = 2 },
-	water = { fire = 2, water = 0.5, grass = 0.5, ground = 2, rock = 2, dragon = 0.5 },
-	grass = { fire = 0.5, water = 2, grass = 0.5, poison = 0.5, ground = 2, flying = 0.5, bug = 0.5, rock = 2, dragon = 0.5, steel = 0.5 },
-	electric = { water = 2, grass = 0.5, electric = 0.5, ground = 0, flying = 2, dragon = 0.5 },
-	ice = { fire = 0.5, water = 0.5, grass = 2, ice = 0.5, ground = 2, flying = 2, dragon = 2, steel = 0.5 },
-	fighting = { normal = 2, ice = 2, poison = 0.5, flying = 0.5, psychic = 0.5, bug = 0.5, rock = 2, ghost = 0, dark = 2, steel = 2 },
-	poison = { grass = 2, poison = 0.5, ground = 0.5, rock = 0.5, ghost = 0.5, steel = 0 },
-	ground = { fire = 2, grass = 0.5, electric = 2, poison = 2, flying = 0, bug = 0.5, rock = 2, steel = 2 },
-	flying = { grass = 2, electric = 0.5, fighting = 2, bug = 2, rock = 0.5, steel = 0.5 },
-	psychic = { fighting = 2, poison = 2, psychic = 0.5, dark = 0, steel = 0.5 },
-	bug = { fire = 0.5, grass = 2, fighting = 0.5, poison = 0.5, flying = 0.5, psychic = 2, ghost = 0.5, dark = 2, steel = 0.5 },
-	rock = { fire = 2, ice = 2, fighting = 0.5, ground = 0.5, flying = 2, bug = 2, steel = 0.5 },
-	ghost = { normal = 0, psychic = 2, ghost = 2, dark = 0.5, steel = 0.5 },
-	dragon = { dragon = 2, steel = 0.5 },
-	dark = { fighting = 0.5, psychic = 2, ghost = 2, dark = 0.5, steel = 0.5 },
-	steel = { fire = 0.5, water = 0.5, ice = 2, rock = 2, steel = 0.5, electric = 0.5 },
+	normal = {rock = 0.5, ghost = 0, steel = 0.5},
+	fire = {fire = 0.5, water = 0.5, grass = 2, ice = 2, bug = 2, rock = 0.5, dragon = 0.5, steel = 2},
+	water = {fire = 2, water = 0.5, grass = 0.5, ground = 2, rock = 2, dragon = 0.5},
+	grass = {
+		fire = 0.5,
+		water = 2,
+		grass = 0.5,
+		poison = 0.5,
+		ground = 2,
+		flying = 0.5,
+		bug = 0.5,
+		rock = 2,
+		dragon = 0.5,
+		steel = 0.5
+	},
+	electric = {water = 2, grass = 0.5, electric = 0.5, ground = 0, flying = 2, dragon = 0.5},
+	ice = {fire = 0.5, water = 0.5, grass = 2, ice = 0.5, ground = 2, flying = 2, dragon = 2, steel = 0.5},
+	fighting = {
+		normal = 2,
+		ice = 2,
+		poison = 0.5,
+		flying = 0.5,
+		psychic = 0.5,
+		bug = 0.5,
+		rock = 2,
+		ghost = 0,
+		dark = 2,
+		steel = 2
+	},
+	poison = {grass = 2, poison = 0.5, ground = 0.5, rock = 0.5, ghost = 0.5, steel = 0},
+	ground = {fire = 2, grass = 0.5, electric = 2, poison = 2, flying = 0, bug = 0.5, rock = 2, steel = 2},
+	flying = {grass = 2, electric = 0.5, fighting = 2, bug = 2, rock = 0.5, steel = 0.5},
+	psychic = {fighting = 2, poison = 2, psychic = 0.5, dark = 0, steel = 0.5},
+	bug = {
+		fire = 0.5,
+		grass = 2,
+		fighting = 0.5,
+		poison = 0.5,
+		flying = 0.5,
+		psychic = 2,
+		ghost = 0.5,
+		dark = 2,
+		steel = 0.5
+	},
+	rock = {fire = 2, ice = 2, fighting = 0.5, ground = 0.5, flying = 2, bug = 2, steel = 0.5},
+	ghost = {normal = 0, psychic = 2, ghost = 2, dark = 0.5, steel = 0.5},
+	dragon = {dragon = 2, steel = 0.5},
+	dark = {fighting = 0.5, psychic = 2, ghost = 2, dark = 0.5, steel = 0.5},
+	steel = {fire = 0.5, water = 0.5, ice = 2, rock = 2, steel = 0.5, electric = 0.5}
 }
-

@@ -1,4 +1,8 @@
 globals = {
+    "GraphicConstants",
+    "MiscData",
+    "MoveData",
+    "PokemonData",
     "BitUtils",
     "DrawingUtils",
     "FormsUtils",
