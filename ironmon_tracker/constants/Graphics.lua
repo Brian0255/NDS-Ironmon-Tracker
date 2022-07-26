@@ -6,29 +6,49 @@ Graphics.SIZES = {
     SCREEN_WIDTH = 256,
     BORDER_MARGIN = 5
 }
-Graphics.TYPECOLORS = {
-    normal = 0xFFA7A879,
-    fighting = 0xFFB82A23,
-    flying = 0xFFA88FEF,
-    poison = 0xFF9B3C9E,
-    ground = 0xFFDCC06A,
-    rock = 0xFFB5A03B,
-    bug = 0xFFA8B92A,
-    ghost = 0xFF6F5797,
-    steel = 0xFFB8B8D0,
-    fire = 0xFFE87E2E,
-    water = 0xFF708FEF,
-    grass = 0xFF80C956,
-    electric = 0xFFF3D036,
-    psychic = 0xFFEF5285,
-    ice = 0xFF9FD9D8,
-    dragon = 0xFF7131F6,
-    dark = 0xFF6E5848,
-    fairy = 0xFFEE99AC,
-    unknown = 0xFF68A090 -- For the "Curse" move in Gen 2 - 4
+Graphics.TEXT = {
+    PLACEHOLDER = "---",
+    NO_PP = "",
+    NO_POWER = "---"
+}
+Graphics.TYPE_COLORS = {
+    NORMAL = 0xFFA7A879,
+    FIGHTING = 0xFFB82A23,
+    FLYING = 0xFFA88FEF,
+    POISON = 0xFF9B3C9E,
+    GROUND = 0xFFDCC06A,
+    ROCK = 0xFFB5A03B,
+    BUG = 0xFFA8B92A,
+    GHOST = 0xFF6F5797,
+    STEEL = 0xFFB8B8D0,
+    FIRE = 0xFFE87E2E,
+    WATER = 0xFF708FEF,
+    GRASS = 0xFF80C956,
+    ELECTRIC = 0xFFF3D036,
+    PSYCHIC = 0xFFEF5285,
+    ICE = 0xFF9FD9D8,
+    DRAGON = 0xFF7131F6,
+    DARK = 0xFF6E5848,
+    FAIRY = 0xFFEE99AC,
+    UNKNOWN = 0xFF68A090 -- For the "Curse" move in Gen 2 - 4
 }
 Graphics.DEFAULT_THEME_STRING =
     "FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 "
+Graphics.THEME_COLOR_KEYS_ORDERED = {
+    "Default text color",
+    "Positive text color",
+    "Negative text color",
+    "Intermediate text color",
+    "Move header text color",
+    "Top box border color",
+    "Top box background color",
+    "Bottom box border color",
+    "Bottom box background color",
+    "Main background color",
+    "Physical icon color",
+    "Special icon color",
+    "Gear icon color"
+}
 
 layoutColors = {
     ["black"] = 0xFF000000,
@@ -46,20 +66,3 @@ layoutColors = {
     ["Special icon color"] = 0xFF3E5782,
     ["Gear icon color"] = 0xFFDBDBDB
 }
-layoutColorKeysOrdered = {
-    "Default text color",
-    "Positive text color",
-    "Negative text color",
-    "Intermediate text color",
-    "Move header text color",
-    "Top box border color",
-    "Top box background color",
-    "Bottom box border color",
-    "Bottom box background color",
-    "Main background color",
-    "Physical icon color",
-    "Special icon color",
-    "Gear icon color"
-}
-
-
