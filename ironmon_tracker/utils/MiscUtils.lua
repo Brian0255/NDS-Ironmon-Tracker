@@ -17,3 +17,14 @@ function MiscUtils.readOnly(t)
     setmetatable(proxy, metatable)
     return proxy
 end
+
+function MiscUtils.boolToNumber(value)
+    return value and 1 or 0
+end
+
+function MiscUtils.numberToBool(value)
+    if value == 1 then
+        return true
+    end
+    return false
+end
