@@ -1,6 +1,6 @@
 ButtonManager = {
 	BADGE_GAME_PREFIX = "",
-	BADGE_X_POS_START = GraphicConstants.SCREEN_WIDTH+9,
+	BADGE_X_POS_START = Graphics.SIZES.SCREEN_WIDTH+9,
 	BADGE_Y_POS = 142,
 	BADGE_WIDTH_LENGTH = 16,
 	badgeButtons = {},
@@ -50,11 +50,11 @@ HiddenPowerButton = {
 		10
 	},
 	backgroundcolor = { "Bottom box border color", "Bottom box background color" },
-	textcolor = GraphicConstants.TYPECOLORS[HiddenPowerTypeList[HiddenPowerState+1]],
+	textcolor = Graphics.SIZES.TYPECOLORS[HiddenPowerTypeList[HiddenPowerState+1]],
 	onclick = function()
 		HiddenPowerState = (HiddenPowerState + 1) % #HiddenPowerTypeList
 		local newType = HiddenPowerTypeList[HiddenPowerState + 1]
-		HiddenPowerButton.textcolor = GraphicConstants.TYPECOLORS[newType]
+		HiddenPowerButton.textcolor = Graphics.SIZES.TYPECOLORS[newType]
 		Tracker.Data.currentHiddenPowerType = newType
 	end
 }
@@ -66,7 +66,7 @@ Buttons = {
 		visible = function() return Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 end,
 		text = "",
 		box = {
-			GraphicConstants.SCREEN_WIDTH + buttonXOffset,
+			Graphics.SIZES.SCREEN_WIDTH + buttonXOffset,
 			9,
 			8,
 			8
@@ -85,7 +85,7 @@ Buttons = {
 		visible = function() return Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 end,
 		text = "",
 		box = {
-			GraphicConstants.SCREEN_WIDTH + buttonXOffset,
+			Graphics.SIZES.SCREEN_WIDTH + buttonXOffset,
 			19,
 			8,
 			8
@@ -104,7 +104,7 @@ Buttons = {
 		visible = function() return Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 end,
 		text = "",
 		box = {
-			GraphicConstants.SCREEN_WIDTH + buttonXOffset,
+			Graphics.SIZES.SCREEN_WIDTH + buttonXOffset,
 			29,
 			8,
 			8
@@ -123,7 +123,7 @@ Buttons = {
 		visible = function() return Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 end,
 		text = "",
 		box = {
-			GraphicConstants.SCREEN_WIDTH + buttonXOffset,
+			Graphics.SIZES.SCREEN_WIDTH + buttonXOffset,
 			39,
 			8,
 			8
@@ -142,7 +142,7 @@ Buttons = {
 		visible = function() return Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 end,
 		text = "",
 		box = {
-			GraphicConstants.SCREEN_WIDTH + buttonXOffset,
+			Graphics.SIZES.SCREEN_WIDTH + buttonXOffset,
 			49,
 			8,
 			8
@@ -161,7 +161,7 @@ Buttons = {
 		visible = function() return Tracker.Data.inBattle == 1 and Tracker.Data.selectedPlayer == 2 end,
 		text = "",
 		box = {
-			GraphicConstants.SCREEN_WIDTH + buttonXOffset,
+			Graphics.SIZES.SCREEN_WIDTH + buttonXOffset,
 			59,
 			8,
 			8
@@ -189,7 +189,7 @@ Buttons = {
 	end,
 	text = "+",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + 90,
+		Graphics.SIZES.SCREEN_WIDTH + 90,
 		62,
 		8,
 		6
@@ -215,7 +215,7 @@ Buttons = {
 	end,
 	text = "--",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + 90,
+		Graphics.SIZES.SCREEN_WIDTH + 90,
 		70,
 		8,
 		6

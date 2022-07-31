@@ -21,8 +21,8 @@ Options.OPTIONS_ORDERED_KEYS = {
 Options.closeButton = {
 	text = "Close",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + GraphicConstants.RIGHT_GAP - 40,
-		GraphicConstants.SCREEN_HEIGHT - 20,
+		Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.RIGHT_GAP - 40,
+		Graphics.SIZES.SCREEN_HEIGHT - 20,
 		30,
 		11,
 	},
@@ -32,11 +32,11 @@ Options.closeButton = {
 }
 
 -- Opens the Color Options interface.
-Options.openColorOptions = {
+Options.openColorEditor = {
 	text = "Edit colors",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + GraphicConstants.RIGHT_GAP - 94,
-		GraphicConstants.SCREEN_HEIGHT - 20,
+		Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.RIGHT_GAP - 94,
+		Graphics.SIZES.SCREEN_HEIGHT - 20,
 		48,
 		11,
 	},
@@ -44,8 +44,8 @@ Options.openColorOptions = {
 	textColor = "Default text color",
 	onClick = function()
 		Program.state = State.COLOR_CUSTOMIZING
-		client.SetGameExtraPadding(0, GraphicConstants.UP_GAP, GraphicConstants.RIGHT_GAP+150, GraphicConstants.DOWN_GAP)
-		ColorOptions.redraw = true
+		client.SetGameExtraPadding(0, Graphics.SIZES.UP_GAP, Graphics.SIZES.RIGHT_GAP+150, Graphics.SIZES.DOWN_GAP)
+		ColorEditor.redraw = true
 	end
 }
 
@@ -53,8 +53,8 @@ Options.openColorOptions = {
 Options.romsFolderOption = {
 	text = "Roms folder: ",
 	box = {
-		GraphicConstants.SCREEN_WIDTH + 6, -- 6 = GraphicConstants.BORDER_MARGIN + 1
-		8, -- 8 = GraphicConstants.BORDER_MARGIN + 3
+		Graphics.SIZES.SCREEN_WIDTH + 6, -- 6 = Graphics.SIZES.BORDER_MARGIN + 1
+		8, -- 8 = Graphics.SIZES.BORDER_MARGIN + 3
 		8,
 		8,
 	},
@@ -77,7 +77,7 @@ function Options.buildTrackerOptionsButtons()
 			local button = {
 				text = string.sub(key, 1, 1) .. string.sub(string.lower(string.gsub(key, "_", " ")), 2),
 				box = {
-					GraphicConstants.SCREEN_WIDTH + GraphicConstants.BORDER_MARGIN + 3,
+					Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.BORDER_MARGIN + 3,
 					(optionIndex * 10),
 					8,
 					8,
