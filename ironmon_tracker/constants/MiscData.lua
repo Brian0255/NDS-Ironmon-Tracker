@@ -1215,121 +1215,101 @@ MiscData.HEALING_ITEMS_GEN4 =
 	MiscUtils.readOnly(
 	{
 		[17] = {
-			id = 17,
 			name = "Potion",
 			amount = 20,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[23] = {
-			id = 23,
 			name = "Full Restore",
 			amount = 100,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
 		},
 		[24] = {
-			id = 24,
 			name = "Max Potion",
 			amount = 100,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
 		},
 		[25] = {
-			id = 25,
 			name = "Hyper Potion",
 			amount = 200,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[26] = {
-			id = 26,
 			name = "Super Potion",
 			amount = 60,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[30] = {
-			id = 30,
 			name = "Fresh Water",
 			amount = 50,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[31] = {
-			id = 31,
 			name = "Soda Pop",
 			amount = 60,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[32] = {
-			id = 32,
 			name = "Lemonade",
 			amount = 80,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[33] = {
-			id = 29,
 			name = "Moomoo Milk",
 			amount = 100,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[34] = {
-			id = 30,
 			name = "EnergyPowder",
 			amount = 50,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[35] = {
-			id = 31,
 			name = "Energy Root",
 			amount = 200,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[43] = {
-			id = 44,
 			name = "Berry Juice",
 			amount = 20,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[155] = {
-			id = 139,
 			name = "Oran Berry",
 			amount = 10,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[158] = {
-			id = 142,
 			name = "Sitrus Berry",
 			amount = 30,
 			type = MiscData.HEALING_TYPE.CONSTANT
 		},
 		[159] = {
-			id = 143,
 			name = "Figy Berry",
 			amount = 12.5,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
 		},
 		[160] = {
-			id = 144,
 			name = "Wiki Berry",
 			amount = 12.5,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
 		},
 		[161] = {
-			id = 145,
 			name = "Mago Berry",
 			amount = 12.5,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
 		},
 		[162] = {
-			id = 146,
 			name = "Aguav Berry",
 			amount = 12.5,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
 		},
 		[163] = {
-			id = 147,
 			name = "Iapapa Berry",
 			amount = 12.5,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
 		},
 		[208] = {
-			id = 175,
 			name = "Enigma Berry",
 			amount = 12.5,
 			type = MiscData.HEALING_TYPE.PERCENTAGE
