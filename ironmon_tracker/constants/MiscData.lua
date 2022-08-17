@@ -1333,7 +1333,7 @@ MiscData.ABILITIES =
 		"Water Absorb",
 		"Oblivious",
 		"Cloud Nine",
-		"Compound Eyes",
+		"Compoundeyes",
 		"Insomnia",
 		"Color Change",
 		"Immunity",
