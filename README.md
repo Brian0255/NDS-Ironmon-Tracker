@@ -5,7 +5,7 @@ https://user-images.githubusercontent.com/61294586/173255404-ecd702ad-b23d-4b1c-
 
 
 
-This tracker is a lua script that runs with [BizHawk's](https://tasvideos.org/BizHawk/ReleaseHistory) melonDS core. It's made primarily for the ironMON challenge(created by Iateyourpie) and is used to track Pokémon data dynamically.
+This tracker is a lua script that runs with [BizHawk](https://tasvideos.org/BizHawk/ReleaseHistory). It's made primarily for the ironMON challenge(created by Iateyourpie) and is used to track Pokémon data dynamically.
 
 - For more information on this challenge, head on over to [ironmon.gg](http://ironmon.gg)
 - Come join the amazing Discord! https://discord.gg/jFPYsZAhjX
