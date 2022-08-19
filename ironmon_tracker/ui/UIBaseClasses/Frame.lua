@@ -18,7 +18,7 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
     end
     function self.addControl(control, newIndex)
         if newIndex ~= nil then
-            table.insert(controls,newIndex,control)
+            table.insert(controls, newIndex, control)
         else
             table.insert(controls, control)
         end
@@ -26,7 +26,7 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
     function self.removeControl(control)
         for i, c in pairs(controls) do
             if c == control then
-                table.remove(controls,i)
+                table.remove(controls, i)
             end
         end
     end
