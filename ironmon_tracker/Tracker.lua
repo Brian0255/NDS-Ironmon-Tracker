@@ -1,183 +1,140 @@
-Tracker = {}
-
-Tracker.userDataKey = "ironmon_tracker_data"
-
-Tracker.waitFrames = 0
-
-Tracker.controller = {
-	statIndex = 1,
-	framesSinceInput = 120,
-	boxVisibleFrames = 120,
-}
-
-Tracker.Data = {}
-
-function Tracker.InitTrackerData()
-	local trackerData = {
-		playerPokemon = Decrypter.DecryptedDataInit,
-		enemyPokemon = {},
-		main = {
-			ability = 0
-		},
-		inBattle = 0,
-		needCheckSummary = 0,
-		selectedPlayer = 1,
-		selectedSlot = 1,
-		targetPlayer = 2,
-		targetSlot = 1,
-		selfSlotOne = 1,
-		selfSlotTwo = 1,
-		enemySlotOne = 1,
-		enemySlotTwo = 1,
+local function Tracker()
+	local self = {}
+	local trackedData = {
 		moves = {},
-		stats = {},
-		abilities = {},
-		items = {},
-		healingItems = {
-			healing = 0,
-			numHeals = 0,
-		},
+		statPredictions = {},
+		bilities = {},
 		notes = {},
-		currentHiddenPowerType = PokemonTypes.NORMAL,
 		romHash = nil,
+		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
 		pokecenterCount = 10,
-		badges = {0,0,0,0,0,0,0,0}
+		badges = {0, 0, 0, 0, 0, 0, 0, 0}
 	}
-	return trackerData
-end
-
-function Tracker.Clear()
-	if userdata.containskey(Tracker.userDataKey) then
-		userdata.remove(Tracker.userDataKey)
-	end
-	Tracker.Data = Tracker.InitTrackerData()
-end
-
-function Tracker.TrackAbility(pokemonId, abilityId)
-	local currentAbilities = Tracker.Data.abilities[pokemonId]
-	if currentAbilities == nil then
-		Tracker.Data.abilities[pokemonId] = {}
-		Tracker.Data.abilities[pokemonId][abilityId] = abilityId
-	else
-		if currentAbilities[abilityId] == nil then
-			Tracker.Data.abilities[pokemonId][abilityId] = abilityId
+	local function loadData()
+		local currentRomHash = gameinfo.getromhash()
+		trackedData.romHash = currentRomHash
+		local saveFile = io.open("autosave.trackerdata", "w")
+		if MiscUtils.fileExists(saveFile) then
+			local fileContents = saveFile:read("*a")
+			local savedData = Pickle.unpickle(fileContents)
+			local savedRomHash = savedData.romHash
+			if savedRomHash == currentRomHash then
+				trackedData = savedData
+			end
 		end
 	end
-end
-
-function Tracker.TrackItem(pokemonId, itemId)
-
-end
-
-function Tracker.TrackMove(pokemonId, moveId, level)
-	local currentMoves = Tracker.Data.moves[pokemonId]
-	if currentMoves == nil then
-		Tracker.Data.moves[pokemonId] = {}
-		Tracker.Data.moves[pokemonId][1] = {
-			move = moveId,
+	local function createNewMoveEntry(pokemonID, moveID, level)
+		trackedData.moves[pokemonID] = {}
+		trackedData.moves[pokemonID][1] = {
+			move = moveID,
 			level = level
 		}
-		for i = 2,4,1 do
-		Tracker.Data.moves[pokemonId][i] = {
-			move = 1, level = 1
-		}
-		end
-	else
-		local moveSeen = false
-		local moveCount = 0
-		local whichMove = 0
-		for i, moveData in pairs(currentMoves) do
-			moveCount = moveCount + 1
-			if moveData.move == moveId then
-				moveSeen = true
-				whichMove = i
-			end
-		end
-
-		if moveSeen == false then
-			if moveCount < 4 then
-				Tracker.Data.moves[pokemonId[moveCount+1]] = {
-					move = moveId,
-					level = level
-				}
-			else
-				for i = 4,2,-1 do
-					Tracker.Data.moves[pokemonId][i] = Tracker.Data.moves[pokemonId][i-1]
-				end
-				Tracker.Data.moves[pokemonId][1] = {
-					move = moveId,
-					level = level
-				}
-			end
-		else
-			Tracker.Data.moves[pokemonId][whichMove] = {
-				move = moveId,
-				level = level
+		for i = 2, 4, 1 do
+			trackedData.moves[pokemonID][i] = {
+				move = 0,
+				level = 1
 			}
 		end
 	end
-end
-
-function Tracker.TrackStatPrediction(pokemonId, stats)
-	Tracker.Data.stats[pokemonId] = {}
-	Tracker.Data.stats[pokemonId].stats = stats
-end
-
-function Tracker.SetNote(note)
-	if note == nil then
-		return
-	end
-	local charMax = Utils.inlineIf(Settings.tracker.SHOW_POKECENTER_HEALS,18,25)
-	if string.len(note) > charMax then
-		print("Note truncated to "..charMax.." characters")
-	end
-	local note = string.sub(note,1,charMax)
-	local selected = Utils.inlineIf(Tracker.Data.selectedPlayer == 1, Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
-	if selected ~= nil then
-		Tracker.Data.notes[selected.pokemonID] = string.sub(note, 1, charMax)
-	end
-end
-
-function Tracker.GetNote()
-	local selected = Utils.inlineIf(Tracker.Data.selectedPlayer == 1, Tracker.Data.playerPokemon,Tracker.Data.enemyPokemon)
-	if selected ~= nil then
-		if Tracker.Data.notes[selected.pokemonID] == nil then
-			return ""
+	function self.trackAbility(pokemonID, abilityID)
+		local currentAbilities = trackedData.abilities[pokemonID]
+		if currentAbilities == nil then
+			trackedData.abilities[pokemonID] = {}
+			trackedData.abilities[pokemonID][abilityID] = abilityID
 		else
-			return Tracker.Data.notes[selected.pokemonID]
+			if currentAbilities[abilityID] == nil then
+				trackedData.abilities[pokemonID][abilityID] = abilityID
+			end
 		end
 	end
-	return ""
-end
+	function self.trackMove(pokemonID, moveID, level)
+		local currentMoves = trackedData.moves[pokemonID]
+		if currentMoves == nil then
+			createNewMoveEntry(pokemonID, moveID, level)
+		else
+			local moveSeen = false
+			local moveCount = 0
+			local whichMove = 0
+			for i, moveData in pairs(currentMoves) do
+				moveCount = moveCount + 1
+				if moveData.move == moveID then
+					moveSeen = true
+					whichMove = i
+				end
+			end
 
-function Tracker.getMoves(pokemonId)
-	local returnVal = {}
-	if Tracker.Data.moves[pokemonId] == nil then
-		for i = 1,4,1 do
-			table.insert(returnVal,{
-				move = 1,
-				level = 1
-			})
+			if moveSeen == false then
+				if moveCount < 4 then
+					trackedData.moves[pokemonID[moveCount + 1]] = {
+						move = moveID,
+						level = level
+					}
+				else
+					for i = 4, 2, -1 do
+						trackedData.moves[pokemonID][i] = trackedData.moves[pokemonID][i - 1]
+					end
+					trackedData.moves[pokemonID][1] = {
+						move = moveID,
+						level = level
+					}
+				end
+			else
+				trackedData.moves[pokemonID][whichMove] = {
+					move = moveID,
+					level = level
+				}
+			end
 		end
-		return returnVal
-	else
-		return Tracker.Data.moves[pokemonId]
 	end
-end
-
-function Tracker.getAbilities(pokemonId)
-	if Tracker.Data.abilities[pokemonId] == nil then
-		return {
-			1
-		}
-	else
-		return Tracker.Data.abilities[pokemonId]
+	function self.trackStatPrediction(pokemonID, newStats)
+		trackedData.stats[pokemonID].stats = newStats
 	end
-end
-
-function Tracker.getButtonState()
-	if Tracker.Data.enemyPokemon ~= nil then
-		if Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID] == nil then
+	function self.setNote(pokemonID, note)
+		if note ~= nil then
+			local charMax = 25
+			if string.len(note) > charMax then
+				print("Note truncated to " .. charMax .. " characters")
+			end
+			note = string.sub(note, 1, charMax)
+			trackedData.notes[pokemonID] = string.sub(note, 1, charMax)
+		end
+	end
+	function self.getNote(pokemonID)
+		local notes = trackedData.notes[pokemonID]
+		if notes ~= nil then
+			return notes
+		else
+			return ""
+		end
+	end
+	function self.getMoves(pokemonID)
+		local returnVal = {}
+		if trackedData.moves[pokemonID] == nil then
+			for _ = 1, 4, 1 do
+				table.insert(
+					returnVal,
+					{
+						move = 0,
+						level = 1
+					}
+				)
+			end
+			return returnVal
+		else
+			return trackedData.moves[pokemonID]
+		end
+	end
+	function self.getAbilities(pokemonID)
+		if trackedData.abilities[pokemonID] == nil then
+			return {
+				1
+			}
+		else
+			return trackedData.abilities[pokemonID]
+		end
+	end
+	function self.getStatPrediction(pokemonID)
+		if trackedData.stats[pokemonID] == nil then
 			return {
 				hp = 1,
 				att = 1,
@@ -187,40 +144,17 @@ function Tracker.getButtonState()
 				spe = 1
 			}
 		else
-			return Tracker.Data.stats[Tracker.Data.enemyPokemon.pokemonID].stats
+			return trackedData.stats[pokemonID].stats
 		end
 	end
-end
-
-function Tracker.saveData()
-	local dataString = pickle(Tracker.Data)
-	userdata.set(Tracker.userDataKey, dataString)
-end
-
-function Tracker.loadData()
-	if userdata.containskey(Tracker.userDataKey) then
-		local serializedTable = userdata.get(Tracker.userDataKey)
-		local trackerData = unpickle(serializedTable)
-		Tracker.Data = Tracker.InitTrackerData()
-		for k, v in pairs(trackerData) do
-			Tracker.Data[k] = v
-		end
-
-		if Tracker.Data.romHash then
-			if gameinfo.getromhash() == Tracker.Data.romHash then
-				ButtonManager.updateBadges()
-				print("Loaded tracker data")
-			else
-				print("New ROM detected, resetting tracker data")
-				Tracker.Data = Tracker.InitTrackerData()
-			end
-		end
-	else
-		Tracker.Data = Tracker.InitTrackerData()
-		if Settings.tracker.MUST_CHECK_SUMMARY == true then
-			Tracker.Data.needCheckSummary = 1
-		end
+	function self.save()
+		local dataString = Pickle.pickle(trackedData)
+		local saveFile = io.open("autosave.trackerdata", "w")
+		saveFile:write(dataString)
+		saveFile:close()
 	end
-
-	Tracker.Data.romHash = gameinfo.getromhash()
+	loadData()
+	return self
 end
+
+return Tracker
