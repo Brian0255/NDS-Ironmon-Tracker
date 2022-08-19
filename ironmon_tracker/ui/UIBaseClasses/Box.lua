@@ -1,7 +1,7 @@
 local function Box(initialPosition, initialSize, initialBGColorKey, initialBGFillColorKey)
     local self = {}
     local relativePosition = initialPosition
-    local position = initialPosition
+    local position = relativePosition
     local size = nil
     if initialSize ~= nil then
         size = initialSize
@@ -29,11 +29,11 @@ local function Box(initialPosition, initialSize, initialBGColorKey, initialBGFil
     end
 
     function self.getPosition()
-        return position
+        return {x = position.x, y = position.y}
     end
 
     function self.getSize()
-        return size
+        return {width = size.width, height = size.height}
     end
 
     function self.resize(newSize)
