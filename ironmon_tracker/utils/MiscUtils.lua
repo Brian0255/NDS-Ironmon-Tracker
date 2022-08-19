@@ -1,3 +1,5 @@
+MiscUtils = {}
+
 function MiscUtils.inlineIf(condition, T, F)
     if condition then
         return T
@@ -25,6 +27,23 @@ end
 function MiscUtils.numberToBool(value)
     if value == 1 then
         return true
+    end
+    return false
+end
+
+function MiscUtils.split(s, delimiter)
+    local result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
+function MiscUtils.mouseInRange(mouseX, mouseY, controlX, controlY, width, height)
+    if mouseX >= controlX and mouseX <= controlX + width then
+        if mouseY >= controlY and mouseY <= controlY + height then
+            return true
+        end
     end
     return false
 end
