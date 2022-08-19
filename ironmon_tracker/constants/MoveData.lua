@@ -1,11 +1,13 @@
+MoveData = {}
+
 -- Move categories identify the type of attack a move is: physical, special, or status
 MoveData.MOVE_CATEGORIES =
 	MiscUtils.readOnly(
 	{
-		NONE = 0,
-		PHYSICAL = 1,
-		SPECIAL = 2,
-		STATUS = 3
+		NONE = "NONE",
+		PHYSICAL = "PHYSICAL",
+		SPECIAL = "SPECIAL",
+		STATUS = "STATUS"
 	}
 )
 
@@ -120,9 +122,9 @@ MoveData.MOVES_MASTER_LIST =
 			id = "---",
 			name = "---",
 			type = "---",
-			power = "",
+			power = Graphics.TEXT.NO_POWER,
 			pp = Graphics.TEXT.NO_PP,
-			accuracy = "",
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.NONE,
 			description = ""
 		},
@@ -161,7 +163,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "85",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "4",
@@ -171,7 +173,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = "85",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "5",
@@ -269,7 +271,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack by two stages."
 		},
@@ -317,7 +319,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = {"85", "100", "100", "100", "100"},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Switches the target out for another of its trainer's Pokémon selected at random. Doesn't affect Pokémon with suction cups or under the effect of ingrain."
+			description = "Switches the target out for another of its trainer's Pokemon selected at random. Doesn't affect Pokemon with suction cups or under the effect of ingrain."
 		},
 		{
 			id = "19",
@@ -337,7 +339,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = {"75", "75", "75", "75", "85"},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times."
+			description = "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times."
 		},
 		{
 			id = "21",
@@ -367,7 +369,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Has a 30% chance to make the target flinch. Power is doubled against Pokémon that are minimized"
+			description = "Inflicts regular damage. Has a 30% chance to make the target flinch. Power is doubled against Pokemon that are minimized"
 		},
 		{
 			id = "24",
@@ -453,7 +455,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "85",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "32",
@@ -493,7 +495,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = {"85", "85", "85", "85", "90"},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times."
+			description = "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times."
 		},
 		{
 			id = "36",
@@ -513,7 +515,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = {"20", "20", "20", "20", "10"},
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. User is forced to attack with this move for 2–3 turns, selected at random. After the last hit, the user becomes confused."
+			description = "Inflicts regular damage. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
 		},
 		{
 			id = "38",
@@ -563,7 +565,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "85",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "43",
@@ -609,7 +611,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Switches the target out for another of its trainer's Pokémon selected at random. Wild battles end immediately."
+			description = "Switches the target out for another of its trainer's Pokemon selected at random. Wild battles end immediately."
 		},
 		{
 			id = "47",
@@ -649,7 +651,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = {"55", "55", "55", "80", "100"},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Disables the target's last used move, preventing its use for 4–7 turns, selected at random, or until the target leaves the field."
+			description = "Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field."
 		},
 		{
 			id = "51",
@@ -687,9 +689,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ICE,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Pokémon on the user's side of the field are immune to stat-lowering effects for five turns. Guard Swap, Heart Swap, and Power Swap may still be used."
+			description = "Pokemon on the user's side of the field are immune to stat-lowering effects for five turns. Guard Swap, Heart Swap, and Power Swap may still be used."
 		},
 		{
 			id = "55",
@@ -879,7 +881,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "90",
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn. Has no effect on grass Pokémon. The user takes damage instead of being healed if the target has liquid ooze."
+			description = "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn. Has no effect on grass Pokemon. The user takes damage instead of being healed if the target has liquid ooze."
 		},
 		{
 			id = "74",
@@ -887,7 +889,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack and Special Attack by one stage each. During sunny day, raises both stats by two stages."
 		},
@@ -949,7 +951,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = {"20", "20", "20", "20", "10"},
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. User is forced to attack with this move for 2–3 turns,selected at random. After the last hit, the user becomes confused."
+			description = "Inflicts regular damage. User is forced to attack with this move for 2-3 turns,selected at random. After the last hit, the user becomes confused."
 		},
 		{
 			id = "81",
@@ -979,7 +981,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = {"70", "70", "70", "70", "85"},
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. "
+			description = "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Averages 3 hits per use."
 		},
 		{
 			id = "84",
@@ -1069,7 +1071,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = {"85", "85", "85", "85", "90"},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Badly poisons the target. Never misses when used by a poison-type Pokémon."
+			description = "Badly poisons the target. Never misses when used by a poison-type Pokemon."
 		},
 		{
 			id = "93",
@@ -1107,7 +1109,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack by one stage."
 		},
@@ -1117,7 +1119,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Speed by two stages."
 		},
@@ -1147,7 +1149,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Does nothing. Wild battles end immediately."
 		},
@@ -1167,7 +1169,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = {"100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "This move is replaced by the target's last successfully used move, and its PP changes to 5. If chatter, metronome, mimic, sketch, or struggle is selected, this move will fail."
 		},
@@ -1187,7 +1189,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's evasion by one stage."
 		},
@@ -1197,7 +1199,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = {"20", "20", "20", "10", "10"},
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP."
 		},
@@ -1207,7 +1209,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense by one stage."
 		},
@@ -1217,9 +1219,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Raises the user's evasion by two stages. Stomp and Steamroller have double power against Pokémon that have used this move since entering the field."
+			description = "Raises the user's evasion by two stages. Stomp and Steamroller have double power against Pokemon that have used this move since entering the field."
 		},
 		{
 			id = "108",
@@ -1247,7 +1249,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.WATER,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense by one stage."
 		},
@@ -1257,7 +1259,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises user's Defense by one stage. After this move is used, the power of Ice Ball and Rollout are doubled until the user leaves the field."
 		},
@@ -1267,7 +1269,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense by two stages."
 		},
@@ -1277,7 +1279,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Erects a barrier around the user's side of the field that reduces damage from special attacks by half for five turns. Brick Break or Defog will destroy the barrier."
 		},
@@ -1287,9 +1289,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ICE,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Removes stat, accuracy, and evasion modifiers from every Pokémon on the field."
+			description = "Removes stat, accuracy, and evasion modifiers from every Pokemon on the field."
 		},
 		{
 			id = "115",
@@ -1297,7 +1299,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Erects a barrier around the user's side of the field that reduces damage from physical attacks by half for five turns. Brick Break or Defog used by an opponent will destroy the barrier."
 		},
@@ -1307,7 +1309,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User's critical hit rate is two levels higher until it leaves the field. If the user has already used focus energy since entering the field, this move will fail."
 		},
@@ -1317,9 +1319,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = {"100", "100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pokémon to hit it. Damage inflicted is typeless."
+			description = "User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pokemon to hit it. Damage inflicted is typeless."
 		},
 		{
 			id = "118",
@@ -1327,7 +1329,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible."
 		},
@@ -1337,9 +1339,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FLYING,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Uses the last move targeted at the user by a Pokémon still on the field."
+			description = "Uses the last move targeted at the user by a Pokemon still on the field."
 		},
 		{
 			id = "120",
@@ -1429,7 +1431,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = {"10", "10", "10", "10", "15"},
 			accuracy = {"75", "75", "75", "75", "85"},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times."
+			description = "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Averages 3 hits per use."
 		},
 		{
 			id = "129",
@@ -1437,7 +1439,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = "60",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -1459,7 +1461,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "132",
@@ -1477,7 +1479,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Special Defense by two stages."
 		},
@@ -1497,7 +1499,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP."
 		},
@@ -1529,7 +1531,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Fails if not used on a sleeping Pokémon. Inflicts regular damage. Drains half the damage inflicted to heal the user."
+			description = "Fails if not used on a sleeping Pokemon. Inflicts regular damage. Drains half the damage inflicted to heal the user."
 		},
 		{
 			id = "139",
@@ -1549,7 +1551,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "85",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "141",
@@ -1587,7 +1589,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User copies the target's species, weight, type, ability, calculated stats (except HP), and moves. Copied moves will all have 5 PP remaining."
 		},
@@ -1647,7 +1649,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Makes the user absolutely useless for one turn."
 		},
@@ -1657,7 +1659,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.POISON,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense by two stages."
 		},
@@ -1689,7 +1691,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = "80",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "155",
@@ -1707,7 +1709,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User falls to sleep and immediately regains all its HP. The user will always wake up after two turns, or one turn with early bird."
 		},
@@ -1737,7 +1739,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack by one stage."
 		},
@@ -1747,7 +1749,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible."
 		},
@@ -1787,7 +1789,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Transfers 1/4 the user's max HP into a doll that absorbs damage and causes most negative move effects to fail."
 		},
@@ -1797,7 +1799,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = "50",
 			pp = {"10", "1", "1", "1", "1"},
-			accuracy = {"100", "100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
 			description = "Inflicts typeless regular damage. User takes 1/4 its max HP in recoil. Ignores accuracy and evasion modifiers."
 		},
@@ -1808,7 +1810,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "1",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Permanently replaces itself with the target's last used move. If that move is chatter or struggle, this move will fail."
 		},
@@ -1838,7 +1840,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.BUG,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "The target cannot switch out normally. Ignores accuracy and evasion modifiers. This effect ends when the user leaves the field."
 		},
@@ -1848,7 +1850,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = {"100", "100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "If the user targets the same target again before the end of the next turn, the move it uses is guaranteed to hit. This move itself also ignores accuracy and evasion modifiers."
 		},
@@ -1858,9 +1860,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GHOST,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Only works on sleeping Pokémon. Gives the target a nightmare, damaging it for 1/4 its max HP every turn. If the target wakes up or leaves the field, this effect ends."
+			description = "Only works on sleeping Pokemon. Gives the target a nightmare, damaging it for 1/4 its max HP every turn. If the target wakes up or leaves the field, this effect ends."
 		},
 		{
 			id = "172",
@@ -1870,7 +1872,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "25",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Has a 10% chance to burn the target. Frozen Pokémon may use this move, in which case they will thaw."
+			description = "Inflicts regular damage. Has a 10% chance to burn the target. Frozen Pokemon may use this move, in which case they will thaw."
 		},
 		{
 			id = "173",
@@ -1894,7 +1896,7 @@ MoveData.MOVES_MASTER_LIST =
 			},
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "If the user is a ghost: user pays half its max HP to place a curse on the target, damaging it for 1/4 its max HP every turn. Otherwise, it lowers the user's Speed by one stage, and raises its Attack and Defense by one stage each."
 		},
@@ -1914,7 +1916,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Changes the user's type to a type either resistant or immune to the last damaging move that hit it. The new type is selected at random and cannot be a type the user already is."
 		},
@@ -1974,7 +1976,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
@@ -2004,7 +2006,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.DARK,
 			power = "60",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -2024,7 +2026,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User pays half its max HP to raise its Attack to +6 stages. If the user cannot pay the HP cost, this move will fail."
 		},
@@ -2064,9 +2066,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GROUND,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Scatters spikes around the opposing field, which damage opposing Pokémon that enter the field for 1/8 of their max HP. Up to three layers of spikes may be laid down, adding 1/16 more damage for each layer."
+			description = "Scatters spikes around the opposing field, which damage opposing Pokemon that enter the field for 1/8 of their max HP. Up to three layers of spikes may be laid down, adding 1/16 more damage for each layer."
 		},
 		{
 			id = "192",
@@ -2084,7 +2086,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = {"100", "100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Resets the target's evasion to normal and prevents any further boosting until the target leaves the field. A ghost under this effect takes normal damage from normal and fighting moves."
 		},
@@ -2094,9 +2096,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GHOST,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "If the user faints before its next move, the Pokémon that fainted it will automatically faint. End-of-turn damage is ignored."
+			description = "If the user faints before its next move, the Pokemon that fainted it will automatically faint. End-of-turn damage is ignored."
 		},
 		{
 			id = "195",
@@ -2104,9 +2106,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Every Pokémon is given a counter that starts at 3 and decreases by 1 at the end of every turn, including this one. When a Pokémon's counter reaches zero, that Pokémon faints."
+			description = "Every Pokemon is given a counter that starts at 3 and decreases by 1 at the end of every turn, including this one. When a Pokemon's counter reaches zero, that Pokemon faints."
 		},
 		{
 			id = "196",
@@ -2124,7 +2126,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FIGHTING,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
@@ -2136,7 +2138,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = {"80", "80", "80", "80", "90"},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "199",
@@ -2144,7 +2146,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = {"100", "100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "If the user targets the same target again before the end of the next turn, the move it uses is guaranteed to hit. This move itself also ignores accuracy and evasion modifiers."
 		},
@@ -2156,7 +2158,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = {"15", "15", "15", "15", "10"},
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. User is forced to attack with this move for 2–3 turns, selected at random. After the last hit, the user becomes confused."
+			description = "Inflicts regular damage. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
 		},
 		{
 			id = "201",
@@ -2164,9 +2166,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ROCK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Changes the weather to a sandstorm for five turns. Pokémon that are not ground, rock, or steel take 1/16 their max HP at the end of every turn. Every rock Pokémon's original Special Defense is raised by 50% for the duration of this effect."
+			description = "Changes the weather to a sandstorm for five turns. Pokemon that are not ground, rock, or steel take 1/16 their max HP at the end of every turn. Every rock Pokemon's original Special Defense is raised by 50% for the duration of this effect."
 		},
 		{
 			id = "202",
@@ -2184,7 +2186,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "The user's HP cannot be lowered below 1 by any means for the remainder of this turn."
 		},
@@ -2234,7 +2236,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP."
 		},
@@ -2274,7 +2276,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "The target cannot switch out normally. Ignores accuracy and evasion modifiers. This effect ends when the user leaves the field."
 		},
@@ -2294,7 +2296,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Only usable if the user is sleeping. Randomly selects and uses one of the user's other three moves. Use of the selected move requires and costs 0 PP."
 		},
@@ -2304,9 +2306,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Removes major status effects and confusion from every Pokémon in the user's party."
+			description = "Removes major status effects and confusion from every Pokemon in the user's party."
 		},
 		{
 			id = "216",
@@ -2344,9 +2346,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "25",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Protects Pokémon on the user's side of the field from major status effects and confusion for five turns. Does not cancel existing ailments. This effect remains even if the user leaves the field."
+			description = "Protects Pokemon on the user's side of the field from major status effects and confusion for five turns. Does not cancel existing ailments. This effect remains even if the user leaves the field."
 		},
 		{
 			id = "220",
@@ -2354,7 +2356,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = {"100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Changes the user's and target's remaining HP to the average of their current remaining HP. Ignores accuracy and evasion modifiers."
 		},
@@ -2366,7 +2368,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = "95",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Has a 50% chance to burn the target. Frozen Pokémon may use this move, in which case they will thaw."
+			description = "Inflicts regular damage. Has a 50% chance to burn the target. Frozen Pokemon may use this move, in which case they will thaw."
 		},
 		{
 			id = "222",
@@ -2414,9 +2416,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User switches out, and the trainer selects a replacement Pokémon from the party. Stat changes, confusion, and persistent move effects are passed along to the replacement Pokémon."
+			description = "User switches out, and the trainer selects a replacement Pokemon from the party. Stat changes, confusion, and persistent move effects are passed along to the replacement Pokemon."
 		},
 		{
 			id = "227",
@@ -2426,7 +2428,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "The next 4–8 times (selected at random) the target attempts to move, it is forced to repeat its last used move."
+			description = "The next 4-8 times (selected at random) the target attempts to move, it is forced to repeat its last used move."
 		},
 		{
 			id = "228",
@@ -2484,7 +2486,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FIGHTING,
 			power = "70",
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -2494,7 +2496,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP. In sunny weather, healing is 2/3 max HP, and 1/4 max HP during hail, rain, or sandstorm."
 		},
@@ -2504,7 +2506,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GRASS,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP. In sunny weather, healing is 2/3 max HP, and 1/4 max HP during hail, rain, or sandstorm."
 		},
@@ -2514,7 +2516,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP. In sunny weather, healing is 2/3 max HP, and 1/4 max HP during hail, rain, or sandstorm."
 		},
@@ -2554,7 +2556,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.WATER,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Changes the weather to rain for five turns, during which water moves inflict 50% extra damage, and fire moves inflict half damage."
 		},
@@ -2564,7 +2566,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FIRE,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Changes the weather to sunshine for five turns, during which fire moves inflict 50% extra damage, and water moves inflict half damage."
 		},
@@ -2586,7 +2588,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Targets the last opposing Pokémon to hit the user with a special move this turn. Inflicts twice the damage that move did to the user. Type immunity applies, but other type effects are ignored."
+			description = "Targets the last opposing Pokemon to hit the user with a special move this turn. Inflicts twice the damage that move did to the user. Type immunity applies, but other type effects are ignored."
 		},
 		{
 			id = "244",
@@ -2594,7 +2596,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Discards the user's stat changes and copies the target's."
 		},
@@ -2652,11 +2654,11 @@ MoveData.MOVES_MASTER_LIST =
 			id = "250",
 			name = "Whirlpool",
 			type = PokemonData.POKEMON_TYPES.WATER,
-			power = {"15", "15", "15", "15", "35"},
+			power = "35",--{"15", "15", "15", "15", "35"},
 			pp = "15",
-			accuracy = {"70", "70", "70", "70", "85"},
+			accuracy = "85",--{"70", "70", "70", "70", "85"},
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Averages 3 hits per use."
 		},
 		{
 			id = "251",
@@ -2666,7 +2668,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts typeless regular damage. Every Pokémon in the user's party, excepting those that have fainted or have a major status effect, attacks the target. Dark Pokémon still get STAB."
+			description = "Inflicts typeless regular damage. Every Pokemon in the user's party, excepting those that have fainted or have a major status effect, attacks the target. Dark Pokemon still get STAB."
 		},
 		{
 			-- Begin Gen 3 Moves
@@ -2687,7 +2689,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. User is forced to use this move for 2–5 turns, selected at random. All Pokémon on the field wake up, and none can fall to sleep until the lock-in ends."
+			description = "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pokemon on the field wake up, and none can fall to sleep until the lock-in ends."
 		},
 		{
 			id = "254",
@@ -2695,7 +2697,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = {"10", "10", "10", "20", "20"},
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense and Special Defense by one stage each. Stores energy for use with spit up and swallow. Up to three levels of energy can be stored, and all are lost if the user leaves the field."
 		},
@@ -2715,7 +2717,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user depending on the amount of energy stored by stockpile: 1/4 its max HP after one use, 1/2 its max HP after two uses, or fully after three uses. Stored energy is consumed, and the user's Defense and Special Defense are reset to what they would be if stockpile had not been used."
 		},
@@ -2735,9 +2737,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ICE,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Changes the weather to hail for five turns, during which non-ice Pokémon are damaged for 1/16 their max HP at the end of every turn."
+			description = "Changes the weather to hail for five turns, during which non-ice Pokemon are damaged for 1/16 their max HP at the end of every turn."
 		},
 		{
 			id = "259",
@@ -2775,7 +2777,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.DARK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Lowers the target's Attack and Special Attack by two stages. User faints."
 		},
@@ -2815,9 +2817,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Until the end of this turn, any moves that opposing Pokémon target solely at the user's ally will instead target the user."
+			description = "Until the end of this turn, any moves that opposing Pokemon target solely at the user's ally will instead target the user."
 		},
 		{
 			id = "267",
@@ -2825,7 +2827,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Desert = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam"
 		},
@@ -2835,7 +2837,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ELECTRIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Special Defense by one stage. If the user uses an electric move next turn, its power will be doubled."
 		},
@@ -2847,7 +2849,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Target is forced to only use damaging moves for the next 3–5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging."
+			description = "Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging."
 		},
 		{
 			id = "270",
@@ -2855,7 +2857,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Boosts the power of the target's moves by 50% until the end of this turn."
 		},
@@ -2867,7 +2869,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User and target permanently swap held items. Works even if one of the Pokémon isn't holding anything. If either Pokémon is holding mail, this move will fail."
+			description = "User and target permanently swap held items. Works even if one of the Pokemon isn't holding anything. If either Pokemon is holding mail, this move will fail."
 		},
 		{
 			id = "272",
@@ -2875,7 +2877,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User's ability is replaced with the target's until the user leaves the field. Ignores accuracy and evasion modifiers."
 		},
@@ -2885,7 +2887,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "At the end of the next turn, user will be healed for half its max HP. If the user is switched out, its replacement will be healed instead for half of the user's max HP. If the user faints or is forcefully switched by roar or whirlwind, this effect will not activate."
 		},
@@ -2895,9 +2897,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Uses a move from another Pokémon in the user's party, both selected at random. Moves from fainted Pokémon can be used. If there are no eligible Pokémon or moves, this move will fail."
+			description = "Uses a move from another Pokemon in the user's party, both selected at random. Moves from fainted Pokemon can be used. If there are no eligible Pokemon or moves, this move will fail."
 		},
 		{
 			id = "275",
@@ -2905,7 +2907,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GRASS,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Prevents the user from switching out. User regains 1/16 of its max HP at the end of every turn. If the user was immune to ground attacks, it will now take normal damage from them."
 		},
@@ -2925,7 +2927,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "The first non-damaging move targeting the user this turn that inflicts major status effects, stat changes, or trapping effects will be reflected at its user."
 		},
@@ -2935,9 +2937,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User recovers the last item consumed by the user or a Pokémon in its position on the field. The item must be used again before it can be recovered by this move again."
+			description = "User recovers the last item consumed by the user or a Pokemon in its position on the field. The item must be used again before it can be recovered by this move again."
 		},
 		{
 			id = "279",
@@ -2965,7 +2967,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Puts the target to sleep at the end of the next turn. Ignores accuracy and evasion modifiers. If the target leaves the field, this effect is canceled."
 		},
@@ -3005,7 +3007,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User and target switch abilities. Ignores accuracy and evasion modifiers."
 		},
@@ -3015,9 +3017,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Prevents any Pokémon on the opposing side of the field from using any move the user knows until the user leaves the field."
+			description = "Prevents any Pokemon on the opposing side of the field from using any move the user knows until the user leaves the field."
 		},
 		{
 			id = "287",
@@ -3025,7 +3027,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Removes a burn, paralysis, or poison from the user."
 		},
@@ -3035,7 +3037,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GHOST,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "If the user faints before it next acts, the move that fainted it will have its PP dropped to 0. End-of-turn damage does not trigger this effect."
 		},
@@ -3045,9 +3047,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.DARK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "The next time a Pokémon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself"
+			description = "The next time a Pokemon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself"
 		},
 		{
 			id = "290",
@@ -3077,7 +3079,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "293",
@@ -3085,7 +3087,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User's type changes according to the terrain. Building = normal; Cave = rock; Desert = ground; Grass = grass; Ocean = water; Snow = ice;"
 		},
@@ -3095,7 +3097,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.BUG,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Special Attack by two stages in Gen IV; 3 stages in Gen V and above."
 		},
@@ -3155,7 +3157,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GROUND,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends."
 		},
@@ -3185,7 +3187,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP."
 		},
@@ -3275,9 +3277,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GRASS,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Removes major status effects and confusion from every Pokémon in the user's party."
+			description = "Removes major status effects and confusion from every Pokemon in the user's party."
 		},
 		{
 			id = "313",
@@ -3315,7 +3317,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = {"100", "100", "100", Graphics.TEXT.PLACEHOLDER, Graphics.TEXT.PLACEHOLDER},
+			accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Resets the target's evasion to normal and prevents any further boosting until the target leaves the field. A ghost under this effect takes normal damage from normal and fighting moves."
 		},
@@ -3375,7 +3377,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense and Special Defense by one stage."
 		},
@@ -3405,7 +3407,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GHOST,
 			power = "60",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -3427,7 +3429,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = "90",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. This move can hit Pokémon under the effect of bounce, fly, or sky drop."
+			description = "Inflicts regular damage. This move can hit Pokemon under the effect of bounce, fly, or sky drop."
 		},
 		{
 			id = "328",
@@ -3437,7 +3439,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = {"70", "70", "70", "70", "85"},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "329",
@@ -3467,7 +3469,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "332",
@@ -3475,7 +3477,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FLYING,
 			power = "60",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -3487,7 +3489,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "334",
@@ -3495,7 +3497,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.STEEL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense by two stages."
 		},
@@ -3505,7 +3507,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "The target cannot switch out normally. Ignores accuracy and evasion modifiers. This effect ends when the user leaves the field."
 		},
@@ -3515,7 +3517,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack by one stage."
 		},
@@ -3545,7 +3547,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FIGHTING,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack and Defense by one stage each."
 		},
@@ -3605,7 +3607,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GRASS,
 			power = "60",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -3615,7 +3617,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.WATER,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends."
 		},
@@ -3625,7 +3627,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Special Attack and Special Defense by one stage each."
 		},
@@ -3645,7 +3647,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.DRAGON,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack and Speed by one stage each."
 		},
@@ -3657,7 +3659,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = {"80", "80", "80", "80", "90"},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "351",
@@ -3665,7 +3667,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ELECTRIC,
 			power = "60",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -3703,9 +3705,9 @@ MoveData.MOVES_MASTER_LIST =
 			id = "355",
 			name = "Roost",
 			type = PokemonData.POKEMON_TYPES.FLYING,
-			power = Graphics.TEXT.PLACEHOLDER,
+			power = Graphics.TEXT.ALWAYS_HITS,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP. If the user is flying, its flying type is ignored until the end of this turn."
 		},
@@ -3715,9 +3717,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the evasion of every Pokémon on the field is lowered by two stages. Cancels the effects of bounce, fly, and sky drop."
+			description = "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the evasion of every Pokemon on the field is lowered by two stages. Cancels the effects of bounce, fly, and sky drop."
 		},
 		{
 			id = "357",
@@ -3725,9 +3727,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "40",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Resets the target's evasion to normal and prevents any further boosting until the target leaves the field. A dark Pokémon under this effect takes normal damage from psychic moves."
+			description = "Resets the target's evasion to normal and prevents any further boosting until the target leaves the field. A dark Pokemon under this effect takes normal damage from psychic moves."
 		},
 		{
 			id = "358",
@@ -3765,9 +3767,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User faints. Its replacement's HP is fully restored, and any major status effect is removed. If the replacement Pokémon is immediately fainted by a switch-in effect, the next replacement is healed by this move instead."
+			description = "User faints. Its replacement's HP is fully restored, and any major status effect is removed. If the replacement Pokemon is immediately fainted by a switch-in effect, the next replacement is healed by this move instead."
 		},
 		{
 			id = "362",
@@ -3815,9 +3817,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FLYING,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For the next three turns, all Pokémon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field."
+			description = "For the next three turns, all Pokemon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field."
 		},
 		{
 			id = "367",
@@ -3825,7 +3827,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises one of the target's stats by two stages. The raised stat is chosen at random from any stats that can be raised by two stages."
 		},
@@ -3837,7 +3839,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Targets the last opposing Pokémon to hit the user with a damaging move this turn. Inflicts 1.5× the damage that move did to the user. Type immunity applies, but other type effects are ignored."
+			description = "Targets the last opposing Pokemon to hit the user with a damaging move this turn. Inflicts 1.5× the damage that move did to the user. Type immunity applies, but other type effects are ignored."
 		},
 		{
 			id = "369",
@@ -3847,7 +3849,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pokémon from the party."
+			description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pokemon from the party."
 		},
 		{
 			id = "370",
@@ -3915,7 +3917,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = "<PP",
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
 			description = "Inflicts regular damage. Power is determined by the PP remaining for this move, after its PP cost is deducted. Ignores accuracy and evasion modifiers."
 		},
@@ -3945,7 +3947,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "The user's original Attack and Defense are swapped."
 		},
@@ -3965,9 +3967,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, opposing Pokémon cannot score critical hits."
+			description = "For five turns, opposing Pokemon cannot score critical hits."
 		},
 		{
 			id = "382",
@@ -3975,7 +3977,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "If the target has selected a damaging move this turn, the user will copy that move and use it against the target, with a 50% increase in power."
 		},
@@ -3985,9 +3987,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Uses the last move that was used successfully by any Pokémon, including the user."
+			description = "Uses the last move that was used successfully by any Pokemon, including the user."
 		},
 		{
 			id = "384",
@@ -3995,7 +3997,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User swaps its Attack and Special Attack stat modifiers with the target."
 		},
@@ -4005,7 +4007,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User swaps its Defense and Special Defense modifiers with the target."
 		},
@@ -4055,9 +4057,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.POISON,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Scatters poisoned spikes around the opposing field, which poison opposing Pokémon that enter the field. A second layer of these spikes may be laid down, in which case Pokémon will be badly poisoned instead."
+			description = "Scatters poisoned spikes around the opposing field, which poison opposing Pokemon that enter the field. A second layer of these spikes may be laid down, in which case Pokemon will be badly poisoned instead."
 		},
 		{
 			id = "391",
@@ -4065,7 +4067,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User swaps its stat modifiers with the target."
 		},
@@ -4075,7 +4077,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.WATER,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Restores 1/16 of the user's max HP at the end of each turn. If the user leaves the field, this effect ends."
 		},
@@ -4085,7 +4087,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ELECTRIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "For five turns, the user is immune to ground moves."
 		},
@@ -4097,7 +4099,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to burn the target. Frozen Pokémon will thaw if they use this move."
+			description = "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to burn the target. Frozen Pokemon will thaw if they use this move."
 		},
 		{
 			id = "395",
@@ -4115,7 +4117,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FIGHTING,
 			power = "90",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -4125,7 +4127,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ROCK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Speed by two stages."
 		},
@@ -4307,7 +4309,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User and target permanently swap held items. Works even if one of the Pokémon isn't holding anything."
+			description = "User and target permanently swap held items. Works even if one of the Pokemon isn't holding anything."
 		},
 		{
 			id = "416",
@@ -4325,7 +4327,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.DARK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Special Attack by two stages."
 		},
@@ -4475,7 +4477,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FLYING,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Lowers the target's evasion by one stage. Removes the effects of mist, light screen, reflect, safeguard, spikes, stealth rock, and toxic spikes from the target's side of the field."
 		},
@@ -4485,9 +4487,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "5",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, slower Pokémon will act before faster Pokémon. Move priority is not affected."
+			description = "For five turns, slower Pokemon will act before faster Pokemon. Move priority is not affected."
 		},
 		{
 			id = "434",
@@ -4585,7 +4587,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.STEEL,
 			power = "60",
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
 			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
@@ -4615,9 +4617,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ROCK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Spreads sharp rocks around the opposing field, damaging any Pokémon that enters the field for 1/8 its max HP. This damage is affected by the entering Pokémon's susceptibility to rock moves."
+			description = "Spreads sharp rocks around the opposing field, damaging any Pokemon that enters the field for 1/8 its max HP. This damage is affected by the entering Pokemon's susceptibility to rock moves."
 		},
 		{
 			id = "447",
@@ -4705,7 +4707,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.BUG,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense and Special Defense by one stage."
 		},
@@ -4715,7 +4717,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.BUG,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the user for half its max HP."
 		},
@@ -4765,7 +4767,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User faints. Its replacement's HP and PP are fully restored, and any major status effect is removed."
 		},
@@ -4787,7 +4789,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = {"70", "70", "70", "70", "75"},
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "464",
@@ -4835,7 +4837,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.DARK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack and accuracy by one stage."
 		},
@@ -4845,9 +4847,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.ROCK,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Moves with multiple targets will not hit friendly Pokémon for the remainder of this turn. If the user is last to act this turn, this move will fail."
+			description = "Moves with multiple targets will not hit friendly Pokemon for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
 		{
 			id = "470",
@@ -4855,9 +4857,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Averages the user's unmodified Defense with the target's unmodified Defense; the value becomes the unmodified Defense for both Pokémon. Unmodified Special Defense is averaged the same way."
+			description = "Averages the user's unmodified Defense with the target's unmodified Defense; the value becomes the unmodified Defense for both Pokemon. Unmodified Special Defense is averaged the same way."
 		},
 		{
 			id = "471",
@@ -4865,9 +4867,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Averages the user's unmodified Attack with the target's unmodified Attack; the value becomes the unmodified Attack for both Pokémon. Unmodified Special Attack is averaged the same way."
+			description = "Averages the user's unmodified Attack with the target's unmodified Attack; the value becomes the unmodified Attack for both Pokemon. Unmodified Special Attack is averaged the same way."
 		},
 		{
 			id = "472",
@@ -4875,9 +4877,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, every Pokémon's Defense and Special Defense are swapped."
+			description = "For five turns, every Pokemon's Defense and Special Defense are swapped."
 		},
 		{
 			id = "473",
@@ -4905,7 +4907,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.STEEL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Speed by two stages. Halves the user's weight, and this effect does not stack."
 		},
@@ -4915,9 +4917,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.BUG,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Until the end of this turn, any moves that opposing Pokémon target solely at the user's ally will instead target the user."
+			description = "Until the end of this turn, any moves that opposing Pokemon target solely at the user's ally will instead target the user."
 		},
 		{
 			id = "477",
@@ -4925,7 +4927,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "For three turns, moves used against the target have 100% accuracy, but the target is immune to ground damage. Accuracy of one-hit KO moves is exempt from this effect."
 		},
@@ -4935,9 +4937,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, passive effects of held items are ignored, and Pokémon will not use their held items."
+			description = "For five turns, passive effects of held items are ignored, and Pokemon will not use their held items."
 		},
 		{
 			id = "479",
@@ -4967,7 +4969,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. If this move successfully hits the target, any Pokémon adjacent to the target are damaged for 1/16 their max HP."
+			description = "Inflicts regular damage. If this move successfully hits the target, any Pokemon adjacent to the target are damaged for 1/16 their max HP."
 		},
 		{
 			id = "482",
@@ -4985,7 +4987,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.BUG,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Special Attack, Special Defense, and Speed by one stage each."
 		},
@@ -5007,7 +5009,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = {"10", "10", "10", "10", "15"},
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. Only Pokémon that share a type with the user will take damage from this move."
+			description = "Inflicts regular damage. Only Pokemon that share a type with the user will take damage from this move."
 		},
 		{
 			id = "486",
@@ -5045,7 +5047,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.POISON,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "20",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack, Defense, and accuracy by one stage each."
 		},
@@ -5105,7 +5107,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "The target will act next this turn, regardless of Speed or move priority."
 		},
@@ -5145,7 +5147,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.POISON,
 			power = "50",
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
 			description = "Inflicts regular damage. All of the target's stat modifiers are reset to zero."
 		},
@@ -5165,9 +5167,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.FIGHTING,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Moves with priority greater than 0 will not hit friendly Pokémon for the remainder of this turn. If the user is last to act this turn, this move will fail."
+			description = "Moves with priority greater than 0 will not hit friendly Pokemon for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
 		{
 			id = "502",
@@ -5175,9 +5177,9 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User switches position on the field with the friendly Pokémon opposite it. If the user is in the middle position in a triple battle, or there are no other friendly Pokémon, this move will fail."
+			description = "User switches position on the field with the friendly Pokemon opposite it. If the user is in the middle position in a triple battle, or there are no other friendly Pokemon, this move will fail."
 		},
 		{
 			id = "503",
@@ -5195,7 +5197,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack, Special Attack, and Speed by two stages each. Lowers the user's Defense and Special Defense by one stage each."
 		},
@@ -5205,7 +5207,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.PSYCHIC,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Heals the target for half its max HP."
 		},
@@ -5227,7 +5229,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. User carries the target high into the air for one turn, during which no moves will hit either Pokémon and neither can act. On the following turn, the user drops the target, inflicting damage and ending the effect."
+			description = "Inflicts regular damage. User carries the target high into the air for one turn, during which no moves will hit either Pokemon and neither can act. On the following turn, the user drops the target, inflicting damage and ending the effect."
 		},
 		{
 			id = "508",
@@ -5235,7 +5237,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.STEEL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack by one stage and its Speed by two stages."
 		},
@@ -5247,7 +5249,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "90",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage, then switches the target out for another of its trainer's Pokémon, selected at random."
+			description = "Inflicts regular damage, then switches the target out for another of its trainer's Pokemon, selected at random."
 		},
 		{
 			id = "510",
@@ -5285,7 +5287,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "User's type changes to match the target's."
 		},
@@ -5297,7 +5299,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. If a friendly Pokémon fainted on the previous turn, this move has double power."
+			description = "Inflicts regular damage. If a friendly Pokemon fainted on the previous turn, this move has double power."
 		},
 		{
 			id = "515",
@@ -5315,7 +5317,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "15",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Transfers the user's held item to the target. If the user has no held item, or the target already has a held item, this move will fail."
 		},
@@ -5337,7 +5339,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. If a friendly Pokémon used grass pledge earlier this turn, all opposing Pokémon have halved Speed for four turns."
+			description = "Inflicts regular damage. If a friendly Pokemon used grass pledge earlier this turn, all opposing Pokemon have halved Speed for four turns."
 		},
 		{
 			id = "519",
@@ -5347,7 +5349,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. If a friendly Pokémon used water pledge earlier this turn, moves used by any friendly Pokémon have doubled effect chance for four turns."
+			description = "Inflicts regular damage. If a friendly Pokemon used water pledge earlier this turn, moves used by any friendly Pokemon have doubled effect chance for four turns."
 		},
 		{
 			id = "520",
@@ -5357,7 +5359,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. If a friendly Pokémon used fire pledge earlier this turn, all opposing Pokémon will take 1/8 their max HP in damage at the end of every turn for four turns."
+			description = "Inflicts regular damage. If a friendly Pokemon used fire pledge earlier this turn, all opposing Pokemon will take 1/8 their max HP in damage at the end of every turn for four turns."
 		},
 		{
 			id = "521",
@@ -5367,7 +5369,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pokémon from the party."
+			description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pokemon from the party."
 		},
 		{
 			id = "522",
@@ -5407,7 +5409,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "90",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage, then switches the target out for another of its trainer's Pokémon, selected at random."
+			description = "Inflicts regular damage, then switches the target out for another of its trainer's Pokemon, selected at random."
 		},
 		{
 			id = "526",
@@ -5415,7 +5417,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.NORMAL,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "30",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Attack and Special Attack by one stage each."
 		},
@@ -5535,7 +5537,7 @@ MoveData.MOVES_MASTER_LIST =
 			type = PokemonData.POKEMON_TYPES.GRASS,
 			power = Graphics.TEXT.NO_POWER,
 			pp = "10",
-			accuracy = Graphics.TEXT.PLACEHOLDER,
+			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
 			description = "Raises the user's Defense by three stages."
 		},
@@ -5567,7 +5569,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "85",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Hits 2–5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+			description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
 		},
 		{
 			id = "542",
@@ -5737,7 +5739,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage. If a friendly Pokémon used Fusion Bolt earlier this turn, this move has double power."
+			description = "Inflicts regular damage. If a friendly Pokemon used Fusion Bolt earlier this turn, this move has double power."
 		},
 		{
 			id = "559",
@@ -5747,7 +5749,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. If a friendly Pokémon used Fusion Flare earlier this turn, this move has double power."
+			description = "Inflicts regular damage. If a friendly Pokemon used Fusion Flare earlier this turn, this move has double power."
 		}
 	}
 )
