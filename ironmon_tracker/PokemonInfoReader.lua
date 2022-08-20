@@ -57,7 +57,7 @@ Decrypter.DecryptedDataInit = {
     spd = 0,
     nature = 0,
     encounterType = 0,
-    actualMoves = {
+    moves = {
         0,0,0,0
     },
     movePPs = {
@@ -154,14 +154,14 @@ function Decrypter.decrypt(checkingParty,monIndex,checkingEnemy)
             Decrypter.decryptBlocks(seed,blockReadingStart,blockOrder)
             local battleStatStart = currentBase+0x88
             Decrypter.decryptBattleStats(pid,battleStatStart,monIndex,checkingEnemy)
-            Decrypter.DecryptedData.actualMoves = {
+            Decrypter.DecryptedData.moves = {
                 Decrypter.DecryptedData.move1,
                 Decrypter.DecryptedData.move2,
                 Decrypter.DecryptedData.move3,
                 Decrypter.DecryptedData.move4,
             }
             local sum = 0
-            for i,moveID in pairs(Decrypter.DecryptedData.actualMoves) do
+            for i,moveID in pairs(Decrypter.DecryptedData.moves) do
                sum = sum + moveID 
             end
             if sum == 0 then return nil end
