@@ -6,7 +6,7 @@ AbilityData.ABILITIES =
         {
             id = 1,
             name = "Stench",
-            description = "Has a 10% chance of making target Pokemon flinch with each hit."
+            description = {"Helps repel wild Pokemon.","Has a 10% chance of making target Pokemon flinch with each hit."}
         },
         {
             id = 2,
@@ -237,7 +237,7 @@ AbilityData.ABILITIES =
         {
             id = 46,
             name = "Pressure",
-            description = "Increases the PP cost of moves targetting the Pokemon by one."
+            description = "Increases the PP cost of moves targeting the Pokemon by one."
         },
         {
             id = 47,
