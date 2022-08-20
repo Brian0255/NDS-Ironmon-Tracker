@@ -1,5 +1,113 @@
 ItemData = {}
 
+ItemData.HEALING_TYPE = MiscUtils.readOnly({CONSTANT = 0, PERCENTAGE = 1})
+
+ItemData.HEALING_ITEMS =
+	MiscUtils.readOnly(
+	{
+		[17] = {
+			name = "Potion",
+			amount = 20,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[23] = {
+			name = "Full Restore",
+			amount = 100,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[24] = {
+			name = "Max Potion",
+			amount = 100,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[25] = {
+			name = "Hyper Potion",
+			amount = 200,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[26] = {
+			name = "Super Potion",
+			amount = 60,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[30] = {
+			name = "Fresh Water",
+			amount = 50,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[31] = {
+			name = "Soda Pop",
+			amount = 60,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[32] = {
+			name = "Lemonade",
+			amount = 80,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[33] = {
+			name = "Moomoo Milk",
+			amount = 100,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[34] = {
+			name = "EnergyPowder",
+			amount = 50,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[35] = {
+			name = "Energy Root",
+			amount = 200,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[43] = {
+			name = "Berry Juice",
+			amount = 20,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[155] = {
+			name = "Oran Berry",
+			amount = 10,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[158] = {
+			name = "Sitrus Berry",
+			amount = 30,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[159] = {
+			name = "Figy Berry",
+			amount = 12.5,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[160] = {
+			name = "Wiki Berry",
+			amount = 12.5,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[161] = {
+			name = "Mago Berry",
+			amount = 12.5,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[162] = {
+			name = "Aguav Berry",
+			amount = 12.5,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[163] = {
+			name = "Iapapa Berry",
+			amount = 12.5,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[208] = {
+			name = "Enigma Berry",
+			amount = 12.5,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		}
+	}
+)
+
 ItemData.GEN_4_ITEMS =
     MiscUtils.readOnly(
     {
