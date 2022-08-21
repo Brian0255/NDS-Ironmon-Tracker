@@ -1,9 +1,16 @@
-local function TextStyle(initialFontSize, initialFontFamily, initialTextColorKey, initialShadowColorKey)
+local function TextStyle(initialFontSize, initialFontFamily, initialTextColorKey, initialShadowColorKey, shouldBeBolded)
     local self = {}
+    local bold = nil
+    if shouldBeBolded then
+        bold = "bold"
+    end
     local fontSize = initialFontSize
     local fontFamily = initialFontFamily
     local textColorKey = initialTextColorKey
     local shadowColorKey = initialShadowColorKey
+    function self.isBolded()
+        return bold
+    end
     function self.getFontSize()
         return fontSize
     end
