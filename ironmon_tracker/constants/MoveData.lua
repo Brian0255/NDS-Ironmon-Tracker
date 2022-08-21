@@ -11,6 +11,8 @@ MoveData.MOVE_CATEGORIES =
 	}
 )
 
+MoveData.MOVES = {}
+
 --List of pokemon types used to cycle through types when the Hidden Power button is clicked
 MoveData.HIDDEN_POWER_TYPE_LIST =
 	MiscUtils.readOnly(
@@ -60,25 +62,24 @@ MoveData.TYPE_CATEGORIES =
 )
 
 MoveData.EFFECTIVE_DATA =
-	MiscUtils.readOnly(
 	{
 		NORMAL = {ROCK = 0.5, GHOST = 0, STEEL = 0.5},
-		FIRE = {FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 2, BUG = 2, ROCK = 0.5, dragon = 0.5, STEEL = 2},
-		WATER = {FIRE = 2, WATER = 0.5, GRASS = 0.5, ground = 2, ROCK = 2, dragon = 0.5},
+		FIRE = {FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 2, BUG = 2, ROCK = 0.5, DRAGON = 0.5, STEEL = 2},
+		WATER = {FIRE = 2, WATER = 0.5, GRASS = 0.5, GROUND = 2, ROCK = 2, DRAGON = 0.5},
 		GRASS = {
 			FIRE = 0.5,
 			WATER = 2,
 			GRASS = 0.5,
 			POISON = 0.5,
-			ground = 2,
+			GROUND = 2,
 			FLYING = 0.5,
 			BUG = 0.5,
 			ROCK = 2,
-			dragon = 0.5,
+			DRAGON = 0.5,
 			STEEL = 0.5
 		},
-		ELECTRIC = {WATER = 2, GRASS = 0.5, ELECTRIC = 0.5, ground = 0, FLYING = 2, dragon = 0.5},
-		ICE = {FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 0.5, ground = 2, FLYING = 2, dragon = 2, STEEL = 0.5},
+		ELECTRIC = {WATER = 2, GRASS = 0.5, ELECTRIC = 0.5, GROUND = 0, FLYING = 2, DRAGON = 0.5},
+		ICE = {FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 0.5, GROUND = 2, FLYING = 2, DRAGON = 2, STEEL = 0.5},
 		FIGHTING = {
 			NORMAL = 2,
 			ICE = 2,
@@ -91,8 +92,8 @@ MoveData.EFFECTIVE_DATA =
 			DARK = 2,
 			STEEL = 2
 		},
-		POISON = {GRASS = 2, POISON = 0.5, ground = 0.5, ROCK = 0.5, GHOST = 0.5, STEEL = 0},
-		ground = {FIRE = 2, GRASS = 0.5, ELECTRIC = 2, POISON = 2, FLYING = 0, BUG = 0.5, ROCK = 2, STEEL = 2},
+		POISON = {GRASS = 2, POISON = 0.5, GROUND = 0.5, ROCK = 0.5, GHOST = 0.5, STEEL = 0},
+		GROUND = {FIRE = 2, GRASS = 0.5, ELECTRIC = 2, POISON = 2, FLYING = 0, BUG = 0.5, ROCK = 2, STEEL = 2},
 		FLYING = {GRASS = 2, ELECTRIC = 0.5, FIGHTING = 2, BUG = 2, ROCK = 0.5, STEEL = 0.5},
 		PSYCHIC = {FIGHTING = 2, POISON = 2, PSYCHIC = 0.5, DARK = 0, STEEL = 0.5},
 		BUG = {
@@ -106,16 +107,15 @@ MoveData.EFFECTIVE_DATA =
 			DARK = 2,
 			STEEL = 0.5
 		},
-		ROCK = {FIRE = 2, ICE = 2, FIGHTING = 0.5, ground = 0.5, FLYING = 2, BUG = 2, STEEL = 0.5},
+		ROCK = {FIRE = 2, ICE = 2, FIGHTING = 0.5, GROUND = 0.5, FLYING = 2, BUG = 2, STEEL = 0.5},
 		GHOST = {NORMAL = 0, PSYCHIC = 2, GHOST = 2, DARK = 0.5, STEEL = 0.5},
-		dragon = {dragon = 2, STEEL = 0.5},
+		DRAGON = {DRAGON = 2, STEEL = 0.5},
 		DARK = {FIGHTING = 0.5, PSYCHIC = 2, GHOST = 2, DARK = 0.5, STEEL = 0.5},
 		STEEL = {FIRE = 0.5, WATER = 0.5, ICE = 2, ROCK = 2, STEEL = 0.5, ELECTRIC = 0.5}
 	}
-)
+
 
 MoveData.MOVES_MASTER_LIST =
-	MiscUtils.readOnly(
 	{
 		{
 			--- Empty entry for move ID 0
@@ -3059,7 +3059,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATT; Snow/Ice = freeze;"
+			description = "Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze"
 		},
 		{
 			id = "291",
@@ -3089,7 +3089,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User's type changes according to the terrain. Building = normal; Cave = rock; Desert = ground; Grass = grass; Ocean = water; Snow = ice;"
+			description = "User's type changes according to the terrain. Building = normal; Cave = rock; Desert = ground; Grass = grass; Ocean = water; Snow = ice"
 		},
 		{
 			id = "294",
@@ -3755,7 +3755,7 @@ MoveData.MOVES_MASTER_LIST =
 			id = "360",
 			name = "Gyro Ball",
 			type = PokemonData.POKEMON_TYPES.STEEL,
-			power = "<SPD",
+			power = "<SPE",
 			pp = "5",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
@@ -5752,4 +5752,5 @@ MoveData.MOVES_MASTER_LIST =
 			description = "Inflicts regular damage. If a friendly Pokemon used Fusion Flare earlier this turn, this move has double power."
 		}
 	}
-)
+
+MoveData.TOTAL_MOVES = #MoveData.MOVES_MASTER_LIST
