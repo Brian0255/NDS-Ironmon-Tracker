@@ -1,34 +1,44 @@
+MoveUtils = {}
+
 function MoveUtils.netEffectiveness(move, pkmnData)
-    local effectiveness = 1.0
-
-    -- TODO: Do we want to handle Hidden Power's varied type in this? We could analyze the IV of the Pokémon and determine the type...
-
-    -- If move has no power, check for ineffectiveness by type first, then return 1.0 if ineffective cases not present
-    if move.power == NOPOWER then
-        if move.category ~= MoveCategories.STATUS then
+    local NO_EFFECT_PAIRINGS = {
+        [PokemonData.POKEMON_TYPES.NORMAL] = PokemonData.POKEMON_TYPES.GHOST,
+        [PokemonData.POKEMON_TYPES.FIGHTING] = PokemonData.POKEMON_TYPES.GHOST,
+        [PokemonData.POKEMON_TYPES.PSYCHIC] = PokemonData.POKEMON_TYPES.DARK,
+        [PokemonData.POKEMON_TYPES.GROUND] = PokemonData.POKEMON_TYPES.FLYING,
+        [PokemonData.POKEMON_TYPES.GHOST] = PokemonData.POKEMON_TYPES.NORMAL
+    }
+    if move.power == Graphics.TEXT.NO_POWER then
+        if move.category ~= MoveData.MOVE_CATEGORIES.STATUS then
+            if NO_EFFECT_PAIRINGS[move.type] then
+                local noEffectAgainst = NO_EFFECT_PAIRINGS[move.type]
+                if pkmnData.type[1] == noEffectAgainst or pkmnData.type[2] == noEffectAgainst then
+                    return 0.0
+                end
+            end
             if
-                move.type == PokemonTypes.NORMAL and
-                    (pkmnData.type[1] == PokemonTypes.GHOST or pkmnData.type[2] == PokemonTypes.GHOST)
+                move.type == PokemonData.POKEMON_TYPES.NORMAL and
+                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.GHOST or pkmnData.type[2] == PokemonData.POKEMON_TYPES.GHOST)
              then
                 return 0.0
             elseif
-                move.type == PokemonTypes.FIGHTING and
-                    (pkmnData.type[1] == PokemonTypes.GHOST or pkmnData.type[2] == PokemonTypes.GHOST)
+                move.type == PokemonData.POKEMON_TYPES.FIGHTING and
+                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.GHOST or pkmnData.type[2] == PokemonData.POKEMON_TYPES.GHOST)
              then
                 return 0.0
             elseif
-                move.type == PokemonTypes.PSYCHIC and
-                    (pkmnData.type[1] == PokemonTypes.DARK or pkmnData.type[2] == PokemonTypes.DARK)
+                move.type == PokemonData.POKEMON_TYPES.PSYCHIC and
+                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.DARK or pkmnData.type[2] == PokemonData.POKEMON_TYPES.DARK)
              then
                 return 0.0
             elseif
-                move.type == PokemonTypes.GROUND and
-                    (pkmnData.type[1] == PokemonTypes.FLYING or pkmnData.type[2] == PokemonTypes.FLYING)
+                move.type == PokemonData.POKEMON_TYPES.GROUND and
+                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.FLYING or pkmnData.type[2] == PokemonData.POKEMON_TYPES.FLYING)
              then
                 return 0.0
             elseif
-                move.type == PokemonTypes.GHOST and
-                    (pkmnData.type[1] == PokemonTypes.NORMAL or pkmnData.type[2] == PokemonTypes.NORMAL)
+                move.type == PokemonData.POKEMON_TYPES.GHOST and
+                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.NORMAL or pkmnData.type[2] == PokemonData.POKEMON_TYPES.NORMAL)
              then
                 return 0.0
             end
@@ -40,18 +50,54 @@ function MoveUtils.netEffectiveness(move, pkmnData)
         return 1.0
     end
 
+    local effectiveness = 1.0
+
     for _, type in ipairs(pkmnData["type"]) do
-        local moveType = move["type"]
+        local moveType = move.type
+        --[[
         if move["name"] == "Hidden Power" and Tracker.Data.selectedPlayer == 1 then
             moveType = Tracker.Data.currentHiddenPowerType
-        end
+        end--]]
         if moveType ~= "---" then
-            if EffectiveData[moveType][type] ~= nil then
-                effectiveness = effectiveness * EffectiveData[moveType][type]
+            if MoveData.EFFECTIVE_DATA[moveType][type] ~= nil then
+                effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][type]
             end
         end
     end
     return effectiveness
+end
+
+function MoveUtils.getTypeDefensesTable(pokemonData)
+    local EFFECTIVENESS_TO_SYMBOL = {
+        [4.0] = "4x",
+        [2.0] = "2x",
+        [0.5] = "0.5x",
+        [0.25] = "0.25x",
+        [0.0] = "0x"
+    }
+    local typeDefenses = {
+        ["4x"] = {},
+        ["2x"] = {},
+        ["0.5x"] = {},
+        ["0.25x"] = {},
+        ["0x"] = {}
+    }
+    --calculate how strong each type is against us
+    for moveType, _ in pairs(MoveData.EFFECTIVE_DATA) do 
+        local effectiveness = 1.0
+        for _, type in pairs(pokemonData.type) do
+            if type ~= "" then
+                if MoveData.EFFECTIVE_DATA[moveType][type] ~= nil then
+                    effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][type]
+                end
+            end
+        end
+        if EFFECTIVENESS_TO_SYMBOL[effectiveness] then
+            local symbol = EFFECTIVENESS_TO_SYMBOL[effectiveness]
+            table.insert(typeDefenses[symbol],moveType)
+        end
+    end
+    return typeDefenses
 end
 
 function MoveUtils.isSTAB(move, pkmnData)
