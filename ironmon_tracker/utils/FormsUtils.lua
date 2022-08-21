@@ -1,3 +1,5 @@
+FormsUtils = {}
+
 FormsUtils.POPUP_DIALOG_TYPES = {
     WARNING = "!",
     INFO = "Info"

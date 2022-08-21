@@ -1,3 +1,5 @@
+ThemeFactory = {}
+
 local constants = {
     SAVE_THEME_WIDTH = 288,
     SAVE_THEME_HEIGHT = 70,
@@ -49,8 +51,8 @@ function ThemeFactory.createSaveThemeForm()
 end
 
 function ThemeFactory.onImportThemeClick(text)
-    GraphicConstants.readThemeString(text)
-    ColorOptions.redraw = true
+    ThemeUtils.readThemeString(text)
+    ColorEditor.redraw = true
 end
 
 function ThemeFactory.onSaveThemeClick(fileNameTextbox)
@@ -75,7 +77,7 @@ end
 
 function ThemeFactory.saveFile(file)
     io.output(file)
-    local settingsString = GraphicConstants.getThemeString()
+    local settingsString = ThemeUtils.getThemeString()
     io.write(settingsString)
     forms.destroyall()
     Input.dialogActive = false
@@ -168,9 +170,9 @@ function ThemeFactory.createDefaultConfirmDialog()
         function()
             forms.destroy(confirmForm)
             Input.dialogActive = false
-            GraphicConstants.restoreDefaults()
-            ColorOptions.redraw = true
-            GraphicConstants.saveSettings()
+            ThemeUtils.restoreDefaults()
+            ColorEditor.redraw = true
+            ThemeUtils.saveSettings()
         end
     )
 
@@ -197,8 +199,8 @@ function ThemeFactory.createLoadThemeForm()
         themeFile = io.open(themeFile, "r")
         if themeFile ~= nil then
             local themeString = themeFile:read "*a"
-            GraphicConstants.readThemeString(themeString)
-            ColorOptions.redraw = true
+            ThemeUtils.readThemeString(themeString)
+            ColorEditor.redraw = true
         else
             FormsUtils.popupDialog(
                 "Invalid file selection.",
@@ -261,7 +263,7 @@ function ThemeFactory.createExportThemeForm()
         ThemeFactory.CENTER_X - ThemeFactory.EXPORT_THEME_WIDTH / 2,
         ThemeFactory.CENTER_Y - ThemeFactory.EXPORT_THEME_HEIGHT / 2
     )
-    local themeString = GraphicConstants.getThemeString()
+    local themeString = ThemeUtils.getThemeString()
     local canvas = forms.pictureBox(exportForm, 0, 0, 100, 30)
     forms.textbox(exportForm, themeString, ThemeFactory.EXPORT_THEME_WIDTH - 122, 30, nil, 100, 5)
     forms.drawText(canvas, 6, 7, "Theme string:", 0xFF000000, 0x00000000, 14, "Arial")
