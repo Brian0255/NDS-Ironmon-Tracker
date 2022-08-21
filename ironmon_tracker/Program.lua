@@ -18,16 +18,19 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		--MAIN_OPTIONS = MainOptionsScreen,
 		--COLOR_EDITING = ColorEditScreen,
 	}
+	self.UI_SCREEN_TO_NAME = {
+		[self.UI_SCREENS.MAIN_SCREEN] = "Main screen"
+	}
 
 	local battleDataFetched = false
 	local inBattle = false
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
-	local pokemonDataReader = PokemonDataReader()
 	local healingItems = nil
 	local playerPokemon = nil
 	local enemyPokemon = nil
 	local tracker = initialTracker
 	local memoryAddresses = initialMemoryAddresses
+	local pokemonDataReader
 	local gameInfo = initialGameInfo
 	local settings = initialSettings
 	local playerBattleTeamPIDs = {}
@@ -39,7 +42,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local GEN5_activePlayerMonPID = 0
 	local GEN5_activeEnemyMonPID = 0
 	local firstBattleComplete = false
-	local currentScreen = self.UI_SCREENS.MAIN_SCREEN
+	local currentScreen = self.UI_SCREENS.MAIN_SCREEN(settings,tracker)
+	local currentScreenName = "Main screen"
 
 	local function tryToFetchBattleData()
 		local firstPlayerPID = memory.read_u32_le(memoryAddresses.playerBattleBase)
@@ -82,10 +86,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if quantity > 1000 or id > 600 then
 			itemStart = memoryAddresses.itemStartNoBattle
 		end
-		local addressesToScan = {itemStart}
-		if gameInfo.gen == 5 then
-			table.insert(addressesToScan, memoryAddresses.berryBagStart)
-		end
+		local addressesToScan = {itemStart,memoryAddresses.berryBagStart}
 		for _, address in pairs(addressesToScan) do
 			local currentAddress = address
 			local keepScanning = true
@@ -138,7 +139,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				return totals
 			end
 
-			local maxHP = playerPokemon["maxHP"]
+			local maxHP = playerPokemon["HP"]
 			if maxHP == 0 then
 				return totals
 			end
@@ -229,7 +230,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			local monIndex = playerBattleTeamPIDs[activePID]
 			if monIndex ~= nil then
 				playerMonIndex = monIndex
-				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.pokemonDataSize)
+				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.POKEMON_DATA_SIZE)
 				return pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
 			end
 		else
@@ -287,7 +288,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function validPokemonData(pokemonData)
-		if pokemonData == nil then
+		if next(pokemonData) == nil then
 			return false
 		end
 		--Sometimes the player's pokemon stats are just wildly out of bounds, need a sanity check.
@@ -306,13 +307,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				return false
 			end
 		end
-		local id = tonumber(pokemonData["pokemonID"])
+		local id = tonumber(pokemonData.pokemonID)
+		local heldItem = tonumber(pokemonData.heldItem)
 		if id ~= nil then
-			if id < 0 or id > #PokemonData + 1 or pokemonData["heldItem"] < 0 or pokemonData["heldItem"] > 650 then
+			if id < 0 or id > PokemonData.TOTAL_POKEMON + 1 or heldItem < 0 or heldItem > 650 then
 				return false
 			end
-			for _, move in pairs(pokemonData.actualMoves) do
-				if move < 0 or move > #MoveData + 1 then
+			for _, move in pairs(pokemonData.moves) do
+				if move < 0 or move > MoveData.TOTAL_MOVES + 1 then
 					return false
 				end
 			end
@@ -422,7 +424,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function readMemory()
-		if currentScreen == self.UI_SCREENS.MAIN_SCREEN then
+		if currentScreenName == "Main screen" then
 			local battleStatus = memory.read_u16_le(memoryAddresses.battleStatus)
 			if self.BATTLE_STATUS_TYPES[battleStatus] ~= nil then
 				if self.BATTLE_STATUS_TYPES[battleStatus] == true then
@@ -446,8 +448,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 				end
 				local canUpdate =
-					(not settings.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
-					gameInfo.gameName == "Pokemon Platinum")
+					not (settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
+					gameInfo.NAME == "Pokemon Platinum")
 				if canUpdate then
 					updatePlayerPokemonData()
 					updateEnemyPokemonData()
@@ -455,6 +457,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					checkEnemyPP()
 					updateStatStages()
 				end
+				currentScreen.setPokemon(playerPokemon)
 				self.drawCurrentScreen()
 			end
 		end
@@ -465,12 +468,24 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		FrameCounter(300, tracker.save, nil)
 	}
 
+	function self.getGameInfo()
+		return gameInfo
+	end
+
+	function self.getAddresses()
+		return memoryAddresses
+	end
+
 	function self.changeScreen(newScreen)
-		currentScreen = newScreen()
+		currentScreen = newScreen(settings,tracker)
 	end
 
 	function self.drawCurrentScreen()
 		currentScreen.show()
+	end
+
+	function self.isInBattle()
+		return inBattle
 	end
 
 	function self.main()
@@ -484,6 +499,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		DrawingUtils.clearGUI()
 		forms.destroyall()
 	end
+	
+	pokemonDataReader = PokemonDataReader(self)
 
 	return self
 end
