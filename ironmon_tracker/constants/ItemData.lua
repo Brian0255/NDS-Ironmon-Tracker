@@ -1,5 +1,7 @@
 ItemData = {}
 
+ItemData.ITEMS = {}
+
 ItemData.HEALING_TYPE = MiscUtils.readOnly({CONSTANT = 0, PERCENTAGE = 1})
 
 ItemData.HEALING_ITEMS =
@@ -2173,6 +2175,10 @@ ItemData.GEN_4_ITEMS =
 ItemData.GEN_5_ITEMS =
     MiscUtils.readOnly(
     {
+        [0] = {
+            name = "---",
+            description = ""
+        },
         [1] = {
             name = "Master Ball",
             description = "Catches a wild Pokemon every time."
