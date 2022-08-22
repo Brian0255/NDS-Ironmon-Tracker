@@ -1,8 +1,16 @@
-local function Box(initialPosition, initialSize, initialBGColorKey, initialBGFillColorKey)
+local function Box(
+    initialPosition,
+    initialSize,
+    initialBGColorKey,
+    initialBGFillColorKey,
+    shouldShadow,
+    initialShadowColorKey)
     local self = {}
     local relativePosition = initialPosition
     local position = relativePosition
     local size = nil
+    local shadowed = shouldShadow
+    local shadowColorKey = initialShadowColorKey
     if initialSize ~= nil then
         size = initialSize
     end
@@ -59,6 +67,16 @@ local function Box(initialPosition, initialSize, initialBGColorKey, initialBGFil
 
     function self.show()
         if size ~= nil then
+            if shadowed then
+                gui.drawRectangle(
+                    position.x + 1,
+                    position.y + 1,
+                    size.width+1,
+                    size.height+1,
+                    0x00000000,
+                    DrawingUtils.calcShadowColor(shadowColorKey)
+                )
+            end
             gui.drawRectangle(
                 position.x,
                 position.y,
