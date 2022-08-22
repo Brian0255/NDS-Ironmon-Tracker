@@ -67,6 +67,19 @@ function MoveUtils.netEffectiveness(move, pkmnData)
     return effectiveness
 end
 
+function MoveUtils.getMoveHeader(pokemon)
+    local count = 0
+    for _, moveLevel in pairs(pokemon.movelvls) do
+        if moveLevel <= pokemon.level then 
+            count = count + 1
+        else
+            break
+        end
+    end
+    local header = "Move ~ "..count.."/"..#pokemon.movelvls.." ("..pokemon.movelvls[count+1]..")"
+    return header
+end
+
 function MoveUtils.getTypeDefensesTable(pokemonData)
     local EFFECTIVENESS_TO_SYMBOL = {
         [4.0] = "4x",
