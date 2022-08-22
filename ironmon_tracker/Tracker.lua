@@ -3,7 +3,7 @@ local function Tracker()
 	local trackedData = {
 		moves = {},
 		statPredictions = {},
-		bilities = {},
+		abilities = {},
 		notes = {},
 		romHash = nil,
 		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
@@ -13,14 +13,18 @@ local function Tracker()
 	local function loadData()
 		local currentRomHash = gameinfo.getromhash()
 		trackedData.romHash = currentRomHash
-		local saveFile = io.open("autosave.trackerdata", "w")
-		if MiscUtils.fileExists(saveFile) then
+		local path = "autosave.trackerdata"
+		if FormsUtils.fileExists(path) then
+			local saveFile = io.open("autosave.trackerdata", "r")
 			local fileContents = saveFile:read("*a")
-			local savedData = Pickle.unpickle(fileContents)
-			local savedRomHash = savedData.romHash
-			if savedRomHash == currentRomHash then
-				trackedData = savedData
+			if fileContents ~= nil and fileContents ~= "" then
+				local savedData = Pickle.unpickle(fileContents)
+				local savedRomHash = savedData.romHash
+				if savedRomHash == currentRomHash then
+					trackedData = savedData
+				end
 			end
+			saveFile:close()
 		end
 	end
 	local function createNewMoveEntry(pokemonID, moveID, level)
