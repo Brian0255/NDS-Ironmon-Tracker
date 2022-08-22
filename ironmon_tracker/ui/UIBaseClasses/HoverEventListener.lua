@@ -6,11 +6,11 @@ local function HoverEventListener(control, onHoverFunction, initialOnHoverParams
     local onHoverEndParams = initialOnHoverEndParams
     local framesWaited = 0
     local hoverActive = false
-    function self.setOnHoverParams(newOnHoverParams)
-        onHoverParams = newOnHoverParams
+    function self.getOnHoverParams()
+        return onHoverParams
     end
-    function self.setOnHoverEndParams(newOnHoverEndParams)
-        onHoverEndParams = newOnHoverEndParams
+    function self.getOnHoverEndParams()
+        return onHoverEndParams
     end
     function self.listen()
         local position = control.getPosition()
