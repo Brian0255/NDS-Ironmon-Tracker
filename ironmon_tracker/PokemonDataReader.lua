@@ -66,7 +66,7 @@ local function PokemonDataReader(initialProgram)
             SPD = 0,
             nature = 0,
             encounterType = 0,
-            moves = {
+            moveIDs = {
                 0,
                 0,
                 0,
@@ -218,13 +218,13 @@ local function PokemonDataReader(initialProgram)
                 movesStart = movesStart + totalPlayerMons * 0x224
             end
             movesStart = movesStart + monIndex * 0x224
-            local moves = {"move1", "move2", "move3", "move4"}
+            local moveIDs = {"move1", "move2", "move3", "move4"}
             local movePPs = {"move1PP", "move2PP", "move3PP", "move4PP"}
             for i = 0, 3, 1 do
                 local currentMove = movesStart + i * 14
                 local moveID = memory.read_u16_le(currentMove)
                 local movePP = memory.read_u8(currentMove + 2)
-                decryptedData[moves[i + 1]] = moveID
+                decryptedData[moveIDs[i + 1]] = moveID
                 decryptedData[movePPs[i + 1]] = movePP
             end
         end
@@ -246,14 +246,15 @@ local function PokemonDataReader(initialProgram)
                 decryptBlocks(blockReadingStart, blockOrder)
                 local battleStatStart = currentBase + 0x88
                 decryptBattleStats(battleStatStart, monIndex, checkingEnemy)
-                decryptedData.moves = {
+                decryptedData.moveIDs = {
                     decryptedData.move1,
                     decryptedData.move2,
                     decryptedData.move3,
                     decryptedData.move4
                 }
+
                 local sum = 0
-                for _, moveID in pairs(decryptedData.moves) do
+                for _, moveID in pairs(decryptedData.moveIDs) do
                     sum = sum + moveID
                 end
                 if sum == 0 then
