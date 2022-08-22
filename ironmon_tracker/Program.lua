@@ -4,6 +4,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local UIRoot = "ironmon_tracker/ui/"
 	local MainScreen = dofile(UIRoot .. "MainScreen.lua")
 	local PokemonDataReader = dofile("ironmon_tracker/PokemonDataReader.lua")
+	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/JoypadEventListener.lua")
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
 		ENEMY = 1
@@ -59,7 +60,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if pid ~= 0 then
 				playerBattleTeamPIDs[pid] = i
 			end
-			currentBase = currentBase + gameInfo.pokemonDataSize
+			currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
 		end
 
 		currentBase = memoryAddresses.enemyBase
@@ -68,10 +69,21 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if pid ~= 0 then
 				enemyBattleTeamPIDs[pid] = i
 			end
-			currentBase = currentBase + gameInfo.pokemonDataSize
+			currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
 		end
 
 		return true
+	end
+
+	local function addAddtitionalDataToPokemon(pokemon)
+		local constData = PokemonData.POKEMON[pokemon.pokemonID+1]
+		for key, data in pairs(constData) do
+			if key == "movelvls" then
+				pokemon[key] = data[gameInfo.VERSION_GROUP]
+			else
+				pokemon[key] = data
+			end
+		end
 	end
 
 	local function scanItemsForHeals()
@@ -112,12 +124,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if item ~= nil then
 				local healing = 0
 				if item.type == ItemData.HEALING_TYPE.CONSTANT then
-					local percentage = ((item.amount / maxHP) * 100)
+					local percentage = item.amount / maxHP * 100
 					if percentage > 100 then
 						percentage = 100
 					end
 					healing = percentage * quantity
-				elseif item.type == ItemData.HEALING_TYPE.CONSTANT then
+				elseif item.type == ItemData.HEALING_TYPE.PERCENTAGE then
 					healing = item.amount * quantity
 				end
 				-- Healing is in a percentage compared to the mon's max HP
@@ -125,6 +137,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				totals.numHeals = totals.numHeals + quantity
 			end
 		end
+		totals.healing = math.floor(totals.healing+0.5)
 		return totals
 	end
 
@@ -152,10 +165,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 			return totals
 		end
+		return nil
 	end
 
 	local function updateBagHealingItems()
-		healingItems = getHealingItems()
+		return getHealingItems()
 	end
 
 	local function updateStatStages()
@@ -217,7 +231,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function getPokemonDataPlayer()
-		if inBattle == 1 and battleDataFetched then
+		if inBattle and battleDataFetched then
 			local currentBase = memoryAddresses.playerBattleBase
 			local activePID
 			local transformed = checkForPlayerTransform()
@@ -230,7 +244,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			local monIndex = playerBattleTeamPIDs[activePID]
 			if monIndex ~= nil then
 				playerMonIndex = monIndex
-				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.POKEMON_DATA_SIZE)
+				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
 				return pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
 			end
 		else
@@ -274,7 +288,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 						return nil
 					end
 				end
-				currentBase = currentBase + gameInfo.pokemonDataSize
+				currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
 			end
 			if lastMatchedAddress ~= 0 then
 				--We found a match but all the enemy's pokemon have fainted, so just use the last match.
@@ -313,7 +327,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if id < 0 or id > PokemonData.TOTAL_POKEMON + 1 or heldItem < 0 or heldItem > 650 then
 				return false
 			end
-			for _, move in pairs(pokemonData.moves) do
+			for _, move in pairs(pokemonData.moveIDs) do
 				if move < 0 or move > MoveData.TOTAL_MOVES + 1 then
 					return false
 				end
@@ -370,13 +384,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function checkEnemyPP()
 		if inBattle and selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
 			if enemyPokemon ~= nil then
-				for i, moveValue in pairs(enemyPokemon.actualMoves) do
-					local data = MoveData[moveValue + 1]
+				for i, moveID in pairs(enemyPokemon.moveIDs) do
+					local data = MoveData.MOVES[moveID + 1]
 					local currentPP = enemyPokemon.movePPs[i]
 					local maxPP = data.pp
 					if data.id ~= "---" then
 						if currentPP < tonumber(maxPP) then
-							tracker.trackMove(enemyPokemon.pokemonID, moveValue, enemyPokemon.level)
+							tracker.trackMove(enemyPokemon.pokemonID, moveID, enemyPokemon.level)
 						end
 					end
 				end
@@ -450,22 +464,56 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				local canUpdate =
 					not (settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
 					gameInfo.NAME == "Pokemon Platinum")
+				local healingTotals = nil
 				if canUpdate then
 					updatePlayerPokemonData()
 					updateEnemyPokemonData()
-					updateBagHealingItems()
+					healingTotals = updateBagHealingItems()
 					checkEnemyPP()
 					updateStatStages()
 				end
-				currentScreen.setPokemon(playerPokemon)
-				self.drawCurrentScreen()
+				local pokemonToDraw = playerPokemon
+				local opposingPokemon = enemyPokemon
+				if selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
+					pokemonToDraw = enemyPokemon
+					opposingPokemon = playerPokemon
+				end
+				if pokemonToDraw ~= nil then
+					addAddtitionalDataToPokemon(pokemonToDraw)
+					pokemonToDraw.owner = selectedPlayer
+					currentScreen.setPokemon(pokemonToDraw, opposingPokemon, healingTotals)
+					self.drawCurrentScreen()
+				end
 			end
 		end
 	end
 
+	local function switchPokemonView()
+		if inBattle and battleDataFetched then
+			if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
+				selectedPlayer = self.SELECTED_PLAYERS.ENEMY
+			else
+				selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+			end
+			readMemory()
+			self.drawCurrentScreen()
+		end
+	end
+
+	local function refreshPointers()
+		local info = GameConfigurator.initializeMemoryAddresses()
+		gameInfo = info.gameInfo
+		memoryAddresses = info.memoryAddresses
+	end
+
 	local frameCounters = {
 		FrameCounter(30, readMemory, nil),
-		FrameCounter(300, tracker.save, nil)
+		FrameCounter(300, tracker.save, nil),
+		FrameCounter(300, refreshPointers, nil)
+	}
+
+	local eventListeners = {
+		JoypadEventListener(settings.controls, "CYCLE_VIEW", switchPokemonView)
 	}
 
 	function self.getGameInfo()
@@ -489,6 +537,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.main()
+		for _, eventListener in pairs(eventListeners) do
+			eventListener.listen()
+		end
 		for _, frameCounter in pairs(frameCounters) do
 			frameCounter.decrement()
 		end
