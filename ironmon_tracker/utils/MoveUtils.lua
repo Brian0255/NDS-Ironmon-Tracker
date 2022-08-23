@@ -6,7 +6,8 @@ function MoveUtils.netEffectiveness(move, pkmnData)
         [PokemonData.POKEMON_TYPES.FIGHTING] = PokemonData.POKEMON_TYPES.GHOST,
         [PokemonData.POKEMON_TYPES.PSYCHIC] = PokemonData.POKEMON_TYPES.DARK,
         [PokemonData.POKEMON_TYPES.GROUND] = PokemonData.POKEMON_TYPES.FLYING,
-        [PokemonData.POKEMON_TYPES.GHOST] = PokemonData.POKEMON_TYPES.NORMAL
+        [PokemonData.POKEMON_TYPES.GHOST] = PokemonData.POKEMON_TYPES.NORMAL,
+        [PokemonData.POKEMON_TYPES.POISON] = PokemonData.POKEMON_TYPES.STEEL,
     }
     if move.power == Graphics.TEXT.NO_POWER then
         if move.category ~= MoveData.MOVE_CATEGORIES.STATUS then
@@ -15,32 +16,6 @@ function MoveUtils.netEffectiveness(move, pkmnData)
                 if pkmnData.type[1] == noEffectAgainst or pkmnData.type[2] == noEffectAgainst then
                     return 0.0
                 end
-            end
-            if
-                move.type == PokemonData.POKEMON_TYPES.NORMAL and
-                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.GHOST or pkmnData.type[2] == PokemonData.POKEMON_TYPES.GHOST)
-             then
-                return 0.0
-            elseif
-                move.type == PokemonData.POKEMON_TYPES.FIGHTING and
-                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.GHOST or pkmnData.type[2] == PokemonData.POKEMON_TYPES.GHOST)
-             then
-                return 0.0
-            elseif
-                move.type == PokemonData.POKEMON_TYPES.PSYCHIC and
-                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.DARK or pkmnData.type[2] == PokemonData.POKEMON_TYPES.DARK)
-             then
-                return 0.0
-            elseif
-                move.type == PokemonData.POKEMON_TYPES.GROUND and
-                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.FLYING or pkmnData.type[2] == PokemonData.POKEMON_TYPES.FLYING)
-             then
-                return 0.0
-            elseif
-                move.type == PokemonData.POKEMON_TYPES.GHOST and
-                    (pkmnData.type[1] == PokemonData.POKEMON_TYPES.NORMAL or pkmnData.type[2] == PokemonData.POKEMON_TYPES.NORMAL)
-             then
-                return 0.0
             end
         end
         return 1.0
