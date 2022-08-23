@@ -69,10 +69,10 @@ local function Box(
         if size ~= nil then
             if shadowed then
                 gui.drawRectangle(
-                    position.x + 1,
-                    position.y + 1,
-                    size.width+1,
-                    size.height+1,
+                    position.x  ,
+                    position.y ,
+                    size.width+2,
+                    size.height+2,
                     0x00000000,
                     DrawingUtils.calcShadowColor(shadowColorKey)
                 )
