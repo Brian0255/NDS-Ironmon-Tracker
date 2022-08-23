@@ -1,4 +1,9 @@
-local function HoverEventListener(control, onHoverFunction, initialOnHoverParams, onHoverEndFunction, initialOnHoverEndParams)
+local function HoverEventListener(
+    control,
+    onHoverFunction,
+    initialOnHoverParams,
+    onHoverEndFunction,
+    initialOnHoverEndParams)
     local self = {}
     local onHover = onHoverFunction
     local onHoverParams = initialOnHoverParams
@@ -15,10 +20,9 @@ local function HoverEventListener(control, onHoverFunction, initialOnHoverParams
     function self.listen()
         local position = control.getPosition()
         local size = control.getSize()
-        local mouse = input.getmouse()
-        local mouseX = mouse["X"]
-        local mouseY = (mouse["Y"] + 384) / 2
-        local inRange = MiscUtils.mouseInRange(mouseX, mouseY, position.x, position.y, size.width, size.height)
+        local mousePosition = Input.getMousePosition()
+        local inRange =
+            MiscUtils.mouseInRange(mousePosition.x, mousePosition.y, position.x, position.y, size.width, size.height)
         if not hoverActive then
             if inRange then
                 framesWaited = framesWaited + 1
