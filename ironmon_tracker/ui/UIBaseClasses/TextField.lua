@@ -1,7 +1,7 @@
-local function TextField(initialText, initialTextPadding, initialTextStyle)
+local function TextField(initialText, initialTextOffset, initialTextStyle)
     local self = {}
     local text = initialText
-    local textPadding = initialTextPadding
+    local textOffset = initialTextOffset
     local textStyle = initialTextStyle
     local position = nil
     function self.move(newPosition)
@@ -16,7 +16,11 @@ local function TextField(initialText, initialTextPadding, initialTextStyle)
     function self.show()
         local shadowColorKey = textStyle.getShadowColorKey()
         local shadowColor = DrawingUtils.calcShadowColor(shadowColorKey)
-        DrawingUtils.drawText(position.x, position.y, text, textPadding, textStyle, shadowColor)
+        local newPosition = {
+            x = position.x + textOffset.x,
+            y = position.y + textOffset.y
+        }
+        DrawingUtils.drawText(newPosition.x, newPosition.y, text, textStyle, shadowColor)
     end
     return self
 end
