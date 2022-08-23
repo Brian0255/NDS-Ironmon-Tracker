@@ -3,8 +3,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local FrameCounter = dofile("ironmon_tracker/FrameCounter.lua")
 	local UIRoot = "ironmon_tracker/ui/"
 	local MainScreen = dofile(UIRoot .. "MainScreen.lua")
+	local MainOptionsScreen = dofile(UIRoot .. "MainOptionsScreen.lua")
+	local BattleOptionsScreen= dofile(UIRoot .. "BattleOptionsScreen.lua")
 	local PokemonDataReader = dofile("ironmon_tracker/PokemonDataReader.lua")
-	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/JoypadEventListener.lua")
+	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
 		ENEMY = 1
@@ -15,12 +17,18 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[0x2800] = false
 	}
 	self.UI_SCREENS = {
-		MAIN_SCREEN = MainScreen
-		--MAIN_OPTIONS = MainOptionsScreen,
-		--COLOR_EDITING = ColorEditScreen,
-	}
-	self.UI_SCREEN_TO_NAME = {
-		[self.UI_SCREENS.MAIN_SCREEN] = "Main screen"
+		MAIN_SCREEN = {
+			name = "Main Screen",
+			class = MainScreen
+		},
+		MAIN_OPTIONS_SCREEN = {
+			name = "Main Options Screen",
+			class = MainOptionsScreen
+		},
+		BATTLE_OPTIONS_SCREEN = {
+			name = "Battle Options Screen",
+			class = BattleOptionsScreen
+		}
 	}
 
 	local battleDataFetched = false
@@ -43,8 +51,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local GEN5_activePlayerMonPID = 0
 	local GEN5_activeEnemyMonPID = 0
 	local firstBattleComplete = false
-	local currentScreen = self.UI_SCREENS.MAIN_SCREEN(settings,tracker)
-	local currentScreenName = "Main screen"
+	local currentScreenObjects = {[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self)}
 
 	local function tryToFetchBattleData()
 		local firstPlayerPID = memory.read_u32_le(memoryAddresses.playerBattleBase)
@@ -76,7 +83,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function addAddtitionalDataToPokemon(pokemon)
-		local constData = PokemonData.POKEMON[pokemon.pokemonID+1]
+		local constData = PokemonData.POKEMON[pokemon.pokemonID + 1]
 		for key, data in pairs(constData) do
 			if key == "movelvls" then
 				pokemon[key] = data[gameInfo.VERSION_GROUP]
@@ -98,7 +105,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if quantity > 1000 or id > 600 then
 			itemStart = memoryAddresses.itemStartNoBattle
 		end
-		local addressesToScan = {itemStart,memoryAddresses.berryBagStart}
+		local addressesToScan = {itemStart, memoryAddresses.berryBagStart}
 		for _, address in pairs(addressesToScan) do
 			local currentAddress = address
 			local keepScanning = true
@@ -137,7 +144,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				totals.numHeals = totals.numHeals + quantity
 			end
 		end
-		totals.healing = math.floor(totals.healing+0.5)
+		totals.healing = math.floor(totals.healing + 0.5)
 		return totals
 	end
 
@@ -438,7 +445,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function readMemory()
-		if currentScreenName == "Main screen" then
+		if currentScreenObjects[self.UI_SCREENS.MAIN_SCREEN] then
 			local battleStatus = memory.read_u16_le(memoryAddresses.battleStatus)
 			if self.BATTLE_STATUS_TYPES[battleStatus] ~= nil then
 				if self.BATTLE_STATUS_TYPES[battleStatus] == true then
@@ -462,7 +469,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 				end
 				local canUpdate =
-					not (settings.tracker.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
+					not (settings.battle.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
 					gameInfo.NAME == "Pokemon Platinum")
 				local healingTotals = nil
 				if canUpdate then
@@ -481,8 +488,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				if pokemonToDraw ~= nil then
 					addAddtitionalDataToPokemon(pokemonToDraw)
 					pokemonToDraw.owner = selectedPlayer
-					currentScreen.setPokemon(pokemonToDraw, opposingPokemon, healingTotals)
-					self.drawCurrentScreen()
+					currentScreenObjects[self.UI_SCREENS.MAIN_SCREEN].setPokemon(pokemonToDraw, opposingPokemon, healingTotals)
+					self.drawCurrentScreens()
 				end
 			end
 		end
@@ -495,7 +502,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			else
 				selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 			end
-			readMemory()
+			self.readMemory()
 			self.drawCurrentScreen()
 		end
 	end
@@ -505,12 +512,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		gameInfo = info.gameInfo
 		memoryAddresses = info.memoryAddresses
 	end
-
-	local frameCounters = {
-		FrameCounter(30, readMemory, nil),
-		FrameCounter(300, tracker.save, nil),
-		FrameCounter(300, refreshPointers, nil)
-	}
 
 	local eventListeners = {
 		JoypadEventListener(settings.controls, "CYCLE_VIEW", switchPokemonView)
@@ -524,17 +525,29 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return memoryAddresses
 	end
 
-	function self.changeScreen(newScreen)
-		currentScreen = newScreen(settings,tracker)
+	function self.setCurrentScreens(newScreens)
+		currentScreenObjects = {}
+		for _, screenTemplate in pairs(newScreens) do
+			currentScreenObjects[screenTemplate] = screenTemplate.class(settings, tracker, self)
+		end
 	end
 
-	function self.drawCurrentScreen()
-		currentScreen.show()
+	function self.drawCurrentScreens()
+		DrawingUtils.clearGUI()
+		for _, screen in pairs(currentScreenObjects) do
+			screen.show()
+		end
 	end
 
 	function self.isInBattle()
 		return inBattle
 	end
+	
+	local frameCounters = {
+		FrameCounter(30, readMemory, nil),
+		FrameCounter(300, tracker.save, nil),
+		FrameCounter(300, refreshPointers, nil)
+	}
 
 	function self.main()
 		for _, eventListener in pairs(eventListeners) do
@@ -543,15 +556,19 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for _, frameCounter in pairs(frameCounters) do
 			frameCounter.decrement()
 		end
-		currentScreen.runEventListeners()
+		for _, screen in pairs(currentScreenObjects) do
+			screen.runEventListeners()
+		end
 	end
 
 	function self.onProgramExit()
 		DrawingUtils.clearGUI()
 		forms.destroyall()
 	end
-	
+
 	pokemonDataReader = PokemonDataReader(self)
+
+	self.drawCurrentScreens()
 
 	return self
 end
