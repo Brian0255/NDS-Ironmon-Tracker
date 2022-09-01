@@ -4,8 +4,8 @@ Graphics.SIZES = {
     UP_GAP = 0,
     DOWN_GAP = 0,
     MAIN_SCREEN_WIDTH = 150,
-    MAIN_SCREEN_HEIGHT = 164,
-    DEFAULT_TEXT_PADDING = 0,
+    MAIN_SCREEN_HEIGHT = 141,
+    DEFAULT_TEXT_OFFSET = { x = 0, y = 0 },
     SCREEN_HEIGHT = 160,
     SCREEN_WIDTH = 256,
     BORDER_MARGIN = 5
@@ -19,6 +19,35 @@ Graphics.HOVER_ALIGNMENT_TYPE = {
     ALIGN_ABOVE = 0,
     ALIGN_BELOW = 1
 }
+Graphics.BADGE_ALIGNMENT_TYPE = {
+    ABOVE = 0,
+    BELOW = 1,
+    RIGHT = 2,
+    LEFT = 3,
+    BOTH_LEFT = 4,
+    BOTH_RIGHT = 5,
+    BOTH_ABOVE = 6,
+    BOTH_BELOW = 7,
+    ABOVE_AND_BELOW = 8,
+    LEFT_AND_RIGHT = 9
+}
+Graphics.BADGE_ORIENTATION = {
+    [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE] = "HORIZONTAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.BELOW] = "HORIZONTAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT] = "VERTICAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.RIGHT] = "VERTICAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_LEFT] = "VERTICAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = "VERTICAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = "HORIZONTAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = "HORIZONTAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = "HORIZONTAL",
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = "VERTICAL",
+
+}
+Graphics.BUTTON_TEXT = {
+    CHECKMARK = 0,
+    FILLED_SQUARE = 1,
+}
 Graphics.LETTER_PIXEL_LENGTHS = {
     [" "] = 2,
     ["%"] = 7,
@@ -31,6 +60,9 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     ["7"] = 3,
     ["8"] = 3,
     ["9"] = 3,
+    ["="] = 4,
+    [","] = 2,
+    ["-"] = 2,
     a = 4,
     A = 5,
     b = 4,
@@ -116,7 +148,7 @@ Graphics.TYPE_COLORS = {
     UNKNOWN = 0xFF68A090 -- For the "Curse" move in Gen 2 - 4
 }
 Graphics.DEFAULT_THEME_STRING =
-    "FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 "
+"FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 "
 Graphics.THEME_COLOR_KEYS_ORDERED = {
     "Default text color",
     "Positive text color",
