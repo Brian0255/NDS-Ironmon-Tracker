@@ -64,8 +64,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local currentScreens = { [self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] }
 
 	local function tryToFetchBattleData()
-		local firstPlayerPID = memory.read_u32_le(memoryAddresses.playerBattleBase)
-		local firstEnemyPID = memory.read_u32_le(memoryAddresses.enemyBase)
+		local firstPlayerPID = Memory.read_u32_le(memoryAddresses.playerBattleBase)
+		local firstEnemyPID = Memory.read_u32_le(memoryAddresses.enemyBase)
 		if firstPlayerPID == 0 or firstEnemyPID == 0 then
 			return false
 		end
@@ -73,7 +73,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local currentBase = memoryAddresses.playerBattleBase
 
 		for i = 0, 5, 1 do
-			local pid = memory.read_u32_le(currentBase)
+			local pid = Memory.read_u32_le(currentBase)
 			if pid ~= 0 then
 				playerBattleTeamPIDs[pid] = i
 			end
@@ -82,7 +82,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 		currentBase = memoryAddresses.enemyBase
 		for i = 0, 5, 1 do
-			local pid = memory.read_u32_le(currentBase)
+			local pid = Memory.read_u32_le(currentBase)
 			if pid ~= 0 then
 				enemyBattleTeamPIDs[pid] = i
 			end
@@ -109,7 +109,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local itemStart = MiscUtils.inlineIf(inBattle, memoryAddresses.itemStartBattle, memoryAddresses.itemStartNoBattle)
 
 		--battle can be set a few frames before item bag for battle gets updated, need to check this value as well
-		local idAndQuantity = memory.read_u32_le(memoryAddresses.itemStartBattle)
+		local idAndQuantity = Memory.read_u32_le(memoryAddresses.itemStartBattle)
 		local id = bit.band(idAndQuantity, 0xFFFF)
 		local quantity = bit.band(bit.rshift(idAndQuantity, 16), 0xFFFF)
 		if quantity > 1000 or id > 600 then
@@ -121,7 +121,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			local keepScanning = true
 			while keepScanning do
 				--read 4 bytes at once, should be less expensive than reading 2 sets of 2 bytes..
-				idAndQuantity = memory.read_u32_le(currentAddress)
+				idAndQuantity = Memory.read_u32_le(currentAddress)
 				id = bit.band(idAndQuantity, 0xFFFF)
 				if id ~= 0 then
 					quantity = bit.band(bit.rshift(idAndQuantity, 16), 0xFFFF)
@@ -208,24 +208,24 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function getPlayerBattleMonPID()
-		local activePID = memory.read_u32_le(memoryAddresses.playerBattleMonPID)
+		local activePID = Memory.read_u32_le(memoryAddresses.playerBattleMonPID)
 		if gameInfo.gen == 5 then
 			activePID = GEN5_activePlayerMonPID
 		end
 		if activePID == 0 then
-			return memory.read_u32_le(memoryAddresses.playerBattleBase)
+			return Memory.read_u32_le(memoryAddresses.playerBattleBase)
 		else
 			return activePID
 		end
 	end
 
 	local function getEnemyBattleMonPID()
-		local activePID = memory.read_u32_le(memoryAddresses.enemyBattleMonPID)
+		local activePID = Memory.read_u32_le(memoryAddresses.enemyBattleMonPID)
 		if gameInfo.gen == 5 then
 			activePID = GEN5_activeEnemyMonPID
 		end
 		if activePID == 0 then
-			return memory.read_u32_le(memoryAddresses.enemyBase)
+			return Memory.read_u32_le(memoryAddresses.enemyBase)
 		else
 			return activePID
 		end
@@ -287,7 +287,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			local currentBase = memoryAddresses.enemyBase
 			for i = 0, 5, 1 do
 				pokemonDataReader.setCurrentBase(currentBase)
-				currentPID = memory.read_u32_le(currentBase)
+				currentPID = Memory.read_u32_le(currentBase)
 				if currentPID == activePID then
 					--trainers can have multiple pokes with same PID, need to find first one that is alive
 					lastMatchedAddress = currentBase
@@ -375,7 +375,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 		local lastSwitchAddr = memoryAddresses.playerBattleMonPID
 
-		local lastSwitchPID = memory.read_u32_le(lastSwitchAddr)
+		local lastSwitchPID = Memory.read_u32_le(lastSwitchAddr)
 		if lastSwitchPID == 0 then
 			for PID, index in pairs(playerBattleTeamPIDs) do
 				if index == 0 then
@@ -457,7 +457,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function readMemory()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
 			self.readBadgeMemory()
-			local battleStatus = memory.read_u16_le(memoryAddresses.battleStatus)
+			local battleStatus = Memory.read_u16_le(memoryAddresses.battleStatus)
 			if self.BATTLE_STATUS_TYPES[battleStatus] ~= nil then
 				if self.BATTLE_STATUS_TYPES[battleStatus] == true then
 					if not inBattle then
@@ -547,7 +547,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function readBadgeByte(address)
-		local badgeByte = memory.readbyte(address)
+		local badgeByte = Memory.read_u8(address)
 		local badges = {0,0,0,0,0,0,0,0}
 		for i = 1,8,1 do
 			badges[i] = BitUtils.getBits(badgeByte, i - 1, 1)

@@ -36,7 +36,7 @@ end
 function GameConfigurator.initialize()
 	local memdomain = "Main RAM"
 	memory.usememorydomain(memdomain)
-	local gameCode = memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
+	local gameCode = Memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	print(gameInfo.NAME .. " detected.")
 	GameConfigurator.initAlternateForms()
@@ -52,11 +52,11 @@ end
 
 local function readVersionPointerOffsets(memoryInfo, addressConfiguration)
 	local globalPtr = memoryInfo.GLOBAL_POINTER
-	local globalPtrAddr = memory.read_u32_le(globalPtr)
+	local globalPtrAddr = Memory.read_u32_le(globalPtr)
 	--Don't care about the first 2 bytes.
 	globalPtrAddr = bit.band(globalPtrAddr, 0xFFFFFF)
 	local versionPtr = globalPtrAddr + 0x20
-	local versionPtrAddr = memory.read_u32_le(versionPtr)
+	local versionPtrAddr = Memory.read_u32_le(versionPtr)
 	versionPtrAddr = bit.band(versionPtrAddr, 0xFFFFFF)
 	for addrName, versionPtrOffset in pairs(memoryInfo.VERSION_POINTER_OFFSETS) do
 		addressConfiguration[addrName] = versionPtrAddr + versionPtrOffset
@@ -64,7 +64,7 @@ local function readVersionPointerOffsets(memoryInfo, addressConfiguration)
 end
 
 function GameConfigurator.initializeMemoryAddresses()
-	local gameCode = memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
+	local gameCode = Memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	local memoryInfo = MemoryAddresses[gameCode]
 	local addressConfiguration = {}
