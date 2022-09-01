@@ -1,4 +1,6 @@
--- Enumerated constants that defines the various types a Pokémon and its Moves are
+PokemonData = {}
+
+-- Enumerated constants that defines the various types a Pok\233monand its Moves are
 PokemonData.POKEMON_TYPES =
     MiscUtils.readOnly(
     {
@@ -21,7 +23,7 @@ PokemonData.POKEMON_TYPES =
         DARK = "DARK",
         FAIRY = "FAIRY", -- Expect this to be unused in Gen 1-5
         UNKNOWN = "UNKNOWN", -- For the move "Curse" in Gen 2-4
-        EMPTY = "" -- No second type for this Pokémon or an empty field
+        EMPTY = "" -- No second type for this Pok\233monor an empty field
     }
 )
 
@@ -32,7 +34,7 @@ PokemonData.POKEMON_TYPES =
 PokemonData.EVOLUTION_TYPES =
     MiscUtils.readOnly(
     {
-        NONE = Graphics.TEXT.PLACEHOLDER, -- This Pokémon does not evolve.
+        NONE = Graphics.TEXT.PLACEHOLDER, -- This Pok\233mondoes not evolve.
         FRIEND = "FRIEND", -- High friendship
         STONES = "STONES", -- Various evolution stone items
         THUNDER = "THUNDR", -- Thunder stone item
@@ -61,7 +63,6 @@ PokemonData.EVOLUTION_TYPES =
 )
 
 PokemonData.POKEMON =
-    MiscUtils.readOnly(
     {
         {
             -- Empty entry for ID 0
@@ -8739,7 +8740,7 @@ PokemonData.POKEMON =
             weight = 3.4
         },
         {
-            name = "Wormadam",
+            name = "Wormadam - P",
             type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.GRASS},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "424",
@@ -10398,7 +10399,7 @@ PokemonData.POKEMON =
             weight = 50.5
         },
         {
-            name = "Shaymin - Land",
+            name = "Shaymin Land",
             type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.EMPTY},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "600",
@@ -13717,7 +13718,10 @@ PokemonData.POKEMON =
             weight = 82.5
         }
     }
-)
+
+PokemonData.TOTAL_POKEMON = #PokemonData.POKEMON
+
+PokemonData.POKEMON = MiscUtils.readOnly(PokemonData.POKEMON)
 
 PokemonData.ALTERNATE_FORMS =
     MiscUtils.readOnly(
@@ -14276,7 +14280,7 @@ PokemonData.ALTERNATE_FORMS =
             index = 0,
             forms = {
                 {
-                    name = "Darmanitan - Z",
+                    name = "Darmanitan Z",
                     type = {PokemonData.POKEMON_TYPES.FIRE, PokemonData.POKEMON_TYPES.PSYCHIC},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "540",
@@ -14568,7 +14572,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = .3
                 },
                 {
-                    name = "Rotom  - Wash",
+                    name = "Rotom - Wash",
                     type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.WATER},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "520",
@@ -14653,11 +14657,11 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Shaymin - L"] = {
+        ["Shaymin Land"] = {
             index = 0,
             forms = {
                 {
-                    name = "Shaymin - S",
+                    name = "Shaymin Sky",
                     type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.FLYING},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "600",
