@@ -5,28 +5,30 @@ local function Tracker()
 		statPredictions = {},
 		abilities = {},
 		notes = {},
-		romHash = nil,
+		romHash = gameinfo.getromhash(),
 		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
 		pokecenterCount = 10,
-		badges = {0, 0, 0, 0, 0, 0, 0, 0}
+		badges = { firstSet = { 0, 0, 0, 0, 0, 0, 0, 0 },
+			secondSet = { 0, 0, 0, 0, 0, 0, 0, 0 } }
 	}
 	local function loadData()
-		local currentRomHash = gameinfo.getromhash()
-		trackedData.romHash = currentRomHash
-		local path = "autosave.trackerdata"
-		if FormsUtils.fileExists(path) then
-			local saveFile = io.open("autosave.trackerdata", "r")
-			local fileContents = saveFile:read("*a")
+		local file = io.open("autosave.trackerdata", "r")
+		if file ~= nil then
+			local fileContents = file:read("*a")
 			if fileContents ~= nil and fileContents ~= "" then
 				local savedData = Pickle.unpickle(fileContents)
-				local savedRomHash = savedData.romHash
-				if savedRomHash == currentRomHash then
-					trackedData = savedData
+				if savedData ~= nil then
+					local savedRomHash = savedData.romHash
+					if savedRomHash == trackedData.romHash then
+						print("Matching ROM found. Loading previously tracked data...")
+						trackedData = savedData
+					end
 				end
 			end
-			saveFile:close()
+			file:close()
 		end
 	end
+
 	local function createNewMoveEntry(pokemonID, moveID, level)
 		trackedData.moves[pokemonID] = {}
 		trackedData.moves[pokemonID][1] = {
@@ -40,6 +42,7 @@ local function Tracker()
 			}
 		end
 	end
+
 	function self.trackAbility(pokemonID, abilityID)
 		local currentAbilities = trackedData.abilities[pokemonID]
 		if currentAbilities == nil then
@@ -51,6 +54,7 @@ local function Tracker()
 			end
 		end
 	end
+
 	function self.trackMove(pokemonID, moveID, level)
 		local currentMoves = trackedData.moves[pokemonID]
 		if currentMoves == nil then
@@ -90,9 +94,11 @@ local function Tracker()
 			end
 		end
 	end
+
 	function self.trackStatPrediction(pokemonID, newStats)
 		trackedData.stats[pokemonID].stats = newStats
 	end
+
 	function self.setNote(pokemonID, note)
 		if note ~= nil then
 			local charMax = 25
@@ -103,6 +109,7 @@ local function Tracker()
 			trackedData.notes[pokemonID] = string.sub(note, 1, charMax)
 		end
 	end
+
 	function self.getNote(pokemonID)
 		local notes = trackedData.notes[pokemonID]
 		if notes ~= nil then
@@ -111,6 +118,7 @@ local function Tracker()
 			return ""
 		end
 	end
+
 	function self.getMoves(pokemonID)
 		local returnVal = {}
 		if trackedData.moves[pokemonID] == nil then
@@ -128,6 +136,7 @@ local function Tracker()
 			return trackedData.moves[pokemonID]
 		end
 	end
+
 	function self.getAbilities(pokemonID)
 		if trackedData.abilities[pokemonID] == nil then
 			return {
@@ -137,6 +146,11 @@ local function Tracker()
 			return trackedData.abilities[pokemonID]
 		end
 	end
+
+	function self.getBadges()
+		return trackedData.badges
+	end
+
 	function self.getStatPrediction(pokemonID)
 		if trackedData.stats[pokemonID] == nil then
 			return {
@@ -151,12 +165,16 @@ local function Tracker()
 			return trackedData.stats[pokemonID].stats
 		end
 	end
+
 	function self.save()
-		local dataString = Pickle.pickle(trackedData)
-		local saveFile = io.open("autosave.trackerdata", "w")
-		saveFile:write(dataString)
-		saveFile:close()
+		local file = io.open("autosave.trackerdata", "w")
+		if file ~= nil then
+			local data = Pickle.pickle(trackedData)
+			file:write(data)
+			file:close()
+		end
 	end
+
 	loadData()
 	return self
 end
