@@ -22,6 +22,9 @@ local function ImageLabel(initialComponent, initialImageField, initialVisibility
         component.calculateActualPosition(parentPosition)
         imageField.move(component.getPosition())
     end
+    function self.getPath()
+        return imageField.getPath()
+    end
     function self.setPath(newPath)
         imageField.setPath(newPath)
     end

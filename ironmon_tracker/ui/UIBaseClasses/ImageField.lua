@@ -11,11 +11,16 @@ local function ImageField(initialPath, initialOffset, initialSize)
         }
     end
     function self.show()
-        if initialSize ~= nil and position ~= nil then
-            gui.drawImage(path, position.x, position.y, size.width, size.height)
-        else
-            gui.drawImage(path, position.x, position.y)
+        if FormsUtils.fileExists(path) then
+            if initialSize ~= nil and position ~= nil then
+                gui.drawImage(path, position.x, position.y, size.width, size.height)
+            else
+                gui.drawImage(path, position.x, position.y)
+            end
         end
+    end
+    function self.getPath()
+        return path
     end
     function self.setPath(newPath)
         path = newPath
