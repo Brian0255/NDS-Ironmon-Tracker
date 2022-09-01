@@ -24,11 +24,11 @@ local function SettingToggleButton(
         local position = self.getPosition()
         local size = self.getSize()
         gui.drawRectangle(
-            position.x + 2,
-            position.y + 2,
+            position.x + 1,
+            position.y + 1,
             size.width - 2,
             size.height - 2,
-            nil,
+            0x00000000,
             DrawingUtils.convertColorKeyToColor("Positive text color")
         )
     end
