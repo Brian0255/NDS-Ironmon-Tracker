@@ -16,14 +16,14 @@ IconDrawer.ICONS =
         GEAR = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
-                {0, 0, 0, 1, 1, 0, 0, 0},
-                {0, 1, 1, 1, 1, 1, 1, 0},
-                {0, 1, 1, 1, 1, 1, 1, 0},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {0, 1, 1, 1, 1, 1, 1, 0},
-                {0, 1, 1, 1, 1, 1, 1, 0},
-                {0, 0, 0, 1, 1, 0, 0, 0}
+                {0,0,0,1,1,0,0,0},
+                {0,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,0},
+                {1,1,1,0,0,1,1,1},
+                {1,1,1,0,0,1,1,1},
+                {0,1,1,1,1,1,1,0},
+                {0,1,1,1,1,1,1,0},
+                {0,0,0,1,1,0,0,0}
             },
             colorKey = "Gear icon color",
             backgroundColorKey = "Top box background color"
@@ -31,13 +31,13 @@ IconDrawer.ICONS =
         PHYSICAL = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
-                {1, 0, 0, 1, 0, 0, 1},
-                {0, 1, 0, 1, 0, 1, 0},
-                {0, 0, 1, 1, 1, 0, 0},
-                {1, 1, 1, 1, 1, 1, 1},
-                {0, 0, 1, 1, 1, 0, 0},
-                {0, 1, 0, 1, 0, 1, 0},
-                {1, 0, 0, 1, 0, 0, 1}
+                {1,0,0,1,0,0,1},
+                {0,1,0,1,0,1,0},
+                {0,0,1,1,1,0,0},
+                {1,1,1,1,1,1,1},
+                {0,0,1,1,1,0,0},
+                {0,1,0,1,0,1,0},
+                {1,0,0,1,0,0,1}
             },
             colorKey = "Physical icon color",
             backgroundColorKey = "Bottom box background color"
@@ -45,13 +45,13 @@ IconDrawer.ICONS =
         SPECIAL = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
-                {0, 0, 1, 1, 1, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0},
-                {1, 0, 0, 1, 0, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 0, 1, 0, 0, 1},
-                {0, 1, 0, 0, 0, 1, 0},
-                {0, 0, 1, 1, 1, 0, 0}
+                {0,0,1,1,1,0,0},
+                {0,1,0,0,0,1,0},
+                {1,0,0,1,0,0,1},
+                {1,0,1,0,1,0,1},
+                {1,0,0,1,0,0,1},
+                {0,1,0,0,0,1,0},
+                {0,0,1,1,1,0,0}
             },
             colorKey = "Special icon color",
             backgroundColorKey = "Bottom box background color"
@@ -59,17 +59,17 @@ IconDrawer.ICONS =
         NOTE_TOP = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-                {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0},
-                {1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
+                {0,0,0,0,0,0,0,0,0,1,1},
+                {0,0,0,0,0,0,0,0,1,0,1},
+                {1,1,1,1,1,1,1,1,1,1,0},
+                {1,0,0,0,0,0,0,1,1,0,0},
+                {1,0,1,1,1,0,1,0,1,0,0},
+                {1,0,0,0,0,0,0,0,1,0,0},
+                {1,0,1,1,1,1,1,0,1,0,0},
+                {1,0,0,0,0,0,0,0,1,0,0},
+                {1,0,1,1,1,1,1,0,1,0,0},
+                {1,0,0,0,0,0,0,0,1,0,0},
+                {1,1,1,1,1,1,1,1,1,0,0}
             },
             colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
@@ -77,33 +77,33 @@ IconDrawer.ICONS =
         NOTE_BOTTOM = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-                {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0},
-                {1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
+                {0,0,0,0,0,0,0,0,0,1,1},
+                {0,0,0,0,0,0,0,0,1,0,1},
+                {1,1,1,1,1,1,1,1,1,1,0},
+                {1,0,0,0,0,0,0,1,1,0,0},
+                {1,0,1,1,1,0,1,0,1,0,0},
+                {1,0,0,0,0,0,0,0,1,0,0},
+                {1,0,1,1,1,1,1,0,1,0,0},
+                {1,0,0,0,0,0,0,0,1,0,0},
+                {1,0,1,1,1,1,1,0,1,0,0},
+                {1,0,0,0,0,0,0,0,1,0,0},
+                {1,1,1,1,1,1,1,1,1,0,0}
             },
             colorKey = "Bottom box border color",
             backgroundColorKey = "Bottom box background color"
         },
-        --For the type icons, colorKey is nil because it changes based on the user's color settings.
+        --For the type icons,colorKey is nil because it changes based on the user's color settings.
         FIRE = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 1, 1, 0, 1, 0, 0},
-                {0, 1, 0, 1, 0, 1, 1, 0},
-                {1, 0, 0, 0, 1, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 1},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {0, 0, 1, 1, 1, 1, 0, 0}
+                {0,0,0,1,0,0,0,0},
+                {0,0,1,1,0,1,0,0},
+                {0,1,0,1,0,1,1,0},
+                {1,0,0,0,1,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {0,1,0,0,0,0,1,0},
+                {0,0,1,1,1,1,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -111,14 +111,14 @@ IconDrawer.ICONS =
         WATER = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 1, 0, 0, 0, 0, 0},
-                {0, 0, 1, 0, 1, 0, 0, 0, 0},
-                {0, 0, 1, 0, 1, 0, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 1, 1, 0, 0, 0, 0}
+                {0,0,0,1,0,0,0,0,0},
+                {0,0,1,0,1,0,0,0,0},
+                {0,0,1,0,1,0,0,0,0},
+                {0,1,0,0,0,1,0,0,0},
+                {0,1,0,0,0,1,0,0,0},
+                {0,1,0,0,0,1,0,0,0},
+                {0,1,0,0,0,1,0,0,0},
+                {0,0,1,1,1,0,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -126,14 +126,14 @@ IconDrawer.ICONS =
         GRASS = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 1, 0, 1, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {0, 1, 1, 0, 1, 1, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0}
+                {0,0,0,1,0,0,0,0},
+                {0,0,1,0,1,0,0,0},
+                {0,1,0,0,0,1,0,0},
+                {1,0,0,0,0,0,1,0},
+                {1,0,0,0,0,0,1,0},
+                {1,0,0,0,0,0,1,0},
+                {0,1,1,0,1,1,0,0},
+                {0,0,0,1,0,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -141,14 +141,14 @@ IconDrawer.ICONS =
         ELECTRIC = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 1, 1, 1, 0, 0},
-                {0, 0, 1, 0, 0, 1, 0, 0},
-                {0, 1, 0, 0, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 0, 0, 1},
-                {0, 0, 0, 1, 0, 0, 1, 0},
-                {0, 0, 1, 0, 0, 1, 0, 0},
-                {0, 0, 1, 1, 1, 0, 0, 0}
+                {0,0,0,1,1,1,0,0},
+                {0,0,1,0,0,1,0,0},
+                {0,1,0,0,1,1,1,1},
+                {1,0,0,0,0,0,0,1},
+                {1,1,1,1,1,0,0,1},
+                {0,0,0,1,0,0,1,0},
+                {0,0,1,0,0,1,0,0},
+                {0,0,1,1,1,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -156,14 +156,14 @@ IconDrawer.ICONS =
         GHOST = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 1, 1, 1, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0},
-                {1, 0, 1, 0, 1, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 0, 1, 0, 0}
+                {0,0,1,1,1,0,0,0},
+                {0,1,0,0,0,1,0,0},
+                {1,0,1,0,1,0,1,0},
+                {1,0,0,0,0,0,1,0},
+                {1,0,0,0,0,0,1,0},
+                {1,0,0,0,0,0,1,0},
+                {1,0,1,0,1,0,1,0},
+                {0,1,0,1,0,1,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -171,14 +171,14 @@ IconDrawer.ICONS =
         BUG = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 1, 0, 0, 1, 0, 0},
-                {1, 0, 0, 1, 1, 0, 0, 1},
-                {0, 1, 1, 0, 0, 1, 1, 0},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {1, 1, 0, 0, 0, 0, 1, 1},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {0, 0, 1, 0, 0, 1, 0, 0},
-                {0, 1, 0, 1, 1, 0, 1, 0}
+                {0,0,1,0,0,1,0,0},
+                {1,0,0,1,1,0,0,1},
+                {0,1,1,0,0,1,1,0},
+                {0,1,0,0,0,0,1,0},
+                {1,1,0,0,0,0,1,1},
+                {0,1,0,0,0,0,1,0},
+                {0,0,1,0,0,1,0,0},
+                {0,1,0,1,1,0,1,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -186,14 +186,14 @@ IconDrawer.ICONS =
         POISON = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 1, 1, 0, 0, 0, 0, 0},
-                {1, 0, 0, 1, 0, 0, 0, 0},
-                {1, 0, 0, 1, 0, 0, 1, 0},
-                {0, 1, 1, 0, 0, 1, 0, 1},
-                {0, 0, 0, 0, 0, 0, 1, 0},
-                {0, 0, 1, 1, 0, 0, 0, 0},
-                {0, 1, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 1, 0, 0, 0, 0}
+                {0,1,1,0,0,0,0,0},
+                {1,0,0,1,0,0,0,0},
+                {1,0,0,1,0,0,1,0},
+                {0,1,1,0,0,1,0,1},
+                {0,0,0,0,0,0,1,0},
+                {0,0,1,1,0,0,0,0},
+                {0,1,0,0,1,0,0,0},
+                {0,0,1,1,0,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -201,14 +201,14 @@ IconDrawer.ICONS =
         NORMAL = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 1, 1, 1, 1, 0, 0},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 1, 1, 0, 0, 1},
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {1, 0, 0, 1, 1, 0, 0, 1},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {0, 0, 1, 1, 1, 1, 0, 0}
+                {0,0,1,1,1,1,0,0},
+                {0,1,0,0,0,0,1,0},
+                {1,0,0,1,1,0,0,1},
+                {1,0,1,0,0,1,0,1},
+                {1,0,1,0,0,1,0,1},
+                {1,0,0,1,1,0,0,1},
+                {0,1,0,0,0,0,1,0},
+                {0,0,1,1,1,1,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -216,14 +216,14 @@ IconDrawer.ICONS =
         DARK = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 1, 1, 0, 0, 1, 1, 0},
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {1, 0, 0, 1, 1, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 1},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {0, 0, 1, 1, 1, 1, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
+                {0,1,1,0,0,1,1,0},
+                {1,0,1,0,0,1,0,1},
+                {1,0,0,1,1,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {0,1,0,0,0,0,1,0},
+                {0,0,1,1,1,1,0,0},
+                {0,0,0,0,0,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -231,14 +231,14 @@ IconDrawer.ICONS =
         ICE = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 1, 0, 1, 0, 1, 0, 0},
-                {0, 0, 1, 0, 1, 0, 0, 0},
-                {1, 1, 0, 1, 0, 1, 1, 0},
-                {0, 0, 1, 0, 1, 0, 0, 0},
-                {0, 1, 0, 1, 0, 1, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
+                {0,0,0,1,0,0,0,0},
+                {0,1,0,1,0,1,0,0},
+                {0,0,1,0,1,0,0,0},
+                {1,1,0,1,0,1,1,0},
+                {0,0,1,0,1,0,0,0},
+                {0,1,0,1,0,1,0,0},
+                {0,0,0,1,0,0,0,0},
+                {0,0,0,0,0,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -246,14 +246,14 @@ IconDrawer.ICONS =
         PSYCHIC = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 1, 1, 1, 1, 0, 0},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 1, 1, 0, 0, 1},
-                {1, 0, 1, 0, 1, 0, 0, 1},
-                {1, 0, 1, 0, 0, 0, 1, 0},
-                {1, 0, 0, 1, 1, 1, 0, 0},
-                {0, 1, 0, 0, 0, 0, 0, 1},
-                {0, 0, 1, 1, 1, 1, 1, 0}
+                {0,0,1,1,1,1,0,0},
+                {0,1,0,0,0,0,1,0},
+                {1,0,0,1,1,0,0,1},
+                {1,0,1,0,1,0,0,1},
+                {1,0,1,0,0,0,1,0},
+                {1,0,0,1,1,1,0,0},
+                {0,1,0,0,0,0,0,1},
+                {0,0,1,1,1,1,1,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -261,14 +261,14 @@ IconDrawer.ICONS =
         ROCK = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 1, 1, 1, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0},
-                {0, 1, 0, 0, 0, 1, 1, 0},
-                {1, 0, 0, 0, 1, 0, 0, 1},
-                {1, 0, 0, 1, 0, 0, 0, 1},
-                {1, 0, 0, 1, 0, 0, 0, 1},
-                {0, 1, 0, 1, 0, 1, 1, 0},
-                {0, 0, 1, 1, 1, 0, 0, 0}
+                {0,0,1,1,1,0,0,0},
+                {0,1,0,0,0,1,0,0},
+                {0,1,0,0,0,1,1,0},
+                {1,0,0,0,1,0,0,1},
+                {1,0,0,1,0,0,0,1},
+                {1,0,0,1,0,0,0,1},
+                {0,1,0,1,0,1,1,0},
+                {0,0,1,1,1,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -276,14 +276,14 @@ IconDrawer.ICONS =
         GROUND = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 1, 1, 0, 0, 0},
-                {0, 0, 1, 0, 0, 1, 0, 0},
-                {0, 0, 1, 0, 1, 1, 0, 0},
-                {0, 1, 1, 1, 0, 0, 1, 0},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1}
+                {0,0,0,0,0,0,0,0},
+                {0,0,0,1,1,0,0,0},
+                {0,0,1,0,0,1,0,0},
+                {0,0,1,0,1,1,0,0},
+                {0,1,1,1,0,0,1,0},
+                {0,1,0,0,0,0,1,0},
+                {1,0,0,0,0,0,0,1},
+                {1,1,1,1,1,1,1,1}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -291,14 +291,14 @@ IconDrawer.ICONS =
         STEEL = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 1, 1, 0, 1, 1, 0, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 1, 1, 1, 0, 1, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0, 0},
-                {0, 0, 1, 1, 1, 0, 0, 0}
+                {0,0,0,0,0,0,0,0},
+                {0,1,1,0,1,1,0,0},
+                {1,0,0,0,0,0,1,0},
+                {1,0,1,1,1,0,1,0},
+                {0,0,0,1,0,0,0,0},
+                {0,0,0,1,0,0,0,0},
+                {0,1,0,0,0,1,0,0},
+                {0,0,1,1,1,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -306,14 +306,14 @@ IconDrawer.ICONS =
         FIGHTING = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 0, 1, 0, 1, 0, 0},
-                {0, 0, 1, 0, 1, 0, 1, 0},
-                {0, 1, 1, 0, 1, 0, 1, 0},
-                {1, 0, 1, 0, 1, 0, 1, 0},
-                {1, 0, 1, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 1, 0},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {0, 0, 1, 1, 1, 1, 0, 0}
+                {0,0,0,1,0,1,0,0},
+                {0,0,1,0,1,0,1,0},
+                {0,1,1,0,1,0,1,0},
+                {1,0,1,0,1,0,1,0},
+                {1,0,1,0,0,0,1,0},
+                {1,0,0,0,0,0,1,0},
+                {0,1,0,0,0,0,1,0},
+                {0,0,1,1,1,1,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -321,14 +321,14 @@ IconDrawer.ICONS =
         DRAGON = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 0, 1, 1, 1, 1, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 1},
-                {0, 1, 0, 0, 0, 0, 1, 0},
-                {0, 0, 1, 0, 0, 1, 0, 0},
-                {0, 0, 1, 0, 0, 1, 0, 0},
-                {0, 0, 0, 1, 1, 0, 0, 0}
+                {1,0,1,0,0,1,0,1},
+                {1,1,1,0,0,1,1,1},
+                {1,0,1,1,1,1,0,1},
+                {1,0,0,0,0,0,0,1},
+                {0,1,0,0,0,0,1,0},
+                {0,0,1,0,0,1,0,0},
+                {0,0,1,0,0,1,0,0},
+                {0,0,0,1,1,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -336,14 +336,14 @@ IconDrawer.ICONS =
         FLYING = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0, 0, 1, 1, 1, 1, 1, 0},
-                {0, 1, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 1, 1, 1, 1},
-                {1, 0, 0, 1, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 1, 1, 0},
-                {1, 0, 1, 1, 1, 0, 0, 0},
-                {1, 1, 0, 0, 0, 0, 0, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0}
+                {0,0,1,1,1,1,1,0},
+                {0,1,0,0,0,0,0,1},
+                {1,0,0,0,1,1,1,1},
+                {1,0,0,1,0,0,0,1},
+                {1,0,0,0,0,1,1,0},
+                {1,0,1,1,1,0,0,0},
+                {1,1,0,0,0,0,0,0},
+                {1,0,0,0,0,0,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -434,11 +434,33 @@ IconDrawer.ICONS =
             },
             colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
-        }
+        },
+        PAINTBRUSH = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+                {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+                {0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+                {0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0},
+                {0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,1,0,0,1,1,1,1,0,0,0,0},
+                {0,0,0,0,0,0,1,1,0,1,0,0,1,0,0,0},
+                {0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0},
+                {0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1},
+                {0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1},
+                {0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
     }
 )
 
-function IconDrawer.drawIcon(iconName, x, y)
+function IconDrawer.drawIcon(iconName,x,y)
     if IconDrawer.ICONS[iconName] then
         local icon = IconDrawer.ICONS[iconName]
         local iconType = icon.iconType
@@ -446,8 +468,8 @@ function IconDrawer.drawIcon(iconName, x, y)
         local shadowColor = DrawingUtils.calcShadowColor(backgroundColorKey)
         local iconArray = icon.imageArray
         local iconColorKey = icon.colorKey
-        for rowIndex = 1, #iconArray, 1 do
-            for colIndex = 1, #(iconArray[1]) do
+        for rowIndex = 1,#iconArray,1 do
+            for colIndex = 1,#(iconArray[1]) do
                 local offsetX = colIndex - 1
                 local offsetY = rowIndex - 1
                 local shouldColor = (iconArray[rowIndex][colIndex] == 1)
@@ -463,9 +485,9 @@ function IconDrawer.drawIcon(iconName, x, y)
                         color = settings.colorScheme[iconColorKey]
                     end
                     if settings.colorSettings.Draw_shadows then
-                        gui.drawPixel(x + offsetX + 1, y + offsetY + 1, shadowColor)
+                        gui.drawPixel(x + offsetX + 1,y + offsetY + 1,shadowColor)
                     end
-                    gui.drawPixel(x + offsetX, y + offsetY, color)
+                    gui.drawPixel(x + offsetX,y + offsetY,color)
                 end
             end
         end
