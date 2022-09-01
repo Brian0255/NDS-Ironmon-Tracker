@@ -23,6 +23,9 @@ local function Layout(initialAlignment, initialSpacing, initialPadding)
     function self.setAlignment(newAlignment)
         alignment = newAlignment
     end
+    function self.setSpacing(newSpacing)
+        spacing = newSpacing
+    end
     function self.changeItemPositions()
         local startPosition = frame.getPosition()
         startPosition.x = startPosition.x + padding.x
