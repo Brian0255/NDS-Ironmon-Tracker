@@ -2,11 +2,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local self = {}
 	local FrameCounter = dofile("ironmon_tracker/FrameCounter.lua")
 	local UIRoot = "ironmon_tracker/ui/"
-	local MainScreen = dofile(UIRoot .. "MainScreen.lua")
+	local MainScreen = dofile("ironmon_tracker/ui/MainScreen.lua")
 	local MainOptionsScreen = dofile(UIRoot .. "MainOptionsScreen.lua")
-	local BattleOptionsScreen= dofile(UIRoot .. "BattleOptionsScreen.lua")
+	local BattleOptionsScreen = dofile(UIRoot .. "BattleOptionsScreen.lua")
+	local AppearanceOptionsScreen = dofile(UIRoot .. "AppearanceOptionsScreen.lua")
 	local PokemonDataReader = dofile("ironmon_tracker/PokemonDataReader.lua")
-	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
+	local JoypadEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/JoypadEventListener.lua")
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
 		ENEMY = 1
@@ -15,20 +16,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[0x2100] = true,
 		[0x2101] = true,
 		[0x2800] = false
-	}
-	self.UI_SCREENS = {
-		MAIN_SCREEN = {
-			name = "Main Screen",
-			class = MainScreen
-		},
-		MAIN_OPTIONS_SCREEN = {
-			name = "Main Options Screen",
-			class = MainOptionsScreen
-		},
-		BATTLE_OPTIONS_SCREEN = {
-			name = "Battle Options Screen",
-			class = BattleOptionsScreen
-		}
 	}
 
 	local battleDataFetched = false
@@ -51,7 +38,30 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local GEN5_activePlayerMonPID = 0
 	local GEN5_activeEnemyMonPID = 0
 	local firstBattleComplete = false
-	local currentScreenObjects = {[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self)}
+
+		
+	function self.getGameInfo()
+		return gameInfo
+	end
+
+	function self.getAddresses()
+		return memoryAddresses
+	end
+
+	self.UI_SCREENS = {
+		MAIN_SCREEN = 0,
+		MAIN_OPTIONS_SCREEN = 1,
+		BATTLE_OPTIONS_SCREEN = 2,
+		APPEARANCE_OPTIONS_SCREEN = 3,
+	}
+	self.UI_SCREEN_OBJECTS = {
+		[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self),
+		[self.UI_SCREENS.MAIN_OPTIONS_SCREEN] = MainOptionsScreen(settings, tracker, self),
+		[self.UI_SCREENS.BATTLE_OPTIONS_SCREEN] = BattleOptionsScreen(settings, tracker, self),
+		[self.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN] = AppearanceOptionsScreen(settings, tracker, self),
+	}
+
+	local currentScreens = { [self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] }
 
 	local function tryToFetchBattleData()
 		local firstPlayerPID = memory.read_u32_le(memoryAddresses.playerBattleBase)
@@ -105,7 +115,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if quantity > 1000 or id > 600 then
 			itemStart = memoryAddresses.itemStartNoBattle
 		end
-		local addressesToScan = {itemStart, memoryAddresses.berryBagStart}
+		local addressesToScan = { itemStart, memoryAddresses.berryBagStart }
 		for _, address in pairs(addressesToScan) do
 			local currentAddress = address
 			local keepScanning = true
@@ -309,7 +319,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function validPokemonData(pokemonData)
-		if next(pokemonData) == nil then
+		if pokemonData == nil or next(pokemonData) == nil then
 			return false
 		end
 		--Sometimes the player's pokemon stats are just wildly out of bounds, need a sanity check.
@@ -445,7 +455,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function readMemory()
-		if currentScreenObjects[self.UI_SCREENS.MAIN_SCREEN] then
+		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
+			self.readBadgeMemory()
 			local battleStatus = memory.read_u16_le(memoryAddresses.battleStatus)
 			if self.BATTLE_STATUS_TYPES[battleStatus] ~= nil then
 				if self.BATTLE_STATUS_TYPES[battleStatus] == true then
@@ -469,7 +480,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 				end
 				local canUpdate =
-					not (settings.battle.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
+				not (settings.battle.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
 					gameInfo.NAME == "Pokemon Platinum")
 				local healingTotals = nil
 				if canUpdate then
@@ -488,7 +499,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				if pokemonToDraw ~= nil then
 					addAddtitionalDataToPokemon(pokemonToDraw)
 					pokemonToDraw.owner = selectedPlayer
-					currentScreenObjects[self.UI_SCREENS.MAIN_SCREEN].setPokemon(pokemonToDraw, opposingPokemon, healingTotals)
+					currentScreens[self.UI_SCREENS.MAIN_SCREEN].setPokemon(pokemonToDraw, opposingPokemon, healingTotals)
 					self.drawCurrentScreens()
 				end
 			end
@@ -502,8 +513,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			else
 				selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 			end
-			self.readMemory()
-			self.drawCurrentScreen()
+			readMemory()
+			self.drawCurrentScreens()
 		end
 	end
 
@@ -514,27 +525,19 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local eventListeners = {
-		JoypadEventListener(settings.controls, "CYCLE_VIEW", switchPokemonView)
+		JoypadEventListener(settings.controls, "CHANGE_VIEW", switchPokemonView)
 	}
 
-	function self.getGameInfo()
-		return gameInfo
-	end
-
-	function self.getAddresses()
-		return memoryAddresses
-	end
-
 	function self.setCurrentScreens(newScreens)
-		currentScreenObjects = {}
-		for _, screenTemplate in pairs(newScreens) do
-			currentScreenObjects[screenTemplate] = screenTemplate.class(settings, tracker, self)
+		currentScreens = {}
+		for _, screen in pairs(newScreens) do
+			currentScreens[screen] = self.UI_SCREEN_OBJECTS[screen]
 		end
 	end
 
 	function self.drawCurrentScreens()
 		DrawingUtils.clearGUI()
-		for _, screen in pairs(currentScreenObjects) do
+		for _, screen in pairs(currentScreens) do
 			screen.show()
 		end
 	end
@@ -542,11 +545,36 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.isInBattle()
 		return inBattle
 	end
-	
+
+	local function readBadgeByte(address)
+		local badgeByte = memory.readbyte(address)
+		local badges = {0,0,0,0,0,0,0,0}
+		for i = 1,8,1 do
+			badges[i] = BitUtils.getBits(badgeByte, i - 1, 1)
+		end
+		return badges
+	end
+
+	function self.readBadgeMemory()
+		local badges = tracker.getBadges()
+		if gameInfo.GEN == 4 then
+			badges.firstSet = readBadgeByte(memoryAddresses.johtoBadges)
+			badges.secondSet = readBadgeByte(memoryAddresses.kantoBadges)
+		else
+			badges.firstSet = readBadgeByte(memoryAddresses.badges)
+		end
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
+	end
+
+	local function flushSaveRAM()
+		client.saveram()
+	end
+
 	local frameCounters = {
 		FrameCounter(30, readMemory, nil),
-		FrameCounter(300, tracker.save, nil),
-		FrameCounter(300, refreshPointers, nil)
+		FrameCounter(600, tracker.save, nil),
+		FrameCounter(300, refreshPointers, nil),
+		FrameCounter(600, flushSaveRAM, nil),
 	}
 
 	function self.main()
@@ -556,7 +584,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for _, frameCounter in pairs(frameCounters) do
 			frameCounter.decrement()
 		end
-		for _, screen in pairs(currentScreenObjects) do
+		for _, screen in pairs(currentScreens) do
 			screen.runEventListeners()
 		end
 	end
