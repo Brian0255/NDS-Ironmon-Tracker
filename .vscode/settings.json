@@ -1,8 +1,32 @@
 {
   "Lua.diagnostics.globals": [
+    "Graphics",
+    "GameInfo",
+    "AbilityData",
+    "ItemData",
+    "MiscData",
+    "MoveData",
+    "PokemonData",
+    "Paths",
+    "BitUtils",
+    "DrawingUtils",
+    "FormsUtils",
+    "GameConfigurator",
+    "MemoryAddresses",
+    "MiscConstants",
+    "MiscUtils",
+    "MoveUtils",
+    "IconDrawer",
+    "Input",
+    "table",
+    "States",
+    "ThemeUtils",
+    "ThemeFactory",
+    "Pickle",
     "event",
     "emu",
     "client",
+    "comm",
     "gui",
     "userdata",
     "gameinfo",
@@ -15,5 +39,9 @@
   ],
   "Lua.diagnostics.disable": [
     "trailing-space"
-  ]
+  ],
+  "Lua.workspace.library": [
+    "Frame"
+  ],
+  "Lua.workspace.checkThirdParty": false,
 }
