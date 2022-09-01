@@ -1,5 +1,7 @@
-function BitUtils.getbits(a, b, d)
-	return bit.rshift(a, b) % bit.lshift(1, d)
+BitUtils = {}
+
+function BitUtils.getBits(number, start, numberOfBits)
+	return bit.rshift(number, start) % bit.lshift(1, numberOfBits)
 end
 
 function BitUtils.addhalves(a)
