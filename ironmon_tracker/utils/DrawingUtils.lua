@@ -1,16 +1,171 @@
-function DrawingUtils.drawText(x, y, text, color, style, drawShadow, colorToShadow)
-    local font = 9
-    if style == "nature" then
-        font = 5
+DrawingUtils = {}
+
+local colorScheme--[[ = {
+    ["Main background color"] = 0xFF707070,
+    ["Default text color"] = 0xFFFFFFFF,
+    ["Positive text color"] = 0xFF00FF00,
+    ["Negative text color"] = 0xFFFF0000,
+    ["Intermediate text color"] = 0xFFFFFF00,
+    ["Move header text color"] = 0xFFFFFFFF,
+    ["Top box border color"] = 0xFFAAAAAA,
+    ["Top box background color"] = 0xFF202020,
+    ["Bottom box border color"] = 0xFFAAAAAA,
+    ["Bottom box background color"] = 0xFF202020,
+    ["Physical icon color"] = 0xFFFFC631,
+    ["Special icon color"] = 0xFF3E5782,
+    ["Gear icon color"] = 0xFFDBDBDB
+}--]]
+
+function DrawingUtils.setColorScheme(newScheme)
+    colorScheme = newScheme
+    print(type(newScheme["Top box background color"]))
+    for _, thing in pairs(colorScheme) do
+        print(string.format("%X",thing))
+        print("ok")
     end
-    if drawShadow then
-        local shadow = DrawingUtils.calcShadowColor(colorToShadow)
-        gui.drawText(x + 1, y + 1, text, shadow, nil, font, "Franklin Gothic Medium")
-    end
-    gui.drawText(x, y, text, color, nil, font, "Franklin Gothic Medium")
 end
 
-function DrawingUtils.calcShadowColor(color)
+function DrawingUtils.clearGUI()
+    gui.drawRectangle(
+        Graphics.SIZES.SCREEN_WIDTH,
+        0,
+        Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.MAIN_SCREEN_WIDTH,
+        Graphics.SIZES.MAIN_SCREEN_HEIGHT,
+        0x00000000,
+        0x00000000
+    )
+end
+
+function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, width)
+    local UIClassFolder = Paths.FOLDERS.UI_BASE_CLASSES.."/"
+    local Frame = dofile(UIClassFolder .. "Frame.lua")
+    local Box = dofile(UIClassFolder .. "Box.lua")
+    local Component = dofile(UIClassFolder .. "Component.lua")
+    local TextLabel = dofile(UIClassFolder .. "TextLabel.lua")
+    local TextField = dofile(UIClassFolder .. "TextField.lua")
+    local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
+    local Layout = dofile(UIClassFolder .. "Layout.lua")
+    local padding = 10
+    local textArray = DrawingUtils.textToWrappedArray(text, width - padding)
+    local hoverFrame =
+        Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = width,
+                height = #textArray * 10 + 10
+            },
+            BGColorKey,
+            BGColorFillKey
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 5}),
+        nil
+    )
+    for _, textSet in pairs(textArray) do
+        local textLabel =
+            TextLabel(
+            Component(
+                hoverFrame,
+                Box(
+                    {
+                        x = 0,
+                        y = 0
+                    },
+                    {width = 0, height = 10},
+                    nil,
+                    nil
+                )
+            ),
+            TextField(
+                textSet,
+                {x=5,y=0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Default text color",
+                    BGColorKey
+                )
+            )
+        )
+    end
+    return hoverFrame
+end
+
+function DrawingUtils.textToWrappedArray(text, maxWidth)
+    local words = MiscUtils.split(text, " ")
+    local newWords = {}
+    local currentLineLength = 0
+    local currentLine = ""
+    for i, word in pairs(words) do
+        --add 2 for space
+        local wordPixelLength = DrawingUtils.calculateWordPixelLength(word)
+        local nextLength = currentLineLength + wordPixelLength + 2
+        if nextLength > maxWidth then
+            table.insert(newWords, currentLine)
+            currentLine = word .. " "
+            currentLineLength = wordPixelLength + 2
+        else
+            currentLine = currentLine .. word .. " "
+            currentLineLength = nextLength
+        end
+    end
+    table.insert(newWords, currentLine)
+    return newWords
+end
+
+function DrawingUtils.calculateWordPixelLength(text)
+    local totalLength = 0
+    for i = 1, #text do
+        local char = text:sub(i, i)
+        if Graphics.LETTER_PIXEL_LENGTHS[char] then
+            totalLength = totalLength + Graphics.LETTER_PIXEL_LENGTHS[char]
+        else
+            totalLength = totalLength + 1
+        end
+    end
+    totalLength = totalLength + #text --space in between each character
+    return totalLength
+end
+
+function DrawingUtils.drawText(x, y, text, textStyle, shadowColor)
+    local drawShadow = true
+    --settings.colorSettings["Draw shadows"]
+    local color = DrawingUtils.convertColorKeyToColor(textStyle.getTextColorKey())
+    local spacing = 0
+    local movePowerExceptions = {["<SPE"] = true, [">SPE"] = true}
+    if movePowerExceptions[text] then
+        spacing = -5
+    end
+    local number = tonumber(text)
+    if number ~= nil then
+        if number == -1 then
+            spacing = 8
+            text = "---"
+        else
+            spacing = (3 - string.len(tostring(number))) * 5
+        end
+    end
+    if drawShadow then
+        gui.drawText(
+            x + spacing + 1,
+            y + 1,
+            text,
+            shadowColor,
+            nil,
+            textStyle.getFontSize(),
+            textStyle.getFontFamily()
+        )
+    end
+    local bolded = textStyle.isBolded()
+    gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), bolded)
+end
+
+function DrawingUtils.convertColorKeyToColor(colorKey)
+    return colorScheme[colorKey]
+end
+
+function DrawingUtils.calcShadowColor(colorKey)
+    local color = colorScheme[colorKey]
     local color_hexval = (color - 0xFF000000)
 
     local r = bit.rshift(color_hexval, 16)
