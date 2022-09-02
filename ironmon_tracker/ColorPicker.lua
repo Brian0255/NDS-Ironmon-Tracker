@@ -240,7 +240,9 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
 
     local function onClose()
         colorScheme[colorKey] = initialColor
-        onCloseFunction(onCloseParams)
+        if onCloseFunction ~= nil then
+            onCloseFunction(onCloseParams)
+        end
         forms.destroyall()
     end
 
