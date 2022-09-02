@@ -124,21 +124,20 @@ local function PokemonDataReader(initialProgram)
     }
 
     local function advanceRNG()
-        return BitUtils.mult32(seed, 0x41C64E6D) + 0x00006073
+        seed = BitUtils.mult32(seed, 0x41C64E6D) + 0x00006073
     end
 
     local function advanceRNGByDifference(difference)
         for _ = 1, difference, 2 do
-            seed = advanceRNG(seed)
+            advanceRNG()
         end
-        return seed
     end
 
     local function decryptWord(offsetData, address)
         local offsetAmount = offsetData[1]
         local dataName = offsetData[2]
         local combineBytes = (#dataName == 1)
-        local encryptedWord = memory.read_u16_le(address + offsetAmount)
+        local encryptedWord = Memory.read_u16_le(address + offsetAmount)
         local encryptedByte1 = bit.band(encryptedWord, 0xFF)
         local encryptedByte2 = bit.band(bit.rshift(encryptedWord, 8), 0xFF)
 
@@ -175,13 +174,13 @@ local function PokemonDataReader(initialProgram)
             local currentBlockLetter = string.sub(blockOrder, i + 1, i + 1)
             local offsets = constants.IMPORTANT_BLOCK_DATA[currentBlockLetter]
             local previousOffset = 0
-            seed = advanceRNG(seed)
+            advanceRNG()
             totalBytesAdvanced = totalBytesAdvanced + 2
             if offsets ~= nil then
                 for _, offsetData in ipairs(offsets) do
                     local offsetAmount = offsetData[1]
                     local difference = offsetAmount - previousOffset
-                    seed = advanceRNGByDifference(difference)
+                    advanceRNGByDifference(difference)
                     totalBytesAdvanced = totalBytesAdvanced + difference
                     decryptWord(offsetData, currentBlockStart)
                     previousOffset = offsetAmount
@@ -189,7 +188,7 @@ local function PokemonDataReader(initialProgram)
             end
             local remainder = constants.BLOCK_SIZE - totalBytesAdvanced
             for _ = 2, remainder, 2 do
-                seed = advanceRNG(seed)
+                advanceRNG()
             end
         end
     end
@@ -198,23 +197,23 @@ local function PokemonDataReader(initialProgram)
         local offsets = constants.BATTLE_STAT_OFFSETS
         local previousOffset = 0
         seed = pid
-        seed = advanceRNG(seed)
+        advanceRNG()
         if offsets ~= nil then
             for _, offsetData in ipairs(offsets) do
                 local offsetAmount = offsetData[1]
                 local difference = offsetAmount - previousOffset
-                seed = advanceRNGByDifference(difference)
+                advanceRNGByDifference(difference)
                 decryptWord(offsetData, battleStatStart)
                 previousOffset = offsetAmount
             end
         end
         --Gen 5 does not update the current HP or moves/PP in the player's battle party memory. It's stored elsewhere as unencrypted data.
         if program.isInBattle() and gameInfo.GEN == 5 then
-            decryptedData.curHP = memory.read_u16_le(addresses.curHPBattlePlayer + monIndex * 548)
-            decryptedData.HP = memory.read_u16_le(addresses.HPBattlePlayer + monIndex * 548)
+            decryptedData.curHP = Memory.read_u16_le(addresses.curHPBattlePlayer + monIndex * 548)
+            decryptedData.HP = Memory.read_u16_le(addresses.HPBattlePlayer + monIndex * 548)
             local movesStart = addresses.statStagesStart + 8
             if checkingEnemy then
-                local totalPlayerMons = memory.read_u8(addresses.totalMonsParty)
+                local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
                 movesStart = movesStart + totalPlayerMons * 0x224
             end
             movesStart = movesStart + monIndex * 0x224
@@ -222,8 +221,8 @@ local function PokemonDataReader(initialProgram)
             local movePPs = {"move1PP", "move2PP", "move3PP", "move4PP"}
             for i = 0, 3, 1 do
                 local currentMove = movesStart + i * 14
-                local moveID = memory.read_u16_le(currentMove)
-                local movePP = memory.read_u8(currentMove + 2)
+                local moveID = Memory.read_u16_le(currentMove)
+                local movePP = Memory.read_u8(currentMove + 2)
                 decryptedData[moveIDs[i + 1]] = moveID
                 decryptedData[movePPs[i + 1]] = movePP
             end
@@ -234,8 +233,8 @@ local function PokemonDataReader(initialProgram)
         decryptedData = {}
         --Find the first mon that hasn't fainted.
         for _ = 1, 6, 1 do
-            pid = memory.read_u32_le(currentBase)
-            local checksum = memory.read_u16_le(currentBase + 0x06)
+            pid = Memory.read_u32_le(currentBase)
+            local checksum = Memory.read_u16_le(currentBase + 0x06)
             if checksum ~= 0 then
                 decryptedData["pid"] = pid
                 decryptedData.nature = (pid % 25)
@@ -299,12 +298,12 @@ local function PokemonDataReader(initialProgram)
         if gameInfo.GEN == 5 then
             base = base + (0x224 * index)
             if isEnemy then
-                local totalPlayerMons = memory.read_u8(addresses.totalMonsParty)
+                local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
                 base = base + totalPlayerMons * 0x224
             end
         end
-        local first4Bytes = memory.read_u32_le(base)
-        local last4Bytes = memory.read_u32_le(base + 4)
+        local first4Bytes = Memory.read_u32_le(base)
+        local last4Bytes = Memory.read_u32_le(base + 4)
         local HP = 6
         local ATK = 6
         local DEF = 6
