@@ -1,335 +1,367 @@
-ColorPicker = {}
-ColorPicker.__index = ColorPicker
+local function ColorPicker(initialColorScheme, initialColorKey)
+    local self = {}
 
-function ColorPicker.new(layoutColorName)
-    local self = setmetatable({},ColorPicker)
+    local width = 220
+    local height = 330
+    local xPos = client.xpos() + client.screenwidth() / 2 - width / 2
+    local yPos = client.ypos() + client.screenheight() / 2 - height / 2
+    local circleRadius = 75
+    local circleCenter = {85, 85}
 
-    self.width = 220
-    self.height = 330
+    local hue = 0
+    local sat = 0
+    local val = 100
 
-    self.xPos = client.xpos() + client.screenwidth() / 2 - self.width / 2
-    self.yPos = client.ypos() + client.screenheight() / 2 - self.height / 2
+    local red = 0
+    local green = 0
+    local blue = 0
 
-    self.circleRadius = 75
-    self.circleCenter = {85,85}
+    local mainForm = nil
+    local mainCanvas = nil
+    local colorTextBox = nil
 
-    self.hue = 0
-    self.sat = 0
-    self.val = 100
+    local valueSliderY = 10
+    local ellipsesPos = {85, 85}
 
-    self.red = 0
-    self.green = 0
-    self.blue = 0
+    local colorScheme = initialColorScheme
+    local colorKey = initialColorKey
+    local color = colorScheme[colorKey]
+    local initialColor = colorScheme[colorKey]
 
-    self.mainForm = nil
-    self.mainCanvas = nil
-    self.colorTextBox = nil
-    self.closeButton = nil
-    self.saveButton = nil
+    local draggingColor = false
+    local draggingValueSlider = false
 
-    self.valueSliderY = 10
-    self.ellipsesPos = {85,85}
-
-    self.circlePreview = nil
-    self.colorDisplay = nil
-
-    self.layoutColorName = layoutColorName
-
-    self.color = string.format("%X",GraphicConstants.layoutColors[layoutColorName])
-    self.initialColor  = "0x"..string.format("%X",GraphicConstants.layoutColors[layoutColorName])
-
-
-    self.draggingColor = false
-    self.draggingValueSlider = false
-
-    self.constants = {
+    local constants = {
         SLIDER_X_POS = 180,
         SLIDER_Y_POS = 10,
         SLIDER_WIDTH = 10,
-        SLIDER_HEIGHT = 150,
+        SLIDER_HEIGHT = 150
     }
+
+    local function distance(point1, point2)
+        local x1 = point1[1]
+        local y1 = point1[2]
+        local x2 = point2[1]
+        local y2 = point2[2]
+
+        local dist = math.sqrt(((x2 - x1) ^ 2) + ((y2 - y1) ^ 2))
+        return dist
+    end
+
+    local function HSV_to_RGB()
+        local hue2 = hue / 360
+        local sat2 = sat / 100
+        local val2 = val / 100
+
+        if sat2 == 0 then
+            red, green, blue = val2, val2, val2 -- achromatic
+        else
+            local function hue2rgb(p, q, t)
+                if t < 0 then
+                    t = t + 1
+                end
+                if t > 1 then
+                    t = t - 1
+                end
+                if t < 1 / 6 then
+                    return p + (q - p) * 6 * t
+                end
+                if t < 1 / 2 then
+                    return q
+                end
+                if t < 2 / 3 then
+                    return p + (q - p) * (2 / 3 - t) * 6
+                end
+                return p
+            end
+
+            local q = val2 < 0.5 and val2 * (1 + sat2) or val2 + sat2 - val2 * sat2
+            local p = 2 * val2 - q
+            red = hue2rgb(p, q, hue2 + 1 / 3)
+            green = hue2rgb(p, q, hue2)
+            blue = hue2rgb(p, q, hue2 - 1 / 3)
+        end
+
+        red, green, blue = red * 255, green * 255, blue * 255
+    end
+
+    local function HEX_to_RGB(hexStr)
+        if hexStr:len() == 3 then
+            red, green, blue =
+                (tonumber("0x" .. hexStr:sub(1, 1)) * 17),
+                (tonumber("0x" .. hexStr:sub(2, 2)) * 17),
+                (tonumber("0x" .. hexStr:sub(3, 3)) * 17)
+        else
+            red, green, blue =
+                tonumber("0x" .. hexStr:sub(1, 2)),
+                tonumber("0x" .. hexStr:sub(3, 4)),
+                tonumber("0x" .. hexStr:sub(5, 6))
+        end
+    end
+
+    local function RGB_to_HSL()
+        local r, g, b = red, green, blue
+
+        local R, G, B = r / 255, g / 255, b / 255
+        local max, min = math.max(R, G, B), math.min(R, G, B)
+        local l, s, h
+
+        -- Get luminance
+        l = (max + min) / 2
+
+        -- short circuit saturation and hue if it's grey to prevent divide by 0
+        if max == min then
+            s = 0
+            h = hue or 0
+            hue, sat, val = 0, 0, l * 100
+            return
+        end
+
+        -- Get saturation
+        if l <= 0.5 then
+            s = (max - min) / (max + min)
+        else
+            s = (max - min) / (2 - max - min)
+        end
+
+        -- Get hue
+        if max == R then
+            h = (G - B) / (max - min) * 60
+        elseif max == G then
+            h = (2.0 + (B - R) / (max - min)) * 60
+        else
+            h = (4.0 + (R - G) / (max - min)) * 60
+        end
+
+        -- Make sure it goes around if it's negative (hue is a circle)
+        if h ~= 360 then
+            h = h % 360
+        end
+        hue, sat, val = h, s * 100, l * 100
+    end
+
+    local function RGB_to_Hex()
+        --%02x: 0 means replace " "s with "0"s, 2 is width, x means hex
+        local hex = string.format("%02x%02x%02x", red, green, blue)
+        return tonumber("0xFF" .. hex)
+    end
+
+    local function drawMainCanvas()
+        forms.clear(mainCanvas, 0x00000000)
+        local wheelPath = Paths.FOLDERS.DATA_FOLDER .. "/images//colorPicker/HSVwheel3.png"
+        local gradientPath = Paths.FOLDERS.DATA_FOLDER .. "/images//colorPicker/HSVgradient.png"
+        forms.drawRectangle(mainCanvas, 0, 0, 250, 300, nil, 0xFF404040)
+        forms.drawRectangle(mainCanvas, 69, 173, 30, 30, nil, color)
+        forms.drawImage(mainCanvas, wheelPath, 10, 10, 150, 150)
+        forms.drawImage(
+            mainCanvas,
+            gradientPath,
+            constants.SLIDER_X_POS,
+            constants.SLIDER_Y_POS,
+            constants.SLIDER_WIDTH,
+            constants.SLIDER_HEIGHT
+        )
+        forms.drawEllipse(mainCanvas, ellipsesPos[1] - 3, ellipsesPos[2] - 3, 6, 6, nil, tonumber(color))
+        local sliderX = 178
+        local sliderY = valueSliderY
+        forms.drawRectangle(mainCanvas, sliderX, sliderY, 14, 4, nil, nil)
+        forms.drawText(mainCanvas, 15, 221, "Color: ", 0xFFFFFFFF, 0x00000000, 14, "Arial")
+        forms.refresh(mainCanvas)
+    end
+
+    local function convertHSVtoColorPicker()
+        valueSliderY = 10 + ((100 - val) / 100 * 150)
+        local sat2 = sat / 100
+        local angle = hue
+        angle = math.rad(angle)
+        local relativeX = math.cos(angle) * (circleRadius) * sat2
+        local relativeY = math.sin(angle) * (circleRadius) * sat2
+        ellipsesPos = {relativeX + circleCenter[1], relativeY + circleCenter[2]}
+        drawMainCanvas()
+        colorScheme[colorKey] = color
+    end
+
+    local function initializeColorWheelSlider()
+        local colorText = string.format("%X", color)
+        HEX_to_RGB(colorText:sub(3))
+        RGB_to_HSL()
+        convertHSVtoColorPicker()
+        forms.settext(colorTextBox, colorText:sub(3))
+    end
+
+    local function setColor()
+        HSV_to_RGB()
+        color = RGB_to_Hex()
+        colorScheme[colorKey] = tonumber(color)
+    end
+
+
+    local function updateCirclePreview()
+        local clickPos = {forms.getMouseX(mainCanvas), forms.getMouseY(mainCanvas)}
+        local x, y = clickPos[1], clickPos[2]
+        local distanceToRadius = distance(clickPos, circleCenter)
+        if distanceToRadius > circleRadius then
+            local ratio = distanceToRadius / circleRadius
+            x = (x - 85) / ratio
+            x = 85 + x
+            y = (y - 85) / ratio
+            y = 85 + y
+        end
+        local relativeX = x - circleCenter[1]
+        local relativeY = -1 * (y - circleCenter[2])
+        local radians = 2 * math.atan(relativeY / (relativeX + (math.sqrt(relativeX ^ 2 + relativeY ^ 2))))
+        local degrees = math.deg(radians)
+        --Check for NaN.
+        if degrees == degrees then
+            if degrees < 0 then
+                degrees = (180 - math.abs(degrees)) + 180
+            end
+            hue = 360 - degrees + 0.5
+            sat = math.min(100, distanceToRadius / circleRadius * 100 + 0.5)
+            if val < 2 or val > 98 then
+                valueSliderY = 85
+                val = 50
+            end
+            setColor()
+            forms.settext(colorTextBox, string.format("%X",color):sub(3))
+            ellipsesPos = {x, y}
+            drawMainCanvas()
+        end
+    end
+
+    local function updateVSlider()
+        local clickPos = {forms.getMouseX(mainCanvas), forms.getMouseY(mainCanvas)}
+        local y = clickPos[2]
+        y = math.min(160, y)
+        y = math.max(10, y)
+        valueSliderY = y
+        local val2 = 100 - ((y - 10) / 150 * 100)
+        val = val2
+        setColor()
+        forms.settext(colorTextBox, string.format("%X",color):sub(3))
+        drawMainCanvas()
+    end
+
+    local function onClose()
+        colorScheme[colorKey] = initialColor
+        forms.destroyall()
+    end
+
+    
+    local function onSave()
+        initialColor = color
+        colorScheme[colorKey] = initialColor
+    end
+
+    function self.show()
+        forms.destroyall()
+        mainForm =
+            forms.newform(
+            width,
+            height,
+            "Color Picker",
+            function()
+                onClose()
+            end
+        )
+        forms.setproperty(mainForm, "Visible", false)
+        colorTextBox = forms.textbox(mainForm, "", 70, 10, "HEX", 60, 218)
+
+        saveButton =
+            forms.button(
+            mainForm,
+            "Save",
+            function()
+                onSave()
+            end,
+            15,
+            250,
+            85,
+            30
+        )
+        closeButton =
+            forms.button(
+            mainForm,
+            "Close",
+            function()
+                onClose()
+            end,
+            105,
+            250,
+            85,
+            30
+        )
+
+        forms.setlocation(mainForm, xPos, yPos)
+        mainCanvas = forms.pictureBox(mainForm, 0, 0, 250, 300)
+        initializeColorWheelSlider()
+        forms.setproperty(mainForm, "Visible", true)
+    end
+
+    local function onClick()
+        updateCirclePreview()
+    end
+
+    local function isExtremeColor()
+        local sum = red + green + blue
+        if sum <= 5 or sum >= (255 * 3 - 5) then
+            return true
+        end
+    end
+
+    local function mouseInRange(pos, size)
+        local x = forms.getMouseX(mainCanvas)
+        local y = forms.getMouseY(mainCanvas)
+        local width = size[1]
+        local height = size[2]
+        return x >= pos[1] and x < pos[1] + width and y >= pos[2] and y < pos[2] + height
+    end
+
+
+    function self.handleInput()
+        if not draggingColor and not draggingValueSlider then
+            local colorText = forms.gettext(colorTextBox)
+            if #colorText == 6 then
+                color = tonumber("0xFF" .. colorText)
+                HEX_to_RGB(colorText)
+                RGB_to_HSL()
+                convertHSVtoColorPicker()
+            end
+        end
+        local mouse = input.getmouse()
+        local leftPress = mouse["Left"]
+        if leftPress then
+            if draggingColor then
+                updateCirclePreview()
+            elseif draggingValueSlider then
+                updateVSlider()
+            else
+                local clickPos = {forms.getMouseX(mainCanvas), forms.getMouseY(mainCanvas)}
+                if not draggingColor then
+                    local distanceToCenter = distance(clickPos, circleCenter)
+                    if distanceToCenter >= 0 and distanceToCenter <= circleRadius then
+                        draggingColor = true
+                        updateCirclePreview()
+                    end
+                end
+                if not draggingValueSlider then
+                    local sliderPos = {constants.SLIDER_X_POS, constants.SLIDER_Y_POS}
+                    local sliderSize = {constants.SLIDER_WIDTH, constants.SLIDER_HEIGHT}
+                    if mouseInRange(sliderPos, sliderSize) then
+                        draggingValueSlider = true
+                    end
+                end
+            end
+        else
+            draggingValueSlider = false
+            draggingColor = false
+        end
+    end
 
     return self
 end
 
-function ColorPicker:initializeColorWheelSlider()
-    local colorText = self.color
-    self.color = "0x"..colorText
-    self:HEX_to_RGB(colorText)
-    self:RGB_to_HSL()
-    self:convertHSVtoColorPicker()
-    forms.settext(self.colorTextBox,string.sub(colorText,3))
-end
-
-function ColorPicker:setColor()
-    self:HSV_to_RGB()
-    self.color = self:RGB_to_Hex()
-    self.color = "0xFF"..self.color
-    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.color)
-    ColorOptions.redraw = true
-end
-
-function ColorPicker:RGB_to_Hex()
-    --%02x: 0 means replace " "s with "0"s, 2 is width, x means hex
-	return string.format("%02x%02x%02x", 
-		self.red,
-		self.green,
-		self.blue)
-end
-
-function ColorPicker:updateCirclePreview()
-    local circleCenter = self.circleCenter
-    local clickPos = {forms.getMouseX(self.mainCanvas),forms.getMouseY(self.mainCanvas)}
-    local x,y = clickPos[1],clickPos[2]
-    local distanceToRadius = self:distance(clickPos,circleCenter)
-    if distanceToRadius > self.circleRadius then
-        local ratio = distanceToRadius/self.circleRadius
-        x = (x-85)/ratio
-        x = 85 + x
-        y = (y-85)/ratio
-        y = 85 + y
-    end
-    local relativeX = x - circleCenter[1]
-    local relativeY = -1*(y - circleCenter[2])
-    local radians = 2 * math.atan(relativeY/(relativeX+(math.sqrt(relativeX^2+relativeY^2))))
-    local degrees = math.deg(radians)
-    --Check for NaN.
-    if degrees == degrees then
-        if degrees < 0 then degrees = (180-math.abs(degrees))+180 end
-        self.hue = 360 - degrees + 0.5
-        self.sat = math.min(100,distanceToRadius/self.circleRadius * 100 + 0.5)
-        if self.val < 2 or self.val > 98 then
-            self.valueSliderY = 85
-            self.val = 50
-        end
-        self:setColor()
-        forms.settext(self.colorTextBox,string.sub(self.color,5))
-        local path = DATA_FOLDER.."/images//colorPicker/HSVwheel3.png"
-        local gradientPath = DATA_FOLDER.."/images//colorPicker/HSVgradient.png"
-        self.ellipsesPos = {x,y}
-        self:drawMainCanvas()
-    end
-end
-
-function ColorPicker:updateVSlider()
-    local clickPos = {forms.getMouseX(self.mainCanvas),forms.getMouseY(self.mainCanvas)}
-    local y = clickPos[2]
-    y = math.min(160,y)
-    y = math.max(10,y)
-    self.valueSliderY = y
-    local val = 100-((y-10)/150 * 100)
-    self.val = val
-    self:setColor()
-    forms.settext(self.colorTextBox,string.sub(self.color,5))
-    self:drawMainCanvas()
-end
-
-function ColorPicker:onClose()
-    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.initialColor)
-    ColorOptions.redraw = true
-    GraphicConstants.saveSettings()
-    Program.state = State.COLOR_CUSTOMIZING
-    Input.currentColorPicker = nil
-    forms.destroyall()
-end
-
-function ColorPicker:drawMainCanvas()
-    forms.clear(self.mainCanvas,0x00000000)
-    local wheelPath = DATA_FOLDER.."/images//colorPicker/HSVwheel3.png"
-    local gradientPath = DATA_FOLDER.."/images//colorPicker/HSVgradient.png"
-    forms.drawRectangle(self.mainCanvas,0,0,250,300,nil,0xFF404040)
-    forms.drawRectangle(self.mainCanvas,69,173,30,30,nil,tonumber(self.color))
-    forms.drawImage(self.mainCanvas,wheelPath,10,10,150,150)
-    forms.drawImage(self.mainCanvas,gradientPath,self.constants.SLIDER_X_POS,self.constants.SLIDER_Y_POS,self.constants.SLIDER_WIDTH,self.constants.SLIDER_HEIGHT)
-    forms.drawEllipse(self.mainCanvas,self.ellipsesPos[1]-3,self.ellipsesPos[2]-3,6,6,nil,tonumber(self.color))
-    local sliderX = 178
-    local sliderY = self.valueSliderY
-    forms.drawRectangle(self.mainCanvas,sliderX,sliderY,14,4,nil,nil)
-    forms.drawText(self.mainCanvas,15,221,"Color: ",0xFFFFFFFF,0x00000000,14,"Arial")
-    forms.refresh(self.mainCanvas)
-end
-
-function ColorPicker:show()
-    forms.destroyall()
-    self.mainForm = forms.newform(self.width,self.height,"Color Picker", function() self:onClose() end)
-    forms.setproperty(self.mainForm,"Visible",false)
-    self.colorTextBox = forms.textbox(self.mainForm,"",70,10,"HEX",60,218)
-
-    self.saveButton = forms.button(self.mainForm,"Save", function() self:onSave() end,15,250,85,30)
-    self.closeButton = forms.button(self.mainForm,"Close", function() self:onClose() end,105,250,85,30)
-
-    forms.setlocation(self.mainForm,self.xPos,self.yPos)
-    self.mainCanvas = forms.pictureBox(self.mainForm,0,0,250,300)
-    self:initializeColorWheelSlider()
-    forms.setproperty(self.mainForm,"Visible",true)
-end
-
-function ColorPicker:onClick() 
-    self:updateCirclePreview()
-end
-
-function ColorPicker:isExtremeColor()
-    local sum = self.red+self.green+self.blue
-    if sum <= 5 or sum >= (255*3 - 5) then
-        return true
-    end
-end
-
-function ColorPicker:onSave()
-    self.initialColor = self.color
-    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.initialColor)
-    ColorOptions.redraw = true
-end
-
-function ColorPicker:handleInput()
-    if not self.draggingColor and not self.draggingValueSlider then
-        local colorText = forms.gettext(self.colorTextBox)
-        if #colorText == 6 then
-            self.color = "0xFF"..colorText
-            self:HEX_to_RGB(colorText)
-            self:RGB_to_HSL()
-            self:convertHSVtoColorPicker()
-        end
-    end
-    local mouse = input.getmouse()
-    local leftPress = mouse["Left"]
-    if leftPress then
-        if self.draggingColor then
-            self:updateCirclePreview()
-        elseif self.draggingValueSlider then
-            self:updateVSlider() 
-        else
-            local clickPos = {forms.getMouseX(self.mainCanvas),forms.getMouseY(self.mainCanvas)}
-            if not self.draggingColor then
-                local distanceToCenter = self:distance(clickPos,self.circleCenter)
-                if distanceToCenter >= 0 and distanceToCenter <= self.circleRadius then
-                    self.draggingColor = true
-                    self:updateCirclePreview()
-                end 
-            end
-            if not self.draggingValueSlider then
-                local sliderPos = {self.constants.SLIDER_X_POS,self.constants.SLIDER_Y_POS}
-                local sliderSize = {self.constants.SLIDER_WIDTH,self.constants.SLIDER_HEIGHT}
-                if self:mouseInRange(sliderPos,sliderSize) then
-                   self.draggingValueSlider = true
-                   
-                end
-            end
-        end
-    else
-        self.draggingValueSlider = false
-        self.draggingColor = false
-    end
-end
-
-function ColorPicker:mouseInRange(pos,size)
-    local x = forms.getMouseX(self.mainCanvas)
-    local y = forms.getMouseY(self.mainCanvas)
-    local width = size[1]
-    local height = size[2]
-    return
-    x >= pos[1] and x < pos[1] + width and y >= pos[2] and y < pos[2] + height
-end
-
-function ColorPicker:distance(point1, point2)
-    local x1 = point1[1]
-    local y1 = point1[2]
-    local x2 = point2[1]
-    local y2 = point2[2]
-
-    local dist = math.sqrt( ((x2-x1)^2) + ((y2-y1)^2) )
-    return dist
-end
-
-function ColorPicker:pointInRange(point)
-    local distanceToRadius = self:distance(point,self.circleRadiusPosition)
-    if distanceToRadius <= self.radius then
-        return true
-    else
-        return false
-    end
-end
+return ColorPicker
 
 
-function ColorPicker:convertHSVtoColorPicker()
-    self.valueSliderY = 10+((100-self.val)/100*150)
-    local sat = self.sat / 100
-    local angle = self.hue
-    angle = math.rad(angle)
-    local relativeX = math.cos(angle) * (self.circleRadius)*sat
-    local relativeY = math.sin(angle) * (self.circleRadius)*sat
-    self.ellipsesPos = {relativeX+self.circleCenter[1],relativeY+self.circleCenter[2]}
-    self:drawMainCanvas()
-    GraphicConstants.layoutColors[self.layoutColorName] = tonumber(self.color)
-    ColorOptions.redraw = true
-end
 
-function ColorPicker:HSV_to_RGB()
-    local hue = self.hue / 360
-    local sat = self.sat / 100
-    local val = self.val / 100
-
-    if sat == 0 then
-        self.red, self.green, self.blue = val, val, val; -- achromatic
-    else
-        local function hue2rgb(p, q, t)
-            if t < 0 then t = t + 1 end
-            if t > 1 then t = t - 1 end
-            if t < 1 / 6 then return p + (q - p) * 6 * t end
-            if t < 1 / 2 then return q end
-            if t < 2 / 3 then return p + (q - p) * (2 / 3 - t) * 6 end
-            return p;
-        end
-
-        local q = val < 0.5 and val * (1 + sat) or val + sat - val * sat;
-        local p = 2 * val - q;
-        self.red = hue2rgb(p, q, hue + 1 / 3);
-        self.green = hue2rgb(p, q, hue);
-        self.blue = hue2rgb(p, q, hue - 1 / 3);
-    end
-
-    self.red, self.green, self.blue =  self.red * 255, self.green * 255, self.blue * 255
-end
-
-function ColorPicker:HEX_to_RGB (hex)
-    if hex:len() == 3 then
-      self.red, self.green, self.blue = (tonumber("0x"..hex:sub(1,1))*17), (tonumber("0x"..hex:sub(2,2))*17), (tonumber("0x"..hex:sub(3,3))*17)
-    else
-      self.red, self.green, self.blue = tonumber("0x"..hex:sub(1,2)), tonumber("0x"..hex:sub(3,4)), tonumber("0x"..hex:sub(5,6))
-    end
-end
-
-function ColorPicker:RGB_to_HSL()
-	local r,g,b = self.red,self.green,self.blue
-
-	local R, G, B = r / 255, g / 255, b / 255
-	local max, min = math.max(R, G, B), math.min(R, G, B)
-	local l, s, h
-
-
-	-- Get luminance
-	l = (max + min) / 2
-
-	-- short circuit saturation and hue if it's grey to prevent divide by 0
-	if max == min then
-		s = 0
-		h = self.hue or 0
-		self.hue, self.sat, self.val = 0, 0, l*100
-        return 
-	end
-
-	-- Get saturation
-	if l <= 0.5 then s = (max - min) / (max + min)
-	else s = (max - min) / (2 - max - min)
-	end
-
-	-- Get hue
-	if max == R then h = (G - B) / (max - min) * 60
-	elseif max == G then h = (2.0 + (B - R) / (max - min)) * 60
-	else h = (4.0 + (R - G) / (max - min)) * 60
-	end
-
-	-- Make sure it goes around if it's negative (hue is a circle)
-	if h ~= 360 then h = h % 360 end
-	self.hue, self.sat, self.val = h,s*100,l*100
-end
