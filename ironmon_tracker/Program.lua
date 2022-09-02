@@ -6,6 +6,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local MainOptionsScreen = dofile(UIRoot .. "MainOptionsScreen.lua")
 	local BattleOptionsScreen = dofile(UIRoot .. "BattleOptionsScreen.lua")
 	local AppearanceOptionsScreen = dofile(UIRoot .. "AppearanceOptionsScreen.lua")
+	local BadgesAppearanceScreen = dofile(UIRoot .. "BadgesAppearanceScreen.lua")
 	local PokemonDataReader = dofile("ironmon_tracker/PokemonDataReader.lua")
 	local JoypadEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/JoypadEventListener.lua")
 	self.SELECTED_PLAYERS = {
@@ -53,12 +54,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		MAIN_OPTIONS_SCREEN = 1,
 		BATTLE_OPTIONS_SCREEN = 2,
 		APPEARANCE_OPTIONS_SCREEN = 3,
+		BADGES_APPEARANCE_SCREEN = 4,
 	}
 	self.UI_SCREEN_OBJECTS = {
 		[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self),
 		[self.UI_SCREENS.MAIN_OPTIONS_SCREEN] = MainOptionsScreen(settings, tracker, self),
 		[self.UI_SCREENS.BATTLE_OPTIONS_SCREEN] = BattleOptionsScreen(settings, tracker, self),
 		[self.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN] = AppearanceOptionsScreen(settings, tracker, self),
+		[self.UI_SCREENS.BADGES_APPEARANCE_SCREEN] = BadgesAppearanceScreen(settings, tracker, self),
 	}
 
 	local currentScreens = { [self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] }
@@ -536,7 +539,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.drawCurrentScreens()
-		DrawingUtils.clearGUI()
 		for _, screen in pairs(currentScreens) do
 			screen.show()
 		end
@@ -570,7 +572,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		client.saveram()
 	end
 
+	local function saveSettings()
+		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
+		INI.save("Settings.ini",settings)
+	end
+
 	local frameCounters = {
+		FrameCounter(60, saveSettings, nil),
 		FrameCounter(30, readMemory, nil),
 		FrameCounter(600, tracker.save, nil),
 		FrameCounter(300, refreshPointers, nil),
