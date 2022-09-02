@@ -25,12 +25,16 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	local ui = {}
 	local eventListeners = {
 		battleSettingsClickListener = nil,
-		--trackerAppearanceClickListener = nil,
+		trackerAppearanceClickListener = nil,
 		--trackedPokemonClickListener = nil,
 		--editControlsClickListener = nil,
 		goBackClickListener = nil
 	}
 	local self = {}
+	local function onTrackerAppearanceClick()
+		program.setCurrentScreens({program.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN})
+		program.drawCurrentScreens()
+	end
 	local function onBattleSettingsClick()
 		program.setCurrentScreens({program.UI_SCREENS.BATTLE_OPTIONS_SCREEN})
 		program.drawCurrentScreens()
@@ -43,6 +47,8 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		eventListeners.goBackClickListener = MouseClickEventListener(ui.controls.goBackButton, onGoBackClick)
 		eventListeners.battleSettingsClickListener =
 			MouseClickEventListener(ui.frames.battleSettingsButtonFrame, onBattleSettingsClick)
+		eventListeners.trackerAppearanceClickListener =
+			MouseClickEventListener(ui.frames.trackerAppearanceButtonFrame, onTrackerAppearanceClick)
 	end
 	local function initBottomFrameControls()
 		TextLabel(
@@ -53,7 +59,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
 					Graphics.FONT.DEFAULT_FONT_FAMILY,
-					"Default text color",
+					"Top box text color",
 					"Top box background color"
 				)
 			)
@@ -77,7 +83,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
 					Graphics.FONT.DEFAULT_FONT_FAMILY,
-					"Default text color",
+					"Top box text color",
 					"Top box background color"
 				)
 			)
@@ -87,7 +93,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		local buttonNames = {
 			battleSettingsButton = "Battle Settings",
 			trackerAppearanceButton = "Tracker Appearance",
-			trackedPokemonButton = "Tracked Pokemon",
+			trackedPokemonButton = "Tracked Pok\233mon ",
 			editControlsButton = "Edit Controls"
 		}
 		local icons = {"SWORD", "SPARKLES", "PENCIL", "CONTROLLER"}
@@ -126,7 +132,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 					TextStyle(
 						Graphics.FONT.DEFAULT_FONT_SIZE,
 						Graphics.FONT.DEFAULT_FONT_FAMILY,
-						"Default text color",
+						"Top box text color",
 						"Top box background color"
 					)
 				)
@@ -196,7 +202,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			TextField(
 				"Config",
 				{x = 48, y = 1},
-				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Default text color", "Top box background color")
+				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
 		)
 		initMainButtons()

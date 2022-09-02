@@ -1,21 +1,24 @@
 local function MainScreen(initialSettings, initialTracker, initialProgram)
-    local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Frame.lua")
-    local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Box.lua")
-    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/cOMPONENT.lua")
-    local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/TextLabel.lua")
-    local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/ImageLabel.lua")
-    local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/ImageField.lua")
-    local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/TextField.lua")
-    local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/TextStyle.lua")
-    local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Layout.lua")
-    local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Icon.lua")
-    local HoverEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/HoverEventListener.lua")
-    local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/MouseClickEventListener.lua")
+    local Frame = dofile("ironmon_tracker/ui/UIBaseClasses/Frame.lua")
+    local Box = dofile("ironmon_tracker/ui/UIBaseClasses/Box.lua")
+    local Component = dofile("ironmon_tracker/ui/UIBaseClasses/Component.lua")
+    local TextLabel = dofile("ironmon_tracker/ui/UIBaseClasses/TextLabel.lua")
+    local ImageLabel = dofile("ironmon_tracker/ui/UIBaseClasses/ImageLabel.lua")
+    local ImageField = dofile("ironmon_tracker/ui/UIBaseClasses/ImageField.lua")
+    local TextField = dofile("ironmon_tracker/ui/UIBaseClasses/TextField.lua")
+    local TextStyle = dofile("ironmon_tracker/ui/UIBaseClasses/TextStyle.lua")
+    local Layout = dofile("ironmon_tracker/ui/UIBaseClasses/Layout.lua")
+    local Icon = dofile("ironmon_tracker/ui/UIBaseClasses/Icon.lua")
+    local HoverEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/HoverEventListener.lua")
+    local MouseClickEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/MouseClickEventListener.lua")
     local settings = initialSettings
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
+        BADGE_HORIZONTAL_WIDTH = 140,
+        BADGE_HORIZONTAL_HEIGHT = 19,
         BADGE_VERTICAL_WIDTH = 19,
+        BADGE_VERTICAL_HEIGHT = 131,
         STAT_INFO_HEIGHT = 73,
         HEALS_ACC_EVA_HEIGHT = 52,
         MOVE_HEADER_HEIGHT = 14,
@@ -42,12 +45,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local activeHoverFrame = nil
     local function onHoverInfoEnd()
         activeHoverFrame = nil
-        ui.frames.mainFrame.show()
+        program.drawCurrentScreens()
     end
+
     local function openOptionsScreen()
+        client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
         program.setCurrentScreens({program.UI_SCREENS.MAIN_OPTIONS_SCREEN})
         program.drawCurrentScreens()
     end
+
     local function createRowFrame(parent)
         return Frame(
             Box({x = 0, y = 0}, {width = 0, height = 15}, nil, nil),
@@ -55,6 +61,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             parent
         )
     end
+
     local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
         local typesToCreate = #defenseTable
         local currentTypeIndex = 0
@@ -87,11 +94,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     ),
                     TextField(
                         heading,
-                        {x=2,y=0},
+                        {x = 2, y = 0},
                         TextStyle(
                             10,
                             Graphics.FONT.DEFAULT_FONT_FAMILY,
-                            "Default text color",
+                            "Top box text color",
                             "Top box background color"
                         )
                     )
@@ -123,6 +130,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local size = typeDefenseFrame.getSize()
         typeDefenseFrame.resize({width = size.width, height = totalSize + 4})
     end
+
     local function createTypeDefenseFrame(pokemonHoverFrame, heading, defenseTable)
         local typeDefenseFrame =
             Frame(
@@ -133,6 +141,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
         return typeDefenseFrame
     end
+
     local function createTypeDefensesFrame(params)
         local pokemon = params.pokemon
         if pokemon ~= nil then
@@ -158,8 +167,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 ),
                 TextField(
                     "Type Defenses",
-                    {x=28,y=0},
-                    TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Default text color", "Top box background color")
+                    {x = 28, y = 0},
+                    TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
                 )
             )
             local hoverFrameSize = pokemonHoverFrame.getSize()
@@ -167,7 +176,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             position.x =
                 math.min(
                 position.x,
-                Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.MAIN_SCREEN_WIDTH - hoverFrameSize.width - 1
+                Graphics.SIZES.SCREEN_WIDTH + ui.frames.mainFrame.getSize().width - hoverFrameSize.width - 1
             )
             local totalSize = 18
             local typeDefensesTable = MoveUtils.getTypeDefensesTable(pokemon)
@@ -181,18 +190,20 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             pokemonHoverFrame.resize({width = 144, height = totalSize})
             pokemonHoverFrame.move(position)
             activeHoverFrame = pokemonHoverFrame
-            ui.frames.mainFrame.show()
+            program.drawCurrentScreens()
             pokemonHoverFrame.show()
         end
     end
+
     local function onHoverInfo(hoverParams)
         local BGColorKey = hoverParams.BGColorKey
         local BGColorFillKey = hoverParams.BGColorFillKey
+        local textColorKey = hoverParams.textColorKey
         local text = hoverParams.text
         if text ~= "" then
             local width = hoverParams.width
             local alignment = hoverParams.alignment
-            local hoverFrame = DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, width)
+            local hoverFrame = DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
             local hoverFrameSize = hoverFrame.getSize()
             local mouse = input.getmouse()
             local position = {
@@ -205,14 +216,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             position.x =
                 math.min(
                 position.x,
-                Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.MAIN_SCREEN_WIDTH - hoverFrameSize.width - 1
+                Graphics.SIZES.SCREEN_WIDTH + ui.frames.mainFrame.getSize().width - hoverFrameSize.width - 1
             )
             hoverFrame.move(position)
-            ui.frames.mainFrame.show()
+            program.drawCurrentScreens()
             hoverFrame.show()
             activeHoverFrame = hoverFrame
         end
     end
+
     local function initMainFrames()
         ui.frames.mainFrame =
             Frame(
@@ -460,7 +472,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
             ui.frames.mainInnerFrame
         )
-        ui.frames.bottomFrame =
+        ui.frames.badgeFrame1 =
             Frame(
             Box(
                 {
@@ -468,16 +480,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     y = 0
                 },
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = constants.BADGE_HORIZONTAL_WIDTH,
                     height = constants.BOTTOM_BOX_HEIGHT
                 },
                 "Bottom box background color",
                 "Bottom box border color"
             ),
-            nil,
-            ui.frames.mainInnerFrame
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = 3, y = 2}),
+            ui.frames.mainFrame
         )
-        ui.frames.badgeFrame =
+        ui.frames.badgeFrame2 =
             Frame(
             Box(
                 {
@@ -485,16 +497,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     y = 0
                 },
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = constants.BADGE_HORIZONTAL_WIDTH,
                     height = constants.BOTTOM_BOX_HEIGHT
                 },
-                nil,
-                nil
+                "Bottom box background color",
+                "Bottom box border color"
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = 3, y = 2}),
-            ui.frames.bottomFrame
+            ui.frames.mainFrame
         )
     end
+
     local function initStatControls()
         local stats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
         for _, stat in pairs(stats) do
@@ -524,7 +537,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Top box text color",
                         "Top box background color"
                     )
                 )
@@ -539,7 +552,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Top box text color",
                         "Top box background color"
                     )
                 )
@@ -569,7 +582,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
@@ -583,12 +596,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
         )
     end
+
     local function initPokemonInfoControls()
         ui.controls.pokemonImageLabel =
             ImageLabel(
@@ -614,7 +628,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
@@ -645,7 +659,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
@@ -670,7 +684,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
@@ -827,6 +841,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         --]]
     end
+
     local function initMoveInfo()
         ui.moveInfoFrames = {}
         for i = 1, 4, 1 do
@@ -922,7 +937,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Bottom box text color",
                         "Bottom box background color"
                     )
                 ),
@@ -948,7 +963,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Bottom box text color",
                         "Bottom box background color"
                     )
                 )
@@ -973,7 +988,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Bottom box text color",
                         "Bottom box background color"
                     )
                 )
@@ -998,7 +1013,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Bottom box text color",
                         "Bottom box background color"
                     )
                 )
@@ -1006,28 +1021,42 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             table.insert(ui.moveInfoFrames, moveInfoFrame)
         end
     end
+
     local function initBadgeControls()
-        ui.badgeControls = {}
+        ui.badgeControlsSet1 = {}
+        ui.badgeControlsSet2 = {}
+        local prefix = program.getGameInfo().BADGE_PREFIX
         for i = 1, 8, 1 do
             local badgeControl =
                 ImageLabel(
-                Component(ui.frames.badgeFrame, Box({x = 0, y = 0}, {width = 16.3, height = 16}, nil, nil)),
-                ImageField("ironmon_tracker/images/icons/HGSS_badge" .. i .. "_OFF.png", {x = -1, y = 0})
+                Component(ui.frames.badgeFrame1, Box({x = 0, y = 0}, {width = 16.3, height = 16}, nil, nil)),
+                ImageField("ironmon_tracker/images/icons/" .. prefix .. "_badge" .. i .. "_OFF.png", {x = -1, y = 0})
             )
-            table.insert(ui.badgeControls, badgeControl)
+            table.insert(ui.badgeControlsSet1, badgeControl)
+        end
+        if program.getGameInfo().GEN == 4 then
+            for i = 1, 8, 1 do
+                local badgeControl =
+                    ImageLabel(
+                    Component(ui.frames.badgeFrame2, Box({x = 0, y = 0}, {width = 16.3, height = 16}, nil, nil)),
+                    ImageField("ironmon_tracker/images/icons/HGSS_K_badge" .. i .. "_OFF.png", {x = -1, y = 0})
+                )
+                table.insert(ui.badgeControlsSet2, badgeControl)
+            end
         end
     end
+
     local function initMiscControls()
         ui.controls.healsInBagLabel =
             TextLabel(
             Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 10, height = 10}, nil, nil)),
             TextField(
                 "Heals in bag:",
-                {x=1,y=0},
+                {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
@@ -1037,11 +1066,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 10, height = 0}, nil, nil)),
             TextField(
                 "180% HP(3)",
-                {x=1,y=0},
+                {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
@@ -1055,7 +1084,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
@@ -1069,12 +1098,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    "Top box text color",
                     "Top box background color"
                 )
             )
         )
     end
+
     local function initUI()
         ui.controls = {}
         ui.frames = {}
@@ -1086,6 +1116,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initBadgeControls()
         initMiscControls()
     end
+
     function self.setPokemon(pokemon, opposingPokemon, healingTotals)
         local id = pokemon.pokemonID
         local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
@@ -1160,9 +1191,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             params.text = moveData.description
         end
     end
+
     function self.addEventListener(eventListener)
         table.insert(eventListeners, eventListener)
     end
+
     function self.runEventListeners()
         for _, eventListener in pairs(eventListeners) do
             eventListener.listen()
@@ -1171,13 +1204,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListener.listen()
         end
     end
+
     function self.show()
         --DrawingUtils.clearGUI()
+        self.updateBadgeLayout()
         ui.frames.mainFrame.show()
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
     end
+
     local function initEventListeners()
         for i = 1, 4, 1 do
             local moveFrame = ui.moveInfoFrames[i]
@@ -1190,6 +1226,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         BGColorKey = "Bottom box background color",
                         BGColorFillKey = "Bottom box border color",
                         text = "",
+                        textColorKey = "Bottom box text color",
                         width = 120,
                         alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
                     },
@@ -1204,8 +1241,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     BGColorKey = "Top box background color",
                     BGColorFillKey = "Top box border color",
                     text = "",
+                    textColorKey = "Top box text color",
                     width = 120,
-                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
+                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
                 },
                 onHoverInfoEnd
             )
@@ -1217,8 +1255,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     BGColorKey = "Top box background color",
                     BGColorFillKey = "Top box border color",
                     text = "",
+                    textColorKey = "Top box text color",
                     width = 120,
-                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
+                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
                 },
                 onHoverInfoEnd
             )
@@ -1232,32 +1271,126 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListeners.optionsIconListener = MouseClickEventListener(ui.controls.gearIcon, openOptionsScreen, nil)
         end
     end
-    initUI()
-    initEventListeners()
-    --[[
-    --ui.frames.badgeFrame.setVisibility(false)
-    ui.frames.badgeFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.VERTICAL)
-    ui.frames.bottomFrame.changeParentFrame(ui.frames.mainFrame, 1)
-    ui.frames.bottomFrame.move(
-        {
-            x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-            y = Graphics.SIZES.BORDER_MARGIN
-        }
-    )
-    ui.frames.bottomFrame.resize(
-        {
-            width = constants.BADGE_VERTICAL_WIDTH,
-            height = Graphics.SIZES.MAIN_SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN - constants.BOTTOM_BOX_HEIGHT
-        }
-    )
-    ui.frames.mainFrame.resize(
-        {
-            width = Graphics.SIZES.MAIN_SCREEN_WIDTH + constants.BADGE_VERTICAL_WIDTH + Graphics.SIZES.BORDER_MARGIN,
+
+    local function recalculateMainFrameSize(orientation)
+        local baseSize = {
+            width = Graphics.SIZES.MAIN_SCREEN_WIDTH,
             height = Graphics.SIZES.MAIN_SCREEN_HEIGHT
         }
-    )--]]
-    --self.show()
-    -- createTypeDefensesFrame(PokemonData.POKEMON[599])
+        local add = {width = 0, height = 0}
+        local gameInfo = program.getGameInfo()
+        local numBadges = 1
+        if settings.badgesAppearance.SHOW_BOTH_BADGES and gameInfo.GEN == 4 then
+            numBadges = 2
+        end
+
+        if orientation == "VERTICAL" then
+            add.width = numBadges * constants.BADGE_VERTICAL_WIDTH + 5 * numBadges
+        else
+            add.height = numBadges * constants.BOTTOM_BOX_HEIGHT + 5 * numBadges
+        end
+        ui.frames.mainFrame.resize({width = baseSize.width + add.width, height = baseSize.height + add.height})
+    end
+
+    function self.HGSS_switchBadges()
+        local badgeControls = ui.badgeControlsSet1
+        for _, control in pairs(badgeControls) do
+            control.setPath(control.getPath():gsub("HGSS", "HGSS_K"))
+        end
+    end
+
+    function self.updateBadges(newBadges)
+        local badgeSets = {
+            {badges = newBadges.firstSet, controls = ui.badgeControlsSet1},
+            {badges = newBadges.secondSet, controls = ui.badgeControlsSet2}
+        }
+        for i, badgeSet in pairs(badgeSets) do
+            for badgeIndex, control in pairs(badgeSet.controls) do
+                local prefix = program.getGameInfo().BADGE_PREFIX
+                local badgeValue = badgeSet.badges[badgeIndex]
+                local off = ""
+                if badgeValue == 0 then
+                    off = "_OFF"
+                end
+                if badgeSet.badges == newBadges.secondSet then
+                    prefix = prefix .. "_K"
+                end
+                control.setPath("ironmon_tracker/images/icons/" .. prefix .. "_badge" .. badgeIndex .. off .. ".png")
+            end
+        end
+    end
+
+    function self.updateBadgeLayout()
+        local MAIN_FRAME_INDICES = {
+            [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE] = 1,
+            [Graphics.BADGE_ALIGNMENT_TYPE.BELOW] = 3,
+            [Graphics.BADGE_ALIGNMENT_TYPE.LEFT] = 1,
+            [Graphics.BADGE_ALIGNMENT_TYPE.RIGHT] = 3,
+            [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = {1, 3},
+            [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = {1, 3},
+            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = {1, 2},
+            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = {3, 3},
+            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_LEFT] = {1, 2},
+            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = {3, 3}
+        }
+        local primaryBadgeFrame = ui.frames.badgeFrame1
+        local secondaryBadgeFrame = ui.frames.badgeFrame2
+        if settings.badgesAppearance.SHOW_BOTH_BADGES and settings.badgesAppearance.PRIMARY_BADGE_SET == "KANTO" then
+            local temp = primaryBadgeFrame
+            primaryBadgeFrame = secondaryBadgeFrame
+            secondaryBadgeFrame = temp
+        end
+        local alignment
+        if settings.badgesAppearance.SHOW_BOTH_BADGES then
+            alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.DOUBLE_BADGE_ALIGNMENT]
+        else
+            alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.SINGLE_BADGE_ALIGNMENT]
+        end
+        local newOrientation = Graphics.BADGE_ORIENTATION[alignment]
+
+        local badgeFrames = {primaryBadgeFrame, secondaryBadgeFrame}
+        local newSize = {
+            width = 0,
+            height = 0
+        }
+        if newOrientation == "VERTICAL" then
+            ui.frames.mainFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.HORIZONTAL)
+            newSize.width = constants.BADGE_VERTICAL_WIDTH
+            newSize.height = constants.BADGE_VERTICAL_HEIGHT
+        else
+            ui.frames.mainFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.VERTICAL)
+            newSize.width = constants.BADGE_HORIZONTAL_WIDTH
+            newSize.height = constants.BOTTOM_BOX_HEIGHT
+        end
+        for _, badgeFrame in pairs(badgeFrames) do
+            if settings.badgesAppearance.SHOW_BOTH_BADGES then
+                badgeFrame.setVisibility(true)
+            end
+            if newOrientation == "VERTICAL" then
+                badgeFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.VERTICAL)
+                badgeFrame.setLayoutSpacing(0)
+            else
+                badgeFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.HORIZONTAL)
+                badgeFrame.setLayoutSpacing(1)
+            end
+        end
+        if settings.badgesAppearance.SHOW_BOTH_BADGES then
+            local indices = MAIN_FRAME_INDICES[alignment]
+            primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[1])
+            secondaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[2])
+        else
+            ui.frames.badgeFrame2.setVisibility(false)
+            local index = MAIN_FRAME_INDICES[alignment]
+            ui.frames.badgeFrame1.changeParentFrame(ui.frames.mainFrame, index)
+        end
+        ui.frames.badgeFrame1.resize(newSize)
+        ui.frames.badgeFrame2.resize(newSize)
+        recalculateMainFrameSize(newOrientation)
+    end
+
+    initUI()
+    initEventListeners()
+
     return self
 end
 

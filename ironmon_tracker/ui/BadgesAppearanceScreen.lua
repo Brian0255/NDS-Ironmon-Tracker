@@ -87,7 +87,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             TextField(
                 "Badges Appearance",
                 {x = 14, y = 1},
-                TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Default text color", "Top box background color")
+                TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
         ui.frames.HGSSOuterFrame =
@@ -133,7 +133,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             TextField(
                 "HGSS Settings",
                 {x = 34, y = 3},
-                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Default text color", "Top box background color")
+                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
         local HGSS_showBoth = {true, false}
@@ -188,7 +188,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Top box text color",
                         "Top box background color"
                     )
                 )
@@ -223,7 +223,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             TextField(
                 "Alignment",
                 {x = 42, y = 3},
-                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Default text color", "Top box background color")
+                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
         local singleBadgeFrames = {}
@@ -279,7 +279,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                         TextStyle(
                             Graphics.FONT.DEFAULT_FONT_SIZE,
                             Graphics.FONT.DEFAULT_FONT_FAMILY,
-                            "Default text color",
+                            "Top box text color",
                             "Top box background color"
                         )
                     )
@@ -329,7 +329,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             TextField(
                 "Double Badge Alignment",
                 {x = 7, y = 3},
-                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Default text color", "Top box background color")
+                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
         local doubleBadgeFrames = {}
@@ -388,7 +388,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                         TextStyle(
                             Graphics.FONT.DEFAULT_FONT_SIZE,
                             Graphics.FONT.DEFAULT_FONT_FAMILY,
-                            "Default text color",
+                            "Top box text color",
                             "Top box background color"
                         )
                     )
@@ -410,7 +410,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             TextField(
                 "Double Badge Order",
                 {x = 20, y = 2},
-                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Default text color", "Top box background color")
+                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
         ui.frames.orderFrame = Frame(
@@ -460,7 +460,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Default text color",
+                        "Top box text color",
                         "Top box background color"
                     )
                 )
@@ -512,7 +512,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
                 Graphics.FONT.DEFAULT_FONT_FAMILY,
-                "Default text color",
+                "Top box text color",
                 "Top box background color"
             )
         )
