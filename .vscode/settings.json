@@ -18,8 +18,6 @@
     "MoveUtils",
     "IconDrawer",
     "Input",
-    "table",
-    "States",
     "ThemeUtils",
     "ThemeFactory",
     "Pickle",
