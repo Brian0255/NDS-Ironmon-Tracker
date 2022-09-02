@@ -149,21 +149,4 @@ Graphics.TYPE_COLORS = {
     FAIRY = 0xFFEE99AC,
     UNKNOWN = 0xFF68A090 -- For the "Curse" move in Gen 2 - 4
 }
-Graphics.DEFAULT_THEME_STRING =
-"FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 "
-Graphics.THEME_COLOR_KEYS_ORDERED = {
-    "Default text color",
-    "Positive text color",
-    "Negative text color",
-    "Intermediate text color",
-    "Move header text color",
-    "Top box border color",
-    "Top box background color",
-    "Bottom box border color",
-    "Bottom box background color",
-    "Main background color",
-    "Physical icon color",
-    "Special icon color",
-    "Gear icon color"
-}
 
