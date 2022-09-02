@@ -578,11 +578,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local frameCounters = {
-		FrameCounter(60, saveSettings, nil),
-		FrameCounter(30, readMemory, nil),
-		FrameCounter(600, tracker.save, nil),
-		FrameCounter(300, refreshPointers, nil),
-		FrameCounter(600, flushSaveRAM, nil),
+		settingsSaving = FrameCounter(60, saveSettings, nil),
+		memoryReading = FrameCounter(30, readMemory, nil),
+		trackerSaving = FrameCounter(600, tracker.save, nil),
+		pointerRefreshing = FrameCounter(300, refreshPointers, nil),
+		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil),
 	}
 
 	function self.main()
