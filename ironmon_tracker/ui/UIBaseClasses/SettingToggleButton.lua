@@ -65,8 +65,10 @@ local function SettingToggleButton(
     function self.show()
         if visible then
             component.show()
-            if inRadioGroup and settings[settingsKey] == state then
-                drawInnerFilledRectangle()
+            if inRadioGroup then
+                if settings[settingsKey] == state then
+                    drawInnerFilledRectangle()
+                end
             else
                 if state == true then
                     drawCheckmark()
