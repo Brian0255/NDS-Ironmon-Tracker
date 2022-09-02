@@ -1,6 +1,39 @@
 ThemeFactory = {}
 
+local settings = nil
+
+function ThemeFactory.setSettings(newSettings)
+    settings = newSettings
+end
+
+ThemeFactory.THEME_COLOR_KEYS_ORDERED = {
+    "Top box text color",
+    "Bottom box text color",
+    "Positive text color",
+    "Negative text color",
+    "Intermediate text color",
+    "Move header text color",
+    "Top box border color",
+    "Top box background color",
+    "Bottom box border color",
+    "Bottom box background color",
+    "Main background color",
+    "Physical icon color",
+    "Special icon color",
+    "Gear icon color"
+}
+
+ThemeFactory.COLOR_SETTINGS_KEYS_ORDERED = {
+    "Color move names by type",
+    "Draw shadows",
+    "Draw move type icons",
+    "Color move type icons",
+    "Transparent backgrounds",
+    "Show phys/spec move icons"
+}
+
 local constants = {
+    DEFAULT_THEME_STRING = "FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 ",
     SAVE_THEME_WIDTH = 288,
     SAVE_THEME_HEIGHT = 70,
     EXPORT_THEME_WIDTH = 730,
@@ -9,7 +42,7 @@ local constants = {
     IMPORT_THEME_HEIGHT = 70,
     CENTER_X = client.xpos() + client.screenwidth() / 2,
     CENTER_Y = client.ypos() + client.screenheight() / 2,
-    THEMES_PATH = DATA_FOLDER .. "/themes"
+    THEMES_PATH = Paths.FOLDERS.DATA_FOLDER .. "/themes"
 }
 
 function ThemeFactory.createSaveThemeForm()
@@ -51,8 +84,7 @@ function ThemeFactory.createSaveThemeForm()
 end
 
 function ThemeFactory.onImportThemeClick(text)
-    ThemeUtils.readThemeString(text)
-    ColorEditor.redraw = true
+    ThemeFactory.readThemeString(text)
 end
 
 function ThemeFactory.onSaveThemeClick(fileNameTextbox)
@@ -77,7 +109,7 @@ end
 
 function ThemeFactory.saveFile(file)
     io.output(file)
-    local settingsString = ThemeUtils.getThemeString()
+    local settingsString = ThemeFactory.getThemeString()
     io.write(settingsString)
     forms.destroyall()
     Input.dialogActive = false
@@ -170,9 +202,7 @@ function ThemeFactory.createDefaultConfirmDialog()
         function()
             forms.destroy(confirmForm)
             Input.dialogActive = false
-            ThemeUtils.restoreDefaults()
-            ColorEditor.redraw = true
-            ThemeUtils.saveSettings()
+            ThemeFactory.restoreDefaults()
         end
     )
 
@@ -199,8 +229,7 @@ function ThemeFactory.createLoadThemeForm()
         themeFile = io.open(themeFile, "r")
         if themeFile ~= nil then
             local themeString = themeFile:read "*a"
-            ThemeUtils.readThemeString(themeString)
-            ColorEditor.redraw = true
+            ThemeFactory.readThemeString(themeString)
         else
             FormsUtils.popupDialog(
                 "Invalid file selection.",
@@ -263,8 +292,63 @@ function ThemeFactory.createExportThemeForm()
         ThemeFactory.CENTER_X - ThemeFactory.EXPORT_THEME_WIDTH / 2,
         ThemeFactory.CENTER_Y - ThemeFactory.EXPORT_THEME_HEIGHT / 2
     )
-    local themeString = ThemeUtils.getThemeString()
+    local themeString = ThemeFactory.getThemeString()
     local canvas = forms.pictureBox(exportForm, 0, 0, 100, 30)
     forms.textbox(exportForm, themeString, ThemeFactory.EXPORT_THEME_WIDTH - 122, 30, nil, 100, 5)
     forms.drawText(canvas, 6, 7, "Theme string:", 0xFF000000, 0x00000000, 14, "Arial")
+end
+
+function ThemeFactory.restoreDefaults()
+    ThemeFactory.readThemeString(ThemeFactory.DEFAULT_THEME_STRING)
+end
+
+function ThemeFactory.getThemeString()
+    local completeString = ""
+    for _, key in pairs(ThemeFactory.THEME_COLOR_KEYS_ORDERED) do
+        local color = string.sub(string.format("%X", settings.colorScheme[key]), 3)
+        completeString = completeString .. color .. " "
+    end
+    for _, key in pairs(ThemeFactory.COLOR_SETTINGS_KEYS_ORDERED) do
+        completeString = completeString .. MiscUtils.boolToNumber(settings.colorSettings[key]) .. " "
+    end
+    return completeString
+end
+
+local function isLegacyString(themeString)
+    local boolCounter = 0
+    local colorCounter = 0
+    for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
+        if #number > 1 then
+            colorCounter = colorCounter + 1
+        end
+    end
+    return (colorCounter < #ThemeFactory.THEME_COLOR_KEYS_ORDERED)
+end
+
+function ThemeFactory.readThemeString(themeString)
+    local isLegacy = isLegacyString(themeString)
+    print(isLegacy)
+    local boolCounter = 0
+    local colorCounter = 0
+    for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
+        if #number == 1 then
+            boolCounter = boolCounter + 1
+            local setting = ThemeFactory.COLOR_SETTINGS_KEYS_ORDERED[boolCounter]
+            settings.colorSettings[setting] = MiscUtils.numberToBool(tonumber(number))
+        else
+            local color = tonumber("0xFF" .. number)
+            colorCounter = colorCounter + 1
+            if isLegacy and colorCounter == 1 then
+                local key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter]
+                settings.colorScheme[key] = color
+                key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter+1]
+                settings.colorScheme[key] = color
+                colorCounter = colorCounter + 1
+            else
+                local key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter]
+                settings.colorScheme[key] = color
+            end
+        end
+    end
+
 end

@@ -1,25 +1,7 @@
-function ThemeUtils.readSettingsColors()
-    for colorName, color in pairs(Settings.layoutColors) do
-        colorName = colorName:gsub("_", " ")
-        if color ~= nil then
-            --TODO
-            --ThemeUtils.layoutColors[colorName] = tonumber("0xFF" .. color)
-        end
-    end
-end
+ThemeUtils = {}
 
 function ThemeUtils.restoreDefaults()
     ThemeUtils.readThemeString(ThemeUtils.DEFAULT_THEME_STRING)
-    ColorEditor.redraw = true
-    ThemeUtils.saveSettings()
-end
-
-function ThemeUtils.saveSettings()
-    for colorName, _ in pairs(Settings.layoutColors) do
-        local layoutName = colorName:gsub("_", " ")
-        Settings.layoutColors[colorName] = string.format("%X", ThemeUtils.layoutColors[layoutName])
-    end
-    INI.save("Settings.ini", Settings)
 end
 
 function ThemeUtils.getThemeString()
@@ -28,8 +10,8 @@ function ThemeUtils.getThemeString()
         local color = string.sub(string.format("%X", ThemeUtils.layoutColors[key]), 3)
         completeString = completeString .. color .. " "
     end
-    for _, key in pairs(ColorEditor.COLOR_SETTINGS_ORDERED_KEYS) do
-        completeString = completeString .. ThemeUtils.boolToNumber(Settings.ColorSettings[key]) .. " "
+    for _, key in pairs(ThemeFactory.THEME_COLOR_KEYS_ORDERED) do
+        completeString = completeString .. MiscUtils.boolToNumber(settings.colorSettings[key]) .. " "
     end
     return completeString
 end
@@ -40,8 +22,8 @@ function ThemeUtils.readThemeString(themeString)
     for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
         if #number == 1 then
             local setting = ColorEditor.COLOR_SETTINGS_ORDERED_KEYS[boolCounter]
-            Settings.ColorSettings[setting] = ThemeUtils.numberToBool(tonumber(number))
-            ColorEditor.toggleButtons[boolCounter].optionState = Settings.ColorSettings[setting]
+            settings.colorSettings[setting] = ThemeUtils.numberToBool(tonumber(number))
+            ColorEditor.toggleButtons[boolCounter].optionState = settings.colorSettings[setting]
             boolCounter = boolCounter + 1
         else
             local key = ThemeUtils.layoutColorKeysOrdered[i]
