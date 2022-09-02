@@ -8,7 +8,9 @@ Graphics.SIZES = {
     DEFAULT_TEXT_OFFSET = { x = 0, y = 0 },
     SCREEN_HEIGHT = 160,
     SCREEN_WIDTH = 256,
-    BORDER_MARGIN = 5
+    BORDER_MARGIN = 5,
+    MAIN_SCREEN_PADDING = 199,
+    BADGE_COLOR_EDIT_PADDING = 349
 }
 Graphics.ALIGNMENT_TYPE = {
     HORIZONTAL = 0,
@@ -165,19 +167,3 @@ Graphics.THEME_COLOR_KEYS_ORDERED = {
     "Gear icon color"
 }
 
-layoutColors = {
-    ["black"] = 0xFF000000,
-    ["Main background color"] = 0xFF000000,
-    ["Default text color"] = 0xFFFFFFFF,
-    ["Positive text color"] = 0xFF00FF00,
-    ["Negative text color"] = 0xFFFF0000,
-    ["Intermediate text color"] = 0xFFFFFF00,
-    ["Move header text color"] = 0xFFFFFFFF,
-    ["Top box border color"] = 0xFFAAAAAA,
-    ["Top box background color"] = 0xFF222222,
-    ["Bottom box border color"] = 0xFFAAAAAA,
-    ["Bottom box background color"] = 0xFF222222,
-    ["Physical icon color"] = 0xFFFFC631,
-    ["Special icon color"] = 0xFF3E5782,
-    ["Gear icon color"] = 0xFFDBDBDB
-}
