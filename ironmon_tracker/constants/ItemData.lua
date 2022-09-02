@@ -115,7 +115,7 @@ ItemData.GEN_4_ITEMS =
     {
         [1] = {
             name = "Master Ball",
-            description = "Catches a wild Pok\233monevery time."
+            description = "Catches a wild Pok\233mon every time."
         },
         [2] = {
             name = "Ultra Ball",
@@ -131,7 +131,7 @@ ItemData.GEN_4_ITEMS =
         },
         [5] = {
             name = "Safari Ball",
-            description = "Tries to catch a wild Pok\233monin the Great Marsh or Safari Zone. Success rate is 1.5x."
+            description = "Tries to catch a wild Pok\233mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
         },
         [6] = {
             name = "Net Ball",
@@ -155,7 +155,7 @@ ItemData.GEN_4_ITEMS =
         },
         [11] = {
             name = "Luxury Ball",
-            description = "Tries to catch a wild Pokemon. Caught Pok\233monstart with 200 happiness."
+            description = "Tries to catch a wild Pokemon. Caught Pok\233mon start with 200 happiness."
         },
         [12] = {
             name = "Premier Ball",
@@ -167,7 +167,7 @@ ItemData.GEN_4_ITEMS =
         },
         [14] = {
             name = "Heal Ball",
-            description = "Tries to catch a wild Pokemon. Caught Pok\233monare immediately healed."
+            description = "Tries to catch a wild Pokemon. Caught Pok\233mon are immediately healed."
         },
         [15] = {
             name = "Quick Ball",
@@ -287,7 +287,7 @@ ItemData.GEN_4_ITEMS =
         },
         [44] = {
             name = "Sacred Ash",
-            description = "Revives all fainted Pok\233monwith full HP."
+            description = "Revives all fainted Pok\233mon with full HP."
         },
         [45] = {
             name = "Hp Up",
@@ -383,11 +383,11 @@ ItemData.GEN_4_ITEMS =
         },
         [68] = {
             name = "Black Flute",
-            description = "Halves the wild Pok\233monencounter rate."
+            description = "Halves the wild Pok\233mon encounter rate."
         },
         [69] = {
             name = "White Flute",
-            description = "Doubles the wild Pok\233monencounter rate."
+            description = "Doubles the wild Pok\233mon encounter rate."
         },
         [70] = {
             name = "Shoal Salt",
@@ -567,51 +567,51 @@ ItemData.GEN_4_ITEMS =
         },
         [137] = {
             name = "Grass Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [138] = {
             name = "Flame Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [139] = {
             name = "Bubble Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [140] = {
             name = "Bloom Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [141] = {
             name = "Tunnel Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [142] = {
             name = "Steel Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [143] = {
             name = "Heart Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [144] = {
             name = "Snow Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [145] = {
             name = "Space Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [146] = {
             name = "Air Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [147] = {
             name = "Mosaic Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [148] = {
             name = "Brick Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [149] = {
             name = "Cheri Berry",
@@ -655,23 +655,23 @@ ItemData.GEN_4_ITEMS =
         },
         [159] = {
             name = "Figy Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike spicy flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike spicy flavor."
         },
         [160] = {
             name = "Wiki Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike dry flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike dry flavor."
         },
         [161] = {
             name = "Mago Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike sweet flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike sweet flavor."
         },
         [162] = {
             name = "Aguav Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike bitter flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike bitter flavor."
         },
         [163] = {
             name = "Iapapa Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike sour flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike sour flavor."
         },
         [164] = {
             name = "Razz Berry",
@@ -883,7 +883,7 @@ ItemData.GEN_4_ITEMS =
         },
         [216] = {
             name = "Exp Share",
-            description = "Half the experience from a battle is split between Pok\233monholding this item."
+            description = "Half the experience from a battle is split between Pok\233mon holding this item."
         },
         [217] = {
             name = "Quick Claw",
@@ -1139,7 +1139,7 @@ ItemData.GEN_4_ITEMS =
         },
         [280] = {
             name = "Destiny Knot",
-            description = "Infatuates opposing Pok\233monwhen holder is inflicted with infatuation."
+            description = "Infatuates opposing Pok\233mon when holder is inflicted with infatuation."
         },
         [281] = {
             name = "Black Sludge",
@@ -1171,7 +1171,7 @@ ItemData.GEN_4_ITEMS =
         },
         [288] = {
             name = "Sticky Barb",
-            description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok\233montakes 1/8 its max HP in damage and receive the item if not holding one."
+            description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok\233mon takes 1/8 its max HP in damage and receive the item if not holding one."
         },
         [289] = {
             name = "Power Bracer",
@@ -1759,7 +1759,7 @@ ItemData.GEN_4_ITEMS =
         },
         [435] = {
             name = "Fashion Case",
-            description = "Holds Pok\233monAccessories for use in Contests."
+            description = "Holds Pok\233mon Accessories for use in Contests."
         },
         [436] = {
             name = "Seal Bag",
@@ -1799,15 +1799,15 @@ ItemData.GEN_4_ITEMS =
         },
         [445] = {
             name = "Old Rod",
-            description = "Used to catch Pok\233monin bodies of water."
+            description = "Used to catch Pok\233mon in bodies of water."
         },
         [446] = {
             name = "Good Rod",
-            description = "Used to catch Pok\233monin bodies of water."
+            description = "Used to catch Pok\233mon in bodies of water."
         },
         [447] = {
             name = "Super Rod",
-            description = "Used to catch Pok\233monin bodies of water."
+            description = "Used to catch Pok\233mon in bodies of water."
         },
         [448] = {
             name = "Sprayduck",
@@ -1847,7 +1847,7 @@ ItemData.GEN_4_ITEMS =
         },
         [457] = {
             name = "Contest Pass",
-            description = "Allows participation in Pok\233monContests."
+            description = "Allows participation in Pok\233mon Contests."
         },
         [458] = {
             name = "Magma Stone",
@@ -1911,11 +1911,11 @@ ItemData.GEN_4_ITEMS =
         },
         [493] = {
             name = "Level Ball",
-            description = "Success rate based off of fraction target Pok\233monis of user's Pokemon. Made from Red Apricorn."
+            description = "Success rate based off of fraction target Pok\233mon is of user's Pokemon. Made from Red Apricorn."
         },
         [498] = {
             name = "Moon Ball",
-            description = "4x effectiveness on familes of Pok\233monwith a Moon Stone evolution. Made from Ylw Apricorn."
+            description = "4x effectiveness on familes of Pok\233mon with a Moon Stone evolution. Made from Ylw Apricorn."
         },
         [495] = {
             name = "Heavy Ball",
@@ -1923,11 +1923,11 @@ ItemData.GEN_4_ITEMS =
         },
         [492] = {
             name = "Fast Ball",
-            description = "4x effectiveness on Pok\233monwith 100 or greater base speed. Made from Wht Apricorn."
+            description = "4x effectiveness on Pok\233mon with 100 or greater base speed. Made from Wht Apricorn."
         },
         [497] = {
             name = "Friend Ball",
-            description = "Caught Pok\233monstart with 200 happiness. Made from Grn Apricorn."
+            description = "Caught Pok\233mon start with 200 happiness. Made from Grn Apricorn."
         },
         [496] = {
             name = "Love Ball",
@@ -1935,11 +1935,11 @@ ItemData.GEN_4_ITEMS =
         },
         [500] = {
             name = "Park Ball",
-            description = "Catches Pok\233monin the Pal Park every time."
+            description = "Catches Pok\233mon in the Pal Park every time."
         },
         [499] = {
             name = "Sport Ball",
-            description = "Tries to catch a Pok\233monin the Bug-Catching contest in National Park. "
+            description = "Tries to catch a Pok\233mon in the Bug-Catching contest in National Park. "
         },
         [485] = {
             name = "Red Apricorn",
@@ -2019,7 +2019,7 @@ ItemData.GEN_4_ITEMS =
         },
         [478] = {
             name = "Red Scale",
-            description = "Trade to Mr. Pok\233monfor an Exp. Share."
+            description = "Trade to Mr. Pok\233mon for an Exp. Share."
         },
         [479] = {
             name = "Lost Item",
@@ -2063,11 +2063,11 @@ ItemData.GEN_4_ITEMS =
         },
         [507] = {
             name = "Data Card-03",
-            description = "Records the number of times the trainer's Pok\233monhave dashed in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have dashed in the Pokeathlon."
         },
         [508] = {
             name = "Data Card-04",
-            description = "Records the number of times the trainer's Pok\233monhave jumped in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have jumped in the Pokeathlon."
         },
         [509] = {
             name = "Data Card-05",
@@ -2099,19 +2099,19 @@ ItemData.GEN_4_ITEMS =
         },
         [516] = {
             name = "Data Card-12",
-            description = "Records the number of times the trainer's Pok\233monhave messed up in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have messed up in the Pokeathlon."
         },
         [517] = {
             name = "Data Card-13",
-            description = "Records the number of times the trainer's Pok\233monhave defeated themselves in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have defeated themselves in the Pokeathlon."
         },
         [518] = {
             name = "Data Card-14",
-            description = "Records the number of times the trainer's Pok\233monhave tackled in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have tackled in the Pokeathlon."
         },
         [519] = {
             name = "Data Card-15",
-            description = "Records the number of times the trainer's Pok\233monhave fallen in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have fallen in the Pokeathlon."
         },
         [520] = {
             name = "Data Card-16",
@@ -2143,7 +2143,7 @@ ItemData.GEN_4_ITEMS =
         },
         [527] = {
             name = "Data Card-23",
-            description = "Records the number of times the trainer has switched Pok\233monin the Pokeathlon."
+            description = "Records the number of times the trainer has switched Pok\233mon in the Pokeathlon."
         },
         [528] = {
             name = "Data Card-24",
@@ -2151,11 +2151,11 @@ ItemData.GEN_4_ITEMS =
         },
         [529] = {
             name = "Data Card-25",
-            description = "Records the number of times the trainer's Pok\233monreceived prizes in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon received prizes in the Pokeathlon."
         },
         [530] = {
             name = "Data Card-26",
-            description = "Records the number of times the trainer has instructed Pok\233monin the Pokeathlon."
+            description = "Records the number of times the trainer has instructed Pok\233mon in the Pokeathlon."
         },
         [531] = {
             name = "Data Card-27",
@@ -2181,7 +2181,7 @@ ItemData.GEN_5_ITEMS =
         },
         [1] = {
             name = "Master Ball",
-            description = "Catches a wild Pok\233monevery time."
+            description = "Catches a wild Pok\233mon every time."
         },
         [2] = {
             name = "Ultra Ball",
@@ -2197,7 +2197,7 @@ ItemData.GEN_5_ITEMS =
         },
         [5] = {
             name = "Safari Ball",
-            description = "Tries to catch a wild Pok\233monin the Great Marsh or Safari Zone. Success rate is 1.5x."
+            description = "Tries to catch a wild Pok\233mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
         },
         [6] = {
             name = "Net Ball",
@@ -2221,7 +2221,7 @@ ItemData.GEN_5_ITEMS =
         },
         [11] = {
             name = "Luxury Ball",
-            description = "Tries to catch a wild Pokemon. Caught Pok\233monstart with 200 happiness."
+            description = "Tries to catch a wild Pokemon. Caught Pok\233mon start with 200 happiness."
         },
         [12] = {
             name = "Premier Ball",
@@ -2233,7 +2233,7 @@ ItemData.GEN_5_ITEMS =
         },
         [14] = {
             name = "Heal Ball",
-            description = "Tries to catch a wild Pokemon. Caught Pok\233monare immediately healed."
+            description = "Tries to catch a wild Pokemon. Caught Pok\233mon are immediately healed."
         },
         [15] = {
             name = "Quick Ball",
@@ -2353,7 +2353,7 @@ ItemData.GEN_5_ITEMS =
         },
         [44] = {
             name = "Sacred Ash",
-            description = "Revives all fainted Pok\233monwith full HP."
+            description = "Revives all fainted Pok\233mon with full HP."
         },
         [45] = {
             name = "Hp Up",
@@ -2449,11 +2449,11 @@ ItemData.GEN_5_ITEMS =
         },
         [68] = {
             name = "Black Flute",
-            description = "Halves the wild Pok\233monencounter rate."
+            description = "Halves the wild Pok\233mon encounter rate."
         },
         [69] = {
             name = "White Flute",
-            description = "Doubles the wild Pok\233monencounter rate."
+            description = "Doubles the wild Pok\233mon encounter rate."
         },
         [70] = {
             name = "Shoal Salt",
@@ -2673,23 +2673,23 @@ ItemData.GEN_5_ITEMS =
         },
         [159] = {
             name = "Figy Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike spicy flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike spicy flavor."
         },
         [160] = {
             name = "Wiki Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike dry flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike dry flavor."
         },
         [161] = {
             name = "Mago Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike sweet flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike sweet flavor."
         },
         [162] = {
             name = "Aguav Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike bitter flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike bitter flavor."
         },
         [163] = {
             name = "Iapapa Berry",
-            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233monthat dislike sour flavor."
+            description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok\233mon that dislike sour flavor."
         },
         [164] = {
             name = "Razz Berry",
@@ -2901,7 +2901,7 @@ ItemData.GEN_5_ITEMS =
         },
         [216] = {
             name = "Exp Share",
-            description = "Half the experience from a battle is split between Pok\233monholding this item."
+            description = "Half the experience from a battle is split between Pok\233mon holding this item."
         },
         [217] = {
             name = "Quick Claw",
@@ -3157,7 +3157,7 @@ ItemData.GEN_5_ITEMS =
         },
         [280] = {
             name = "Destiny Knot",
-            description = "Infatuates opposing Pok\233monwhen holder is inflicted with infatuation."
+            description = "Infatuates opposing Pok\233mon when holder is inflicted with infatuation."
         },
         [281] = {
             name = "Black Sludge",
@@ -3189,7 +3189,7 @@ ItemData.GEN_5_ITEMS =
         },
         [288] = {
             name = "Sticky Barb",
-            description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok\233montakes 1/8 its max HP in damage and receive the item if not holding one."
+            description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok\233mon takes 1/8 its max HP in damage and receive the item if not holding one."
         },
         [289] = {
             name = "Power Bracer",
@@ -3769,7 +3769,7 @@ ItemData.GEN_5_ITEMS =
         },
         [435] = {
             name = "Fashion Case",
-            description = "Holds Pok\233monAccessories for use in Contests."
+            description = "Holds Pok\233mon Accessories for use in Contests."
         },
         [436] = {
             name = "Seal Bag",
@@ -3809,15 +3809,15 @@ ItemData.GEN_5_ITEMS =
         },
         [445] = {
             name = "Old Rod",
-            description = "Used to catch Pok\233monin bodies of water."
+            description = "Used to catch Pok\233mon in bodies of water."
         },
         [446] = {
             name = "Good Rod",
-            description = "Used to catch Pok\233monin bodies of water."
+            description = "Used to catch Pok\233mon in bodies of water."
         },
         [447] = {
             name = "Super Rod",
-            description = "Used to catch Pok\233monin bodies of water."
+            description = "Used to catch Pok\233mon in bodies of water."
         },
         [448] = {
             name = "Sprayduck",
@@ -3857,7 +3857,7 @@ ItemData.GEN_5_ITEMS =
         },
         [457] = {
             name = "Contest Pass",
-            description = "Allows participation in Pok\233monContests."
+            description = "Allows participation in Pok\233mon Contests."
         },
         [458] = {
             name = "Magma Stone",
@@ -3921,11 +3921,11 @@ ItemData.GEN_5_ITEMS =
         },
         [493] = {
             name = "Level Ball",
-            description = "Success rate based off of fraction target Pok\233monis of user's Pokemon. Made from Red Apricorn."
+            description = "Success rate based off of fraction target Pok\233mon is of user's Pokemon. Made from Red Apricorn."
         },
         [498] = {
             name = "Moon Ball",
-            description = "4x effectiveness on familes of Pok\233monwith a Moon Stone evolution. Made from Ylw Apricorn."
+            description = "4x effectiveness on familes of Pok\233mon with a Moon Stone evolution. Made from Ylw Apricorn."
         },
         [495] = {
             name = "Heavy Ball",
@@ -3933,11 +3933,11 @@ ItemData.GEN_5_ITEMS =
         },
         [492] = {
             name = "Fast Ball",
-            description = "4x effectiveness on Pok\233monwith 100 or greater base speed. Made from Wht Apricorn."
+            description = "4x effectiveness on Pok\233mon with 100 or greater base speed. Made from Wht Apricorn."
         },
         [497] = {
             name = "Friend Ball",
-            description = "Caught Pok\233monstart with 200 happiness. Made from Grn Apricorn."
+            description = "Caught Pok\233mon start with 200 happiness. Made from Grn Apricorn."
         },
         [496] = {
             name = "Love Ball",
@@ -3945,11 +3945,11 @@ ItemData.GEN_5_ITEMS =
         },
         [500] = {
             name = "Park Ball",
-            description = "Catches Pok\233monin the Pal Park every time."
+            description = "Catches Pok\233mon in the Pal Park every time."
         },
         [499] = {
             name = "Sport Ball",
-            description = "Tries to catch a Pok\233monin the Bug-Catching contest in National Park."
+            description = "Tries to catch a Pok\233mon in the Bug-Catching contest in National Park."
         },
         [485] = {
             name = "Red Apricorn",
@@ -4029,7 +4029,7 @@ ItemData.GEN_5_ITEMS =
         },
         [478] = {
             name = "Red Scale",
-            description = "Trade to Mr. Pok\233monfor an Exp. Share."
+            description = "Trade to Mr. Pok\233mon for an Exp. Share."
         },
         [479] = {
             name = "Lost Item",
@@ -4073,11 +4073,11 @@ ItemData.GEN_5_ITEMS =
         },
         [507] = {
             name = "Data Card-03",
-            description = "Records the number of times the trainer's Pok\233monhave dashed in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have dashed in the Pokeathlon."
         },
         [508] = {
             name = "Data Card-04",
-            description = "Records the number of times the trainer's Pok\233monhave jumped in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have jumped in the Pokeathlon."
         },
         [509] = {
             name = "Data Card-05",
@@ -4109,19 +4109,19 @@ ItemData.GEN_5_ITEMS =
         },
         [516] = {
             name = "Data Card-12",
-            description = "Records the number of times the trainer's Pok\233monhave messed up in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have messed up in the Pokeathlon."
         },
         [517] = {
             name = "Data Card-13",
-            description = "Records the number of times the trainer's Pok\233monhave defeated themselves in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have defeated themselves in the Pokeathlon."
         },
         [518] = {
             name = "Data Card-14",
-            description = "Records the number of times the trainer's Pok\233monhave tackled in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have tackled in the Pokeathlon."
         },
         [519] = {
             name = "Data Card-15",
-            description = "Records the number of times the trainer's Pok\233monhave fallen in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon have fallen in the Pokeathlon."
         },
         [520] = {
             name = "Data Card-16",
@@ -4153,7 +4153,7 @@ ItemData.GEN_5_ITEMS =
         },
         [527] = {
             name = "Data Card-23",
-            description = "Records the number of times the trainer has switched Pok\233monin the Pokeathlon."
+            description = "Records the number of times the trainer has switched Pok\233mon in the Pokeathlon."
         },
         [528] = {
             name = "Data Card-24",
@@ -4161,11 +4161,11 @@ ItemData.GEN_5_ITEMS =
         },
         [529] = {
             name = "Data Card-25",
-            description = "Records the number of times the trainer's Pok\233monreceived prizes in the Pokeathlon."
+            description = "Records the number of times the trainer's Pok\233mon received prizes in the Pokeathlon."
         },
         [530] = {
             name = "Data Card-26",
-            description = "Records the number of times the trainer has instructed Pok\233monin the Pokeathlon."
+            description = "Records the number of times the trainer has instructed Pok\233mon in the Pokeathlon."
         },
         [531] = {
             name = "Data Card-27",
@@ -4201,51 +4201,51 @@ ItemData.GEN_5_ITEMS =
         },
         [137] = {
             name = "Greet Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [138] = {
             name = "Favored Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [139] = {
             name = "Rsvp Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [140] = {
             name = "Thanks Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [141] = {
             name = "Inquiry Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [142] = {
             name = "Like Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [143] = {
             name = "Reply Mail",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [144] = {
             name = "Bridge Mail-s",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [145] = {
             name = "Bridge Mail-d",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [146] = {
             name = "Bridge Mail-t",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [147] = {
             name = "Bridge Mail-v",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [148] = {
             name = "Bridge Mail-m",
-            description = "Lets a Trainer write a message and send it via Pok\233montrade."
+            description = "Lets a Trainer write a message and send it via Pok\233mon trade."
         },
         [537] = {
             name = "Prism Scale",
@@ -4261,7 +4261,7 @@ ItemData.GEN_5_ITEMS =
         },
         [540] = {
             name = "Rocky Helmet",
-            description = "When the holder is hit by a contact move, the attacking Pok\233montakes 1/6 its max HP in damage."
+            description = "When the holder is hit by a contact move, the attacking Pok\233mon takes 1/6 its max HP in damage."
         },
         [541] = {
             name = "Air Balloon",
@@ -4289,7 +4289,7 @@ ItemData.GEN_5_ITEMS =
         },
         [547] = {
             name = "Eject Button",
-            description = "When the holder takes damage from a move, it switches out for a party Pok\233monof the Trainer's choice."
+            description = "When the holder takes damage from a move, it switches out for a party Pok\233mon of the Trainer's choice."
         },
         [548] = {
             name = "Fire Gem",
@@ -4397,7 +4397,7 @@ ItemData.GEN_5_ITEMS =
         },
         [576] = {
             name = "Dream Ball",
-            description = "Catches Pok\233monfound in the Dream World."
+            description = "Catches Pok\233mon found in the Dream World."
         },
         [577] = {
             name = "Poke Toy",
@@ -4405,7 +4405,7 @@ ItemData.GEN_5_ITEMS =
         },
         [578] = {
             name = "Prop Case",
-            description = "Stores props for the Pok\233monMusical."
+            description = "Stores props for the Pok\233mon Musical."
         },
         [579] = {
             name = "Dragon Skull",
@@ -4541,7 +4541,7 @@ ItemData.GEN_5_ITEMS =
         },
         [612] = {
             name = "Item Drop",
-            description = "Forces a friendly Pok\233monto drop its held item."
+            description = "Forces a friendly Pok\233mon to drop its held item."
         },
         [613] = {
             name = "Item Urge",

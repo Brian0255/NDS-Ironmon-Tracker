@@ -8,7 +8,7 @@ AbilityData.ABILITIES =
             name = "Stench",
             description = {
                 "Helps repel wild Pokemon.",
-                "Has a 10% chance of making target Pok\233monflinch with each hit."
+                "Has a 10% chance of making target Pok\233mon flinch with each hit."
             }
         },
         {
@@ -26,6 +26,7 @@ AbilityData.ABILITIES =
             name = "Battle Armor",
             description = "Protects against critical hits."
         },
+        
         {
             id = 5,
             name = "Sturdy",
@@ -37,7 +38,7 @@ AbilityData.ABILITIES =
         {
             id = 6,
             name = "Damp",
-            description = "Prevents self destruct, explosion, and aftermath from working while the Pok\233monis in battle."
+            description = "Prevents self destruct, explosion, and aftermath from working while the Pok\233mon is in battle."
         },
         {
             id = 7,
@@ -52,7 +53,7 @@ AbilityData.ABILITIES =
         {
             id = 9,
             name = "Static",
-            description = "Has a 30% chance of paralyzing attacking Pok\233monon contact."
+            description = "Has a 30% chance of paralyzing attacking Pok\233mon on contact."
         },
         {
             id = 10,
@@ -127,7 +128,7 @@ AbilityData.ABILITIES =
         {
             id = 24,
             name = "Rough Skin",
-            description = "Damages attacking Pok\233monfor 1/8 their max HP on contact."
+            description = "Damages attacking Pok\233mon for 1/8 their max HP on contact."
         },
         {
             id = 25,
@@ -142,12 +143,12 @@ AbilityData.ABILITIES =
         {
             id = 27,
             name = "Effect Spore",
-            description = "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pok\233monon contact."
+            description = "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pok\233mon on contact."
         },
         {
             id = 28,
             name = "Synchronize",
-            description = "Copies burns, paralysis, and poison received onto the Pok\233monthat inflicted them."
+            description = "Copies burns, paralysis, and poison received onto the Pok\233mon that inflicted them."
         },
         {
             id = 29,
@@ -163,8 +164,8 @@ AbilityData.ABILITIES =
             id = 31,
             name = "Lightning Rod",
             description = {
-                "Redirects single-target electric moves to this Pok\233monwhere possible.",
-                "Redirects electric moves to this Pok\233monand absorbs them, raising Special Attack one stage."
+                "Redirects single-target electric moves to this Pok\233mon where possible.",
+                "Redirects electric moves to this Pok\233mon and absorbs them, raising Special Attack one stage."
             }
         },
         {
@@ -200,7 +201,7 @@ AbilityData.ABILITIES =
         {
             id = 38,
             name = "Poison Point",
-            description = "Has a 30% chance of poisoning attacking Pok\233monon contact."
+            description = "Has a 30% chance of poisoning attacking Pok\233mon on contact."
         },
         {
             id = 39,
@@ -240,7 +241,7 @@ AbilityData.ABILITIES =
         {
             id = 46,
             name = "Pressure",
-            description = "Increases the PP cost of moves targeting the Pok\233monby one."
+            description = "Increases the PP cost of moves targeting the Pok\233mon by one."
         },
         {
             id = 47,
@@ -255,7 +256,7 @@ AbilityData.ABILITIES =
         {
             id = 49,
             name = "Flame Body",
-            description = "Has a 30% chance of burning attacking Pok\233monon contact."
+            description = "Has a 30% chance of burning attacking Pok\233mon on contact."
         },
         {
             id = 50,
@@ -290,17 +291,17 @@ AbilityData.ABILITIES =
         {
             id = 56,
             name = "Cute Charm",
-            description = "Has a 30% chance of infatuating attacking Pok\233monon contact."
+            description = "Has a 30% chance of infatuating attacking Pok\233mon on contact."
         },
         {
             id = 57,
             name = "Plus",
-            description = "Increases Special Attack to 1.5x when a friendly Pok\233monhas plus or minus."
+            description = "Increases Special Attack to 1.5x when a friendly Pok\233mon has plus or minus."
         },
         {
             id = 58,
             name = "Minus",
-            description = "Increases Special Attack to 1.5x when a friendly Pok\233monhas plus or minus."
+            description = "Increases Special Attack to 1.5x when a friendly Pok\233mon has plus or minus."
         },
         {
             id = 59,
@@ -365,7 +366,7 @@ AbilityData.ABILITIES =
         {
             id = 71,
             name = "Arena Trap",
-            description = "Prevents opponents from fleeing or switching out. Eluded by flying-types and Pok\233monin the air."
+            description = "Prevents opponents from fleeing or switching out. Eluded by flying-types and Pok\233mon in the air."
         },
         {
             id = 72,
@@ -405,7 +406,7 @@ AbilityData.ABILITIES =
         {
             id = 79,
             name = "Rivalry",
-            description = "Increases damage inflicted to 1.25x against Pok\233monof the same gender, but decreases damage to 0.75x against the opposite gender."
+            description = "Increases damage inflicted to 1.25x against Pok\233mon of the same gender, but decreases damage to 0.75x against the opposite gender."
         },
         {
             id = 80,
@@ -420,7 +421,7 @@ AbilityData.ABILITIES =
         {
             id = 82,
             name = "Gluttony",
-            description = "Makes the Pok\233moneat any held Berry triggered by low HP below 1/2 its max HP."
+            description = "Makes the Pok\233mon eat any held Berry triggered by low HP below 1/2 its max HP."
         },
         {
             id = 83,
@@ -505,12 +506,12 @@ AbilityData.ABILITIES =
         {
             id = 99,
             name = "No Guard",
-            description = "Ensures all moves used by and against the Pok\233monhit."
+            description = "Ensures all moves used by and against the Pok\233mon hit."
         },
         {
             id = 100,
             name = "Stall",
-            description = "Makes the Pok\233monmove last within its move's priority bracket."
+            description = "Makes the Pok\233mon move last within its move's priority bracket."
         },
         {
             id = 101,
@@ -525,7 +526,7 @@ AbilityData.ABILITIES =
         {
             id = 103,
             name = "Klutz",
-            description = "Verhindert, dass das Pok\233monein getragenes Item im Kampf einsetzt."
+            description = "Verhindert, dass das Pok\233mon ein getragenes Item im Kampf einsetzt."
         },
         {
             id = 104,
@@ -582,7 +583,7 @@ AbilityData.ABILITIES =
             name = "Storm Drain",
             description = {
                 "Redirects single-target water moves to this Pokemon.",
-                "Redirects single-target water moves to this Pok\233monand absorbs them, raising Special Attack one stage."
+                "Redirects single-target water moves to this Pok\233mon and absorbs them, raising Special Attack one stage."
             }
         },
         {
@@ -603,7 +604,7 @@ AbilityData.ABILITIES =
         {
             id = 118,
             name = "Honey Gather",
-            description = "The Pok\233monmay pick up honey after battle."
+            description = "The Pok\233mon may pick up honey after battle."
         },
         {
             id = 119,
@@ -648,7 +649,7 @@ AbilityData.ABILITIES =
         {
             id = 127,
             name = "Unnerve",
-            description = "Prevents opposing Pok\233monfrom eating held Berries."
+            description = "Prevents opposing Pok\233mon from eating held Berries."
         },
         {
             id = 128,
@@ -673,7 +674,7 @@ AbilityData.ABILITIES =
         {
             id = 132,
             name = "Friend Guard",
-            description = "Decreases all direct damage taken by friendly Pok\233monto 0.75x."
+            description = "Decreases all direct damage taken by friendly Pok\233mon to 0.75x."
         },
         {
             id = 133,
@@ -708,7 +709,7 @@ AbilityData.ABILITIES =
         {
             id = 139,
             name = "Harvest",
-            description = "Has a 50% chance of restoring a used Berry after each turn if the Pok\233monhas held no items in the meantime."
+            description = "Has a 50% chance of restoring a used Berry after each turn if the Pok\233mon has held no items in the meantime."
         },
         {
             id = 140,
@@ -728,7 +729,7 @@ AbilityData.ABILITIES =
         {
             id = 143,
             name = "Poison Touch",
-            description = "Has a 30% chance of poisoning target Pok\233monupon contact."
+            description = "Has a 30% chance of poisoning target Pok\233mon upon contact."
         },
         {
             id = 144,
@@ -758,7 +759,7 @@ AbilityData.ABILITIES =
         {
             id = 149,
             name = "Illusion",
-            description = "Takes the appearance of the last conscious party Pok\233monupon being sent out until hit by a damaging move."
+            description = "Takes the appearance of the last conscious party Pok\233mon upon being sent out until hit by a damaging move."
         },
         {
             id = 150,
@@ -813,7 +814,7 @@ AbilityData.ABILITIES =
         {
             id = 160,
             name = "Iron Barbs",
-            description = "Damages attacking Pok\233monfor 1/8 their max HP on contact."
+            description = "Damages attacking Pok\233mon for 1/8 their max HP on contact."
         },
         {
             id = 161,
