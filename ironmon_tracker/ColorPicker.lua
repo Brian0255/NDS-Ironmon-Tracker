@@ -1,4 +1,4 @@
-local function ColorPicker(initialColorScheme, initialColorKey)
+local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFunction, initialOnCloseParams)
     local self = {}
 
     local width = 220
@@ -7,6 +7,9 @@ local function ColorPicker(initialColorScheme, initialColorKey)
     local yPos = client.ypos() + client.screenheight() / 2 - height / 2
     local circleRadius = 75
     local circleCenter = {85, 85}
+
+    local onCloseFunction = initialOnCloseFunction
+    local onCloseParams = initialOnCloseParams
 
     local hue = 0
     local sat = 0
@@ -86,17 +89,10 @@ local function ColorPicker(initialColorScheme, initialColorKey)
     end
 
     local function HEX_to_RGB(hexStr)
-        if hexStr:len() == 3 then
-            red, green, blue =
-                (tonumber("0x" .. hexStr:sub(1, 1)) * 17),
-                (tonumber("0x" .. hexStr:sub(2, 2)) * 17),
-                (tonumber("0x" .. hexStr:sub(3, 3)) * 17)
-        else
-            red, green, blue =
-                tonumber("0x" .. hexStr:sub(1, 2)),
-                tonumber("0x" .. hexStr:sub(3, 4)),
-                tonumber("0x" .. hexStr:sub(5, 6))
-        end
+        red, green, blue =
+            tonumber(hexStr:sub(1, 2),16),
+            tonumber(hexStr:sub(3, 4),16),
+            tonumber(hexStr:sub(5, 6),16)
     end
 
     local function RGB_to_HSL()
@@ -244,6 +240,7 @@ local function ColorPicker(initialColorScheme, initialColorKey)
 
     local function onClose()
         colorScheme[colorKey] = initialColor
+        onCloseFunction(onCloseParams)
         forms.destroyall()
     end
 
