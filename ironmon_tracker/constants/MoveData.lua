@@ -319,7 +319,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = {"85", "100", "100", "100", "100"},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Switches the target out for another of its trainer's Pok\233mon selected at random. Doesn't affect Pok\233mon with suction cups or under the effect of ingrain."
+			description = "Decreased priority. Switches the target out for another of its trainer's Pok\233mon selected at random. Doesn't affect Pok\233mon with suction cups or under the effect of ingrain."
 		},
 		{
 			id = "19",
@@ -611,7 +611,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Switches the target out for another of its trainer's Pok\233mon selected at random. Wild battles end immediately."
+			description = "Decreased priority. Switches the target out for another of its trainer's Pok\233mon selected at random. Wild battles end immediately."
 		},
 		{
 			id = "47",
@@ -831,7 +831,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts twice the damage that move did to the user. If there is no eligible target, this move will fail. Type immunity applies, but other type effects are ignored."
+			description = "Decreased priority. Inflicts twice the damage that move did to the user. If there is no eligible target, this move will fail. Type immunity applies, but other type effects are ignored."
 		},
 		{
 			id = "69",
@@ -1131,7 +1131,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "99",
@@ -1321,7 +1321,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pok\233mon to hit it. Damage inflicted is typeless."
+			description = "Increased priority. User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pok\233mon to hit it. Damage inflicted is typeless."
 		},
 		{
 			id = "118",
@@ -1978,7 +1978,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
+			description = "Increased priority. No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
 		{
 			id = "183",
@@ -1988,7 +1988,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "184",
@@ -2128,7 +2128,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
+			description = "Increased priority. No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
 		{
 			id = "198",
@@ -2188,7 +2188,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "The user's HP cannot be lowered below 1 by any means for the remainder of this turn."
+			description = "Increased priority. The user's HP cannot be lowered below 1 by any means for the remainder of this turn."
 		},
 		{
 			id = "204",
@@ -2488,7 +2488,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
+			description = "Decreased priority. Inflicts regular damage. Ignores accuracy and evasion modifiers."
 		},
 		{
 			id = "234",
@@ -2588,7 +2588,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Targets the last opposing Pok\233mon to hit the user with a special move this turn. Inflicts twice the damage that move did to the user. Type immunity applies, but other type effects are ignored."
+			description = "Decreased priority. Targets the last opposing Pok\233mon to hit the user with a special move this turn. Inflicts twice the damage that move did to the user. Type immunity applies, but other type effects are ignored."
 		},
 		{
 			id = "244",
@@ -2608,7 +2608,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "246",
@@ -2799,7 +2799,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. If the user takes damage this turn before hitting, this move will fail."
+			description = "Decreased priority. Inflicts regular damage. If the user takes damage this turn before hitting, this move will fail."
 		},
 		{
 			id = "265",
@@ -2819,7 +2819,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Until the end of this turn, any moves that opposing Pok\233mon target solely at the user's ally will instead target the user."
+			description = "Increased priority. Until the end of this turn, any moves that opposing Pok\233mon target solely at the user's ally will instead target the user."
 		},
 		{
 			id = "267",
@@ -2859,7 +2859,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Boosts the power of the target's moves by 50% until the end of this turn."
+			description = "Increase priority. Boosts the power of the target's moves by 50% until the end of this turn."
 		},
 		{
 			id = "271",
@@ -2929,7 +2929,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "The first non-damaging move targeting the user this turn that inflicts major status effects, stat changes, or trapping effects will be reflected at its user."
+			description = "Increased priority. The first non-damaging move targeting the user this turn that inflicts major status effects, stat changes, or trapping effects will be reflected at its user."
 		},
 		{
 			id = "278",
@@ -2949,7 +2949,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. If the target damaged the user this turn and was the last to do so, this move has double power."
+			description = "Decreased priority. Inflicts regular damage. If the target damaged the user this turn and was the last to do so, this move has double power."
 		},
 		{
 			id = "280",
@@ -3049,7 +3049,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "The next time a Pok\233mon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself"
+			description = "Increased priority. The next time a Pok\233mon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself"
 		},
 		{
 			id = "290",
@@ -3799,7 +3799,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. Removes the effects of detect or protect from the target before hitting."
+			description = "Increased priority. Inflicts regular damage. Removes the effects of detect or protect from the target before hitting."
 		},
 		{
 			id = "365",
@@ -4049,7 +4049,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage. If the target has not selected a damaging move this turn, or if the target has already acted this turn, this move will fail."
+			description = "Increased priority. Inflicts regular damage. If the target has not selected a damaging move this turn, or if the target has already acted this turn, this move will fail."
 		},
 		{
 			id = "390",
@@ -4259,7 +4259,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.SPECIAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "411",
@@ -4339,7 +4339,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "419",
@@ -4349,7 +4349,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage and has negative priority. If the target damaged the user this turn, this move has double power."
+			description = "Decreased priority. Inflicts regular damage and has negative priority. If the target damaged the user this turn, this move has double power."
 		},
 		{
 			id = "420",
@@ -4359,7 +4359,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "421",
@@ -4409,7 +4409,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "30",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "426",
@@ -4489,7 +4489,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "5",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, slower Pok\233mon will act before faster Pokemon. Move priority is not affected."
+			description = "Decreased priority. For five turns, slower Pok\233mon will act before faster Pokemon. Move priority is not affected."
 		},
 		{
 			id = "434",
@@ -4689,7 +4689,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = "100",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage."
+			description = "Increased priority. Inflicts regular damage."
 		},
 		{
 			id = "454",
@@ -4849,7 +4849,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Moves with multiple targets will not hit friendly Pok\233mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
+			description = "Increased priority. Moves with multiple targets will not hit friendly Pok\233mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
 		{
 			id = "470",
@@ -4879,7 +4879,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, every Pokemon's Defense and Special Defense are swapped."
+			description = "Decreased priority. For five turns, every Pokemon's Defense and Special Defense are swapped."
 		},
 		{
 			id = "473",
@@ -4919,7 +4919,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "20",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Until the end of this turn, any moves that opposing Pok\233mon target solely at the user's ally will instead target the user."
+			description = "Increased priority. Until the end of this turn, any moves that opposing Pok\233mon target solely at the user's ally will instead target the user."
 		},
 		{
 			id = "477",
@@ -4939,7 +4939,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "For five turns, passive effects of held items are ignored, and Pok\233mon will not use their held items."
+			description = "Decreased priority. For five turns, passive effects of held items are ignored, and Pok\233mon will not use their held items."
 		},
 		{
 			id = "479",
@@ -5169,7 +5169,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Moves with priority greater than 0 will not hit friendly Pok\233mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
+			description = "Increased priority. Moves with priority greater than 0 will not hit friendly Pok\233mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
 		},
 		{
 			id = "502",
@@ -5179,7 +5179,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "15",
 			accuracy = Graphics.TEXT.ALWAYS_HITS,
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "User switches position on the field with the friendly Pok\233mon opposite it. If the user is in the middle position in a triple battle, or there are no other friendly Pokemon, this move will fail."
+			description = "Increased priority. User switches position on the field with the friendly Pok\233mon opposite it. If the user is in the middle position in a triple battle, or there are no other friendly Pokemon, this move will fail."
 		},
 		{
 			id = "503",
@@ -5249,7 +5249,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "90",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage, then switches the target out for another of its trainer's Pokemon, selected at random."
+			description = "Decreased priority. Inflicts regular damage, then switches the target out for another of its trainer's Pokemon, selected at random."
 		},
 		{
 			id = "510",
@@ -5409,7 +5409,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = "90",
 			category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-			description = "Inflicts regular damage, then switches the target out for another of its trainer's Pokemon, selected at random."
+			description = "Decreased priority. Inflicts regular damage, then switches the target out for another of its trainer's Pokemon, selected at random."
 		},
 		{
 			id = "526",
