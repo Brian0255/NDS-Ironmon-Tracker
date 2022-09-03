@@ -457,18 +457,117 @@ IconDrawer.ICONS =
             colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
         },
+        BADGES = {
+            HGSS = {
+                iconType = IconDrawer.ICON_TYPES.STANDARD,
+                imageArray = {
+                    {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0},
+                    {0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0},
+                    {0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0},
+                    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                    {1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+                    {1,0,1,1,0,0,0,1,1,0,0,0,1,1,0,1},
+                    {1,0,0,0,1,1,1,0,0,1,1,1,0,0,0,1},
+                    {1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1},
+                    {1,0,1,0,0,0,1,0,0,1,0,0,0,1,0,1},
+                    {1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1},
+                    {1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1},
+                    {0,1,1,0,1,0,1,0,0,1,0,1,0,1,1,0},
+                    {0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0},
+                    {0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0}
+                },
+                colorKey = "Top box border color",
+                backgroundColorKey = "Top box background color"
+            },
+            DPPT = {
+                iconType = IconDrawer.ICON_TYPES.STANDARD,
+                imageArray = {
+                    {0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0},
+                    {0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0},
+                    {0,0,0,1,0,0,1,1,1,1,0,0,1,0,0,0},
+                    {0,0,1,0,1,1,1,1,1,1,1,1,0,1,0,0},
+                    {0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0},
+                    {0,1,0,1,1,1,0,0,0,0,1,1,1,0,1,0},
+                    {1,0,1,1,1,0,1,1,1,1,0,1,1,1,0,1},
+                    {1,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1},
+                    {1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1},
+                    {1,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1},
+                    {1,0,1,1,1,0,1,1,1,1,0,1,1,1,0,1},
+                    {0,1,0,1,1,1,0,0,0,0,1,1,1,0,1,0},
+                    {0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0},
+                    {0,0,1,0,1,1,1,1,1,1,1,1,0,1,0,0},
+                    {0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                    {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0}
+                },
+                colorKey = "Top box border color",
+                backgroundColorKey = "Top box background color"
+            },
+            BW = {
+                iconType = IconDrawer.ICON_TYPES.STANDARD,
+                imageArray = {
+                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0},
+                    {0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1},
+                    {0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1},
+                    {0,0,0,0,0,0,0,0,1,0,0,1,1,0,1,0},
+                    {0,0,0,0,0,0,0,0,1,0,1,1,1,0,1,0},
+                    {0,0,0,0,0,0,1,1,0,1,1,1,0,1,0,0},
+                    {0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0},
+                    {0,0,0,0,0,1,0,1,1,1,0,1,1,0,0,0},
+                    {0,0,0,1,1,0,1,1,1,0,1,0,0,0,0,0},
+                    {0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0},
+                    {0,0,1,0,1,1,1,0,1,1,0,0,0,0,0,0},
+                    {0,1,0,1,1,1,0,1,0,0,0,0,0,0,0,0},
+                    {0,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0},
+                    {1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0},
+                    {1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0},
+                    {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0}
+                },
+                colorKey = "Top box border color",
+                backgroundColorKey = "Top box background color"
+            },
+            BW2 = {
+                iconType = IconDrawer.ICON_TYPES.STANDARD,
+                imageArray = {
+                    {0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0},
+                    {0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0},
+                    {0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1},
+                    {0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,1},
+                    {0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0},
+                    {0,0,0,0,0,0,0,1,0,1,1,1,0,1,0,0},
+                    {0,0,0,0,0,0,1,0,1,1,1,0,1,0,0,0},
+                    {0,0,0,0,0,1,0,1,1,1,0,1,0,0,0,0},
+                    {0,0,0,0,1,0,1,1,1,0,1,0,0,0,0,0},
+                    {0,0,0,1,0,1,1,1,0,1,0,0,0,0,0,0},
+                    {0,0,1,0,1,1,1,0,1,0,0,0,0,0,0,0},
+                    {0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0},
+                    {1,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0},
+                    {1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0},
+                    {0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+                    {0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0}
+                },
+                colorKey = "Top box border color",
+                backgroundColorKey = "Top box background color"
+            }
+        }
     }
 )
 
-function IconDrawer.drawIcon(iconName,x,y)
+function IconDrawer.drawIcon(iconName, x, y)
+    local icon
     if IconDrawer.ICONS[iconName] then
-        local icon = IconDrawer.ICONS[iconName]
+        icon = IconDrawer.ICONS[iconName]
+    elseif IconDrawer.ICONS.BADGES[iconName] then
+        icon = IconDrawer.ICONS.BADGES[iconName]
+    end
+    if icon ~= nil then
         local iconType = icon.iconType
         local backgroundColorKey = icon.backgroundColorKey
         local shadowColor = DrawingUtils.calcShadowColor(backgroundColorKey)
         local iconArray = icon.imageArray
         local iconColorKey = icon.colorKey
-        for rowIndex = 1,#iconArray,1 do
+        for rowIndex = 1,#iconArray, 1 do
             for colIndex = 1,#(iconArray[1]) do
                 local offsetX = colIndex - 1
                 local offsetY = rowIndex - 1
@@ -476,7 +575,7 @@ function IconDrawer.drawIcon(iconName,x,y)
                 if shouldColor then
                     local color
                     if iconType == IconDrawer.ICON_TYPES.MOVE_TYPE then
-                        if settings.colorSettings.Color_move_type_icons then
+                        if settings.colorSettings["Color move type icons"] then
                             color = Graphics.TYPE_COLORS[iconName]
                         else
                             color = settings.colorScheme["Bottom box background color"]
@@ -487,7 +586,7 @@ function IconDrawer.drawIcon(iconName,x,y)
                     if settings.colorSettings.Draw_shadows then
                         gui.drawPixel(x + offsetX + 1,y + offsetY + 1,shadowColor)
                     end
-                    gui.drawPixel(x + offsetX,y + offsetY,color)
+                    gui.drawPixel(x + offsetX, y + offsetY, color)
                 end
             end
         end
