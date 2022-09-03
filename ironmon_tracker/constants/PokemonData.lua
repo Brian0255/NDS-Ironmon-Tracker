@@ -1349,7 +1349,7 @@ PokemonData.POKEMON =
         {
             name = "Poliwhirl",
             type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
-            evolution = PokemonData.EVOLUTION_TYPES.KINGS_ROCK,
+            evolution = "K ROCK/WTR",
             bst = "385",
             movelvls = {
                 {16, 19, 26, 33, 41, 49},
@@ -1727,7 +1727,7 @@ PokemonData.POKEMON =
         {
             name = "Slowpoke",
             type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.PSYCHIC},
-            evolution = "WTR", -- Water stone replaces trade evolution to Slowking
+            evolution = "WTR/37",
             bst = "315",
             movelvls = {
                 {18, 22, 27, 33, 40, 48},
