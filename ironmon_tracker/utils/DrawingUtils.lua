@@ -1,28 +1,9 @@
 DrawingUtils = {}
 
-local colorScheme--[[ = {
-    ["Main background color"] = 0xFF707070,
-    ["Default text color"] = 0xFFFFFFFF,
-    ["Positive text color"] = 0xFF00FF00,
-    ["Negative text color"] = 0xFFFF0000,
-    ["Intermediate text color"] = 0xFFFFFF00,
-    ["Move header text color"] = 0xFFFFFFFF,
-    ["Top box border color"] = 0xFFAAAAAA,
-    ["Top box background color"] = 0xFF202020,
-    ["Bottom box border color"] = 0xFFAAAAAA,
-    ["Bottom box background color"] = 0xFF202020,
-    ["Physical icon color"] = 0xFFFFC631,
-    ["Special icon color"] = 0xFF3E5782,
-    ["Gear icon color"] = 0xFFDBDBDB
-}--]]
+local colorScheme
 
 function DrawingUtils.setColorScheme(newScheme)
     colorScheme = newScheme
-    print(type(newScheme["Top box background color"]))
-    for _, thing in pairs(colorScheme) do
-        print(string.format("%X",thing))
-        print("ok")
-    end
 end
 
 function DrawingUtils.clearGUI()
@@ -36,7 +17,7 @@ function DrawingUtils.clearGUI()
     )
 end
 
-function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, width)
+function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
     local UIClassFolder = Paths.FOLDERS.UI_BASE_CLASSES.."/"
     local Frame = dofile(UIClassFolder .. "Frame.lua")
     local Box = dofile(UIClassFolder .. "Box.lua")
@@ -82,7 +63,7 @@ function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, wid
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Default text color",
+                    textColorKey,
                     BGColorKey
                 )
             )
