@@ -7,6 +7,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local BattleOptionsScreen = dofile(UIRoot .. "BattleOptionsScreen.lua")
 	local AppearanceOptionsScreen = dofile(UIRoot .. "AppearanceOptionsScreen.lua")
 	local BadgesAppearanceScreen = dofile(UIRoot .. "BadgesAppearanceScreen.lua")
+	local ColorSchemeScreen = dofile(UIRoot .. "ColorSchemeScreen.lua")
 	local PokemonDataReader = dofile("ironmon_tracker/PokemonDataReader.lua")
 	local JoypadEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/JoypadEventListener.lua")
 	self.SELECTED_PLAYERS = {
@@ -20,6 +21,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	}
 
 	local battleDataFetched = false
+	local runEvents = true
 	local inBattle = false
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
@@ -55,6 +57,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		BATTLE_OPTIONS_SCREEN = 2,
 		APPEARANCE_OPTIONS_SCREEN = 3,
 		BADGES_APPEARANCE_SCREEN = 4,
+		COLOR_SCHEME_SCREEN = 5,
 	}
 	self.UI_SCREEN_OBJECTS = {
 		[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self),
@@ -62,6 +65,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.BATTLE_OPTIONS_SCREEN] = BattleOptionsScreen(settings, tracker, self),
 		[self.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN] = AppearanceOptionsScreen(settings, tracker, self),
 		[self.UI_SCREENS.BADGES_APPEARANCE_SCREEN] = BadgesAppearanceScreen(settings, tracker, self),
+		[self.UI_SCREENS.COLOR_SCHEME_SCREEN] = ColorSchemeScreen(settings, tracker, self),
 	}
 
 	local currentScreens = { [self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] }
@@ -585,15 +589,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil),
 	}
 
+	function self.pauseEventListeners()
+		runEvents = false
+	end
+
+
 	function self.main()
-		for _, eventListener in pairs(eventListeners) do
-			eventListener.listen()
+		if runEvents then
+			for _, eventListener in pairs(eventListeners) do
+				eventListener.listen()
+			end
+			for _, screen in pairs(currentScreens) do
+				screen.runEventListeners()
+			end
 		end
 		for _, frameCounter in pairs(frameCounters) do
 			frameCounter.decrement()
-		end
-		for _, screen in pairs(currentScreens) do
-			screen.runEventListeners()
 		end
 	end
 
