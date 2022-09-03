@@ -1,6 +1,6 @@
 PokemonData = {}
 
--- Enumerated constants that defines the various types a Pok\233monand its Moves are
+-- Enumerated constants that defines the various types a Pokemon and its Moves are
 PokemonData.POKEMON_TYPES =
     MiscUtils.readOnly(
     {
@@ -23,7 +23,7 @@ PokemonData.POKEMON_TYPES =
         DARK = "DARK",
         FAIRY = "FAIRY", -- Expect this to be unused in Gen 1-5
         UNKNOWN = "UNKNOWN", -- For the move "Curse" in Gen 2-4
-        EMPTY = "" -- No second type for this Pok\233monor an empty field
+        EMPTY = "" -- No second type for this Pokemon or an empty field
     }
 )
 
@@ -34,7 +34,7 @@ PokemonData.POKEMON_TYPES =
 PokemonData.EVOLUTION_TYPES =
     MiscUtils.readOnly(
     {
-        NONE = Graphics.TEXT.PLACEHOLDER, -- This Pok\233mondoes not evolve.
+        NONE = Graphics.TEXT.PLACEHOLDER, -- This Pokemon does not evolve.
         FRIEND = "FRIEND", -- High friendship
         STONES = "STONES", -- Various evolution stone items
         THUNDER = "THUNDR", -- Thunder stone item
@@ -9792,7 +9792,7 @@ PokemonData.POKEMON =
         {
             name = "Lickilicky",
             type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
-            evolution = "33",
+            evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "515",
             movelvls = {
                 {},
