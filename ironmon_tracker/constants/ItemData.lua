@@ -12,6 +12,11 @@ ItemData.HEALING_ITEMS =
 			amount = 20,
 			type = ItemData.HEALING_TYPE.CONSTANT
 		},
+        [504] = {
+			name = "RageCandyBar",
+			amount = 20,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
 		[23] = {
 			name = "Full Restore",
 			amount = 100,
@@ -75,7 +80,7 @@ ItemData.HEALING_ITEMS =
 		[158] = {
 			name = "Sitrus Berry",
 			amount = 30,
-			type = ItemData.HEALING_TYPE.CONSTANT
+			type = ItemData.HEALING_TYPE.PERCENTAGE
 		},
 		[159] = {
 			name = "Figy Berry",
@@ -1974,7 +1979,7 @@ ItemData.GEN_4_ITEMS =
             description = "Use to find hidden items on the field. AKA Itemfinder."
         },
         [504] = {
-            name = "Rage Candy-bar",
+            name = "RageCandyBar",
             description = "Traded for TM64."
         },
         [534] = {
@@ -3984,7 +3989,7 @@ ItemData.GEN_5_ITEMS =
             description = "Use to find hidden items on the field. AKA Itemfinder."
         },
         [504] = {
-            name = "Rage Candy-bar",
+            name = "RageCandyBar",
             description = "Acts as a Potion."
         },
         [534] = {
