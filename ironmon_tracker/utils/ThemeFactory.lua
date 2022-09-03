@@ -46,19 +46,10 @@ local constants = {
 }
 
 function ThemeFactory.createSaveThemeForm()
-    Input.dialogActive = true
-    local saveForm =
-        forms.newform(
-        ThemeFactory.SAVE_THEME_WIDTH,
-        ThemeFactory.SAVE_THEME_HEIGHT,
-        "Save theme",
-        function()
-            Input.dialogActive = false
-        end
-    )
+    local saveForm = forms.newform(constants.SAVE_THEME_WIDTH, constants.SAVE_THEME_HEIGHT, "Save theme")
     forms.setlocation(
         saveForm,
-        ThemeFactory.CENTER_X - ThemeFactory.SAVE_THEME_WIDTH / 2,
+        constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
         constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2
     )
     local canvas = forms.pictureBox(saveForm, 0, 0, 100, 30)
@@ -90,16 +81,16 @@ end
 function ThemeFactory.onSaveThemeClick(fileNameTextbox)
     local text = forms.gettext(fileNameTextbox)
     if text ~= "" then
-        local savePath = ThemeFactory.THEMES_PATH .. "/" .. text .. ".colortheme"
+        local savePath = constants.THEMES_PATH .. "/" .. text .. ".colortheme"
         if not FormsUtils.fileExists(savePath) then
             local file = io.open(savePath, "w")
             ThemeFactory.saveFile(file)
         else
             local file = io.open(savePath, "w")
             ThemeFactory.createSaveConfirmDialog(
-                ThemeFactory.CENTER_X - ThemeFactory.SAVE_THEME_WIDTH / 2,
-                ThemeFactory.CENTER_Y - ThemeFactory.SAVE_THEME_HEIGHT / 2,
-                ThemeFactory.SAVE_THEME_WIDTH,
+                constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
+                constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2,
+                constants.SAVE_THEME_WIDTH,
                 130,
                 file
             )
@@ -112,12 +103,11 @@ function ThemeFactory.saveFile(file)
     local settingsString = ThemeFactory.getThemeString()
     io.write(settingsString)
     forms.destroyall()
-    Input.dialogActive = false
     FormsUtils.popupDialog(
         "File successfully saved.",
-        ThemeFactory.CENTER_X - ThemeFactory.SAVE_THEME_WIDTH / 2,
-        ThemeFactory.CENTER_Y - ThemeFactory.SAVE_THEME_HEIGHT / 2,
-        ThemeFactory.SAVE_THEME_WIDTH,
+        constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
+        constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2,
+        constants.SAVE_THEME_WIDTH,
         78,
         FormsUtils.POPUP_DIALOG_TYPES.INFO
     )
@@ -155,7 +145,7 @@ function ThemeFactory.createSaveConfirmDialog(x, y, width, height, file)
         "Cancel",
         function()
             io.close(file)
-            Input.dialogActive = false
+
             forms.destroy(confirmForm)
         end,
         138,
@@ -167,16 +157,15 @@ end
 
 function ThemeFactory.createDefaultConfirmDialog()
     local x, y =
-        ThemeFactory.CENTER_X - ThemeFactory.SAVE_THEME_WIDTH / 2,
-        ThemeFactory.CENTER_Y - ThemeFactory.SAVE_THEME_HEIGHT / 2
-    local width, height = ThemeFactory.SAVE_THEME_WIDTH, 130
+        constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
+        constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2
+    local width, height = constants.SAVE_THEME_WIDTH, 130
     local confirmForm =
         forms.newform(
         width,
         height,
         "Confirm",
         function()
-            Input.dialogActive = false
         end
     )
     forms.setlocation(confirmForm, x, y)
@@ -201,7 +190,7 @@ function ThemeFactory.createDefaultConfirmDialog()
         confirmButton,
         function()
             forms.destroy(confirmForm)
-            Input.dialogActive = false
+
             ThemeFactory.restoreDefaults()
         end
     )
@@ -210,7 +199,6 @@ function ThemeFactory.createDefaultConfirmDialog()
         confirmForm,
         "Cancel",
         function()
-            Input.dialogActive = false
             forms.destroy(confirmForm)
         end,
         138,
@@ -233,9 +221,9 @@ function ThemeFactory.createLoadThemeForm()
         else
             FormsUtils.popupDialog(
                 "Invalid file selection.",
-                ThemeFactory.CENTER_X - ThemeFactory.SAVE_THEME_WIDTH / 2,
-                ThemeFactory.CENTER_Y - ThemeFactory.SAVE_THEME_HEIGHT / 2,
-                ThemeFactory.SAVE_THEME_WIDTH,
+                constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
+                constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2,
+                constants.SAVE_THEME_WIDTH,
                 78,
                 FormsUtils.POPUP_DIALOG_TYPES.INFO
             )
@@ -244,23 +232,21 @@ function ThemeFactory.createLoadThemeForm()
 end
 
 function ThemeFactory.createImportThemeForm()
-    Input.dialogActive = true
     local importForm =
         forms.newform(
-        ThemeFactory.IMPORT_THEME_WIDTH,
-        ThemeFactory.IMPORT_THEME_HEIGHT,
+        constants.IMPORT_THEME_WIDTH,
+        constants.IMPORT_THEME_HEIGHT,
         "Import theme string",
         function()
-            Input.dialogActive = false
         end
     )
     forms.setlocation(
         importForm,
-        ThemeFactory.CENTER_X - ThemeFactory.IMPORT_THEME_WIDTH / 2,
-        ThemeFactory.CENTER_Y - ThemeFactory.IMPORT_THEME_HEIGHT / 2
+        constants.CENTER_X - constants.IMPORT_THEME_WIDTH / 2,
+        constants.CENTER_Y - constants.IMPORT_THEME_HEIGHT / 2
     )
     local canvas = forms.pictureBox(importForm, 0, 0, 90, 30)
-    local stringBox = forms.textbox(importForm, nil, ThemeFactory.IMPORT_THEME_WIDTH - 190, 30, nil, 100, 5)
+    local stringBox = forms.textbox(importForm, nil, constants.IMPORT_THEME_WIDTH - 190, 30, nil, 100, 5)
 
     forms.button(
         importForm,
@@ -268,7 +254,7 @@ function ThemeFactory.createImportThemeForm()
         function()
             ThemeFactory.onImportThemeClick(forms.gettext(stringBox))
         end,
-        ThemeFactory.IMPORT_THEME_WIDTH - 84,
+        constants.IMPORT_THEME_WIDTH - 84,
         3,
         60,
         24
@@ -277,29 +263,27 @@ function ThemeFactory.createImportThemeForm()
 end
 
 function ThemeFactory.createExportThemeForm()
-    Input.dialogActive = true
     local exportForm =
         forms.newform(
-        ThemeFactory.EXPORT_THEME_WIDTH,
-        ThemeFactory.EXPORT_THEME_HEIGHT,
+        constants.EXPORT_THEME_WIDTH,
+        constants.EXPORT_THEME_HEIGHT,
         "Exported string (Copy and share!)",
         function()
-            Input.dialogActive = false
         end
     )
     forms.setlocation(
         exportForm,
-        ThemeFactory.CENTER_X - ThemeFactory.EXPORT_THEME_WIDTH / 2,
-        ThemeFactory.CENTER_Y - ThemeFactory.EXPORT_THEME_HEIGHT / 2
+        constants.CENTER_X - constants.EXPORT_THEME_WIDTH / 2,
+        constants.CENTER_Y - constants.EXPORT_THEME_HEIGHT / 2
     )
     local themeString = ThemeFactory.getThemeString()
     local canvas = forms.pictureBox(exportForm, 0, 0, 100, 30)
-    forms.textbox(exportForm, themeString, ThemeFactory.EXPORT_THEME_WIDTH - 122, 30, nil, 100, 5)
+    forms.textbox(exportForm, themeString, constants.EXPORT_THEME_WIDTH - 122, 30, nil, 100, 5)
     forms.drawText(canvas, 6, 7, "Theme string:", 0xFF000000, 0x00000000, 14, "Arial")
 end
 
 function ThemeFactory.restoreDefaults()
-    ThemeFactory.readThemeString(ThemeFactory.DEFAULT_THEME_STRING)
+    ThemeFactory.readThemeString(constants.DEFAULT_THEME_STRING)
 end
 
 function ThemeFactory.getThemeString()
@@ -314,7 +298,7 @@ function ThemeFactory.getThemeString()
     return completeString
 end
 
-local function isLegacyString(themeString)
+local function isLegacyNDSString(themeString)
     local boolCounter = 0
     local colorCounter = 0
     for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
@@ -325,9 +309,20 @@ local function isLegacyString(themeString)
     return (colorCounter < #ThemeFactory.THEME_COLOR_KEYS_ORDERED)
 end
 
+local function isGen3String(themeString)
+    local boolCounter = 0
+    local colorCounter = 0
+    for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
+        if #number > 1 then
+            colorCounter = colorCounter + 1
+        end
+    end
+    return (colorCounter < 11)
+end
+
 function ThemeFactory.readThemeString(themeString)
-    local isLegacy = isLegacyString(themeString)
-    print(isLegacy)
+    local legacyNDSString = isLegacyNDSString(themeString)
+    local gen3String = isGen3String(themeString)
     local boolCounter = 0
     local colorCounter = 0
     for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
@@ -338,17 +333,21 @@ function ThemeFactory.readThemeString(themeString)
         else
             local color = tonumber("0xFF" .. number)
             colorCounter = colorCounter + 1
-            if isLegacy and colorCounter == 1 then
+            if (legacyNDSString or gen3String) and colorCounter == 1 then
                 local key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter]
                 settings.colorScheme[key] = color
-                key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter+1]
+                key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter + 1]
                 settings.colorScheme[key] = color
                 colorCounter = colorCounter + 1
+                if gen3String then
+                    settings.colorScheme["Physical icon color"] = settings.colorScheme["Bottom box text color"]
+                    settings.colorScheme["Special icon color"] = settings.colorScheme["Bottom box text color"]
+                    settings.colorScheme["Gear icon color"] = settings.colorScheme["Top box text color"]
+                end
             else
                 local key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter]
                 settings.colorScheme[key] = color
             end
         end
     end
-
 end
