@@ -218,6 +218,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 position.x,
                 Graphics.SIZES.SCREEN_WIDTH + ui.frames.mainFrame.getSize().width - hoverFrameSize.width - 1
             )
+            position.y = math.max(0,position.y)
             hoverFrame.move(position)
             program.drawCurrentScreens()
             hoverFrame.show()
@@ -1190,7 +1191,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 moveIDs[i] = move.move
             end
         end
-        local movePPs = pokemon.movePPs
+        local movePPs = {}
         if isEnemy then
             for i, move in pairs(moveIDs) do
                 for j, compare in pairs(pokemon.moveIDs) do
@@ -1199,6 +1200,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     end
                 end
             end
+        else
+            movePPs = pokemon.movePPs
         end
         for i, moveID in pairs(moveIDs) do
             local moveData = MoveData.MOVES[moveID + 1]
@@ -1276,7 +1279,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     text = "",
                     textColorKey = "Top box text color",
                     width = 120,
-                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
+                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
                 },
                 onHoverInfoEnd
             )
@@ -1290,7 +1293,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     text = "",
                     textColorKey = "Top box text color",
                     width = 120,
-                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
+                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
                 },
                 onHoverInfoEnd
             )
