@@ -34,6 +34,7 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.HEART_GOLD] = {
         statStagesPlayer = 0x49E2C,
         statStagesEnemy = 0x49EEC,
         berryBagStart = 0xC14,
+        berryBagStartBattle = 0x46B78,
         johtoBadges = 0x8E,
         kantoBadges = 0x93,
         leagueBeaten = 0x1000
@@ -42,6 +43,53 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.HEART_GOLD] = {
         battleStatus = 0x246F48
     }
 }
+
+MemoryAddresses[GameInfo.VERSION_NUMBER.SOUL_SILVER] = {
+    GLOBAL_POINTER = 0xBA8,
+    VERSION_POINTER_OFFSET = 0x20,
+    VERSION_POINTER_OFFSETS = {
+        playerBase = 0xA8,
+        playerBattleBase = 0x4EA98,
+        enemyBase = 0x4F068,
+        playerBattleMonPID = 0x49E7C,
+        enemyBattleMonPID = 0x49F3C,
+        itemStartNoBattle = 0xB74,
+        itemStartBattle = 0x46AD8,
+        statStagesPlayer = 0x49E2C,
+        statStagesEnemy = 0x49EEC,
+        berryBagStart = 0xC14,
+        berryBagStartBattle = 0x46B78,
+        johtoBadges = 0x8E,
+        kantoBadges = 0x93,
+        leagueBeaten = 0x1000
+    },
+    GLOBAL = {
+        battleStatus = 0x246F48
+    }
+}
+
+MemoryAddresses[GameInfo.VERSION_NUMBER.PLATINUM] = {
+    GLOBAL_POINTER = 0xBA8,
+    VERSION_POINTER_OFFSET = 0x20,
+    VERSION_POINTER_OFFSETS = {
+        playerBase = 0xB4,
+        playerBattleBase = 0x4B8AC,
+        enemyBase = 0x4BE5C,
+        playerBattleMonPID = 0x47620,
+        enemyBattleMonPID = 0x476E0,
+        itemStartNoBattle = 0xB60,
+        itemStartBattle = 0x442BC,
+        statStagesPlayer = 0x475D0,
+        statStagesEnemy = 0x47690,
+        berryBagStart = 0xC00,
+        berryBagStartBattle = 0x4435C,
+        badges = 0x96
+    },
+    GLOBAL = {
+        battleStatus = 0x24A55A
+    }
+}
+
 
 MemoryAddresses[GameInfo.VERSION_NUMBER.DIAMOND] = {
     GLOBAL_POINTER = 0xB70,
@@ -74,10 +122,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.PEARL] = {
         playerBase = 0x2AC,
         playerBattleBase = 0x4C7D8,
         enemyBase = 0x4CD88,
-        --enemyBase = 0x4D8E8,
         playerBattleMonPID = 0x485E8,
         enemyBattleMonPID = 0x486A8,
-        --enemyBattleMonPID = 0x48828,
         itemStartNoBattle = 0xD54,
         itemStartBattle = 0x4546C,
         statStagesPlayer = 0x48598,
@@ -111,21 +157,7 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK] = {
         badges = 0x23CDB0
     }
 }
---[[
-GameSettings.playerBase = 0x2349B4 + 0x20
-GameSettings.playerBattleBase = 0x26A794 + 0x20
-GameSettings.enemyBase = 0x26B254 + 0x20
-GameSettings.playerBattleMonPID = 0x2a7e14 + 0x20
-GameSettings.enemyBattleMonPID = 0x2A7E14 + 0x20
-GameSettings.battleStatus = 0x1D0798 + 0x20
-GameSettings.itemStartNoBattle = 0x234784 + 0x20
-GameSettings.itemStartBattle = 0x234784 + 0x20
-GameSettings.statStagesStart = 0x26D7A0 + 0x20
-GameSettings.statStagesEnemy = 0x26D9C4 + 0x20
-GameSettings.maxHPBattlePlayer = 0x26D6B2 + 0x20
-GameSettings.curHPBattlePlayer = 0x26D6B4 + 0x20
-GameSettings.totalMonsParty = 0x2349B0 + 0x20
-GameSettings.berryBagStart = 0x234844 + 0x20--]]
+
 MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE] = {
     GLOBAL = {
         playerBase = 0x2349B4 + 0x20,
