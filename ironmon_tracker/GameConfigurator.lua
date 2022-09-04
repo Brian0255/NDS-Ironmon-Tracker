@@ -22,11 +22,14 @@ function GameConfigurator.initMoveData(gameInfo)
 	end
 end
 
-function GameConfigurator.initAlternateForms()
+function GameConfigurator.initAlternateForms(gameInfo)
 	local currentIndex = #PokemonData.POKEMON + 1
-	for _, formTable in pairs(PokemonData.ALTERNATE_FORMS) do
+	for baseForm, formTable in pairs(PokemonData.ALTERNATE_FORMS) do
 		formTable.index = currentIndex
 		for _, form in pairs(formTable.forms) do
+			if baseForm == "Rotom" and gameInfo.GEN == 4 then
+				form.type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.GHOST}
+			end
 			PokemonData.POKEMON[currentIndex] = form
 			currentIndex = currentIndex + 1
 		end
@@ -39,7 +42,7 @@ function GameConfigurator.initialize()
 	local gameCode = Memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	print(gameInfo.NAME .. " detected.")
-	GameConfigurator.initAlternateForms()
+	GameConfigurator.initAlternateForms(gameInfo)
 	GameConfigurator.initMoveData(gameInfo)
 
 	if gameInfo.GEN == 5 then
