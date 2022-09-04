@@ -1,9 +1,15 @@
 DrawingUtils = {}
 
 local colorScheme
+local colorSettings
 
 function DrawingUtils.setColorScheme(newScheme)
     colorScheme = newScheme
+    colorScheme["Black"] = 0xFF000000
+end
+
+function DrawingUtils.setColorSettings(newColorSettings)
+    colorSettings = newColorSettings
 end
 
 function DrawingUtils.clearGUI()
@@ -18,7 +24,7 @@ function DrawingUtils.clearGUI()
 end
 
 function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
-    local UIClassFolder = Paths.FOLDERS.UI_BASE_CLASSES.."/"
+    local UIClassFolder = Paths.FOLDERS.UI_BASE_CLASSES .. "/"
     local Frame = dofile(UIClassFolder .. "Frame.lua")
     local Box = dofile(UIClassFolder .. "Box.lua")
     local Component = dofile(UIClassFolder .. "Component.lua")
@@ -59,13 +65,8 @@ function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, tex
             ),
             TextField(
                 textSet,
-                {x=5,y=0},
-                TextStyle(
-                    Graphics.FONT.DEFAULT_FONT_SIZE,
-                    Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    textColorKey,
-                    BGColorKey
-                )
+                {x = 5, y = 0},
+                TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, textColorKey, BGColorKey)
             )
         )
     end
@@ -108,9 +109,15 @@ function DrawingUtils.calculateWordPixelLength(text)
     return totalLength
 end
 
+function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, shadowColor)
+    if shadowed and colorSettings["Draw shadows"] and not colorSettings["Transparent backgrounds"] then
+        gui.drawRectangle(x, y, width + 2, height + 2, 0x00000000, shadowColor)
+    end
+    gui.drawRectangle(x, y, width, height, fill, background)
+end
+
 function DrawingUtils.drawText(x, y, text, textStyle, shadowColor)
-    local drawShadow = true
-    --settings.colorSettings["Draw shadows"]
+    local drawShadow = colorSettings["Draw shadows"] and not colorSettings["Transparent backgrounds"]
     local color = DrawingUtils.convertColorKeyToColor(textStyle.getTextColorKey())
     local spacing = 0
     local movePowerExceptions = {["<SPE"] = true, [">SPE"] = true}
@@ -127,22 +134,26 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor)
         end
     end
     if drawShadow then
-        gui.drawText(
-            x + spacing + 1,
-            y + 1,
-            text,
-            shadowColor,
-            nil,
-            textStyle.getFontSize(),
-            textStyle.getFontFamily()
-        )
+        gui.drawText(x + spacing + 1, y + 1, text, shadowColor, nil, textStyle.getFontSize(), textStyle.getFontFamily())
     end
     local bolded = textStyle.isBolded()
     gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), bolded)
 end
 
 function DrawingUtils.convertColorKeyToColor(colorKey)
-    return colorScheme[colorKey]
+    local transparentKeys = {
+        ["Main background color"] = true,
+        ["Top box background color"] = true,
+        ["Bottom box background color"] = true
+    }
+    if colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] then
+        return 0x00000000
+    end
+    local color = colorScheme[colorKey]
+    if color == nil then
+        color = Graphics.TYPE_COLORS[colorKey]
+    end
+    return color
 end
 
 function DrawingUtils.calcShadowColor(colorKey)
