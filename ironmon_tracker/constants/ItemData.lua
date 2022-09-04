@@ -79,7 +79,7 @@ ItemData.HEALING_ITEMS =
 		},
 		[158] = {
 			name = "Sitrus Berry",
-			amount = 30,
+			amount = 25,
 			type = ItemData.HEALING_TYPE.PERCENTAGE
 		},
 		[159] = {
