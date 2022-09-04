@@ -42,7 +42,7 @@ function GameConfigurator.initialize()
 	GameConfigurator.initAlternateForms()
 	GameConfigurator.initMoveData(gameInfo)
 
-	if gameInfo.gen == 5 then
+	if gameInfo.GEN == 5 then
 		ItemData.ITEMS = ItemData.GEN_5_ITEMS
 	else
 		ItemData.ITEMS = ItemData.GEN_4_ITEMS
@@ -71,7 +71,9 @@ function GameConfigurator.initializeMemoryAddresses()
 	for globalOffsetName, globalAddr in pairs(memoryInfo.GLOBAL) do
 		addressConfiguration[globalOffsetName] = globalAddr
 	end
-	readVersionPointerOffsets(memoryInfo, addressConfiguration)
+	if gameInfo.GEN == 4 then
+		readVersionPointerOffsets(memoryInfo, addressConfiguration)
+	end
 	return {
 		["gameInfo"] = gameInfo,
 		["memoryAddresses"] = addressConfiguration
