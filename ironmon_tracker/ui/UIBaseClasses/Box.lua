@@ -67,23 +67,19 @@ local function Box(
 
     function self.show()
         if size ~= nil then
-            if shadowed then
-                gui.drawRectangle(
-                    position.x  ,
-                    position.y ,
-                    size.width+2,
-                    size.height+2,
-                    0x00000000,
-                    DrawingUtils.calcShadowColor(shadowColorKey)
-                )
+            local shadowColor = nil
+            if shadowColorKey ~= nil then
+                shadowColor = DrawingUtils.calcShadowColor(shadowColorKey)
             end
-            gui.drawRectangle(
+            DrawingUtils.drawBox(
                 position.x,
                 position.y,
                 size.width,
                 size.height,
                 self.getBackgroundFillColor(),
-                self.getBackgroundColor()
+                self.getBackgroundColor(),
+                shadowed,
+                shadowColor
             )
         end
     end
