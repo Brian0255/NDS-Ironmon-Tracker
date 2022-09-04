@@ -38,6 +38,12 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         program.drawCurrentScreens()
     end
 
+    local function onColorEditClick()
+        client.SetGameExtraPadding(0, 0, Graphics.SIZES.BADGE_COLOR_EDIT_PADDING, 0)
+        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN,program.UI_SCREENS.COLOR_SCHEME_SCREEN})
+        program.drawCurrentScreens()
+    end
+
     local function initEventListeners()
         --eventListeners.goBackClickListener = MouseClickEventListener(ui.controls.goBackButton, onGoBackClick)
     end
@@ -148,9 +154,10 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 )
             else
                 local badgePrefix = program.getGameInfo().BADGE_PREFIX
-                ImageLabel(
+                Icon(
                     Component(ui.frames[frameName], Box({x = 0, y = 0}, {width = 16, height = 16}, nil, nil)),
-                    ImageField("ironmon_tracker/images/icons/" .. badgePrefix .. "_badge1.png", {x = 3, y = 2})
+                    badgePrefix,
+                    {x = 2, y = 2}
                 )
             end
             ui.controls[key] =
@@ -252,6 +259,10 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         table.insert(
             eventListeners,
             MouseClickEventListener(ui.frames.badgesAppearanceButtonFrame, onBadgesAppearanceClick)
+        )
+        table.insert(
+            eventListeners,
+            MouseClickEventListener(ui.frames.colorThemeButtonFrame, onColorEditClick)
         )
     end
 
