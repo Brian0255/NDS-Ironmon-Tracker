@@ -7,7 +7,7 @@ function MoveUtils.netEffectiveness(move, pkmnData)
         [PokemonData.POKEMON_TYPES.PSYCHIC] = PokemonData.POKEMON_TYPES.DARK,
         [PokemonData.POKEMON_TYPES.GROUND] = PokemonData.POKEMON_TYPES.FLYING,
         [PokemonData.POKEMON_TYPES.GHOST] = PokemonData.POKEMON_TYPES.NORMAL,
-        [PokemonData.POKEMON_TYPES.POISON] = PokemonData.POKEMON_TYPES.STEEL,
+        [PokemonData.POKEMON_TYPES.POISON] = PokemonData.POKEMON_TYPES.STEEL
     }
     if move.power == Graphics.TEXT.NO_POWER then
         if move.category ~= MoveData.MOVE_CATEGORIES.STATUS then
@@ -45,13 +45,24 @@ end
 function MoveUtils.getMoveHeader(pokemon)
     local count = 0
     for _, moveLevel in pairs(pokemon.movelvls) do
-        if moveLevel <= pokemon.level then 
+        if moveLevel <= pokemon.level then
             count = count + 1
         else
             break
         end
     end
-    local header = "Move ~ "..count.."/"..#pokemon.movelvls.." ("..pokemon.movelvls[count+1]..")"
+    local amount = count
+    local nextLevel = 0
+    if amount ~= #pokemon.movelvls then
+        nextLevel = pokemon.movelvls[count + 1]
+    end
+    if amount == #pokemon.movelvls then
+        nextLevel = amount
+    end
+    if amount == nil then
+        amount = 0
+    end
+    local header = "Move ~ " .. count .. "/" .. #pokemon.movelvls .. " (" .. nextLevel .. ")"
     return header
 end
 
@@ -71,7 +82,7 @@ function MoveUtils.getTypeDefensesTable(pokemonData)
         ["0x"] = {}
     }
     --calculate how strong each type is against us
-    for moveType, _ in pairs(MoveData.EFFECTIVE_DATA) do 
+    for moveType, _ in pairs(MoveData.EFFECTIVE_DATA) do
         local effectiveness = 1.0
         for _, type in pairs(pokemonData.type) do
             if type ~= "" then
@@ -82,7 +93,7 @@ function MoveUtils.getTypeDefensesTable(pokemonData)
         end
         if EFFECTIVENESS_TO_SYMBOL[effectiveness] then
             local symbol = EFFECTIVENESS_TO_SYMBOL[effectiveness]
-            table.insert(typeDefenses[symbol],moveType)
+            table.insert(typeDefenses[symbol], moveType)
         end
     end
     return typeDefenses
