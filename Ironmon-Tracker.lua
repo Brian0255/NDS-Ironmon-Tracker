@@ -4,8 +4,6 @@
 local function Main()
 	local self = {}
 
-	self.TRACKER_VERSION = "0.4.0"
-
 	if client.getversion == nil or client.getversion() ~= "2.8" then
 		print("This version of BizHawk is not supported. Please update to version 2.8 or higher.")
 		return
@@ -14,6 +12,7 @@ local function Main()
 	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/utils/MiscUtils.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Memory.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/Graphics.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/PokemonData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/GameInfo.lua")
@@ -21,16 +20,16 @@ local function Main()
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/ItemData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
+	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscConstants.lua")
 
+	dofile(Paths.FOLDERS.DATA_FOLDER.."/Input.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/DrawingUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/BitUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/MoveUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/FormsUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/IconDrawer.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/MoveUtils.lua")
-	--[[
-	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/ThemeUtils.lua")
-	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/ThemeFactory.lua")--]]
+	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/ThemeFactory.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 
 	local loadNextSeed = false
@@ -99,9 +98,9 @@ local function Main()
 			end
 			emu.frameadvance()
 		end
-		print("\nNDS-Ironmon-Tracker v" .. self.TRACKER_VERSION)
+		print("\nNDS-Ironmon-Tracker v" .. MiscConstants.TRACKER_VERSION)
 		print("NDS ROM detected. Loading...")
-		client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_WIDTH, 0)
+		client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
 		local gameConfiguration = GameConfigurator.initialize()
 		local Tracker = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Tracker.lua")
 		local Program = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Program.lua")
@@ -110,12 +109,14 @@ local function Main()
 		local file = io.open("Settings.ini")
 		assert(file ~= nil)
 		local settings = INI.parse(file:read("*a"), "memory")
-		local layoutColors = {}
-		for key, hexColor in pairs(settings.layoutColors) do
-			layoutColors[key:gsub("_", " ")] = tonumber("0x"..hexColor)
+		if settings.colorScheme["Default text color"] then
+			settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
+			settings.colorScheme["Bottom box text color"] = settings.colorScheme["Default text color"]
+			settings.colorScheme["Default text color"] = nil
 		end
-		settings.layoutColors = layoutColors
-		print(settings.layoutColors)
+		ThemeFactory.setSettings(settings)
+		DrawingUtils.setColorScheme(settings.colorScheme)
+		DrawingUtils.setColorSettings(settings.colorSettings)
 		IconDrawer.setSettings(settings)
 		io.close(file)
 		local mainProgram = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
