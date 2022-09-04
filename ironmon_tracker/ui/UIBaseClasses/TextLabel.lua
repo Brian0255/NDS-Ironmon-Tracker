@@ -36,6 +36,9 @@ local function TextLabel(initialComponent, initialTextField, initialShadowColorK
         component.calculateActualPosition(parentPosition)
         textField.move(component.getPosition())
     end
+    function self.setTextColorKey(newTextColorKey)
+        textField.setTextColorKey(newTextColorKey)
+    end
     function self.getPosition()
         return component.getPosition()
     end

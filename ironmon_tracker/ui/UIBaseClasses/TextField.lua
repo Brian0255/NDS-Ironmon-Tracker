@@ -13,6 +13,9 @@ local function TextField(initialText, initialTextOffset, initialTextStyle)
     function self.setText(newText)
         text = newText
     end
+    function self.setTextColorKey(newColorKey)
+        textStyle.setTextColorKey(newColorKey)
+    end
     function self.show()
         local shadowColorKey = textStyle.getShadowColorKey()
         local shadowColor = DrawingUtils.calcShadowColor(shadowColorKey)

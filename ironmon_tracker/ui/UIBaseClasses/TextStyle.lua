@@ -20,6 +20,9 @@ local function TextStyle(initialFontSize, initialFontFamily, initialTextColorKey
     function self.getTextColorKey()
         return textColorKey
     end
+    function self.setTextColorKey(newColorKey)
+        textColorKey = newColorKey
+    end
     function self.getShadowColorKey()
         return shadowColorKey
     end
