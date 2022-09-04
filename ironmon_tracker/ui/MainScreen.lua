@@ -917,6 +917,23 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 "PHYSICAL",
                 {x = 1, y = 2}
             )
+            moveInfoFrame.moveTypeIcon =
+            Icon(
+            Component(
+                ui.frames[nameIconFrameName],
+                Box(
+                    {
+                        x = 0,
+                        y = 0
+                    },
+                    {width = 9, height = 10},
+                    nil,
+                    nil
+                )
+            ),
+            "DRAGON",
+            {x = 1, y = 2}
+        )
             moveInfoFrame.moveNameLabel =
                 TextLabel(
                 Component(
@@ -1123,7 +1140,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
         ui.controls.pokemonNameLabel.setText(pokemon.name)
         ui.controls.BSTNumber.setText(pokemon.bst)
-        ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. id .. ".png")
+        if pokemon.alternateForm == 0x00 then
+            ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. id .. ".png")
+        else
+            if PokemonData.ALTERNATE_FORMS[pokemon.baseFormName] then
+                local index = pokemon.alternateForm / 8
+                local base = pokemon.baseFormName
+                local path = "ironmon_tracker/images/pokemonIcons/alternateForms/"..base.."/"..index..".png"
+                ui.controls.pokemonImageLabel.setPath(path)
+            end
+        end
         local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = pokemon
         ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. pokemon.evolution .. ")")
@@ -1182,6 +1208,14 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 movePP = -1
             end
             moveFrame.categoryIcon.setIconName(moveData.category)
+            if settings.colorSettings["Color move names by type"] then
+                moveFrame.moveNameLabel.setTextColorKey(moveData.type)
+            else
+                moveFrame.moveNameLabel.setTextColorKey("Bottom box text color")
+            end
+            moveFrame.moveTypeIcon.setIconName(moveData.type)
+            moveFrame.moveTypeIcon.setVisibility(settings.colorSettings["Draw move type icons"])
+            moveFrame.categoryIcon.setVisibility(settings.colorSettings["Show phys/spec move icons"])
             moveFrame.moveNameLabel.setText(moveData.name)
             moveFrame.PPLabel.setText(movePP)
             moveFrame.powLabel.setText(moveData.power)
@@ -1206,7 +1240,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.show()
-        --DrawingUtils.clearGUI()
         self.updateBadgeLayout()
         ui.frames.mainFrame.show()
         if activeHoverFrame ~= nil then
@@ -1292,7 +1325,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.mainFrame.resize({width = baseSize.width + add.width, height = baseSize.height + add.height})
     end
 
-    function self.HGSS_switchBadges()
+    function self.HGSS_setBadgesToKanto()
         local badgeControls = ui.badgeControlsSet1
         for _, control in pairs(badgeControls) do
             control.setPath(control.getPath():gsub("HGSS", "HGSS_K"))
