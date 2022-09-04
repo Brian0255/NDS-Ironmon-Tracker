@@ -357,6 +357,8 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
         end
     end
 
+    self.show()
+
     return self
 end
 
