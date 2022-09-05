@@ -45,6 +45,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local ui = {}
     local self = {}
     local activeHoverFrame = nil
+    local extraThingsToDraw = {
+        moveEffectiveness = {},
+        nature = {},
+        statStages = {},
+    }
     local function onHoverInfoEnd()
         activeHoverFrame = nil
         program.drawCurrentScreens()
@@ -1410,6 +1415,25 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function setUpStatStages(pokemon)
+        if pokemon.statStages ~= nil then
+            extraThingsToDraw.statStages = {}
+            for statName, statStage in pairs(pokemon.statStages) do
+                local namePosition = ui.controls[statName.."StatName"].getPosition()
+                local chevronPosition = {x = namePosition.x + 20, y = namePosition.y+5}
+                extraThingsToDraw.statStages[statName] = {stage = statStage, position = chevronPosition}
+            end
+        end
+    end
+
+    local function drawExtraStuff()
+        if extraThingsToDraw.statStages ~= nil then
+            for statStageName, statStageInfo in pairs(extraThingsToDraw.statStages) do
+                DrawingUtils.drawStatStageChevrons(statStageInfo.position, statStageInfo.stage)
+            end
+        end
+    end
+
     function self.setPokemon(pokemon, opposingPokemon)
         local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
         local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
@@ -1444,6 +1468,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             setEnemySpecificControls(pokemon)
         end
         setUpMoves(pokemon,isEnemy)
+        setUpStatStages(pokemon)
     end
 
     function self.addEventListener(eventListener)
@@ -1465,6 +1490,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
+        drawExtraStuff()
     end
 
     local function initEventListeners()
