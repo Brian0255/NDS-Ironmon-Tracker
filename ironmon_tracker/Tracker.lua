@@ -1,15 +1,18 @@
 local function Tracker()
 	local self = {}
-	local trackedData = {
+	local BLANK_TRACKED_POKEMON = {
 		moves = {},
-		statPredictions = {},
+		statPredictions = nil,
 		abilities = {},
-		notes = {},
+		note = "",
+		amountSeen = 0,
+		lastLevelSeen = "---"
+	}
+	local trackedData = {
+		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
 		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
 		pokecenterCount = 10,
-		badges = { firstSet = { 0, 0, 0, 0, 0, 0, 0, 0 },
-			secondSet = { 0, 0, 0, 0, 0, 0, 0, 0 } }
 	}
 	local function loadData()
 		local file = io.open("autosave.trackerdata", "r")
@@ -29,14 +32,49 @@ local function Tracker()
 		end
 	end
 
+	local function createNewPokemonEntry(pokemonID)
+		trackedData.trackedPokemon[pokemonID] = BLANK_TRACKED_POKEMON
+	end
+
+	local function checkIfPokemonUntracked(pokemonID)
+		if not trackedData.trackedPokemon[pokemonID] then
+			createNewPokemonEntry(pokemonID)
+		end
+	end
+
+	local function updateAmountSeen(pokemonID)
+		local data = trackedData.trackedPokemon[pokemonID]
+		data.amountSeen = data.amountSeen + 1
+	end
+
+	function self.logNewEnemyPokemonInBattle(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
+		updateAmountSeen(pokemonID)
+	end
+
+	function self.updateLastLevelSeen(pokemonID, newLevel)
+		checkIfPokemonUntracked(pokemonID)
+		local data = trackedData.trackedPokemon[pokemonID]
+		data.lastLevelSeen = newLevel
+	end
+
+	function self.getLastLevelSeen(pokemonID)
+		return trackedData.trackedPokemon[pokemonID].lastLevelSeen
+	end
+
+	function self.getAmountSeen(pokemonID)
+		return trackedData.trackedPokemon[pokemonID].amountSeen
+	end
+
 	local function createNewMoveEntry(pokemonID, moveID, level)
-		trackedData.moves[pokemonID] = {}
-		trackedData.moves[pokemonID][1] = {
+		local pokemonData = trackedData.trackedPokemon[pokemonID]
+		pokemonData.moves = {}
+		pokemonData.moves[1] = {
 			move = moveID,
 			level = level
 		}
 		for i = 2, 4, 1 do
-			trackedData.moves[pokemonID][i] = {
+			pokemonData.moves[i] = {
 				move = 0,
 				level = 1
 			}
@@ -56,8 +94,10 @@ local function Tracker()
 	end
 
 	function self.trackMove(pokemonID, moveID, level)
-		local currentMoves = trackedData.moves[pokemonID]
-		if currentMoves == nil then
+		local pokemonData = trackedData.trackedPokemon[pokemonID]
+		local currentMoves = pokemonData.moves
+		if next(currentMoves) == nil then
+			print("no moves")
 			createNewMoveEntry(pokemonID, moveID, level)
 		else
 			local moveSeen = false
@@ -73,21 +113,21 @@ local function Tracker()
 
 			if moveSeen == false then
 				if moveCount < 4 then
-					trackedData.moves[pokemonID[moveCount + 1]] = {
+					pokemonData.moves[moveCount + 1] = {
 						move = moveID,
 						level = level
 					}
 				else
 					for i = 4, 2, -1 do
-						trackedData.moves[pokemonID][i] = trackedData.moves[pokemonID][i - 1]
+						pokemonData.moves[i] = pokemonData.moves[i - 1]
 					end
-					trackedData.moves[pokemonID][1] = {
+					pokemonData.moves[1] = {
 						move = moveID,
 						level = level
 					}
 				end
 			else
-				trackedData.moves[pokemonID][whichMove] = {
+				pokemonData.moves[whichMove] = {
 					move = moveID,
 					level = level
 				}
@@ -95,33 +135,34 @@ local function Tracker()
 		end
 	end
 
-	function self.trackStatPrediction(pokemonID, newStats)
-		trackedData.stats[pokemonID].stats = newStats
+	function self.setStatPredictions(pokemonID, newStats)
+		trackedData.trackedPokemon[pokemonID].statPredictions = newStats
 	end
 
 	function self.setNote(pokemonID, note)
 		if note ~= nil then
-			local charMax = 25
+			local charMax = 40
 			if string.len(note) > charMax then
 				print("Note truncated to " .. charMax .. " characters")
 			end
 			note = string.sub(note, 1, charMax)
-			trackedData.notes[pokemonID] = string.sub(note, 1, charMax)
+			trackedData.trackedPokemon[pokemonID].note = string.sub(note, 1, charMax)
 		end
 	end
 
 	function self.getNote(pokemonID)
-		local notes = trackedData.notes[pokemonID]
-		if notes ~= nil then
-			return notes
+		local note = trackedData.trackedPokemon[pokemonID].note
+		if note ~= nil then
+			return note
 		else
 			return ""
 		end
 	end
 
 	function self.getMoves(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
 		local returnVal = {}
-		if trackedData.moves[pokemonID] == nil then
+		if next(trackedData.trackedPokemon[pokemonID].moves) == nil then
 			for _ = 1, 4, 1 do
 				table.insert(
 					returnVal,
@@ -133,7 +174,7 @@ local function Tracker()
 			end
 			return returnVal
 		else
-			return trackedData.moves[pokemonID]
+			return trackedData.trackedPokemon[pokemonID].moves
 		end
 	end
 
@@ -147,22 +188,19 @@ local function Tracker()
 		end
 	end
 
-	function self.getBadges()
-		return trackedData.badges
-	end
-
-	function self.getStatPrediction(pokemonID)
-		if trackedData.stats[pokemonID] == nil then
+	function self.getStatPredictions(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
+		if trackedData.trackedPokemon[pokemonID].statPredictions == nil then
 			return {
-				hp = 1,
-				att = 1,
-				def = 1,
-				spa = 1,
-				spd = 1,
-				spe = 1
+				HP = 1,
+				ATK = 1,
+				DEF = 1,
+				SPA = 1,
+				SPD = 1,
+				SPE = 1
 			}
 		else
-			return trackedData.stats[pokemonID].stats
+			return trackedData.trackedPokemon[pokemonID].statPredictions
 		end
 	end
 
