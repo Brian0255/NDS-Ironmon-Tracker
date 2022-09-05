@@ -26,11 +26,17 @@ local function TextLabel(initialComponent, initialTextField, initialShadowColorK
     function self.isVisible()
         return visible
     end
+    function self.setTextOffset(newOffset)
+        textField.setTextOffset(newOffset)
+    end
     function self.show()
         if visible then
             component.show()
             textField.show()
         end
+    end
+    function self.resize(newSize)
+        component.resize(newSize)
     end
     function self.calculateActualPosition(parentPosition)
         component.calculateActualPosition(parentPosition)

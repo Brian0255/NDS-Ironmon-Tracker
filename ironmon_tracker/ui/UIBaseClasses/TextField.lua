@@ -13,6 +13,12 @@ local function TextField(initialText, initialTextOffset, initialTextStyle)
     function self.setText(newText)
         text = newText
     end
+    function self.setTextOffset(newOffset)
+        textOffset = {
+            x = newOffset.x,
+            y = newOffset.y
+        }
+    end
     function self.setTextColorKey(newColorKey)
         textStyle.setTextColorKey(newColorKey)
     end

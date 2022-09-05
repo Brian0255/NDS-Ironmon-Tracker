@@ -24,6 +24,10 @@ local function Component(initialFrame, initialBox)
         return box.getPosition()
     end
 
+    function self.resize(newSize)
+        box.resize(newSize)
+    end
+
     function self.move(newPosition)
         box.move(newPosition)
     end
