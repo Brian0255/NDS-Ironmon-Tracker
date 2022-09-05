@@ -2,6 +2,7 @@ DrawingUtils = {}
 
 local colorScheme
 local colorSettings
+local appearanceSettings
 
 function DrawingUtils.setColorScheme(newScheme)
     colorScheme = newScheme
@@ -10,6 +11,10 @@ end
 
 function DrawingUtils.setColorSettings(newColorSettings)
     colorSettings = newColorSettings
+end
+
+function DrawingUtils.setAppearanceSettings(newAppearanceSettings)
+    appearanceSettings = newAppearanceSettings
 end
 
 function DrawingUtils.clearGUI()
@@ -116,21 +121,18 @@ function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, s
     gui.drawRectangle(x, y, width, height, fill, background)
 end
 
-function DrawingUtils.drawText(x, y, text, textStyle, shadowColor)
+function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable)
     local drawShadow = colorSettings["Draw shadows"] and not colorSettings["Transparent backgrounds"]
     local color = DrawingUtils.convertColorKeyToColor(textStyle.getTextColorKey())
     local spacing = 0
-    local movePowerExceptions = {["<SPE"] = true, [">SPE"] = true}
-    if movePowerExceptions[text] then
-        spacing = -5
-    end
-    local number = tonumber(text)
-    if number ~= nil then
-        if number == -1 then
+    if appearanceSettings.RIGHT_JUSTIFIED_NUMBERS and justifiable then
+        if text == "---" then
             spacing = 8
-            text = "---"
         else
-            spacing = (3 - string.len(tostring(number))) * 5
+            local number = tonumber(text)
+            if number ~= nil then
+                spacing = (3 - string.len(tostring(number))) * 5
+            end
         end
     end
     if drawShadow then
