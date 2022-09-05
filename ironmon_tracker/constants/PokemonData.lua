@@ -8719,7 +8719,7 @@ PokemonData.POKEMON =
             weight = 149.5
         },
         {
-            name = "Burmy - P",
+            name = "Burmy P",
             type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
             evolution = "20",
             bst = "224",
@@ -8740,7 +8740,7 @@ PokemonData.POKEMON =
             weight = 3.4
         },
         {
-            name = "Wormadam - P",
+            name = "Wormadam P",
             type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.GRASS},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "424",
@@ -8908,7 +8908,7 @@ PokemonData.POKEMON =
             weight = 3.3
         },
         {
-            name = "Cherrim - O",
+            name = "Cherrim O",
             type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.EMPTY},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "450",
@@ -8929,7 +8929,7 @@ PokemonData.POKEMON =
             weight = 9.3
         },
         {
-            name = "Shellos - W",
+            name = "Shellos W",
             type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
             evolution = "30",
             bst = "325",
@@ -8950,7 +8950,7 @@ PokemonData.POKEMON =
             weight = 6.3
         },
         {
-            name = "Gastrodon - W",
+            name = "Gastrodon W",
             type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GROUND},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "475",
@@ -10294,7 +10294,7 @@ PokemonData.POKEMON =
             weight = 420.0
         },
         {
-            name = "Giratina - A",
+            name = "Giratina A",
             type = {PokemonData.POKEMON_TYPES.GHOST, PokemonData.POKEMON_TYPES.DRAGON},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "680",
@@ -10399,7 +10399,7 @@ PokemonData.POKEMON =
             weight = 50.5
         },
         {
-            name = "Shaymin Land",
+            name = "Shaymin L",
             type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.EMPTY},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "600",
@@ -11618,7 +11618,7 @@ PokemonData.POKEMON =
             weight = 16.3
         },
         {
-            name = "Basculin - R",
+            name = "Basculin R",
             type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "460",
@@ -13676,7 +13676,7 @@ PokemonData.POKEMON =
             weight = 48.5
         },
         {
-            name = "Meloetta - A",
+            name = "Meloetta A",
             type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.PSYCHIC},
             evolution = PokemonData.EVOLUTION_TYPES.NONE,
             bst = "600",
@@ -13721,10 +13721,7 @@ PokemonData.POKEMON =
 
 PokemonData.TOTAL_POKEMON = #PokemonData.POKEMON
 
-PokemonData.POKEMON = MiscUtils.readOnly(PokemonData.POKEMON)
-
 PokemonData.ALTERNATE_FORMS =
-    MiscUtils.readOnly(
     {
         ["Arceus"] = {
             startIndex = 0,
@@ -14109,11 +14106,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Basculin - R"] = {
+        ["Basculin R"] = {
+            cosmetic = true,
             startIndex = 0,
             forms = {
                 {
-                    name = "Basculin - B",
+                    name = "Basculin B",
                     type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "460",
@@ -14135,11 +14133,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Burmy - P"] = {
+        ["Burmy P"] = {
+            cosmetic = true,
             index = 0,
             forms = {
                 {
-                    name = "Burmy - S",
+                    name = "Burmy S",
                     type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = "20",
                     bst = "224",
@@ -14160,7 +14159,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = 3.4
                 },
                 {
-                    name = "Burmy - T",
+                    name = "Burmy T",
                     type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = "20",
                     bst = "224",
@@ -14183,10 +14182,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Castform"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Castform - F",
+                    name = "Castform F",
                     type = {PokemonData.POKEMON_TYPES.FIRE, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "420",
@@ -14207,7 +14207,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = 0.8
                 },
                 {
-                    name = "Castform - R",
+                    name = "Castform R",
                     type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "420",
@@ -14228,7 +14228,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = 0.8
                 },
                 {
-                    name = "Castform - S",
+                    name = "Castform S",
                     type = {PokemonData.POKEMON_TYPES.ICE, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "420",
@@ -14250,11 +14250,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Cherrim - O"] = {
+        ["Cherrim O"] = {
+            cosmetic = true,
             index = 0,
             forms = {
                 {
-                    name = "Cherrim - S",
+                    name = "Cherrim S",
                     type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "450",
@@ -14277,6 +14278,7 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Darmanitan"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
@@ -14303,10 +14305,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Deoxys"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Deoxys - A",
+                    name = "Deoxys A",
                     type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "600",
@@ -14327,7 +14330,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = 60.8
                 },
                 {
-                    name = "Deoxys - D",
+                    name = "Deoxys D",
                     type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "600",
@@ -14348,7 +14351,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = 60.8
                 },
                 {
-                    name = "Deoxys - S",
+                    name = "Deoxys S",
                     type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "600",
@@ -14370,11 +14373,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Gastrodon - W"] = {
+        ["Gastrodon W"] = {
+            cosmetic = true,
             index = 0,
             forms = {
                 {
-                    name = "Gastrodon - E",
+                    name = "Gastrodon E",
                     type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GROUND},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "475",
@@ -14396,11 +14400,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Giratina - A"] = {
+        ["Giratina A"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Giratina - O",
+                    name = "Giratina O",
                     type = {PokemonData.POKEMON_TYPES.GHOST, PokemonData.POKEMON_TYPES.DRAGON},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "680",
@@ -14423,10 +14428,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Keldeo"] = {
+            cosmetic = true,
             index = 0,
             forms = {
                 {
-                    name = "Keldeo - R",
+                    name = "Keldeo R",
                     type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.FIGHTING},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "580",
@@ -14449,10 +14455,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Kyurem"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Kyurem - W",
+                    name = "Kyurem W",
                     type = {PokemonData.POKEMON_TYPES.DRAGON, PokemonData.POKEMON_TYPES.ICE},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "700",
@@ -14473,7 +14480,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = 325.0
                 },
                 {
-                    name = "Kyurem - B",
+                    name = "Kyurem B",
                     type = {PokemonData.POKEMON_TYPES.DRAGON, PokemonData.POKEMON_TYPES.ICE},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "700",
@@ -14496,10 +14503,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Landorus"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Landorus - T",
+                    name = "Landorus T",
                     type = {PokemonData.POKEMON_TYPES.GROUND, PokemonData.POKEMON_TYPES.FLYING},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "600",
@@ -14521,11 +14529,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Meloetta - A"] = {
+        ["Meloetta A"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Meloetta - P",
+                    name = "Meloetta P",
                     type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.FIGHTING},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "600",
@@ -14548,10 +14557,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Rotom"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Rotom - Heat",
+                    name = "Rotom Heat",
                     type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.FIRE},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "520",
@@ -14572,7 +14582,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = .3
                 },
                 {
-                    name = "Rotom - Wash",
+                    name = "Rotom Wash",
                     type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.WATER},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "520",
@@ -14593,7 +14603,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = .3
                 },
                 {
-                    name = "Rotom - Frost",
+                    name = "Rotom Frost",
                     type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.ICE},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "520",
@@ -14614,7 +14624,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = .3
                 },
                 {
-                    name = "Rotom - Fan",
+                    name = "Rotom Fan",
                     type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.FLYING},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "520",
@@ -14635,7 +14645,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = .3
                 },
                 {
-                    name = "Rotom - Mow",
+                    name = "Rotom Mow",
                     type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.GRASS},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "520",
@@ -14657,11 +14667,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Shaymin Land"] = {
+        ["Shaymin L"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Shaymin Sky",
+                    name = "Shaymin S",
                     type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.FLYING},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "600",
@@ -14683,11 +14694,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Shellos - W"] = {
+        ["Shellos W"] = {
+            cosmetic = true,
             index = 0,
             forms = {
                 {
-                    name = "Shellos - E",
+                    name = "Shellos E",
                     type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = "30",
                     bst = "325",
@@ -14710,10 +14722,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Thundurus"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Thundurus - T",
+                    name = "Thundurus T",
                     type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.FLYING},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "580",
@@ -14736,10 +14749,11 @@ PokemonData.ALTERNATE_FORMS =
             }
         },
         ["Tornadus"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Tornadus - T",
+                    name = "Tornadus T",
                     type = {PokemonData.POKEMON_TYPES.FLYING, PokemonData.POKEMON_TYPES.EMPTY},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "580",
@@ -14761,11 +14775,12 @@ PokemonData.ALTERNATE_FORMS =
                 }
             }
         },
-        ["Wormadam - P"] = {
+        ["Wormadam P"] = {
+            cosmetic = false,
             index = 0,
             forms = {
                 {
-                    name = "Wormadam - S",
+                    name = "Wormadam S",
                     type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.GROUND},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "424",
@@ -14786,7 +14801,7 @@ PokemonData.ALTERNATE_FORMS =
                     weight = 6.5
                 },
                 {
-                    name = "Wormadam - T",
+                    name = "Wormadam T",
                     type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.STEEL},
                     evolution = PokemonData.EVOLUTION_TYPES.NONE,
                     bst = "424",
@@ -14809,4 +14824,4 @@ PokemonData.ALTERNATE_FORMS =
             }
         }
     }
-)
+
