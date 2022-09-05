@@ -310,8 +310,8 @@ local function PokemonDataReader(initialProgram)
         local SPE = 6
         local SPA = 6
         local SPD = 6
-        local ACC = 6
-        local EVA = 6
+        --local ACC = 6
+        --local EVA = 6
 
         if gameInfo.GEN == 4 then
             --format(gen 4):
@@ -323,8 +323,8 @@ local function PokemonDataReader(initialProgram)
 
             SPA = bit.band(last4Bytes, 0xFF)
             SPD = bit.band(bit.rshift(last4Bytes, 8), 0xFF)
-            ACC = bit.band(bit.rshift(last4Bytes, 16), 0xFF)
-            EVA = bit.band(bit.rshift(last4Bytes, 24), 0xFF)
+            --ACC = bit.band(bit.rshift(last4Bytes, 16), 0xFF)
+            --EVA = bit.band(bit.rshift(last4Bytes, 24), 0xFF)
         elseif gameInfo.GEN == 5 then
             ATK = bit.band(first4Bytes, 0xFF)
             DEF = bit.band(bit.rshift(first4Bytes, 8), 0xFF)
@@ -332,8 +332,8 @@ local function PokemonDataReader(initialProgram)
             SPD = bit.band(bit.rshift(first4Bytes, 24), 0xFF)
 
             SPE = bit.band(last4Bytes, 0xFF)
-            ACC = bit.band(bit.rshift(last4Bytes, 8), 0xFF)
-            EVA = bit.band(bit.rshift(last4Bytes, 16), 0xFF)
+           -- ACC = bit.band(bit.rshift(last4Bytes, 8), 0xFF)
+           -- EVA = bit.band(bit.rshift(last4Bytes, 16), 0xFF)
             HP = 6
         end
 
@@ -344,8 +344,8 @@ local function PokemonDataReader(initialProgram)
             ["SPE"] = SPE,
             ["SPA"] = SPA,
             ["SPD"] = SPD,
-            ["ACC"] = ACC,
-            ["EVA"] = EVA
+           -- ["ACC"] = ACC,
+           -- ["EVA"] = EVA
         }
 
         if gameInfo.GEN == 5 then
@@ -355,8 +355,8 @@ local function PokemonDataReader(initialProgram)
                 ["SPE"] = SPE,
                 ["SPA"] = SPA,
                 ["SPD"] = SPD,
-                ["ACC"] = ACC,
-                ["EVA"] = EVA
+              --  ["ACC"] = ACC,
+               -- ["EVA"] = EVA
             }
         end
 
