@@ -3,8 +3,9 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
 
     local width = 220
     local height = 330
-    local xPos = client.xpos() + client.screenwidth() / 2 - width / 2
-    local yPos = client.ypos() + client.screenheight() / 2 - height / 2
+    local clientCenter = FormsUtils.getCenter(width, height)
+    local xPos = clientCenter.xPos
+    local yPos = clientCenter.yPos
     local circleRadius = 75
     local circleCenter = {85, 85}
 
@@ -295,17 +296,6 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
         mainCanvas = forms.pictureBox(mainForm, 0, 0, 250, 300)
         initializeColorWheelSlider()
         forms.setproperty(mainForm, "Visible", true)
-    end
-
-    local function onClick()
-        updateCirclePreview()
-    end
-
-    local function isExtremeColor()
-        local sum = red + green + blue
-        if sum <= 5 or sum >= (255 * 3 - 5) then
-            return true
-        end
     end
 
     local function mouseInRange(pos, size)
