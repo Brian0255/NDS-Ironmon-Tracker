@@ -11,6 +11,11 @@ local function HoverEventListener(
     local onHoverEndParams = initialOnHoverEndParams
     local framesWaited = 0
     local hoverActive = false
+    local baseWaitAmount = 30
+    local clientFrameRate = client.get_approx_framerate()
+    if clientFrameRate > 60 then
+        baseWaitAmount = baseWaitAmount * (clientFrameRate / 60)
+    end
     function self.getOnHoverParams()
         return onHoverParams
     end
