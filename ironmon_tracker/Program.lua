@@ -109,7 +109,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return true
 	end
 
-	local function addAddtitionalDataToPokemon(pokemon)
+	local function addAdditionalDataToPokemon(pokemon)
 			local constData = PokemonData.POKEMON[pokemon.pokemonID + 1]
 			for key, data in pairs(constData) do
 				if key == "movelvls" then
@@ -526,7 +526,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local pokemonToDraw = pokemonForDrawing.pokemonToDraw
 		local opposingPokemon = pokemonForDrawing.opposingPokemon
 		if pokemonToDraw ~= nil then
-			addAddtitionalDataToPokemon(pokemonToDraw)
+			addAdditionalDataToPokemon(pokemonToDraw)
+			if opposingPokemon ~= nil then
+				addAdditionalDataToPokemon(opposingPokemon)
+			end
 			pokemonToDraw.owner = selectedPlayer
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setPokemon(pokemonToDraw, opposingPokemon)
 		end
@@ -648,7 +651,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
-		memoryReading = FrameCounter(1, readMemory, nil),
+		memoryReading = FrameCounter(30, readMemory, nil),
 		trackerSaving = FrameCounter(600, tracker.save, nil, true),
 		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
 		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil, true)
