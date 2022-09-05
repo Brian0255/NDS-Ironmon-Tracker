@@ -1071,7 +1071,7 @@ MoveData.MOVES_MASTER_LIST =
 			pp = "10",
 			accuracy = {"85", "85", "85", "85", "90"},
 			category = MoveData.MOVE_CATEGORIES.STATUS,
-			description = "Badly poisons the target. Never misses when used by a poison-type Pokemon."
+			description = "Badly poisons the target."
 		},
 		{
 			id = "93",
