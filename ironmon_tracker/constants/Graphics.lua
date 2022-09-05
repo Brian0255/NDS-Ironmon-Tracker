@@ -51,7 +51,7 @@ Graphics.BUTTON_TEXT = {
     FILLED_SQUARE = 1,
 }
 Graphics.LETTER_PIXEL_LENGTHS = {
-    [" "] = 2,
+    [" "] = 1,
     ["%"] = 7,
     ["1"] = 3,
     ["2"] = 3,
@@ -74,6 +74,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     d = 4,
     D = 5,
     e = 4,
+    ["\233"] = 4,
     E = 4,
     f = 3,
     F = 4,
