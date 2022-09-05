@@ -174,21 +174,6 @@ function DrawingUtils.calcShadowColor(colorKey)
     return (0xFF000000 + color_hexval)
 end
 
-function DrawingUtils.drawNumber(x, y, number, spacing, color, style, drawShadow, colorToShadow)
-    local new_spacing = 0
-    if style == "right_justified" then
-        new_spacing = (spacing - string.len(tostring(number))) * 5
-        if number == "---" then
-            new_spacing = 8
-        end
-    end
-    if drawShadow then
-        local shadow = DrawingUtils.calcShadowColor(colorToShadow)
-        gui.drawText(x + 1 + new_spacing, y + 1, number, shadow, nil, 9, "Franklin Gothic Medium")
-    end
-    gui.drawText(x + new_spacing, y, number, color, nil, 9, "Franklin Gothic Medium")
-end
-
 function DrawingUtils.drawTriangleRight(x, y, size, color)
     gui.drawRectangle(x, y, size, size, color)
     gui.drawPolygon({{4 + x, 4 + y}, {4 + x, y + size - 4}, {x + size - 4, y + size / 2}}, color, color)
@@ -199,22 +184,45 @@ function DrawingUtils.drawTriangleLeft(x, y, size, color)
     gui.drawPolygon({{x + size - 4, 4 + y}, {x + size - 4, y + size - 4}, {4 + x, y + size / 2}}, color, color)
 end
 
-function DrawingUtils.drawChevronUp(x, y, width, height, thickness, color)
-    local i = 0
-    y = y + height + thickness + 1
-    while i < thickness do
-        gui.drawLine(x, y - i, x + (width / 2), y - i - height, color)
-        gui.drawLine(x + (width / 2), y - i - height, x + width, y - i, color)
-        i = i + 1
+local function drawChevronUp(position, colorKey)
+    local color = DrawingUtils.convertColorKeyToColor(colorKey)
+    local center = {x = position.x + 2, y = position.y}
+    gui.drawLine(position.x, position.y+2, center.x, center.y, color)
+    gui.drawLine(center.x, center.y, position.x + 4, position.y+2, color)
+end
+
+local function drawChevronDown(position, colorKey)
+    local color = DrawingUtils.convertColorKeyToColor(colorKey)
+    local center = {x = position.x + 2, y = position.y + 2}
+    gui.drawLine(position.x, position.y, center.x, center.y, color)
+    gui.drawLine(center.x, center.y, position.x + 4, position.y, color)
+end
+
+function DrawingUtils.drawChevron(direction, position, colorKey)
+    if colorKey ~= nil then
+        if direction == "up" then
+            drawChevronUp(position, colorKey)
+        else
+            drawChevronDown(position, colorKey)
+        end
     end
 end
 
-function DrawingUtils.drawChevronDown(x, y, width, height, thickness, color)
-    local i = 0
-    y = y + thickness + 2
-    while i < thickness do
-        gui.drawLine(x, y + i, x + (width / 2), y + i + height, color)
-        gui.drawLine(x + (width / 2), y + i + height, x + width, y + i, color)
-        i = i + 1
+function DrawingUtils.drawStatStageChevrons(position, statStage)
+    local colorStates = {"Negative text color", "Top box text color", nil, "Top box text color", "Positive text color"}
+    local chevrons = {
+        bottomChevron = {start = 2, position = {x = position.x, y = position.y}},
+        middleChevron = {start = 1, position = {x = position.x, y = position.y - 2}},
+        topChevron = {start = 0, position = {x = position.x, y = position.y - 4}}
+    }
+    local direction = "none"
+    if statStage < 6 then
+        direction = "down"
+    else
+        direction = "up"
+    end
+    for _, chevron in pairs(chevrons) do
+        local colorState = math.floor((statStage+chevron.start)/3) + 1
+        DrawingUtils.drawChevron(direction, chevron.position, colorStates[colorState])
     end
 end
