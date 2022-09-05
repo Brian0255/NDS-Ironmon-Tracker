@@ -15,7 +15,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        STAT_PREDICTION_STATES = {"", "+", "--"},
+        STAT_PREDICTION_STATES = {"", "+", "_"},
         BADGE_HORIZONTAL_WIDTH = 140,
         BADGE_HORIZONTAL_HEIGHT = 19,
         BADGE_VERTICAL_WIDTH = 19,
@@ -48,7 +48,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local extraThingsToDraw = {
         moveEffectiveness = {},
         nature = {},
-        statStages = {},
+        statStages = {}
     }
     local function onHoverInfoEnd()
         activeHoverFrame = nil
@@ -62,10 +62,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function setStatPredictionToControl(control, newPrediction)
-        if newPrediction == "--" then
-            control.setTextOffset({x=0,y=-2})
+        if newPrediction == "_" then
+            control.setTextOffset({x = 0, y = -5})
         else
-            control.setTextOffset({x=0,y=-1})
+            control.setTextOffset({x = 0, y = -1})
         end
         control.setText(newPrediction)
     end
@@ -79,8 +79,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local currentState = pokemonStatPredictions[stat]
             local nextState = (currentState % 3) + 1
             pokemonStatPredictions[stat] = nextState
-            tracker.setStatPredictions(pokemonID,pokemonStatPredictions)
-            setStatPredictionToControl(ui.controls[stat.."StatPrediction"], states[nextState])
+            tracker.setStatPredictions(pokemonID, pokemonStatPredictions)
+            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[nextState])
             program.drawCurrentScreens()
         end
     end
@@ -89,7 +89,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
         local states = constants.STAT_PREDICTION_STATES
         for stat, predictionState in pairs(pokemonStatPredictions) do
-            setStatPredictionToControl(ui.controls[stat.."StatPrediction"],states[predictionState])
+            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[predictionState])
         end
     end
 
@@ -644,7 +644,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Top box text color",
                         "Top box background color"
-                    ), true
+                    ),
+                    true
                 ),
                 nil
             )
@@ -664,7 +665,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 ),
                 TextField(
                     "",
-                    {x=0,y=-1},
+                    {x = 0, y = -1},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -722,7 +723,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
                     "Top box text color",
                     "Top box background color"
-                ), true
+                ),
+                true
             )
         )
     end
@@ -872,7 +874,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 80, height = 10},
+                    {width = 79, height = 10},
                     nil,
                     nil
                 )
@@ -998,7 +1000,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         y = 0
                     },
                     {
-                        width = 82,
+                        width = 80,
                         height = constants.MOVE_ENTRY_HEIGHT
                     },
                     nil,
@@ -1093,7 +1095,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 16, height = 10},
+                        {width = 18, height = 10},
                         nil,
                         nil
                     )
@@ -1106,7 +1108,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Bottom box text color",
                         "Bottom box background color"
-                    )
+                    ),true,2
                 )
             )
             moveInfoFrame.powLabel =
@@ -1131,7 +1133,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Bottom box text color",
                         "Bottom box background color"
-                    ), true
+                    ),
+                    true
                 )
             )
             moveInfoFrame.accLabel =
@@ -1146,7 +1149,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         {width = 10, height = 10},
                         nil,
                         nil
-                    ), true
+                    ),
+                    true
                 ),
                 TextField(
                     "-1",
@@ -1156,7 +1160,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Bottom box text color",
                         "Bottom box background color"
-                    ),true
+                    ),
+                    true
                 )
             )
             table.insert(ui.moveInfoFrames, moveInfoFrame)
@@ -1312,7 +1317,52 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initMiscControls()
     end
 
-    local function setUpMoves(pokemon, isEnemy)
+    
+    local function setUpStatStages(pokemon)
+        if pokemon.statStages ~= nil then
+            extraThingsToDraw.statStages = {}
+            for statName, statStage in pairs(pokemon.statStages) do
+                local namePosition = ui.controls[statName .. "StatName"].getPosition()
+                local chevronPosition = {x = namePosition.x + 20, y = namePosition.y + 5}
+                extraThingsToDraw.statStages[statName] = {stage = statStage, position = chevronPosition}
+            end
+        end
+    end
+
+    local function setUpMoveEffectiveness(moveIDs, defendingPokemon)
+        extraThingsToDraw.moveEffectiveness = {}
+        for i, moveID in pairs(moveIDs) do
+            local moveFrame = ui.moveInfoFrames[i]
+            local PPLabelPosition = moveFrame.PPLabel.getPosition()
+            local chevronPosition = {x = PPLabelPosition.x + 14, y = PPLabelPosition.y+3}
+            local moveData = MoveData.MOVES[moveID+1]
+            local moveEffectiveness = MoveUtils.netEffectiveness(moveData, defendingPokemon)
+            table.insert(
+                extraThingsToDraw.moveEffectiveness,
+                {position = chevronPosition, effectiveness = moveEffectiveness}
+            )
+        end
+    end
+
+    local function drawExtraStuff()
+        if extraThingsToDraw.statStages ~= nil then
+            for _, statStageInfo in pairs(extraThingsToDraw.statStages) do
+                DrawingUtils.drawStatStageChevrons(statStageInfo.position, statStageInfo.stage)
+            end
+        end
+        if extraThingsToDraw.moveEffectiveness ~= nil then
+            for _, entry in pairs(extraThingsToDraw.moveEffectiveness) do
+                DrawingUtils.drawMoveEffectiveness(entry.position, entry.effectiveness)
+            end
+        end
+        if extraThingsToDraw.nature ~= nil then
+            for _, entry in pairs(extraThingsToDraw.nature) do
+                DrawingUtils.drawNaturePlusMinus(entry.position, entry.affect)
+            end
+        end
+    end
+
+    local function setUpMoves(pokemon, isEnemy, opposingPokemon)
         local movesHeader = MoveUtils.getMoveHeader(pokemon)
         ui.controls.moveHeaderLearnedText.setText(movesHeader)
         local moveIDs = pokemon.moveIDs
@@ -1322,7 +1372,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local moves = tracker.getMoves(pokemon.pokemonID)
             for i, move in pairs(moves) do
                 moveIDs[i] = move.move
-                movePPs[i] = MoveData.MOVES[move.move+1].pp
+                movePPs[i] = MoveData.MOVES[move.move + 1].pp
             end
         end
         if isEnemy then
@@ -1335,6 +1385,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         else
             movePPs = pokemon.movePPs
+        end
+        if opposingPokemon ~= nil then
+            setUpMoveEffectiveness(moveIDs,opposingPokemon)
         end
         for i, moveID in pairs(moveIDs) do
             local moveData = MoveData.MOVES[moveID + 1]
@@ -1385,20 +1438,38 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpStats(pokemon, isEnemy)
         ui.controls.BSTNumber.setText(pokemon.bst)
-        for statName, _ in pairs(pokemon.stats) do
-            ui.controls[statName.."StatNumber"].setVisibility(not isEnemy)
-            ui.controls[statName.."StatPrediction"].setVisibility(isEnemy)
+        extraThingsToDraw.nature = {}
+        for statName, stat in pairs(pokemon.stats) do
+            ui.controls[statName.."StatName"].setTextColorKey("Top box text color")
+            ui.controls[statName .. "StatNumber"].setVisibility(not isEnemy)
+            ui.controls[statName .. "StatPrediction"].setVisibility(isEnemy)
             if isEnemy then
-                ui.controls[statName.."StatName"].resize({width=30,height=10})
+                ui.controls[statName .. "StatName"].resize({width = 30, height = 10})
                 statPredictionEventListeners[statName].setOnClickParams(
                     {["stat"] = statName, pokemonID = pokemon.pokemonID}
                 )
             else
-                ui.controls[statName.."StatName"].resize({width=25,height=10})
+                ui.controls[statName .. "StatName"].resize({width = 25, height = 10})
+                ui.controls[statName .. "StatNumber"].setText(stat)
+                local color = DrawingUtils.getNatureColor(statName, pokemon.nature)
+                local namePosition = ui.controls[statName.."StatName"].getPosition()
+                local naturePosition = {
+                    x = namePosition.x + 16,
+                    y = namePosition.y - 4
+                }
+                if color == "Positive text color" then
+                    table.insert(extraThingsToDraw.nature, {
+                        position = naturePosition,
+                        affect = "plus"
+                    })
+                elseif color == "Negative text color" then
+                    table.insert(extraThingsToDraw.nature, {
+                        position = naturePosition,
+                        affect = "minus"
+                    })
+                end
+                ui.controls[statName.."StatName"].setTextColorKey(DrawingUtils.getNatureColor(statName,pokemon.nature))
             end
-        end
-        for stat, number in pairs(pokemon.stats) do
-            ui.controls[stat .. "StatNumber"].setText(number)
         end
     end
 
@@ -1411,25 +1482,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 local baseName = pokemon.baseForm.name
                 local path = "ironmon_tracker/images/pokemonIcons/alternateForms/" .. baseName .. "/" .. index .. ".png"
                 ui.controls.pokemonImageLabel.setPath(path)
-            end
-        end
-    end
-
-    local function setUpStatStages(pokemon)
-        if pokemon.statStages ~= nil then
-            extraThingsToDraw.statStages = {}
-            for statName, statStage in pairs(pokemon.statStages) do
-                local namePosition = ui.controls[statName.."StatName"].getPosition()
-                local chevronPosition = {x = namePosition.x + 20, y = namePosition.y+5}
-                extraThingsToDraw.statStages[statName] = {stage = statStage, position = chevronPosition}
-            end
-        end
-    end
-
-    local function drawExtraStuff()
-        if extraThingsToDraw.statStages ~= nil then
-            for statStageName, statStageInfo in pairs(extraThingsToDraw.statStages) do
-                DrawingUtils.drawStatStageChevrons(statStageInfo.position, statStageInfo.stage)
             end
         end
     end
@@ -1467,7 +1519,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if isEnemy then
             setEnemySpecificControls(pokemon)
         end
-        setUpMoves(pokemon,isEnemy)
+        setUpMoves(pokemon, isEnemy, opposingPokemon)
         setUpStatStages(pokemon)
     end
 
