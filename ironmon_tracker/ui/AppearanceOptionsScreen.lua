@@ -83,7 +83,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                         "Top box background color"
                     )
                 ),
-                settings.battle,
+                settings.appearance,
                 key,
                 nil,
                 false
