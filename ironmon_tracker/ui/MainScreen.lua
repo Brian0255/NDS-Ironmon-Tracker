@@ -639,7 +639,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Top box text color",
                         "Top box background color"
-                    )
+                    ), true
                 ),
                 nil
             )
@@ -717,7 +717,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
                     "Top box text color",
                     "Top box background color"
-                )
+                ), true
             )
         )
     end
@@ -867,7 +867,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 78, height = 10},
+                    {width = 80, height = 10},
                     nil,
                     nil
                 )
@@ -892,7 +892,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 19, height = 10},
+                    {width = 16, height = 10},
                     nil,
                     nil
                 )
@@ -917,7 +917,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 22, height = 10},
+                    {width = 23, height = 10},
                     nil,
                     nil
                 )
@@ -993,7 +993,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         y = 0
                     },
                     {
-                        width = 75,
+                        width = 82,
                         height = constants.MOVE_ENTRY_HEIGHT
                     },
                     nil,
@@ -1088,7 +1088,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 24, height = 10},
+                        {width = 16, height = 10},
                         nil,
                         nil
                     )
@@ -1113,7 +1113,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 20, height = 10},
+                        {width = 22, height = 10},
                         nil,
                         nil
                     )
@@ -1126,7 +1126,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Bottom box text color",
                         "Bottom box background color"
-                    )
+                    ), true
                 )
             )
             moveInfoFrame.accLabel =
@@ -1141,7 +1141,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         {width = 10, height = 10},
                         nil,
                         nil
-                    )
+                    ), true
                 ),
                 TextField(
                     "-1",
@@ -1151,7 +1151,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Bottom box text color",
                         "Bottom box background color"
-                    )
+                    ),true
                 )
             )
             table.insert(ui.moveInfoFrames, moveInfoFrame)
@@ -1307,93 +1307,19 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initMiscControls()
     end
 
-    function self.setPokemon(pokemon, opposingPokemon)
-        local id = pokemon.pokemonID
-        local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
-        local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
-        ui.controls.pokemonNameLabel.setText(pokemon.name)
-        ui.controls.BSTNumber.setText(pokemon.bst)
-        if pokemon.alternateForm == 0x00 then
-            ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. id .. ".png")
-        else
-            if PokemonData.ALTERNATE_FORMS[pokemon.baseForm.name] then
-                local index = pokemon.alternateForm / 8
-                local baseName = pokemon.baseForm.name
-                local path = "ironmon_tracker/images/pokemonIcons/alternateForms/" .. baseName .. "/" .. index .. ".png"
-                ui.controls.pokemonImageLabel.setPath(path)
-            end
-        end
-        local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
-        pokemonHoverParams.pokemon = pokemon
-        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. pokemon.evolution .. ")")
-        ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.stats.HP)
-        ui.controls.abilityDetails.setText(AbilityData.ABILITIES[pokemon.ability].name)
-        ui.controls.heldItem.setText(heldItemInfo.name)
+    local function setUpMoves(pokemon, isEnemy)
         local movesHeader = MoveUtils.getMoveHeader(pokemon)
         ui.controls.moveHeaderLearnedText.setText(movesHeader)
-        local healingTotals = program.getHealingItems()
-        if healingTotals == nil then
-            healingTotals = {healing = 0, numHeals = 0}
-        end
-        ui.controls.healsInBagLabel.setText("Heals in bag:")
-        ui.controls.healsInBagPercent.setText(healingTotals.healing .. "% HP (" .. healingTotals.numHeals .. ")")
-        for i, type in pairs(pokemon.type) do
-            ui.controls["pokemonType" .. i].setPath(Paths.FOLDERS.TYPE_IMAGES_FOLDER .. "/" .. type .. ".png")
-        end
-        local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
-        abilityHoverParams.text = AbilityData.ABILITIES[pokemon.ability].description
-        local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
-        itemHoverParams.text = heldItemInfo.description
-        ui.frames.enemyNoteFrame.setVisibility(isEnemy)
-        ui.frames.healFrame.setVisibility(not isEnemy)
-        for statName, stat in pairs(pokemon.stats) do
-            ui.controls[statName.."StatNumber"].setVisibility(not isEnemy)
-            ui.controls[statName.."StatPrediction"].setVisibility(isEnemy)
-            if isEnemy then
-                ui.controls[statName.."StatName"].resize({width=30,height=10})
-                statPredictionEventListeners[statName].setOnClickParams(
-                    {["stat"] = statName, pokemonID = pokemon.pokemonID}
-                )
-            else
-                ui.controls[statName.."StatName"].resize({width=25,height=10})
-            end
-        end
-        if isEnemy then
-            readStatPredictions(pokemon.pokemonID)
-            ui.controls.pokemonHP.setText("HP: ?/?")
-            abilityHoverParams.text = ""
-            itemHoverParams.text = ""
-            eventListeners.noteIconListener.setOnClickParams(pokemon.pokemonID)
-            local note = tracker.getNote(pokemon.pokemonID)
-            local lines = DrawingUtils.textToWrappedArray(note, 80)
-            print(lines)
-            ui.controls.mainNoteLabel.setText(lines[1])
-            ui.controls.mainNoteLabel.setVisibility(#lines == 1)
-            for i = 1, 2, 1 do
-                ui.controls.noteLabels[i].setVisibility(#lines > 1)
-                print(DrawingUtils.calculateWordPixelLength(lines[i]))
-                if #lines > 1 and DrawingUtils.calculateWordPixelLength(lines[i]) <= 80 then
-                    ui.controls.noteLabels[i].setText(lines[i])
-                end
-            end
-            ui.controls.heldItem.setText("Total seen: " .. tracker.getAmountSeen(pokemon.pokemonID))
-            ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(pokemon.pokemonID))
-            ui.controls.healsInBagLabel.setText("")
-            ui.controls.healsInBagPercent.setText("")
-        end
-        for stat, number in pairs(pokemon.stats) do
-            ui.controls[stat .. "StatNumber"].setText(number)
-        end
-
         local moveIDs = pokemon.moveIDs
+        local movePPs = {}
         if isEnemy then
             moveIDs = {}
             local moves = tracker.getMoves(pokemon.pokemonID)
             for i, move in pairs(moves) do
                 moveIDs[i] = move.move
+                movePPs[i] = MoveData.MOVES[move.move+1].pp
             end
         end
-        local movePPs = {}
         if isEnemy then
             for i, move in pairs(moveIDs) do
                 for j, compare in pairs(pokemon.moveIDs) do
@@ -1409,9 +1335,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local moveData = MoveData.MOVES[moveID + 1]
             local moveFrame = ui.moveInfoFrames[i]
             local movePP = movePPs[i]
-            if moveID == 0 then
-                movePP = -1
-            end
             moveFrame.categoryIcon.setIconName(moveData.category)
             if settings.colorSettings["Color move names by type"] then
                 moveFrame.moveNameLabel.setTextColorKey(moveData.type)
@@ -1429,6 +1352,98 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local params = listener.getOnHoverParams()
             params.text = moveData.description
         end
+    end
+
+    local function setEnemySpecificControls(pokemon)
+        local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
+        local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
+        readStatPredictions(pokemon.pokemonID)
+        ui.controls.pokemonHP.setText("HP: ?/?")
+        abilityHoverParams.text = ""
+        itemHoverParams.text = ""
+        eventListeners.noteIconListener.setOnClickParams(pokemon.pokemonID)
+        local note = tracker.getNote(pokemon.pokemonID)
+        local lines = DrawingUtils.textToWrappedArray(note, 80)
+        ui.controls.mainNoteLabel.setText(lines[1])
+        ui.controls.mainNoteLabel.setVisibility(#lines == 1)
+        for i = 1, 2, 1 do
+            ui.controls.noteLabels[i].setVisibility(#lines > 1)
+            if #lines > 1 and DrawingUtils.calculateWordPixelLength(lines[i]) <= 80 then
+                ui.controls.noteLabels[i].setText(lines[i])
+            end
+        end
+        ui.controls.heldItem.setText("Total seen: " .. tracker.getAmountSeen(pokemon.pokemonID))
+        ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(pokemon.pokemonID))
+        ui.controls.healsInBagLabel.setText("")
+        ui.controls.healsInBagPercent.setText("")
+    end
+
+    local function setUpStats(pokemon, isEnemy)
+        ui.controls.BSTNumber.setText(pokemon.bst)
+        for statName, _ in pairs(pokemon.stats) do
+            ui.controls[statName.."StatNumber"].setVisibility(not isEnemy)
+            ui.controls[statName.."StatPrediction"].setVisibility(isEnemy)
+            if isEnemy then
+                ui.controls[statName.."StatName"].resize({width=30,height=10})
+                statPredictionEventListeners[statName].setOnClickParams(
+                    {["stat"] = statName, pokemonID = pokemon.pokemonID}
+                )
+            else
+                ui.controls[statName.."StatName"].resize({width=25,height=10})
+            end
+        end
+        for stat, number in pairs(pokemon.stats) do
+            ui.controls[stat .. "StatNumber"].setText(number)
+        end
+    end
+
+    local function setUpPokemonImage(pokemon)
+        if pokemon.alternateForm == 0x00 then
+            ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. pokemon.pokemonID .. ".png")
+        else
+            if PokemonData.ALTERNATE_FORMS[pokemon.baseForm.name] then
+                local index = pokemon.alternateForm / 8
+                local baseName = pokemon.baseForm.name
+                local path = "ironmon_tracker/images/pokemonIcons/alternateForms/" .. baseName .. "/" .. index .. ".png"
+                ui.controls.pokemonImageLabel.setPath(path)
+            end
+        end
+    end
+
+    function self.setPokemon(pokemon, opposingPokemon)
+        local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
+        local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
+
+        ui.controls.pokemonNameLabel.setText(pokemon.name)
+        setUpPokemonImage(pokemon)
+        local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
+        pokemonHoverParams.pokemon = pokemon
+        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. pokemon.evolution .. ")")
+        ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.stats.HP)
+        ui.controls.abilityDetails.setText(AbilityData.ABILITIES[pokemon.ability].name)
+        ui.controls.heldItem.setText(heldItemInfo.name)
+        for i, type in pairs(pokemon.type) do
+            ui.controls["pokemonType" .. i].setPath(Paths.FOLDERS.TYPE_IMAGES_FOLDER .. "/" .. type .. ".png")
+        end
+
+        local healingTotals = program.getHealingItems()
+        if healingTotals == nil then
+            healingTotals = {healing = 0, numHeals = 0}
+        end
+        ui.controls.healsInBagLabel.setText("Heals in bag:")
+        ui.controls.healsInBagPercent.setText(healingTotals.healing .. "% HP (" .. healingTotals.numHeals .. ")")
+
+        local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
+        abilityHoverParams.text = AbilityData.ABILITIES[pokemon.ability].description
+        local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
+        itemHoverParams.text = heldItemInfo.description
+        ui.frames.enemyNoteFrame.setVisibility(isEnemy)
+        ui.frames.healFrame.setVisibility(not isEnemy)
+        setUpStats(pokemon, isEnemy)
+        if isEnemy then
+            setEnemySpecificControls(pokemon)
+        end
+        setUpMoves(pokemon,isEnemy)
     end
 
     function self.addEventListener(eventListener)
