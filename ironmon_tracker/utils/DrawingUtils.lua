@@ -81,11 +81,11 @@ function DrawingUtils.textToWrappedArray(text, maxWidth)
     for i, word in pairs(words) do
         --add 2 for space
         local wordPixelLength = DrawingUtils.calculateWordPixelLength(word)
-        local nextLength = currentLineLength + wordPixelLength + 2
+        local nextLength = currentLineLength + wordPixelLength + 3
         if nextLength > maxWidth then
             table.insert(newWords, currentLine)
             currentLine = word .. " "
-            currentLineLength = wordPixelLength + 2
+            currentLineLength = wordPixelLength + 1
         else
             currentLine = currentLine .. word .. " "
             currentLineLength = nextLength
