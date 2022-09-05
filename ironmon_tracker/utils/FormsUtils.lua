@@ -28,3 +28,10 @@ function FormsUtils.fileExists(path)
         return false
     end
 end
+
+function FormsUtils.getCenter(width, height)
+    return {
+    xPos = client.xpos() + client.screenwidth() / 2 - width / 2,
+     yPos = client.ypos() + client.screenheight() / 2 - height / 2
+    }
+end
