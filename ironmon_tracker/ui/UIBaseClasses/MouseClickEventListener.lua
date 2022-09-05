@@ -6,6 +6,9 @@ local function MouseClickEventListener(control, onClickFunction, initialOnClickP
     function self.getOnClickParams()
         return onClickParams
     end
+    function self.setOnClickParams(newParams)
+        onClickParams = newParams
+    end
     function self.listen()
         local position = control.getPosition()
         local size = control.getSize()
