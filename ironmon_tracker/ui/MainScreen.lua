@@ -15,6 +15,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
+        STAT_PREDICTION_STATES = {"", "+", "--"},
         BADGE_HORIZONTAL_WIDTH = 140,
         BADGE_HORIZONTAL_HEIGHT = 19,
         BADGE_VERTICAL_WIDTH = 19,
@@ -40,6 +41,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         pokemonHoverListener = nil
     }
     local moveEventListeners = {}
+    local statPredictionEventListeners = {}
     local ui = {}
     local self = {}
     local activeHoverFrame = nil
@@ -52,6 +54,69 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
         program.setCurrentScreens({program.UI_SCREENS.MAIN_OPTIONS_SCREEN})
         program.drawCurrentScreens()
+    end
+
+    local function setStatPredictionToControl(control, newPrediction)
+        if newPrediction == "--" then
+            control.setTextOffset({x=0,y=-2})
+        else
+            control.setTextOffset({x=0,y=-1})
+        end
+        control.setText(newPrediction)
+    end
+
+    local function onStatPredictionClick(params)
+        local pokemonID = params.pokemonID
+        local stat = params.stat
+        if pokemonID ~= nil then
+            local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
+            local states = constants.STAT_PREDICTION_STATES
+            local currentState = pokemonStatPredictions[stat]
+            local nextState = (currentState % 3) + 1
+            pokemonStatPredictions[stat] = nextState
+            tracker.setStatPredictions(pokemonID,pokemonStatPredictions)
+            setStatPredictionToControl(ui.controls[stat.."StatPrediction"], states[nextState])
+            program.drawCurrentScreens()
+        end
+    end
+
+    local function readStatPredictions(pokemonID)
+        local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
+        local states = constants.STAT_PREDICTION_STATES
+        for stat, predictionState in pairs(pokemonStatPredictions) do
+            setStatPredictionToControl(ui.controls[stat.."StatPrediction"],states[predictionState])
+        end
+    end
+
+    local function createNote(pokemonID)
+        local width, height = 270, 70
+        local clientCenter = FormsUtils.getCenter(width, height)
+        local charMax = 40
+        if pokemonID ~= nil then
+            forms.destroyall()
+            local noteForm =
+                forms.newform(
+                width,
+                height,
+                "Note (" .. charMax .. " char. max)",
+                function()
+                end
+            )
+            local textBox = forms.textbox(noteForm, tracker.getNote(pokemonID), 190, 0, nil, 5, 5)
+            forms.button(
+                noteForm,
+                "Set",
+                function()
+                    tracker.setNote(pokemonID, forms.gettext(textBox))
+                    forms.destroy(noteForm)
+                end,
+                200,
+                4,
+                48,
+                22
+            )
+            forms.setlocation(noteForm, clientCenter.xPos, clientCenter.yPos)
+        end
     end
 
     local function createRowFrame(parent)
@@ -218,7 +283,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 position.x,
                 Graphics.SIZES.SCREEN_WIDTH + ui.frames.mainFrame.getSize().width - hoverFrameSize.width - 1
             )
-            position.y = math.max(0,position.y)
+            position.y = math.max(0, position.y)
             hoverFrame.move(position)
             program.drawCurrentScreens()
             hoverFrame.show()
@@ -386,6 +451,24 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
             ui.frames.miscInfoFrame
         )
+        ui.frames.enemyNoteFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = constants.POKEMON_INFO_WIDTH - 26,
+                    height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 4, y = 3}),
+            ui.frames.miscInfoFrame,
+            false
+        )
         ui.frames.accEvaFrame =
             Frame(
             Box(
@@ -401,7 +484,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 nil
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
-            ui.frames.miscInfoFrame
+            ui.frames.miscInfoFrame,
+            false
         )
         ui.frames.statFrame =
             Frame(
@@ -436,7 +520,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 "Top box background color",
                 "Top box border color"
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 2}),
             ui.frames.statFrame
         )
         ui.frames.moveHeaderFrame =
@@ -534,7 +618,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 Component(ui.frames[frameName], Box({x = 0, y = 0}, {width = 25, height = 10}, nil, nil, nil)),
                 TextField(
                     stat,
-                    Graphics.SIZES.DEFAULT_TEXT_OFFSET,
+                    {x = 0, y = -2},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -548,15 +632,49 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextLabel(
                 Component(ui.frames[frameName], Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, nil)),
                 TextField(
-                    724,
-                    Graphics.SIZES.DEFAULT_TEXT_OFFSET,
+                    "-1",
+                    {x = 0, y = -2},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Top box text color",
                         "Top box background color"
                     )
-                )
+                ),
+                nil
+            )
+            local predictionLabel = stat .. "StatPrediction"
+            ui.controls[predictionLabel] =
+                TextLabel(
+                Component(
+                    ui.frames[frameName],
+                    Box(
+                        {x = 0, y = 0},
+                        {width = 8, height = 8},
+                        "Top box background color",
+                        "Top box border color",
+                        true,
+                        "Top box background color"
+                    )
+                ),
+                TextField(
+                    "",
+                    {x=0,y=-1},
+                    TextStyle(
+                        Graphics.FONT.DEFAULT_FONT_SIZE,
+                        Graphics.FONT.DEFAULT_FONT_FAMILY,
+                        "Top box text color",
+                        "Top box background color"
+                    )
+                ),
+                nil,
+                false
+            )
+            statPredictionEventListeners[stat] =
+                MouseClickEventListener(
+                ui.controls[predictionLabel],
+                onStatPredictionClick,
+                {stat = stat, pokemonID = nil}
             )
         end
         ui.frames.BSTFrame =
@@ -919,22 +1037,22 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {x = 1, y = 2}
             )
             moveInfoFrame.moveTypeIcon =
-            Icon(
-            Component(
-                ui.frames[nameIconFrameName],
-                Box(
-                    {
-                        x = 0,
-                        y = 0
-                    },
-                    {width = 9, height = 10},
-                    nil,
-                    nil
-                )
-            ),
-            "DRAGON",
-            {x = 1, y = 2}
-        )
+                Icon(
+                Component(
+                    ui.frames[nameIconFrameName],
+                    Box(
+                        {
+                            x = 0,
+                            y = 0
+                        },
+                        {width = 9, height = 10},
+                        nil,
+                        nil
+                    )
+                ),
+                "DRAGON",
+                {x = 1, y = 2}
+            )
             moveInfoFrame.moveNameLabel =
                 TextLabel(
                 Component(
@@ -1121,6 +1239,60 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
+        ui.controls.noteIcon =
+            Icon(
+            Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = 12, height = 16}, nil, nil)),
+            "NOTE_TOP",
+            {x = 0, y = 2}
+        )
+        ui.controls.mainNoteLabel =
+            TextLabel(
+            Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = 0, height = 8}, nil, nil)),
+            TextField(
+                "",
+                {x = 1, y = 2},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        ui.frames.noteLabelsFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = constants.POKEMON_INFO_WIDTH - 26,
+                    height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = 0, y = -2}),
+            ui.frames.enemyNoteFrame
+        )
+        ui.controls.noteLabels = {}
+        for i = 1, 2, 1 do
+            ui.controls.noteLabels[i] =
+                TextLabel(
+                Component(ui.frames.noteLabelsFrame, Box({x = 0, y = 0}, {width = 0, height = 8}, nil, nil)),
+                TextField(
+                    "",
+                    {x = 1, y = 0},
+                    TextStyle(
+                        Graphics.FONT.DEFAULT_FONT_SIZE,
+                        Graphics.FONT.DEFAULT_FONT_FAMILY,
+                        "Top box text color",
+                        "Top box background color"
+                    )
+                )
+            )
+        end
     end
 
     local function initUI()
@@ -1135,7 +1307,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initMiscControls()
     end
 
-    function self.setPokemon(pokemon, opposingPokemon, healingTotals)
+    function self.setPokemon(pokemon, opposingPokemon)
         local id = pokemon.pokemonID
         local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
         local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
@@ -1144,10 +1316,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if pokemon.alternateForm == 0x00 then
             ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. id .. ".png")
         else
-            if PokemonData.ALTERNATE_FORMS[pokemon.baseFormName] then
+            if PokemonData.ALTERNATE_FORMS[pokemon.baseForm.name] then
                 local index = pokemon.alternateForm / 8
-                local base = pokemon.baseFormName
-                local path = "ironmon_tracker/images/pokemonIcons/alternateForms/"..base.."/"..index..".png"
+                local baseName = pokemon.baseForm.name
+                local path = "ironmon_tracker/images/pokemonIcons/alternateForms/" .. baseName .. "/" .. index .. ".png"
                 ui.controls.pokemonImageLabel.setPath(path)
             end
         end
@@ -1159,6 +1331,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.heldItem.setText(heldItemInfo.name)
         local movesHeader = MoveUtils.getMoveHeader(pokemon)
         ui.controls.moveHeaderLearnedText.setText(movesHeader)
+        local healingTotals = program.getHealingItems()
         if healingTotals == nil then
             healingTotals = {healing = 0, numHeals = 0}
         end
@@ -1171,11 +1344,40 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         abilityHoverParams.text = AbilityData.ABILITIES[pokemon.ability].description
         local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
         itemHoverParams.text = heldItemInfo.description
+        ui.frames.enemyNoteFrame.setVisibility(isEnemy)
+        ui.frames.healFrame.setVisibility(not isEnemy)
+        for statName, stat in pairs(pokemon.stats) do
+            ui.controls[statName.."StatNumber"].setVisibility(not isEnemy)
+            ui.controls[statName.."StatPrediction"].setVisibility(isEnemy)
+            if isEnemy then
+                ui.controls[statName.."StatName"].resize({width=30,height=10})
+                statPredictionEventListeners[statName].setOnClickParams(
+                    {["stat"] = statName, pokemonID = pokemon.pokemonID}
+                )
+            else
+                ui.controls[statName.."StatName"].resize({width=25,height=10})
+            end
+        end
         if isEnemy then
+            readStatPredictions(pokemon.pokemonID)
+            ui.controls.pokemonHP.setText("HP: ?/?")
             abilityHoverParams.text = ""
             itemHoverParams.text = ""
-            ui.controls.heldItem.setText("---")
-            ui.controls.abilityDetails.setText("---")
+            eventListeners.noteIconListener.setOnClickParams(pokemon.pokemonID)
+            local note = tracker.getNote(pokemon.pokemonID)
+            local lines = DrawingUtils.textToWrappedArray(note, 80)
+            print(lines)
+            ui.controls.mainNoteLabel.setText(lines[1])
+            ui.controls.mainNoteLabel.setVisibility(#lines == 1)
+            for i = 1, 2, 1 do
+                ui.controls.noteLabels[i].setVisibility(#lines > 1)
+                print(DrawingUtils.calculateWordPixelLength(lines[i]))
+                if #lines > 1 and DrawingUtils.calculateWordPixelLength(lines[i]) <= 80 then
+                    ui.controls.noteLabels[i].setText(lines[i])
+                end
+            end
+            ui.controls.heldItem.setText("Total seen: " .. tracker.getAmountSeen(pokemon.pokemonID))
+            ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(pokemon.pokemonID))
             ui.controls.healsInBagLabel.setText("")
             ui.controls.healsInBagPercent.setText("")
         end
@@ -1234,11 +1436,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.runEventListeners()
-        for _, eventListener in pairs(eventListeners) do
-            eventListener.listen()
-        end
-        for _, eventListener in pairs(moveEventListeners) do
-            eventListener.listen()
+        local listenerGroups = {eventListeners, moveEventListeners, statPredictionEventListeners}
+        for _, listenerGroup in pairs(listenerGroups) do
+            for _, eventListener in pairs(listenerGroup) do
+                eventListener.listen()
+            end
         end
     end
 
@@ -1269,43 +1471,39 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     onHoverInfoEnd
                 )
             )
-            eventListeners.abilityHoverListener =
-                HoverEventListener(
-                ui.controls.abilityDetails,
-                onHoverInfo,
-                {
-                    BGColorKey = "Top box background color",
-                    BGColorFillKey = "Top box border color",
-                    text = "",
-                    textColorKey = "Top box text color",
-                    width = 120,
-                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
-                },
-                onHoverInfoEnd
-            )
-            eventListeners.heldItemHoverListener =
-                HoverEventListener(
-                ui.controls.heldItem,
-                onHoverInfo,
-                {
-                    BGColorKey = "Top box background color",
-                    BGColorFillKey = "Top box border color",
-                    text = "",
-                    textColorKey = "Top box text color",
-                    width = 120,
-                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
-                },
-                onHoverInfoEnd
-            )
-            eventListeners.pokemonHoverListener =
-                HoverEventListener(
-                ui.controls.pokemonImageLabel,
-                createTypeDefensesFrame,
-                {pokemon = nil},
-                onHoverInfoEnd
-            )
-            eventListeners.optionsIconListener = MouseClickEventListener(ui.controls.gearIcon, openOptionsScreen, nil)
         end
+        eventListeners.abilityHoverListener =
+            HoverEventListener(
+            ui.controls.abilityDetails,
+            onHoverInfo,
+            {
+                BGColorKey = "Top box background color",
+                BGColorFillKey = "Top box border color",
+                text = "",
+                textColorKey = "Top box text color",
+                width = 120,
+                alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
+            },
+            onHoverInfoEnd
+        )
+        eventListeners.heldItemHoverListener =
+            HoverEventListener(
+            ui.controls.heldItem,
+            onHoverInfo,
+            {
+                BGColorKey = "Top box background color",
+                BGColorFillKey = "Top box border color",
+                text = "",
+                textColorKey = "Top box text color",
+                width = 120,
+                alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW
+            },
+            onHoverInfoEnd
+        )
+        eventListeners.pokemonHoverListener =
+            HoverEventListener(ui.controls.pokemonImageLabel, createTypeDefensesFrame, {pokemon = nil}, onHoverInfoEnd)
+        eventListeners.optionsIconListener = MouseClickEventListener(ui.controls.gearIcon, openOptionsScreen, nil)
+        eventListeners.noteIconListener = MouseClickEventListener(ui.controls.noteIcon, createNote, nil)
     end
 
     local function recalculateMainFrameSize(orientation)
