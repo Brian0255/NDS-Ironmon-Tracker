@@ -1,17 +1,13 @@
-local function TextLabel(initialComponent, initialTextField, initialShadowColorKey, initialVisibility)
+local function TextLabel(initialComponent, initialTextField, isJustifiable, initialVisibility)
     local self = {}
     local component = initialComponent
     local textField = initialTextField
-    local shadowColorKey = initialShadowColorKey
     local visible = initialVisibility
     if visible == nil then
         visible = true
     end
     function self.setText(newText)
         textField.setText(newText)
-    end
-    function self.getShadowColorKey()
-        return shadowColorKey
     end
     function self.move(newPosition)
         component.move(newPosition)

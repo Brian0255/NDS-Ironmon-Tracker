@@ -1,9 +1,13 @@
-local function TextField(initialText, initialTextOffset, initialTextStyle)
+local function TextField(initialText, initialTextOffset, initialTextStyle, isJustifiable)
     local self = {}
     local text = initialText
     local textOffset = initialTextOffset
     local textStyle = initialTextStyle
     local position = nil
+    local justifiable = isJustifiable
+    if justifiable == nil then
+        justifiable = false
+    end
     function self.move(newPosition)
         position = {
             x = newPosition.x,
@@ -29,7 +33,7 @@ local function TextField(initialText, initialTextOffset, initialTextStyle)
             x = position.x + textOffset.x,
             y = position.y + textOffset.y
         }
-        DrawingUtils.drawText(newPosition.x, newPosition.y, text, textStyle, shadowColor)
+        DrawingUtils.drawText(newPosition.x, newPosition.y, text, textStyle, shadowColor, justifiable)
     end
     return self
 end
