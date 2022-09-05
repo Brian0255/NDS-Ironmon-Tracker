@@ -554,9 +554,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			else
 				if inBattle then
 					firstBattleComplete = true
-				end
-				if lastValidEnemyPokemon ~= nil then
-					tracker.updateLastLevelSeen(lastValidEnemyPokemon.pokemonID, lastValidEnemyPokemon.level)
+					if lastValidEnemyPokemon ~= nil then
+						tracker.updateLastLevelSeen(lastValidEnemyPokemon.pokemonID, lastValidEnemyPokemon.level)
+					end
 				end
 				inBattle = false
 				selectedPlayer = self.SELECTED_PLAYERS.PLAYER
@@ -648,7 +648,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
-		memoryReading = FrameCounter(30, readMemory, nil),
+		memoryReading = FrameCounter(1, readMemory, nil),
 		trackerSaving = FrameCounter(600, tracker.save, nil, true),
 		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
 		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil, true)
