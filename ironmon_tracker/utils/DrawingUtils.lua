@@ -4,6 +4,15 @@ local colorScheme
 local colorSettings
 local appearanceSettings
 
+local UIClassFolder = Paths.FOLDERS.UI_BASE_CLASSES .. "/"
+local Frame = dofile(UIClassFolder .. "Frame.lua")
+local Box = dofile(UIClassFolder .. "Box.lua")
+local Component = dofile(UIClassFolder .. "Component.lua")
+local TextLabel = dofile(UIClassFolder .. "TextLabel.lua")
+local TextField = dofile(UIClassFolder .. "TextField.lua")
+local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
+local Layout = dofile(UIClassFolder .. "Layout.lua")
+
 function DrawingUtils.setColorScheme(newScheme)
     colorScheme = newScheme
     colorScheme["Black"] = 0xFF000000
@@ -29,14 +38,6 @@ function DrawingUtils.clearGUI()
 end
 
 function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
-    local UIClassFolder = Paths.FOLDERS.UI_BASE_CLASSES .. "/"
-    local Frame = dofile(UIClassFolder .. "Frame.lua")
-    local Box = dofile(UIClassFolder .. "Box.lua")
-    local Component = dofile(UIClassFolder .. "Component.lua")
-    local TextLabel = dofile(UIClassFolder .. "TextLabel.lua")
-    local TextField = dofile(UIClassFolder .. "TextField.lua")
-    local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
-    local Layout = dofile(UIClassFolder .. "Layout.lua")
     local padding = 10
     local textArray = DrawingUtils.textToWrappedArray(text, width - padding)
     local hoverFrame =
@@ -121,7 +122,7 @@ function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, s
     gui.drawRectangle(x, y, width, height, fill, background)
 end
 
-function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable)
+function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, justifiedSpacing)
     local drawShadow = colorSettings["Draw shadows"] and not colorSettings["Transparent backgrounds"]
     local color = DrawingUtils.convertColorKeyToColor(textStyle.getTextColorKey())
     local spacing = 0
@@ -131,7 +132,7 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable)
         else
             local number = tonumber(text)
             if number ~= nil then
-                spacing = (3 - string.len(tostring(number))) * 5
+                spacing = (justifiedSpacing - string.len(tostring(number))) * 5
             end
         end
     end
@@ -187,8 +188,8 @@ end
 local function drawChevronUp(position, colorKey)
     local color = DrawingUtils.convertColorKeyToColor(colorKey)
     local center = {x = position.x + 2, y = position.y}
-    gui.drawLine(position.x, position.y+2, center.x, center.y, color)
-    gui.drawLine(center.x, center.y, position.x + 4, position.y+2, color)
+    gui.drawLine(position.x, position.y + 2, center.x, center.y, color)
+    gui.drawLine(center.x, center.y, position.x + 4, position.y + 2, color)
 end
 
 local function drawChevronDown(position, colorKey)
@@ -222,7 +223,90 @@ function DrawingUtils.drawStatStageChevrons(position, statStage)
         direction = "up"
     end
     for _, chevron in pairs(chevrons) do
-        local colorState = math.floor((statStage+chevron.start)/3) + 1
+        local colorState = math.floor((statStage + chevron.start) / 3) + 1
         DrawingUtils.drawChevron(direction, chevron.position, colorStates[colorState])
     end
+end
+
+function DrawingUtils.drawMoveEffectiveness(position, effectiveness)
+    if effectiveness ~= 1.0 then
+        local x, y = position.x, position.y
+        if effectiveness == 2 then
+            drawChevronUp({x = x, y = y + 2}, "Positive text color")
+        elseif effectiveness == 4 then
+            drawChevronUp({x = x, y = y + 2}, "Positive text color")
+            drawChevronUp({x = x, y = y}, "Positive text color")
+        elseif effectiveness == 0.5 then
+            drawChevronDown({x = x, y = y, 4}, "Negative text color")
+        elseif effectiveness == 0.25 then
+            drawChevronDown({x = x, y = y, 4}, "Negative text color")
+            drawChevronDown({x = x, y = y + 2}, "Negative text color")
+        elseif effectiveness == 0 then
+            DrawingUtils.drawText(
+                x,
+                y,
+                "X",
+                TextStyle(7, Graphics.FONT.DEFAULT_FONT_FAMILY, "Negative text color", "Bottom box background color"),
+                DrawingUtils.convertColorKeyToColor("Bottom box background color")
+            )
+        end
+    end
+end
+
+function DrawingUtils.drawNaturePlusMinus(position, affect)
+    local color = "Positive text color"
+    local text = "+"
+    if affect == "minus" then
+        text = "---"
+        color = "Negative text color"
+    end
+    DrawingUtils.drawText(
+                position.x,
+                position.y,
+                text,
+                TextStyle(5, Graphics.FONT.DEFAULT_FONT_FAMILY, color, "Top box background color"),
+                DrawingUtils.convertColorKeyToColor("Top box background color")
+            )
+end
+
+function DrawingUtils.getNatureColor(stat, nature)
+    local neutral = "Top box text color"
+    local increase = "Positive text color"
+    local decrease = "Negative text color"
+
+    local color = neutral
+    if nature % 6 == 0 then
+        color = neutral
+    elseif stat == "ATK" then
+        if nature < 5 then
+            color = increase
+        elseif nature % 5 == 0 then
+            color = decrease
+        end
+    elseif stat == "DEF" then
+        if nature > 4 and nature < 10 then
+            color = increase
+        elseif nature % 5 == 1 then
+            color = decrease
+        end
+    elseif stat == "SPE" then
+        if nature > 9 and nature < 15 then
+            color = increase
+        elseif nature % 5 == 2 then
+            color = decrease
+        end
+    elseif stat == "SPA" then
+        if nature > 14 and nature < 20 then
+            color = increase
+        elseif nature % 5 == 3 then
+            color = decrease
+        end
+    elseif stat == "SPD" then
+        if nature > 19 then
+            color = increase
+        elseif nature % 5 == 4 then
+            color = decrease
+        end
+    end
+    return color
 end
