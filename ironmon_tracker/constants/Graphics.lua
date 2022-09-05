@@ -125,9 +125,9 @@ Graphics.FONT = {
 }
 Graphics.TEXT = {
     PLACEHOLDER = "---",
-    NO_PP = -1,
-    NO_POWER = -1,
-    ALWAYS_HITS = -1
+    NO_PP = "---",
+    NO_POWER = "---",
+    ALWAYS_HITS = "---"
 }
 Graphics.TYPE_COLORS = {
     NORMAL = 0xFFA7A879,
