@@ -128,7 +128,11 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
     local spacing = 0
     if appearanceSettings.RIGHT_JUSTIFIED_NUMBERS and justifiable then
         if text == "---" then
-            spacing = 8
+            if justifiedSpacing == 3 then
+                spacing = 8
+            elseif justifiedSpacing == 2 then
+                spacing = 3
+            end
         else
             local number = tonumber(text)
             if number ~= nil then
