@@ -22,8 +22,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local battleDataFetched = false
 	local badges = {
-		firstSet = {0,0,0,0,0,0,0,0},
-		secondSet = {0,0,0,0,0,0,0,0}
+		firstSet = {0, 0, 0, 0, 0, 0, 0, 0},
+		secondSet = {0, 0, 0, 0, 0, 0, 0, 0}
 	}
 	local runEvents = true
 	local inBattle = false
@@ -79,7 +79,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local firstPlayerPartyPID = Memory.read_u32_le(memoryAddresses.playerBase)
 		local firstPlayerPID = Memory.read_u32_le(memoryAddresses.playerBattleBase)
 		local firstEnemyPID = Memory.read_u32_le(memoryAddresses.enemyBase)
-		if firstPlayerPID == 0 or firstEnemyPID == 0 or firstPlayerPID~=firstPlayerPartyPID then
+		if firstPlayerPID == 0 or firstEnemyPID == 0 or firstPlayerPID ~= firstPlayerPartyPID then
 			return false
 		end
 
@@ -110,15 +110,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function addAdditionalDataToPokemon(pokemon)
-			local constData = PokemonData.POKEMON[pokemon.pokemonID + 1]
-			for key, data in pairs(constData) do
-				if key == "movelvls" then
-					pokemon[key] = data[gameInfo.VERSION_GROUP]
-				else
-					pokemon[key] = data
-				end
+		local constData = PokemonData.POKEMON[pokemon.pokemonID + 1]
+		for key, data in pairs(constData) do
+			if key == "movelvls" then
+				pokemon[key] = data[gameInfo.VERSION_GROUP]
+			else
+				pokemon[key] = data
 			end
-
+		end
 	end
 
 	local function scanItemsForHeals()
@@ -316,7 +315,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				return pokemonData
 			end
 
-			--[[
+		--[[
 			local activePID
 			local transformed = checkForEnemyTransform()
 			if transformed then
@@ -520,7 +519,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return {["pokemonToDraw"] = pokemonToDraw, ["opposingPokemon"] = opposingPokemon}
 	end
 
-	
 	local function setPokemonForMainScreen()
 		local pokemonForDrawing = getPokemonToDraw()
 		local pokemonToDraw = pokemonForDrawing.pokemonToDraw
@@ -535,6 +533,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function refreshPointers()
+		local info = GameConfigurator.initializeMemoryAddresses()
+		gameInfo = info.gameInfo
+		memoryAddresses = info.memoryAddresses
+	end
+
 	local function readMemory()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
 			self.readBadgeMemory()
@@ -542,6 +546,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if self.BATTLE_STATUS_TYPES[battleStatus] == true then
 				if not inBattle then
 					--Just started battle.
+					refreshPointers()
 					lastValidEnemyBattlePID = -1
 					lastValidPlayerBattlePID = -1
 					inBattle = true
@@ -591,12 +596,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			setPokemonForMainScreen()
 			self.drawCurrentScreens()
 		end
-	end
-
-	local function refreshPointers()
-		local info = GameConfigurator.initializeMemoryAddresses()
-		gameInfo = info.gameInfo
-		memoryAddresses = info.memoryAddresses
 	end
 
 	local eventListeners = {
