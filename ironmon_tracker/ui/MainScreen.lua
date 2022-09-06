@@ -1374,17 +1374,24 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 moveIDs[i] = move.move
                 movePPs[i] = MoveData.MOVES[move.move + 1].pp
             end
-        end
-        if isEnemy then
             for i, move in pairs(moveIDs) do
                 for j, compare in pairs(pokemon.moveIDs) do
                     if move == compare then
                         movePPs[i] = pokemon.movePPs[j]
+                        if move == 0 then
+                            movePPs[i] = Graphics.TEXT.NO_PP
+                        end
                     end
                 end
             end
         else
-            movePPs = pokemon.movePPs
+            for i, moveID in pairs(moveIDs) do
+                if moveID == 0 then
+                    movePPs[i] = Graphics.TEXT.NO_PP
+                else
+                   movePPs[i] = pokemon.movePPs[i]
+                end
+            end
         end
         if opposingPokemon ~= nil then
             setUpMoveEffectiveness(moveIDs,opposingPokemon)
@@ -1402,8 +1409,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             moveFrame.moveTypeIcon.setIconName(moveData.type)
             moveFrame.moveTypeIcon.setVisibility(settings.colorSettings["Draw move type icons"])
             moveFrame.categoryIcon.setVisibility(settings.colorSettings["Show phys/spec move icons"])
-            moveFrame.moveNameLabel.setText(moveData.name)
+            local moveNameText = moveData.name
+            if isEnemy then
+                local stars = MoveUtils.getStars(pokemon)
+                --moveNameText = moveNameText..stars[i]
+            end
+            moveFrame.moveNameLabel.setText(moveNameText)
             moveFrame.PPLabel.setText(movePP)
+            moveFrame.powLabel.setTextColorKey("Bottom box text color")
+            if MoveUtils.isSTAB(moveData,pokemon) and program.isInBattle() then
+                moveFrame.powLabel.setTextColorKey("Positive text color")
+            end
             moveFrame.powLabel.setText(moveData.power)
             moveFrame.accLabel.setText(moveData.accuracy)
             local listener = moveEventListeners[i]
@@ -1539,10 +1555,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     function self.show()
         self.updateBadgeLayout()
         ui.frames.mainFrame.show()
+        drawExtraStuff()
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
-        drawExtraStuff()
     end
 
     local function initEventListeners()
