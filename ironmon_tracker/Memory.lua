@@ -1,6 +1,9 @@
 Memory = {}
 
 function Memory.inRange(addr)
+	if addr == nil then
+		return false
+	end
 	return (0x000000 <= addr and addr <= 0x3FFFFF)
 end
 
