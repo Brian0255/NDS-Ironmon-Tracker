@@ -54,12 +54,7 @@ local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
                 TextField(
                     heading,
                     {x = 2, y = 0},
-                    TextStyle(
-                        10,
-                        Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Top box text color",
-                        "Top box background color"
-                    )
+                    TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
                 )
             )
         else
@@ -133,7 +128,7 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
         )
         local hoverFrameSize = pokemonHoverFrame.getSize()
         local position = Input.getMousePosition()
-        MiscUtils.clampFramePosition(nil,position,mainFrame.getSize(),hoverFrameSize)
+        MiscUtils.clampFramePosition(nil, position, mainFrame.getSize(), hoverFrameSize)
         local totalSize = 18
         local typeDefensesTable = MoveUtils.getTypeDefensesTable(pokemon)
         for _, heading in pairs(order) do
@@ -189,4 +184,141 @@ function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text
         )
     end
     return hoverFrame
+end
+
+local function createMoveHeaderHoverRows(totalRows,moveLevelsFrame)
+    local moveLabelHeight = 16
+    local rowFrames = {}
+    for i = 1, totalRows, 1 do
+        local rowFrame =
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {
+                    width = 0,
+                    height = moveLabelHeight
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+            moveLevelsFrame
+        )
+        table.insert(rowFrames, rowFrame)
+    end
+    return rowFrames
+end
+
+local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
+    local displayedPerRow = 8
+    local moveLabelWidth = 16
+    local moveLabelHeight = 16
+    local movesLearnedMarkings = MoveUtils.getMovesLearned(movelvls,level)
+    for i, moveLevel in pairs(movelvls) do
+        local textColorKey = "Bottom box text color"
+        if movesLearnedMarkings[moveLevel] then
+            textColorKey = "Negative text color"
+        end
+        local spacing = 0
+        if tonumber(moveLevel) < 10 then
+            spacing = 3
+        end
+        local rowIndex = math.ceil(i/(displayedPerRow))
+        TextLabel(
+            Component(
+                rowFrames[rowIndex],
+                Box(
+                    {
+                        x = 0,
+                        y = 0
+                    },
+                    {width = moveLabelWidth, height = moveLabelHeight},
+                    "Bottom box background color",
+                    "Bottom box border color"
+                )
+            ),
+            TextField(
+                moveLevel,
+                {x = 2 + spacing, y = 2},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    textColorKey,
+                    "Bottom box background color"
+                )
+            )
+        )
+    end
+end
+function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
+    local movelvls = pokemon.movelvls
+    local level = pokemon.level
+    local totalMoves = #movelvls
+    local displayedPerRow = 8
+    local moveLabelWidth = 16
+    local moveLabelHeight = 16
+    local textHeaderHeight = 18
+    local frameWidth = displayedPerRow * moveLabelWidth + 10
+    local totalRows = math.ceil(totalMoves / displayedPerRow)
+    local moveLevelsFrameHeight = totalRows * moveLabelHeight + 10
+    local mainFrameHeight = moveLevelsFrameHeight + textHeaderHeight
+    local moveLevelsHoverFrame =
+        Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = frameWidth,
+                height = mainFrameHeight
+            },
+            nil,
+            nil
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
+        nil
+    )
+    local textHeader =
+        TextLabel(
+        Component(
+            moveLevelsHoverFrame,
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {width = frameWidth, height = textHeaderHeight},
+                "Bottom box background color",
+                "Bottom box border color"
+            )
+        ),
+        TextField(
+            "Moves Learned",
+            {x = 30, y = 1},
+            TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Bottom box text color", "Bottom box background color")
+        )
+    )
+    local moveLevelsFrame =
+        Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = frameWidth,
+                height = moveLevelsFrameHeight
+            },
+            "Bottom box background color",
+            "Bottom box border color"
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 5, y = 5}),
+        moveLevelsHoverFrame
+    )
+    local rowFrames = createMoveHeaderHoverRows(totalRows,moveLevelsFrame)
+    fillMoveHeaderHoverRows(movelvls,level,rowFrames)
+    local position = Input.getMousePosition()
+    MiscUtils.clampFramePosition(
+        Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
+        position,
+        mainFrame.getSize(),
+        moveLevelsHoverFrame.getSize()
+    )
+    moveLevelsHoverFrame.move(position)
+    return moveLevelsHoverFrame
 end
