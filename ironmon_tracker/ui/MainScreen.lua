@@ -131,6 +131,36 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         pokemonHoverFrame.show()
     end
 
+    local function onMoveHeaderHover(params)
+        if params.pokemon ~= nil then
+            local movelvls = params.pokemon.movelvls
+            local moveHeaderHoverFrame
+            if #movelvls == 0 then
+                moveHeaderHoverFrame =
+                    HoverFrameFactory.createHoverTextFrame(
+                    "Bottom box background color",
+                    "Bottom box border color",
+                    "This pok\233mon does not learn any moves.",
+                    "Bottom box text color",
+                    126
+                )
+                local position = Input.getMousePosition()
+                MiscUtils.clampFramePosition(
+                    Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
+                    position,
+                    ui.frames.mainFrame.getSize(),
+                    moveHeaderHoverFrame.getSize()
+                )
+                moveHeaderHoverFrame.move(position)
+            else
+                moveHeaderHoverFrame = HoverFrameFactory.createMoveLevelsHoverFrame(params.pokemon, params.mainFrame)
+            end
+            activeHoverFrame = moveHeaderHoverFrame
+            program.drawCurrentScreens()
+            activeHoverFrame.show()
+        end
+    end
+
     local function onHoverInfo(hoverParams)
         local BGColorKey = hoverParams.BGColorKey
         local BGColorFillKey = hoverParams.BGColorFillKey
@@ -142,11 +172,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local hoverFrame =
                 HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
             local hoverFrameSize = hoverFrame.getSize()
-            local mouse = input.getmouse()
-            local position = {
-                x = mouse["X"],
-                y = (mouse["Y"] + 384) / 2
-            }
+            local position = Input.getMousePosition()
             MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame.getSize(), hoverFrameSize)
             hoverFrame.move(position)
             program.drawCurrentScreens()
@@ -395,7 +421,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     y = 0
                 },
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = 80,
                     height = constants.MOVE_HEADER_HEIGHT
                 },
                 nil,
@@ -1458,7 +1484,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
         ui.controls.healsInBagLabel.setText("Heals in bag:")
         ui.controls.healsInBagPercent.setText(healingTotals.healing .. "% HP (" .. healingTotals.numHeals .. ")")
-
+        eventListeners.moveHeaderHoverListener.setOnHoverParams(
+            {["pokemon"] = pokemon, mainFrame = ui.frames.mainFrame}
+        )
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
         abilityHoverParams.text = AbilityData.ABILITIES[pokemon.ability + 1].description
         local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
@@ -1550,6 +1578,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             {pokemon = nil, mainFrame = ui.frames.mainFrame},
             onHoverInfoEnd
         )
+        eventListeners.moveHeaderHoverListener =
+            HoverEventListener(ui.frames.moveHeaderFrame, onMoveHeaderHover, {pokemon = nil}, onHoverInfoEnd)
         eventListeners.optionsIconListener = MouseClickEventListener(ui.controls.gearIcon, openOptionsScreen, nil)
         eventListeners.noteIconListener = MouseClickEventListener(ui.controls.noteIcon, createNote, nil)
     end
