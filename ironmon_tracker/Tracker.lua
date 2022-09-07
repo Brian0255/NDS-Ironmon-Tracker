@@ -1,18 +1,10 @@
 local function Tracker()
 	local self = {}
-	local BLANK_TRACKED_POKEMON = {
-		moves = {},
-		statPredictions = nil,
-		abilities = {},
-		note = "",
-		amountSeen = 0,
-		lastLevelSeen = "---"
-	}
 	local trackedData = {
 		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
 		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
-		pokecenterCount = 10,
+		pokecenterCount = 10
 	}
 	local function loadData()
 		local file = io.open("autosave.trackerdata", "r")
@@ -33,11 +25,18 @@ local function Tracker()
 	end
 
 	local function createNewPokemonEntry(pokemonID)
-		trackedData.trackedPokemon[pokemonID] = BLANK_TRACKED_POKEMON
+		trackedData.trackedPokemon[pokemonID] = {
+			moves = {},
+			statPredictions = nil,
+			abilities = {},
+			note = "",
+			amountSeen = 0,
+			lastLevelSeen = "---"
+		}
 	end
 
 	local function checkIfPokemonUntracked(pokemonID)
-		if not trackedData.trackedPokemon[pokemonID] then
+		if trackedData.trackedPokemon[pokemonID] == nil then
 			createNewPokemonEntry(pokemonID)
 		end
 	end
@@ -97,7 +96,6 @@ local function Tracker()
 		local pokemonData = trackedData.trackedPokemon[pokemonID]
 		local currentMoves = pokemonData.moves
 		if next(currentMoves) == nil then
-			print("no moves")
 			createNewMoveEntry(pokemonID, moveID, level)
 		else
 			local moveSeen = false
@@ -161,21 +159,19 @@ local function Tracker()
 
 	function self.getMoves(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
-		local returnVal = {}
 		if next(trackedData.trackedPokemon[pokemonID].moves) == nil then
+			print("untracked")
 			for _ = 1, 4, 1 do
 				table.insert(
-					returnVal,
+					trackedData.trackedPokemon[pokemonID].moves,
 					{
 						move = 0,
 						level = 1
 					}
 				)
 			end
-			return returnVal
-		else
-			return trackedData.trackedPokemon[pokemonID].moves
 		end
+		return trackedData.trackedPokemon[pokemonID].moves
 	end
 
 	function self.getAbilities(pokemonID)
