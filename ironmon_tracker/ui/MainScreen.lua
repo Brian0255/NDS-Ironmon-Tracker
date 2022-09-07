@@ -124,145 +124,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function createRowFrame(parent)
-        return Frame(
-            Box({x = 0, y = 0}, {width = 0, height = 15}, nil, nil),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 4, {x = 4, y = 4}),
-            parent
-        )
-    end
-
-    local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
-        local typesToCreate = #defenseTable
-        local currentTypeIndex = 0
-        local currentRowFrame = nil
-        local totalSize = 0
-        local currentRowControls = 0
-        while currentTypeIndex <= typesToCreate do
-            if currentRowControls == 0 then
-                currentRowFrame = createRowFrame(typeDefenseFrame)
-                totalSize = totalSize + 17
-            end
-            if currentTypeIndex == 0 then
-                local headingFrame =
-                    Frame(
-                    Box({x = 0, y = 0}, {width = 31, height = 13}, nil, nil),
-                    Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = -6, y = -6}),
-                    currentRowFrame
-                )
-                TextLabel(
-                    Component(
-                        headingFrame,
-                        Box(
-                            {x = 0, y = 0},
-                            {width = 36, height = 18},
-                            "Top box background color",
-                            "Top box border color",
-                            true,
-                            "Top box background color"
-                        )
-                    ),
-                    TextField(
-                        heading,
-                        {x = 2, y = 0},
-                        TextStyle(
-                            10,
-                            Graphics.FONT.DEFAULT_FONT_FAMILY,
-                            "Top box text color",
-                            "Top box background color"
-                        )
-                    )
-                )
-            else
-                ImageLabel(
-                    Component(
-                        currentRowFrame,
-                        Box(
-                            {x = 0, y = 0},
-                            {width = 31, height = 13},
-                            nil,
-                            "Top box border color",
-                            true,
-                            "Top box background color"
-                        )
-                    ),
-                    ImageField(
-                        "ironmon_tracker/images/types/" ..
-                            PokemonData.POKEMON_TYPES[defenseTable[currentTypeIndex]] .. ".png",
-                        {x = 1, y = 1},
-                        {width = 30, height = 12}
-                    )
-                )
-            end
-            currentRowControls = (currentRowControls + 1) % 4
-            currentTypeIndex = currentTypeIndex + 1
-        end
-        local size = typeDefenseFrame.getSize()
-        typeDefenseFrame.resize({width = size.width, height = totalSize + 4})
-    end
-
-    local function createTypeDefenseFrame(pokemonHoverFrame, heading, defenseTable)
-        local typeDefenseFrame =
-            Frame(
-            Box({x = 0, y = 0}, {width = 144, height = 5}, "Top box background color", "Top box border color"),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 2),
-            pokemonHoverFrame
-        )
-        fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
-        return typeDefenseFrame
-    end
-
-    local function createTypeDefensesFrame(params)
-        local pokemon = params.pokemon
-        if pokemon ~= nil then
-            local order = {"4x", "2x", "0.5x", "0.25x", "0x"}
-            local pokemonHoverFrame =
-                Frame(
-                Box(
-                    {x = 0, y = 0},
-                    {
-                        width = 144,
-                        height = 140
-                    },
-                    "Top box background color",
-                    "Top box border color"
-                ),
-                Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5, {x = 0, y = 0}),
-                nil
-            )
-            TextLabel(
-                Component(
-                    pokemonHoverFrame,
-                    Box({x = 0, y = 0}, {width = 144, height = 18}, "Top box background color", "Top box border color")
-                ),
-                TextField(
-                    "Type Defenses",
-                    {x = 28, y = 0},
-                    TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-                )
-            )
-            local hoverFrameSize = pokemonHoverFrame.getSize()
-            local position = Input.getMousePosition()
-            position.x =
-                math.min(
-                position.x,
-                Graphics.SIZES.SCREEN_WIDTH + ui.frames.mainFrame.getSize().width - hoverFrameSize.width - 1
-            )
-            local totalSize = 18
-            local typeDefensesTable = MoveUtils.getTypeDefensesTable(pokemon)
-            for _, heading in pairs(order) do
-                local defenseTable = typeDefensesTable[heading]
-                if next(defenseTable) ~= nil then
-                    local typeDefenseFrame = createTypeDefenseFrame(pokemonHoverFrame, heading, defenseTable)
-                    totalSize = totalSize + typeDefenseFrame.getSize().height + 5
-                end
-            end
-            pokemonHoverFrame.resize({width = 144, height = totalSize})
-            pokemonHoverFrame.move(position)
-            activeHoverFrame = pokemonHoverFrame
-            program.drawCurrentScreens()
-            pokemonHoverFrame.show()
-        end
+    local function onPokemonImageHover(params)
+        local pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
+        activeHoverFrame = pokemonHoverFrame
+        program.drawCurrentScreens()
+        pokemonHoverFrame.show()
     end
 
     local function onHoverInfo(hoverParams)
@@ -273,22 +139,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if text ~= "" then
             local width = hoverParams.width
             local alignment = hoverParams.alignment
-            local hoverFrame = DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
+            local hoverFrame =
+                HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
             local hoverFrameSize = hoverFrame.getSize()
             local mouse = input.getmouse()
             local position = {
                 x = mouse["X"],
                 y = (mouse["Y"] + 384) / 2
             }
-            if alignment == Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE then
-                position.y = position.y - hoverFrameSize.height
-            end
-            position.x =
-                math.min(
-                position.x,
-                Graphics.SIZES.SCREEN_WIDTH + ui.frames.mainFrame.getSize().width - hoverFrameSize.width - 1
-            )
-            position.y = math.max(0, position.y)
+            MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame.getSize(), hoverFrameSize)
             hoverFrame.move(position)
             program.drawCurrentScreens()
             hoverFrame.show()
@@ -899,7 +758,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 16, height = 10},
+                    {width = 17, height = 10},
                     nil,
                     nil
                 )
@@ -924,7 +783,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 23, height = 10},
+                    {width = 24, height = 10},
                     nil,
                     nil
                 )
@@ -1108,7 +967,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
                         "Bottom box text color",
                         "Bottom box background color"
-                    ),true,2
+                    ),
+                    true,
+                    2
                 )
             )
             moveInfoFrame.powLabel =
@@ -1317,7 +1178,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initMiscControls()
     end
 
-    
     local function setUpStatStages(pokemon)
         if pokemon.statStages ~= nil then
             extraThingsToDraw.statStages = {}
@@ -1334,8 +1194,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         for i, moveID in pairs(moveIDs) do
             local moveFrame = ui.moveInfoFrames[i]
             local PPLabelPosition = moveFrame.PPLabel.getPosition()
-            local chevronPosition = {x = PPLabelPosition.x + 14, y = PPLabelPosition.y+3}
-            local moveData = MoveData.MOVES[moveID+1]
+            local chevronPosition = {x = PPLabelPosition.x + 14, y = PPLabelPosition.y + 3}
+            local moveData = MoveData.MOVES[moveID + 1]
             local moveEffectiveness = MoveUtils.netEffectiveness(moveData, defendingPokemon)
             table.insert(
                 extraThingsToDraw.moveEffectiveness,
@@ -1358,6 +1218,70 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if extraThingsToDraw.nature ~= nil then
             for _, entry in pairs(extraThingsToDraw.nature) do
                 DrawingUtils.drawNaturePlusMinus(entry.position, entry.affect)
+            end
+        end
+    end
+
+    local function checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
+        local lowHPCalcEntry = {
+            requirement = not isEnemy,
+            calcFunction = function()
+                return MoveUtils.calculateLowHPBasedDamage(pokemon.curHP, pokemon.stats.HP)
+            end
+        }
+        local highHPCalcEntry = {
+            requirement = not isEnemy,
+            calcFunction = function()
+                return MoveUtils.calculateHighHPBasedDamage(pokemon.curHP, pokemon.stats.HP)
+            end
+        }
+        local weightBasedEntry = {
+            requirement = program.isInBattle() and opposingPokemon ~= nil,
+            calcFunction = function()
+                return MoveUtils.calculateWeightBasedDamage(opposingPokemon.weight)
+            end
+        }
+        local weightDifferenceEntry = {
+            requirement = program.isInBattle() and opposingPokemon ~= nil,
+            calcFunction = function()
+                return MoveUtils.calculateWeightDifferenceDamage(pokemon, opposingPokemon)
+            end
+        }
+        local moveNamesToCalcFunctions = {
+            ["Flail"] = lowHPCalcEntry,
+            ["Reversal"] = lowHPCalcEntry,
+            ["Water Spout"] = highHPCalcEntry,
+            ["Eruption"] = highHPCalcEntry,
+            ["Trump Card"] = {
+                requirement = true,
+                calcFunction = function(movePP)
+                    return MoveUtils.calculateTrumpCardPower(movePP)
+                end
+            },
+            ["Heat Crash"] = weightDifferenceEntry,
+            ["Heavy Slam"] = weightDifferenceEntry,
+            ["Punishment"] = {
+                requirement = (not isEnemy) and program.isInBattle() and opposingPokemon ~= nil,
+                calcFunction = function()
+                    return MoveUtils.calculatePunishmentPower(opposingPokemon)
+                end
+            },
+            ["Grass Knot"] = weightBasedEntry,
+            ["Low Kick"] = weightBasedEntry
+        }
+        for i, moveID in pairs(moveIDs) do
+            local movePower = MoveData.MOVES[moveID + 1].power
+            local name = MoveData.MOVES[moveID + 1].name
+            local moveFrame = ui.moveInfoFrames[i]
+            local entry = moveNamesToCalcFunctions[name]
+            if entry then
+                if name ~= "Trump Card" then
+                    if entry.requirement then
+                        moveFrame.powLabel.setText(entry.calcFunction())
+                    end
+                else
+                    moveFrame.powLabel.setText(entry.calcFunction(movePPs[i]))
+                end
             end
         end
     end
@@ -1389,12 +1313,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 if moveID == 0 then
                     movePPs[i] = Graphics.TEXT.NO_PP
                 else
-                   movePPs[i] = pokemon.movePPs[i]
+                    movePPs[i] = pokemon.movePPs[i]
                 end
             end
         end
         if opposingPokemon ~= nil then
-            setUpMoveEffectiveness(moveIDs,opposingPokemon)
+            setUpMoveEffectiveness(moveIDs, opposingPokemon)
         end
         for i, moveID in pairs(moveIDs) do
             local moveData = MoveData.MOVES[moveID + 1]
@@ -1412,12 +1336,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local moveNameText = moveData.name
             if isEnemy then
                 local stars = MoveUtils.getStars(pokemon)
-                --moveNameText = moveNameText..stars[i]
+            --moveNameText = moveNameText..stars[i]
             end
             moveFrame.moveNameLabel.setText(moveNameText)
             moveFrame.PPLabel.setText(movePP)
             moveFrame.powLabel.setTextColorKey("Bottom box text color")
-            if MoveUtils.isSTAB(moveData,pokemon) and program.isInBattle() then
+            if MoveUtils.isSTAB(moveData, pokemon) and program.isInBattle() then
                 moveFrame.powLabel.setTextColorKey("Positive text color")
             end
             moveFrame.powLabel.setText(moveData.power)
@@ -1426,6 +1350,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local params = listener.getOnHoverParams()
             params.text = moveData.description
         end
+        checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
     end
 
     local function setEnemySpecificControls(pokemon)
@@ -1456,7 +1381,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.BSTNumber.setText(pokemon.bst)
         extraThingsToDraw.nature = {}
         for statName, stat in pairs(pokemon.stats) do
-            ui.controls[statName.."StatName"].setTextColorKey("Top box text color")
+            ui.controls[statName .. "StatName"].setTextColorKey("Top box text color")
             ui.controls[statName .. "StatNumber"].setVisibility(not isEnemy)
             ui.controls[statName .. "StatPrediction"].setVisibility(isEnemy)
             if isEnemy then
@@ -1468,23 +1393,31 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 ui.controls[statName .. "StatName"].resize({width = 25, height = 10})
                 ui.controls[statName .. "StatNumber"].setText(stat)
                 local color = DrawingUtils.getNatureColor(statName, pokemon.nature)
-                local namePosition = ui.controls[statName.."StatName"].getPosition()
+                local namePosition = ui.controls[statName .. "StatName"].getPosition()
                 local naturePosition = {
                     x = namePosition.x + 16,
                     y = namePosition.y - 4
                 }
                 if color == "Positive text color" then
-                    table.insert(extraThingsToDraw.nature, {
-                        position = naturePosition,
-                        affect = "plus"
-                    })
+                    table.insert(
+                        extraThingsToDraw.nature,
+                        {
+                            position = naturePosition,
+                            affect = "plus"
+                        }
+                    )
                 elseif color == "Negative text color" then
-                    table.insert(extraThingsToDraw.nature, {
-                        position = naturePosition,
-                        affect = "minus"
-                    })
+                    table.insert(
+                        extraThingsToDraw.nature,
+                        {
+                            position = naturePosition,
+                            affect = "minus"
+                        }
+                    )
                 end
-                ui.controls[statName.."StatName"].setTextColorKey(DrawingUtils.getNatureColor(statName,pokemon.nature))
+                ui.controls[statName .. "StatName"].setTextColorKey(
+                    DrawingUtils.getNatureColor(statName, pokemon.nature)
+                )
             end
         end
     end
@@ -1512,7 +1445,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         pokemonHoverParams.pokemon = pokemon
         ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. pokemon.evolution .. ")")
         ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.stats.HP)
-        ui.controls.abilityDetails.setText(AbilityData.ABILITIES[pokemon.ability].name)
+        local abilityName = AbilityData.ABILITIES[pokemon.ability + 1].name
+        ui.controls.abilityDetails.setText(abilityName)
         ui.controls.heldItem.setText(heldItemInfo.name)
         for i, type in pairs(pokemon.type) do
             ui.controls["pokemonType" .. i].setPath(Paths.FOLDERS.TYPE_IMAGES_FOLDER .. "/" .. type .. ".png")
@@ -1526,7 +1460,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.healsInBagPercent.setText(healingTotals.healing .. "% HP (" .. healingTotals.numHeals .. ")")
 
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
-        abilityHoverParams.text = AbilityData.ABILITIES[pokemon.ability].description
+        abilityHoverParams.text = AbilityData.ABILITIES[pokemon.ability + 1].description
         local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
         itemHoverParams.text = heldItemInfo.description
         ui.frames.enemyNoteFrame.setVisibility(isEnemy)
@@ -1610,7 +1544,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             onHoverInfoEnd
         )
         eventListeners.pokemonHoverListener =
-            HoverEventListener(ui.controls.pokemonImageLabel, createTypeDefensesFrame, {pokemon = nil}, onHoverInfoEnd)
+            HoverEventListener(
+            ui.controls.pokemonImageLabel,
+            onPokemonImageHover,
+            {pokemon = nil, mainFrame = ui.frames.mainFrame},
+            onHoverInfoEnd
+        )
         eventListeners.optionsIconListener = MouseClickEventListener(ui.controls.gearIcon, openOptionsScreen, nil)
         eventListeners.noteIconListener = MouseClickEventListener(ui.controls.noteIcon, createNote, nil)
     end
