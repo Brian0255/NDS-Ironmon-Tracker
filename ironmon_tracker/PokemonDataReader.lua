@@ -59,11 +59,13 @@ local function PokemonDataReader(initialProgram)
             level = 0,
             curHP = 0,
             HP = 0,
-            ATK = 0,
-            DEF = 0,
-            SPE = 0,
-            SPA = 0,
-            SPD = 0,
+            stats = {
+            HP = 0,
+            ATK = "---",
+            DEF ="---",
+            SPE = "---",
+            SPA = "---",
+            SPD = "---",},
             nature = 0,
             encounterType = 0,
             moveIDs = {
@@ -73,10 +75,10 @@ local function PokemonDataReader(initialProgram)
                 0
             },
             movePPs = {
-                "",
-                "",
-                "",
-                ""
+                "---",
+                "---",
+                "---",
+                "---"
             },
             statStages = {
                 ["HP"] = 6,
@@ -85,8 +87,6 @@ local function PokemonDataReader(initialProgram)
                 ["SPE"] = 6,
                 ["SPA"] = 6,
                 ["SPD"] = 6,
-                ["ACC"] = 6,
-                ["EVA"] = 6
             }
         },
         IMPORTANT_BLOCK_DATA = {
@@ -120,7 +120,7 @@ local function PokemonDataReader(initialProgram)
             {14, {"SPE"}},
             {16, {"SPA"}},
             {18, {"SPD"}}
-        }
+        },
     }
 
     local function advanceRNG()
@@ -227,6 +227,10 @@ local function PokemonDataReader(initialProgram)
                 decryptedData[movePPs[i + 1]] = movePP
             end
         end
+    end
+
+    function self.getDefaultPokemon()
+        return constants.DEFAULT_POKEMON
     end
 
     function self.decryptPokemonInfo(checkingParty, monIndex, checkingEnemy)
