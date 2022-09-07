@@ -16,8 +16,14 @@ local function HoverEventListener(
     if clientFrameRate > 60 then
         baseWaitAmount = baseWaitAmount * (clientFrameRate / 60)
     end
+    function self.setOnHoverParams(newParams)
+        onHoverParams = newParams
+    end
     function self.getOnHoverParams()
         return onHoverParams
+    end
+    function self.setOnHoverEndParams(newParams)
+        onHoverEndParams = newParams
     end
     function self.getOnHoverEndParams()
         return onHoverEndParams
