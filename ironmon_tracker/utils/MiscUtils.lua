@@ -32,11 +32,11 @@ function MiscUtils.numberToBool(value)
 end
 
 function MiscUtils.split(s, delimiter)
-    local result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
+    local result = {}
+    for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
+        table.insert(result, match)
     end
-    return result;
+    return result
 end
 
 function MiscUtils.mouseInRange(mouseX, mouseY, controlX, controlY, width, height)
@@ -46,4 +46,12 @@ function MiscUtils.mouseInRange(mouseX, mouseY, controlX, controlY, width, heigh
         end
     end
     return false
+end
+
+function MiscUtils.clampFramePosition(alignment, position, mainFrameSize, frameSize)
+    if alignment == Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE then
+        position.y = position.y - frameSize.height
+    end
+    position.x = math.min(position.x, Graphics.SIZES.SCREEN_WIDTH + mainFrameSize.width - frameSize.width - 1)
+    position.y = math.max(0, position.y)
 end
