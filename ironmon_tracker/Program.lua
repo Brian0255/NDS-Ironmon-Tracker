@@ -29,6 +29,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local inBattle = false
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
+	local healingTotals = nil
+	local statusItems = nil
 	local playerPokemon = nil
 	local enemyPokemon = nil
 	local activeColorPicker = nil
@@ -120,9 +122,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
-	local function scanItemsForHeals()
+	local function scanForHealingItems()
 		healingItems = {}
-
+		statusItems = {}
 		local itemStart = MiscUtils.inlineIf(inBattle, memoryAddresses.itemStartBattle, memoryAddresses.itemStartNoBattle)
 		local berryStart = MiscUtils.inlineIf(inBattle, memoryAddresses.berryBagStartBattle, memoryAddresses.berryBagStart)
 
@@ -144,7 +146,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				id = bit.band(idAndQuantity, 0xFFFF)
 				if id ~= 0 then
 					quantity = bit.band(bit.rshift(idAndQuantity, 16), 0xFFFF)
-					healingItems[id] = quantity
+					if ItemData.HEALING_ITEMS[id] ~= nil then
+						healingItems[id] = quantity
+					end
+					if ItemData.STATUS_ITEMS[id] ~= nil then
+						statusItems[id] = quantity
+					end
 					currentAddress = currentAddress + 4
 				else
 					keepScanning = false
@@ -175,33 +182,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 		totals.healing = math.floor(totals.healing + 0.5)
 		return totals
-	end
-
-	local function getHealingItems()
-		if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
-			local totals = {
-				healing = 0,
-				numHeals = 0
-			}
-			-- Need a null check before getting maxHP
-			if playerPokemon == nil then
-				return totals
-			end
-
-			local maxHP = playerPokemon["HP"]
-			if maxHP == 0 then
-				return totals
-			end
-
-			healingItems = scanItemsForHeals()
-
-			if healingItems ~= nil then
-				totals = calculateHealPercent(totals, maxHP)
-			end
-
-			return totals
-		end
-		return nil
 	end
 
 	local function updateStatStages()
@@ -306,7 +286,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
 				pokemonData = pokemonDataReader.decryptPokemonInfo(false, monIndex, true)
 			end
-			if pokemonData ~= nil then
+			if pokemonData ~= nil and next(pokemonData) ~= nil then
 				lastValidEnemyPokemon = pokemonData
 				if activePID ~= lastValidEnemyBattlePID then
 					tracker.logNewEnemyPokemonInBattle(pokemonData.pokemonID)
@@ -455,16 +435,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function checkEnemyPP()
-		if inBattle and selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
-			if enemyPokemon ~= nil then
-				for i, moveID in pairs(enemyPokemon.moveIDs) do
-					local data = MoveData.MOVES[moveID + 1]
-					local currentPP = enemyPokemon.movePPs[i]
-					local maxPP = data.pp
-					if data.id ~= "---" then
-						if currentPP < tonumber(maxPP) then
-							tracker.trackMove(enemyPokemon.pokemonID, moveID, enemyPokemon.level)
-						end
+		if inBattle and enemyPokemon ~= nil then
+			for i, moveID in pairs(enemyPokemon.moveIDs) do
+				local data = MoveData.MOVES[moveID + 1]
+				local currentPP = enemyPokemon.movePPs[i]
+				local maxPP = data.pp
+				if data.id ~= "---" then
+					if currentPP < tonumber(maxPP) then
+						tracker.trackMove(enemyPokemon.pokemonID, moveID, enemyPokemon.level)
 					end
 				end
 			end
@@ -541,6 +519,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function readMemory()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
+			scanForHealingItems()
 			self.readBadgeMemory()
 			local battleStatus = Memory.read_u16_le(memoryAddresses.battleStatus)
 			if self.BATTLE_STATUS_TYPES[battleStatus] == true then
@@ -582,8 +561,47 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	function self.getStatusItems()
+		return statusItems
+	end
+
 	function self.getHealingItems()
-		return getHealingItems()
+		return healingItems
+	end
+
+	function self.getStatusTotals()
+		local total = 0
+		if statusItems ~= nil then
+			for id, quantity in pairs(statusItems) do
+				total = total + quantity
+			end
+		end
+		return total
+	end
+
+	function self.getHealingTotals()
+		if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
+			local totals = {
+				healing = 0,
+				numHeals = 0
+			}
+			-- Need a null check before getting maxHP
+			if playerPokemon == nil then
+				return totals
+			end
+
+			local maxHP = playerPokemon["HP"]
+			if maxHP == 0 then
+				return totals
+			end
+
+			if healingItems ~= nil then
+				totals = calculateHealPercent(totals, maxHP)
+			end
+
+			return totals
+		end
+		return nil
 	end
 
 	local function switchPokemonView()
@@ -593,7 +611,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			else
 				selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 			end
-			setPokemonForMainScreen()
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
+			readMemory()
 			self.drawCurrentScreens()
 		end
 	end
@@ -650,7 +669,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
-		memoryReading = FrameCounter(30, readMemory, nil),
+		memoryReading = FrameCounter(1, readMemory, nil),
 		trackerSaving = FrameCounter(600, tracker.save, nil, true),
 		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
 		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil, true)
@@ -689,7 +708,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	pokemonDataReader = PokemonDataReader(self)
-
+	playerPokemon = pokemonDataReader.getDefaultPokemon()
+	setPokemonForMainScreen()
 	self.drawCurrentScreens()
 
 	return self
