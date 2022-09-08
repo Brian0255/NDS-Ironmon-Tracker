@@ -2991,7 +2991,7 @@ PokemonData.POKEMON = {
         movelvls = {
             {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49},
             {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 54},
-            {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 54},
+            {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 54, 55, 55, 55, 55, 55, 55, 55, 55, 55},
             {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 54, 57, 62},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52}
         },
@@ -5648,7 +5648,7 @@ PokemonData.POKEMON = {
         name = "Staraptor",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.FLYING},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "485",
+        bst = "475",
         movelvls = {
             {5, 9, 13, 18, 23, 28, 33, 34, 41, 49},
             {5, 9, 13, 18, 23, 28, 33, 34, 41, 49},
@@ -5774,7 +5774,7 @@ PokemonData.POKEMON = {
         name = "Roserade",
         type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.POISON},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "515",
+        bst = "505",
         movelvls = {
             {},
             {},
@@ -7189,7 +7189,7 @@ PokemonData.POKEMON = {
         name = "Stoutland",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "500",
+        bst = "490",
         movelvls = {
             {},
             {},
@@ -7371,7 +7371,7 @@ PokemonData.POKEMON = {
         name = "Unfezant",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.FLYING},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "488",
+        bst = "478",
         movelvls = {
             {},
             {},
@@ -7441,7 +7441,7 @@ PokemonData.POKEMON = {
         name = "Gigalith",
         type = {PokemonData.POKEMON_TYPES.ROCK, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "515",
+        bst = "505",
         movelvls = {
             {},
             {},
@@ -7455,7 +7455,7 @@ PokemonData.POKEMON = {
         name = "Woobat",
         type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.FLYING},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
-        bst = "323",
+        bst = "313",
         movelvls = {
             {},
             {},
@@ -7595,7 +7595,7 @@ PokemonData.POKEMON = {
         name = "Seismitoad",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GROUND},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "509",
+        bst = "499",
         movelvls = {
             {},
             {},
@@ -7665,7 +7665,7 @@ PokemonData.POKEMON = {
         name = "Leavanny",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.GRASS},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "500",
+        bst = "490",
         movelvls = {
             {},
             {},
@@ -7707,7 +7707,7 @@ PokemonData.POKEMON = {
         name = "Scolipede",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.POISON},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "485",
+        bst = "475",
         movelvls = {
             {},
             {},
@@ -7819,7 +7819,7 @@ PokemonData.POKEMON = {
         name = "Krookodile",
         type = {PokemonData.POKEMON_TYPES.GROUND, PokemonData.POKEMON_TYPES.DARK},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "519",
+        bst = "509",
         movelvls = {
             {},
             {},
@@ -7889,7 +7889,7 @@ PokemonData.POKEMON = {
         name = "Crustle",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.ROCK},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "485",
+        bst = "475",
         movelvls = {
             {},
             {},
@@ -8673,7 +8673,7 @@ PokemonData.POKEMON = {
         name = "Beartic",
         type = {PokemonData.POKEMON_TYPES.ICE, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "505",
+        bst = "485",
         movelvls = {
             {},
             {},
@@ -8687,7 +8687,7 @@ PokemonData.POKEMON = {
         name = "Cryogonal",
         type = {PokemonData.POKEMON_TYPES.ICE, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
-        bst = "515",
+        bst = "485",
         movelvls = {
             {},
             {},
@@ -9187,13 +9187,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9208,13 +9201,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9229,13 +9215,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9250,13 +9229,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9271,13 +9243,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9292,13 +9257,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9313,13 +9271,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9334,13 +9285,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9355,13 +9299,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9376,13 +9313,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9397,13 +9327,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9418,13 +9341,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9439,13 +9355,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9460,13 +9369,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9481,13 +9383,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9502,13 +9397,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9523,13 +9411,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9544,13 +9425,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
@@ -9574,15 +9448,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {},
                     {},
                     {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56},
-                    {7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56}
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56}
                 },
                 weight = 18.0
             }
@@ -9598,13 +9465,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = "20",
                 bst = "224",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20},
                     {10, 15, 20},
                     {10, 15, 20},
@@ -9619,13 +9479,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = "20",
                 bst = "224",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20},
                     {10, 15, 20},
                     {10, 15, 20},
@@ -9646,13 +9499,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "420",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
@@ -9667,13 +9513,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "420",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
@@ -9688,13 +9527,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "420",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
                     {10, 10, 10, 20, 20, 20, 30},
@@ -9715,18 +9547,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "450",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {7, 10, 13, 19, 22, 25, 30, 35, 43, 48},
-                    {7, 10, 13, 19, 22, 25, 30, 35, 43, 48},
-                    {7, 10, 13, 19, 22, 25, 30, 35, 43, 48},
-                    {7, 10, 13, 19, 22, 25, 30, 35, 43, 48},
-                    {7, 10, 13, 19, 22, 25, 30, 35, 43, 48}
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
+                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
                 },
                 weight = 9.3
             }
@@ -9745,15 +9570,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {},
                     {},
                     {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54},
-                    {6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54}
+                    {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54},
+                    {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54}
                 },
                 weight = 92.9
             }
@@ -9769,18 +9587,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "600",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
-                    {}
+                    {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97}
                 },
                 weight = 60.8
             },
@@ -9790,18 +9601,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "600",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
-                    {}
+                    {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97}
                 },
                 weight = 60.8
             },
@@ -9811,18 +9615,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "600",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
-                    {10, 15, 20, 25, 30, 35, 40, 45, 50},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
                     {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
-                    {}
+                    {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97}
                 },
                 weight = 60.8
             }
@@ -9838,18 +9635,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "475",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {7, 11, 16, 22, 29, 41, 54},
-                    {7, 11, 16, 22, 29, 41, 54},
-                    {7, 11, 16, 22, 29, 41, 54},
-                    {7, 11, 16, 22, 29, 41, 54},
-                    {7, 11, 16, 22, 29, 41, 54}
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54}
                 },
                 weight = 29.9
             }
@@ -9865,18 +9655,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "680",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90},
                     {10, 20, 30, 40, 50, 60, 70, 80, 90},
                     {6, 10, 15, 19, 24, 28, 33, 37, 42, 46},
                     {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50},
-                    {}
+                    {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50}
                 },
                 weight = 750.0
             }
@@ -9892,13 +9675,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "580",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {},
                     {},
                     {},
@@ -9922,13 +9698,6 @@ PokemonData.ALTERNATE_FORMS = {
                     {},
                     {},
                     {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
                 },
@@ -9940,13 +9709,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "700",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {},
                     {},
                     {},
@@ -9970,13 +9732,6 @@ PokemonData.ALTERNATE_FORMS = {
                     {},
                     {},
                     {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
                 },
@@ -9997,13 +9752,6 @@ PokemonData.ALTERNATE_FORMS = {
                     {},
                     {},
                     {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85},
                     {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85}
                 },
@@ -10021,18 +9769,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "520",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
-                    {}
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
                 weight = .3
             },
@@ -10042,18 +9783,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "520",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
-                    {}
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
                 weight = .3
             },
@@ -10063,18 +9797,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "520",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
-                    {}
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
                 weight = .3
             },
@@ -10084,18 +9811,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "520",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
-                    {}
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
                 weight = .3
             },
@@ -10105,18 +9825,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "520",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
-                    {}
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
                 weight = .3
             }
@@ -10132,18 +9845,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "600",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
                     {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
                     {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
                     {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
-                    {}
+                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100}
                 },
                 weight = 2.1
             }
@@ -10159,18 +9865,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = "30",
                 bst = "325",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {7, 11, 16, 22, 29, 37, 46},
-                    {7, 11, 16, 22, 29, 37, 46},
-                    {7, 11, 16, 22, 29, 37, 46},
-                    {7, 11, 16, 22, 29, 37, 46},
-                    {7, 11, 16, 22, 29, 37, 46}
+                    {2, 4, 7, 11, 16, 22, 29, 37, 46},
+                    {2, 4, 7, 11, 16, 22, 29, 37, 46},
+                    {2, 4, 7, 11, 16, 22, 29, 37, 46},
+                    {2, 4, 7, 11, 16, 22, 29, 37, 46},
+                    {2, 4, 7, 11, 16, 22, 29, 37, 46}
                 },
                 weight = 6.3
             }
@@ -10186,13 +9885,6 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "580",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {},
                     {},
                     {},
@@ -10216,13 +9908,6 @@ PokemonData.ALTERNATE_FORMS = {
                     {},
                     {},
                     {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
                 },
@@ -10240,18 +9925,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "424",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
                     {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
                     {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
                     {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {}
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47}
                 },
                 weight = 6.5
             },
@@ -10261,18 +9939,11 @@ PokemonData.ALTERNATE_FORMS = {
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "424",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
                     {10, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
                     {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
                     {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
                     {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {}
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47}
                 },
                 weight = 6.5
             }
