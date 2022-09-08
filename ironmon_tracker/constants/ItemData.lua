@@ -3,116 +3,201 @@ ItemData = {}
 ItemData.ITEMS = {}
 
 ItemData.HEALING_TYPE = MiscUtils.readOnly({CONSTANT = 0, PERCENTAGE = 1})
-
+ItemData.STATUS_ID_SORT_ORDER =
+    {23, 591, 27, 36, 42, 157, 54, 19, 152, 156, 153, 20, 219, 149, 22, 18, 151, 21}
+ItemData.STATUS_ITEMS =
+    MiscUtils.readOnly(
+    {
+        [23] = {
+            name = "Full Restore",
+            status = MiscData.STATUS_TYPE.ALL
+        },
+        [591] = {
+            name = "Casteliacone",
+            status = MiscData.STATUS_TYPE.ALL
+        },
+        [27] = {
+            name = "Full Heal",
+            status = MiscData.STATUS_TYPE.ALL
+        },
+        [36] = {
+            name = "Heal Powder",
+            status = MiscData.STATUS_TYPE.ALL
+        },
+        [42] = {
+            name = "Lava Cookie",
+            status = MiscData.STATUS_TYPE.ALL
+        },
+        [157] = {
+            name = "Lum Berry",
+            status = MiscData.STATUS_TYPE.ALL
+        },
+        [54] = {
+            name = "Old Gateau",
+            status = MiscData.STATUS_TYPE.ALL
+        },
+        [19] = {
+            name = "Burn Heal",
+            status = MiscData.STATUS_TYPE.BURN
+        },
+        [152] = {
+            name = "Rawst Berry",
+            status = MiscData.STATUS_TYPE.BURN
+        },
+        [156] = {
+            name = "Persim Berry",
+            status = MiscData.STATUS_TYPE.CONFUSE
+        },
+        [153] = {
+            name = "Aspear Berry",
+            status = MiscData.STATUS_TYPE.FREEZE
+        },
+        [20] = {
+            name = "Ice Heal",
+            status = MiscData.STATUS_TYPE.FREEZE
+        },
+        [219] = {
+            name = "Mental Herb",
+            status = MiscData.STATUS_TYPE.INFATUATION
+        },
+        [149] = {
+            name = "Cheri Berry",
+            status = MiscData.STATUS_TYPE.PARALYZE
+        },
+        [22] = {
+            name = "Paralyze Heal",
+            status = MiscData.STATUS_TYPE.PARALYZE
+        },
+        [18] = {
+            name = "Antidote",
+            status = MiscData.STATUS_TYPE.POISON
+        },
+        [151] = {
+            name = "Pecha Berry",
+            status = MiscData.STATUS_TYPE.POISON
+        },
+        [21] = {
+            name = "Awakening",
+            status = MiscData.STATUS_TYPE.SLEEP
+        }
+    }
+)
+ItemData.HEALING_ID_SORT_ORDER =
+    {23, 24, 158, 162, 208, 159, 163, 161, 160, 35, 25, 33, 32, 31, 26, 34, 30, 43, 17, 504, 134, 155}
 ItemData.HEALING_ITEMS =
-	MiscUtils.readOnly(
-	{
-		[17] = {
-			name = "Potion",
-			amount = 20,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
+    MiscUtils.readOnly(
+    {
+        [23] = {
+            name = "Full Restore",
+            amount = 100,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [24] = {
+            name = "Max Potion",
+            amount = 100,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [158] = {
+            name = "Sitrus Berry",
+            amount = 25,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [162] = {
+            name = "Aguav Berry",
+            amount = 12.5,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [208] = {
+            name = "Enigma Berry",
+            amount = 12.5,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [159] = {
+            name = "Figy Berry",
+            amount = 12.5,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [163] = {
+            name = "Iapapa Berry",
+            amount = 12.5,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [161] = {
+            name = "Mago Berry",
+            amount = 12.5,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [160] = {
+            name = "Wiki Berry",
+            amount = 12.5,
+            type = ItemData.HEALING_TYPE.PERCENTAGE
+        },
+        [35] = {
+            name = "Energy Root",
+            amount = 200,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [25] = {
+            name = "Hyper Potion",
+            amount = 200,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [33] = {
+            name = "Moomoo Milk",
+            amount = 100,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [32] = {
+            name = "Lemonade",
+            amount = 80,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [31] = {
+            name = "Soda Pop",
+            amount = 60,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [26] = {
+            name = "Super Potion",
+            amount = 60,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [34] = {
+            name = "EnergyPowder",
+            amount = 50,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [30] = {
+            name = "Fresh Water",
+            amount = 50,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [43] = {
+            name = "Berry Juice",
+            amount = 20,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [17] = {
+            name = "Potion",
+            amount = 20,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
         [504] = {
-			name = "RageCandyBar",
-			amount = 20,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[23] = {
-			name = "Full Restore",
-			amount = 100,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[24] = {
-			name = "Max Potion",
-			amount = 100,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[25] = {
-			name = "Hyper Potion",
-			amount = 200,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[26] = {
-			name = "Super Potion",
-			amount = 60,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[30] = {
-			name = "Fresh Water",
-			amount = 50,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[31] = {
-			name = "Soda Pop",
-			amount = 60,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[32] = {
-			name = "Lemonade",
-			amount = 80,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[33] = {
-			name = "Moomoo Milk",
-			amount = 100,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[34] = {
-			name = "EnergyPowder",
-			amount = 50,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[35] = {
-			name = "Energy Root",
-			amount = 200,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[43] = {
-			name = "Berry Juice",
-			amount = 20,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[155] = {
-			name = "Oran Berry",
-			amount = 10,
-			type = ItemData.HEALING_TYPE.CONSTANT
-		},
-		[158] = {
-			name = "Sitrus Berry",
-			amount = 25,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[159] = {
-			name = "Figy Berry",
-			amount = 12.5,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[160] = {
-			name = "Wiki Berry",
-			amount = 12.5,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[161] = {
-			name = "Mago Berry",
-			amount = 12.5,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[162] = {
-			name = "Aguav Berry",
-			amount = 12.5,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[163] = {
-			name = "Iapapa Berry",
-			amount = 12.5,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		},
-		[208] = {
-			name = "Enigma Berry",
-			amount = 12.5,
-			type = ItemData.HEALING_TYPE.PERCENTAGE
-		}
-	}
+            name = "RageCandyBar",
+            amount = 20,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [134] = {
+            name = "Sweet Heart",
+            amount = 20,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        },
+        [155] = {
+            name = "Oran Berry",
+            amount = 10,
+            type = ItemData.HEALING_TYPE.CONSTANT
+        }
+    }
 )
 
 ItemData.GEN_4_ITEMS =
