@@ -4,6 +4,11 @@ AbilityData.ABILITIES =
     MiscUtils.readOnly(
     {
         {
+            id = 0,
+            name = "---",
+            description = ""
+        },
+        {
             id = 1,
             name = "Stench",
             description = {
@@ -26,7 +31,6 @@ AbilityData.ABILITIES =
             name = "Battle Armor",
             description = "Protects against critical hits."
         },
-        
         {
             id = 5,
             name = "Sturdy",
@@ -98,7 +102,7 @@ AbilityData.ABILITIES =
         {
             id = 18,
             name = "Flash Fire",
-            description = "Protects against fire moves. Once one has been blocked, the Pokemon's own Fire moves inflict 1.5x damage until it leaves battle."
+            description = "Protects against fire moves. Once one has been blocked, the Pok\233mon's own Fire moves inflict 1.5x damage until it leaves battle."
         },
         {
             id = 19,
@@ -113,7 +117,7 @@ AbilityData.ABILITIES =
         {
             id = 21,
             name = "Suction Cups",
-            description = "Prevents being forced out of battle by other Pokemon's moves."
+            description = "Prevents being forced out of battle by other Pok\233mon's moves."
         },
         {
             id = 22,
@@ -276,7 +280,7 @@ AbilityData.ABILITIES =
         {
             id = 53,
             name = "Pickup",
-            description = "Picks up other Pokemon's used and Flung held items. May also pick up an item after battle."
+            description = "Picks up other Pok\233mon's used and Flung held items. May also pick up an item after battle."
         },
         {
             id = 54,
@@ -441,7 +445,7 @@ AbilityData.ABILITIES =
         {
             id = 86,
             name = "Simple",
-            description = "Doubles the Pokemon's stat modifiers. These doubled modifiers are still capped at -6 or 6 stages."
+            description = "Doubles the Pok\233mon's stat modifiers. These doubled modifiers are still capped at -6 or 6 stages."
         },
         {
             id = 87,
@@ -491,7 +495,7 @@ AbilityData.ABILITIES =
         {
             id = 96,
             name = "Normalize",
-            description = "Makes the Pokemon's moves all act normal-type."
+            description = "Makes the Pok\233mon's moves all act normal-type."
         },
         {
             id = 97,
@@ -556,7 +560,7 @@ AbilityData.ABILITIES =
         {
             id = 109,
             name = "Unaware",
-            description = "Ignores other Pokemon's stat modifiers for damage and accuracy calculation."
+            description = "Ignores other Pok\233mon's stat modifiers for damage and accuracy calculation."
         },
         {
             id = 110,
@@ -576,7 +580,7 @@ AbilityData.ABILITIES =
         {
             id = 113,
             name = "Scrappy",
-            description = "Lets the Pokemon's normal and fighting moves hit ghost Pokemon."
+            description = "Lets the Pok\233mon's normal and fighting moves hit ghost Pokemon."
         },
         {
             id = 114,
@@ -624,7 +628,7 @@ AbilityData.ABILITIES =
         {
             id = 122,
             name = "Flower Gift",
-            description = "Increases friendly Pokemon's Attack and Special Defense to 1.5x during strong sunlight."
+            description = "Increases friendly Pok\233mon's Attack and Special Defense to 1.5x during strong sunlight."
         },
         {
             id = 123,
@@ -634,7 +638,7 @@ AbilityData.ABILITIES =
         {
             id = 124,
             name = "Pickpocket",
-            description = "Steals attacking Pokemon's held items on contact."
+            description = "Steals attacking Pok\233mon's held items on contact."
         },
         {
             id = 125,
@@ -684,12 +688,12 @@ AbilityData.ABILITIES =
         {
             id = 134,
             name = "Heavy Metal",
-            description = "Doubles the Pokemon's weight."
+            description = "Doubles the Pok\233mon's weight."
         },
         {
             id = 135,
             name = "Light Metal",
-            description = "Halves the Pokemon's weight."
+            description = "Halves the Pok\233mon's weight."
         },
         {
             id = 136,
@@ -714,7 +718,7 @@ AbilityData.ABILITIES =
         {
             id = 140,
             name = "Telepathy",
-            description = "Protects against friendly Pokemon's damaging moves."
+            description = "Protects against friendly Pok\233mon's damaging moves."
         },
         {
             id = 141,
@@ -774,7 +778,7 @@ AbilityData.ABILITIES =
         {
             id = 152,
             name = "Mummy",
-            description = "Changes attacking Pokemon's abilities to Mummy on contact."
+            description = "Changes attacking Pok\233mon's abilities to Mummy on contact."
         },
         {
             id = 153,
