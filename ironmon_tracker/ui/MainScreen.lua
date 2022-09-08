@@ -131,6 +131,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         pokemonHoverFrame.show()
     end
 
+    local function onItemBagInfoHover(params)
+        local items = params.items
+        local itemType = params.itemType
+        if items ~= nil and next(items) ~= nil and ui.frames.healFrame.isVisible() then
+            local itemsHoverFrame = HoverFrameFactory.createItemBagHoverFrame(items, ui.frames.mainFrame, itemType)
+            activeHoverFrame = itemsHoverFrame
+            program.drawCurrentScreens()
+            itemsHoverFrame.show()
+        end
+    end
+
     local function onMoveHeaderHover(params)
         if params.pokemon ~= nil then
             local movelvls = params.pokemon.movelvls
@@ -1080,12 +1091,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function initMiscControls()
-        ui.controls.healsInBagLabel =
+        ui.controls.healsLabel =
             TextLabel(
-            Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 10, height = 10}, nil, nil)),
+            Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 80, height = 10}, nil, nil)),
             TextField(
                 "Heals in bag:",
-                {x = 1, y = 0},
+                {x = 1, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -1094,11 +1105,38 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        ui.controls.healsInBagPercent =
+        --[[
+        ui.frames.healsBottom = Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 0,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
+            ui.frames.healFrame
+     
+        ui.controls.potionIcon = Icon(
+            Component(ui.frames.healsBottom, Box({x = 0, y = 0}, {width = 10, height = 16}, nil, nil)),
+            "HP_HEALS_ICON",
+            {x = 2, y = 0}
+        )
+        ui.controls.statusIcon = Icon(
+            Component(ui.frames.healsBottom, Box({x = 0, y = 0}, {width = 11, height = 16}, nil, nil)),
+            "STATUS_HEALS_ICON",
+            {x = 2, y = 0}
+        )--]]
+        ui.controls.statusItemsLabel =
             TextLabel(
-            Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 10, height = 0}, nil, nil)),
+            Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 68, height = 10}, nil, nil)),
             TextField(
-                "180% HP(3)",
+                "this is a test",
                 {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -1108,6 +1146,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
+         --]]
         ui.controls.accLabel =
             TextLabel(
             Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 10, height = 10}, nil, nil)),
@@ -1399,8 +1438,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
         ui.controls.heldItem.setText("Total seen: " .. tracker.getAmountSeen(pokemon.pokemonID))
         ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(pokemon.pokemonID))
-        ui.controls.healsInBagLabel.setText("")
-        ui.controls.healsInBagPercent.setText("")
+        ui.controls.healsLabel.setText("")
+        ui.controls.statusItemsLabel.setText("")
     end
 
     local function setUpStats(pokemon, isEnemy)
@@ -1470,7 +1509,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = pokemon
         ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. pokemon.evolution .. ")")
-        ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.stats.HP)
+        ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.HP)
         local abilityName = AbilityData.ABILITIES[pokemon.ability + 1].name
         ui.controls.abilityDetails.setText(abilityName)
         ui.controls.heldItem.setText(heldItemInfo.name)
@@ -1478,12 +1517,19 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             ui.controls["pokemonType" .. i].setPath(Paths.FOLDERS.TYPE_IMAGES_FOLDER .. "/" .. type .. ".png")
         end
 
-        local healingTotals = program.getHealingItems()
+        local healingTotals = program.getHealingTotals()
+        local statusTotals = program.getStatusTotals()
         if healingTotals == nil then
             healingTotals = {healing = 0, numHeals = 0}
         end
-        ui.controls.healsInBagLabel.setText("Heals in bag:")
-        ui.controls.healsInBagPercent.setText(healingTotals.healing .. "% HP (" .. healingTotals.numHeals .. ")")
+        eventListeners.statusItemsHoverListener.setOnHoverParams(
+            {items = program.getStatusItems(), itemType = "Status"}
+        )
+        eventListeners.healingItemsHoverListener.setOnHoverParams(
+            {items = program.getHealingItems(), itemType = "Healing"}
+        )
+        ui.controls.healsLabel.setText("Heals: " .. healingTotals.healing .. "% HP (" .. healingTotals.numHeals .. ")")
+        ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
         eventListeners.moveHeaderHoverListener.setOnHoverParams(
             {["pokemon"] = pokemon, mainFrame = ui.frames.mainFrame}
         )
@@ -1514,9 +1560,29 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    function self.resetEventListeners()
+    local listenerGroups = {eventListeners, moveEventListeners, statPredictionEventListeners}
+        for _, listenerGroup in pairs(listenerGroups) do
+            for _, eventListener in pairs(listenerGroup) do
+                if eventListener.reset then
+                    eventListener.reset()
+                end
+            end
+        end
+    end
+
+    function self.resetHoverFrame()
+        activeHoverFrame = nil
+        self.resetEventListeners()
+    end
+
     function self.show()
         self.updateBadgeLayout()
         ui.frames.mainFrame.show()
+        if not program.isInBattle() then
+            extraThingsToDraw.moveEffectiveness = {}
+            extraThingsToDraw.statStages = {}
+        end
         drawExtraStuff()
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
@@ -1579,9 +1645,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             onHoverInfoEnd
         )
         eventListeners.moveHeaderHoverListener =
-            HoverEventListener(ui.frames.moveHeaderFrame, onMoveHeaderHover, {pokemon = nil}, onHoverInfoEnd)
+            HoverEventListener(ui.controls.moveHeaderLearnedText, onMoveHeaderHover, {pokemon = nil}, onHoverInfoEnd)
         eventListeners.optionsIconListener = MouseClickEventListener(ui.controls.gearIcon, openOptionsScreen, nil)
         eventListeners.noteIconListener = MouseClickEventListener(ui.controls.noteIcon, createNote, nil)
+        eventListeners.healingItemsHoverListener =
+            HoverEventListener(ui.controls.healsLabel, onItemBagInfoHover, nil, onHoverInfoEnd)
+        eventListeners.statusItemsHoverListener =
+            HoverEventListener(ui.controls.statusItemsLabel, onItemBagInfoHover, nil, onHoverInfoEnd)
     end
 
     local function recalculateMainFrameSize(orientation)
