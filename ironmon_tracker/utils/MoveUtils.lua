@@ -26,7 +26,6 @@ function MoveUtils.netEffectiveness(move, pkmnData)
     end
 
     local effectiveness = 1.0
-
     for _, type in ipairs(pkmnData["type"]) do
         local moveType = move.type
         --[[
@@ -40,6 +39,54 @@ function MoveUtils.netEffectiveness(move, pkmnData)
         end
     end
     return effectiveness
+end
+
+local function getMovesLearnedSince(pokemon)
+    local pokemonLevel = pokemon.level
+    local movesLearnedSince = { 0, 0, 0, 0 }
+	local movelvls = pokemon.movelvls
+	for _, level in pairs(movelvls) do
+		for i, move in pairs(pokemon.moves) do
+			if level > move.level and level <= pokemonLevel then
+				movesLearnedSince[i] = movesLearnedSince[i] + 1
+			end
+		end
+	end
+    return movesLearnedSince
+end
+
+local function getMoveAgeRanks(pokemon)
+    local moveAgeRanks = {1,1,1,1}
+    for i, move in pairs(pokemon.moves) do
+		for j, compare in pairs(pokemon.moves) do
+			if i ~= j then
+				if move.level > compare.level then
+					moveAgeRanks[i] = moveAgeRanks[i] + 1
+				end
+			end
+		end
+	end
+    return moveAgeRanks
+end
+
+function MoveUtils.getStars(pokemon)
+    local stars = {"","","",""}
+    local ageRanks = getMoveAgeRanks(pokemon)
+    local movesLearnedSince = getMovesLearnedSince(pokemon)
+    for i, move in pairs(pokemon.moves) do
+        if move.level ~= 1 and movesLearnedSince[i] >= ageRanks[i] then
+            stars[i] = "*"
+        end
+    end
+    return stars
+end
+
+function MoveUtils.getMovesLearned(movelvls, pokemonLevel)
+    local markings = {}
+    for i, movelvl in pairs(movelvls) do
+        markings[movelvl] = (pokemonLevel >= movelvl)
+    end
+    return markings
 end
 
 function MoveUtils.getMoveHeader(pokemon)
@@ -99,12 +146,13 @@ function MoveUtils.getTypeDefensesTable(pokemonData)
     return typeDefenses
 end
 
-function MoveUtils.isSTAB(move, pkmnData)
-    for _, type in ipairs(pkmnData["type"]) do
+function MoveUtils.isSTAB(move, pokemon)
+    for _, type in pairs(pokemon["type"]) do
         local moveType = move.type
+        --[[
         if move.name == "Hidden Power" and Tracker.Data.selectedPlayer == 1 then
             moveType = Tracker.Data.currentHiddenPowerType
-        end
+        end--]]
         if moveType == type then
             return true
         end
@@ -156,20 +204,6 @@ function MoveUtils.calculateHighHPBasedDamage(currentHP, maxHP)
     return tostring(roundedPower)
 end
 
-function MoveUtils.playerHasMove(moveName)
-    local pokemon = Tracker.Data.playerPokemon
-    if pokemon ~= nil then
-        local currentMoves = {pokemon["move1"], pokemon["move2"], pokemon["move3"], pokemon["move4"]}
-        for index, move in pairs(currentMoves) do
-            if MoveData[move + 1].name == moveName then
-                return true
-            end
-        end
-        return false
-    end
-    return false
-end
-
 function MoveUtils.calculateTrumpCardPower(movePP)
     movePP = tonumber(movePP)
     local ppToPower = {
@@ -204,10 +238,10 @@ function MoveUtils.calculatePunishmentPower(targetMon)
     return newPower
 end
 
-function MoveUtils.calculateWringCrushDamage(currentHP, maxHP)
+function MoveUtils.calculateWringCrushDamage(gen, currentHP, maxHP)
     local basePower = 120 * (currentHP / maxHP)
     local roundedPower = math.floor(basePower + 0.5)
-    if GameSettings.gen == 4 then
+    if gen == 4 then
         roundedPower = roundedPower + 1
     else
         if roundedPower < 1 then
