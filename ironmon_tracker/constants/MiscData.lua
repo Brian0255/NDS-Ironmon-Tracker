@@ -1,13 +1,16 @@
+MiscData = {}
+
 MiscData.STATUS_TYPE =
 	MiscUtils.readOnly(
 	{
-		POISON = 0,
-		BURN = 1,
-		FREEZE = 2,
-		SLEEP = 3,
-		PARALYZE = 4,
-		CONFUSE = 5,
-		All = 100
+		POISON = "Poison",
+		BURN = "Burn",
+		FREEZE = "Freeze",
+		SLEEP = "Sleep",
+		PARALYZE = "Paralysis",
+		CONFUSE = "Confusion",
+		INFATUATION = "Infatuation",
+		ALL = "All"
 	}
 )
 
