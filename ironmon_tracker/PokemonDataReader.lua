@@ -60,7 +60,7 @@ local function PokemonDataReader(initialProgram)
             curHP = 0,
             HP = 0,
             stats = {
-            HP = 0,
+            HP = "---",
             ATK = "---",
             DEF ="---",
             SPE = "---",
