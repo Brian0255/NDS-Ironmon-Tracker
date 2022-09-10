@@ -13,7 +13,7 @@ local function JoypadEventListener(
         if buttonKey == "ANY" then
             if lastInput ~= nil then
                 for button, _ in pairs(joypadButtons) do
-                    if button ~= "Touch" and lastInput[button] and joypadButtons[button] ~= lastInput[button] then
+                    if button:sub(1,5) ~= "Touch" and lastInput[button] and joypadButtons[button] ~= lastInput[button] then
                         if onButtonPressParams ~= nil then
                             onButtonPressParams.button = button
                         else
