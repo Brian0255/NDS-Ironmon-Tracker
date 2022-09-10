@@ -8,6 +8,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local AppearanceOptionsScreen = dofile(UIRoot .. "AppearanceOptionsScreen.lua")
 	local BadgesAppearanceScreen = dofile(UIRoot .. "BadgesAppearanceScreen.lua")
 	local ColorSchemeScreen = dofile(UIRoot .. "ColorSchemeScreen.lua")
+	local TrackedPokemonScreen = dofile(UIRoot .. "TrackedPokemonScreen.lua")
+	local EditControlsScreen = dofile(UIRoot .. "EditControlsScreen.lua")
 	local PokemonDataReader = dofile("ironmon_tracker/PokemonDataReader.lua")
 	local JoypadEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/JoypadEventListener.lua")
 	self.SELECTED_PLAYERS = {
@@ -27,9 +29,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	}
 	local runEvents = true
 	local inBattle = false
+	local locked = false
+	local lockedPokemonCopy = nil
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
-	local healingTotals = nil
+	local inTrackedPokemonView = false
 	local statusItems = nil
 	local playerPokemon = nil
 	local enemyPokemon = nil
@@ -64,7 +68,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		BATTLE_OPTIONS_SCREEN = 2,
 		APPEARANCE_OPTIONS_SCREEN = 3,
 		BADGES_APPEARANCE_SCREEN = 4,
-		COLOR_SCHEME_SCREEN = 5
+		COLOR_SCHEME_SCREEN = 5,
+		TRACKED_POKEMON_SCREEN = 6,
+		EDIT_CONTROLS_SCREEN = 7
 	}
 	self.UI_SCREEN_OBJECTS = {
 		[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self),
@@ -72,7 +78,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.BATTLE_OPTIONS_SCREEN] = BattleOptionsScreen(settings, tracker, self),
 		[self.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN] = AppearanceOptionsScreen(settings, tracker, self),
 		[self.UI_SCREENS.BADGES_APPEARANCE_SCREEN] = BadgesAppearanceScreen(settings, tracker, self),
-		[self.UI_SCREENS.COLOR_SCHEME_SCREEN] = ColorSchemeScreen(settings, tracker, self)
+		[self.UI_SCREENS.COLOR_SCHEME_SCREEN] = ColorSchemeScreen(settings, tracker, self),
+		[self.UI_SCREENS.TRACKED_POKEMON_SCREEN] = TrackedPokemonScreen(settings, tracker, self),
+		[self.UI_SCREENS.EDIT_CONTROLS_SCREEN] = EditControlsScreen(settings, tracker, self)
 	}
 
 	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
@@ -290,6 +298,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				lastValidEnemyPokemon = pokemonData
 				if activePID ~= lastValidEnemyBattlePID then
 					tracker.logNewEnemyPokemonInBattle(pokemonData.pokemonID)
+					tracker.updateCurrentLevel(pokemonData.pokemonID, pokemonData.level)
 				end
 				lastValidEnemyBattlePID = activePID
 				return pokemonData
@@ -397,7 +406,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 						cosmetic = formTable.cosmetic
 					}
 					local formStartIndex = formTable.index
-					pokemon.pokemonID = formStartIndex + (alternateFormindex - 2)
+					local alternateFormID = formStartIndex + (alternateFormindex - 2)
+					if not formTable.cosmetic then
+						pokemon.pokemonID = alternateFormID
+					end
 				end
 			end
 		end
@@ -466,6 +478,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if validPokemonData(pokemontarget) then
 				enemyPokemon = pokemontarget
 				checkForAlternateForm(enemyPokemon)
+				if enemyPokemon["baseForm"] ~= nil then
+					tracker.logPokemonAsAlternateForm(enemyPokemon.pokemonID, enemyPokemon.baseForm, enemyPokemon.alternateForm)
+				end
 			else
 				enemyPokemon = nil
 			end
@@ -490,9 +505,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function getPokemonToDraw()
 		local pokemonToDraw = playerPokemon
 		local opposingPokemon = enemyPokemon
+		if locked then
+			opposingPokemon = lockedPokemonCopy
+		end
 		if selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
-			pokemonToDraw = enemyPokemon
-			opposingPokemon = playerPokemon
+			local temp = pokemonToDraw
+			pokemonToDraw = opposingPokemon
+			opposingPokemon = temp
 		end
 		return {["pokemonToDraw"] = pokemonToDraw, ["opposingPokemon"] = opposingPokemon}
 	end
@@ -507,7 +526,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				addAdditionalDataToPokemon(opposingPokemon)
 			end
 			pokemonToDraw.owner = selectedPlayer
-			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setPokemon(pokemonToDraw, opposingPokemon)
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setPokemonToDraw(pokemonToDraw, opposingPokemon)
 		end
 	end
 
@@ -546,7 +565,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					end
 				end
 				inBattle = false
-				selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+				if not locked then
+					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+				end
 			end
 			local canUpdate =
 				not (settings.battle.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
@@ -557,8 +578,17 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				checkEnemyPP()
 				updateStatStages()
 			end
-			setPokemonForMainScreen()
+			if not inTrackedPokemonView then
+				setPokemonForMainScreen()
+			end
 		end
+	end
+
+	function self.putTrackedPokemonIntoView(id)
+		selectedPlayer = self.SELECTED_PLAYERS.ENEMY
+		local template = tracker.convertTrackedIDToPokemonTemplate(id)
+		enemyPokemon = template
+		setPokemonForMainScreen()
 	end
 
 	function self.getStatusItems()
@@ -605,20 +635,46 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function switchPokemonView()
-		if inBattle and battleDataFetched then
-			if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
-				selectedPlayer = self.SELECTED_PLAYERS.ENEMY
-			else
-				selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+		if not inTrackedPokemonView then
+			if (inBattle and battleDataFetched) or locked and lockedPokemonCopy ~= nil then
+				if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
+					selectedPlayer = self.SELECTED_PLAYERS.ENEMY
+				else
+					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+				end
+				self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
+				readMemory()
+				self.drawCurrentScreens()
 			end
-			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
-			readMemory()
-			self.drawCurrentScreens()
+		end
+	end
+
+	local function lockEnemy()
+		if inBattle and battleDataFetched and enemyPokemon ~= nil and next(enemyPokemon) ~= nil then
+			locked = true
+			lockedPokemonCopy = MiscUtils.deepCopy(enemyPokemon)
+		end
+	end
+
+	local function unlockEnemy()
+		locked = false
+		lockedPokemonCopy = nil
+		enemyPokemon = nil
+		readMemory()
+		self.drawCurrentScreens()
+	end
+
+	local function onLockButtonPress()
+		if not locked then
+			lockEnemy()
+		else
+			unlockEnemy()
 		end
 	end
 
 	local eventListeners = {
-		JoypadEventListener(settings.controls, "CHANGE_VIEW", switchPokemonView)
+		JoypadEventListener(settings.controls, "CHANGE_VIEW", switchPokemonView),
+		JoypadEventListener(settings.controls, "LOCK_ENEMY", onLockButtonPress)
 	}
 
 	function self.setCurrentScreens(newScreens)
@@ -669,7 +725,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
-		memoryReading = FrameCounter(1, readMemory, nil),
+		memoryReading = FrameCounter(30, readMemory, nil),
 		trackerSaving = FrameCounter(600, tracker.save, nil, true),
 		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
 		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil, true)
@@ -686,6 +742,24 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		else
 			frameCounters["updateColorPickerInput"] = nil
 		end
+	end
+
+	function self.setUpForTrackedPokemonView()
+		inTrackedPokemonView = true
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].setUpForTrackedPokemonView()
+		currentScreens[self.UI_SCREENS.TRACKED_POKEMON_SCREEN].initialize()
+	end
+
+	function self.moveMainScreen(newPosition)
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].moveMainScreen(newPosition)
+	end
+
+	function self.undoTrackedPokemonView()
+		self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
+		inTrackedPokemonView = false
+		selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].undoTrackedPokemonView()
+		readMemory()
 	end
 
 	function self.main()
