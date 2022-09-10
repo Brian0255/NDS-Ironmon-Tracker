@@ -2,8 +2,15 @@ local function FrameCounter(frameAmount, onZeroEvent, onZeroParams, syncWithClie
     local self = {}
     local totalFrames = frameAmount
     local currentFrames = totalFrames
+    local paused = false
     if syncWithClient == nil then
         syncWithClient = false
+    end
+    function self.pause()
+        paused = true
+    end
+    function self.resume()
+        paused = false
     end
     function self.decrement()
         currentFrames = currentFrames - 1
@@ -16,7 +23,9 @@ local function FrameCounter(frameAmount, onZeroEvent, onZeroParams, syncWithClie
                     currentFrames = totalFrames * (clientFrameRate / 60)
                 end
             end
-            onZeroEvent(onZeroParams)
+            if not paused then
+                onZeroEvent(onZeroParams)
+            end
         end
     end
     return self
