@@ -550,6 +550,54 @@ IconDrawer.ICONS =
                 colorKey = "Top box border color",
                 backgroundColorKey = "Top box background color"
             }
+        },
+        HP_HEALS_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+               {0,0,1,1,1,1,0,0},
+               {0,1,0,0,0,0,1,0},
+               {1,0,1,0,0,0,1,0},
+               {1,0,1,0,0,1,1,0},
+               {0,1,0,0,1,0,1,0},
+               {0,1,0,0,1,0,1,0},
+               {1,1,0,0,1,0,0,1},
+               {1,0,1,1,0,0,0,1},
+               {1,0,0,0,0,0,0,1},
+               {0,1,1,0,0,0,1,0},
+               {0,0,0,1,1,1,0,0}
+            },
+            colorKey = "Positive text color",
+            backgroundColorKey = "Top box background color"
+        },
+        STATUS_HEALS_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+              {0,0,0,0,1,1,1,0},
+              {0,0,1,1,0,0,0,1},
+              {1,1,0,0,0,0,0,1},
+              {1,0,0,0,1,0,1,0},
+              {1,0,0,1,0,1,0,1},
+              {1,0,0,1,0,0,0,1},
+              {1,1,1,0,0,0,0,1},
+              {1,0,0,0,0,0,0,1},
+              {1,0,0,0,0,0,0,1},
+              {1,0,0,0,0,0,0,1},
+              {0,1,1,1,1,1,1,0}
+            },
+            colorKey = "Intermediate text color",
+            backgroundColorKey = "Top box background color"
+        },
+        BACKSPACE = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,0,0,0,0,0,0},
+                {0,1,0,0,0,0,0,0,0},
+                {1,1,1,1,1,1,1,1,1},
+                {0,1,0,0,0,0,0,0,0},
+                {0,0,1,0,0,0,0,0,0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
         }
     }
 )
@@ -583,7 +631,7 @@ function IconDrawer.drawIcon(iconName, x, y)
                     else
                         color = settings.colorScheme[iconColorKey]
                     end
-                    if settings.colorSettings.Draw_shadows then
+                    if settings.colorSettings["Draw shadows"] then
                         gui.drawPixel(x + offsetX + 1,y + offsetY + 1,shadowColor)
                     end
                     gui.drawPixel(x + offsetX, y + offsetY, color)
