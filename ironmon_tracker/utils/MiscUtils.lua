@@ -34,7 +34,7 @@ end
 function MiscUtils.split(s, delimiter)
     local result = {}
     for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
-        table.insert(result, match)
+        result[match] = true
     end
     return result
 end
