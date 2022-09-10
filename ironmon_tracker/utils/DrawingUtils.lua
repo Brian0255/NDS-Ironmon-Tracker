@@ -37,61 +37,19 @@ function DrawingUtils.clearGUI()
     )
 end
 
-function DrawingUtils.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
-    local padding = 10
-    local textArray = DrawingUtils.textToWrappedArray(text, width - padding)
-    local hoverFrame =
-        Frame(
-        Box(
-            {x = 0, y = 0},
-            {
-                width = width,
-                height = #textArray * 10 + 10
-            },
-            BGColorKey,
-            BGColorFillKey
-        ),
-        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 5}),
-        nil
-    )
-    for _, textSet in pairs(textArray) do
-        local textLabel =
-            TextLabel(
-            Component(
-                hoverFrame,
-                Box(
-                    {
-                        x = 0,
-                        y = 0
-                    },
-                    {width = 0, height = 10},
-                    nil,
-                    nil
-                )
-            ),
-            TextField(
-                textSet,
-                {x = 5, y = 0},
-                TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, textColorKey, BGColorKey)
-            )
-        )
-    end
-    return hoverFrame
-end
-
 function DrawingUtils.textToWrappedArray(text, maxWidth)
     local words = MiscUtils.split(text, " ")
     local newWords = {}
     local currentLineLength = 0
     local currentLine = ""
     for i, word in pairs(words) do
-        --add 2 for space
+        --add 3 for space between words
         local wordPixelLength = DrawingUtils.calculateWordPixelLength(word)
         local nextLength = currentLineLength + wordPixelLength + 3
-        if nextLength > maxWidth then
+        if (nextLength - 3) > maxWidth then
             table.insert(newWords, currentLine)
             currentLine = word .. " "
-            currentLineLength = wordPixelLength + 1
+            currentLineLength = wordPixelLength + 3
         else
             currentLine = currentLine .. word .. " "
             currentLineLength = nextLength
@@ -111,7 +69,7 @@ function DrawingUtils.calculateWordPixelLength(text)
             totalLength = totalLength + 1
         end
     end
-    totalLength = totalLength + #text --space in between each character
+    totalLength = totalLength + #text - 1 --space in between each character
     return totalLength
 end
 
