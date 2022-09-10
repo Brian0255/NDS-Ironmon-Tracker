@@ -146,7 +146,7 @@ function MoveUtils.isSTAB(move, pokemon)
         if move.name == "Hidden Power" and Tracker.Data.selectedPlayer == 1 then
             moveType = Tracker.Data.currentHiddenPowerType
         end--]]
-        if moveType == type then
+        if move.power ~= Graphics.TEXT.NO_POWER and moveType == type then
             return true
         end
     end
