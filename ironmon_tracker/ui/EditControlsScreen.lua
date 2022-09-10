@@ -18,13 +18,19 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         previousText = ""
     }
     local constants = {
-        MAIN_FRAME_HEIGHT = 149,
-        CONTROL_EDIT_FRAME_HEIGHT = 121,
+        ORDERED_CONTROL_KEYS = {
+            "CHANGE_VIEW",
+            "CYCLE_STAT",
+            "CYCLE_PREDICTION",
+            "LOCK_ENEMY"
+        },
+        MAIN_FRAME_HEIGHT = 187,
+        CONTROL_EDIT_FRAME_HEIGHT = 159,
         TEXT_HEADER_HEIGHT = 18,
         BIND_BUTTON_FRAME_HEIGHT = 14,
         LOAD_NEXT_FRAME_HEIGHT = 54,
-        CONTROL_LABEL_WIDTH = 50,
-        CONTROL_VALUE_WIDTH = 40,
+        CONTROL_LABEL_WIDTH = 64,
+        CONTROL_VALUE_WIDTH = 26,
         BIND_BUTTON_WIDTH = 30,
         BIND_BUTTON_HEIGHT = 14,
         ADD_BUTTON_WIDTH = 54,
@@ -134,7 +140,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ),
             TextField(
                 controlName:sub(1, 1) .. controlName:sub(2):lower():gsub("_", " ") .. ":",
-                {x = 2, y = 1},
+                {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -160,7 +166,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ),
             TextField(
                 settings.controls[controlName],
-                {x = 2, y = 1},
+                {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -260,7 +266,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ui.frames.mainFrame
         )
         table.insert(eventListeners, MouseClickEventListener(ui.frames.controlEditFrame, onGeneralClick))
-        for settingKey, value in pairs(settings.controls) do
+        for _, settingKey in pairs(constants.ORDERED_CONTROL_KEYS) do
             if settingKey ~= "LOAD_NEXT_SEED" then
                 createButtonBindingRow(ui.frames.controlEditFrame, settingKey)
             end
@@ -296,7 +302,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ),
             TextField(
                 "Load next seed:",
-                {x = 2, y = 1},
+                {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -322,7 +328,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ),
             TextField(
                 settings.controls.LOAD_NEXT_SEED:gsub(" ", "   "),
-                {x = 2, y = 1},
+                {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
