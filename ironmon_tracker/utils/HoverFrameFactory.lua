@@ -128,7 +128,7 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
         )
         local hoverFrameSize = pokemonHoverFrame.getSize()
         local position = Input.getMousePosition()
-        MiscUtils.clampFramePosition(nil, position, mainFrame.getSize(), hoverFrameSize)
+        MiscUtils.clampFramePosition(nil, position, mainFrame, hoverFrameSize)
         local totalSize = 18
         local typeDefensesTable = MoveUtils.getTypeDefensesTable(pokemon)
         for _, heading in pairs(order) do
@@ -145,8 +145,9 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
 end
 
 function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
-    local padding = 10
-    local textArray = DrawingUtils.textToWrappedArray(text, width - padding)
+    local padding = 5
+    --subtract an extra 2 for each side (4) because the text actually gets drawn 2 pixels to the right even with 0 padding 
+    local textArray = DrawingUtils.textToWrappedArray(text, width - 2 * padding - 4)
     local hoverFrame =
         Frame(
         Box(
@@ -178,7 +179,7 @@ function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text
             ),
             TextField(
                 textSet,
-                {x = 5, y = 0},
+                {x = padding, y = 0},
                 TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, textColorKey, BGColorKey)
             )
         )
@@ -186,7 +187,7 @@ function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text
     return hoverFrame
 end
 
-local function createMoveHeaderHoverRows(totalRows,moveLevelsFrame)
+local function createMoveHeaderHoverRows(totalRows, moveLevelsFrame)
     local moveLabelHeight = 16
     local rowFrames = {}
     for i = 1, totalRows, 1 do
@@ -213,7 +214,7 @@ local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
     local displayedPerRow = 8
     local moveLabelWidth = 16
     local moveLabelHeight = 16
-    local movesLearnedMarkings = MoveUtils.getMovesLearned(movelvls,level)
+    local movesLearnedMarkings = MoveUtils.getMovesLearned(movelvls, level)
     for i, moveLevel in pairs(movelvls) do
         local textColorKey = "Bottom box text color"
         if movesLearnedMarkings[moveLevel] then
@@ -223,7 +224,7 @@ local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
         if tonumber(moveLevel) < 10 then
             spacing = 3
         end
-        local rowIndex = math.ceil(i/(displayedPerRow))
+        local rowIndex = math.ceil(i / (displayedPerRow))
         TextLabel(
             Component(
                 rowFrames[rowIndex],
@@ -310,15 +311,151 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 5, y = 5}),
         moveLevelsHoverFrame
     )
-    local rowFrames = createMoveHeaderHoverRows(totalRows,moveLevelsFrame)
-    fillMoveHeaderHoverRows(movelvls,level,rowFrames)
+    local rowFrames = createMoveHeaderHoverRows(totalRows, moveLevelsFrame)
+    fillMoveHeaderHoverRows(movelvls, level, rowFrames)
     local position = Input.getMousePosition()
     MiscUtils.clampFramePosition(
         Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
         position,
-        mainFrame.getSize(),
+        mainFrame,
         moveLevelsHoverFrame.getSize()
     )
     moveLevelsHoverFrame.move(position)
     return moveLevelsHoverFrame
+end
+
+local function readItemDataIntoFrame(items, itemType, itemHolderFrame)
+    local frameWidth = 110
+    local itemLabelHeight = 11
+    local sortedKeys = ItemData.HEALING_ID_SORT_ORDER
+    if itemType == "Status" then
+        sortedKeys = ItemData.STATUS_ID_SORT_ORDER
+    end
+    for _, sortedKey in pairs(sortedKeys) do
+        local itemData = ItemData.HEALING_ITEMS[sortedKey]
+        if itemData == nil then
+            itemData = ItemData.STATUS_ITEMS[sortedKey]
+        end
+        if items[sortedKey] then
+            local quantity = items[sortedKey]
+            local name = itemData.name
+            if quantity > 1 then
+                if name:sub(-1) == "y" then
+                    name = name:sub(1, #name - 1) .. "ies"
+                else
+                    name = name .. "s"
+                end
+            end
+            local extra = ""
+            if itemType == "Healing" then
+                extra = itemData.amount
+                if itemData.type == ItemData.HEALING_TYPE.CONSTANT then
+                    extra = extra .. " HP"
+                else
+                    extra = extra .. "%"
+                end
+            elseif itemType == "Status" then
+                extra = itemData.status
+            end
+            local text = quantity .. " " .. name .. " (" .. extra .. ")"
+            TextLabel(
+                Component(
+                    itemHolderFrame,
+                    Box(
+                        {
+                            x = 0,
+                            y = 0
+                        },
+                        {width = frameWidth, height = itemLabelHeight},
+                        nil,
+                        nil
+                    )
+                ),
+                TextField(
+                    text,
+                    {x = 3, y = 0},
+                    TextStyle(
+                        Graphics.FONT.DEFAULT_FONT_SIZE,
+                        Graphics.FONT.DEFAULT_FONT_FAMILY,
+                        "Top box text color",
+                        "Top box background color"
+                    )
+                )
+            )
+        end
+    end
+end
+
+function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
+    local total = 0
+    for _, _ in pairs(items) do
+        total = total + 1
+    end
+    local textHeaderHeight = 18
+    local frameWidth = 110
+    local totalLabels = total
+    local itemLabelHeight = 11
+    local itemHolderFrameHeight = totalLabels * itemLabelHeight + 6
+    local itemHoverFrame =
+        Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = frameWidth,
+                height = itemHolderFrameHeight + textHeaderHeight
+            },
+            nil,
+            nil
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
+        nil
+    )
+    local xPadding = 21
+    if itemType == "Status" then
+        xPadding = 23
+    end
+    local textHeader =
+        TextLabel(
+        Component(
+            itemHoverFrame,
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {width = frameWidth, height = textHeaderHeight},
+                "Top box background color",
+                "Top box border color"
+            )
+        ),
+        TextField(
+            itemType .. " Items",
+            {x = xPadding, y = 1},
+            TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+        )
+    )
+    local itemHolderFrame =
+        Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = frameWidth,
+                height = itemHolderFrameHeight
+            },
+            "Top box background color",
+            "Top box border color"
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 3}),
+        itemHoverFrame
+    )
+    readItemDataIntoFrame(items, itemType, itemHolderFrame)
+    local position = Input.getMousePosition()
+    MiscUtils.clampFramePosition(
+        Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
+        position,
+        mainFrame,
+        itemHoverFrame.getSize()
+    )
+    itemHoverFrame.move(position)
+    return itemHoverFrame
 end
