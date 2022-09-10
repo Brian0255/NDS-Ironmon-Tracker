@@ -48,10 +48,25 @@ function MiscUtils.mouseInRange(mouseX, mouseY, controlX, controlY, width, heigh
     return false
 end
 
-function MiscUtils.clampFramePosition(alignment, position, mainFrameSize, frameSize)
+function MiscUtils.clampFramePosition(alignment, position, mainFrame, frameSize)
     if alignment == Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE then
         position.y = position.y - frameSize.height
     end
-    position.x = math.min(position.x, Graphics.SIZES.SCREEN_WIDTH + mainFrameSize.width - frameSize.width - 1)
+    position.x = math.min(position.x, mainFrame.getPosition().x + mainFrame.getSize().width - frameSize.width - 1)
     position.y = math.max(0, position.y)
+end
+
+function MiscUtils.deepCopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[MiscUtils.deepCopy(orig_key)] = MiscUtils.deepCopy(orig_value)
+        end
+        setmetatable(copy, MiscUtils.deepCopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
 end
