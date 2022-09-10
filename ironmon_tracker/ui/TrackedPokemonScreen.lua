@@ -382,7 +382,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             ),
             TextField(
                 "",
-                {x = 3, y = 1},
+                {x = 2, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
