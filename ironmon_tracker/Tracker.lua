@@ -31,7 +31,11 @@ local function Tracker()
 			abilities = {},
 			note = "",
 			amountSeen = 0,
-			lastLevelSeen = "---"
+			lastLevelSeen = "---",
+			currentLevel = "---",
+			baseFormName = nil,
+			alternateForm = nil,
+			cosmeticForm = true
 		}
 	end
 
@@ -46,9 +50,91 @@ local function Tracker()
 		data.amountSeen = data.amountSeen + 1
 	end
 
+	function self.getSortedTrackedIDs()
+		local ids = {}
+		local pokemon = trackedData.trackedPokemon
+		for id, _ in pairs(pokemon) do
+			table.insert(ids, id)
+		end
+		table.sort(
+			ids,
+			function(k1, k2)
+				return PokemonData.POKEMON[k1 + 1].name < PokemonData.POKEMON[k2 + 1].name
+			end
+		)
+		return ids
+	end
+
+	function self.logPokemonAsAlternateForm(pokemonID, baseForm, alternateForm)
+		checkIfPokemonUntracked(pokemonID)
+		local data = trackedData.trackedPokemon[pokemonID]
+		data.baseFormName = baseForm.name
+		data.cosmeticForm = baseForm.cosmetic
+		data.alternateForm = alternateForm
+	end
+
+	function self.convertTrackedIDToPokemonTemplate(id)
+		local template = {
+			baseForm = nil,
+			alternateForm = 0x00,
+            pokemonID = 0,
+            heldItem = 0,
+            ability = 0,
+            status = 0,
+            level = 0,
+            curHP = 0,
+            HP = 0,
+            stats = {
+            HP = "---",
+            ATK = "---",
+            DEF ="---",
+            SPE = "---",
+            SPA = "---",
+            SPD = "---",},
+            nature = 0,
+            encounterType = 0,
+            moveIDs = {0,0,0,0},
+            movePPs = {
+                "---",
+                "---",
+                "---",
+                "---"
+            },
+            statStages = {
+                ["HP"] = 6,
+                ["ATK"] = 6,
+                ["DEF"] = 6,
+                ["SPE"] = 6,
+                ["SPA"] = 6,
+                ["SPD"] = 6,
+            }
+        }
+		local data = trackedData.trackedPokemon[id]
+		template.moves = data.moves
+		template.level = data.currentLevel
+		template.pokemonID = id
+		if data.baseFormName ~= nil then
+			template.baseForm = {
+				name = data.baseFormName,
+				cosmetic = data.cosmeticForm
+			}
+		end
+		for i, move in pairs(data.moves) do
+			template.moveIDs[i] = move.move
+			template.movePPs[i] = MoveData.MOVES[move.move+1].pp
+		end
+		return template
+	end
+
 	function self.logNewEnemyPokemonInBattle(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
 		updateAmountSeen(pokemonID)
+	end
+
+	function self.updateCurrentLevel(pokemonID, level)
+		checkIfPokemonUntracked(pokemonID)
+		local data = trackedData.trackedPokemon[pokemonID]
+		data.currentLevel = level
 	end
 
 	function self.updateLastLevelSeen(pokemonID, newLevel)
@@ -160,7 +246,6 @@ local function Tracker()
 	function self.getMoves(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
 		if next(trackedData.trackedPokemon[pokemonID].moves) == nil then
-			print("untracked")
 			for _ = 1, 4, 1 do
 				table.insert(
 					trackedData.trackedPokemon[pokemonID].moves,
