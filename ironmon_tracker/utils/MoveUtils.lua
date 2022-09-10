@@ -109,7 +109,7 @@ function MoveUtils.getMoveHeader(pokemon)
     if amount == nil then
         amount = 0
     end
-    local header = "Move ~ " .. count .. "/" .. #pokemon.movelvls .. " (" .. nextLevel .. ")"
+    local header = "Moves: " .. count .. "/" .. #pokemon.movelvls .. " (" .. nextLevel .. ")"
     return header
 end
 
