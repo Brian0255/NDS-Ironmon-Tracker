@@ -8,6 +8,23 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
         visible = true
     end
     local controls = {}
+    function self.recalculateChildPositions()
+        if layout ~= nil then
+            layout.setFrame(self)
+            layout.setItems(controls)
+            layout.changeItemPositions()
+        else
+            for _,control in pairs(controls) do
+                control.calculateActualPosition(self.getPosition())
+            end
+        end
+        for _, control in pairs(controls) do
+            if control.recalculateChildPositions then
+                control.recalculateChildPositions()
+            end
+            --control.calculateActualPosition(self.getPosition())
+        end--]]
+    end
     function self.calculateActualPosition(position)
         box.calculateActualPosition(position)
     end
@@ -60,15 +77,7 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
     function self.show()
         if visible then
             box.show()
-            if layout ~= nil then
-                layout.setFrame(self)
-                layout.setItems(controls)
-                layout.changeItemPositions()
-            else
-                for _, control in pairs(controls) do
-                    control.calculateActualPosition(self.getPosition())
-                end
-            end
+            self.recalculateChildPositions()
             for _, control in pairs(controls) do
                 control.show()
             end
