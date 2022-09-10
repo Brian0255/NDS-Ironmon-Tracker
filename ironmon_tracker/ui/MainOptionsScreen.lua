@@ -26,7 +26,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	local eventListeners = {
 		battleSettingsClickListener = nil,
 		trackerAppearanceClickListener = nil,
-		--trackedPokemonClickListener = nil,
+		trackedPokemonClickListener = nil,
 		--editControlsClickListener = nil,
 		goBackClickListener = nil
 	}
@@ -39,16 +39,31 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		program.setCurrentScreens({program.UI_SCREENS.BATTLE_OPTIONS_SCREEN})
 		program.drawCurrentScreens()
 	end
+	local function onTrackedPokemonClick()
+		program.setCurrentScreens({program.UI_SCREENS.TRACKED_POKEMON_SCREEN,program.UI_SCREENS.MAIN_SCREEN})
+		program.setUpForTrackedPokemonView()
+		program.moveMainScreen({x = Graphics.SIZES.SCREEN_WIDTH, y = 42})
+		program.drawCurrentScreens()
+	end
+	local function onEditControlsClick()
+		program.setCurrentScreens({program.UI_SCREENS.EDIT_CONTROLS_SCREEN})
+		program.drawCurrentScreens()
+	end
 	local function onGoBackClick()
 		program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN})
 		program.drawCurrentScreens()
 	end
+	
 	local function initEventListeners()
 		eventListeners.goBackClickListener = MouseClickEventListener(ui.controls.goBackButton, onGoBackClick)
 		eventListeners.battleSettingsClickListener =
 			MouseClickEventListener(ui.frames.battleSettingsButtonFrame, onBattleSettingsClick)
 		eventListeners.trackerAppearanceClickListener =
 			MouseClickEventListener(ui.frames.trackerAppearanceButtonFrame, onTrackerAppearanceClick)
+		eventListeners.trackedPokemonClickListener = 
+			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
+		eventListeners.editControlsClickListener = 
+			MouseClickEventListener(ui.frames.editControlsButtonFrame, onEditControlsClick)
 	end
 	local function initBottomFrameControls()
 		TextLabel(
