@@ -14,6 +14,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local settings = initialSettings
     local tracker = initialTracker
     local program = initialProgram
+    local currentPokemon = nil
+    local opposingPokemon = nil
+    local badgesEnabled = true
     local constants = {
         STAT_PREDICTION_STATES = {"", "+", "_"},
         BADGE_HORIZONTAL_WIDTH = 140,
@@ -55,12 +58,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         program.drawCurrentScreens()
     end
 
-    local function openOptionsScreen()
-        client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
-        program.setCurrentScreens({program.UI_SCREENS.MAIN_OPTIONS_SCREEN})
-        program.drawCurrentScreens()
-    end
-
     local function setStatPredictionToControl(control, newPrediction)
         if newPrediction == "_" then
             control.setTextOffset({x = 0, y = -5})
@@ -83,6 +80,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[nextState])
             program.drawCurrentScreens()
         end
+    end
+
+    local function moveHoverFrameToMouse(hoverFrame, alignment)
+        local position = Input.getMousePosition()
+        MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame, hoverFrame.getSize())
+        hoverFrame.move(position)
     end
 
     local function readStatPredictions(pokemonID)
@@ -113,6 +116,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 "Set",
                 function()
                     tracker.setNote(pokemonID, forms.gettext(textBox))
+                    program.drawCurrentScreens()
                     forms.destroy(noteForm)
                 end,
                 200,
@@ -134,11 +138,26 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function onItemBagInfoHover(params)
         local items = params.items
         local itemType = params.itemType
-        if items ~= nil and next(items) ~= nil and ui.frames.healFrame.isVisible() then
-            local itemsHoverFrame = HoverFrameFactory.createItemBagHoverFrame(items, ui.frames.mainFrame, itemType)
-            activeHoverFrame = itemsHoverFrame
+        if items == nil or next(items) == nil then
+            local hoverFrame =
+                HoverFrameFactory.createHoverTextFrame(
+                "Top box background color",
+                "Top box border color",
+                "You currently do not have any " .. itemType:lower() .. " items.",
+                "Top box text color",
+                114
+            )
+            moveHoverFrameToMouse(hoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
+            activeHoverFrame = hoverFrame
             program.drawCurrentScreens()
-            itemsHoverFrame.show()
+            hoverFrame.show()
+        else
+            if ui.frames.healFrame.isVisible() then
+                local itemsHoverFrame = HoverFrameFactory.createItemBagHoverFrame(items, ui.frames.mainFrame, itemType)
+                activeHoverFrame = itemsHoverFrame
+                program.drawCurrentScreens()
+                itemsHoverFrame.show()
+            end
         end
     end
 
@@ -151,18 +170,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     HoverFrameFactory.createHoverTextFrame(
                     "Bottom box background color",
                     "Bottom box border color",
-                    "This pok\233mon does not learn any moves.",
+                    "This Pok\233mon does not learn any moves.",
                     "Bottom box text color",
                     126
                 )
-                local position = Input.getMousePosition()
-                MiscUtils.clampFramePosition(
+                moveHoverFrameToMouse(
+                    moveHeaderHoverFrame,
                     Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
-                    position,
-                    ui.frames.mainFrame.getSize(),
                     moveHeaderHoverFrame.getSize()
                 )
-                moveHeaderHoverFrame.move(position)
             else
                 moveHeaderHoverFrame = HoverFrameFactory.createMoveLevelsHoverFrame(params.pokemon, params.mainFrame)
             end
@@ -182,10 +198,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local alignment = hoverParams.alignment
             local hoverFrame =
                 HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
-            local hoverFrameSize = hoverFrame.getSize()
-            local position = Input.getMousePosition()
-            MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame.getSize(), hoverFrameSize)
-            hoverFrame.move(position)
+            moveHoverFrameToMouse(hoverFrame, alignment)
             program.drawCurrentScreens()
             hoverFrame.show()
             activeHoverFrame = hoverFrame
@@ -349,7 +362,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 1}),
             ui.frames.miscInfoFrame
         )
         ui.frames.enemyNoteFrame =
@@ -776,7 +789,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Move ~ 0/0 (0)",
+                "Moves: 0/0 (0)",
                 Graphics.SIZES.DEFAULT_TEXT_OFFSET,
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -1093,10 +1106,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function initMiscControls()
         ui.controls.healsLabel =
             TextLabel(
-            Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 80, height = 10}, nil, nil)),
+            Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 80, height = 9}, nil, nil)),
             TextField(
                 "Heals in bag:",
-                {x = 1, y = 1},
+                {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -1146,7 +1159,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-         --]]
+        --]]
         ui.controls.accLabel =
             TextLabel(
             Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 10, height = 10}, nil, nil)),
@@ -1256,16 +1269,18 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpMoveEffectiveness(moveIDs, defendingPokemon)
         extraThingsToDraw.moveEffectiveness = {}
-        for i, moveID in pairs(moveIDs) do
-            local moveFrame = ui.moveInfoFrames[i]
-            local PPLabelPosition = moveFrame.PPLabel.getPosition()
-            local chevronPosition = {x = PPLabelPosition.x + 14, y = PPLabelPosition.y + 3}
-            local moveData = MoveData.MOVES[moveID + 1]
-            local moveEffectiveness = MoveUtils.netEffectiveness(moveData, defendingPokemon)
-            table.insert(
-                extraThingsToDraw.moveEffectiveness,
-                {position = chevronPosition, effectiveness = moveEffectiveness}
-            )
+        if settings.battle.SHOW_MOVE_EFFECTIVENESS then
+            for i, moveID in pairs(moveIDs) do
+                local moveFrame = ui.moveInfoFrames[i]
+                local PPLabelPosition = moveFrame.PPLabel.getPosition()
+                local chevronPosition = {x = PPLabelPosition.x + 14, y = PPLabelPosition.y + 3}
+                local moveData = MoveData.MOVES[moveID + 1]
+                local moveEffectiveness = MoveUtils.netEffectiveness(moveData, defendingPokemon)
+                table.insert(
+                    extraThingsToDraw.moveEffectiveness,
+                    {position = chevronPosition, effectiveness = moveEffectiveness}
+                )
+            end
         end
     end
 
@@ -1285,6 +1300,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 DrawingUtils.drawNaturePlusMinus(entry.position, entry.affect)
             end
         end
+       
     end
 
     local function checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
@@ -1334,18 +1350,19 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             ["Grass Knot"] = weightBasedEntry,
             ["Low Kick"] = weightBasedEntry
         }
-        for i, moveID in pairs(moveIDs) do
-            local movePower = MoveData.MOVES[moveID + 1].power
-            local name = MoveData.MOVES[moveID + 1].name
-            local moveFrame = ui.moveInfoFrames[i]
-            local entry = moveNamesToCalcFunctions[name]
-            if entry then
-                if name ~= "Trump Card" then
-                    if entry.requirement then
-                        moveFrame.powLabel.setText(entry.calcFunction())
+        if settings.battle.CALCULATE_VARIABLE_DAMAGE then
+            for i, moveID in pairs(moveIDs) do
+                local name = MoveData.MOVES[moveID + 1].name
+                local moveFrame = ui.moveInfoFrames[i]
+                local entry = moveNamesToCalcFunctions[name]
+                if entry then
+                    if name ~= "Trump Card" then
+                        if entry.requirement then
+                            moveFrame.powLabel.setText(entry.calcFunction())
+                        end
+                    else
+                        moveFrame.powLabel.setText(entry.calcFunction(movePPs[i]))
                     end
-                else
-                    moveFrame.powLabel.setText(entry.calcFunction(movePPs[i]))
                 end
             end
         end
@@ -1363,12 +1380,14 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 moveIDs[i] = move.move
                 movePPs[i] = MoveData.MOVES[move.move + 1].pp
             end
-            for i, move in pairs(moveIDs) do
-                for j, compare in pairs(pokemon.moveIDs) do
-                    if move == compare then
-                        movePPs[i] = pokemon.movePPs[j]
-                        if move == 0 then
-                            movePPs[i] = Graphics.TEXT.NO_PP
+            if settings.battle.SHOW_ACTUAL_ENEMY_PP then
+                for i, move in pairs(moveIDs) do
+                    for j, compare in pairs(pokemon.moveIDs) do
+                        if move == compare then
+                            movePPs[i] = pokemon.movePPs[j]
+                            if move == 0 then
+                                movePPs[i] = Graphics.TEXT.NO_PP
+                            end
                         end
                     end
                 end
@@ -1401,7 +1420,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local moveNameText = moveData.name
             if isEnemy then
                 local stars = MoveUtils.getStars(pokemon)
-            --moveNameText = moveNameText..stars[i]
+                moveNameText = moveNameText .. stars[i]
             end
             moveFrame.moveNameLabel.setText(moveNameText)
             moveFrame.PPLabel.setText(movePP)
@@ -1427,7 +1446,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         itemHoverParams.text = ""
         eventListeners.noteIconListener.setOnClickParams(pokemon.pokemonID)
         local note = tracker.getNote(pokemon.pokemonID)
-        local lines = DrawingUtils.textToWrappedArray(note, 80)
+        local lines = DrawingUtils.textToWrappedArray(note, 74)
         ui.controls.mainNoteLabel.setText(lines[1])
         ui.controls.mainNoteLabel.setVisibility(#lines == 1)
         for i = 1, 2, 1 do
@@ -1500,7 +1519,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    function self.setPokemon(pokemon, opposingPokemon)
+    local function clearExtraThingsToDraw()
+        extraThingsToDraw = {
+            moveEffectiveness = {},
+            nature = {},
+            statStages = {}
+        }
+    end
+
+    local function readPokemonIntoUI()
+        ui.frames.mainFrame.recalculateChildPositions()
+        local pokemon = currentPokemon
         local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
         local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
 
@@ -1547,6 +1576,21 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         setUpStatStages(pokemon)
     end
 
+    
+    local function openOptionsScreen()
+        ui.frames.mainFrame.setVisibility(false)
+        client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
+        program.undoTrackedPokemonView()
+        program.setCurrentScreens({program.UI_SCREENS.MAIN_OPTIONS_SCREEN})
+        program.drawCurrentScreens()
+        ui.frames.mainFrame.setVisibility(true)
+    end
+
+    function self.setPokemonToDraw(pokemon, newOpposingPokemon)
+        currentPokemon = pokemon
+        opposingPokemon = newOpposingPokemon
+    end
+
     function self.addEventListener(eventListener)
         table.insert(eventListeners, eventListener)
     end
@@ -1561,7 +1605,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.resetEventListeners()
-    local listenerGroups = {eventListeners, moveEventListeners, statPredictionEventListeners}
+        local listenerGroups = {eventListeners, moveEventListeners, statPredictionEventListeners}
         for _, listenerGroup in pairs(listenerGroups) do
             for _, eventListener in pairs(listenerGroup) do
                 if eventListener.reset then
@@ -1578,6 +1622,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     function self.show()
         self.updateBadgeLayout()
+        readPokemonIntoUI()
         ui.frames.mainFrame.show()
         if not program.isInBattle() then
             extraThingsToDraw.moveEffectiveness = {}
@@ -1664,8 +1709,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local numBadges = 1
         if settings.badgesAppearance.SHOW_BOTH_BADGES and gameInfo.GEN == 4 then
             numBadges = 2
+            if not ui.frames.badgeFrame2.isVisible() then
+                numBadges = numBadges - 1
+            end
         end
-
+        if not ui.frames.badgeFrame1.isVisible() then
+            numBadges = numBadges - 1
+        end
         if orientation == "VERTICAL" then
             add.width = numBadges * constants.BADGE_VERTICAL_WIDTH + 5 * numBadges
         else
@@ -1702,72 +1752,91 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    function self.updateBadgeLayout()
-        local MAIN_FRAME_INDICES = {
-            [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE] = 1,
-            [Graphics.BADGE_ALIGNMENT_TYPE.BELOW] = 3,
-            [Graphics.BADGE_ALIGNMENT_TYPE.LEFT] = 1,
-            [Graphics.BADGE_ALIGNMENT_TYPE.RIGHT] = 3,
-            [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = {1, 3},
-            [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = {1, 3},
-            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = {1, 2},
-            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = {3, 3},
-            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_LEFT] = {1, 2},
-            [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = {3, 3}
-        }
-        local primaryBadgeFrame = ui.frames.badgeFrame1
-        local secondaryBadgeFrame = ui.frames.badgeFrame2
-        if settings.badgesAppearance.SHOW_BOTH_BADGES and settings.badgesAppearance.PRIMARY_BADGE_SET == "KANTO" then
-            local temp = primaryBadgeFrame
-            primaryBadgeFrame = secondaryBadgeFrame
-            secondaryBadgeFrame = temp
-        end
-        local alignment
-        if settings.badgesAppearance.SHOW_BOTH_BADGES then
-            alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.DOUBLE_BADGE_ALIGNMENT]
-        else
-            alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.SINGLE_BADGE_ALIGNMENT]
-        end
-        local newOrientation = Graphics.BADGE_ORIENTATION[alignment]
+    function self.setUpForTrackedPokemonView()
+        badgesEnabled = false
+    end
 
-        local badgeFrames = {primaryBadgeFrame, secondaryBadgeFrame}
-        local newSize = {
-            width = 0,
-            height = 0
-        }
-        if newOrientation == "VERTICAL" then
-            ui.frames.mainFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.HORIZONTAL)
-            newSize.width = constants.BADGE_VERTICAL_WIDTH
-            newSize.height = constants.BADGE_VERTICAL_HEIGHT
-        else
-            ui.frames.mainFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.VERTICAL)
-            newSize.width = constants.BADGE_HORIZONTAL_WIDTH
-            newSize.height = constants.BOTTOM_BOX_HEIGHT
-        end
-        for _, badgeFrame in pairs(badgeFrames) do
-            if settings.badgesAppearance.SHOW_BOTH_BADGES then
-                badgeFrame.setVisibility(true)
-            end
-            if newOrientation == "VERTICAL" then
-                badgeFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.VERTICAL)
-                badgeFrame.setLayoutSpacing(0)
-            else
-                badgeFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.HORIZONTAL)
-                badgeFrame.setLayoutSpacing(1)
-            end
-        end
-        if settings.badgesAppearance.SHOW_BOTH_BADGES then
-            local indices = MAIN_FRAME_INDICES[alignment]
-            primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[1])
-            secondaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[2])
-        else
+    function self.undoTrackedPokemonView()
+        ui.frames.mainFrame.move({x=Graphics.SIZES.SCREEN_WIDTH,y=0})
+        badgesEnabled = true
+    end
+
+    function self.moveMainScreen(newPosition)
+        ui.frames.mainFrame.move(newPosition)
+    end
+
+    function self.updateBadgeLayout()
+        if not badgesEnabled then
+            ui.frames.badgeFrame1.setVisibility(false)
             ui.frames.badgeFrame2.setVisibility(false)
-            local index = MAIN_FRAME_INDICES[alignment]
-            ui.frames.badgeFrame1.changeParentFrame(ui.frames.mainFrame, index)
+        else
+            local MAIN_FRAME_INDICES = {
+                [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE] = 1,
+                [Graphics.BADGE_ALIGNMENT_TYPE.BELOW] = 3,
+                [Graphics.BADGE_ALIGNMENT_TYPE.LEFT] = 1,
+                [Graphics.BADGE_ALIGNMENT_TYPE.RIGHT] = 3,
+                [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = {1, 3},
+                [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = {1, 3},
+                [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = {1, 2},
+                [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = {3, 3},
+                [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_LEFT] = {1, 2},
+                [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = {3, 3}
+            }
+            local primaryBadgeFrame = ui.frames.badgeFrame1
+            primaryBadgeFrame.setVisibility(true)
+            local secondaryBadgeFrame = ui.frames.badgeFrame2
+            if settings.badgesAppearance.SHOW_BOTH_BADGES and settings.badgesAppearance.PRIMARY_BADGE_SET == "KANTO" then
+                local temp = primaryBadgeFrame
+                primaryBadgeFrame = secondaryBadgeFrame
+                secondaryBadgeFrame = temp
+            end
+            local alignment
+            if settings.badgesAppearance.SHOW_BOTH_BADGES then
+                alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.DOUBLE_BADGE_ALIGNMENT]
+            else
+                alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.SINGLE_BADGE_ALIGNMENT]
+            end
+            local newOrientation = Graphics.BADGE_ORIENTATION[alignment]
+
+            local badgeFrames = {primaryBadgeFrame, secondaryBadgeFrame}
+            local newSize = {
+                width = 0,
+                height = 0
+            }
+            if newOrientation == "VERTICAL" then
+                ui.frames.mainFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.HORIZONTAL)
+                newSize.width = constants.BADGE_VERTICAL_WIDTH
+                newSize.height = constants.BADGE_VERTICAL_HEIGHT
+            else
+                ui.frames.mainFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.VERTICAL)
+                newSize.width = constants.BADGE_HORIZONTAL_WIDTH
+                newSize.height = constants.BOTTOM_BOX_HEIGHT
+            end
+            for _, badgeFrame in pairs(badgeFrames) do
+                if settings.badgesAppearance.SHOW_BOTH_BADGES then
+                    badgeFrame.setVisibility(true)
+                end
+                if newOrientation == "VERTICAL" then
+                    badgeFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.VERTICAL)
+                    badgeFrame.setLayoutSpacing(0)
+                else
+                    badgeFrame.setLayoutAlignment(Graphics.ALIGNMENT_TYPE.HORIZONTAL)
+                    badgeFrame.setLayoutSpacing(1)
+                end
+            end
+            if settings.badgesAppearance.SHOW_BOTH_BADGES then
+                local indices = MAIN_FRAME_INDICES[alignment]
+                primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[1])
+                secondaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[2])
+            else
+                ui.frames.badgeFrame2.setVisibility(false)
+                local index = MAIN_FRAME_INDICES[alignment]
+                ui.frames.badgeFrame1.changeParentFrame(ui.frames.mainFrame, index)
+            end
+            ui.frames.badgeFrame1.resize(newSize)
+            ui.frames.badgeFrame2.resize(newSize)
+            recalculateMainFrameSize(newOrientation)
         end
-        ui.frames.badgeFrame1.resize(newSize)
-        ui.frames.badgeFrame2.resize(newSize)
-        recalculateMainFrameSize(newOrientation)
     end
 
     initUI()
