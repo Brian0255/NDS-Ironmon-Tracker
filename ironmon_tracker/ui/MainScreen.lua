@@ -17,6 +17,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local currentPokemon = nil
     local opposingPokemon = nil
     local badgesEnabled = true
+    local defeatedLance = false
     local constants = {
         STAT_PREDICTION_STATES = {"", "+", "_"},
         BADGE_HORIZONTAL_WIDTH = 140,
@@ -1260,9 +1261,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if pokemon.statStages ~= nil then
             extraThingsToDraw.statStages = {}
             for statName, statStage in pairs(pokemon.statStages) do
-                local namePosition = ui.controls[statName .. "StatName"].getPosition()
-                local chevronPosition = {x = namePosition.x + 20, y = namePosition.y + 5}
-                extraThingsToDraw.statStages[statName] = {stage = statStage, position = chevronPosition}
+                if statName ~= "ACC" and statName ~= "EVA" then
+                    local namePosition = ui.controls[statName .. "StatName"].getPosition()
+                    local chevronPosition = {x = namePosition.x + 20, y = namePosition.y + 5}
+                    extraThingsToDraw.statStages[statName] = {stage = statStage, position = chevronPosition}
+                end
             end
         end
     end
@@ -1300,7 +1303,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 DrawingUtils.drawNaturePlusMinus(entry.position, entry.affect)
             end
         end
-       
     end
 
     local function checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
@@ -1537,6 +1539,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         setUpPokemonImage(pokemon)
         local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = pokemon
+        local evo = pokemon.evolution
+        if evo == PokemonData.EVOLUTION_TYPES.FRIEND and pokemon.friendship >= 220 then
+            evo = "SOON"
+        end
         ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. pokemon.evolution .. ")")
         ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.HP)
         local abilityName = AbilityData.ABILITIES[pokemon.ability + 1].name
@@ -1576,7 +1582,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         setUpStatStages(pokemon)
     end
 
-    
     local function openOptionsScreen()
         ui.frames.mainFrame.setVisibility(false)
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
@@ -1704,10 +1709,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             width = Graphics.SIZES.MAIN_SCREEN_WIDTH,
             height = Graphics.SIZES.MAIN_SCREEN_HEIGHT
         }
+        local spacing = 0
+        if settings.badgesAppearance.SPACER then
+            spacing = 5
+        end
+        ui.frames.mainFrame.setLayoutSpacing(spacing)
         local add = {width = 0, height = 0}
         local gameInfo = program.getGameInfo()
         local numBadges = 1
-        if settings.badgesAppearance.SHOW_BOTH_BADGES and gameInfo.GEN == 4 then
+        if settings.badgesAppearance.SHOW_BOTH_BADGES and (gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver") then
             numBadges = 2
             if not ui.frames.badgeFrame2.isVisible() then
                 numBadges = numBadges - 1
@@ -1717,9 +1727,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             numBadges = numBadges - 1
         end
         if orientation == "VERTICAL" then
-            add.width = numBadges * constants.BADGE_VERTICAL_WIDTH + 5 * numBadges
+            add.width = numBadges * constants.BADGE_VERTICAL_WIDTH + spacing * numBadges
         else
-            add.height = numBadges * constants.BOTTOM_BOX_HEIGHT + 5 * numBadges
+            add.height = numBadges * constants.BOTTOM_BOX_HEIGHT + spacing * numBadges
         end
         ui.frames.mainFrame.resize({width = baseSize.width + add.width, height = baseSize.height + add.height})
     end
@@ -1752,12 +1762,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    function self.setLanceDefeated(newValue)
+        defeatedLance = newValue
+    end
+
     function self.setUpForTrackedPokemonView()
         badgesEnabled = false
     end
 
     function self.undoTrackedPokemonView()
-        ui.frames.mainFrame.move({x=Graphics.SIZES.SCREEN_WIDTH,y=0})
+        ui.frames.mainFrame.move({x = Graphics.SIZES.SCREEN_WIDTH, y = 0})
         badgesEnabled = true
     end
 
@@ -1769,7 +1783,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if not badgesEnabled then
             ui.frames.badgeFrame1.setVisibility(false)
             ui.frames.badgeFrame2.setVisibility(false)
+            recalculateMainFrameSize("VERTICAL")
         else
+            local gameInfo = program.getGameInfo()
+            local showBoth =
+                settings.badgesAppearance.SHOW_BOTH_BADGES and
+                (gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver")
             local MAIN_FRAME_INDICES = {
                 [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE] = 1,
                 [Graphics.BADGE_ALIGNMENT_TYPE.BELOW] = 3,
@@ -1783,15 +1802,20 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = {3, 3}
             }
             local primaryBadgeFrame = ui.frames.badgeFrame1
-            primaryBadgeFrame.setVisibility(true)
             local secondaryBadgeFrame = ui.frames.badgeFrame2
-            if settings.badgesAppearance.SHOW_BOTH_BADGES and settings.badgesAppearance.PRIMARY_BADGE_SET == "KANTO" then
-                local temp = primaryBadgeFrame
-                primaryBadgeFrame = secondaryBadgeFrame
-                secondaryBadgeFrame = temp
+            if showBoth then
+                if settings.badgesAppearance.PRIMARY_BADGE_SET == "KANTO" then
+                    local temp = primaryBadgeFrame
+                    primaryBadgeFrame = secondaryBadgeFrame
+                    secondaryBadgeFrame = temp
+                end
+            elseif defeatedLance then
+                primaryBadgeFrame = ui.frames.badgeFrame2
             end
+            
+            primaryBadgeFrame.setVisibility(true)
             local alignment
-            if settings.badgesAppearance.SHOW_BOTH_BADGES then
+            if showBoth then
                 alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.DOUBLE_BADGE_ALIGNMENT]
             else
                 alignment = Graphics.BADGE_ALIGNMENT_TYPE[settings.badgesAppearance.SINGLE_BADGE_ALIGNMENT]
@@ -1813,7 +1837,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 newSize.height = constants.BOTTOM_BOX_HEIGHT
             end
             for _, badgeFrame in pairs(badgeFrames) do
-                if settings.badgesAppearance.SHOW_BOTH_BADGES then
+                if showBoth then
                     badgeFrame.setVisibility(true)
                 end
                 if newOrientation == "VERTICAL" then
@@ -1824,7 +1848,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     badgeFrame.setLayoutSpacing(1)
                 end
             end
-            if settings.badgesAppearance.SHOW_BOTH_BADGES then
+            if showBoth then
                 local indices = MAIN_FRAME_INDICES[alignment]
                 primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[1])
                 secondaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[2])
