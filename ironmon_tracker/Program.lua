@@ -739,8 +739,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
-		memoryReading = FrameCounter(30, readMemory, nil),
-		trackerSaving = FrameCounter(600, tracker.save, nil, true),
+		memoryReading = FrameCounter(1, readMemory, nil),
+		--trackerSaving = FrameCounter(600, tracker.save, nil, true),
 		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
 		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil, true)
 	}
@@ -759,6 +759,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.setUpForTrackedPokemonView()
+		locked = false
 		inTrackedPokemonView = true
 		currentScreens[self.UI_SCREENS.MAIN_SCREEN].setUpForTrackedPokemonView()
 		currentScreens[self.UI_SCREENS.TRACKED_POKEMON_SCREEN].initialize()
