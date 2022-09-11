@@ -3,13 +3,10 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
     local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
     local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
-    local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageLabel.lua")
-    local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageField.lua")
     local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
     local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
-    local HoverEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/HoverEventListener.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local SettingToggleButton = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/SettingToggleButton.lua")
     local settings = initialSettings

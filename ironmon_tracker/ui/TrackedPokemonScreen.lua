@@ -110,7 +110,6 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         for _, match in pairs(matches) do
             local name = PokemonData.POKEMON[match + 1].name
             local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
-            print(labelWidth)
             currentResultWidth = currentResultWidth + labelWidth + 1 --layout spacing
             if currentResultWidth > maxSearchResultWidth then
                 table.insert(
