@@ -3,8 +3,39 @@ ItemData = {}
 ItemData.ITEMS = {}
 
 ItemData.HEALING_TYPE = MiscUtils.readOnly({CONSTANT = 0, PERCENTAGE = 1})
-ItemData.STATUS_ID_SORT_ORDER =
-    {23, 591, 27, 36, 42, 157, 54, 19, 152, 156, 153, 20, 219, 149, 22, 18, 151, 21}
+ItemData.NATURE_SPECIFIC_BERRIES = {
+    ["Figy Berry"] = {
+        Modest = true,
+        Timid = true,
+        Calm = true,
+        Bold = true
+    },
+    ["Iapapa Berry"] = {
+        Lonely = true,
+        Mild = true,
+        Gentle = true,
+        Hasty = true
+    },
+    ["Wiki Berry"] = {
+        Adamant = true,
+        Jolly = true,
+        Careful = true,
+        Impish = true
+    },
+    ["Aguav Berry"] = {
+        Naughty = true,
+        Rash = true,
+        Naive = true,
+        Lax = true
+    },
+    ["Mago Berry"] = {
+        Brave = true,
+        Quiet = true,
+        Sassy = true,
+        Relaxed = true
+    }
+}
+ItemData.STATUS_ID_SORT_ORDER = {23, 591, 27, 36, 42, 157, 54, 19, 152, 156, 153, 20, 219, 149, 22, 18, 151, 21}
 ItemData.STATUS_ITEMS =
     MiscUtils.readOnly(
     {
@@ -82,8 +113,30 @@ ItemData.STATUS_ITEMS =
         }
     }
 )
-ItemData.HEALING_ID_SORT_ORDER =
-    {23, 24, 158, 162, 208, 159, 163, 161, 160, 35, 25, 33, 32, 31, 26, 34, 30, 43, 17, 504, 134, 155}
+ItemData.HEALING_ID_SORT_ORDER = {
+    23,
+    24,
+    158,
+    162,
+    208,
+    159,
+    163,
+    161,
+    160,
+    35,
+    25,
+    33,
+    32,
+    31,
+    26,
+    34,
+    30,
+    43,
+    17,
+    504,
+    134,
+    155
+}
 ItemData.HEALING_ITEMS =
     MiscUtils.readOnly(
     {
