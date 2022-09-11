@@ -42,7 +42,7 @@ function DrawingUtils.textToWrappedArray(text, maxWidth)
     local newWords = {}
     local currentLineLength = 0
     local currentLine = ""
-    for word, _ in pairs(words) do
+    for _, word in pairs(words) do
         --add 3 for space between words
         local wordPixelLength = DrawingUtils.calculateWordPixelLength(word)
         local nextLength = currentLineLength + wordPixelLength + 3

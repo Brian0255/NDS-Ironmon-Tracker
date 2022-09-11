@@ -52,7 +52,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 settings.controls[settingToChange] = button
             else
                 local buttons = MiscUtils.split(combo, " ")
-                if not buttons[button] then
+                if not MiscUtils.tableContains(buttons,button) then
                     settings.controls[settingToChange] = combo .. " " .. button
                 end
             end
@@ -243,7 +243,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ),
             TextField(
                 "Edit Controls",
-                {x = 30, y = 1},
+                {x = 34, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
