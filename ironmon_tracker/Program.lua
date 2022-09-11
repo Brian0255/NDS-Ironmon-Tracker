@@ -536,8 +536,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		memoryAddresses = info.memoryAddresses
 	end
 
+	local function HGSS_checkLeagueDefeated()
+		if gameInfo.NAME == "Pokemon HeartGold" or gameInfo.name == "Pokemon SoulSilver" then
+			local leagueEvent = Memory.read_u8(memoryAddresses.leagueBeaten)
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setLanceDefeated(leagueEvent >= 3)
+		end
+	end
+
 	local function readMemory()
-		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
+		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then 
+			HGSS_checkLeagueDefeated()
 			scanForHealingItems()
 			self.readBadgeMemory()
 			local battleStatus = Memory.read_u16_le(memoryAddresses.battleStatus)
@@ -704,7 +712,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.readBadgeMemory()
-		if gameInfo.NAME == "HeartGold" or gameInfo.NAME == "SoulSilver" then
+		if gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver" then
 			badges.firstSet = readBadgeByte(memoryAddresses.johtoBadges)
 			badges.secondSet = readBadgeByte(memoryAddresses.kantoBadges)
 		else
