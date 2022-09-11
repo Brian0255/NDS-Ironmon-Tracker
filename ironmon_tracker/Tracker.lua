@@ -4,8 +4,10 @@ local function Tracker()
 		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
 		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
+		currentHiddenPowerIndex = 1,
 		pokecenterCount = 10
 	}
+
 	local function loadData()
 		local file = io.open("autosave.trackerdata", "r")
 		if file ~= nil then
@@ -77,38 +79,39 @@ local function Tracker()
 		local template = {
 			baseForm = nil,
 			alternateForm = 0x00,
-            pokemonID = 0,
-            heldItem = 0,
-            ability = 0,
-            status = 0,
-            level = 0,
-            curHP = 0,
-            HP = 0,
-            stats = {
-            HP = "---",
-            ATK = "---",
-            DEF ="---",
-            SPE = "---",
-            SPA = "---",
-            SPD = "---",},
-            nature = 0,
-            encounterType = 0,
-            moveIDs = {0,0,0,0},
-            movePPs = {
-                "---",
-                "---",
-                "---",
-                "---"
-            },
-            statStages = {
-                ["HP"] = 6,
-                ["ATK"] = 6,
-                ["DEF"] = 6,
-                ["SPE"] = 6,
-                ["SPA"] = 6,
-                ["SPD"] = 6,
-            }
-        }
+			pokemonID = 0,
+			heldItem = 0,
+			ability = 0,
+			status = 0,
+			level = 0,
+			curHP = 0,
+			HP = 0,
+			stats = {
+				HP = "---",
+				ATK = "---",
+				DEF = "---",
+				SPE = "---",
+				SPA = "---",
+				SPD = "---"
+			},
+			nature = 0,
+			encounterType = 0,
+			moveIDs = {0, 0, 0, 0},
+			movePPs = {
+				"---",
+				"---",
+				"---",
+				"---"
+			},
+			statStages = {
+				["HP"] = 6,
+				["ATK"] = 6,
+				["DEF"] = 6,
+				["SPE"] = 6,
+				["SPA"] = 6,
+				["SPD"] = 6
+			}
+		}
 		local data = trackedData.trackedPokemon[id]
 		template.moves = data.moves
 		template.level = data.currentLevel
@@ -121,7 +124,7 @@ local function Tracker()
 		end
 		for i, move in pairs(data.moves) do
 			template.moveIDs[i] = move.move
-			template.movePPs[i] = MoveData.MOVES[move.move+1].pp
+			template.movePPs[i] = MoveData.MOVES[move.move + 1].pp
 		end
 		return template
 	end
@@ -221,6 +224,22 @@ local function Tracker()
 
 	function self.setStatPredictions(pokemonID, newStats)
 		trackedData.trackedPokemon[pokemonID].statPredictions = newStats
+	end
+
+	function self.getCurrentHiddenPowerType()
+		return trackedData.currentHiddenPowerType
+	end
+
+	function self.increaseHiddenPowerType()
+		local totalTypes = #PokemonData.TYPE_LIST
+		trackedData.currentHiddenPowerIndex = (trackedData.currentHiddenPowerIndex % totalTypes) + 1
+		trackedData.currentHiddenPowerType = PokemonData.TYPE_LIST[trackedData.currentHiddenPowerIndex]
+	end
+
+	function self.decreaseHiddenPowerType()
+		local totalTypes = #PokemonData.TYPE_LIST
+		trackedData.currentHiddenPowerIndex = ((trackedData.currentHiddenPowerIndex + totalTypes - 2) % totalTypes) + 1
+		trackedData.currentHiddenPowerType = PokemonData.TYPE_LIST[trackedData.currentHiddenPowerIndex]
 	end
 
 	function self.setNote(pokemonID, note)
