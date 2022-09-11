@@ -17,7 +17,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_FRAME_HEIGHT = 400,
+        MAIN_FRAME_HEIGHT = 365,
         TOP_FRAME_HEIGHT = 28,
         COLOR_FRAME_HEIGHT = 252,
         IMPORT_EXPORT_FRAME_HEIGHT = 47,

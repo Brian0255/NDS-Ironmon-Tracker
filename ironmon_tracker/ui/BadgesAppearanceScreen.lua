@@ -374,7 +374,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 },
                 "Top box background color","Top box border color"
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 5, {x = 15, y = 5}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 5, {x = 14, y = 5}),
             ui.frames.singleBadgeAlignmentFrame
         )
         local spacerButton = SettingToggleButton(
