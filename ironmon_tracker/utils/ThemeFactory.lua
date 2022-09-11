@@ -36,9 +36,9 @@ local constants = {
     DEFAULT_THEME_STRING = "FFFFFF FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 ",
     SAVE_THEME_WIDTH = 288,
     SAVE_THEME_HEIGHT = 70,
-    EXPORT_THEME_WIDTH = 730,
+    EXPORT_THEME_WIDTH = 800,
     EXPORT_THEME_HEIGHT = 70,
-    IMPORT_THEME_WIDTH = 780,
+    IMPORT_THEME_WIDTH = 880,
     IMPORT_THEME_HEIGHT = 70,
     CENTER_X = client.xpos() + client.screenwidth() / 2,
     CENTER_Y = client.ypos() + client.screenheight() / 2,
@@ -232,6 +232,7 @@ function ThemeFactory.createLoadThemeForm()
 end
 
 function ThemeFactory.createImportThemeForm()
+    forms.destroyall()
     local importForm =
         forms.newform(
         constants.IMPORT_THEME_WIDTH,
@@ -263,6 +264,7 @@ function ThemeFactory.createImportThemeForm()
 end
 
 function ThemeFactory.createExportThemeForm()
+    forms.destroyall()
     local exportForm =
         forms.newform(
         constants.EXPORT_THEME_WIDTH,
