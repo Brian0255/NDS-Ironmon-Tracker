@@ -34,9 +34,18 @@ end
 function MiscUtils.split(s, delimiter)
     local result = {}
     for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
-        result[match] = true
+        table.insert(result,match)
     end
     return result
+end
+
+function MiscUtils.tableContains(table,value)
+    for _, item in pairs(table) do
+        if item == value then
+            return true
+        end
+    end
+    return false
 end
 
 function MiscUtils.mouseInRange(mouseX, mouseY, controlX, controlY, width, height)
