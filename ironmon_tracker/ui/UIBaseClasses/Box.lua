@@ -49,6 +49,10 @@ local function Box(
         size.height = newSize.height
     end
 
+    function self.setBackgroundColorKey(newColorKey)
+        backgroundColorKey = newColorKey
+    end
+
     function self.getBackgroundColor()
         if size ~= nil and backgroundColorKey ~= nil then
             return DrawingUtils.convertColorKeyToColor(backgroundColorKey)

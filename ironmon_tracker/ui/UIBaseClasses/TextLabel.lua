@@ -25,6 +25,9 @@ local function TextLabel(initialComponent, initialTextField, isJustifiable, init
     function self.setTextOffset(newOffset)
         textField.setTextOffset(newOffset)
     end
+    function self.setBackgroundColorKey(newColorKey)
+        component.setBackgroundColorKey(newColorKey)
+    end
     function self.show()
         if visible then
             component.show()

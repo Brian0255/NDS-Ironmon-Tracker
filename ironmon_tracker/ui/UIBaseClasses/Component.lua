@@ -23,6 +23,10 @@ local function Component(initialFrame, initialBox)
     function self.getPosition()
         return box.getPosition()
     end
+    
+    function self.setBackgroundColorKey(newColorKey)
+        box.setBackgroundColorKey(newColorKey)
+    end
 
     function self.resize(newSize)
         box.resize(newSize)
