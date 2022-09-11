@@ -1658,9 +1658,21 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             {["pokemon"] = pokemon, mainFrame = ui.frames.mainFrame}
         )
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
-        abilityHoverParams.text = AbilityData.ABILITIES[pokemon.ability + 1].description
+        local description = AbilityData.ABILITIES[pokemon.ability + 1].description
+        if type(description) == "table" then
+            description = description[program.getGameInfo().GEN-3]
+        end
+        abilityHoverParams.text = description
         local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
-        itemHoverParams.text = heldItemInfo.description
+        local heldItemDescription = heldItemInfo.description
+        if ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name] ~= nil then
+            local badNatures = ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name]
+            local natureName = MiscData.NATURES[pokemon.nature+1]
+            if badNatures[natureName] then
+                heldItemDescription = heldItemDescription .. " Your Pok\233mon will dislike this."
+            end
+        end
+        itemHoverParams.text = heldItemDescription
         ui.frames.enemyNoteFrame.setVisibility(isEnemy)
         ui.frames.healFrame.setVisibility(not isEnemy)
         setUpStats(pokemon, isEnemy)
