@@ -1,5 +1,11 @@
 PokemonData = {}
 
+PokemonData.TYPE_LIST = {"BUG","DARK","DRAGON","ELECTRIC","FIGHTING","FIRE","FLYING","GHOST","GRASS","GROUND","ICE","NORMAL","POISON","PSYCHIC",
+"ROCK",
+"STEEL",
+"WATER"
+}
+
 -- Enumerated constants that defines the various types a Pokemon and its Moves are
 PokemonData.POKEMON_TYPES =
     MiscUtils.readOnly(
@@ -56,7 +62,7 @@ PokemonData.EVOLUTION_TYPES =
         DUBIOUS_DISC = "DUB DSC", -- Dubious Disc held item
         REAPER_CLOTH = "REA CLTH", -- Reaper Cloth held item
         UPGRADE = "UP-GRDE", --Up-Grade held item
-        DRAGON_SCALE = "DRG SCLE", --Dragon Scale held item
+        DRAGON_SCALE = "DRG SCL", --Dragon Scale held item
         METAL_COAT = "MTL COAT", --Metal Coat held item
         KINGS_ROCK = "KNG RCK" --King's Rock held item
     }
