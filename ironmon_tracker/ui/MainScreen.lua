@@ -11,7 +11,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local Icon = dofile("ironmon_tracker/ui/UIBaseClasses/Icon.lua")
     local HoverEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/HoverEventListener.lua")
     local MouseClickEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/MouseClickEventListener.lua")
-    local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER.."/FrameCounter.lua")
+    local JoypadEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/JoypadEventListener.lua")
+    local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
     local settings = initialSettings
     local tracker = initialTracker
     local program = initialProgram
@@ -20,6 +21,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local opposingPokemon = nil
     local badgesEnabled = true
     local defeatedLance = false
+    local statCycleIndex = -1
+    local stats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
     local constants = {
         STAT_PREDICTION_STATES = {"", "+", "_"},
         BADGE_HORIZONTAL_WIDTH = 140,
@@ -92,6 +95,38 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         hoverFrame.move(position)
     end
 
+    local function resetStatPredictionColor()
+        if statCycleIndex ~= -1 then
+            local oldStat = stats[statCycleIndex]
+            ui.controls[oldStat .. "StatPrediction"].setBackgroundColorKey("Top box background color")
+        end
+    end
+
+    local function increaseCycleStatIndex()
+        if statCycleIndex == -1 then
+            statCycleIndex = 1
+        else
+            resetStatPredictionColor()
+            statCycleIndex = (statCycleIndex % 6) + 1
+        end
+        local newStat = stats[statCycleIndex]
+        ui.controls[newStat .. "StatPrediction"].setBackgroundColorKey("Top box border color")
+        program.drawCurrentScreens()
+    end
+
+    local function increaseStatPrediction()
+        if currentPokemon ~= nil and currentPokemon.owner ~= program.SELECTED_PLAYERS.PLAYER then
+            if statCycleIndex ~= -1 then
+                local stat = stats[statCycleIndex]
+                local params = {
+                    pokemonID = currentPokemon.pokemonID,
+                    ["stat"] = stat
+                }
+                onStatPredictionClick(params)
+            end
+        end
+    end
+
     local function readStatPredictions(pokemonID)
         local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
         local states = constants.STAT_PREDICTION_STATES
@@ -129,7 +164,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 22
             )
             forms.setlocation(noteForm, clientCenter.xPos, clientCenter.yPos)
-            forms.setproperty(textBox,"TabStop", true)
+            forms.setproperty(textBox, "TabStop", true)
         end
     end
 
@@ -225,7 +260,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local baseWait = 90
         local clientFrameRate = client.get_approx_framerate()
         if clientFrameRate ~= nil and clientFrameRate > 60 then
-            baseWait = math.floor(baseWait * (clientFrameRate/90))
+            baseWait = math.floor(baseWait * (clientFrameRate / 90))
         end
         frameCounters["hiddenPowerCounter"] = FrameCounter(baseWait, onHiddenPowerFrameCounter)
         justChangedHiddenPower = true
@@ -233,7 +268,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function initHiddenPowerArrows()
-        local leftArrow = TextLabel(
+        local leftArrow =
+            TextLabel(
             Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 7, height = 7}, nil, nil, nil)),
             TextField(
                 "<",
@@ -246,7 +282,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        local rightArrow = TextLabel(
+        local rightArrow =
+            TextLabel(
             Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 7, height = 7}, nil, nil, nil)),
             TextField(
                 ">",
@@ -259,24 +296,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        table.insert(eventListeners,MouseClickEventListener(leftArrow,onChangeHiddenPower,"backward"))
-        table.insert(eventListeners,MouseClickEventListener(rightArrow,onChangeHiddenPower, "forward"))
+        table.insert(eventListeners, MouseClickEventListener(leftArrow, onChangeHiddenPower, "backward"))
+        table.insert(eventListeners, MouseClickEventListener(rightArrow, onChangeHiddenPower, "forward"))
     end
 
     local function initMainFrames()
         ui.frames.hiddenPowerArrowsFrame =
             Frame(
-            Box(
-                {x = 0, y = 0},
-                {width = 0, height = 0},
-                nil,
-                nil
-            ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.HORIZONTAL,
-                0,
-                {x = 0, y = 1}
-            ),
+            Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 1}),
             nil
         )
         ui.frames.mainFrame =
@@ -1191,33 +1219,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        --[[
-        ui.frames.healsBottom = Frame(
-            Box(
-                {
-                    x = 0,
-                    y = 0
-                },
-                {
-                    width = 0,
-                    height = 0
-                },
-                nil,
-                nil
-            ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
-            ui.frames.healFrame
-     
-        ui.controls.potionIcon = Icon(
-            Component(ui.frames.healsBottom, Box({x = 0, y = 0}, {width = 10, height = 16}, nil, nil)),
-            "HP_HEALS_ICON",
-            {x = 2, y = 0}
-        )
-        ui.controls.statusIcon = Icon(
-            Component(ui.frames.healsBottom, Box({x = 0, y = 0}, {width = 11, height = 16}, nil, nil)),
-            "STATUS_HEALS_ICON",
-            {x = 2, y = 0}
-        )--]]
         ui.controls.statusItemsLabel =
             TextLabel(
             Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 68, height = 10}, nil, nil)),
@@ -1232,7 +1233,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        --]]
         ui.controls.accLabel =
             TextLabel(
             Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 10, height = 10}, nil, nil)),
@@ -1351,7 +1351,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 local PPLabelPosition = moveFrame.PPLabel.getPosition()
                 local chevronPosition = {x = PPLabelPosition.x + 14, y = PPLabelPosition.y + 3}
                 local moveData = MoveData.MOVES[moveID + 1]
-                local moveEffectiveness = MoveUtils.netEffectiveness(moveData, defendingPokemon)
+                local moveEffectiveness =
+                    MoveUtils.netEffectiveness(
+                    moveData,
+                    defendingPokemon,
+                    defendingPokemon == program.SELECTED_PLAYERS.ENEMY,
+                    tracker.getCurrentHiddenPowerType()
+                )
                 table.insert(
                     extraThingsToDraw.moveEffectiveness,
                     {position = chevronPosition, effectiveness = moveEffectiveness}
@@ -1443,6 +1449,54 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function readMovesIntoUI(moveIDs, movePPs, pokemon, isEnemy)
+        for i, moveID in pairs(moveIDs) do
+            local moveData = MoveData.MOVES[moveID + 1]
+            local moveFrame = ui.moveInfoFrames[i]
+            local movePP = movePPs[i]
+            moveFrame.categoryIcon.setIconName(moveData.category)
+            if settings.colorSettings["Color move names by type"] then
+                moveFrame.moveNameLabel.setTextColorKey(moveData.type)
+                if moveData.name == "Hidden Power" then
+                    moveFrame.moveNameLabel.setTextColorKey(tracker.getCurrentHiddenPowerType())
+                end
+            else
+                moveFrame.moveNameLabel.setTextColorKey("Bottom box text color")
+            end
+            moveFrame.moveTypeIcon.setIconName(moveData.type)
+            moveFrame.moveTypeIcon.setVisibility(settings.colorSettings["Draw move type icons"])
+            moveFrame.categoryIcon.setVisibility(settings.colorSettings["Show phys/spec move icons"])
+            local moveNameText = moveData.name
+            if justChangedHiddenPower and moveData.name == "Hidden Power" then
+                print("yes")
+                local hiddenPowerType = tracker:getCurrentHiddenPowerType()
+                moveNameText = hiddenPowerType:sub(1, 1) .. hiddenPowerType:sub(2):lower()
+            end
+            if isEnemy then
+                local stars = MoveUtils.getStars(pokemon)
+                moveNameText = moveNameText .. stars[i]
+            end
+            moveFrame.moveNameLabel.setText(moveNameText)
+            moveFrame.moveNameLabel.resize({width = 70, height = 8})
+            if moveData.name == "Hidden Power" then
+                moveFrame.moveNameLabel.resize({width = 55, height = 8})
+                local frame = ui.frames["move" .. i .. "NameIconFrame"]
+                ui.frames.hiddenPowerArrowsFrame.changeParentFrame(frame, 4)
+                ui.frames.hiddenPowerArrowsFrame.setVisibility(true)
+            end
+            moveFrame.PPLabel.setText(movePP)
+            moveFrame.powLabel.setTextColorKey("Bottom box text color")
+            if MoveUtils.isSTAB(moveData, pokemon) and program.isInBattle() then
+                moveFrame.powLabel.setTextColorKey("Positive text color")
+            end
+            moveFrame.powLabel.setText(moveData.power)
+            moveFrame.accLabel.setText(moveData.accuracy)
+            local listener = moveEventListeners[i]
+            local params = listener.getOnHoverParams()
+            params.text = moveData.description
+        end
+    end
+
     local function setUpMoves(pokemon, isEnemy, opposingPokemon)
         local movesHeader = MoveUtils.getMoveHeader(pokemon)
         ui.controls.moveHeaderLearnedText.setText(movesHeader)
@@ -1480,51 +1534,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if opposingPokemon ~= nil then
             setUpMoveEffectiveness(moveIDs, opposingPokemon)
         end
-        for i, moveID in pairs(moveIDs) do
-            local moveData = MoveData.MOVES[moveID + 1]
-            local moveFrame = ui.moveInfoFrames[i]
-            local movePP = movePPs[i]
-            moveFrame.categoryIcon.setIconName(moveData.category)
-            if settings.colorSettings["Color move names by type"] then
-                moveFrame.moveNameLabel.setTextColorKey(moveData.type)
-                if moveData.name == "Hidden Power" then
-                    moveFrame.moveNameLabel.setTextColorKey(tracker.getCurrentHiddenPowerType())
-                end
-            else
-                moveFrame.moveNameLabel.setTextColorKey("Bottom box text color")
-            end
-            moveFrame.moveTypeIcon.setIconName(moveData.type)
-            moveFrame.moveTypeIcon.setVisibility(settings.colorSettings["Draw move type icons"])
-            moveFrame.categoryIcon.setVisibility(settings.colorSettings["Show phys/spec move icons"])
-            local moveNameText = moveData.name
-            if justChangedHiddenPower and moveData.name == "Hidden Power" then
-                print("yes")
-                local hiddenPowerType = tracker:getCurrentHiddenPowerType()
-                moveNameText = hiddenPowerType:sub(1,1)..hiddenPowerType:sub(2):lower()
-            end
-            if isEnemy then
-                local stars = MoveUtils.getStars(pokemon)
-                moveNameText = moveNameText .. stars[i]
-            end
-            moveFrame.moveNameLabel.setText(moveNameText)
-            moveFrame.moveNameLabel.resize({width = 70,height = 8})
-            if moveData.name == "Hidden Power" then
-                moveFrame.moveNameLabel.resize({width = 55,height = 8})
-                local frame = ui.frames["move" .. i .. "NameIconFrame"]
-                ui.frames.hiddenPowerArrowsFrame.changeParentFrame(frame,4)
-                ui.frames.hiddenPowerArrowsFrame.setVisibility(true)
-            end
-            moveFrame.PPLabel.setText(movePP)
-            moveFrame.powLabel.setTextColorKey("Bottom box text color")
-            if MoveUtils.isSTAB(moveData, pokemon) and program.isInBattle() then
-                moveFrame.powLabel.setTextColorKey("Positive text color")
-            end
-            moveFrame.powLabel.setText(moveData.power)
-            moveFrame.accLabel.setText(moveData.accuracy)
-            local listener = moveEventListeners[i]
-            local params = listener.getOnHoverParams()
-            params.text = moveData.description
-        end
+        readMovesIntoUI(moveIDs, movePPs, pokemon, isEnemy)
         checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
     end
 
@@ -1610,15 +1620,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function clearExtraThingsToDraw()
-        extraThingsToDraw = {
-            moveEffectiveness = {},
-            nature = {},
-            statStages = {}
-        }
-    end
-
     local function readPokemonIntoUI()
+        if not program.isInBattle() and not program.isLocked() then 
+            resetStatPredictionColor()
+            statCycleIndex = -1 
+        end
         ui.frames.mainFrame.recalculateChildPositions()
         local pokemon = currentPokemon
         local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
@@ -1660,14 +1666,14 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
         local description = AbilityData.ABILITIES[pokemon.ability + 1].description
         if type(description) == "table" then
-            description = description[program.getGameInfo().GEN-3]
+            description = description[program.getGameInfo().GEN - 3]
         end
         abilityHoverParams.text = description
         local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
         local heldItemDescription = heldItemInfo.description
         if ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name] ~= nil then
             local badNatures = ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name]
-            local natureName = MiscData.NATURES[pokemon.nature+1]
+            local natureName = MiscData.NATURES[pokemon.nature + 1]
             if badNatures[natureName] then
                 heldItemDescription = heldItemDescription .. " Your Pok\233mon will dislike this."
             end
@@ -1810,6 +1816,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             HoverEventListener(ui.controls.healsLabel, onItemBagInfoHover, nil, onHoverInfoEnd)
         eventListeners.statusItemsHoverListener =
             HoverEventListener(ui.controls.statusItemsLabel, onItemBagInfoHover, nil, onHoverInfoEnd)
+        eventListeners.cycleStatListener = JoypadEventListener(settings.controls, "CYCLE_STAT", increaseCycleStatIndex)
+        eventListeners.cyclePredictionListener =
+            JoypadEventListener(settings.controls, "CYCLE_PREDICTION", increaseStatPrediction)
     end
 
     local function recalculateMainFrameSize(orientation)
@@ -1825,7 +1834,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local add = {width = 0, height = 0}
         local gameInfo = program.getGameInfo()
         local numBadges = 1
-        if settings.badgesAppearance.SHOW_BOTH_BADGES and (gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver") then
+        if
+            settings.badgesAppearance.SHOW_BOTH_BADGES and
+                (gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver")
+         then
             numBadges = 2
             if not ui.frames.badgeFrame2.isVisible() then
                 numBadges = numBadges - 1
@@ -1920,7 +1932,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             elseif defeatedLance then
                 primaryBadgeFrame = ui.frames.badgeFrame2
             end
-            
+
             primaryBadgeFrame.setVisibility(true)
             local alignment
             if showBoth then
