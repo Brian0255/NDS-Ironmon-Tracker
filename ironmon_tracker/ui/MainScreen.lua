@@ -222,7 +222,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         else
             tracker.decreaseHiddenPowerType()
         end
-        frameCounters["hiddenPowerCounter"] = FrameCounter(90, onHiddenPowerFrameCounter)
+        local baseWait = 90
+        local clientFrameRate = client.get_approx_framerate()
+        if clientFrameRate ~= nil and clientFrameRate > 60 then
+            baseWait = math.floor(baseWait * (clientFrameRate/90))
+        end
+        frameCounters["hiddenPowerCounter"] = FrameCounter(baseWait, onHiddenPowerFrameCounter)
         justChangedHiddenPower = true
         program.drawCurrentScreens()
     end
