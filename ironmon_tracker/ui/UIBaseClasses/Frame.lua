@@ -22,14 +22,18 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
             if control.recalculateChildPositions then
                 control.recalculateChildPositions()
             end
-            --control.calculateActualPosition(self.getPosition())
-        end--]]
+        end
     end
     function self.calculateActualPosition(position)
         box.calculateActualPosition(position)
     end
+    function self.setBackgroundColorKey(newColorKey)
+        box.setBackgroundColorKey(newColorKey)
+    end
     function self.changeParentFrame(newFrame, newIndex)
-        parentFrame.removeControl(self)
+        if parentFrame ~= nil then
+            parentFrame.removeControl(self)
+        end
         parentFrame = newFrame
         parentFrame.addControl(self, newIndex)
     end

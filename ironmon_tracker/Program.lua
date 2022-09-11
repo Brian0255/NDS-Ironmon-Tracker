@@ -642,6 +642,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return nil
 	end
 
+	function self.isLocked()
+		return locked
+	end
+
 	local function switchPokemonView()
 		if not inTrackedPokemonView then
 			if (inBattle and battleDataFetched) or locked and lockedPokemonCopy ~= nil then

@@ -33,7 +33,7 @@ ThemeFactory.COLOR_SETTINGS_KEYS_ORDERED = {
 }
 
 local constants = {
-    DEFAULT_THEME_STRING = "FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 ",
+    DEFAULT_THEME_STRING = "FFFFFF FFFFFF 00FF00 FF0000 FFFF00 FFFFFF AAAAAA 222222 AAAAAA 222222 000000 FFC631 7DB6FF DBDBDB 1 1 0 0 0 1 ",
     SAVE_THEME_WIDTH = 288,
     SAVE_THEME_HEIGHT = 70,
     EXPORT_THEME_WIDTH = 730,
@@ -299,7 +299,6 @@ function ThemeFactory.getThemeString()
 end
 
 local function isLegacyNDSString(themeString)
-    local boolCounter = 0
     local colorCounter = 0
     for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
         if #number > 1 then
@@ -310,7 +309,6 @@ local function isLegacyNDSString(themeString)
 end
 
 local function isGen3String(themeString)
-    local boolCounter = 0
     local colorCounter = 0
     for number in string.gmatch(themeString, "[0-9a-fA-F]+") do
         if #number > 1 then
