@@ -1,22 +1,27 @@
 FormsUtils = {}
 
 FormsUtils.POPUP_DIALOG_TYPES = {
-    WARNING = "!",
+    WARNING = "Error",
     INFO = "Info"
 }
 
-function FormsUtils.popupDialog(info, x, y, width, height, dialogType)
+function FormsUtils.popupDialog(info, width, height, dialogType, pauseUntilClosed)
+    if pauseUntilClosed == nil then
+        pauseUntilClosed = false
+    end
+    client.pause()
+    local centerPosition = FormsUtils.getCenter(width,height)
     local infoForm =
         forms.newform(
         width,
         height,
         dialogType,
         function()
+            client.unpause()
         end
     )
-    forms.setlocation(infoForm, x, y)
-    local canvas = forms.pictureBox(infoForm, 0, 0, width, height)
-    forms.drawText(canvas, 10, 10, info, 0xFF000000, 0x00000000, 14, "Arial")
+    forms.setlocation(infoForm, centerPosition.xPos, centerPosition.yPos)
+    forms.label(infoForm, info, 10, 10, width-30, height-20)
 end
 
 function FormsUtils.fileExists(path)
@@ -27,6 +32,14 @@ function FormsUtils.fileExists(path)
     else
         return false
     end
+end
+
+function FormsUtils.getFileNameFromPath(path)
+    return path:reverse():match("([^\\]*)\\"):reverse()
+end
+
+function FormsUtils.getCurrentDirectory()
+    return io.popen "cd":read "*l"
 end
 
 function FormsUtils.getCenter(width, height)
