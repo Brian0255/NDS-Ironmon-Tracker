@@ -300,7 +300,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Load next seed:",
+                "QuickLoad:",
                 {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

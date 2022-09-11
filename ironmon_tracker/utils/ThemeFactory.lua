@@ -105,8 +105,6 @@ function ThemeFactory.saveFile(file)
     forms.destroyall()
     FormsUtils.popupDialog(
         "File successfully saved.",
-        constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
-        constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2,
         constants.SAVE_THEME_WIDTH,
         78,
         FormsUtils.POPUP_DIALOG_TYPES.INFO
@@ -221,8 +219,6 @@ function ThemeFactory.createLoadThemeForm()
         else
             FormsUtils.popupDialog(
                 "Invalid file selection.",
-                constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
-                constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2,
                 constants.SAVE_THEME_WIDTH,
                 78,
                 FormsUtils.POPUP_DIALOG_TYPES.INFO
