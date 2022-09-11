@@ -80,7 +80,7 @@ function inifile.parse(name, backend)
 		end
 
 		-- Key-value pairs
-		local key, value = line:match("^(.+)=(.+)$")--line:match("^([%w/_]+)%s-=%s-(.+)$")
+		local key, value = line:match("^(.+)=(.*)$")--line:match("^([%w/_]+)%s-=%s-(.+)$")
 		if value then
 			if value:sub(1,2) == "FF" then
 				value = "0x"..value
