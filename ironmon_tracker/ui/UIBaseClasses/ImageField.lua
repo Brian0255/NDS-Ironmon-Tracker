@@ -19,6 +19,9 @@ local function ImageField(initialPath, initialOffset, initialSize)
             end
         end
     end
+    function self.setOffset(newOffset)
+        offset = newOffset
+    end
     function self.getPath()
         return path
     end
