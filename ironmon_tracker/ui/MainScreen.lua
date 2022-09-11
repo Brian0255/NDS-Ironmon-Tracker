@@ -270,15 +270,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function initHiddenPowerArrows()
         local leftArrow =
             TextLabel(
-            Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 7, height = 7}, nil, nil, nil)),
+            Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 5, height = 7}, nil, nil, nil)),
             TextField(
                 "<",
                 {x = 0, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Top box text color",
-                    "Top box background color"
+                    "Bottom box text color",
+                    "Bottom box background color"
                 )
             )
         )
@@ -291,8 +291,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Top box text color",
-                    "Top box background color"
+                    "Bottom box text color",
+                    "Bottom box background color"
                 )
             )
         )
@@ -884,7 +884,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 79, height = 10},
+                    {width = 80, height = 10},
                     nil,
                     nil
                 )
@@ -1010,7 +1010,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         y = 0
                     },
                     {
-                        width = 80,
+                        width = 81,
                         height = constants.MOVE_ENTRY_HEIGHT
                     },
                     nil,
@@ -1478,7 +1478,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             moveFrame.moveNameLabel.setText(moveNameText)
             moveFrame.moveNameLabel.resize({width = 70, height = 8})
             if moveData.name == "Hidden Power" then
-                moveFrame.moveNameLabel.resize({width = 55, height = 8})
+                moveFrame.moveNameLabel.resize({width = 53, height = 8})
                 local frame = ui.frames["move" .. i .. "NameIconFrame"]
                 ui.frames.hiddenPowerArrowsFrame.changeParentFrame(frame, 4)
                 ui.frames.hiddenPowerArrowsFrame.setVisibility(true)
