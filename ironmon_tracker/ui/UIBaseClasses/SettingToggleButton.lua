@@ -70,7 +70,7 @@ local function SettingToggleButton(
                     drawInnerFilledRectangle()
                 end
             else
-                if state == true then
+                if settings[settingsKey] then
                     drawCheckmark()
                 end
             end
