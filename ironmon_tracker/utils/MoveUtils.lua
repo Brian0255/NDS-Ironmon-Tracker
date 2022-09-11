@@ -1,6 +1,6 @@
 MoveUtils = {}
 
-function MoveUtils.netEffectiveness(move, pkmnData)
+function MoveUtils.netEffectiveness(move, pkmnData, isEnemy, hiddenPowerType)
     local NO_EFFECT_PAIRINGS = {
         [PokemonData.POKEMON_TYPES.NORMAL] = PokemonData.POKEMON_TYPES.GHOST,
         [PokemonData.POKEMON_TYPES.FIGHTING] = PokemonData.POKEMON_TYPES.GHOST,
@@ -28,10 +28,9 @@ function MoveUtils.netEffectiveness(move, pkmnData)
     local effectiveness = 1.0
     for _, type in ipairs(pkmnData["type"]) do
         local moveType = move.type
-        --[[
-        if move["name"] == "Hidden Power" and Tracker.Data.selectedPlayer == 1 then
-            moveType = Tracker.Data.currentHiddenPowerType
-        end--]]
+        if move.name == "Hidden Power" and not isEnemy then
+            moveType = hiddenPowerType
+        end
         if moveType ~= "---" then
             if MoveData.EFFECTIVE_DATA[moveType][type] ~= nil then
                 effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][type]
@@ -139,13 +138,12 @@ function MoveUtils.getTypeDefensesTable(pokemonData)
     return typeDefenses
 end
 
-function MoveUtils.isSTAB(move, pokemon)
+function MoveUtils.isSTAB(move, pokemon, isEnemy, hiddenPowerType)
     for _, type in pairs(pokemon["type"]) do
         local moveType = move.type
-        --[[
-        if move.name == "Hidden Power" and Tracker.Data.selectedPlayer == 1 then
-            moveType = Tracker.Data.currentHiddenPowerType
-        end--]]
+        if move.name == "Hidden Power" and not isEnemy then
+            moveType = hiddenPowerType
+        end
         if move.power ~= Graphics.TEXT.NO_POWER and moveType == type then
             return true
         end
