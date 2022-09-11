@@ -18,14 +18,14 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         previousText = ""
     }
     local constants = {
-        MAIN_FRAME_HEIGHT = 105,
-        BOTTOM_FRAME_HEIGHT= 24,
+        MAIN_FRAME_HEIGHT = 141,
+        BOTTOM_FRAME_HEIGHT = 24,
         TEXT_HEADER_HEIGHT = 18,
         FOLDER_LABEL_WIDTH = 96,
         BUTTON_SIZE = 10,
         SET_BUTTON_WIDTH = 34,
         SET_BUTTON_HEIGHT = 14,
-        CHOOSE_TYPE_FRAME_HEIGHT = 53,
+        CHOOSE_TYPE_FRAME_HEIGHT = 89,
         PATH_SETUP_FRAME_HEIGHT = 36,
         TYPE_OPTION_FRAME_HEIGHT = 13,
         BATCH_SETUP_FRAME_HEIGHT = 62,
@@ -63,7 +63,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
 
     local function calculateMainFrameSize()
         local baseHeight = constants.MAIN_FRAME_HEIGHT
-        local framesToCheck = {ui.frames.mainROMGenerateFrame,ui.frames.mainBatchFrame}
+        local framesToCheck = {ui.frames.mainROMGenerateFrame, ui.frames.mainBatchFrame}
         for _, frame in pairs(framesToCheck) do
             if frame.isVisible() then
                 baseHeight = baseHeight + frame.getSize().height
@@ -255,6 +255,63 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioClick, radioButton))
     end
 
+    local function createQuickLoadComboFrame()
+        ui.frames.quickLoadFrame =
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {
+                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 2, {x = 0, y = 4}),
+            ui.frames.chooseTypeFrame
+        )
+        local quickLoadLabel = TextLabel(
+            Component(
+                ui.frames.quickLoadFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        height = 12
+                    },
+                    nil,
+                    nil,
+                    false
+                )
+            ),
+            TextField(
+                "QuickLoad combo:",
+                {x = 0, y = 0},
+                TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+        local quickLoadValue = TextLabel(
+            Component(
+                ui.frames.quickLoadFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        height = constants.TEXT_HEADER_HEIGHT
+                    },
+                    nil,
+                    nil,
+                    false
+                )
+            ),
+            TextField(
+                settings.controls.LOAD_NEXT_SEED:gsub(" ","   "),
+                {x = 0, y = 0},
+                TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+    end
+
     local function createChooseTypeFrame()
         ui.frames.chooseTypeFrame =
             Frame(
@@ -287,7 +344,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ),
             TextField(
                 "QuickLoad Type",
-                {x = 24, y = 0},
+                {x = 26, y = 0},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -300,6 +357,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         for _, settingValue in pairs(order) do
             createTypeChooseRadioButtonRow(setting, settingValue, typeSettings[settingValue])
         end
+        createQuickLoadComboFrame()
     end
 
     local function createBatchSetupFrame()
@@ -454,15 +512,14 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             Frame(
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH-2*Graphics.SIZES.BORDER_MARGIN, height = constants.BOTTOM_FRAME_HEIGHT},
+                {
+                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    height = constants.BOTTOM_FRAME_HEIGHT
+                },
                 "Top box background color",
                 "Top box border color"
             ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.HORIZONTAL,
-                0,
-                {x = 94, y = Graphics.SIZES.BORDER_MARGIN}
-            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 94, y = Graphics.SIZES.BORDER_MARGIN}),
             ui.frames.mainFrame
         )
         ui.controls.goBackButton =
@@ -489,7 +546,8 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             )
         )
-        table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, onGoBackClick))--]]
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, onGoBackClick))
+     --]]
     end
 
     function self.runEventListeners()
@@ -499,8 +557,8 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
     end
 
     function self.show()
-        ui.frames.mainROMGenerateFrame.setVisibility(settings.quickLoad.LOAD_TYPE=="GENERATE_ROMS")
-        ui.frames.mainBatchFrame.setVisibility(settings.quickLoad.LOAD_TYPE=="USE_BATCH")
+        ui.frames.mainROMGenerateFrame.setVisibility(settings.quickLoad.LOAD_TYPE == "GENERATE_ROMS")
+        ui.frames.mainBatchFrame.setVisibility(settings.quickLoad.LOAD_TYPE == "USE_BATCH")
         calculateMainFrameSize()
         ui.frames.mainFrame.show()
     end

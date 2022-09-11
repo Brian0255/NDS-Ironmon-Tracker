@@ -12,7 +12,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		MAIN_OPTIONS_HEIGHT = 150,
+		MAIN_OPTIONS_HEIGHT = 176,
 		MAIN_BUTTONS_Y_OFFSET = 23,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
@@ -24,7 +24,8 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		battleSettingsClickListener = nil,
 		trackerAppearanceClickListener = nil,
 		trackedPokemonClickListener = nil,
-		--editControlsClickListener = nil,
+		editControlsClickListener = nil,
+		quickLoadClickListener = nil,
 		goBackClickListener = nil
 	}
 	local self = {}
@@ -37,7 +38,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		program.drawCurrentScreens()
 	end
 	local function onTrackedPokemonClick()
-		program.setCurrentScreens({program.UI_SCREENS.TRACKED_POKEMON_SCREEN,program.UI_SCREENS.MAIN_SCREEN})
+		program.setCurrentScreens({program.UI_SCREENS.TRACKED_POKEMON_SCREEN, program.UI_SCREENS.MAIN_SCREEN})
 		program.setUpForTrackedPokemonView()
 		program.moveMainScreen({x = Graphics.SIZES.SCREEN_WIDTH, y = 42})
 		program.drawCurrentScreens()
@@ -46,21 +47,27 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		program.setCurrentScreens({program.UI_SCREENS.EDIT_CONTROLS_SCREEN})
 		program.drawCurrentScreens()
 	end
+	local function onQuickLoadClick()
+		program.setCurrentScreens({program.UI_SCREENS.QUICK_LOAD_SCREEN})
+		program.drawCurrentScreens()
+	end
 	local function onGoBackClick()
 		program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN})
 		program.drawCurrentScreens()
 	end
-	
+
 	local function initEventListeners()
 		eventListeners.goBackClickListener = MouseClickEventListener(ui.controls.goBackButton, onGoBackClick)
 		eventListeners.battleSettingsClickListener =
 			MouseClickEventListener(ui.frames.battleSettingsButtonFrame, onBattleSettingsClick)
 		eventListeners.trackerAppearanceClickListener =
 			MouseClickEventListener(ui.frames.trackerAppearanceButtonFrame, onTrackerAppearanceClick)
-		eventListeners.trackedPokemonClickListener = 
+		eventListeners.trackedPokemonClickListener =
 			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
-		eventListeners.editControlsClickListener = 
+		eventListeners.editControlsClickListener =
 			MouseClickEventListener(ui.frames.editControlsButtonFrame, onEditControlsClick)
+		eventListeners.quickLoadClickListener =
+			MouseClickEventListener(ui.frames.quickLoadButtonFrame, onQuickLoadClick)
 	end
 	local function initBottomFrameControls()
 		TextLabel(
@@ -106,10 +113,17 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			battleSettingsButton = "Battle Settings",
 			trackerAppearanceButton = "Tracker Appearance",
 			trackedPokemonButton = "Tracked Pok\233mon ",
-			editControlsButton = "Edit Controls"
+			editControlsButton = "Edit Controls",
+			quickLoadButton = "QuickLoad Settings"
 		}
-		local icons = {"SWORD", "SPARKLES", "PENCIL", "CONTROLLER"}
-		local order = {"battleSettingsButton", "trackerAppearanceButton", "trackedPokemonButton", "editControlsButton"}
+		local icons = {"SWORD", "SPARKLES", "PENCIL", "CONTROLLER", "LIGHTNING_BOLT"}
+		local order = {
+			"battleSettingsButton",
+			"trackerAppearanceButton",
+			"trackedPokemonButton",
+			"editControlsButton",
+			"quickLoadButton"
+		}
 		for i, key in pairs(order) do
 			local text = buttonNames[key]
 			local iconName = icons[i]
@@ -181,14 +195,14 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		)
 		ui.frames.mainButtonFrame =
 			Frame(
-			Box({x = constants.MAIN_BUTTONS_X_OFFSET, y = constants.MAIN_BUTTONS_Y_OFFSET}, {width = 0, height = 50}, nil, nil),
+			Box({x = constants.MAIN_BUTTONS_X_OFFSET, y = constants.MAIN_BUTTONS_Y_OFFSET}, {width = 0, height = 0}, nil, nil),
 			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, constants.MAIN_BUTTON_SPACING),
 			ui.frames.mainInnerFrame
 		)
 		ui.frames.bottomFrame =
 			Frame(
 			Box(
-				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 96},
+				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 122},
 				{
 					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = 21
