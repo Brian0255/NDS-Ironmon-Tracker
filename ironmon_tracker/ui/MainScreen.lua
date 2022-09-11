@@ -11,9 +11,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local Icon = dofile("ironmon_tracker/ui/UIBaseClasses/Icon.lua")
     local HoverEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/HoverEventListener.lua")
     local MouseClickEventListener = dofile("ironmon_tracker/ui/UIBaseClasses/MouseClickEventListener.lua")
+    local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER.."/FrameCounter.lua")
     local settings = initialSettings
     local tracker = initialTracker
     local program = initialProgram
+    local justChangedHiddenPower = false
     local currentPokemon = nil
     local opposingPokemon = nil
     local badgesEnabled = true
@@ -44,6 +46,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         heldItemHoverListener = nil,
         pokemonHoverListener = nil
     }
+    local frameCounters = {}
     local moveEventListeners = {}
     local statPredictionEventListeners = {}
     local ui = {}
@@ -113,7 +116,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             )
             local textBox = forms.textbox(noteForm, tracker.getNote(pokemonID), 190, 0, nil, 5, 5)
             forms.button(
-                noteForm,
+                textBox,
                 "Set",
                 function()
                     tracker.setNote(pokemonID, forms.gettext(textBox))
@@ -126,6 +129,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 22
             )
             forms.setlocation(noteForm, clientCenter.xPos, clientCenter.yPos)
+            forms.setproperty(textBox,"TabStop", true)
         end
     end
 
@@ -206,7 +210,70 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function onHiddenPowerFrameCounter()
+        frameCounters["hiddenPowerCounter"] = nil
+        justChangedHiddenPower = false
+        program.drawCurrentScreens()
+    end
+
+    local function onChangeHiddenPower(direction)
+        if direction == "forward" then
+            tracker.increaseHiddenPowerType()
+        else
+            tracker.decreaseHiddenPowerType()
+        end
+        frameCounters["hiddenPowerCounter"] = FrameCounter(90, onHiddenPowerFrameCounter)
+        justChangedHiddenPower = true
+        program.drawCurrentScreens()
+    end
+
+    local function initHiddenPowerArrows()
+        local leftArrow = TextLabel(
+            Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 7, height = 7}, nil, nil, nil)),
+            TextField(
+                "<",
+                {x = 0, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        local rightArrow = TextLabel(
+            Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 7, height = 7}, nil, nil, nil)),
+            TextField(
+                ">",
+                {x = 0, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        table.insert(eventListeners,MouseClickEventListener(leftArrow,onChangeHiddenPower,"backward"))
+        table.insert(eventListeners,MouseClickEventListener(rightArrow,onChangeHiddenPower, "forward"))
+    end
+
     local function initMainFrames()
+        ui.frames.hiddenPowerArrowsFrame =
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {width = 0, height = 0},
+                nil,
+                nil
+            ),
+            Layout(
+                Graphics.ALIGNMENT_TYPE.HORIZONTAL,
+                0,
+                {x = 0, y = 1}
+            ),
+            nil
+        )
         ui.frames.mainFrame =
             Frame(
             Box(
@@ -1255,6 +1322,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initStatControls()
         initBadgeControls()
         initMiscControls()
+        initHiddenPowerArrows()
     end
 
     local function setUpStatStages(pokemon)
@@ -1373,6 +1441,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function setUpMoves(pokemon, isEnemy, opposingPokemon)
         local movesHeader = MoveUtils.getMoveHeader(pokemon)
         ui.controls.moveHeaderLearnedText.setText(movesHeader)
+        ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
         local moveIDs = pokemon.moveIDs
         local movePPs = {}
         if isEnemy then
@@ -1413,6 +1482,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             moveFrame.categoryIcon.setIconName(moveData.category)
             if settings.colorSettings["Color move names by type"] then
                 moveFrame.moveNameLabel.setTextColorKey(moveData.type)
+                if moveData.name == "Hidden Power" then
+                    moveFrame.moveNameLabel.setTextColorKey(tracker.getCurrentHiddenPowerType())
+                end
             else
                 moveFrame.moveNameLabel.setTextColorKey("Bottom box text color")
             end
@@ -1420,11 +1492,23 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             moveFrame.moveTypeIcon.setVisibility(settings.colorSettings["Draw move type icons"])
             moveFrame.categoryIcon.setVisibility(settings.colorSettings["Show phys/spec move icons"])
             local moveNameText = moveData.name
+            if justChangedHiddenPower and moveData.name == "Hidden Power" then
+                print("yes")
+                local hiddenPowerType = tracker:getCurrentHiddenPowerType()
+                moveNameText = hiddenPowerType:sub(1,1)..hiddenPowerType:sub(2):lower()
+            end
             if isEnemy then
                 local stars = MoveUtils.getStars(pokemon)
                 moveNameText = moveNameText .. stars[i]
             end
             moveFrame.moveNameLabel.setText(moveNameText)
+            moveFrame.moveNameLabel.resize({width = 70,height = 8})
+            if moveData.name == "Hidden Power" then
+                moveFrame.moveNameLabel.resize({width = 55,height = 8})
+                local frame = ui.frames["move" .. i .. "NameIconFrame"]
+                ui.frames.hiddenPowerArrowsFrame.changeParentFrame(frame,4)
+                ui.frames.hiddenPowerArrowsFrame.setVisibility(true)
+            end
             moveFrame.PPLabel.setText(movePP)
             moveFrame.powLabel.setTextColorKey("Bottom box text color")
             if MoveUtils.isSTAB(moveData, pokemon) and program.isInBattle() then
@@ -1606,6 +1690,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             for _, eventListener in pairs(listenerGroup) do
                 eventListener.listen()
             end
+        end
+        self.runFrameCounters()
+    end
+
+    function self.runFrameCounters()
+        for _, counter in pairs(frameCounters) do
+            counter.decrement()
         end
     end
 
