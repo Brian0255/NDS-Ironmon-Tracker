@@ -35,3 +35,13 @@ function FormsUtils.getCenter(width, height)
      yPos = client.ypos() + client.screenheight() / 2 - height / 2
     }
 end
+
+function FormsUtils.shortenFolderName(path)
+    if path ~= "" then
+        local shortenedPath = path:reverse():match("([^\\]*\\)"):reverse()
+        if #shortenedPath > 25 then
+            shortenedPath = shortenedPath:sub(1,25).."..."
+        end
+        return "..."..shortenedPath
+    end
+end
