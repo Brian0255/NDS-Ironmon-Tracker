@@ -20,7 +20,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local currentIndex = -1
     local constants = {
         TOP_FRAME_HEIGHT = 43,
-        BOTTOM_FRAME_HEIGHT = 200,
+        BOTTOM_FRAME_HEIGHT = 145,
         NAV_FRAME_HEIGHT = 22,
         SEARCH_FRAME_HEIGHT = 114,
         SEARCH_BAR_HEIGHT = 14,
