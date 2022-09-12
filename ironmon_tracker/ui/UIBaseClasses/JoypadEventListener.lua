@@ -9,7 +9,7 @@ local function JoypadEventListener(
     local onButtonPressParams = initialOnButtonPressParams
     local buttonKey = initialButtonKey
     function self.listen()
-        local joypadButtons = joypad.get()
+        local joypadButtons = Input.getJoypad()
         if buttonKey == "ANY" then
             if lastInput ~= nil then
                 for button, _ in pairs(joypadButtons) do

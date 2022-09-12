@@ -22,7 +22,6 @@ local function Main()
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscConstants.lua")
-
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Input.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/DrawingUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/BitUtils.lua")
@@ -131,7 +130,7 @@ local function Main()
 
 	local function checkForNextSeedCombo()
 		local check = MiscUtils.split(settings.controls.LOAD_NEXT_SEED, " ")
-		local buttons = joypad.get() 
+		local buttons = Input.getJoypad() 
 		for _, button in pairs(check) do
 			if not buttons[button] then
 				return false
