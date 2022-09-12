@@ -47,7 +47,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         local settingKey = settingData.settingKey
         local fileExtension = settingData.fileExtension
         local relativePath = settingData.relativePath
-        local current_dir = io.popen "cd":read "*l"
+        local current_dir = FormsUtils.getCurrentDirectory()
         local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
         if isFolder then
             newPath = newPath:sub(0, newPath:match("^.*()\\"))
@@ -236,8 +236,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                         width = 0,
                         height = 0
                     },
-                    "Top box background color",
-                    "Top box border color",
+                    nil, nil,
                     false
                 )
             ),
