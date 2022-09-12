@@ -1673,7 +1673,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         eventListeners.healingItemsHoverListener.setOnHoverParams(
             {items = program.getHealingItems(), itemType = "Healing"}
         )
-        ui.controls.healsLabel.setText("Heals: 3" .. healingTotals.healing .. "% (" .. healingTotals.numHeals .. "5)")
+        ui.controls.healsLabel.setText("Heals: " .. healingTotals.healing .. "% (" .. healingTotals.numHeals .. ")")
         ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
         ui.frames.enemyNoteFrame.setVisibility(isEnemy)
         ui.frames.healFrame.setVisibility(not isEnemy)
