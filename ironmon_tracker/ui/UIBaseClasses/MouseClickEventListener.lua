@@ -26,7 +26,7 @@ local function MouseClickEventListener(initialControl, onClickFunction, initialO
                 size.height
             )
         end
-        local leftPress = input.getmouse()["Left"]
+        local leftPress = Input.getMouse()["Left"]
         if previouslyPressed ~= nil then
             if previouslyPressed and not leftPress and inRange then
                 onClick(onClickParams)

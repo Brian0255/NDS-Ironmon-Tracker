@@ -317,7 +317,7 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
                 convertHSVtoColorPicker()
             end
         end
-        local mouse = input.getmouse()
+        local mouse = Input.getMouse()
         local leftPress = mouse["Left"]
         if leftPress then
             if draggingColor then
