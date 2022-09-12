@@ -27,6 +27,7 @@ local function Tracker()
 	end
 
 	local function createNewPokemonEntry(pokemonID)
+		trackedData.trackedPokemon[0] = nil
 		trackedData.trackedPokemon[pokemonID] = {
 			moves = {},
 			statPredictions = nil,
@@ -52,11 +53,25 @@ local function Tracker()
 		data.amountSeen = data.amountSeen + 1
 	end
 
+	function self.increasePokecenterCount()
+		trackedData.pokecenterCount = math.min(99,trackedData.pokecenterCount + 1)
+	end
+
+	function self.decreasePokecenterCount()
+		trackedData.pokecenterCount = math.max(0,trackedData.pokecenterCount - 1)
+	end
+
+	function self.getPokecenterCount()
+		return trackedData.pokecenterCount
+	end
+
 	function self.getSortedTrackedIDs()
 		local ids = {}
 		local pokemon = trackedData.trackedPokemon
 		for id, _ in pairs(pokemon) do
-			table.insert(ids, id)
+			if id ~= 0 then
+				table.insert(ids, id)
+			end
 		end
 		table.sort(
 			ids,
@@ -96,6 +111,7 @@ local function Tracker()
 			},
 			nature = 0,
 			encounterType = 0,
+			moves = {},
 			moveIDs = {0, 0, 0, 0},
 			movePPs = {
 				"---",
@@ -112,19 +128,21 @@ local function Tracker()
 				["SPD"] = 6
 			}
 		}
-		local data = trackedData.trackedPokemon[id]
-		template.moves = data.moves
-		template.level = data.currentLevel
-		template.pokemonID = id
-		if data.baseFormName ~= nil then
-			template.baseForm = {
-				name = data.baseFormName,
-				cosmetic = data.cosmeticForm
-			}
-		end
-		for i, move in pairs(data.moves) do
-			template.moveIDs[i] = move.move
-			template.movePPs[i] = MoveData.MOVES[move.move + 1].pp
+		if id ~= 0 then
+			local data = trackedData.trackedPokemon[id]
+			template.moves = data.moves
+			template.level = data.currentLevel
+			template.pokemonID = id
+			if data.baseFormName ~= nil then
+				template.baseForm = {
+					name = data.baseFormName,
+					cosmetic = data.cosmeticForm
+				}
+			end
+			for i, move in pairs(data.moves) do
+				template.moveIDs[i] = move.move
+				template.movePPs[i] = MoveData.MOVES[move.move + 1].pp
+			end
 		end
 		return template
 	end
