@@ -1,17 +1,17 @@
 local function MainScreen(initialSettings, initialTracker, initialProgram)
-    local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Frame.lua")
-    local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Box.lua")
-    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Component.lua")
-    local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/TextLabel.lua")
-    local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/ImageLabel.lua")
-    local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/ImageField.lua")
-    local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/TextField.lua")
-    local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/TextStyle.lua")
-    local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Layout.lua")
-    local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Icon.lua")
-    local HoverEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/HoverEventListener.lua")
-    local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/MouseClickEventListener.lua")
-    local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/JoypadEventListener.lua")
+    local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
+    local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
+    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
+    local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
+    local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageLabel.lua")
+    local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageField.lua")
+    local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
+    local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
+    local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
+    local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
+    local HoverEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/HoverEventListener.lua")
+    local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
+    local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
     local settings = initialSettings
     local tracker = initialTracker
@@ -77,7 +77,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function onStatPredictionClick(params)
         local pokemonID = params.pokemonID
         local stat = params.stat
-        if pokemonID ~= nil then
+        if pokemonID ~= nil and pokemonID ~= 0 then
             local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
             local states = constants.STAT_PREDICTION_STATES
             local currentState = pokemonStatPredictions[stat]
@@ -87,6 +87,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[nextState])
             program.drawCurrentScreens()
         end
+    end
+
+    local function onSurvivalHealClick(add)
+        if add then
+            tracker.increasePokecenterCount()
+        else
+            tracker.decreasePokecenterCount()
+        end
+        program.drawCurrentScreens()
     end
 
     local function moveHoverFrameToMouse(hoverFrame, alignment)
@@ -136,43 +145,47 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function createNote(pokemonID)
-        local width, height = 270, 70
-        local clientCenter = FormsUtils.getCenter(width, height)
-        local charMax = 40
-        if pokemonID ~= nil then
-            forms.destroyall()
-            local noteForm =
-                forms.newform(
-                width,
-                height,
-                "Note (" .. charMax .. " char. max)",
-                function()
-                end
-            )
-            local textBox = forms.textbox(noteForm, tracker.getNote(pokemonID), 190, 0, nil, 5, 5)
-            forms.button(
-                textBox,
-                "Set",
-                function()
-                    tracker.setNote(pokemonID, forms.gettext(textBox))
-                    program.drawCurrentScreens()
-                    forms.destroy(noteForm)
-                end,
-                200,
-                4,
-                48,
-                22
-            )
-            forms.setlocation(noteForm, clientCenter.xPos, clientCenter.yPos)
-            forms.setproperty(textBox, "TabStop", true)
+        if pokemonID ~= 0 then
+            local width, height = 270, 70
+            local clientCenter = FormsUtils.getCenter(width, height)
+            local charMax = 40
+            if pokemonID ~= nil then
+                forms.destroyall()
+                local noteForm =
+                    forms.newform(
+                    width,
+                    height,
+                    "Note (" .. charMax .. " char. max)",
+                    function()
+                    end
+                )
+                local textBox = forms.textbox(noteForm, tracker.getNote(pokemonID), 190, 0, nil, 5, 5)
+                forms.button(
+                    textBox,
+                    "Set",
+                    function()
+                        tracker.setNote(pokemonID, forms.gettext(textBox))
+                        program.drawCurrentScreens()
+                        forms.destroy(noteForm)
+                    end,
+                    200,
+                    4,
+                    48,
+                    22
+                )
+                forms.setlocation(noteForm, clientCenter.xPos, clientCenter.yPos)
+                forms.setproperty(textBox, "TabStop", true)
+            end
         end
     end
 
     local function onPokemonImageHover(params)
-        local pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
-        activeHoverFrame = pokemonHoverFrame
-        program.drawCurrentScreens()
-        pokemonHoverFrame.show()
+        if params.pokemon.pokemonID ~= 0 then
+            local pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
+            activeHoverFrame = pokemonHoverFrame
+            program.drawCurrentScreens()
+            pokemonHoverFrame.show()
+        end
     end
 
     local function onItemBagInfoHover(params)
@@ -273,7 +286,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 5, height = 7}, nil, nil, nil)),
             TextField(
                 "<",
-                {x = 0, y = 0},
+                {x = -1, y = -1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -284,10 +297,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         local rightArrow =
             TextLabel(
-            Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 7, height = 7}, nil, nil, nil)),
+            Component(ui.frames.hiddenPowerArrowsFrame, Box({x = 0, y = 0}, {width = 5, height = 7}, nil, nil, nil)),
             TextField(
                 ">",
-                {x = 0, y = 0},
+                {x = -1, y = -1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -304,7 +317,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.hiddenPowerArrowsFrame =
             Frame(
             Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 1}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 1, y = 2}),
             nil
         )
         ui.frames.mainFrame =
@@ -457,7 +470,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     y = 0
                 },
                 {
-                    width = constants.POKEMON_INFO_WIDTH - 26,
+                    width = constants.POKEMON_INFO_WIDTH - 21,
                     height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
                 },
                 nil,
@@ -484,7 +497,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             ui.frames.miscInfoFrame,
             false
         )
-        ui.frames.accEvaFrame =
+        ui.frames.survivalHealFrame =
             Frame(
             Box(
                 {
@@ -493,15 +506,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 },
                 {
                     width = 30,
-                    height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
+                    height = 0
                 },
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
-            ui.frames.miscInfoFrame,
-            false
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = -1, y = 1}),
+            ui.frames.miscInfoFrame
         )
+
         ui.frames.statFrame =
             Frame(
             Box(
@@ -934,7 +947,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 24, height = 10},
+                    {width = 23, height = 10},
                     nil,
                     nil
                 )
@@ -1132,7 +1145,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 22, height = 10},
+                        {width = 21, height = 10},
                         nil,
                         nil
                     )
@@ -1233,12 +1246,41 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        ui.controls.accLabel =
+        ui.controls.survivalHealsIcon =
+            Icon(
+            Component(ui.frames.survivalHealFrame, Box({x = 0, y = 0}, {width = 8, height = 10}, nil, nil)),
+            "SURVIVAL_HEALS",
+            {x = 4, y = 1}
+        )
+        ui.frames.survivalHealAmountFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 30,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = -3, y = 2}),
+            ui.frames.survivalHealFrame
+        )
+        ui.controls.decreaseHealsIcon =
+            Icon(
+            Component(ui.frames.survivalHealAmountFrame, Box({x = 0, y = 0}, {width = 7, height = 6}, nil, nil)),
+            "LEFT_ARROW",
+            {x = 2, y = 1}
+        )
+        ui.controls.survivalHealAmountLabel =
             TextLabel(
-            Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 10, height = 10}, nil, nil)),
+            Component(ui.frames.survivalHealAmountFrame, Box({x = 0, y = 0}, {width = 9, height = 8}, nil, nil)),
             TextField(
-                "ACC",
-                Graphics.SIZES.DEFAULT_TEXT_OFFSET,
+                "12",
+                {x = -2, y = -3},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -1247,19 +1289,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        ui.controls.evaLabel =
-            TextLabel(
-            Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 10, height = 10}, nil, nil)),
-            TextField(
-                "EVA",
-                Graphics.SIZES.DEFAULT_TEXT_OFFSET,
-                TextStyle(
-                    Graphics.FONT.DEFAULT_FONT_SIZE,
-                    Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Top box text color",
-                    "Top box background color"
-                )
-            )
+        ui.controls.increaseHealsIcon =
+            Icon(
+            Component(ui.frames.survivalHealAmountFrame, Box({x = 0, y = 0}, {width = 6, height = 6}, nil, nil)),
+            "RIGHT_ARROW",
+            {x = 2, y = 1}
         )
         ui.controls.noteIcon =
             Icon(
@@ -1455,7 +1489,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local moveFrame = ui.moveInfoFrames[i]
             local movePP = movePPs[i]
             moveFrame.categoryIcon.setIconName(moveData.category)
-            if settings.colorSettings["Color move names by type"] then
+            if settings.colorSettings["Color move names by type"] and moveID ~= 0 then
                 moveFrame.moveNameLabel.setTextColorKey(moveData.type)
                 if moveData.name == "Hidden Power" then
                     moveFrame.moveNameLabel.setTextColorKey(tracker.getCurrentHiddenPowerType())
@@ -1463,11 +1497,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             else
                 moveFrame.moveNameLabel.setTextColorKey("Bottom box text color")
             end
-            moveFrame.moveTypeIcon.setIconName(moveData.type)
+            local moveType = moveData.type
+            if moveData.name == "Hidden Power" and not isEnemy then
+                moveType = tracker.getCurrentHiddenPowerType()
+            end
+            moveFrame.moveTypeIcon.setIconName(moveType)
             moveFrame.moveTypeIcon.setVisibility(settings.colorSettings["Draw move type icons"])
             moveFrame.categoryIcon.setVisibility(settings.colorSettings["Show phys/spec move icons"])
             local moveNameText = moveData.name
-            if justChangedHiddenPower and moveData.name == "Hidden Power" then
+            if justChangedHiddenPower and moveData.name == "Hidden Power" and not isEnemy then
                 local hiddenPowerType = tracker:getCurrentHiddenPowerType()
                 moveNameText = hiddenPowerType:sub(1, 1) .. hiddenPowerType:sub(2):lower()
             end
@@ -1477,7 +1515,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
             moveFrame.moveNameLabel.setText(moveNameText)
             moveFrame.moveNameLabel.resize({width = 70, height = 8})
-            if moveData.name == "Hidden Power" then
+            if moveData.name == "Hidden Power" and not isEnemy then
                 moveFrame.moveNameLabel.resize({width = 53, height = 8})
                 local frame = ui.frames["move" .. i .. "NameIconFrame"]
                 ui.frames.hiddenPowerArrowsFrame.changeParentFrame(frame, 4)
@@ -1619,16 +1657,30 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function readPokemonIntoUI()
-        if not program.isInBattle() and not program.isLocked() then 
-            resetStatPredictionColor()
-            statCycleIndex = -1 
+    local function setUpMiscInfo(isEnemy)
+        local pokecenters = tracker.getPokecenterCount()
+        if pokecenters < 10 then pokecenters = " "..pokecenters end
+        ui.controls.survivalHealAmountLabel.setText(pokecenters)
+        ui.frames.survivalHealFrame.setVisibility(not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS)
+        local healingTotals = program.getHealingTotals()
+        local statusTotals = program.getStatusTotals()
+        if healingTotals == nil then
+            healingTotals = {healing = 0, numHeals = 0}
         end
-        ui.frames.mainFrame.recalculateChildPositions()
-        local pokemon = currentPokemon
-        local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
-        local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
+        eventListeners.statusItemsHoverListener.setOnHoverParams(
+            {items = program.getStatusItems(), itemType = "Status"}
+        )
+        eventListeners.healingItemsHoverListener.setOnHoverParams(
+            {items = program.getHealingItems(), itemType = "Healing"}
+        )
+        ui.controls.healsLabel.setText("Heals: 3" .. healingTotals.healing .. "% (" .. healingTotals.numHeals .. "5)")
+        ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
+        ui.frames.enemyNoteFrame.setVisibility(isEnemy)
+        ui.frames.healFrame.setVisibility(not isEnemy)
+    end
 
+    local function setUpMainPokemonInfo(pokemon)
+        local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
         ui.controls.pokemonNameLabel.setText(pokemon.name)
         setUpPokemonImage(pokemon)
         local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
@@ -1645,23 +1697,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         for i, type in pairs(pokemon.type) do
             ui.controls["pokemonType" .. i].setPath(Paths.FOLDERS.TYPE_IMAGES_FOLDER .. "/" .. type .. ".png")
         end
-
-        local healingTotals = program.getHealingTotals()
-        local statusTotals = program.getStatusTotals()
-        if healingTotals == nil then
-            healingTotals = {healing = 0, numHeals = 0}
-        end
-        eventListeners.statusItemsHoverListener.setOnHoverParams(
-            {items = program.getStatusItems(), itemType = "Status"}
-        )
-        eventListeners.healingItemsHoverListener.setOnHoverParams(
-            {items = program.getHealingItems(), itemType = "Healing"}
-        )
-        ui.controls.healsLabel.setText("Heals: " .. healingTotals.healing .. "% HP (" .. healingTotals.numHeals .. ")")
-        ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
-        eventListeners.moveHeaderHoverListener.setOnHoverParams(
-            {["pokemon"] = pokemon, mainFrame = ui.frames.mainFrame}
-        )
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
         local description = AbilityData.ABILITIES[pokemon.ability + 1].description
         if type(description) == "table" then
@@ -1678,8 +1713,24 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
         itemHoverParams.text = heldItemDescription
-        ui.frames.enemyNoteFrame.setVisibility(isEnemy)
-        ui.frames.healFrame.setVisibility(not isEnemy)
+    end
+
+    local function readPokemonIntoUI()
+        if not program.isInBattle() and not program.isLocked() then
+            resetStatPredictionColor()
+            statCycleIndex = -1
+        end
+        ui.frames.mainFrame.recalculateChildPositions()
+        local pokemon = currentPokemon
+        local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
+
+        setUpMainPokemonInfo(pokemon)
+        setUpMiscInfo(isEnemy)
+
+        eventListeners.moveHeaderHoverListener.setOnHoverParams(
+            {["pokemon"] = pokemon, mainFrame = ui.frames.mainFrame}
+        )
+
         setUpStats(pokemon, isEnemy)
         if isEnemy then
             setEnemySpecificControls(pokemon)
@@ -1818,6 +1869,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         eventListeners.cycleStatListener = JoypadEventListener(settings.controls, "CYCLE_STAT", increaseCycleStatIndex)
         eventListeners.cyclePredictionListener =
             JoypadEventListener(settings.controls, "CYCLE_PREDICTION", increaseStatPrediction)
+        eventListeners.increaseSurvivalHealsListener =
+            MouseClickEventListener(ui.controls.increaseHealsIcon, onSurvivalHealClick, true)
+        eventListeners.decreaseSurvivalHealsListener =
+            MouseClickEventListener(ui.controls.decreaseHealsIcon, onSurvivalHealClick, false)
     end
 
     local function recalculateMainFrameSize(orientation)
