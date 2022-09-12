@@ -27,19 +27,19 @@ local function Tracker()
 	end
 
 	local function createNewPokemonEntry(pokemonID)
-		trackedData.trackedPokemon[0] = nil
-		trackedData.trackedPokemon[pokemonID] = {
-			moves = {},
-			statPredictions = nil,
-			abilities = {},
-			note = "",
-			amountSeen = 0,
-			lastLevelSeen = "---",
-			currentLevel = "---",
-			baseFormName = nil,
-			alternateForm = nil,
-			cosmeticForm = true
-		}
+		if pokemonID < 800 then
+			trackedData.trackedPokemon[0] = nil
+			trackedData.trackedPokemon[pokemonID] = {
+				moves = {},
+				statPredictions = nil,
+				abilities = {},
+				note = "",
+				amountSeen = 0,
+				lastLevelSeen = "---",
+				currentLevel = "---",
+				baseForm = nil
+			}
+		end
 	end
 
 	local function checkIfPokemonUntracked(pokemonID)
@@ -83,10 +83,12 @@ local function Tracker()
 	end
 
 	function self.logPokemonAsAlternateForm(pokemonID, baseForm, alternateForm)
-		checkIfPokemonUntracked(pokemonID)
+		--checkIfPokemonUntracked(pokemonID)
 		local data = trackedData.trackedPokemon[pokemonID]
-		data.baseFormName = baseForm.name
-		data.cosmeticForm = baseForm.cosmetic
+		data.baseForm = {
+			name = baseForm.name,
+			cosmetic = baseForm.cosmetic
+		}
 		data.alternateForm = alternateForm
 	end
 
@@ -130,13 +132,17 @@ local function Tracker()
 		}
 		if id ~= 0 then
 			local data = trackedData.trackedPokemon[id]
+			template.alternateForm = data.alternateForm
 			template.moves = data.moves
 			template.level = data.currentLevel
+			if data.currentLevel == "---" then
+				template.level = data.lastLevelSeen
+			end
 			template.pokemonID = id
-			if data.baseFormName ~= nil then
+			if data.baseForm ~= nil then
 				template.baseForm = {
-					name = data.baseFormName,
-					cosmetic = data.cosmeticForm
+					name = data.baseForm.name,
+					cosmetic = data.baseForm.cosmetic
 				}
 			end
 			for i, move in pairs(data.moves) do

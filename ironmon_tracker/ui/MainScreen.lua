@@ -161,7 +161,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
                 local textBox = forms.textbox(noteForm, tracker.getNote(pokemonID), 190, 0, nil, 5, 5)
                 forms.button(
-                    textBox,
+                    noteForm,
                     "Set",
                     function()
                         tracker.setNote(pokemonID, forms.gettext(textBox))
@@ -273,7 +273,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local baseWait = 90
         local clientFrameRate = client.get_approx_framerate()
         if clientFrameRate ~= nil and clientFrameRate > 60 then
-            baseWait = math.floor(baseWait * (clientFrameRate / 90))
+            baseWait = math.floor(baseWait * (clientFrameRate / 60))
         end
         frameCounters["hiddenPowerCounter"] = FrameCounter(baseWait, onHiddenPowerFrameCounter)
         justChangedHiddenPower = true
@@ -1645,7 +1645,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function setUpPokemonImage(pokemon)
-        if pokemon.alternateForm == 0x00 then
+        if pokemon.alternateForm == 0x00 or not pokemon["baseForm"] then
             ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. pokemon.pokemonID .. ".png")
         else
             if PokemonData.ALTERNATE_FORMS[pokemon.baseForm.name] then
@@ -1679,17 +1679,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.healFrame.setVisibility(not isEnemy)
     end
 
-    local function setUpMainPokemonInfo(pokemon)
+    local function setUpMainPokemonInfo(pokemon, isEnemy)
         local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
         ui.controls.pokemonNameLabel.setText(pokemon.name)
         setUpPokemonImage(pokemon)
         local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = pokemon
         local evo = pokemon.evolution
-        if evo == PokemonData.EVOLUTION_TYPES.FRIEND and pokemon.friendship >= 220 then
+        if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and pokemon.friendship >= 220 then
             evo = "SOON"
         end
-        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. pokemon.evolution .. ")")
+        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. evo .. ")")
         ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.HP)
         local abilityName = AbilityData.ABILITIES[pokemon.ability + 1].name
         ui.controls.abilityDetails.setText(abilityName)
@@ -1724,7 +1724,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local pokemon = currentPokemon
         local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
 
-        setUpMainPokemonInfo(pokemon)
+        setUpMainPokemonInfo(pokemon, isEnemy)
         setUpMiscInfo(isEnemy)
 
         eventListeners.moveHeaderHoverListener.setOnHoverParams(
