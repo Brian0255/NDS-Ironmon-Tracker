@@ -10,7 +10,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local settings = initialSettings
     local max = 18
-    local maxSearchResultWidth = 122
+    local maxSearchResultWidth = 118
     local tracker = initialTracker
     local program = initialProgram
     local currentSearchText = ""
