@@ -19,9 +19,9 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local totalIDs
     local currentIndex = -1
     local constants = {
-        TOP_FRAME_HEIGHT = 43,
+        TOP_FRAME_HEIGHT = 41,
         BOTTOM_FRAME_HEIGHT = 145,
-        NAV_FRAME_HEIGHT = 22,
+        NAV_FRAME_HEIGHT = 21,
         SEARCH_FRAME_HEIGHT = 114,
         SEARCH_BAR_HEIGHT = 14,
         MAIN_TEXT_HEADING_HEIGHT = 18,
@@ -47,9 +47,10 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
 
     local function readCurrentIndexIntoMainScreen()
         local id = sortedTrackedIDs[currentIndex]
-        if id ~= nil then
-            program.putTrackedPokemonIntoView(id)
+        if id == nil then
+            id = 0
         end
+        program.putTrackedPokemonIntoView(id)
     end
 
     local function setIndexFromID(newID)
@@ -418,7 +419,8 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                     },
                     "Top box background color",
                     "Top box border color",
-                    true, "Top box background color"
+                    true,
+                    "Top box background color"
                 )
             ),
             TextField(
