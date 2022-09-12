@@ -47,6 +47,7 @@ local function PokemonDataReader(initialProgram)
             heldItem = 0,
             friendship = 0,
             ability = 0,
+            moves = {},
             move1 = 0,
             move2 = 0,
             move3 = 0,
@@ -230,7 +231,7 @@ local function PokemonDataReader(initialProgram)
     end
 
     function self.getDefaultPokemon()
-        return constants.DEFAULT_POKEMON
+        return MiscUtils.deepCopy(constants.DEFAULT_POKEMON)
     end
 
     function self.decryptPokemonInfo(checkingParty, monIndex, checkingEnemy)
