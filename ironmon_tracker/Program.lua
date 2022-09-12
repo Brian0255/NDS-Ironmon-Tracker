@@ -305,57 +305,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				lastValidEnemyBattlePID = activePID
 				return pokemonData
 			end
-
-		--[[
-			local activePID
-			local transformed = checkForEnemyTransform()
-			if transformed then
-				activePID = lastValidEnemyBattlePID
-			else
-				activePID = getEnemyBattleMonPID()
-			end
-			if activePID ~= lastValidEnemyBattlePID then
-				--new pokemon in view
-				tracker.logNewEnemyPokemonInBattle(pokemonID)
-			end
-
-			local enemyPokemonData
-			lastValidEnemyBattlePID = activePID
-			local currentPID
-			local lastMatchedAddress = 0
-			local lastMatchedIndex = 0
-			local currentBase = memoryAddresses.enemyBase
-			for i = 0, 5, 1 do
-				pokemonDataReader.setCurrentBase(currentBase)
-				currentPID = Memory.read_u32_le(currentBase)
-				if currentPID == activePID then
-					--trainers can have multiple pokes with same PID, need to find first one that is alive
-					lastMatchedAddress = currentBase
-					lastMatchedIndex = i
-					enemyMonIndex = i
-					local data = pokemonDataReader.decryptPokemonInfo(false, i, true)
-
-					if data ~= nil then
-						if next(data) ~= nil then
-							if data.curHP > 0 then
-								enemyPokemonData = data
-							end
-						end
-					else
-						return nil
-					end
-				end
-				currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
-			end
-			if lastMatchedAddress ~= 0 then
-				--We found a match but all the enemy's pokemon have fainted, so just use the last match.
-				enemyMonIndex = 0
-				pokemonDataReader.setCurrentBase(lastMatchedAddress)
-				return pokemonDataReader.decryptPokemonInfo(false, lastMatchedIndex, true)
-			else
-				return nil
-			end
-			--]]
 		end
 	end
 
@@ -727,10 +676,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		currentScreens[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
 	end
 
-	local function flushSaveRAM()
-		client.saveram()
-	end
-
 	local function saveSettings()
 		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 		INI.save("Settings.ini", settings)
@@ -740,9 +685,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
 		memoryReading = FrameCounter(1, readMemory, nil),
-		--trackerSaving = FrameCounter(600, tracker.save, nil, true),
+		trackerSaving = FrameCounter(600, tracker.save, nil, true),
 		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
-		SaveRAMFlushing = FrameCounter(600, flushSaveRAM, nil, true)
 	}
 
 	function self.pauseEventListeners()
@@ -792,6 +736,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.onProgramExit()
+		client.saveram()
 		DrawingUtils.clearGUI()
 		forms.destroyall()
 	end
