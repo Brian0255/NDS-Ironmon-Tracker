@@ -620,7 +620,69 @@ IconDrawer.ICONS =
             },
             colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
-        }
+        },
+        SURVIVAL_HEALS = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,0,1,1,1,1,1,0,0,0},
+                {0,0,0,1,0,0,0,1,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1},
+                {1,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,1,0,0,0,0,1},
+                {1,0,0,0,1,1,1,0,0,0,1},
+                {1,0,0,0,0,1,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,1},
+                {1,1,1,1,1,1,1,1,1,1,1}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        UP_ARROW = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,0,0},
+                {0,1,0,1,0},
+                {1,0,0,0,1}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        DOWN_ARROW = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1,0,0,0,1},
+                {0,1,0,1,0},
+                {0,0,1,0,0}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        LEFT_ARROW = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1},
+                {0,1,0},
+                {1,0,0},
+                {0,1,0},
+                {0,0,1}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        RIGHT_ARROW = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1,0,0},
+                {0,1,0},
+                {0,0,1},
+                {0,1,0},
+                {1,0,0}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
     }
 )
 
