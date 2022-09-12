@@ -5,13 +5,13 @@
 -- Freeware
 ----------------------------------------------
 
-function pickle(t)
-	return Pickle:clone():pickle_(t)
-end
-
 Pickle = {
 	clone = function(t) local nt = {}; for i, v in pairs(t) do nt[i] = v end return nt end
 }
+
+function Pickle.pickle(t)
+	return Pickle:clone():pickle_(t)
+end
 
 function Pickle:pickle_(root)
 	if type(root) ~= "table" then
@@ -23,7 +23,7 @@ function Pickle:pickle_(root)
 	self:ref_(root)
 	local s = ""
 
-	while table.getn(self._refToTable) > savecount do
+	while #self._refToTable > savecount do
 		savecount = savecount + 1
 		local t = self._refToTable[savecount]
 		s = s .. "{\n"
@@ -42,7 +42,7 @@ function Pickle:value_(v)
 	elseif vtype == "number" then return v
 	elseif vtype == "boolean" then return tostring(v)
 	elseif vtype == "table" then return "{" .. self:ref_(v) .. "}"
-	else --error("pickle a "..type(v).." is not supported")
+	--else error("pickle a "..type(v).." is not supported")
 	end
 end
 
@@ -51,7 +51,7 @@ function Pickle:ref_(t)
 	if not ref then
 		if t == self then error("can't pickle the pickle class") end
 		table.insert(self._refToTable, t)
-		ref = table.getn(self._refToTable)
+		ref = #self._refToTable
 		self._tableToRef[t] = ref
 	end
 	return ref
@@ -61,14 +61,21 @@ end
 -- unpickle
 ----------------------------------------------
 
-function unpickle(s)
+function Pickle.unpickle(s)
 	if type(s) ~= "string" then
 		error("can't unpickle a " .. type(s) .. ", only strings")
 	end
+
 	local gentables = loadstring("return " .. s)
+
+	-- Check if the data in the file is not in the form of Lua code
+	if gentables == nil or gentables == "" then
+		return nil
+	end
+
 	local tables = gentables()
 
-	for tnum = 1, table.getn(tables) do
+	for tnum = 1, #tables do
 		local t = tables[tnum]
 		local tcopy = {};
 		for i, v in pairs(t) do tcopy[i] = v end
