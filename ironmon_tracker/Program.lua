@@ -276,34 +276,28 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
-	local function getPokemonDataEnemy()
-		if inBattle then
-			local currentBase = memoryAddresses.enemyBase
-			local activePID
-			local transformed = checkForEnemyTransform()
-			if transformed then
-				activePID = lastValidEnemyBattlePID
-			else
-				activePID = getEnemyBattleMonPID()
-				if activePID ~= lastValidEnemyBattlePID and enemyPokemon ~= nil then
-					tracker.updateLastLevelSeen(enemyPokemon.pokemonID, enemyPokemon.level)
+	local function checkForAlternateForm(pokemon)
+		pokemon.alternateForm = bit.band(pokemon.alternateForm, 0xF8)
+		local form = pokemon.alternateForm
+		if form ~= 0x00 then
+			local alternateFormindex = form / 0x08
+			local data = PokemonData.POKEMON[pokemon.pokemonID + 1]
+			if data ~= nil then
+				if PokemonData.ALTERNATE_FORMS[data.name] then
+					local formTable = PokemonData.ALTERNATE_FORMS[data.name]
+					pokemon["baseForm"] = {
+						name = data.name,
+						cosmetic = formTable.cosmetic
+					}
+					local formStartIndex = formTable.index
+					local alternateFormID = formStartIndex + (alternateFormindex - 2)
+					if not formTable.cosmetic then
+						pokemon.pokemonID = alternateFormID
+					end
+					if selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
+						tracker.logPokemonAsAlternateForm(pokemon.pokemonID, pokemon.baseForm, pokemon.alternateForm)
+					end
 				end
-			end
-			local pokemonData
-			local monIndex = enemyBattleTeamPIDs[activePID]
-			if monIndex ~= nil then
-				enemyMonIndex = monIndex
-				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
-				pokemonData = pokemonDataReader.decryptPokemonInfo(false, monIndex, true)
-			end
-			if pokemonData ~= nil and next(pokemonData) ~= nil then
-				lastValidEnemyPokemon = pokemonData
-				if activePID ~= lastValidEnemyBattlePID then
-					tracker.logNewEnemyPokemonInBattle(pokemonData.pokemonID)
-					tracker.updateCurrentLevel(pokemonData.pokemonID, pokemonData.level)
-				end
-				lastValidEnemyBattlePID = activePID
-				return pokemonData
 			end
 		end
 	end
@@ -331,7 +325,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local id = tonumber(pokemonData.pokemonID)
 		local heldItem = tonumber(pokemonData.heldItem)
 		if id ~= nil then
-			if id < 0 or id > PokemonData.TOTAL_POKEMON + 1 or heldItem < 0 or heldItem > 650 then
+			if id < 0 or id > PokemonData.TOTAL_POKEMON + 200 or heldItem < 0 or heldItem > 650 then
 				return false
 			end
 			for _, move in pairs(pokemonData.moveIDs) do
@@ -343,25 +337,37 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
-	local function checkForAlternateForm(pokemon)
-		pokemon.alternateForm = bit.band(pokemon.alternateForm, 0xF8)
-		local form = pokemon.alternateForm
-		if form ~= 0x00 then
-			local alternateFormindex = form / 0x08
-			local data = PokemonData.POKEMON[pokemon.pokemonID + 1]
-			if data ~= nil then
-				if PokemonData.ALTERNATE_FORMS[data.name] then
-					local formTable = PokemonData.ALTERNATE_FORMS[data.name]
-					pokemon["baseForm"] = {
-						name = data.name,
-						cosmetic = formTable.cosmetic
-					}
-					local formStartIndex = formTable.index
-					local alternateFormID = formStartIndex + (alternateFormindex - 2)
-					if not formTable.cosmetic then
-						pokemon.pokemonID = alternateFormID
-					end
+	local function getPokemonDataEnemy()
+		if inBattle then
+			local currentBase = memoryAddresses.enemyBase
+			local activePID
+			local transformed = checkForEnemyTransform()
+			if transformed then
+				activePID = lastValidEnemyBattlePID
+			else
+				activePID = getEnemyBattleMonPID()
+				if activePID ~= lastValidEnemyBattlePID and enemyPokemon ~= nil then
+					tracker.updateLastLevelSeen(enemyPokemon.pokemonID, enemyPokemon.level)
 				end
+			end
+			local pokemonData
+			local monIndex = enemyBattleTeamPIDs[activePID]
+			if monIndex ~= nil then
+				enemyMonIndex = monIndex
+				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
+				pokemonData = pokemonDataReader.decryptPokemonInfo(false, monIndex, true)
+			end
+			if validPokemonData(pokemonData) then
+				checkForAlternateForm(pokemonData)
+				lastValidEnemyPokemon = pokemonData
+				if activePID ~= lastValidEnemyBattlePID then
+					tracker.logNewEnemyPokemonInBattle(pokemonData.pokemonID)
+					tracker.updateCurrentLevel(pokemonData.pokemonID, pokemonData.level)
+				end
+				lastValidEnemyBattlePID = activePID
+				return pokemonData
+			else
+				return nil
 			end
 		end
 	end
@@ -425,16 +431,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function updateEnemyPokemonData()
 		if inBattle then
-			local pokemontarget = getPokemonData(self.SELECTED_PLAYERS.ENEMY)
-			if validPokemonData(pokemontarget) then
-				enemyPokemon = pokemontarget
-				checkForAlternateForm(enemyPokemon)
-				if enemyPokemon["baseForm"] ~= nil then
-					tracker.logPokemonAsAlternateForm(enemyPokemon.pokemonID, enemyPokemon.baseForm, enemyPokemon.alternateForm)
-				end
-			else
-				enemyPokemon = nil
-			end
+			enemyPokemon = getPokemonData(self.SELECTED_PLAYERS.ENEMY)
 			if enemyPokemon ~= nil then
 				if enemyPokemon.pokemonID ~= nil then
 					enemyPokemon.moves = tracker.getMoves(enemyPokemon.pokemonID)
@@ -605,8 +602,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				else
 					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 				end
-				self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
-				readMemory()
+				if self.UI_SCREENS[self.UI_SCREENS.MAIN_SCREEN] then
+					self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
+					setPokemonForMainScreen()
+				end
 				self.drawCurrentScreens()
 			end
 		end
@@ -684,8 +683,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
-		memoryReading = FrameCounter(1, readMemory, nil),
-		trackerSaving = FrameCounter(600, tracker.save, nil, true),
+		memoryReading = FrameCounter(30, readMemory, nil, true),
+		trackerSaving = FrameCounter(3600, tracker.save, nil, true),
 		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
 	}
 
@@ -722,10 +721,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.main()
+		Input.updateMouse()
+		Input.updateJoypad()
 		if runEvents then
 			for _, eventListener in pairs(eventListeners) do
 				eventListener.listen()
 			end
+			
 			for _, screen in pairs(currentScreens) do
 				screen.runEventListeners()
 			end
@@ -736,6 +738,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.onProgramExit()
+		tracker.save()
 		client.saveram()
 		DrawingUtils.clearGUI()
 		forms.destroyall()
