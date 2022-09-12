@@ -18,8 +18,8 @@
     "MoveUtils",
     "IconDrawer",
     "Input",
-    "ThemeUtils",
     "ThemeFactory",
+    "HoverFrameFactory",
     "Pickle",
     "event",
     "emu",
@@ -42,4 +42,5 @@
     "Frame"
   ],
   "Lua.workspace.checkThirdParty": false,
+  "Lua.completion.autoRequire": false,
 }
