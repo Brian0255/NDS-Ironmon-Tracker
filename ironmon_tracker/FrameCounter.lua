@@ -19,8 +19,8 @@ local function FrameCounter(frameAmount, onZeroEvent, onZeroParams, syncWithClie
             if syncWithClient then
                 --throttle if it's > 60 to cut down on lag
                 local clientFrameRate = client.get_approx_framerate()
-                if clientFrameRate ~= nil and tonumber(clientFrameRate) and clientFrameRate > 60 then
-                    currentFrames = totalFrames * (clientFrameRate / 60)
+                if clientFrameRate ~= nil and clientFrameRate > 60 then
+                    currentFrames = math.floor(totalFrames * (clientFrameRate / 60))
                 end
             end
             if not paused then
