@@ -389,7 +389,7 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
         total = total + 1
     end
     local textHeaderHeight = 18
-    local frameWidth = 110
+    local frameWidth = 122
     local totalLabels = total
     local itemLabelHeight = 11
     local itemHolderFrameHeight = totalLabels * itemLabelHeight + 6
@@ -407,9 +407,9 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
         nil
     )
-    local xPadding = 21
+    local xPadding = 27
     if itemType == "Status" then
-        xPadding = 23
+        xPadding = 29
     end
     local textHeader =
         TextLabel(

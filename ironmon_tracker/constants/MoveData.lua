@@ -3842,7 +3842,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Targets the last opposing Pok\233mon to hit the user with a damaging move this turn. Inflicts 1.5× the damage that move did to the user. Type immunity applies, but other type effects are ignored."
+		description = "Targets the last opposing Pok\233mon to hit the user with a damaging move this turn. Inflicts 1.5x the damage that move did to the user. Type immunity applies, but other type effects are ignored."
 	},
 	{
 		id = "369",
