@@ -485,10 +485,16 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         local letterRows = {
             {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"},
             {"A", "S", "D", "F", "G", "H", "J", "K", "L"},
-            {"Z", "X", "C", "V", "B", "N", "M"}
+            {"Z", "X", "C", "V", "B", "N", "M","-"}
         }
         for i, letterRow in pairs(letterRows) do
             for _, letter in pairs(letterRow) do
+                local displayedLetter = letter
+                local xOffset = 2
+                if letter == "-" then
+                    displayedLetter = "--"
+                    xOffset = 3
+                end
                 ui.controls[letter] =
                     TextLabel(
                     Component(
@@ -505,8 +511,8 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                         )
                     ),
                     TextField(
-                        letter,
-                        {x = 2, y = 1},
+                        displayedLetter,
+                        {x = xOffset, y = 1},
                         TextStyle(
                             9,
                             Graphics.FONT.DEFAULT_FONT_FAMILY,

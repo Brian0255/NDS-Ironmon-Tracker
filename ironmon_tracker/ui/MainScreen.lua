@@ -18,7 +18,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local program = initialProgram
     local justChangedHiddenPower = false
     local currentPokemon = nil
-    local opposingPokemon = nil
     local badgesEnabled = true
     local defeatedLance = false
     local statCycleIndex = -1
@@ -1297,7 +1296,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         ui.controls.noteIcon =
             Icon(
-            Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = 12, height = 16}, nil, nil)),
+            Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = 11, height = 16}, nil, nil)),
             "NOTE_TOP",
             {x = 0, y = 2}
         )
@@ -1584,7 +1583,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         itemHoverParams.text = ""
         eventListeners.noteIconListener.setOnClickParams(pokemon.pokemonID)
         local note = tracker.getNote(pokemon.pokemonID)
-        local lines = DrawingUtils.textToWrappedArray(note, 74)
+        local lines = DrawingUtils.textToWrappedArray(note, 70)
         ui.controls.mainNoteLabel.setText(lines[1])
         ui.controls.mainNoteLabel.setVisibility(#lines == 1)
         for i = 1, 2, 1 do
@@ -1659,7 +1658,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpMiscInfo(isEnemy)
         local pokecenters = tracker.getPokecenterCount()
-        if pokecenters < 10 then pokecenters = " "..pokecenters end
+        if pokecenters < 10 then
+            pokecenters = " " .. pokecenters
+        end
         ui.controls.survivalHealAmountLabel.setText(pokecenters)
         ui.frames.survivalHealFrame.setVisibility(not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS)
         local healingTotals = program.getHealingTotals()
@@ -1887,18 +1888,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.mainFrame.setLayoutSpacing(spacing)
         local add = {width = 0, height = 0}
         local gameInfo = program.getGameInfo()
-        local numBadges = 1
-        if
-            settings.badgesAppearance.SHOW_BOTH_BADGES and
-                (gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver")
-         then
-            numBadges = 2
-            if not ui.frames.badgeFrame2.isVisible() then
-                numBadges = numBadges - 1
-            end
+        local numBadges = 0 
+        if ui.frames.badgeFrame1.isVisible() then
+            numBadges = numBadges + 1
         end
-        if not ui.frames.badgeFrame1.isVisible() then
-            numBadges = numBadges - 1
+        if ui.frames.badgeFrame2.isVisible() then
+            numBadges = numBadges + 1
         end
         if orientation == "VERTICAL" then
             add.width = numBadges * constants.BADGE_VERTICAL_WIDTH + spacing * numBadges
@@ -1984,9 +1979,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     secondaryBadgeFrame = temp
                 end
             elseif defeatedLance then
-                primaryBadgeFrame = ui.frames.badgeFrame2
+                local temp = primaryBadgeFrame
+                primaryBadgeFrame = secondaryBadgeFrame
+                secondaryBadgeFrame = temp
             end
-
             primaryBadgeFrame.setVisibility(true)
             local alignment
             if showBoth then
@@ -2027,9 +2023,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[1])
                 secondaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[2])
             else
-                ui.frames.badgeFrame2.setVisibility(false)
+                secondaryBadgeFrame.setVisibility(false)
                 local index = MAIN_FRAME_INDICES[alignment]
-                ui.frames.badgeFrame1.changeParentFrame(ui.frames.mainFrame, index)
+                primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, index)
             end
             ui.frames.badgeFrame1.resize(newSize)
             ui.frames.badgeFrame2.resize(newSize)

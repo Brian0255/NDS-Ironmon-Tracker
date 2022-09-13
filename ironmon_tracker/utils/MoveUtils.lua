@@ -243,8 +243,8 @@ function MoveUtils.calculateWringCrushDamage(gen, currentHP, maxHP)
 end
 
 function MoveUtils.calculateWeightDifferenceDamage(currentMon, targetMon)
-    local currentMonWeight = PokemonData[currentMon["pokemonID"] + 1].weight
-    local targetWeight = PokemonData[targetMon["pokemonID"] + 1].weight
+    local currentMonWeight = currentMon.weight
+    local targetWeight = targetMon.weight
     local ratio = targetWeight / currentMonWeight
     if ratio <= .2 then
         return "120"
