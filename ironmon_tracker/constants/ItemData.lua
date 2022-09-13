@@ -35,7 +35,7 @@ ItemData.NATURE_SPECIFIC_BERRIES = {
         Relaxed = true
     }
 }
-ItemData.STATUS_ID_SORT_ORDER = {23, 591, 27, 36, 42, 157, 54, 19, 152, 156, 153, 20, 219, 149, 22, 18, 151, 21}
+ItemData.STATUS_ID_SORT_ORDER = {23, 591, 27, 36, 42, 157, 54, 19, 152, 156, 153, 20, 219, 149, 22, 18, 151, 21,150}
 ItemData.STATUS_ITEMS =
     MiscUtils.readOnly(
     {
@@ -109,6 +109,10 @@ ItemData.STATUS_ITEMS =
         },
         [21] = {
             name = "Awakening",
+            status = MiscData.STATUS_TYPE.SLEEP
+        },
+        [150] = {
+            name = "Chesto Berry",
             status = MiscData.STATUS_TYPE.SLEEP
         }
     }
