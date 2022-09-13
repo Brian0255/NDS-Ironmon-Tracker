@@ -188,23 +188,23 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onItemBagInfoHover(params)
-        local items = params.items
-        local itemType = params.itemType
-        if items == nil or next(items) == nil then
-            local hoverFrame =
-                HoverFrameFactory.createHoverTextFrame(
-                "Top box background color",
-                "Top box border color",
-                "You currently do not have any " .. itemType:lower() .. " items.",
-                "Top box text color",
-                114
-            )
-            moveHoverFrameToMouse(hoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
-            activeHoverFrame = hoverFrame
-            program.drawCurrentScreens()
-            hoverFrame.show()
-        else
-            if ui.frames.healFrame.isVisible() then
+        if ui.frames.healFrame.isVisible() then
+            local items = params.items
+            local itemType = params.itemType
+            if items == nil or next(items) == nil then
+                local hoverFrame =
+                    HoverFrameFactory.createHoverTextFrame(
+                    "Top box background color",
+                    "Top box border color",
+                    "You currently do not have any " .. itemType:lower() .. " items.",
+                    "Top box text color",
+                    114
+                )
+                moveHoverFrameToMouse(hoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
+                activeHoverFrame = hoverFrame
+                program.drawCurrentScreens()
+                hoverFrame.show()
+            else
                 local itemsHoverFrame = HoverFrameFactory.createItemBagHoverFrame(items, ui.frames.mainFrame, itemType)
                 activeHoverFrame = itemsHoverFrame
                 program.drawCurrentScreens()
@@ -1888,7 +1888,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.mainFrame.setLayoutSpacing(spacing)
         local add = {width = 0, height = 0}
         local gameInfo = program.getGameInfo()
-        local numBadges = 0 
+        local numBadges = 0
         if ui.frames.badgeFrame1.isVisible() then
             numBadges = numBadges + 1
         end
