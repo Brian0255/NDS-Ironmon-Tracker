@@ -1,6 +1,6 @@
 local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, initialSettings)
 	local self = {}
-	local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER.."/FrameCounter.lua")
+	local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
 	local MainScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/MainScreen.lua")
 	local MainOptionsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/MainOptionsScreen.lua")
 	local BattleOptionsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/BattleOptionsScreen.lua")
@@ -10,8 +10,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local TrackedPokemonScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackedPokemonScreen.lua")
 	local QuickLoadScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/QuickLoadScreen.lua")
 	local EditControlsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EditControlsScreen.lua")
-	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER.."/PokemonDataReader.lua")
-	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/JoypadEventListener.lua")
+	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
+	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
 		ENEMY = 1
@@ -43,8 +43,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local pokemonDataReader
 	local gameInfo = initialGameInfo
 	local settings = initialSettings
-	local playerBattleTeamPIDs = {}
-	local enemyBattleTeamPIDs = {}
+	local playerBattleTeamPIDs = {list = {}}
+	local enemyBattleTeamPIDs = {list = {}}
 	local playerMonIndex = 0
 	local enemyMonIndex = 0
 	local lastValidPlayerBattlePID = -1
@@ -100,6 +100,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for i = 0, 5, 1 do
 			local pid = Memory.read_u32_le(currentBase)
 			if pid ~= 0 then
+				--table.insert(playerBattleTeamPIDs.list,pid)
 				playerBattleTeamPIDs[pid] = i
 			else
 				break
@@ -111,7 +112,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for i = 0, 5, 1 do
 			local pid = Memory.read_u32_le(currentBase)
 			if pid ~= 0 then
-				enemyBattleTeamPIDs[pid] = i
+				if enemyBattleTeamPIDs[pid] ~= nil and gameInfo.GEN == 4 then
+					--annoying case to handle when trainer has 2 with the same PID, no fix for gen 5 yet (battle data structures different)
+					if type(enemyBattleTeamPIDs[pid]) == "table" then
+						table.insert(enemyBattleTeamPIDs[pid], i)
+					else
+						enemyBattleTeamPIDs[pid] = {enemyBattleTeamPIDs[pid], i}
+					end
+				else
+					enemyBattleTeamPIDs[pid] = i
+				end
 			else
 				break
 			end
@@ -156,6 +166,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				id = bit.band(idAndQuantity, 0xFFFF)
 				if id ~= 0 then
 					quantity = bit.band(bit.rshift(idAndQuantity, 16), 0xFFFF)
+					--memory.write_u16_le(currentAddress+0x02,10)
 					if ItemData.HEALING_ITEMS[id] ~= nil then
 						healingItems[id] = quantity
 					end
@@ -303,7 +314,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function validPokemonData(pokemonData)
-		if pokemonData == nil or next(pokemonData) == nil then
+		if pokemonData == nil or next(pokemonData) == nil or pokemonData.ability > 164 then
 			return false
 		end
 		--Sometimes the player's pokemon stats are just wildly out of bounds, need a sanity check.
@@ -352,7 +363,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			end
 			local pokemonData
 			local monIndex = enemyBattleTeamPIDs[activePID]
-			if monIndex ~= nil then
+			if type(monIndex) == "table" then
+				for _, indexToCheck in pairs(monIndex) do
+					pokemonDataReader.setCurrentBase(currentBase + indexToCheck * gameInfo.ENCRYPTED_POKEMON_SIZE)
+					local testForID = pokemonDataReader.decryptPokemonInfo(false, monIndex, true)
+					if validPokemonData(testForID) then
+						if testForID.pokemonID == memory.read_u16_le(memoryAddresses.enemyPokemonID) then
+							pokemonData = testForID
+						end
+					end
+				end
+			end
+			if type(monIndex) == "table" then
+				--failure grabbing ID somehow, failsafe
+				monIndex = monIndex[1]
+			end
+			if monIndex ~= nil and pokemonData == nil then
 				enemyMonIndex = monIndex
 				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
 				pokemonData = pokemonDataReader.decryptPokemonInfo(false, monIndex, true)
@@ -485,14 +511,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function HGSS_checkLeagueDefeated()
-		if gameInfo.NAME == "Pokemon HeartGold" or gameInfo.name == "Pokemon SoulSilver" then
+		if gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver" then
 			local leagueEvent = Memory.read_u8(memoryAddresses.leagueBeaten)
+			--print(leagueEvent)
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setLanceDefeated(leagueEvent >= 3)
 		end
 	end
 
 	local function readMemory()
-		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then 
+		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
 			HGSS_checkLeagueDefeated()
 			scanForHealingItems()
 			self.readBadgeMemory()
@@ -602,11 +629,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				else
 					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 				end
-				if self.UI_SCREENS[self.UI_SCREENS.MAIN_SCREEN] then
+				if self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] then
 					self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
-					setPokemonForMainScreen()
+					readMemory()
+					self.drawCurrentScreens()
 				end
-				self.drawCurrentScreens()
 			end
 		end
 	end
@@ -684,8 +711,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
-		trackerSaving = FrameCounter(3600, tracker.save, nil, true),
-		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true),
+		trackerSaving = FrameCounter(18000, function() tracker.save() client.saveram() end, nil, true),
+		pointerRefreshing = FrameCounter(300, refreshPointers, nil, true)
 	}
 
 	function self.pauseEventListeners()
@@ -727,7 +754,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			for _, eventListener in pairs(eventListeners) do
 				eventListener.listen()
 			end
-			
+
 			for _, screen in pairs(currentScreens) do
 				screen.runEventListeners()
 			end
