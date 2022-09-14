@@ -1376,7 +1376,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function setUpMoveEffectiveness(moveIDs, defendingPokemon)
+    local function setUpMoveEffectiveness(moveIDs)
         extraThingsToDraw.moveEffectiveness = {}
         if settings.battle.SHOW_MOVE_EFFECTIVENESS then
             for i, moveID in pairs(moveIDs) do
@@ -1387,8 +1387,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 local moveEffectiveness =
                     MoveUtils.netEffectiveness(
                     moveData,
-                    defendingPokemon,
-                    defendingPokemon == program.SELECTED_PLAYERS.ENEMY,
+                    opposingPokemon,
+                    opposingPokemon == program.SELECTED_PLAYERS.ENEMY,
                     tracker.getCurrentHiddenPowerType()
                 )
                 table.insert(
@@ -1568,7 +1568,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
         if opposingPokemon ~= nil then
-            setUpMoveEffectiveness(moveIDs, opposingPokemon)
+            setUpMoveEffectiveness(moveIDs)
         end
         readMovesIntoUI(moveIDs, movePPs, pokemon, isEnemy)
         checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
