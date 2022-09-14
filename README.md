@@ -15,9 +15,10 @@ This tracker is based on the Nintendo DS (NDS) Pokémon games. As such, the foll
 - Pokémon Diamond/Pearl
 - Pokémon Platinum
 - Pokémon HeartGold/SoulSilver
-- Pokémon Black/White (functional but not perfect yet)
+- Pokémon Black/White
+- Pokémon Black2/White2
 
-A lot of this project came directly from https://github.com/besteon/Ironmon-Tracker, so I cannot thank them and all of the project's contributors enough for all the amazing groundwork they did. Also, huge shoutouts to the people over at projectpokemon.org for all their technical documentation on Pokémon data.
+This project initially started from https://github.com/besteon/Ironmon-Tracker, so I cannot thank them and all of the project's contributors enough for all the amazing groundwork they did. Also, huge shoutouts to the people over at projectpokemon.org for all their technical documentation on Pokémon data.
 
 ## Installation
 
@@ -25,12 +26,9 @@ A lot of this project came directly from https://github.com/besteon/Ironmon-Trac
    - **IMPORTANT**: **Run BizHawk once and close it.**  This creates a config file in BizHawk's folder that ensures the tracker will work correctly. If you don't do 			this, errors may occur.
 2. Download this tracker from the [releases](https://github.com/Brian0255/NDS-Ironmon-Tracker/releases/) section.
 3. Unzip the tracker's files to a location of your choosing. One good location is the `Lua` folder where you installed BizHawk. Make sure the "ironmon_tracker" folder is in the same directory as "Ironmon_Tracker.lua".
-4. Configure your settings in the `Settings.ini` file, or click the gear icon when the tracker is loaded. Descriptions for settings and what they do are in the `Settings.ini` file.
-5. Load your ROM into [BizHawk](https://tasvideos.org/BizHawk/ReleaseHistory).
-6. Open the Lua Console (Tools -> Lua Console). Click on the folder icon and open `Ironmon_Tracker.lua` in the location you extracted it to.
+4. Load your ROM into [BizHawk](https://tasvideos.org/BizHawk/ReleaseHistory).
+5. Open the Lua Console (Tools -> Lua Console). Click on the folder icon and open `Ironmon_Tracker.lua` in the location you extracted it to.
    - If you installed the tracker in Bizhawk's `Lua` folder, this location is shown by default and you should see the `Ironmon_Tracker.lua` file right away.
-
-**IMPORTANT (GEN 4 GAMES): Do not change the system clock in the melonDS settings.** This will shift the memory around and the tracker will not work. Currently there is no workaround for this yet. The settings should look like this (under NDS -> Settings -> Sync Settings once the NDS ROM is loaded).
 
 ![image](https://user-images.githubusercontent.com/61294586/173255514-90c40ced-dcbd-4fae-bc41-a4ede0046db9.png)
 
