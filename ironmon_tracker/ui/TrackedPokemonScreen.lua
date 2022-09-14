@@ -22,7 +22,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         TOP_FRAME_HEIGHT = 41,
         BOTTOM_FRAME_HEIGHT = 145,
         NAV_FRAME_HEIGHT = 21,
-        SEARCH_FRAME_HEIGHT = 114,
+        SEARCH_FRAME_HEIGHT = 97,
         SEARCH_BAR_HEIGHT = 14,
         MAIN_TEXT_HEADING_HEIGHT = 18,
         DEFAULT_TEXT_HEADING_HEIGHT = 14,

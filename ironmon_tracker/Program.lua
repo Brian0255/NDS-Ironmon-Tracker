@@ -642,6 +642,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if inBattle and battleDataFetched and enemyPokemon ~= nil and next(enemyPokemon) ~= nil then
 			locked = true
 			lockedPokemonCopy = MiscUtils.deepCopy(enemyPokemon)
+			self.drawCurrentScreens()
 		end
 	end
 

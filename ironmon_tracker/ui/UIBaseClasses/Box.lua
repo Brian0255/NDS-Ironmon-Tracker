@@ -4,7 +4,8 @@ local function Box(
     initialBGColorKey,
     initialBGFillColorKey,
     shouldShadow,
-    initialShadowColorKey)
+    initialShadowColorKey,
+    initialTransparentOverride)
     local self = {}
     local relativePosition = initialPosition
     local position = relativePosition
@@ -16,6 +17,7 @@ local function Box(
     end
     local backgroundColorKey = initialBGColorKey
     local backgroundFillColorKey = initialBGFillColorKey
+    local transparentOverride = initialTransparentOverride
 
     function self.move(newPosition)
         position.x = newPosition.x
@@ -55,7 +57,7 @@ local function Box(
 
     function self.getBackgroundColor()
         if size ~= nil and backgroundColorKey ~= nil then
-            return DrawingUtils.convertColorKeyToColor(backgroundColorKey)
+            return DrawingUtils.convertColorKeyToColor(backgroundColorKey, transparentOverride)
         else
             return 0x00000000
         end
