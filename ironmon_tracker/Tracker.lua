@@ -83,7 +83,7 @@ local function Tracker()
 	end
 
 	function self.logPokemonAsAlternateForm(pokemonID, baseForm, alternateForm)
-		--checkIfPokemonUntracked(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
 		local data = trackedData.trackedPokemon[pokemonID]
 		data.baseForm = {
 			name = baseForm.name,

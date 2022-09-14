@@ -306,9 +306,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					if not formTable.cosmetic then
 						pokemon.pokemonID = alternateFormID
 					end
-					if selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
-						tracker.logPokemonAsAlternateForm(pokemon.pokemonID, pokemon.baseForm, pokemon.alternateForm)
-					end
+					tracker.logPokemonAsAlternateForm(pokemon.pokemonID, pokemon.baseForm, pokemon.alternateForm)
 				end
 			end
 		end
