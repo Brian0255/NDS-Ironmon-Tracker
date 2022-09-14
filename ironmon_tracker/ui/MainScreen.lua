@@ -18,12 +18,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local program = initialProgram
     local justChangedHiddenPower = false
     local currentPokemon = nil
-    local badgesEnabled = true
+    local opposingPokemon = nil
+    local inTrackedView = false
     local defeatedLance = false
     local statCycleIndex = -1
     local stats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
     local constants = {
-        STAT_PREDICTION_STATES = {"", "+", "_"},
+        STAT_PREDICTION_STATES = {{text = "",color = "Top box text color"},{text =  "+",color = "Positive text color"},{text =  "_", color = "Negative text color"}},
         BADGE_HORIZONTAL_WIDTH = 140,
         BADGE_HORIZONTAL_HEIGHT = 19,
         BADGE_VERTICAL_WIDTH = 19,
@@ -64,13 +65,14 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         program.drawCurrentScreens()
     end
 
-    local function setStatPredictionToControl(control, newPrediction)
+    local function setStatPredictionToControl(control, newPrediction, newColor)
         if newPrediction == "_" then
             control.setTextOffset({x = 0, y = -5})
         else
             control.setTextOffset({x = 0, y = -1})
         end
         control.setText(newPrediction)
+        control.setTextColorKey(newColor)
     end
 
     local function onStatPredictionClick(params)
@@ -83,7 +85,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local nextState = (currentState % 3) + 1
             pokemonStatPredictions[stat] = nextState
             tracker.setStatPredictions(pokemonID, pokemonStatPredictions)
-            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[nextState])
+            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[nextState].text, states[nextState].color)
             program.drawCurrentScreens()
         end
     end
@@ -107,6 +109,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if statCycleIndex ~= -1 then
             local oldStat = stats[statCycleIndex]
             ui.controls[oldStat .. "StatPrediction"].setBackgroundColorKey("Top box background color")
+            ui.controls[oldStat.."StatPrediction"].setTextColorKey("Top box text color")
         end
     end
 
@@ -139,7 +142,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
         local states = constants.STAT_PREDICTION_STATES
         for stat, predictionState in pairs(pokemonStatPredictions) do
-            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[predictionState])
+            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[predictionState].text, states[predictionState].color)
         end
     end
 
@@ -887,6 +890,22 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
+        ui.controls.lockIcon = Icon(
+            Component(
+                ui.frames.pokemonInfoFrame,
+                Box(
+                    {
+                        x = 0,
+                        y = 0
+                    },
+                    {width = 8, height = 10},
+                    nil,
+                    nil
+                )
+            ),
+            "UNLOCKED",
+            {x = 2, y = 0}
+        )
         ui.controls.moveHeaderLearnedText =
             TextLabel(
             Component(
@@ -1363,10 +1382,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initHiddenPowerArrows()
     end
 
-    local function setUpStatStages(pokemon)
-        if pokemon.statStages ~= nil then
+    local function setUpStatStages()
+        if currentPokemon.statStages ~= nil then
             extraThingsToDraw.statStages = {}
-            for statName, statStage in pairs(pokemon.statStages) do
+            for statName, statStage in pairs(currentPokemon.statStages) do
                 if statName ~= "ACC" and statName ~= "EVA" then
                     local namePosition = ui.controls[statName .. "StatName"].getPosition()
                     local chevronPosition = {x = namePosition.x + 20, y = namePosition.y + 5}
@@ -1417,17 +1436,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
+    local function checkForVariableMoves(isEnemy, moveIDs, movePPs)
         local lowHPCalcEntry = {
             requirement = not isEnemy,
             calcFunction = function()
-                return MoveUtils.calculateLowHPBasedDamage(pokemon.curHP, pokemon.stats.HP)
+                return MoveUtils.calculateLowHPBasedDamage(currentPokemon.curHP, currentPokemon.stats.HP)
             end
         }
         local highHPCalcEntry = {
             requirement = not isEnemy,
             calcFunction = function()
-                return MoveUtils.calculateHighHPBasedDamage(pokemon.curHP, pokemon.stats.HP)
+                return MoveUtils.calculateHighHPBasedDamage(currentPokemon.curHP, currentPokemon.stats.HP)
             end
         }
         local weightBasedEntry = {
@@ -1439,7 +1458,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local weightDifferenceEntry = {
             requirement = program.isInBattle() and opposingPokemon ~= nil,
             calcFunction = function()
-                return MoveUtils.calculateWeightDifferenceDamage(pokemon, opposingPokemon)
+                return MoveUtils.calculateWeightDifferenceDamage(currentPokemon, opposingPokemon)
             end
         }
         local moveNamesToCalcFunctions = {
@@ -1482,7 +1501,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function readMovesIntoUI(moveIDs, movePPs, pokemon, isEnemy)
+    local function readMovesIntoUI(moveIDs, movePPs, isEnemy)
         for i, moveID in pairs(moveIDs) do
             local moveData = MoveData.MOVES[moveID + 1]
             local moveFrame = ui.moveInfoFrames[i]
@@ -1509,7 +1528,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 moveNameText = hiddenPowerType:sub(1, 1) .. hiddenPowerType:sub(2):lower()
             end
             if isEnemy then
-                local stars = MoveUtils.getStars(pokemon)
+                local stars = MoveUtils.getStars(currentPokemon)
                 moveNameText = moveNameText .. stars[i]
             end
             moveFrame.moveNameLabel.setText(moveNameText)
@@ -1522,7 +1541,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
             moveFrame.PPLabel.setText(movePP)
             moveFrame.powLabel.setTextColorKey("Bottom box text color")
-            if MoveUtils.isSTAB(moveData, pokemon) and program.isInBattle() then
+            if MoveUtils.isSTAB(moveData, currentPokemon) and program.isInBattle() then
                 moveFrame.powLabel.setTextColorKey("Positive text color")
             end
             moveFrame.powLabel.setText(moveData.power)
@@ -1533,24 +1552,24 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function setUpMoves(pokemon, isEnemy, opposingPokemon)
-        local movesHeader = MoveUtils.getMoveHeader(pokemon)
+    local function setUpMoves(isEnemy)
+        local movesHeader = MoveUtils.getMoveHeader(currentPokemon)
         ui.controls.moveHeaderLearnedText.setText(movesHeader)
         ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
-        local moveIDs = pokemon.moveIDs
+        local moveIDs = currentPokemon.moveIDs
         local movePPs = {}
         if isEnemy then
             moveIDs = {}
-            local moves = tracker.getMoves(pokemon.pokemonID)
+            local moves = tracker.getMoves(currentPokemon.pokemonID)
             for i, move in pairs(moves) do
                 moveIDs[i] = move.move
                 movePPs[i] = MoveData.MOVES[move.move + 1].pp
             end
             if settings.battle.SHOW_ACTUAL_ENEMY_PP then
                 for i, move in pairs(moveIDs) do
-                    for j, compare in pairs(pokemon.moveIDs) do
+                    for j, compare in pairs(currentPokemon.moveIDs) do
                         if move == compare then
-                            movePPs[i] = pokemon.movePPs[j]
+                            movePPs[i] = currentPokemon.movePPs[j]
                             if move == 0 then
                                 movePPs[i] = Graphics.TEXT.NO_PP
                             end
@@ -1563,26 +1582,32 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 if moveID == 0 then
                     movePPs[i] = Graphics.TEXT.NO_PP
                 else
-                    movePPs[i] = pokemon.movePPs[i]
+                    movePPs[i] = currentPokemon.movePPs[i]
                 end
             end
         end
         if opposingPokemon ~= nil then
             setUpMoveEffectiveness(moveIDs, opposingPokemon)
         end
-        readMovesIntoUI(moveIDs, movePPs, pokemon, isEnemy)
-        checkForVariableMoves(pokemon, isEnemy, opposingPokemon, moveIDs, movePPs)
+        readMovesIntoUI(moveIDs, movePPs, isEnemy)
+        checkForVariableMoves(isEnemy, moveIDs, movePPs)
     end
 
-    local function setEnemySpecificControls(pokemon)
+    local function setEnemySpecificControls()
+        if not inTrackedView then ui.controls.lockIcon.setVisibility(true) end
+        local lockIcon = "LOCKED" 
+        if not program.isLocked() then
+            lockIcon = "UNLOCKED"
+        end
+        ui.controls.lockIcon.setIconName(lockIcon)
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
         local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
-        readStatPredictions(pokemon.pokemonID)
+        readStatPredictions(currentPokemon.pokemonID)
         ui.controls.pokemonHP.setText("HP: ?/?")
         abilityHoverParams.text = ""
         itemHoverParams.text = ""
-        eventListeners.noteIconListener.setOnClickParams(pokemon.pokemonID)
-        local note = tracker.getNote(pokemon.pokemonID)
+        eventListeners.noteIconListener.setOnClickParams(currentPokemon.pokemonID)
+        local note = tracker.getNote(currentPokemon.pokemonID)
         local lines = DrawingUtils.textToWrappedArray(note, 70)
         ui.controls.mainNoteLabel.setText(lines[1])
         ui.controls.mainNoteLabel.setVisibility(#lines == 1)
@@ -1592,28 +1617,28 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 ui.controls.noteLabels[i].setText(lines[i])
             end
         end
-        ui.controls.heldItem.setText("Total seen: " .. tracker.getAmountSeen(pokemon.pokemonID))
-        ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(pokemon.pokemonID))
+        ui.controls.heldItem.setText("Total seen: " .. tracker.getAmountSeen(currentPokemon.pokemonID))
+        ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(currentPokemon.pokemonID))
         ui.controls.healsLabel.setText("")
         ui.controls.statusItemsLabel.setText("")
     end
 
-    local function setUpStats(pokemon, isEnemy)
-        ui.controls.BSTNumber.setText(pokemon.bst)
+    local function setUpStats(isEnemy)
+        ui.controls.BSTNumber.setText(currentPokemon.bst)
         extraThingsToDraw.nature = {}
-        for statName, stat in pairs(pokemon.stats) do
+        for statName, stat in pairs(currentPokemon.stats) do
             ui.controls[statName .. "StatName"].setTextColorKey("Top box text color")
             ui.controls[statName .. "StatNumber"].setVisibility(not isEnemy)
             ui.controls[statName .. "StatPrediction"].setVisibility(isEnemy)
             if isEnemy then
                 ui.controls[statName .. "StatName"].resize({width = 30, height = 10})
                 statPredictionEventListeners[statName].setOnClickParams(
-                    {["stat"] = statName, pokemonID = pokemon.pokemonID}
+                    {["stat"] = statName, pokemonID = currentPokemon.pokemonID}
                 )
             else
                 ui.controls[statName .. "StatName"].resize({width = 25, height = 10})
                 ui.controls[statName .. "StatNumber"].setText(stat)
-                local color = DrawingUtils.getNatureColor(statName, pokemon.nature)
+                local color = DrawingUtils.getNatureColor(statName, currentPokemon.nature)
                 local namePosition = ui.controls[statName .. "StatName"].getPosition()
                 local naturePosition = {
                     x = namePosition.x + 16,
@@ -1637,19 +1662,19 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     )
                 end
                 ui.controls[statName .. "StatName"].setTextColorKey(
-                    DrawingUtils.getNatureColor(statName, pokemon.nature)
+                    DrawingUtils.getNatureColor(statName, currentPokemon.nature)
                 )
             end
         end
     end
 
-    local function setUpPokemonImage(pokemon)
-        if pokemon.alternateForm == 0x00 or not pokemon["baseForm"] then
-            ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. pokemon.pokemonID .. ".png")
+    local function setUpPokemonImage()
+        if currentPokemon.alternateForm == 0x00 or not currentPokemon["baseForm"] then
+            ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. currentPokemon.pokemonID .. ".png")
         else
-            if PokemonData.ALTERNATE_FORMS[pokemon.baseForm.name] then
-                local index = pokemon.alternateForm / 8
-                local baseName = pokemon.baseForm.name
+            if PokemonData.ALTERNATE_FORMS[currentPokemon.baseForm.name] then
+                local index = currentPokemon.alternateForm / 8
+                local baseName = currentPokemon.baseForm.name
                 local path = "ironmon_tracker/images/pokemonIcons/alternateForms/" .. baseName .. "/" .. index .. ".png"
                 ui.controls.pokemonImageLabel.setPath(path)
             end
@@ -1680,26 +1705,27 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.healFrame.setVisibility(not isEnemy)
     end
 
-    local function setUpMainPokemonInfo(pokemon, isEnemy)
-        local heldItemInfo = ItemData.GEN_5_ITEMS[pokemon.heldItem]
-        ui.controls.pokemonNameLabel.setText(pokemon.name)
-        setUpPokemonImage(pokemon)
+    local function setUpMainPokemonInfo(isEnemy)
+        local heldItemInfo = ItemData.GEN_5_ITEMS[currentPokemon.heldItem]
+        ui.controls.pokemonNameLabel.setText(currentPokemon.name)
+        ui.controls.pokemonHP.setVisibility(not isEnemy)
+        setUpPokemonImage()
         local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
-        pokemonHoverParams.pokemon = pokemon
-        local evo = pokemon.evolution
-        if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and pokemon.friendship >= 220 then
+        pokemonHoverParams.pokemon = currentPokemon
+        local evo = currentPokemon.evolution
+        if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and currentPokemon.friendship >= 220 then
             evo = "SOON"
         end
-        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. pokemon.level .. " (" .. evo .. ")")
-        ui.controls.pokemonHP.setText("HP: " .. pokemon.curHP .. "/" .. pokemon.HP)
-        local abilityName = AbilityData.ABILITIES[pokemon.ability + 1].name
+        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. currentPokemon.level .. " (" .. evo .. ")")
+        ui.controls.pokemonHP.setText("HP: " .. currentPokemon.curHP .. "/" .. currentPokemon.HP)
+        local abilityName = AbilityData.ABILITIES[currentPokemon.ability + 1].name
         ui.controls.abilityDetails.setText(abilityName)
         ui.controls.heldItem.setText(heldItemInfo.name)
-        for i, type in pairs(pokemon.type) do
+        for i, type in pairs(currentPokemon.type) do
             ui.controls["pokemonType" .. i].setPath(Paths.FOLDERS.TYPE_IMAGES_FOLDER .. "/" .. type .. ".png")
         end
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
-        local description = AbilityData.ABILITIES[pokemon.ability + 1].description
+        local description = AbilityData.ABILITIES[currentPokemon.ability + 1].description
         if type(description) == "table" then
             description = description[program.getGameInfo().GEN - 3]
         end
@@ -1708,7 +1734,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local heldItemDescription = heldItemInfo.description
         if ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name] ~= nil then
             local badNatures = ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name]
-            local natureName = MiscData.NATURES[pokemon.nature + 1]
+            local natureName = MiscData.NATURES[currentPokemon.nature + 1]
             if badNatures[natureName] then
                 heldItemDescription = heldItemDescription .. " Your Pok\233mon will dislike this."
             end
@@ -1717,6 +1743,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function readPokemonIntoUI()
+        ui.controls.lockIcon.setVisibility(false)
         if not program.isInBattle() and not program.isLocked() then
             resetStatPredictionColor()
             statCycleIndex = -1
@@ -1725,19 +1752,19 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local pokemon = currentPokemon
         local isEnemy = pokemon.owner == program.SELECTED_PLAYERS.ENEMY
 
-        setUpMainPokemonInfo(pokemon, isEnemy)
+        setUpMainPokemonInfo(isEnemy)
         setUpMiscInfo(isEnemy)
 
         eventListeners.moveHeaderHoverListener.setOnHoverParams(
             {["pokemon"] = pokemon, mainFrame = ui.frames.mainFrame}
         )
 
-        setUpStats(pokemon, isEnemy)
+        setUpStats(isEnemy)
         if isEnemy then
-            setEnemySpecificControls(pokemon)
+            setEnemySpecificControls()
         end
-        setUpMoves(pokemon, isEnemy, opposingPokemon)
-        setUpStatStages(pokemon)
+        setUpMoves(isEnemy)
+        setUpStatStages()
     end
 
     local function openOptionsScreen()
@@ -1749,9 +1776,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.mainFrame.setVisibility(true)
     end
 
-    function self.setPokemonToDraw(pokemon, newOpposingPokemon)
+    function self.setPokemonToDraw(pokemon, otherPokemon)
         currentPokemon = pokemon
-        opposingPokemon = newOpposingPokemon
+        opposingPokemon = otherPokemon
     end
 
     function self.addEventListener(eventListener)
@@ -1936,12 +1963,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.setUpForTrackedPokemonView()
-        badgesEnabled = false
+        inTrackedView = true
     end
 
     function self.undoTrackedPokemonView()
         ui.frames.mainFrame.move({x = Graphics.SIZES.SCREEN_WIDTH, y = 0})
-        badgesEnabled = true
+        inTrackedView = false
     end
 
     function self.moveMainScreen(newPosition)
@@ -1949,7 +1976,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.updateBadgeLayout()
-        if not badgesEnabled then
+        if inTrackedView then
             ui.frames.badgeFrame1.setVisibility(false)
             ui.frames.badgeFrame2.setVisibility(false)
             recalculateMainFrameSize("VERTICAL")
