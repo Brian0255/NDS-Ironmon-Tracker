@@ -45,7 +45,7 @@ local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
                         "Top box background color",
                         "Top box border color",
                         true,
-                        "Top box background color"
+                        "Top box background color",true
                     )
                 ),
                 TextField(
@@ -64,7 +64,7 @@ local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
                         nil,
                         "Top box border color",
                         true,
-                        "Top box background color"
+                        "Top box background color",true
                     )
                 ),
                 ImageField(
@@ -107,7 +107,7 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
                     height = 140
                 },
                 "Top box background color",
-                "Top box border color"
+                "Top box border color",nil,nil,true
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5, {x = 0, y = 0}),
             nil
@@ -154,7 +154,7 @@ function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text
                 height = #textArray * 10 + 10
             },
             BGColorKey,
-            BGColorFillKey
+            BGColorFillKey,nil,nil,true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 5}),
         nil
@@ -232,7 +232,7 @@ local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
                     },
                     {width = moveLabelWidth, height = moveLabelHeight},
                     "Bottom box background color",
-                    "Bottom box border color"
+                    "Bottom box border color",nil,nil,true
                 )
             ),
             TextField(
@@ -285,7 +285,7 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
                 },
                 {width = frameWidth, height = textHeaderHeight},
                 "Bottom box background color",
-                "Bottom box border color"
+                "Bottom box border color",nil,nil,true
             )
         ),
         TextField(
@@ -303,7 +303,7 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
                 height = moveLevelsFrameHeight
             },
             "Bottom box background color",
-            "Bottom box border color"
+            "Bottom box border color",nil,nil,true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 5, y = 5}),
         moveLevelsHoverFrame
@@ -330,7 +330,7 @@ local function readItemDataIntoFrame(items, itemType, itemHolderFrame)
     end
     for _, sortedKey in pairs(sortedKeys) do
         local itemData = ItemData.HEALING_ITEMS[sortedKey]
-        if itemData == nil then
+        if itemType == "Status" then
             itemData = ItemData.STATUS_ITEMS[sortedKey]
         end
         if items[sortedKey] then
@@ -402,7 +402,7 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
                 height = itemHolderFrameHeight + textHeaderHeight
             },
             nil,
-            nil
+            nil, nil, nil
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
         nil
@@ -422,7 +422,8 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
                 },
                 {width = frameWidth, height = textHeaderHeight},
                 "Top box background color",
-                "Top box border color"
+                "Top box border color",
+                nil,nil,true
             )
         ),
         TextField(
@@ -440,7 +441,7 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
                 height = itemHolderFrameHeight
             },
             "Top box background color",
-            "Top box border color"
+            "Top box border color",nil,nil,true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 3}),
         itemHoverFrame
