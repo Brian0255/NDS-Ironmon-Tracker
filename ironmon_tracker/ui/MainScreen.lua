@@ -17,6 +17,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local tracker = initialTracker
     local program = initialProgram
     local justChangedHiddenPower = false
+    local moveEffectivenessEnabled = true
     local currentPokemon = nil
     local opposingPokemon = nil
     local inTrackedView = false
@@ -1397,7 +1398,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpMoveEffectiveness(moveIDs)
         extraThingsToDraw.moveEffectiveness = {}
-        if settings.battle.SHOW_MOVE_EFFECTIVENESS then
+        if settings.battle.SHOW_MOVE_EFFECTIVENESS and moveEffectivenessEnabled then
             for i, moveID in pairs(moveIDs) do
                 local moveFrame = ui.moveInfoFrames[i]
                 local PPLabelPosition = moveFrame.PPLabel.getPosition()
@@ -2058,6 +2059,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             ui.frames.badgeFrame2.resize(newSize)
             recalculateMainFrameSize(newOrientation)
         end
+    end
+
+    function self.setMoveEffectiveness(newValue)
+        moveEffectivenessEnabled = newValue
     end
 
     initUI()

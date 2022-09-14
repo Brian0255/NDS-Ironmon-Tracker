@@ -53,6 +53,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local GEN5_activePlayerMonPID = 0
 	local GEN5_activeEnemyMonPID = 0
 	local firstBattleComplete = false
+	local frameCounters
 
 	function self.getGameInfo()
 		return gameInfo
@@ -348,6 +349,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	
+	local function onBattleDelayFinished()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setMoveEffectiveness(true)
+		frameCounters["disableMoveEffectiveness"] = nil
+	end
+	
+	local function disableMoveEffectiveness()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setMoveEffectiveness(false)
+	end
+
 	local function getPokemonDataEnemy()
 		if inBattle then
 			local currentBase = memoryAddresses.enemyBase
@@ -387,7 +398,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				checkForAlternateForm(pokemonData)
 				lastValidEnemyPokemon = pokemonData
 				if activePID ~= lastValidEnemyBattlePID then
+					local delay = 240
+					if lastValidEnemyBattlePID == -1 then
+						delay = 360
+					end
 					tracker.logNewEnemyPokemonInBattle(pokemonData.pokemonID)
+					disableMoveEffectiveness()
+					frameCounters["disableMoveEffectiveness"] = FrameCounter(delay, onBattleDelayFinished)
 					tracker.updateCurrentLevel(pokemonData.pokemonID, pokemonData.level)
 				end
 				lastValidEnemyBattlePID = activePID
@@ -513,7 +530,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function HGSS_checkLeagueDefeated()
 		if gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver" then
 			local leagueEvent = Memory.read_u8(memoryAddresses.leagueBeaten)
-			--print(leagueEvent)
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setLanceDefeated(leagueEvent >= 3)
 		end
 	end
@@ -708,7 +724,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		INI.save("Settings.ini", settings)
 	end
 
-	local frameCounters = {
+	frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
 		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
