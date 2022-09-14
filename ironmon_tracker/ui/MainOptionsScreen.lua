@@ -39,8 +39,8 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	end
 	local function onTrackedPokemonClick()
 		program.setCurrentScreens({program.UI_SCREENS.TRACKED_POKEMON_SCREEN, program.UI_SCREENS.MAIN_SCREEN})
-		program.setUpForTrackedPokemonView()
 		program.moveMainScreen({x = Graphics.SIZES.SCREEN_WIDTH, y = 40})
+		program.setUpForTrackedPokemonView()
 		program.drawCurrentScreens()
 	end
 	local function onEditControlsClick()

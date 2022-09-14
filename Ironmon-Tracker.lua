@@ -59,7 +59,7 @@ local function Main()
 		end
 		local currentDirectory = FormsUtils.getCurrentDirectory()
 		local nextRomName = FormsUtils.getFileNameFromPath(paths.ROMPath)
-		local nextRomPath = currentDirectory .. nextRomName
+		local nextRomPath = currentDirectory .. "\\"..nextRomName
 		local randomizerCommand =
 			string.format(
 			'java -Xmx4608M -jar "%s" cli -s "%s" -i "%s" -o "%s" -l',
@@ -104,7 +104,7 @@ local function Main()
 		end
 
 		local nextRomName = romName:gsub(romNumber, tostring(romNumber + 1))
-		local nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "/" .. nextRomName .. ".nds"
+		local nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "/" .. nextRomName
 
 		local fileCheck = io.open(nextRomPath, "r")
 		if fileCheck ~= nil then

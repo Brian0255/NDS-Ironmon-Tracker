@@ -105,13 +105,13 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
     gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), bolded)
 end
 
-function DrawingUtils.convertColorKeyToColor(colorKey)
+function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
     local transparentKeys = {
         ["Main background color"] = true,
         ["Top box background color"] = true,
         ["Bottom box background color"] = true
     }
-    if colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] then
+    if colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] and not transparentOverride then
         return 0x00000000
     end
     local color = colorScheme[colorKey]

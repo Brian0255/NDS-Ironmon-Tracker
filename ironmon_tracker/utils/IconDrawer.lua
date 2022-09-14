@@ -683,6 +683,40 @@ IconDrawer.ICONS =
             colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
         },
+        LOCKED = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,1,1,0,0},
+                {0,1,0,0,0,1,0},
+                {0,1,0,0,0,1,0},
+                {0,1,0,0,0,1,0},
+                {1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1},
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        UNLOCKED = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,1,1,0,0},
+                {0,1,0,0,0,1,0},
+                {0,1,0,0,0,1,0},
+                {0,0,0,0,0,1,0},
+                {1,1,1,1,1,1,1},
+                {1,0,0,0,0,0,1},
+                {1,0,0,0,0,0,1},
+                {1,0,0,0,0,0,1},
+                {1,0,0,0,0,0,1},
+                {1,1,1,1,1,1,1},
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        }
     }
 )
 
@@ -715,7 +749,7 @@ function IconDrawer.drawIcon(iconName, x, y)
                     else
                         color = settings.colorScheme[iconColorKey]
                     end
-                    if settings.colorSettings["Draw shadows"] then
+                    if settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"] then
                         gui.drawPixel(x + offsetX + 1,y + offsetY + 1,shadowColor)
                     end
                     gui.drawPixel(x + offsetX, y + offsetY, color)
