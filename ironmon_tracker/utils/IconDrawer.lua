@@ -733,6 +733,11 @@ function IconDrawer.drawIcon(iconName, x, y)
         local shadowColor = DrawingUtils.calcShadowColor(backgroundColorKey)
         local iconArray = icon.imageArray
         local iconColorKey = icon.colorKey
+        if iconColorKey == "Top box border color" and settings.colorScheme["Top box background color"] == settings.colorScheme["Top box border color"] then
+            iconColorKey = "Top box text color"
+        elseif iconColorKey == "Bottom box border color" and settings.colorScheme["Bottom box background color"] == settings.colorScheme["Bottom box border color"] then
+            iconColorKey = "Bottom box text color"
+        end
         for rowIndex = 1,#iconArray, 1 do
             for colIndex = 1,#(iconArray[1]) do
                 local offsetX = colIndex - 1
