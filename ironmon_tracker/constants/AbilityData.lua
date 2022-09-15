@@ -613,7 +613,7 @@ AbilityData.ABILITIES =
         {
             id = 119,
             name = "Frisk",
-            description = "Enthüllt bei Kampfantritt das getragene Item des Gegners."
+            description = "Reveals the opponent's held item upon entering battle."
         },
         {
             id = 120,
@@ -742,8 +742,8 @@ AbilityData.ABILITIES =
         },
         {
             id = 145,
-            name = "Big pecks",
-            description = "Schützt vor dem Absenken der defense."
+            name = "Big Pecks",
+            description = "Prevents defense from being lowered."
         },
         {
             id = 146,
@@ -823,7 +823,7 @@ AbilityData.ABILITIES =
         {
             id = 161,
             name = "Zen Mode",
-            description = "Changes darmanitan's form after each turn depending on its HP: Zen Mode below 50% max HP, and Standard Mode otherwise."
+            description = "Changes Darmanitan's form after each turn depending on its HP: Zen Mode below 50% max HP, and Standard Mode otherwise."
         },
         {
             id = 162,
