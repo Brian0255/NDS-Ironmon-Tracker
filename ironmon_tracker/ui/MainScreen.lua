@@ -500,6 +500,23 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             ui.frames.miscInfoFrame,
             false
         )
+        ui.frames.accEvaFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 30,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = -4, y = 3}),
+            ui.frames.miscInfoFrame, true
+        )
         ui.frames.survivalHealFrame =
             Frame(
             Box(
@@ -1237,6 +1254,34 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function initMiscControls()
+        ui.controls.accuracyLabel =
+        TextLabel(
+        Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
+        TextField(
+            "ACC",
+            {x = 0, y = -2},
+            TextStyle(
+                Graphics.FONT.DEFAULT_FONT_SIZE,
+                Graphics.FONT.DEFAULT_FONT_FAMILY,
+                "Top box text color",
+                "Top box background color"
+            )
+        )
+    )
+    ui.controls.evasionLabel =
+        TextLabel(
+        Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
+        TextField(
+            "EVA",
+            {x = 0, y = -2},
+            TextStyle(
+                Graphics.FONT.DEFAULT_FONT_SIZE,
+                Graphics.FONT.DEFAULT_FONT_FAMILY,
+                "Top box text color",
+                "Top box background color"
+            )
+        )
+    )
         ui.controls.healsLabel =
             TextLabel(
             Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 80, height = 9}, nil, nil)),
@@ -1383,13 +1428,24 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         initHiddenPowerArrows()
     end
 
-    local function setUpStatStages()
-        if currentPokemon.statStages ~= nil then
-            extraThingsToDraw.statStages = {}
+    local function setUpStatStages(isEnemy)
+        local showAccEva = settings.appearance.SHOW_ACCURACY_AND_EVASION and program.isInBattle() and not isEnemy
+        extraThingsToDraw.statStages = {}
+        if currentPokemon.statStages ~= nil and not isEnemy then
             for statName, statStage in pairs(currentPokemon.statStages) do
+                local namePosition
+                local chevronPosition
                 if statName ~= "ACC" and statName ~= "EVA" then
-                    local namePosition = ui.controls[statName .. "StatName"].getPosition()
-                    local chevronPosition = {x = namePosition.x + 20, y = namePosition.y + 5}
+                    namePosition = ui.controls[statName .. "StatName"].getPosition()
+                elseif statName == "ACC" and showAccEva then
+                    namePosition = ui.controls.accuracyLabel.getPosition()
+                    namePosition.x = namePosition.x -2
+                elseif statName == "EVA" and showAccEva then
+                    namePosition = ui.controls.evasionLabel.getPosition()
+                    namePosition.x = namePosition.x -2
+                end
+                if namePosition ~= nil then
+                    chevronPosition = {x = namePosition.x + 20, y = namePosition.y + 5}
                     extraThingsToDraw.statStages[statName] = {stage = statStage, position = chevronPosition}
                 end
             end
@@ -1688,7 +1744,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             pokecenters = " " .. pokecenters
         end
         ui.controls.survivalHealAmountLabel.setText(pokecenters)
-        ui.frames.survivalHealFrame.setVisibility(not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS)
+        local showAccEva = settings.appearance.SHOW_ACCURACY_AND_EVASION and program.isInBattle() and not isEnemy
+        local showPokecenterHeals = not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS and not showAccEva
+        ui.frames.accEvaFrame.setVisibility(showAccEva)
+        ui.frames.survivalHealFrame.setVisibility(showPokecenterHeals)
         local healingTotals = program.getHealingTotals()
         local statusTotals = program.getStatusTotals()
         if healingTotals == nil then
@@ -1700,7 +1759,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         eventListeners.healingItemsHoverListener.setOnHoverParams(
             {items = program.getHealingItems(), itemType = "Healing"}
         )
-        ui.controls.healsLabel.setText("Heals: " .. healingTotals.healing .. "% (" .. healingTotals.numHeals .. ")")
+        ui.controls.healsLabel.setText("Heals: "..healingTotals.healing .. "% (" .. healingTotals.numHeals .. ")")
         ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
         ui.frames.enemyNoteFrame.setVisibility(isEnemy)
         ui.frames.healFrame.setVisibility(not isEnemy)
@@ -1765,7 +1824,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             setEnemySpecificControls()
         end
         setUpMoves(isEnemy)
-        setUpStatStages()
+        setUpStatStages(isEnemy)
     end
 
     local function openOptionsScreen()
