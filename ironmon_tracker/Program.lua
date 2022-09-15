@@ -762,6 +762,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		readMemory()
 	end
 
+	function self.isInControlsMenu()
+		return currentScreens[self.UI_SCREENS.EDIT_CONTROLS_SCREEN] ~= nil
+	end
+
 	function self.main()
 		Input.updateMouse()
 		Input.updateJoypad()

@@ -34,6 +34,7 @@ local function Main()
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 
 	local settings
+	local program
 
 	local loadNextSeed = false
 
@@ -129,14 +130,16 @@ local function Main()
 	end
 
 	local function checkForNextSeedCombo()
-		local check = MiscUtils.split(settings.controls.LOAD_NEXT_SEED, " ")
-		local buttons = Input.getJoypad() 
-		for _, button in pairs(check) do
-			if not buttons[button] then
-				return false
+		if program ~= nil and not program.isInControlsMenu() then
+			local check = MiscUtils.split(settings.controls.LOAD_NEXT_SEED, " ")
+			local buttons = Input.getJoypad() 
+			for _, button in pairs(check) do
+				if not buttons[button] then
+					return false
+				end
 			end
+			return true
 		end
-		return true
 	end
 
 	local function loadNext()
@@ -199,10 +202,10 @@ local function Main()
 		DrawingUtils.setColorSettings(settings.colorSettings)
 		DrawingUtils.setAppearanceSettings(settings.appearance)
 		IconDrawer.setSettings(settings)
-		local mainProgram = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
-		event.onexit(mainProgram.onProgramExit, "onProgramExit")
+		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
+		event.onexit(program.onProgramExit, "onProgramExit")
 		while not loadNextSeed do
-			mainProgram.main()
+			program.main()
 			loadNextSeed = checkForNextSeedCombo()
 			emu.frameadvance()
 		end
