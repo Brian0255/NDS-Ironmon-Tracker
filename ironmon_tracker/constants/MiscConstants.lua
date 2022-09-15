@@ -1,3 +1,3 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "0.4.0f"
+MiscConstants.TRACKER_VERSION = "0.4.0g"
