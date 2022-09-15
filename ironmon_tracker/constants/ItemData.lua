@@ -634,7 +634,7 @@ ItemData.GEN_4_ITEMS =
         },
         [94] = {
             name = "Honey",
-            description = ""
+            description = "Used to attract wild Pok\233mon."
         },
         [95] = {
             name = "Growth Mulch",
@@ -2700,7 +2700,7 @@ ItemData.GEN_5_ITEMS =
         },
         [94] = {
             name = "Honey",
-            description = ""
+            description = "Used to attract Wild Pok\233mon."
         },
         [95] = {
             name = "Growth Mulch",
