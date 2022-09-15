@@ -13,7 +13,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_HEIGHT = 144,
+        MAIN_HEIGHT = 158,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
@@ -53,7 +53,8 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local function initAppearanceToggleButtons()
         local orderedKeys = {
             "RIGHT_JUSTIFIED_NUMBERS",
-            "SHOW_POKECENTER_HEALS"
+            "SHOW_POKECENTER_HEALS",
+            "SHOW_ACCURACY_AND_EVASION"
         }
         for _, key in pairs(orderedKeys) do
             local frame =
