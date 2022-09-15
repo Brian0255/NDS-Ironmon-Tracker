@@ -186,7 +186,11 @@ function DrawingUtils.drawStatStageChevrons(position, statStage)
     end
     for _, chevron in pairs(chevrons) do
         local colorState = math.floor((statStage + chevron.start) / 3) + 1
-        DrawingUtils.drawChevron(direction, chevron.position, colorStates[colorState])
+        local position = chevron.position
+        if direction == "up" then
+            position.y = position.y - 1
+        end
+        DrawingUtils.drawChevron(direction, position, colorStates[colorState])
     end
 end
 
