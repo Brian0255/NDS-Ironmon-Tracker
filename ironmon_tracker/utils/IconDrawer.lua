@@ -646,7 +646,7 @@ IconDrawer.ICONS =
                 {0,1,0,1,0},
                 {1,0,0,0,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         DOWN_ARROW = {
@@ -656,7 +656,7 @@ IconDrawer.ICONS =
                 {0,1,0,1,0},
                 {0,0,1,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         LEFT_ARROW = {
@@ -668,7 +668,7 @@ IconDrawer.ICONS =
                 {0,1,0},
                 {0,0,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         RIGHT_ARROW = {
@@ -680,7 +680,7 @@ IconDrawer.ICONS =
                 {0,1,0},
                 {1,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         LOCKED = {

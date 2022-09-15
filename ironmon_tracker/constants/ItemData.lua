@@ -216,7 +216,7 @@ ItemData.HEALING_ITEMS =
         },
         [26] = {
             name = "Super Potion",
-            amount = 60,
+            amount = 50,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [34] = {
