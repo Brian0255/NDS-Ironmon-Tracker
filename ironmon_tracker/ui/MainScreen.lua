@@ -1797,6 +1797,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local natureName = MiscData.NATURES[currentPokemon.nature + 1]
             if badNatures[natureName] then
                 heldItemDescription = heldItemDescription .. " Your Pok\233mon will dislike this."
+            else
+                heldItemDescription = heldItemDescription .. " Yum!"
             end
         end
         itemHoverParams.text = heldItemDescription
