@@ -85,6 +85,9 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
     local color = DrawingUtils.convertColorKeyToColor(textStyle.getTextColorKey())
     local spacing = 0
     if appearanceSettings.RIGHT_JUSTIFIED_NUMBERS and justifiable then
+        if text == "?" then
+            spacing = 10
+        end
         if text == "---" then
             if justifiedSpacing == 3 then
                 spacing = 8

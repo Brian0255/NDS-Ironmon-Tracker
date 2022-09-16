@@ -13,7 +13,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_HEIGHT = 158,
+        MAIN_HEIGHT = 172,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
@@ -54,7 +54,8 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         local orderedKeys = {
             "RIGHT_JUSTIFIED_NUMBERS",
             "SHOW_POKECENTER_HEALS",
-            "SHOW_ACCURACY_AND_EVASION"
+            "SHOW_ACCURACY_AND_EVASION",
+            "BLIND_MODE"
         }
         for _, key in pairs(orderedKeys) do
             local frame =
@@ -90,6 +91,9 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             labelName = key:gsub("_", " "):lower()
             labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
             labelName = labelName:gsub("pokecenter", "Pok\233center")
+            if key == "BLIND_MODE" then
+                labelName = "Blind mode (hides stats/ability)"
+            end
             TextLabel(
                 Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
                 TextField(
@@ -232,7 +236,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Component(
                 ui.frames.mainFrame,
                 Box(
-                    {x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 49, y = constants.MAIN_HEIGHT - 24},
+                    {x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 50, y = constants.MAIN_HEIGHT - 24},
                     {width = 40, height = 14},
                     "Top box background color",
                     "Top box border color",

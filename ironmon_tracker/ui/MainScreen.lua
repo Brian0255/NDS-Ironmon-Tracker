@@ -1751,8 +1751,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     {["stat"] = statName, pokemonID = currentPokemon.pokemonID}
                 )
             else
+
                 ui.controls[statName .. "StatName"].resize({width = 25, height = 10})
                 ui.controls[statName .. "StatNumber"].setText(stat)
+                if statName ~= "HP" and settings.appearance.BLIND_MODE then
+                    ui.controls[statName .. "StatNumber"].setText("?")
+                end
                 local color = DrawingUtils.getNatureColor(statName, currentPokemon.nature)
                 local namePosition = ui.controls[statName .. "StatName"].getPosition()
                 local naturePosition = {
@@ -1839,6 +1843,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.pokemonLevelAndEvo.setText("Lv. " .. currentPokemon.level .. " (" .. evo .. ")")
         ui.controls.pokemonHP.setText("HP: " .. currentPokemon.curHP .. "/" .. currentPokemon.HP)
         local abilityName = AbilityData.ABILITIES[currentPokemon.ability + 1].name
+        if settings.appearance.BLIND_MODE then
+            abilityName = "?"
+        end
         ui.controls.abilityDetails.setText(abilityName)
         ui.controls.heldItem.setText(heldItemInfo.name)
         for i, type in pairs(currentPokemon.type) do
@@ -1846,6 +1853,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
         local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
         local description = AbilityData.ABILITIES[currentPokemon.ability + 1].description
+        if settings.appearance.BLIND_MODE then
+            description = ""
+        end
         if type(description) == "table" then
             description = description[program.getGameInfo().GEN - 3]
         end
