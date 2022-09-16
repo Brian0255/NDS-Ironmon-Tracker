@@ -219,6 +219,12 @@ local function PokemonDataReader(initialProgram)
             if checkingEnemy then
                 local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
                 movesStart = movesStart + totalPlayerMons * 0x224
+                local statStart = addresses.curBattleStats
+                local stats = {"ATK","DEF","SPA","SPD","SPE"}
+                for i = 0,4,1 do
+                    local stat = stats[i+1]
+                    decryptedData[stat] = Memory.read_u16_le(statStart + i*2)
+                end
             end
             movesStart = movesStart + monIndex * 0x224
             local moveIDs = {"move1", "move2", "move3", "move4"}
