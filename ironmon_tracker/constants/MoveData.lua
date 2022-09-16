@@ -134,7 +134,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "2",
@@ -150,7 +150,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "3",
@@ -160,7 +160,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn. Averages to 3 hits per use."
+		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn. Averages to 3 hits per use."
 	},
 	{
 		id = "4",
@@ -170,7 +170,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, and averages to 3 hits per use."
+		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
 	},
 	{
 		id = "5",
@@ -180,7 +180,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "6",
@@ -200,7 +200,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to burn the target."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target."
 	},
 	{
 		id = "8",
@@ -210,7 +210,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to freeze the target."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to freeze the target."
 	},
 	{
 		id = "9",
@@ -220,7 +220,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to paralyze the target."
 	},
 	{
 		id = "10",
@@ -230,7 +230,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "11",
@@ -240,7 +240,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "12",
@@ -250,7 +250,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "30",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Instantly KOs the target. This move's accuracy is 30% plus 1% for each level the user is higher than the target. If the user is a lower level than the target, this move will fail."
+		description = "Instantly KOs the target and makes contact. This move's accuracy is 30% plus 1% for each level the user is higher than the target. If the user is a lower level than the target, this move will fail."
 	},
 	{
 		id = "13",
@@ -280,7 +280,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "16",
@@ -306,7 +306,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "18",
@@ -326,7 +326,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User flies high into the air for one turn, becoming immune to attack, and hits on the second turn. This move cannot be used while gravity is in effect."
+		description = "Inflicts regular damage and makes contact. User flies high into the air for one turn, becoming immune to attack, and hits on the second turn. This move cannot be used while gravity is in effect."
 	},
 	{
 		id = "20",
@@ -336,7 +336,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = {"75", "75", "75", "75", "85"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.  Averages 3 hits per use."
+		description = "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.  Averages 3 hits per use."
 	},
 	{
 		id = "21",
@@ -346,7 +346,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "22",
@@ -356,7 +356,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"10", "10", "10", "15", "15"},
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "23",
@@ -366,7 +366,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch. Power is doubled against Pok\233mon that are minimized."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch. Power is doubled against Pok\233mon that are minimized."
 	},
 	{
 		id = "24",
@@ -376,7 +376,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits twice in one turn."
+		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
 	},
 	{
 		id = "25",
@@ -386,7 +386,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "26",
@@ -396,7 +396,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"25", "25", "25", "25", "10"},
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If this move misses, or has no effect, the user takes damage equal to half of its max HP rounded down. This move cannot be used while gravity is in effect."
+		description = "Inflicts regular damage and makes contact. If this move misses, or has no effect, the user takes damage equal to half of its max HP rounded down. This move cannot be used while gravity is in effect."
 	},
 	{
 		id = "27",
@@ -406,7 +406,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "28",
@@ -432,7 +432,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "30",
@@ -442,7 +442,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "31",
@@ -452,7 +452,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, and averages to 3 hits per use."
+		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
 	},
 	{
 		id = "32",
@@ -462,7 +462,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "30",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Instantly KOs the target. This move's accuracy is 30% plus 1% for each level the user is higher than the target. If the user is a lower level than the target, this move will fail."
+		description = "Instantly KOs the target and makes contact. This move's accuracy is 30% plus 1% for each level the user is higher than the target. If the user is a lower level than the target, this move will fail."
 	},
 	{
 		id = "33",
@@ -472,7 +472,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = {"95", "95", "95", "95", "100"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "34",
@@ -482,7 +482,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
 	},
 	{
 		id = "35",
@@ -492,7 +492,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = {"85", "85", "85", "85", "90"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Averages to 3 hits per use."
+		description = "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Averages to 3 hits per use."
 	},
 	{
 		id = "36",
@@ -502,7 +502,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
 	},
 	{
 		id = "37",
@@ -512,7 +512,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"20", "20", "20", "20", "10"},
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
+		description = "Inflicts regular damage and makes contact. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
 	},
 	{
 		id = "38",
@@ -522,7 +522,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil."
 	},
 	{
 		id = "39",
@@ -588,7 +588,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "45",
@@ -788,7 +788,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "65",
@@ -798,7 +798,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "66",
@@ -808,7 +808,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
 	},
 	{
 		id = "67",
@@ -818,7 +818,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = {"90", "90", "100", "100", "100"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power increases with the target's weight in kilograms, to a maximum of 120."
+		description = "Inflicts regular damage and makes contact. Power increases with the target's weight in kilograms, to a maximum of 120."
 	},
 	{
 		id = "68",
@@ -828,7 +828,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts twice the damage that move did to the user. If there is no eligible target, this move will fail. Type immunity applies, but other type effects are ignored."
+		description = "Decreased priority and makes contact. Inflicts twice the damage that move did to the user. If there is no eligible target, this move will fail. Type immunity applies, but other type effects are ignored."
 	},
 	{
 		id = "69",
@@ -838,7 +838,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts damage equal to the user's level. Type immunity applies, but other type effects are ignored."
+		description = "Makes contact and inflicts damage equal to the user's level. Type immunity applies, but other type effects are ignored."
 	},
 	{
 		id = "70",
@@ -848,7 +848,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "71",
@@ -948,7 +948,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"20", "20", "20", "20", "10"},
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
+		description = "Inflicts regular damage and makes contact. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
 	},
 	{
 		id = "81",
@@ -1058,7 +1058,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "User digs underground for one turn, becoming immune to all attacks except for earthquake, fissure, and magnitude, which hit for double power. User inflicts regular damage next turn."
+		description = "Makes contact. User digs underground for one turn, becoming immune to all attacks except for earthquake, fissure, and magnitude, which hit for double power. User inflicts regular damage next turn."
 	},
 	{
 		id = "92",
@@ -1128,7 +1128,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage."
+		description = "Increased priority. Inflicts regular damage and makes contact."
 	},
 	{
 		id = "99",
@@ -1138,7 +1138,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Every time the user is hit after it uses this move but before its next action, its Attack raises by one stage."
+		description = "Inflicts regular damage and makes contact. Every time the user is hit after it uses this move but before its next action, its Attack raises by one stage."
 	},
 	{
 		id = "100",
@@ -1318,7 +1318,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pok\233mon to hit it. Damage inflicted is typeless."
+		description = "Increased priority and makes contact. User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pok\233mon to hit it. Damage inflicted is typeless."
 	},
 	{
 		id = "118",
@@ -1368,7 +1368,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
 	},
 	{
 		id = "123",
@@ -1418,7 +1418,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 20% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to make the target flinch."
 	},
 	{
 		id = "128",
@@ -1428,7 +1428,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"10", "10", "10", "10", "15"},
 		accuracy = {"75", "75", "75", "75", "85"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Averages 3 hits per use."
+		description = "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. Averages 3 hits per use."
 	},
 	{
 		id = "129",
@@ -1448,7 +1448,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Raises the user's Defense by one stage. User then charges for one turn before attacking."
+		description = "Inflicts regular damage and makes contact. Raises the user's Defense by one stage. User then charges for one turn before attacking."
 	},
 	{
 		id = "131",
@@ -1468,7 +1468,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Speed by one stage."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to lower the target's Speed by one stage."
 	},
 	{
 		id = "133",
@@ -1508,7 +1508,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"20", "20", "20", "20", "10"},
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If this move does not hit the target, the user takes damage equal to half of its max HP rounded down. Gravity disables this move."
+		description = "Inflicts regular damage and makes contact. If this move does not hit the target, the user takes damage equal to half of its max HP rounded down. Gravity disables this move."
 	},
 	{
 		id = "137",
@@ -1558,7 +1558,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Drains half the damage inflicted to heal the user."
+		description = "Inflicts regular damage and makes contact. Drains half the damage inflicted to heal the user."
 	},
 	{
 		id = "142",
@@ -1608,7 +1608,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 20% chance to confuse the target."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to confuse the target."
 	},
 	{
 		id = "147",
@@ -1668,7 +1668,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = {"85", "85", "85", "85", "90"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "153",
@@ -1688,7 +1688,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, and averages to 3 hits per use."
+		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
 	},
 	{
 		id = "155",
@@ -1728,7 +1728,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to make the target flinch."
 	},
 	{
 		id = "159",
@@ -1768,7 +1768,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts typeless damage equal to half the target's remaining HP. Although typeless, this is ineffective against Wonder Guard."
+		description = "Makes contact. Inflicts typeless damage equal to half the target's remaining HP. Although typeless, this is ineffective against Wonder Guard."
 	},
 	{
 		id = "163",
@@ -1778,7 +1778,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "164",
@@ -1798,7 +1798,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"10", "1", "1", "1", "1"},
 		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts typeless regular damage. User takes 1/4 its max HP in recoil. Ignores accuracy and evasion modifiers."
+		description = "Inflicts typeless regular damage and makes contact. User takes 1/4 its max HP in recoil. Ignores accuracy and evasion modifiers."
 	},
 	{
 		-- Begin Gen 2 Moves
@@ -1819,7 +1819,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage up to 3 times in the same turn. The second hit has 20 power, and the third hit has 30, for a total of 60. Move stops if any hits miss."
+		description = "Makes contact. Inflicts regular damage up to 3 times in the same turn. The second hit has 20 power, and the third hit has 30, for a total of 60. Move stops if any hits miss."
 	},
 	{
 		id = "168",
@@ -1829,7 +1829,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target is holding an item and the user is not, the user will permanently take the item. Damage is still inflicted if an item cannot be taken."
+		description = "Inflicts regular damage and makes contact. If the target is holding an item and the user is not, the user will permanently take the item. Damage is still inflicted if an item cannot be taken."
 	},
 	{
 		id = "169",
@@ -1869,7 +1869,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to burn the target. Frozen Pok\233mon may use this move, in which case they will thaw."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target. Frozen Pok\233mon may use this move, in which case they will thaw."
 	},
 	{
 		id = "173",
@@ -1905,7 +1905,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power varies inversely with the user's proportional remaining HP."
+		description = "Inflicts regular damage and makes contact. Power varies inversely with the user's proportional remaining HP."
 	},
 	{
 		id = "176",
@@ -1945,7 +1945,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power varies inversely with the user's proportional remaining HP."
+		description = "Inflicts regular damage and makes contact. Power varies inversely with the user's proportional remaining HP."
 	},
 	{
 		id = "180",
@@ -1985,7 +1985,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage."
+		description = "Increased priority. Inflicts regular damage and makes contact."
 	},
 	{
 		id = "184",
@@ -2155,7 +2155,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"15", "15", "15", "15", "10"},
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
+		description = "Inflicts regular damage and makes contact. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
 	},
 	{
 		id = "201",
@@ -2205,7 +2205,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User is forced to use this move for five turns. Power doubles every time this move is used in succession to a maximum of 16x. If this move misses, the lock-in ends."
+		description = "Inflicts regular damage and makes contact. User is forced to use this move for five turns. Power doubles every time this move is used in succession to a maximum of 16x. If this move misses, the lock-in ends."
 	},
 	{
 		id = "206",
@@ -2215,7 +2215,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Will not reduce the target's HP below 1."
+		description = "Inflicts regular damage and makes contact. Will not reduce the target's HP below 1."
 	},
 	{
 		id = "207",
@@ -2245,7 +2245,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
 	},
 	{
 		id = "210",
@@ -2255,7 +2255,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets."
+		description = "Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets."
 	},
 	{
 		id = "211",
@@ -2265,7 +2265,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to raise the user's Defense one stage."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to raise the user's Defense one stage."
 	},
 	{
 		id = "212",
@@ -2315,7 +2315,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power increases with happiness to a maximum of 102. Power bottoms out at 1."
+		description = "Inflicts regular damage and makes contact. Power increases with happiness to a maximum of 102. Power bottoms out at 1."
 	},
 	{
 		id = "217",
@@ -2335,7 +2335,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power increases inversely with happiness, to a maximum of 102. Power bottoms out at 1."
+		description = "Inflicts regular damage and makes contact. Power increases inversely with happiness, to a maximum of 102. Power bottoms out at 1."
 	},
 	{
 		id = "219",
@@ -2385,7 +2385,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "50",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 100% chance to confuse the target."
+		description = "Inflicts regular damage and makes contact. Has a 100% chance to confuse the target."
 	},
 	{
 		id = "224",
@@ -2395,7 +2395,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "225",
@@ -2435,7 +2435,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target attempts to switch out this turn before the user acts, this move hits the target before it leaves and has double power."
+		description = "Inflicts regular damage and makes contact. If the target attempts to switch out this turn before the user acts, this move hits the target before it leaves and has double power."
 	},
 	{
 		id = "229",
@@ -2445,7 +2445,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Removes the effects of leech seed, bind, clamp, fire spin, magma storm, sand tomb, whirlpool, wrap, spikes, toxic spikes, and stealth rock."
+		description = "Inflicts regular damage and makes contact. Removes the effects of leech seed, bind, clamp, fire spin, magma storm, sand tomb, whirlpool, wrap, spikes, toxic spikes, and stealth rock."
 	},
 	{
 		id = "230",
@@ -2465,7 +2465,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to lower the target's Defense by one stage."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to lower the target's Defense by one stage."
 	},
 	{
 		id = "232",
@@ -2475,7 +2475,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to raise the user's Attack one stage."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to raise the user's Attack one stage."
 	},
 	{
 		id = "233",
@@ -2485,7 +2485,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage. Ignores accuracy and evasion modifiers."
+		description = "Decreased priority. Inflicts regular damage and makes contact. Ignores accuracy and evasion modifiers."
 	},
 	{
 		id = "234",
@@ -2535,7 +2535,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "239",
@@ -2575,7 +2575,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 20% chance to lower the target's Defense by one stage."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to lower the target's Defense by one stage."
 	},
 	{
 		id = "243",
@@ -2605,7 +2605,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage."
+		description = "Increased priority. Inflicts regular damage and makes contact."
 	},
 	{
 		id = "246",
@@ -2645,7 +2645,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 50% chance to lower the target's Defense by one stage."
+		description = "Inflicts regular damage and makes contact. Has a 50% chance to lower the target's Defense by one stage."
 	},
 	{
 		id = "250",
@@ -2676,7 +2676,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and has increased priority. Causes the target to flinch, and can only be used on the user's first turn after entering the field."
+		description = "Increased priority. Inflicts regular damage and makes contact. Causes the target to flinch, and can only be used on the user's first turn after entering the field."
 	},
 	{
 		id = "253",
@@ -2786,7 +2786,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the user is burned, paralyzed, or poisoned, this move has double power."
+		description = "Inflicts regular damage and makes contact. If the user is burned, paralyzed, or poisoned, this move has double power."
 	},
 	{
 		id = "264",
@@ -2796,7 +2796,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage. If the user takes damage this turn before hitting, this move will fail."
+		description = "Decreased priority. Inflicts regular damage and makes contact. If the user takes damage this turn before hitting, this move will fail."
 	},
 	{
 		id = "265",
@@ -2806,7 +2806,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target is paralyzed, this move has double power, and the target is cured of its paralysis."
+		description = "Inflicts regular damage and makes contact. If the target is paralyzed, this move has double power, and the target is cured of its paralysis."
 	},
 	{
 		id = "266",
@@ -2916,7 +2916,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage, then lowers the user's Attack and Defense by one stage each."
+		description = "Inflicts regular damage and makes contact. Lowers the user's Attack and Defense by one stage each."
 	},
 	{
 		id = "277",
@@ -2946,7 +2946,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage. If the target damaged the user this turn and was the last to do so, this move has double power."
+		description = "Decreased priority. Inflicts regular damage and makes contact. If the target damaged the user this turn and was the last to do so, this move has double power."
 	},
 	{
 		id = "280",
@@ -2956,7 +2956,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Destroys any light screen or reflect on the target's side of the field, then inflicts regular damage."
+		description = "Makes contact. Destroys any light screen or reflect on the target's side of the field, then inflicts regular damage."
 	},
 	{
 		id = "281",
@@ -2976,7 +2976,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Target loses its held item."
+		description = "Inflicts regular damage and makes contact. Target loses its held item."
 	},
 	{
 		id = "283",
@@ -2986,7 +2986,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts exactly enough damage to lower the target's HP to equal the user's. Type immunity applies, but other type effects are ignored."
+		description = "Makes contact. Inflicts exactly enough damage to lower the target's HP to equal the user's. Type immunity applies, but other type effects are ignored."
 	},
 	{
 		id = "284",
@@ -3066,7 +3066,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User dives underwater for one turn, becoming immune to attack, and hits on the second turn."
+		description = "Inflicts regular damage and makes contact. User dives underwater for one turn, becoming immune to attack, and hits on the second turn."
 	},
 	{
 		id = "292",
@@ -3076,7 +3076,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, and averages to 3 hits per use."
+		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
 	},
 	{
 		id = "293",
@@ -3152,7 +3152,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move. Has a 10% chance to burn the target."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move. Has a 10% chance to burn the target."
 	},
 	{
 		id = "300",
@@ -3172,7 +3172,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User is forced to use this move for five turns. Power doubles every time this move is used in succession to a maximum of 16x. If this move misses, the lock-in ends."
+		description = "Inflicts regular damage and makes contact. User is forced to use this move for five turns. Power doubles every time this move is used in succession to a maximum of 16x. If this move misses, the lock-in ends."
 	},
 	{
 		id = "302",
@@ -3182,7 +3182,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "303",
@@ -3212,7 +3212,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 50% chance to badly poison the target."
+		description = "Inflicts regular damage and makes contact. Has a 50% chance to badly poison the target."
 	},
 	{
 		id = "306",
@@ -3222,7 +3222,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 50% chance to lower the target's Defense by one stage."
+		description = "Inflicts regular damage and makes contact. Has a 50% chance to lower the target's Defense by one stage."
 	},
 	{
 		id = "307",
@@ -3252,7 +3252,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 20% chance to raise the user's Attack one stage."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to raise the user's Attack one stage."
 	},
 	{
 		id = "310",
@@ -3262,7 +3262,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "311",
@@ -3412,7 +3412,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
+		description = "Inflicts regular damage and makes contact. Ignores accuracy and evasion modifiers."
 	},
 	{
 		id = "326",
@@ -3432,7 +3432,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. This move can hit Pok\233mon under the effect of bounce, fly, or sky drop."
+		description = "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of bounce, fly, or sky drop."
 	},
 	{
 		id = "328",
@@ -3482,7 +3482,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
+		description = "Inflicts regular damage and makes contact. Ignores accuracy and evasion modifiers."
 	},
 	{
 		id = "333",
@@ -3532,7 +3532,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "338",
@@ -3562,7 +3562,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User bounces high into the air for one turn, becoming immune to attack, and hits on the second turn. Has a 30% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. User bounces high into the air for one turn, becoming immune to attack, and hits on the second turn. Has a 30% chance to paralyze the target."
 	},
 	{
 		id = "341",
@@ -3582,7 +3582,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move. Has a 10% chance to poison the target."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move. Has a 10% chance to poison the target."
 	},
 	{
 		id = "343",
@@ -3592,7 +3592,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target is holding an item and the user is not, the user will permanently take the item. Damage is still inflicted if an item cannot be taken."
+		description = "Inflicts regular damage and makes contact. If the target is holding an item and the user is not, the user will permanently take the item. Damage is still inflicted if an item cannot be taken."
 	},
 	{
 		id = "344",
@@ -3602,7 +3602,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to paralyze the target."
 	},
 	{
 		id = "345",
@@ -3642,7 +3642,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "349",
@@ -3742,7 +3742,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target is sleeping, this move has double power, and the target wakes up."
+		description = "Inflicts regular damage and makes contact. If the target is sleeping, this move has double power, and the target wakes up."
 	},
 	{
 		id = "359",
@@ -3752,7 +3752,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage, then lowers the user's Speed by one stage."
+		description = "Inflicts regular damage and makes contact. Lowers the user's Speed by one stage."
 	},
 	{
 		id = "360",
@@ -3762,7 +3762,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power increases with the target's current Speed compared to the user, capped at 150."
+		description = "Inflicts regular damage and makes contact. Power increases with the target's current Speed compared to the user, capped at 150."
 	},
 	{
 		id = "361",
@@ -3812,7 +3812,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target is holding a berry, this move has double power, and the user takes the berry and uses it immediately."
+		description = "Inflicts regular damage and makes contact. If the target is holding a berry, this move has double power, and the user takes the berry and uses it immediately."
 	},
 	{
 		id = "366",
@@ -3852,7 +3852,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pok\233mon from the party."
+		description = "Inflicts regular damage and makes contact. User immediately switches out, and the trainer selects a replacement Pok\233mon from the party."
 	},
 	{
 		id = "370",
@@ -3862,7 +3862,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage, then lowers the user's Defense and Special Defense by one stage each."
+		description = "Inflicts regular damage and makes contact. Lowers the user's Defense and Special Defense by one stage each."
 	},
 	{
 		id = "371",
@@ -3872,7 +3872,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target uses a move or switches out this turn before this move is used, this move has double power."
+		description = "Inflicts regular damage and makes contact. If the target uses a move or switches out this turn before this move is used, this move has double power."
 	},
 	{
 		id = "372",
@@ -3882,7 +3882,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target takes damage this turn for any reason before this move is used, this move has double power."
+		description = "Inflicts regular damage and makes contact. If the target takes damage this turn for any reason before this move is used, this move has double power."
 	},
 	{
 		id = "373",
@@ -3922,7 +3922,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power is determined by the PP remaining for this move, after its PP cost is deducted. Ignores accuracy and evasion modifiers."
+		description = "Inflicts regular damage and makes contact. Power is determined by the PP remaining for this move, after its PP cost is deducted. Ignores accuracy and evasion modifiers."
 	},
 	{
 		id = "377",
@@ -3942,7 +3942,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power directly relates to the target's relative remaining HP, up to a maximum of 121."
+		description = "Inflicts regular damage and makes contact. Power directly relates to the target's relative remaining HP, up to a maximum of 121."
 	},
 	{
 		id = "379",
@@ -4022,7 +4022,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power starts at 60 and is increased by 20 for every stage any of the target's stats has been raised, capping at 200. Accuracy and evasion modifiers do not increase this move's power."
+		description = "Inflicts regular damage and makes contact. Power starts at 60 and is increased by 20 for every stage any of the target's stats has been raised, capping at 200. Accuracy and evasion modifiers do not increase this move's power."
 	},
 	{
 		id = "387",
@@ -4032,7 +4032,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. This move can only be used if each of the user's other moves has been used at least once since the user entered the field. If this is the user's only move, this move will fail."
+		description = "Inflicts regular damage and makes contact. This move can only be used if each of the user's other moves has been used at least once since the user entered the field. If this is the user's only move, this move will fail."
 	},
 	{
 		id = "388",
@@ -4052,7 +4052,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage. If the target has not selected a damaging move this turn, or if the target has already acted this turn, this move will fail."
+		description = "Increased priority. Inflicts regular damage and makes contact. If the target has not selected a damaging move this turn, or if the target has already acted this turn, this move will fail."
 	},
 	{
 		id = "390",
@@ -4102,7 +4102,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to burn the target. Frozen Pok\233mon will thaw if they use this move."
+		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to burn the target. Frozen Pok\233mon will thaw if they use this move."
 	},
 	{
 		id = "395",
@@ -4112,7 +4112,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
 	},
 	{
 		id = "396",
@@ -4142,7 +4142,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to poison the target."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to poison the target."
 	},
 	{
 		id = "399",
@@ -4162,7 +4162,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "401",
@@ -4172,7 +4172,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "402",
@@ -4202,7 +4202,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "405",
@@ -4232,7 +4232,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 20% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to make the target flinch."
 	},
 	{
 		id = "408",
@@ -4252,7 +4252,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"5", "5", "5", "5", "10"},
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Drains half the damage inflicted to heal the user."
+		description = "Inflicts regular damage and makes contact. Drains half the damage inflicted to heal the user."
 	},
 	{
 		id = "410",
@@ -4292,7 +4292,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil."
 	},
 	{
 		id = "414",
@@ -4322,7 +4322,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User loses its next turn to recharge, and cannot attack or switch out during that turn."
+		description = "Inflicts regular damage and makes contact. User loses its next turn to recharge, and cannot attack or switch out during that turn."
 	},
 	{
 		id = "417",
@@ -4342,7 +4342,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage."
+		description = "Increased priority. Inflicts regular damage and makes contact."
 	},
 	{
 		id = "419",
@@ -4352,7 +4352,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and has negative priority. If the target damaged the user this turn, this move has double power."
+		description = "Decreased priority. Inflicts regular damage and makes contact. If the target damaged the user this turn, this move has double power."
 	},
 	{
 		id = "420",
@@ -4372,7 +4372,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "422",
@@ -4382,7 +4382,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to paralyze the target and a separate 10% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to paralyze the target and a separate 10% chance to make the target flinch."
 	},
 	{
 		id = "423",
@@ -4392,7 +4392,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to freeze the target and a separate 10% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to freeze the target and a separate 10% chance to make the target flinch."
 	},
 	{
 		id = "424",
@@ -4402,7 +4402,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to burn the target and a separate 10% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target and a separate 10% chance to make the target flinch."
 	},
 	{
 		id = "425",
@@ -4412,7 +4412,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage."
+		description = "Increased priority. Inflicts regular damage and makes contact."
 	},
 	{
 		id = "426",
@@ -4442,7 +4442,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 20% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to make the target flinch."
 	},
 	{
 		id = "429",
@@ -4472,7 +4472,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 20% chance to confuse the target."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to confuse the target."
 	},
 	{
 		id = "432",
@@ -4542,7 +4542,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
+		description = "Inflicts regular damage and makes contact."
 	},
 	{
 		id = "439",
@@ -4562,7 +4562,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move. Has a 10% chance to poison the target."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move. Has a 10% chance to poison the target."
 	},
 	{
 		id = "441",
@@ -4582,7 +4582,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "443",
@@ -4632,7 +4632,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power increases with the target's weight in kilograms, to a maximum of 120."
+		description = "Inflicts regular damage and makes contact. Power increases with the target's weight in kilograms, to a maximum of 120."
 	},
 	{
 		id = "448",
@@ -4662,7 +4662,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target is holding a berry, this move has double power, and the user takes the berry and uses it immediately."
+		description = "Inflicts regular damage and makes contact. If the target is holding a berry, this move has double power, and the user takes the berry and uses it immediately."
 	},
 	{
 		id = "451",
@@ -4682,7 +4682,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil."
 	},
 	{
 		id = "453",
@@ -4692,7 +4692,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage."
+		description = "Increased priority. Inflicts regular damage and makes contact."
 	},
 	{
 		id = "454",
@@ -4732,7 +4732,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/2 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/2 the damage it inflicts in recoil."
 	},
 	{
 		id = "458",
@@ -4742,7 +4742,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits twice in one turn."
+		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
 	},
 	{
 		id = "459",
@@ -4782,7 +4782,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power directly relates to the target's relative remaining HP, up to a maximum of 121."
+		description = "Inflicts regular damage and makes contact. Power directly relates to the target's relative remaining HP, up to a maximum of 121."
 	},
 	{
 		id = "463",
@@ -4832,7 +4832,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User vanishes for one turn, becoming immune to attack, and hits on the second turn."
+		description = "Inflicts regular damage and makes contact. User vanishes for one turn, becoming immune to attack, and hits on the second turn."
 	},
 	{
 		id = "468",
@@ -4962,7 +4962,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Always scores a critical hit."
+		description = "Inflicts regular damage and makes contact. Always scores a critical hit."
 	},
 	{
 		id = "481",
@@ -5002,7 +5002,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. The greater the user's weight compared to the target's, the higher power this move has, to a maximum of 120."
+		description = "Inflicts regular damage and makes contact. The greater the user's weight compared to the target's, the higher power this move has, to a maximum of 120."
 	},
 	{
 		id = "485",
@@ -5042,7 +5042,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Raises the user's Speed by one stage."
+		description = "Inflicts regular damage and makes contact. Raises the user's Speed by one stage."
 	},
 	{
 		id = "489",
@@ -5062,7 +5062,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Lowers the target's Speed by one stage."
+		description = "Inflicts regular damage and makes contact. Lowers the target's Speed by one stage."
 	},
 	{
 		id = "491",
@@ -5082,7 +5082,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Damage is calculated using the target's attacking stat rather than the user's."
+		description = "Inflicts regular damage and makes contact. Damage is calculated using the target's attacking stat rather than the user's."
 	},
 	{
 		id = "493",
@@ -5142,7 +5142,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Damage calculation ignores the target's stat modifiers, including evasion."
+		description = "Inflicts regular damage and makes contact. Damage calculation ignores the target's stat modifiers, including evasion."
 	},
 	{
 		id = "499",
@@ -5232,7 +5232,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User carries the target high into the air for one turn, during which no moves will hit either Pok\233mon and neither can act. On the following turn, the user drops the target, inflicting damage and ending the effect."
+		description = "Inflicts regular damage and makes contact. User carries the target high into the air for one turn, during which no moves will hit either Pok\233mon and neither can act. On the following turn, the user drops the target, inflicting damage and ending the effect."
 	},
 	{
 		id = "508",
@@ -5252,7 +5252,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage, then switches the target out for another of its trainer's Pok\233mon, selected at random."
+		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok\233mon, selected at random."
 	},
 	{
 		id = "510",
@@ -5282,7 +5282,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the user has no held item, this move has double power."
+		description = "Inflicts regular damage and makes contact. If the user has no held item, this move has double power."
 	},
 	{
 		id = "513",
@@ -5302,7 +5302,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If a friendly Pok\233mon fainted on the previous turn, this move has double power."
+		description = "Inflicts regular damage and makes contact. If a friendly Pok\233mon fainted on the previous turn, this move has double power."
 	},
 	{
 		id = "515",
@@ -5412,7 +5412,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage, then switches the target out for another of its trainer's Pok\233mon, selected at random."
+		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok\233mon, selected at random."
 	},
 	{
 		id = "526",
@@ -5442,7 +5442,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
 	},
 	{
 		id = "529",
@@ -5452,7 +5452,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
+		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
 	},
 	{
 		id = "530",
@@ -5462,7 +5462,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits twice in one turn."
+		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
 	},
 	{
 		id = "531",
@@ -5472,7 +5472,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "532",
@@ -5482,7 +5482,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Drains half the damage inflicted to heal the user."
+		description = "Inflicts regular damage and makes contact. Drains half the damage inflicted to heal the user."
 	},
 	{
 		id = "533",
@@ -5492,7 +5492,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Damage calculation ignores the target's stat modifiers, including evasion."
+		description = "Inflicts regular damage and makes contact. Damage calculation ignores the target's stat modifiers, including evasion."
 	},
 	{
 		id = "534",
@@ -5502,7 +5502,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 50% chance to lower the target's Defense by one stage."
+		description = "Inflicts regular damage and makes contact. Has a 50% chance to lower the target's Defense by one stage."
 	},
 	{
 		id = "535",
@@ -5512,7 +5512,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. The greater the user's weight compared to the target's, the higher power this move has, to a maximum of 120."
+		description = "Inflicts regular damage and makes contact. The greater the user's weight compared to the target's, the higher power this move has, to a maximum of 120."
 	},
 	{
 		id = "536",
@@ -5532,7 +5532,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
 	},
 	{
 		id = "538",
@@ -5572,7 +5572,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
+		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
 	},
 	{
 		id = "542",
@@ -5592,7 +5592,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil."
+		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
 	},
 	{
 		id = "544",
@@ -5602,7 +5602,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits twice in one turn."
+		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
 	},
 	{
 		id = "545",
@@ -5662,7 +5662,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to paralyze the target."
 	},
 	{
 		id = "551",
@@ -5732,7 +5732,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Lowers the user's Defense, Special Defense, and Speed by one stage each."
+		description = "Inflicts regular damage and makes contact. Lowers the user's Defense, Special Defense, and Speed by one stage each."
 	},
 	{
 		id = "558",
