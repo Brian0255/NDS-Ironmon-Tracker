@@ -778,15 +778,20 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 28}, nil, nil)),
             ImageField("ironmon_tracker/images/pokemonIcons/1.png", {x = 0, y = -5}, nil)
         )
+        ui.controls.pokemonImageStatusLabel = 
+            ImageLabel(
+            Component(ui.frames.pokemonImageTypeFrame, Box({x = 15, y = -27}, {width = 16, height = 8}, nil, nil)),
+            ImageField("", {x = 15, y = -27}, {width = 16, height = 8})
+        )
         ui.controls.pokemonType1 =
             ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 0, height = 12}, nil, nil)),
-            ImageField("", {x = 1, y = 0}, {width = 30, height = 12})
+            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = -8}, {width = 0, height = 12}, nil, nil)),
+            ImageField("", {x = 1, y = -8}, {width = 30, height = 12})
         )
         ui.controls.pokemonType2 =
             ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 0, height = 14}, nil, nil)),
-            ImageField("", {x = 1, y = 0}, {width = 30, height = 12})
+            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = -8}, {width = 0, height = 14}, nil, nil)),
+            ImageField("", {x = 1, y = -8}, {width = 30, height = 12})
         )
         ui.controls.pokemonNameLabel =
             TextLabel(
@@ -1736,6 +1741,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 ui.controls.pokemonImageLabel.setPath(path)
             end
         end
+        local status = currentPokemon.status
+        local statusPath = ""
+        if status > 0 then
+            statusPath = "ironmon_tracker/images/status/" .. MiscData.STATUS_TO_IMG[status] .. ".png"
+        end
+        ui.controls.pokemonImageStatusLabel.setPath(statusPath)
     end
 
     local function setUpMiscInfo(isEnemy)

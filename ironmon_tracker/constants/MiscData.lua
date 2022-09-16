@@ -1,5 +1,17 @@
 MiscData = {}
 
+MiscData.STATUS_TO_IMG = 
+	MiscUtils.readOnly(
+		{
+			[3] = "BRN",
+			[4] = "FRZ",
+			[5] = "PAR",
+			[2] = "PSN",
+			[6] = "PSN",
+			[1] = "SLP",
+		}
+	)
+
 MiscData.STATUS_TYPE =
 	MiscUtils.readOnly(
 	{
