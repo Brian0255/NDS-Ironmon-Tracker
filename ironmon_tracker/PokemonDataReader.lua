@@ -212,6 +212,9 @@ local function PokemonDataReader(initialProgram)
         if program.isInBattle() and gameInfo.GEN == 5 then
             decryptedData.curHP = Memory.read_u16_le(addresses.curHPBattlePlayer + monIndex * 548)
             decryptedData.HP = Memory.read_u16_le(addresses.HPBattlePlayer + monIndex * 548)
+            if not checkingEnemy then
+                decryptedData.level = Memory.read_u16_le(addresses.curBattleLevel)
+            end
             local movesStart = addresses.statStagesStart + 8
             if checkingEnemy then
                 local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
