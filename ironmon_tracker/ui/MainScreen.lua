@@ -1534,7 +1534,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
         if extraThingsToDraw.nature ~= nil then
             for _, entry in pairs(extraThingsToDraw.nature) do
-                DrawingUtils.drawNaturePlusMinus(entry.position, entry.affect)
+                DrawingUtils.drawNaturePlusMinus(entry.position, entry.effect)
             end
         end
         if extraThingsToDraw.status ~= nil then
@@ -1764,7 +1764,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         extraThingsToDraw.nature,
                         {
                             position = naturePosition,
-                            affect = "plus"
+                            effect = "plus"
                         }
                     )
                 elseif color == "Negative text color" then
@@ -1772,7 +1772,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         extraThingsToDraw.nature,
                         {
                             position = naturePosition,
-                            affect = "minus"
+                            effect = "minus"
                         }
                     )
                 end
