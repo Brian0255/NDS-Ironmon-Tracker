@@ -628,9 +628,9 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
     end
 
     function self.show()
-        ui.frames.doubleAlignmentOuterFrame.setVisibility(settings.badgesAppearance.SHOW_BOTH_BADGES)
         local gameName = program.getGameInfo().NAME
         ui.frames.HGSSOuterFrame.setVisibility(gameName == "Pokemon HeartGold" or gameName == "Pokemon SoulSilver")
+        ui.frames.doubleAlignmentOuterFrame.setVisibility(settings.badgesAppearance.SHOW_BOTH_BADGES and ui.frames.HGSSOuterFrame.isVisible())
         ui.frames.mainFrame.show()
     end
 
