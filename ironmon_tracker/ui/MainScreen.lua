@@ -59,7 +59,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local extraThingsToDraw = {
         moveEffectiveness = {},
         nature = {},
-        statStages = {}
+        statStages = {},
+        status = {},
     }
     local function onHoverInfoEnd()
         activeHoverFrame = nil
@@ -780,12 +781,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         ui.controls.pokemonType1 =
             ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 0, height = 12}, nil, nil)),
+            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = -8}, {width = 0, height = 12}, nil, nil)),
             ImageField("", {x = 1, y = 0}, {width = 30, height = 12})
         )
         ui.controls.pokemonType2 =
             ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 0, height = 14}, nil, nil)),
+            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = -8}, {width = 0, height = 14}, nil, nil)),
             ImageField("", {x = 1, y = 0}, {width = 30, height = 12})
         )
         ui.controls.pokemonNameLabel =
@@ -1475,6 +1476,37 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function getImageForStatus(status)
+        local imgName = ""
+        if status == 0 then --None
+            return imgName
+        elseif status < 8 then -- Sleep
+            imgName = "SLP"
+        elseif status == 8 then -- Poison
+            imgName = "PSN"
+        elseif status == 16 then -- Burn
+            imgName = "BRN"
+        elseif status == 32 then -- Freeze
+            imgName = "FRZ"
+        elseif status == 64 then -- Paralyze
+            imgName = "PAR"
+        elseif status == 128 then -- Toxic Poison
+            imgName = "PSN"
+        else
+            return imgName
+        end
+        statusPath = "ironmon_tracker/images/status/" .. imgName .. ".png"
+        return statusPath
+    end
+
+    local function setUpStatusIcon()
+        local imagePath = getImageForStatus(currentPokemon.status)
+        local iconPosition = ui.controls.pokemonImageLabel.getPosition()
+        extraThingsToDraw.status = {
+            position = {x = iconPosition.x + 15, y = iconPosition.y + 1},
+            statusImagePath = imagePath
+        }
+    end
     local function drawExtraStuff()
         if extraThingsToDraw.statStages ~= nil then
             for _, statStageInfo in pairs(extraThingsToDraw.statStages) do
@@ -1490,6 +1522,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             for _, entry in pairs(extraThingsToDraw.nature) do
                 DrawingUtils.drawNaturePlusMinus(entry.position, entry.affect)
             end
+        end
+        if extraThingsToDraw.status ~= nil then
+            local statusImage = ImageField(extraThingsToDraw.status.statusImagePath, extraThingsToDraw.status.position, {width = 16, height = 8})
+            statusImage.move({x =0, y=0})
+            statusImage.show()
         end
     end
 
@@ -1724,7 +1761,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
     end
-
+    
     local function setUpPokemonImage()
         if currentPokemon.alternateForm == 0x00 or not currentPokemon["baseForm"] then
             ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. currentPokemon.pokemonID .. ".png")
@@ -1827,6 +1864,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
         setUpMoves(isEnemy)
         setUpStatStages(isEnemy)
+        setUpStatusIcon()
     end
 
     local function openOptionsScreen()
