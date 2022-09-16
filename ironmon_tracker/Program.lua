@@ -210,6 +210,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if inBattle and battleDataFetched then
 			if gameInfo.GEN == 5 then
 				pokemonDataReader.setCurrentBase(memoryAddresses.statStagesStart)
+				playerPokemon.statStages = pokemonDataReader.readBattleStatStages(false, playerMonIndex)
+				enemyPokemon.statStages = pokemonDataReader.readBattleStatStages(true, enemyMonIndex)
 			else
 				if enemyPokemon ~= nil then
 					pokemonDataReader.setCurrentBase(memoryAddresses.statStagesEnemy)
