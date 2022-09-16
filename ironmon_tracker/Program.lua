@@ -50,8 +50,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local lastValidPlayerBattlePID = -1
 	local lastValidEnemyBattlePID = -1
 	local lastValidEnemyPokemon = nil
-	local GEN5_activePlayerMonPID = 0
-	local GEN5_activeEnemyMonPID = 0
+	local GEN5_activePlayerMonPID = nil
+	local GEN5_activeEnemyMonPID = nil
 	local firstBattleComplete = false
 	local frameCounters
 
@@ -415,31 +415,29 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function GEN5_checkLastSwitchin()
 		--In gen 5, there is no active battler PID.
-		--Instead, a memory address is updated with the next active mon's PID on switch-in
-		--This is for both player/enemy pokemon, they share the same address.
-		--So what we do is check this address. If the PID belongs to player/enemy, update accordingly.
-
-		local lastSwitchAddr = memoryAddresses.playerBattleMonPID
-
-		local lastSwitchPID = Memory.read_u32_le(lastSwitchAddr)
-		if lastSwitchPID == 0 then
-			for PID, index in pairs(playerBattleTeamPIDs) do
-				if index == 0 then
-					GEN5_activePlayerMonPID = PID
-					break
-				end
+		--Instead, 2 memory addresses seemingly get updated when switch-in's occur.
+		--So what we do is check these addresses. If the PID belongs to player or enemy, update accordingly.
+		for PID, index in pairs(playerBattleTeamPIDs) do
+			if index == 0 then
+				GEN5_activePlayerMonPID = PID
+				break
 			end
-			for PID, index in pairs(enemyBattleTeamPIDs) do
-				if index == 0 then
-					GEN5_activeEnemyMonPID = PID
-					break
-				end
+		end
+		for PID, index in pairs(enemyBattleTeamPIDs) do
+			if index == 0 then
+				GEN5_activeEnemyMonPID = PID
+				break
 			end
-		else
-			if playerBattleTeamPIDs[lastSwitchPID] then
-				GEN5_activePlayerMonPID = lastSwitchPID
-			elseif enemyBattleTeamPIDs[lastSwitchPID] then
-				GEN5_activeEnemyMonPID = lastSwitchPID
+		end
+		local switchAddresses = {memoryAddresses.playerBattleMonPID, memoryAddresses.enemyBattleMonPID}
+		for _, address in pairs(switchAddresses) do
+			local lastSwitchPID = Memory.read_u32_le(address)
+			if lastSwitchPID ~= 0 then
+				if playerBattleTeamPIDs[lastSwitchPID] then
+					GEN5_activePlayerMonPID = lastSwitchPID
+				elseif enemyBattleTeamPIDs[lastSwitchPID] then
+					GEN5_activeEnemyMonPID = lastSwitchPID
+				end
 			end
 		end
 	end
