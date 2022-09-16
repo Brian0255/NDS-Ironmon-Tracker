@@ -211,15 +211,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if gameInfo.GEN == 5 then
 				pokemonDataReader.setCurrentBase(memoryAddresses.statStagesStart)
 			else
-				if selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
+				if enemyPokemon ~= nil then
 					pokemonDataReader.setCurrentBase(memoryAddresses.statStagesEnemy)
-				else
-					pokemonDataReader.setCurrentBase(memoryAddresses.statStagesPlayer)
+					enemyPokemon.statStages = pokemonDataReader.readBattleStatStages(true, enemyMonIndex)
 				end
-			end
-			if enemyPokemon ~= nil and playerPokemon ~= nil then
-				playerPokemon.statStages = pokemonDataReader.readBattleStatStages(false, playerMonIndex)
-				enemyPokemon.statStages = pokemonDataReader.readBattleStatStages(true, enemyMonIndex)
+				if  playerPokemon ~= nil then
+					pokemonDataReader.setCurrentBase(memoryAddresses.statStagesPlayer)
+					playerPokemon.statStages = pokemonDataReader.readBattleStatStages(false, playerMonIndex)
+				end
 			end
 		end
 	end
