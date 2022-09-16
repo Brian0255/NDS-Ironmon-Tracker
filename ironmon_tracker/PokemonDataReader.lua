@@ -278,22 +278,6 @@ local function PokemonDataReader(initialProgram)
                     SPD = decryptedData.SPD,
                     SPE = decryptedData.SPE
                 }
-                --Convert status to enum
-                if decryptedData.status == 0 then --None
-                    decryptedData.status = 0
-                elseif decryptedData.status < 8 then -- Sleep
-                    decryptedData.status = 1
-                elseif decryptedData.status == 8 then -- Poison
-                    decryptedData.status = 2
-                elseif decryptedData.status == 16 then -- Burn
-                    decryptedData.status = 3
-                elseif decryptedData.status == 32 then -- Freeze
-                    decryptedData.status = 4
-                elseif decryptedData.status == 64 then -- Paralyze
-                    decryptedData.status = 5
-                elseif decryptedData.status == 128 then -- Toxic Poison
-                    decryptedData.status = 6
-                end
                 if checkingParty then
                     if decryptedData.curHP ~= 0 then
                         return decryptedData

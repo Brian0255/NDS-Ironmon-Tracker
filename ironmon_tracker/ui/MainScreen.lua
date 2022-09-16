@@ -1730,6 +1730,29 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function getImageForStatus(status)
+        local imgName = ""
+        if status == 0 then --None
+            return imgName
+        elseif status < 8 then -- Sleep
+            imgName = "SLP"
+        elseif status == 8 then -- Poison
+            imgName = "PSN"
+        elseif status == 16 then -- Burn
+            imgName = "BRN"
+        elseif status == 32 then -- Freeze
+            imgName = "FRZ"
+        elseif status == 64 then -- Paralyze
+            imgName = "PAR"
+        elseif status == 128 then -- Toxic Poison
+            imgName = "PSN"
+        else
+            return imgName
+        end
+        statusPath = "ironmon_tracker/images/status/" .. imgName .. ".png"
+        return statusPath
+    end
+    
     local function setUpPokemonImage()
         if currentPokemon.alternateForm == 0x00 or not currentPokemon["baseForm"] then
             ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. currentPokemon.pokemonID .. ".png")
@@ -1742,10 +1765,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
         local status = currentPokemon.status
-        local statusPath = ""
-        if status > 0 then
-            statusPath = "ironmon_tracker/images/status/" .. MiscData.STATUS_TO_IMG[status] .. ".png"
-        end
+        local statusPath = getImageForStatus(status)
         ui.controls.pokemonImageStatusLabel.setPath(statusPath)
     end
 
