@@ -563,9 +563,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 				end
 			end
-			local canUpdate =
-				not (settings.battle.SHOW_1ST_FIGHT_STATS_IN_PLATINUM and firstBattleComplete == false and
-				gameInfo.NAME == "Pokemon Platinum")
+			local canUpdate = true
+			if not settings.battle.SHOW_1ST_FIGHT_STATS_PLATINUM
+			and firstBattleComplete == false and gameInfo.NAME == "Pokemon Platinum" then
+				canUpdate = false
+			end
 			if canUpdate then
 				updatePlayerPokemonData()
 				updateEnemyPokemonData()
