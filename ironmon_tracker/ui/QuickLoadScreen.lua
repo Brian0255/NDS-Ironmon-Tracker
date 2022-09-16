@@ -56,7 +56,6 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             if newPath ~= nil then
                 if isFolder then
                     newPath = newPath:sub(0, newPath:match("^.*()\\") - 1)
-                    print(newPath)
                 end
                 settings.quickLoad[settingKey] = newPath
                 pathLabel.setText(FormsUtils.shortenFolderName(newPath))
