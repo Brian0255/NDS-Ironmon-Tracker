@@ -749,7 +749,7 @@ function IconDrawer.drawIcon(iconName, x, y)
                         if settings.colorSettings["Color move type icons"] then
                             color = Graphics.TYPE_COLORS[iconName]
                         else
-                            color = settings.colorScheme["Bottom box border color"]
+                            color = settings.colorScheme["Bottom box text color"]
                         end
                     else
                         color = settings.colorScheme[iconColorKey]
