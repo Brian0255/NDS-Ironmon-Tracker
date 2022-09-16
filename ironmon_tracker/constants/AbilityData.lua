@@ -530,7 +530,7 @@ AbilityData.ABILITIES =
         {
             id = 103,
             name = "Klutz",
-            description = "Verhindert, dass das Pok\233mon ein getragenes Item im Kampf einsetzt."
+            description = "Prevents the effects of held items."
         },
         {
             id = 104,

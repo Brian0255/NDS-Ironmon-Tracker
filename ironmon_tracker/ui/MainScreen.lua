@@ -1436,7 +1436,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function setUpStatStages(isEnemy)
         local showAccEva = settings.appearance.SHOW_ACCURACY_AND_EVASION and program.isInBattle() and not isEnemy
         extraThingsToDraw.statStages = {}
-        if currentPokemon.statStages ~= nil and not isEnemy then
+        if currentPokemon.statStages ~= nil then
             for statName, statStage in pairs(currentPokemon.statStages) do
                 local namePosition
                 local chevronPosition
