@@ -1537,7 +1537,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 DrawingUtils.drawNaturePlusMinus(entry.position, entry.effect)
             end
         end
-        if extraThingsToDraw.status ~= nil then
+        if program.getGameInfo().GEN ~= 5 and extraThingsToDraw.status ~= nil then
             local statusImage =
                 ImageField(
                 extraThingsToDraw.status.statusImagePath,
