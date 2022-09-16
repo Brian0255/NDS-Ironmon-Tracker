@@ -25,7 +25,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local statCycleIndex = -1
     local stats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
     local constants = {
-        STAT_PREDICTION_STATES = {{text = "",color = "Top box text color"},{text =  "+",color = "Positive text color"},{text =  "_", color = "Negative text color"}},
+        STAT_PREDICTION_STATES = {
+            {text = "", color = "Top box text color"},
+            {text = "+", color = "Positive text color"},
+            {text = "_", color = "Negative text color"}
+        },
         BADGE_HORIZONTAL_WIDTH = 140,
         BADGE_HORIZONTAL_HEIGHT = 19,
         BADGE_VERTICAL_WIDTH = 19,
@@ -60,7 +64,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         moveEffectiveness = {},
         nature = {},
         statStages = {},
-        status = {},
+        status = {}
     }
     local function onHoverInfoEnd()
         activeHoverFrame = nil
@@ -87,7 +91,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local nextState = (currentState % 3) + 1
             pokemonStatPredictions[stat] = nextState
             tracker.setStatPredictions(pokemonID, pokemonStatPredictions)
-            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[nextState].text, states[nextState].color)
+            setStatPredictionToControl(
+                ui.controls[stat .. "StatPrediction"],
+                states[nextState].text,
+                states[nextState].color
+            )
             program.drawCurrentScreens()
         end
     end
@@ -111,7 +119,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if statCycleIndex ~= -1 then
             local oldStat = stats[statCycleIndex]
             ui.controls[oldStat .. "StatPrediction"].setBackgroundColorKey("Top box background color")
-            ui.controls[oldStat.."StatPrediction"].setTextColorKey("Top box text color")
+            ui.controls[oldStat .. "StatPrediction"].setTextColorKey("Top box text color")
         end
     end
 
@@ -144,7 +152,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
         local states = constants.STAT_PREDICTION_STATES
         for stat, predictionState in pairs(pokemonStatPredictions) do
-            setStatPredictionToControl(ui.controls[stat .. "StatPrediction"], states[predictionState].text, states[predictionState].color)
+            setStatPredictionToControl(
+                ui.controls[stat .. "StatPrediction"],
+                states[predictionState].text,
+                states[predictionState].color
+            )
         end
     end
 
@@ -516,7 +528,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 nil
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = -4, y = 3}),
-            ui.frames.miscInfoFrame, true
+            ui.frames.miscInfoFrame,
+            true
         )
         ui.frames.survivalHealFrame =
             Frame(
@@ -909,7 +922,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
-        ui.controls.lockIcon = Icon(
+        ui.controls.lockIcon =
+            Icon(
             Component(
                 ui.frames.pokemonInfoFrame,
                 Box(
@@ -1256,33 +1270,33 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function initMiscControls()
         ui.controls.accuracyLabel =
-        TextLabel(
-        Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
-        TextField(
-            "ACC",
-            {x = 0, y = -2},
-            TextStyle(
-                Graphics.FONT.DEFAULT_FONT_SIZE,
-                Graphics.FONT.DEFAULT_FONT_FAMILY,
-                "Top box text color",
-                "Top box background color"
+            TextLabel(
+            Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
+            TextField(
+                "ACC",
+                {x = 0, y = -2},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
             )
         )
-    )
-    ui.controls.evasionLabel =
-        TextLabel(
-        Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
-        TextField(
-            "EVA",
-            {x = 0, y = -2},
-            TextStyle(
-                Graphics.FONT.DEFAULT_FONT_SIZE,
-                Graphics.FONT.DEFAULT_FONT_FAMILY,
-                "Top box text color",
-                "Top box background color"
+        ui.controls.evasionLabel =
+            TextLabel(
+            Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
+            TextField(
+                "EVA",
+                {x = 0, y = -2},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
             )
         )
-    )
         ui.controls.healsLabel =
             TextLabel(
             Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 80, height = 9}, nil, nil)),
@@ -1440,10 +1454,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     namePosition = ui.controls[statName .. "StatName"].getPosition()
                 elseif statName == "ACC" and showAccEva then
                     namePosition = ui.controls.accuracyLabel.getPosition()
-                    namePosition.x = namePosition.x -2
+                    namePosition.x = namePosition.x - 2
                 elseif statName == "EVA" and showAccEva then
                     namePosition = ui.controls.evasionLabel.getPosition()
-                    namePosition.x = namePosition.x -2
+                    namePosition.x = namePosition.x - 2
                 end
                 if namePosition ~= nil then
                     chevronPosition = {x = namePosition.x + 20, y = namePosition.y + 5}
@@ -1495,7 +1509,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         else
             return imgName
         end
-        statusPath = "ironmon_tracker/images/status/" .. imgName .. ".png"
+        local statusPath = "ironmon_tracker/images/status/" .. imgName .. ".png"
         return statusPath
     end
 
@@ -1524,8 +1538,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
         if extraThingsToDraw.status ~= nil then
-            local statusImage = ImageField(extraThingsToDraw.status.statusImagePath, extraThingsToDraw.status.position, {width = 16, height = 8})
-            statusImage.move({x =0, y=0})
+            local statusImage =
+                ImageField(
+                extraThingsToDraw.status.statusImagePath,
+                extraThingsToDraw.status.position,
+                {width = 16, height = 8}
+            )
+            statusImage.move({x = 0, y = 0})
             statusImage.show()
         end
     end
@@ -1688,8 +1707,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function setEnemySpecificControls()
-        if not inTrackedView then ui.controls.lockIcon.setVisibility(true) end
-        local lockIcon = "LOCKED" 
+        if not inTrackedView then
+            ui.controls.lockIcon.setVisibility(true)
+        end
+        local lockIcon = "LOCKED"
         if not program.isLocked() then
             lockIcon = "UNLOCKED"
         end
@@ -1761,10 +1782,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
     end
-    
+
     local function setUpPokemonImage()
         if currentPokemon.alternateForm == 0x00 or not currentPokemon["baseForm"] then
-            ui.controls.pokemonImageLabel.setPath("ironmon_tracker/images/pokemonIcons/" .. currentPokemon.pokemonID .. ".png")
+            ui.controls.pokemonImageLabel.setPath(
+                "ironmon_tracker/images/pokemonIcons/" .. currentPokemon.pokemonID .. ".png"
+            )
         else
             if PokemonData.ALTERNATE_FORMS[currentPokemon.baseForm.name] then
                 local index = currentPokemon.alternateForm / 8
@@ -1796,7 +1819,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         eventListeners.healingItemsHoverListener.setOnHoverParams(
             {items = program.getHealingItems(), itemType = "Healing"}
         )
-        ui.controls.healsLabel.setText("Heals: "..healingTotals.healing .. "% (" .. healingTotals.numHeals .. ")")
+        ui.controls.healsLabel.setText("Heals: " .. healingTotals.healing .. "% (" .. healingTotals.numHeals .. ")")
         ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
         ui.frames.enemyNoteFrame.setVisibility(isEnemy)
         ui.frames.healFrame.setVisibility(not isEnemy)
