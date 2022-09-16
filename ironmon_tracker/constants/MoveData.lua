@@ -5232,7 +5232,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User carries the target high into the air for one turn, during which no moves will hit either Pok\233mon and neither can act. On the following turn, the user drops the target, inflicting damage and ending the effect."
+		description = "Inflicts regular damage and makes contact. User carries the target high into the air for one turn, and on the following turn, the user drops the target to inflict damage. Ineffective on flying types."
 	},
 	{
 		id = "508",
