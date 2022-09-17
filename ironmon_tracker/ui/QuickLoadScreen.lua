@@ -43,17 +43,24 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
     local function onSetFolderClick(params)
         local pathLabel = params.pathLabel
         local isFolder = params.isFolder
+        local isBatchButton = params.isBatchButton
         local settingData = params.settingData
         local settingKey = settingData.settingKey
         local fileExtension = settingData.fileExtension
         local relativePath = settingData.relativePath
-        local current_dir = FormsUtils.getCurrentDirectory()
-        local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
-        if isFolder then
-            newPath = newPath:sub(0, newPath:match("^.*()\\"))
+        local batchValid = isBatchButton and settings.quickLoad.LOAD_TYPE == "USE_BATCH" 
+        local romGenerationValid = (not isBatchButton) and settings.quickLoad.LOAD_TYPE == "GENERATE_ROMS" 
+        if batchValid or romGenerationValid then
+            local current_dir = FormsUtils.getCurrentDirectory()
+            local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
+            if newPath ~= nil then
+                if isFolder then
+                    newPath = newPath:sub(0, newPath:match("^.*()\\") - 1)
+                end
+                settings.quickLoad[settingKey] = newPath
+                pathLabel.setText(FormsUtils.shortenFolderName(newPath))
+            end
         end
-        settings.quickLoad[settingKey] = newPath
-        pathLabel.setText(FormsUtils.shortenFolderName(newPath))
     end
 
     local function onRadioClick(button)
@@ -72,7 +79,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         ui.frames.mainFrame.resize({width = ui.frames.mainFrame.getSize().width, height = baseHeight})
     end
 
-    local function createPathSetupFrame(parentFrame, labelName, settingKey, fileExtension, relativePath, isFolder)
+    local function createPathSetupFrame(parentFrame, labelName, settingKey, fileExtension, relativePath, isFolder, isBatchButton)
         local pathFrame =
             Frame(
             Box(
@@ -182,6 +189,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         )
 
         local onSetParams = {
+            ["isBatchButton"] = isBatchButton,
             ["isFolder"] = isFolder,
             ["pathLabel"] = pathLabel,
             settingData = {
@@ -236,7 +244,8 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                         width = 0,
                         height = 0
                     },
-                    nil, nil,
+                    nil,
+                    nil,
                     false
                 )
             ),
@@ -269,7 +278,8 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 2, {x = 0, y = 4}),
             ui.frames.chooseTypeFrame
         )
-        local quickLoadLabel = TextLabel(
+        local quickLoadLabel =
+            TextLabel(
             Component(
                 ui.frames.quickLoadFrame,
                 Box(
@@ -286,10 +296,16 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             TextField(
                 "QuickLoad combo:",
                 {x = 0, y = 0},
-                TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
             )
         )
-        local quickLoadValue = TextLabel(
+        local quickLoadValue =
+            TextLabel(
             Component(
                 ui.frames.quickLoadFrame,
                 Box(
@@ -304,9 +320,14 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                settings.controls.LOAD_NEXT_SEED:gsub(" ","   "),
+                settings.controls.LOAD_NEXT_SEED:gsub(" ", "   "),
                 {x = 0, y = 0},
-                TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
             )
         )
     end
@@ -395,7 +416,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
-        createPathSetupFrame(ui.frames.mainBatchFrame, "ROMs Folder", "ROMS_FOLDER_PATH", ".nds", "", true)
+        createPathSetupFrame(ui.frames.mainBatchFrame, "ROMs Folder", "ROMS_FOLDER_PATH", ".nds", "", true, true)
     end
 
     local function createROMCreationFrame()
@@ -546,7 +567,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             )
         )
         table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, onGoBackClick))
-     --]]
+        --]]
     end
 
     function self.runEventListeners()
