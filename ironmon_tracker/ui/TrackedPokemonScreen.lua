@@ -71,8 +71,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         matchTextLabels = {}
     end
 
-    local function createMatchTextLabel(matchID)
-        local name = PokemonData.POKEMON[matchID + 1].name
+    local function createMatchTextLabel(name)
         local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
         local matchLabel =
             TextLabel(
@@ -110,6 +109,9 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         local currentResultWidth = 0
         for _, match in pairs(matches) do
             local name = PokemonData.POKEMON[match + 1].name
+			if PokemonData.ALTERNATE_FORMS[name] and PokemonData.ALTERNATE_FORMS[name].cosmetic then
+				name = PokemonData.ALTERNATE_FORMS[name].shortenedName
+			end
             local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
             currentResultWidth = currentResultWidth + labelWidth + 1 --layout spacing
             if currentResultWidth > maxSearchResultWidth then
@@ -142,7 +144,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 )
                 break
             else
-                local label = createMatchTextLabel(match)
+                local label = createMatchTextLabel(name)
                 table.insert(matchEventListeners, MouseClickEventListener(label, setIndexFromID, match))
             end
         end
