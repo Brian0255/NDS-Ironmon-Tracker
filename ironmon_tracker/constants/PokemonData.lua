@@ -60,8 +60,8 @@ PokemonData.EVOLUTION_TYPES =
         RAZOR_FANG = "RZ FNG", -- Razor Fang held item
         RAZOR_CLAW = "RZ CLW", -- Razor Claw held item
         DUBIOUS_DISC = "DUB DSC", -- Dubious Disc held item
-        REAPER_CLOTH = "REA CLTH", -- Reaper Cloth held item
-        UPGRADE = "UP-GRDE", --Up-Grade held item
+        REAPER_CLOTH = "REA CLH", -- Reaper Cloth held item
+        UPGRADE = "UPGRDE", --Up-Grade held item
         DRAGON_SCALE = "DRG SCL", --Dragon Scale held item
         METAL_COAT = "MTL COAT", --Metal Coat held item
         KINGS_ROCK = "KNG RCK" --King's Rock held item
@@ -934,7 +934,7 @@ PokemonData.POKEMON = {
     {
         name = "Poliwhirl",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "K ROCK/WTR",
+        evolution = "RCK/WTR",
         bst = "385",
         movelvls = {
             {5, 8, 11, 15, 18, 21, 27, 32, 37, 43, 48, 53},
@@ -6715,7 +6715,7 @@ PokemonData.POKEMON = {
         weight = 291.0
     },
     {
-        name = "Porygon-z",
+        name = "Porygon-Z",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
         bst = "535",
@@ -7374,7 +7374,7 @@ PokemonData.POKEMON = {
         weight = 15.0
     },
     {
-        name = "Unfezant",
+        name = "Unfezant M",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.FLYING},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
         bst = "478",
@@ -9189,20 +9189,6 @@ PokemonData.ALTERNATE_FORMS = {
         forms = {
             {
                 name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
                 type = {PokemonData.POKEMON_TYPES.FIGHTING, PokemonData.POKEMON_TYPES.EMPTY},
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "720",
@@ -9425,23 +9411,10 @@ PokemonData.ALTERNATE_FORMS = {
                 },
                 weight = 320.0
             },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            }
         }
     },
     ["Basculin R"] = {
+        shortenedName = "Basculin",
         cosmetic = true,
         startIndex = 0,
         forms = {
@@ -9462,6 +9435,7 @@ PokemonData.ALTERNATE_FORMS = {
         }
     },
     ["Burmy P"] = {
+        shortenedName = "Burmy",
         cosmetic = true,
         index = 0,
         forms = {
@@ -9544,6 +9518,7 @@ PokemonData.ALTERNATE_FORMS = {
         }
     },
     ["Cherrim O"] = {
+        shortenedName = "Cherrim",
         cosmetic = true,
         index = 0,
         forms = {
@@ -9582,6 +9557,54 @@ PokemonData.ALTERNATE_FORMS = {
                 weight = 92.9
             }
         }
+    },
+    ["Deerling"] = {
+        cosmetic = true,
+        shortenedName = "Deerling",
+        forms = {
+        {
+            name = "Deerling",
+            type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+            evolution = "34",
+            bst = "335",
+            movelvls = {
+                {},
+                {},
+                {},
+                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
+                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
+            },
+            weight = 19.5
+        },
+        {
+            name = "Deerling",
+            type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+            evolution = "34",
+            bst = "335",
+            movelvls = {
+                {},
+                {},
+                {},
+                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
+                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
+            },
+            weight = 19.5
+        },
+        {
+            name = "Deerling",
+            type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+            evolution = "34",
+            bst = "335",
+            movelvls = {
+                {},
+                {},
+                {},
+                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
+                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
+            },
+            weight = 19.5
+        },
+    }
     },
     ["Deoxys"] = {
         cosmetic = false,
@@ -9632,6 +9655,7 @@ PokemonData.ALTERNATE_FORMS = {
         }
     },
     ["Gastrodon W"] = {
+        shortenedName = "Gastrodon",
         cosmetic = true,
         index = 0,
         forms = {
@@ -9672,6 +9696,7 @@ PokemonData.ALTERNATE_FORMS = {
         }
     },
     ["Keldeo"] = {
+        shortenedName = "Keldeo",
         cosmetic = true,
         index = 0,
         forms = {
@@ -9841,6 +9866,55 @@ PokemonData.ALTERNATE_FORMS = {
             }
         }
     },
+    ["Sawsbuck"] = {
+        cosmetic = true,
+        shortenedName = "Sawsbuck",
+        index=  0,
+        forms = {
+            {
+                name = "Sawsbuck",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "475",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
+                },
+                weight = 92.5
+            },
+            {
+                name = "Sawsbuck",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "475",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
+                },
+                weight = 92.5
+            },
+            {
+                name = "Sawsbuck",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "475",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
+                },
+                weight = 92.5
+            },
+        }
+    },
     ["Shaymin L"] = {
         cosmetic = false,
         index = 0,
@@ -9862,6 +9936,7 @@ PokemonData.ALTERNATE_FORMS = {
         }
     },
     ["Shellos W"] = {
+        shortenedName = "Shellos",
         cosmetic = true,
         index = 0,
         forms = {
@@ -9919,6 +9994,27 @@ PokemonData.ALTERNATE_FORMS = {
                 },
                 weight = 63.0
             }
+        }
+    },
+    ["Unfezant M"] = {
+        shortenedName = "Unfezant",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Unfezant F",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.FLYING},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "478",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 8, 11, 15, 18, 23, 27, 33, 38, 44, 49, 55, 60, 66},
+                    {4, 8, 11, 15, 18, 23, 27, 33, 38, 44, 49, 55, 60, 66}
+                },
+                weight = 29.0
+            },
         }
     },
     ["Wormadam P"] = {
