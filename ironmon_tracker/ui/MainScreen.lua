@@ -1525,22 +1525,29 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function getImageForStatus(status)
         local imgName = ""
-        if status == 0 then --None
-            return imgName
-        elseif status < 8 then -- Sleep
-            imgName = "SLP"
-        elseif status == 8 then -- Poison
-            imgName = "PSN"
-        elseif status == 16 then -- Burn
-            imgName = "BRN"
-        elseif status == 32 then -- Freeze
-            imgName = "FRZ"
-        elseif status == 64 then -- Paralyze
-            imgName = "PAR"
-        elseif status == 128 then -- Toxic Poison
-            imgName = "PSN"
-        else
-            return imgName
+        if program.getGameInfo().GEN == 4 then
+            if status == 0 then --None
+                return imgName
+            elseif status < 8 then -- Sleep
+                imgName = "SLP"
+            elseif status == 8 then -- Poison
+                imgName = "PSN"
+            elseif status == 16 then -- Burn
+                imgName = "BRN"
+            elseif status == 32 then -- Freeze
+                imgName = "FRZ"
+            elseif status == 64 then -- Paralyze
+                imgName = "PAR"
+            elseif status == 128 then -- Toxic Poison
+                imgName = "PSN"
+            else
+                return imgName
+            end
+        elseif program.getGameInfo().GEN == 5 then
+            imgName = MiscData.STATUS_TO_IMG_NAME[status]
+            if imgName == nil then
+                return ""
+            end
         end
         local statusPath = "ironmon_tracker/images/status/" .. imgName .. ".png"
         return statusPath
@@ -1570,7 +1577,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 DrawingUtils.drawNaturePlusMinus(entry.position, entry.effect)
             end
         end
-        if program.getGameInfo().GEN ~= 5 and extraThingsToDraw.status ~= nil then
+        if extraThingsToDraw.status ~= nil then
             local statusImage =
                 ImageField(
                 extraThingsToDraw.status.statusImagePath,

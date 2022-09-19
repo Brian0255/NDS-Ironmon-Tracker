@@ -232,6 +232,15 @@ local function PokemonDataReader(initialProgram)
                 local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
                 if extraOffset == nil then extraOffset = 0x00 end
                 movesStart = movesStart + totalPlayerMons * 0x224 + extraOffset-- + 0x224
+
+                local statusStart = addresses.curHPBattlePlayer + (totalPlayerMons * 0x224) + 0x10
+                for i = 1, #MiscData.STATUS_TO_IMG_NAME + 1, 1 do
+                    local status = Memory.read_u32_le(statusStart)
+                    if status ~= 0 then
+                        decryptedData.status = i
+                    end
+                    statusStart = statusStart + 0x4
+                end
             end
             movesStart = movesStart + monIndex * 0x224
             local moveIDs = {"move1", "move2", "move3", "move4"}
