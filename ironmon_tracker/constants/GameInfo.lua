@@ -18,6 +18,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon Diamond",
         BADGE_PREFIX = "DPPT",
         VERSION_GROUP = 1,
+        ENEMY_PARTY_OFFSET = 0xB60,
+        ACTIVE_PID_DIFFERENCE=0x180,
         ENCRYPTED_POKEMON_SIZE = 236
     },
     [GameInfo.VERSION_NUMBER.PEARL] = {
@@ -25,6 +27,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon Pearl",
         BADGE_PREFIX = "DPPT",
         VERSION_GROUP = 1,
+        ENEMY_PARTY_OFFSET = 0xB60,
+        ACTIVE_PID_DIFFERENCE=0x180,
         ENCRYPTED_POKEMON_SIZE = 236
     },
     [GameInfo.VERSION_NUMBER.PLATINUM] = {
@@ -32,6 +36,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon Platinum",
         BADGE_PREFIX = "DPPT",
         VERSION_GROUP = 2,
+        ENEMY_PARTY_OFFSET = 0xB60,
+        ACTIVE_PID_DIFFERENCE=0x180,
         ENCRYPTED_POKEMON_SIZE = 236
     },
     [GameInfo.VERSION_NUMBER.HEART_GOLD] = {
@@ -39,6 +45,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon HeartGold",
         BADGE_PREFIX = "HGSS",
         VERSION_GROUP = 3,
+        ENEMY_PARTY_OFFSET = 0xBA8,
+        ACTIVE_PID_DIFFERENCE=0x180,
         ENCRYPTED_POKEMON_SIZE = 236
     },
     [GameInfo.VERSION_NUMBER.SOUL_SILVER] = {
@@ -46,6 +54,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon SoulSilver",
         BADGE_PREFIX = "HGSS",
         VERSION_GROUP = 3,
+        ENEMY_PARTY_OFFSET = 0xBA8,
+        ACTIVE_PID_DIFFERENCE=0x180,
         ENCRYPTED_POKEMON_SIZE = 236
     },
     [GameInfo.VERSION_NUMBER.BLACK] = {
@@ -53,6 +63,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon Black",
         BADGE_PREFIX = "BW",
         VERSION_GROUP = 4,
+        ENEMY_PARTY_OFFSET = 0xAC0,
+        ACTIVE_PID_DIFFERENCE=0x5C,
         ENCRYPTED_POKEMON_SIZE = 220
     },
     [GameInfo.VERSION_NUMBER.WHITE] = {
@@ -60,6 +72,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon White",
         BADGE_PREFIX = "BW",
         VERSION_GROUP = 4,
+        ENEMY_PARTY_OFFSET = 0xAC0,
+        ACTIVE_PID_DIFFERENCE=0x5C,
         ENCRYPTED_POKEMON_SIZE = 220
     },
     [GameInfo.VERSION_NUMBER.BLACK2] = {
@@ -67,6 +81,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon Black 2",
         BADGE_PREFIX = "BW2",
         VERSION_GROUP = 5,
+        ENEMY_PARTY_OFFSET = 0xAC0,
+        ACTIVE_PID_DIFFERENCE=0x5C,
         ENCRYPTED_POKEMON_SIZE = 220
     },
     [GameInfo.VERSION_NUMBER.WHITE2] = {
@@ -74,6 +90,8 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon White 2",
         BADGE_PREFIX = "BW2",
         VERSION_GROUP = 5,
+        ENEMY_PARTY_OFFSET = 0xAC0,
+        ACTIVE_PID_DIFFERENCE=0x5C,
         ENCRYPTED_POKEMON_SIZE = 220
     }
 }
