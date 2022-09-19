@@ -12,7 +12,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        BATTLE_OPTIONS_HEIGHT = 110,
+        BATTLE_OPTIONS_HEIGHT = 124,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10
@@ -26,6 +26,9 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
     end
     local function onToggleClick(button)
         button.onClick()
+        if not settings.battle.ENABLE_ENEMY_LOCKING then
+            program.unlockEnemy()
+        end
         program.drawCurrentScreens()
     end
     local function initBattleToggleButtons()
@@ -33,7 +36,8 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
             "SHOW_MOVE_EFFECTIVENESS",
             "CALCULATE_VARIABLE_DAMAGE",
             "SHOW_ACTUAL_ENEMY_PP",
-            "SHOW_1ST_FIGHT_STATS_PLATINUM"
+            "SHOW_1ST_FIGHT_STATS_PLATINUM",
+            "ENABLE_ENEMY_LOCKING"
         }
         for _, key in pairs(orderedKeys) do
             local frame =
