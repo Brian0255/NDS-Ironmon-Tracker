@@ -18,6 +18,7 @@
     "MiscUtils",
     "MoveUtils",
     "IconDrawer",
+    "Memory",
     "Input",
     "ThemeFactory",
     "HoverFrameFactory",
