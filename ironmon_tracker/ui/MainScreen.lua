@@ -55,6 +55,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         pokemonHoverListener = nil
     }
     local frameCounters = {}
+    local hoverListeners = {}
     local moveEventListeners = {}
     local statPredictionEventListeners = {}
     local ui = {}
@@ -67,7 +68,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         status = {}
     }
     local function onHoverInfoEnd()
-        activeHoverFrame = nil
+        if activeHoverFrame and not activeHoverFrame.wasClicked then
+            activeHoverFrame = nil
+        end
         program.drawCurrentScreens()
     end
 
@@ -79,6 +82,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
         control.setText(newPrediction)
         control.setTextColorKey(newColor)
+    end
+
+    local function wasActiveHoverClicked()
+        if activeHoverFrame == nil then return false end
+        return activeHoverFrame.wasClicked
     end
 
     local function onStatPredictionClick(params)
@@ -110,9 +118,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function moveHoverFrameToMouse(hoverFrame, alignment)
-        local position = Input.getMousePosition()
-        MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame, hoverFrame.getSize())
-        hoverFrame.move(position)
+        if settings.appearance.DISPLAY_HOVERS_TO_THE_RIGHT then
+            hoverFrame.move({
+                x = ui.frames.mainFrame.getPosition().x + ui.frames.mainFrame.getSize().width + Graphics.SIZES.BORDER_MARGIN,
+                y = Graphics.SIZES.BORDER_MARGIN
+            })
+        else
+            local position = Input.getMousePosition()
+            MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame, hoverFrame.getSize())
+            hoverFrame.move(position)
+        end
     end
 
     local function resetStatPredictionColor()
@@ -196,15 +211,22 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onPokemonImageHover(params)
-        if params.pokemon.pokemonID ~= 0 then
-            local pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
-            activeHoverFrame = pokemonHoverFrame
-            program.drawCurrentScreens()
-            pokemonHoverFrame.show()
+        local wasClicked = wasActiveHoverClicked()
+        if not wasClicked then
+            if params.pokemon.pokemonID ~= 0 then
+                local pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
+                moveHoverFrameToMouse(pokemonHoverFrame,Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW)
+                activeHoverFrame = pokemonHoverFrame
+                program.drawCurrentScreens()
+                activeHoverFrame.wasClicked = wasClicked
+                pokemonHoverFrame.show()
+            end
         end
     end
 
     local function onItemBagInfoHover(params)
+        local wasClicked = wasActiveHoverClicked()
+        if not wasClicked then
         if ui.frames.healFrame.isVisible() then
             local items = params.items
             local itemType = params.itemType
@@ -223,41 +245,50 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 hoverFrame.show()
             else
                 local itemsHoverFrame = HoverFrameFactory.createItemBagHoverFrame(items, ui.frames.mainFrame, itemType)
+                moveHoverFrameToMouse(itemsHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
                 activeHoverFrame = itemsHoverFrame
                 program.drawCurrentScreens()
                 itemsHoverFrame.show()
             end
+            activeHoverFrame.wasClicked = wasClicked
         end
+    end
     end
 
     local function onMoveHeaderHover(params)
-        if params.pokemon ~= nil then
-            local movelvls = params.pokemon.movelvls
-            local moveHeaderHoverFrame
-            if #movelvls == 0 then
-                moveHeaderHoverFrame =
-                    HoverFrameFactory.createHoverTextFrame(
-                    "Bottom box background color",
-                    "Bottom box border color",
-                    "This Pok\233mon does not learn any moves.",
-                    "Bottom box text color",
-                    126
-                )
-                moveHoverFrameToMouse(
-                    moveHeaderHoverFrame,
-                    Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
-                    moveHeaderHoverFrame.getSize()
-                )
-            else
-                moveHeaderHoverFrame = HoverFrameFactory.createMoveLevelsHoverFrame(params.pokemon, params.mainFrame)
+        local wasClicked = wasActiveHoverClicked()
+        if not wasClicked then
+            if params.pokemon ~= nil then
+                local movelvls = params.pokemon.movelvls
+                local moveHeaderHoverFrame
+                if #movelvls == 0 then
+                    moveHeaderHoverFrame =
+                        HoverFrameFactory.createHoverTextFrame(
+                        "Bottom box background color",
+                        "Bottom box border color",
+                        "This Pok\233mon does not learn any moves.",
+                        "Bottom box text color",
+                        126
+                    )
+                    moveHoverFrameToMouse(
+                        moveHeaderHoverFrame,
+                        Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
+                    )
+                else
+                    moveHeaderHoverFrame = HoverFrameFactory.createMoveLevelsHoverFrame(params.pokemon, params.mainFrame)
+                    moveHoverFrameToMouse(moveHeaderHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
+                end
+                activeHoverFrame = moveHeaderHoverFrame
+                activeHoverFrame.wasClicked = wasClicked
+                program.drawCurrentScreens()
+                activeHoverFrame.show()
             end
-            activeHoverFrame = moveHeaderHoverFrame
-            program.drawCurrentScreens()
-            activeHoverFrame.show()
         end
     end
 
     local function onHoverInfo(hoverParams)
+        local wasClicked = wasActiveHoverClicked()
+        if not wasClicked then
         local BGColorKey = hoverParams.BGColorKey
         local BGColorFillKey = hoverParams.BGColorFillKey
         local textColorKey = hoverParams.textColorKey
@@ -268,10 +299,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local hoverFrame =
                 HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
             moveHoverFrameToMouse(hoverFrame, alignment)
+            activeHoverFrame = hoverFrame
+            activeHoverFrame.wasClicked = wasClicked
             program.drawCurrentScreens()
             hoverFrame.show()
-            activeHoverFrame = hoverFrame
         end
+    end
     end
 
     local function onHiddenPowerFrameCounter()
@@ -1109,7 +1142,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 8, height = 10},
+                        {width = 9, height = 10},
                         nil,
                         nil
                     )
@@ -1707,16 +1740,14 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function setEnemySpecificControls()
-        if not inTrackedView then
-            ui.controls.lockIcon.setVisibility(true)
-        end
+        ui.controls.lockIcon.setVisibility(not inTrackedView and settings.battle.ENABLE_ENEMY_LOCKING)
         local lockIcon = "LOCKED"
         if not program.isLocked() then
             lockIcon = "UNLOCKED"
         end
         ui.controls.lockIcon.setIconName(lockIcon)
-        local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
-        local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
+        local abilityHoverParams = hoverListeners.abilityHoverListener.getOnHoverParams()
+        local itemHoverParams = hoverListeners.heldItemHoverListener.getOnHoverParams()
         readStatPredictions(currentPokemon.pokemonID)
         ui.controls.pokemonHP.setText("HP: ?/?")
         abilityHoverParams.text = ""
@@ -1751,7 +1782,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     {["stat"] = statName, pokemonID = currentPokemon.pokemonID}
                 )
             else
-
                 ui.controls[statName .. "StatName"].resize({width = 25, height = 10})
                 ui.controls[statName .. "StatNumber"].setText(stat)
                 if statName ~= "HP" and settings.appearance.BLIND_MODE then
@@ -1787,21 +1817,25 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    --[[
     local function setUpPokemonImage()
+        local currentIconSet = IconSets.LIST[settings.appearance.ICON_SET_INDEX]
+        local folderPath = Paths.FOLDERS.POKEMON_ICONS_FOLDER.."/"..currentIconSet.FOLDER_NAME.."/"
+        local extension = currentIconSet.FILE_EXTENSION
+        ui.controls.pokemonImageLabel.setOffset(currentIconSet.IMAGE_OFFSET)
         if currentPokemon.alternateForm == 0x00 or not currentPokemon["baseForm"] then
             ui.controls.pokemonImageLabel.setPath(
-                "ironmon_tracker/images/pokemonIcons/" .. currentPokemon.pokemonID .. ".png"
+                folderPath .. currentPokemon.pokemonID .. extension
             )
         else
             if PokemonData.ALTERNATE_FORMS[currentPokemon.baseForm.name] then
                 local index = currentPokemon.alternateForm / 8
                 local baseName = currentPokemon.baseForm.name
-                local path = "ironmon_tracker/images/pokemonIcons/alternateForms/" .. baseName .. "/" .. index .. ".png"
+                local path = folderPath.."alternateForms/" .. baseName .. "/" .. index .. extension
                 ui.controls.pokemonImageLabel.setPath(path)
             end
         end
-    end
-
+    end--]]
     local function setUpMiscInfo(isEnemy)
         local pokecenters = tracker.getPokecenterCount()
         if pokecenters < 10 then
@@ -1817,10 +1851,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if healingTotals == nil then
             healingTotals = {healing = 0, numHeals = 0}
         end
-        eventListeners.statusItemsHoverListener.setOnHoverParams(
+        hoverListeners.statusItemsHoverListener.setOnHoverParams(
             {items = program.getStatusItems(), itemType = "Status"}
         )
-        eventListeners.healingItemsHoverListener.setOnHoverParams(
+        hoverListeners.healingItemsHoverListener.setOnHoverParams(
             {items = program.getHealingItems(), itemType = "Healing"}
         )
         ui.controls.healsLabel.setText("Heals: " .. healingTotals.healing .. "% (" .. healingTotals.numHeals .. ")")
@@ -1831,10 +1865,21 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpMainPokemonInfo(isEnemy)
         local heldItemInfo = ItemData.GEN_5_ITEMS[currentPokemon.heldItem]
-        ui.controls.pokemonNameLabel.setText(currentPokemon.name)
+        local name = currentPokemon.name
+        ui.controls.pokemonNameLabel.setText(name)
         ui.controls.pokemonHP.setVisibility(not isEnemy)
-        setUpPokemonImage()
-        local pokemonHoverParams = eventListeners.pokemonHoverListener.getOnHoverParams()
+        local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
+        local imageID = currentPokemon.pokemonID
+        if currentPokemon.alternateFormID ~= nil then
+            imageID = currentPokemon.alternateFormID
+        end
+        DrawingUtils.readPokemonIDIntoImageLabel(
+            currentIconSet,
+            imageID,
+            ui.controls.pokemonImageLabel,
+            currentIconSet.IMAGE_OFFSET
+        )
+        local pokemonHoverParams = hoverListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = currentPokemon
         local evo = currentPokemon.evolution
         if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and currentPokemon.friendship >= 220 then
@@ -1851,7 +1896,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         for i, type in pairs(currentPokemon.type) do
             ui.controls["pokemonType" .. i].setPath(Paths.FOLDERS.TYPE_IMAGES_FOLDER .. "/" .. type .. ".png")
         end
-        local abilityHoverParams = eventListeners.abilityHoverListener.getOnHoverParams()
+        local abilityHoverParams = hoverListeners.abilityHoverListener.getOnHoverParams()
         local description = AbilityData.ABILITIES[currentPokemon.ability + 1].description
         if settings.appearance.BLIND_MODE then
             description = ""
@@ -1860,7 +1905,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             description = description[program.getGameInfo().GEN - 3]
         end
         abilityHoverParams.text = description
-        local itemHoverParams = eventListeners.heldItemHoverListener.getOnHoverParams()
+        local itemHoverParams = hoverListeners.heldItemHoverListener.getOnHoverParams()
         local heldItemDescription = heldItemInfo.description
         if ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name] ~= nil then
             local badNatures = ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name]
@@ -1887,7 +1932,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         setUpMainPokemonInfo(isEnemy)
         setUpMiscInfo(isEnemy)
 
-        eventListeners.moveHeaderHoverListener.setOnHoverParams(
+        hoverListeners.moveHeaderHoverListener.setOnHoverParams(
             {["pokemon"] = pokemon, mainFrame = ui.frames.mainFrame}
         )
 
@@ -1919,7 +1964,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.runEventListeners()
-        local listenerGroups = {eventListeners, moveEventListeners, statPredictionEventListeners}
+        local listenerGroups = {eventListeners, hoverListeners, statPredictionEventListeners, moveEventListeners}
         for _, listenerGroup in pairs(listenerGroups) do
             for _, eventListener in pairs(listenerGroup) do
                 eventListener.listen()
@@ -1951,6 +1996,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.show()
+        if activeHoverFrame ~= nil then
+            if activeHoverFrame.wasClicked and not settings.appearance.DISPLAY_HOVERS_TO_THE_RIGHT  then
+                activeHoverFrame = nil
+            end
+        end
         self.updateBadgeLayout()
         readPokemonIntoUI()
         ui.frames.mainFrame.show()
@@ -1964,27 +2014,49 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function disablePinnedFrame(listener)
+        activeHoverFrame = nil
+        eventListeners.activeHoverClickListener = nil
+        program.drawCurrentScreens()
+        listener.reset()
+    end
+
+    local function createOnClickForHover(name, listener)
+        eventListeners[name.."Click"] = MouseClickEventListener(
+            listener.getControl(),
+            function()
+                if settings.appearance.CLICKABLE_INFO_HOVERING then
+                    listener.activateOnHover()
+                    if activeHoverFrame ~= nil then
+                        activeHoverFrame.wasClicked = false
+                        listener.activateOnHover()
+                        eventListeners.activeHoverClickListener = MouseClickEventListener(activeHoverFrame,disablePinnedFrame,listener)
+                        activeHoverFrame.wasClicked = true
+                    end
+                end
+            end
+        )
+    end
+
     local function initEventListeners()
         for i = 1, 4, 1 do
             local moveFrame = ui.moveInfoFrames[i]
-            table.insert(
-                moveEventListeners,
+            moveEventListeners[i] =
                 HoverEventListener(
-                    moveFrame.moveNameLabel,
-                    onHoverInfo,
-                    {
-                        BGColorKey = "Bottom box background color",
-                        BGColorFillKey = "Bottom box border color",
-                        text = "",
-                        textColorKey = "Bottom box text color",
-                        width = 120,
-                        alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
-                    },
-                    onHoverInfoEnd
-                )
+                moveFrame.moveNameLabel,
+                onHoverInfo,
+                {
+                    BGColorKey = "Bottom box background color",
+                    BGColorFillKey = "Bottom box border color",
+                    text = "",
+                    textColorKey = "Bottom box text color",
+                    width = 120,
+                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
+                },
+                onHoverInfoEnd
             )
         end
-        eventListeners.abilityHoverListener =
+        hoverListeners.abilityHoverListener =
             HoverEventListener(
             ui.controls.abilityDetails,
             onHoverInfo,
@@ -1998,7 +2070,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             },
             onHoverInfoEnd
         )
-        eventListeners.heldItemHoverListener =
+        hoverListeners.heldItemHoverListener =
             HoverEventListener(
             ui.controls.heldItem,
             onHoverInfo,
@@ -2012,20 +2084,20 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             },
             onHoverInfoEnd
         )
-        eventListeners.pokemonHoverListener =
+        hoverListeners.pokemonHoverListener =
             HoverEventListener(
             ui.controls.pokemonImageLabel,
             onPokemonImageHover,
             {pokemon = nil, mainFrame = ui.frames.mainFrame},
             onHoverInfoEnd
         )
-        eventListeners.moveHeaderHoverListener =
+        hoverListeners.moveHeaderHoverListener =
             HoverEventListener(ui.controls.moveHeaderLearnedText, onMoveHeaderHover, {pokemon = nil}, onHoverInfoEnd)
         eventListeners.optionsIconListener = MouseClickEventListener(ui.controls.gearIcon, openOptionsScreen, nil)
         eventListeners.noteIconListener = MouseClickEventListener(ui.controls.noteIcon, createNote, nil)
-        eventListeners.healingItemsHoverListener =
+        hoverListeners.healingItemsHoverListener =
             HoverEventListener(ui.controls.healsLabel, onItemBagInfoHover, nil, onHoverInfoEnd)
-        eventListeners.statusItemsHoverListener =
+        hoverListeners.statusItemsHoverListener =
             HoverEventListener(ui.controls.statusItemsLabel, onItemBagInfoHover, nil, onHoverInfoEnd)
         eventListeners.cycleStatListener = JoypadEventListener(settings.controls, "CYCLE_STAT", increaseCycleStatIndex)
         eventListeners.cyclePredictionListener =
@@ -2034,6 +2106,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             MouseClickEventListener(ui.controls.increaseHealsIcon, onSurvivalHealClick, true)
         eventListeners.decreaseSurvivalHealsListener =
             MouseClickEventListener(ui.controls.decreaseHealsIcon, onSurvivalHealClick, false)
+        for name, listener in pairs(hoverListeners) do
+           createOnClickForHover(name,listener)
+        end
+        for i, listener in pairs(moveEventListeners) do
+            createOnClickForHover("moveHoverClick"..i,listener)
+        end
     end
 
     local function recalculateMainFrameSize(orientation)
