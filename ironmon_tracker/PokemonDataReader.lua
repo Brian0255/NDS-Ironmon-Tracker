@@ -165,6 +165,11 @@ local function PokemonDataReader(initialProgram)
             else
                 decryptedData[dataName[2]] = byte2Data
             end
+            if dataName[1] == "alternateForm" then
+                decryptedData["isFemale"] = BitUtils.getBits(byte2Data,1,1)
+            else
+                decryptedData[dataName[2]] = byte2Data
+            end
         end
     end
 
@@ -194,7 +199,7 @@ local function PokemonDataReader(initialProgram)
         end
     end
 
-    local function decryptBattleStats(battleStatStart, monIndex, checkingEnemy)
+    local function decryptBattleStats(battleStatStart, monIndex, checkingEnemy, extraOffset)
         local offsets = constants.BATTLE_STAT_OFFSETS
         local previousOffset = 0
         seed = pid
@@ -213,8 +218,9 @@ local function PokemonDataReader(initialProgram)
             decryptedData.curHP = Memory.read_u16_le(addresses.curHPBattlePlayer + monIndex * 548)
             decryptedData.HP = Memory.read_u16_le(addresses.HPBattlePlayer + monIndex * 548)
             if not checkingEnemy then
-                decryptedData.level = Memory.read_u16_le(addresses.curBattleLevel)
-                local statStart = addresses.curBattleStats
+                decryptedData.level = Memory.read_u16_le(addresses.curBattleLevel+ monIndex * 0x224) % 256
+                --print(decryptedData.level)
+                local statStart = addresses.curBattleStats + monIndex * 0x224
                 local stats = {"ATK","DEF","SPA","SPD","SPE"}
                 for i = 0,4,1 do
                     local stat = stats[i+1]
@@ -224,7 +230,8 @@ local function PokemonDataReader(initialProgram)
             local movesStart = addresses.statStagesStart + 8
             if checkingEnemy then
                 local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
-                movesStart = movesStart + totalPlayerMons * 0x224
+                if extraOffset == nil then extraOffset = 0x00 end
+                movesStart = movesStart + totalPlayerMons * 0x224 + extraOffset-- + 0x224
             end
             movesStart = movesStart + monIndex * 0x224
             local moveIDs = {"move1", "move2", "move3", "move4"}
@@ -243,7 +250,7 @@ local function PokemonDataReader(initialProgram)
         return MiscUtils.deepCopy(constants.DEFAULT_POKEMON)
     end
 
-    function self.decryptPokemonInfo(checkingParty, monIndex, checkingEnemy)
+    function self.decryptPokemonInfo(checkingParty, monIndex, checkingEnemy, extraOffset)
         decryptedData = {}
         --Find the first mon that hasn't fainted.
         for _ = 1, 6, 1 do
@@ -258,7 +265,7 @@ local function PokemonDataReader(initialProgram)
                 seed = checksum
                 decryptBlocks(blockReadingStart, blockOrder)
                 local battleStatStart = currentBase + 0x88
-                decryptBattleStats(battleStatStart, monIndex, checkingEnemy)
+                decryptBattleStats(battleStatStart, monIndex, checkingEnemy, extraOffset)
                 decryptedData.moveIDs = {
                     decryptedData.move1,
                     decryptedData.move2,
