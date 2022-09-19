@@ -12,6 +12,7 @@
     "DrawingUtils",
     "FormsUtils",
     "GameConfigurator",
+    "IconSets",
     "MemoryAddresses",
     "MiscConstants",
     "MiscUtils",
