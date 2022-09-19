@@ -2225,7 +2225,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the target's Attack by two stages, then confuses it. If the target's Attack cannot be raised by two stages, the confusion is not applied."
+		description = "Raises the target's Attack by two stages, then confuses it."
 	},
 	{
 		id = "208",
