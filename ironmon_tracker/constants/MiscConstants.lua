@@ -9,7 +9,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         SHOW_ACCURACY_AND_EVASION = true,
         CLICKABLE_INFO_HOVERING = false,
         DISPLAY_HOVERS_TO_THE_RIGHT = false,
-        ICON_SET_INDEX=1
+        ICON_SET_INDEX=2
     },
     controls = {
         CHANGE_VIEW = "Start",
