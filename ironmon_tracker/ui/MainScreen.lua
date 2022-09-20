@@ -175,8 +175,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    local function createNote(pokemonID)
-        if pokemonID ~= 0 then
+    local function createNote(params)
+        local pokemonID = params.pokemon
+        local isEnemy = params.isEnemy
+        if pokemonID ~= 0 and isEnemy then
             local width, height = 270, 70
             local clientCenter = FormsUtils.getCenter(width, height)
             local charMax = 40
@@ -1159,7 +1161,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 9, height = 10},
+                        {width = 10, height = 10},
                         nil,
                         nil
                     )
@@ -1183,7 +1185,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 ),
                 TextField(
                     "Tail Whip",
-                    Graphics.SIZES.DEFAULT_TEXT_OFFSET,
+                    {x=-1,y=0},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -1759,7 +1761,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.pokemonHP.setText("HP: ?/?")
         abilityHoverParams.text = ""
         itemHoverParams.text = ""
-        eventListeners.noteIconListener.setOnClickParams(currentPokemon.pokemonID)
         local note = tracker.getNote(currentPokemon.pokemonID)
         local lines = DrawingUtils.textToWrappedArray(note, 70)
         ui.controls.mainNoteLabel.setText(lines[1])
@@ -1823,26 +1824,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
     end
-
-    --[[
-    local function setUpPokemonImage()
-        local currentIconSet = IconSets.LIST[settings.appearance.ICON_SET_INDEX]
-        local folderPath = Paths.FOLDERS.POKEMON_ICONS_FOLDER.."/"..currentIconSet.FOLDER_NAME.."/"
-        local extension = currentIconSet.FILE_EXTENSION
-        ui.controls.pokemonImageLabel.setOffset(currentIconSet.IMAGE_OFFSET)
-        if currentPokemon.alternateForm == 0x00 or not currentPokemon["baseForm"] then
-            ui.controls.pokemonImageLabel.setPath(
-                folderPath .. currentPokemon.pokemonID .. extension
-            )
-        else
-            if PokemonData.ALTERNATE_FORMS[currentPokemon.baseForm.name] then
-                local index = currentPokemon.alternateForm / 8
-                local baseName = currentPokemon.baseForm.name
-                local path = folderPath.."alternateForms/" .. baseName .. "/" .. index .. extension
-                ui.controls.pokemonImageLabel.setPath(path)
-            end
-        end
-    end--]]
     local function setUpMiscInfo(isEnemy)
         local pokecenters = tracker.getPokecenterCount()
         if pokecenters < 10 then
@@ -1880,6 +1861,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if currentPokemon.alternateFormID ~= nil then
             imageID = currentPokemon.alternateFormID
         end
+        eventListeners.noteIconListener.setOnClickParams({pokemon = currentPokemon.pokemonID, ["isEnemy"] = isEnemy})
         DrawingUtils.readPokemonIDIntoImageLabel(
             currentIconSet,
             imageID,
