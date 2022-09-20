@@ -50,8 +50,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local enemyMonIndex = 0
 	local enemySlotIndex = 1
 	local lastValidPlayerBattlePID = -1
-	local GEN5_activePlayerMonPID = nil
-	local GEN5_activeEnemyMonPID = nil
+	local GEN5_activePlayerMonPIDAddr = nil
+	local GEN5_PIDSwitchData = {}
 	local firstBattleComplete = false
 	local frameCounters
 
@@ -147,11 +147,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		enemyBattlers[currentEnemyIndex] = {
 			teamPIDs = {},
 			addressBase = currentBase,
-			activePIDAddress = memoryAddresses.enemyBattleMonPID,
+			activePIDAddress = currentBase,
 			startIndex = 0,
 			lastValidPID = -1,
 			lastValidPokemon = nil,
-			extraOffset = doublesOffset
+			extraOffset = doublesOffset,
+			transformed = false
 		}
 		local lookFor = memoryAddresses.enemyBattleMonPID + gameInfo.ACTIVE_PID_DIFFERENCE
 		if gen5AlternateDouble then
@@ -179,18 +180,20 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 						lookFor = lookFor + gameInfo.ACTIVE_PID_DIFFERENCE
 						local previousTeam = enemyBattlers[currentEnemyIndex - 1]
 						local total = 0
-						for _, pokemon in pairs(previousTeam.teamPIDs) do
-							total = total + 1
-						end
+						total = total + #enemyBattlers
 						if isGen5AlternateDoubleBattle() then
-							total = total + Memory.read_u32_le(0x26bd10)
+							total = total + Memory.read_u32_le(memoryAddresses.enemyBase + gameInfo.ENEMY_PARTY_OFFSET - 0x04)
 							total = total * 2
 							total = total + totalPlayerMons
+						end
+						local activePID = memoryAddresses.enemyBattleMonPID + (currentEnemyIndex - 1) * 0x180
+						if gameInfo.GEN == 5 then
+							activePID = currentBase
 						end
 						enemyBattlers[currentEnemyIndex] = {
 							teamPIDs = {},
 							addressBase = currentBase,
-							activePIDAddress = memoryAddresses.enemyBattleMonPID + (currentEnemyIndex - 1) * 0x180,
+							activePIDAddress = activePID,
 							startIndex = i,
 							lastValidPID = nil,
 							lastValidPokemon = nil,
@@ -247,7 +250,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for i = 0, 5, 1 do
 			local pid = Memory.read_u32_le(currentBase)
 			if pid ~= 0 then
-				--table.insert(playerBattleTeamPIDs.list,pid)
 				playerBattleTeamPIDs[pid] = i
 			else
 				break
@@ -355,7 +357,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function getPlayerBattleMonPID()
 		local activePID = Memory.read_u32_le(memoryAddresses.playerBattleMonPID)
 		if gameInfo.GEN == 5 then
-			activePID = GEN5_activePlayerMonPID
+			activePID = Memory.read_u32_le(GEN5_activePlayerMonPIDAddr)
 		end
 		if activePID == 0 then
 			return Memory.read_u32_le(memoryAddresses.playerBattleBase)
@@ -375,20 +377,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function checkForPlayerTransform()
 		local activePID = getPlayerBattleMonPID()
-		for _, battler in pairs(enemyBattlers) do
-			if battler.teamPIDs[activePID] ~= nil then
-				return true
-			end
-		end
-		return false
+		return not playerBattleTeamPIDs[activePID]
 	end
 
 	local function checkForEnemyTransform(enemyBattler)
 		local activePID = getEnemyBattleMonPID(enemyBattler)
-		if playerBattleTeamPIDs[activePID] ~= nil then
-			return true
-		end
-		return false
+		return not enemyBattler.teamPIDs[activePID]
 	end
 
 	local function getPokemonDataPlayer()
@@ -420,7 +414,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local genderForms = {["Unfezant M"] = true, ["Frillish M"] = true, ["Jellicent M"] = true}
 		if genderForms[data.name] then
 			pokemon.alternateForm = 0x00
-			if pokemon.isFemale == 0 then
+			if pokemon.isFemale == 1 then
 				pokemon.alternateForm = 0x08
 			end
 		end
@@ -438,6 +432,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					local formStartIndex = formTable.index
 					local alternateFormID = formStartIndex + (alternateFormindex - 2)
 					pokemon.alternateFormID = alternateFormID
+					pokemon.name = PokemonData.POKEMON[alternateFormID+1].name
 					if not formTable.cosmetic then
 						pokemon.pokemonID = alternateFormID
 						tracker.logPokemonAsAlternateForm(pokemon.pokemonID, pokemon.baseForm, pokemon.alternateForm)
@@ -520,35 +515,28 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function GEN5_checkLastSwitchin()
 		--In gen 5, there is no active battler PID.
-		--Instead, 2 memory addresses seemingly get updated when switch-in's occur.
+		--Instead, several memory addresses seemingly get updated when switch-ins occur.
 		--So what we do is check these addresses. If the PID belongs to player or enemy, update accordingly.
-		local updatedPlayer = false
-		local updatedBattlers = {}
-		for PID, index in pairs(playerBattleTeamPIDs) do
-			if index == 0 then
-				GEN5_activePlayerMonPID = PID
-				break
-			end
-		end
-		for i, enemyBattler in pairs(enemyBattlers) do
-			enemyBattler.activePIDAddress = enemyBattler.addressBase
-			updatedBattlers[i] = false
-		end
-		local firstSwitchPID = memoryAddresses.playerBattleMonPID
-		for i = 0, 5, 1 do
-			local switchPIDAddr = firstSwitchPID + 0x5C * i
-			local value = Memory.read_u32_le(switchPIDAddr)
-			if value == 0 then
-				return
-			end
-			if playerBattleTeamPIDs[value] and not updatedPlayer then
-				GEN5_activePlayerMonPID = value
-				updatedPlayer = true
-			end
-			for j, enemyBattler in pairs(enemyBattlers) do
-				if enemyBattler.teamPIDs[value] and not updatedBattlers[j] then
-					enemyBattler.activePIDAddress = switchPIDAddr
-					updatedBattlers[j] = true
+		if next(GEN5_PIDSwitchData) ~= nil then
+			local start = memoryAddresses.playerBattleMonPID
+			for i = 0, 5, 1 do
+				local switchAddr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
+				local data = GEN5_PIDSwitchData.switchSlots[switchAddr]
+				local currentValue = Memory.read_u32_le(switchAddr)
+				if currentValue == 0 then
+					return 
+				end
+				if not data.active and currentValue ~= data.initialValue and not GEN5_PIDSwitchData.initialPIDs[currentValue] then
+					data.active = true
+					if playerBattleTeamPIDs[currentValue] and GEN5_activePlayerMonPIDAddr == memoryAddresses.playerBattleBase then
+						GEN5_activePlayerMonPIDAddr = switchAddr
+					else
+						for _, battler in pairs(enemyBattlers) do
+							if battler.teamPIDs[currentValue] and battler.activePIDAddress == battler.addressBase then
+								battler.activePIDAddress = switchAddr
+							end
+						end
+					end
 				end
 			end
 		end
@@ -648,8 +636,31 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function GEN5_initializePIDSlots()
+		local start = memoryAddresses.playerBattleMonPID
+		GEN5_PIDSwitchData = {
+			initialPIDs = {},
+			switchSlots = {}
+		}
+		for _, battler in pairs(enemyBattlers) do
+			GEN5_PIDSwitchData.initialPIDs[Memory.read_u32_le(battler.addressBase)] = true
+		end
+		GEN5_activePlayerMonPIDAddr = memoryAddresses.playerBattleBase
+		GEN5_PIDSwitchData.initialPIDs[Memory.read_u32_le(memoryAddresses.playerBattleBase)] = true
+		for i = 0, 5, 1 do
+			local addr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
+			local initialValue = Memory.read_u32_le(addr)
+			GEN5_PIDSwitchData.switchSlots[addr] = {
+				["initialValue"] = initialValue
+			}
+		end
+	end
+
 	local function onBattleFetchFrameCounter()
 		battleDataFetched = tryToFetchBattleData()
+		if battleDataFetched then
+			GEN5_initializePIDSlots()
+		end
 	end
 
 	local function readMemory()
@@ -668,6 +679,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					battleDataFetched = false
 					playerBattleTeamPIDs = {}
 					enemyBattlers = {}
+					GEN5_PIDSwitchData = {}
 					frameCounters["fetchBattleData"] = FrameCounter(60, onBattleFetchFrameCounter)
 				else
 					if battleDataFetched then
