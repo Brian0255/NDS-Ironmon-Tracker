@@ -7780,7 +7780,7 @@ PokemonData.POKEMON = {
         weight = 16.3
     },
     {
-        name = "Basculin R",
+        name = "Basculin B",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
         bst = "460",
@@ -8314,7 +8314,7 @@ PokemonData.POKEMON = {
     {
         name = "Karrablast",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "SHELLMET",
+        evolution = "SHLMT",
         bst = "315",
         movelvls = {
             {},
@@ -8368,7 +8368,7 @@ PokemonData.POKEMON = {
         weight = 10.5
     },
     {
-        name = "Frillish",
+        name = "Frillish M",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
         evolution = "40",
         bst = "335",
@@ -8382,7 +8382,7 @@ PokemonData.POKEMON = {
         weight = 33.0
     },
     {
-        name = "Jellicent",
+        name = "Jellicent M",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
         bst = "480",
@@ -8706,7 +8706,7 @@ PokemonData.POKEMON = {
     {
         name = "Shelmet",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "KARABLST",
+        evolution = "KRBLST",
         bst = "305",
         movelvls = {
             {},
@@ -9413,13 +9413,13 @@ PokemonData.ALTERNATE_FORMS = {
             },
         }
     },
-    ["Basculin R"] = {
+    ["Basculin B"] = {
         shortenedName = "Basculin",
         cosmetic = true,
         startIndex = 0,
         forms = {
             {
-                name = "Basculin B",
+                name = "Basculin R",
                 type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "460",
@@ -9654,6 +9654,27 @@ PokemonData.ALTERNATE_FORMS = {
             }
         }
     },
+    ["Frillish M"] = {
+        shortenedName = "Frillish",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Frillish F",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
+                evolution = "40",
+                bst = "335",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61}
+                },
+                weight = 33.0
+            },
+        }
+    },
     ["Gastrodon W"] = {
         shortenedName = "Gastrodon",
         cosmetic = true,
@@ -9693,6 +9714,27 @@ PokemonData.ALTERNATE_FORMS = {
                 },
                 weight = 750.0
             }
+        }
+    },
+    ["Jellicent M"] ={
+        shortenedName = "Jellicent",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Jellicent F",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "480",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69}
+                },
+                weight = 135.0
+            },
         }
     },
     ["Keldeo"] = {
