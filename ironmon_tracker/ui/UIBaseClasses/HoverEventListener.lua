@@ -17,6 +17,12 @@ local function HoverEventListener(
         hoverActive = false
         framesWaited = 0
     end
+    function self.activateOnHover()
+        onHover(onHoverParams)
+    end
+    function self.getControl()
+        return control
+    end
     function self.setOnHoverParams(newParams)
         onHoverParams = newParams
     end

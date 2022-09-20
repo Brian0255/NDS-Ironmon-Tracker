@@ -26,11 +26,15 @@ function GameConfigurator.initAlternateForms(gameInfo)
 	local currentIndex = #PokemonData.POKEMON + 1
 	for baseForm, formTable in pairs(PokemonData.ALTERNATE_FORMS) do
 		formTable.index = currentIndex
-		for _, form in pairs(formTable.forms) do
+		for i, form in pairs(formTable.forms) do
 			if baseForm == "Rotom" and gameInfo.GEN == 4 then
 				form.type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.GHOST}
 			end
 			PokemonData.POKEMON[currentIndex] = form
+			PokemonData.POKEMON[currentIndex].baseFormData = {
+				baseFormName = baseForm,
+				alternateFormIndex = i
+			}
 			currentIndex = currentIndex + 1
 		end
 	end

@@ -108,6 +108,26 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
     gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), bolded)
 end
 
+
+function DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, pokemonID, imageLabel, imageOffset)
+    local folderPath = Paths.FOLDERS.POKEMON_ICONS_FOLDER.."/"..currentIconSet.FOLDER_NAME.."/"
+    local extension = currentIconSet.FILE_EXTENSION
+    imageLabel.setOffset(imageOffset)
+    local pokemonData = PokemonData.POKEMON[pokemonID+1]
+    if not pokemonData.baseFormData then
+        imageLabel.setPath(
+            folderPath .. pokemonID .. extension
+        )
+    else
+        local baseFormData = pokemonData.baseFormData
+        if PokemonData.ALTERNATE_FORMS[baseFormData.baseFormName] then
+            local index = baseFormData.alternateFormIndex
+            local path = folderPath.."alternateForms/" .. baseFormData.baseFormName .. "/" .. index .. extension
+            imageLabel.setPath(path)
+        end
+    end
+end
+
 function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
     local transparentKeys = {
         ["Main background color"] = true,

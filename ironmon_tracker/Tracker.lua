@@ -131,7 +131,12 @@ local function Tracker()
 			}
 		}
 		if id ~= 0 then
+			local constData = PokemonData.POKEMON[id+1]
 			local data = trackedData.trackedPokemon[id]
+			local name = constData.name
+			if PokemonData.ALTERNATE_FORMS[name] then
+				template.name = PokemonData.ALTERNATE_FORMS[name].shortenedName
+			end
 			template.alternateForm = data.alternateForm
 			template.moves = data.moves
 			template.level = data.currentLevel

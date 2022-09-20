@@ -7,4 +7,5 @@ Paths.FOLDERS = {
     UTILS_FOLDER = "ironmon_tracker/utils",
     CONSTANTS_FOLDER = "ironmon_tracker/constants",
     TYPE_IMAGES_FOLDER = "ironmon_tracker/images/types",
+    POKEMON_ICONS_FOLDER = "ironmon_tracker/images/pokemonIconSets"
 }

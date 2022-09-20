@@ -12,7 +12,7 @@ AbilityData.ABILITIES =
             id = 1,
             name = "Stench",
             description = {
-                "Helps repel wild Pokemon.",
+                "Helps repel wild Pok\233mon.",
                 "Has a 10% chance of making target Pok\233mon flinch with each hit."
             }
         },
@@ -157,7 +157,7 @@ AbilityData.ABILITIES =
         {
             id = 29,
             name = "Clear Body",
-            description = "Prevents stats from being lowered by other Pokemon."
+            description = "Prevents stats from being lowered by other Pok\233mon."
         },
         {
             id = 30,
@@ -275,7 +275,7 @@ AbilityData.ABILITIES =
         {
             id = 52,
             name = "Hyper Cutter",
-            description = "Prevents Attack from being lowered by other Pokemon."
+            description = "Prevents Attack from being lowered by other Pok\233mon."
         },
         {
             id = 53,
@@ -315,7 +315,7 @@ AbilityData.ABILITIES =
         {
             id = 60,
             name = "Sticky Hold",
-            description = "Prevents a held item from being removed by other Pokemon."
+            description = "Prevents a held item from being removed by other Pok\233mon."
         },
         {
             id = 61,
@@ -380,7 +380,7 @@ AbilityData.ABILITIES =
         {
             id = 73,
             name = "White Smoke",
-            description = "Prevents stats from being lowered by other Pokemon."
+            description = "Prevents stats from being lowered by other Pok\233mon."
         },
         {
             id = 74,
@@ -445,7 +445,10 @@ AbilityData.ABILITIES =
         {
             id = 86,
             name = "Simple",
-            description = "Doubles the Pok\233mon's stat modifiers. These doubled modifiers are still capped at -6 or 6 stages."
+            description = {
+                "Doubles the effectivness of stat modifiers, but not the stat modifiers themselves.",
+                "Doubles all stat modifiers, whether positive or negative."
+            }
         },
         {
             id = 87,
@@ -580,13 +583,13 @@ AbilityData.ABILITIES =
         {
             id = 113,
             name = "Scrappy",
-            description = "Lets the Pok\233mon's normal and fighting moves hit ghost Pokemon."
+            description = "Lets the Pok\233mon's normal and fighting moves hit ghost Pok\233mon."
         },
         {
             id = 114,
             name = "Storm Drain",
             description = {
-                "Redirects single-target water moves to this Pokemon.",
+                "Redirects single-target water moves to this Pok\233mon.",
                 "Redirects single-target water moves to this Pok\233mon and absorbs them, raising Special Attack one stage."
             }
         },
@@ -668,7 +671,7 @@ AbilityData.ABILITIES =
         {
             id = 130,
             name = "Cursed Body",
-            description = "Has a 30% chance of Disabling any move that hits the Pokemon."
+            description = "Has a 30% chance of Disabling any move that hits the Pok\233mon."
         },
         {
             id = 131,
@@ -783,7 +786,7 @@ AbilityData.ABILITIES =
         {
             id = 153,
             name = "Moxie",
-            description = "Raises Attack one stage upon KOing a Pokemon."
+            description = "Raises Attack one stage upon KOing a Pok\233mon."
         },
         {
             id = 154,
@@ -828,7 +831,7 @@ AbilityData.ABILITIES =
         {
             id = 162,
             name = "Victory Star",
-            description = "Increases moves' accuracy to 1.1x for friendly Pokemon."
+            description = "Increases moves' accuracy to 1.1x for friendly Pok\233mon."
         },
         {
             id = 163,

@@ -13,10 +13,10 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     controls = {
         CHANGE_VIEW = "Start",
-        ENABLE_ENEMY_LOCKING  = false,
         LOAD_NEXT_SEED = "A B Start Select",
         CYCLE_STAT = "L",
-        CYCLE_PREDICTION = "R"
+        CYCLE_PREDICTION = "R",
+        LOCK_ENEMY = "Select"
     },
     battle = {
         CALCULATE_VARIABLE_DAMAGE = true,

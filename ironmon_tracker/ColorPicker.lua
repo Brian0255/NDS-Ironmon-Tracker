@@ -267,7 +267,7 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
         forms.setproperty(mainForm, "Visible", false)
         colorTextBox = forms.textbox(mainForm, "", 70, 10, "HEX", 60, 218)
 
-        saveButton =
+        local saveButton =
             forms.button(
             mainForm,
             "Save",
@@ -279,7 +279,7 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
             85,
             30
         )
-        closeButton =
+        local closeButton =
             forms.button(
             mainForm,
             "Close",
