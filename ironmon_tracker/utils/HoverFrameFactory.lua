@@ -123,9 +123,6 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
-        local hoverFrameSize = pokemonHoverFrame.getSize()
-        local position = Input.getMousePosition()
-        MiscUtils.clampFramePosition(nil, position, mainFrame, hoverFrameSize)
         local totalSize = 18
         local typeDefensesTable = MoveUtils.getTypeDefensesTable(pokemon)
         for _, heading in pairs(order) do
@@ -136,7 +133,6 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
             end
         end
         pokemonHoverFrame.resize({width = 144, height = totalSize})
-        pokemonHoverFrame.move(position)
         return pokemonHoverFrame
     end
 end
@@ -220,6 +216,8 @@ local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
         local spacing = 0
         if tonumber(moveLevel) < 10 then
             spacing = 3
+        elseif tonumber(moveLevel) == 100 then
+            spacing = -3
         end
         local rowIndex = math.ceil(i / (displayedPerRow))
         TextLabel(
@@ -310,14 +308,6 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
     )
     local rowFrames = createMoveHeaderHoverRows(totalRows, moveLevelsFrame)
     fillMoveHeaderHoverRows(movelvls, level, rowFrames)
-    local position = Input.getMousePosition()
-    MiscUtils.clampFramePosition(
-        Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
-        position,
-        mainFrame,
-        moveLevelsHoverFrame.getSize()
-    )
-    moveLevelsHoverFrame.move(position)
     return moveLevelsHoverFrame
 end
 
@@ -447,13 +437,5 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
         itemHoverFrame
     )
     readItemDataIntoFrame(items, itemType, itemHolderFrame)
-    local position = Input.getMousePosition()
-    MiscUtils.clampFramePosition(
-        Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
-        position,
-        mainFrame,
-        itemHoverFrame.getSize()
-    )
-    itemHoverFrame.move(position)
     return itemHoverFrame
 end

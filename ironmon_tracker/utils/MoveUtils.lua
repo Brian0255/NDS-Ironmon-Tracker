@@ -10,7 +10,7 @@ function MoveUtils.netEffectiveness(move, pkmnData, isEnemy, hiddenPowerType)
         [PokemonData.POKEMON_TYPES.POISON] = PokemonData.POKEMON_TYPES.STEEL
     }
     if move.power == Graphics.TEXT.NO_POWER then
-        if move.category ~= MoveData.MOVE_CATEGORIES.STATUS then
+        if move.category ~= MoveData.MOVE_CATEGORIES.STATUS or move.type == PokemonData.POKEMON_TYPES.POISON then
             if NO_EFFECT_PAIRINGS[move.type] then
                 local noEffectAgainst = NO_EFFECT_PAIRINGS[move.type]
                 if pkmnData.type[1] == noEffectAgainst or pkmnData.type[2] == noEffectAgainst then

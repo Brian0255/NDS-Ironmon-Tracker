@@ -22,6 +22,7 @@ local function Main()
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscConstants.lua")
+	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/IconSets.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Input.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/DrawingUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/BitUtils.lua")
@@ -173,6 +174,15 @@ local function Main()
 		local file = io.open("Settings.ini")
 		assert(file ~= nil)
 		settings = INI.parse(file:read("*a"), "memory")
+		local DEFAULT_SETTINGS = MiscUtils.deepCopy(MiscConstants.DEFAULT_SETTINGS)
+		if settings == nil then
+			settings = DEFAULT_SETTINGS
+		end
+		for key, table in pairs(DEFAULT_SETTINGS) do
+			if not settings[key] then
+				settings = DEFAULT_SETTINGS
+			end
+		end
 		io.close(file)
 		if settings.colorScheme["Default text color"] then
 			settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
