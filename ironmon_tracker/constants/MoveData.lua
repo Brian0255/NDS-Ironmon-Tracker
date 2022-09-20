@@ -2635,7 +2635,11 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"15", "15", "15", "15", "10"},
 		accuracy = {"90", "90", "90", "90", "100"},
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used."
+		description = {"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
+		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
+		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
+		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
+		"Inflicts regular damage at the end of the third turn. Damage is calculated at the time this move is used."}
 	},
 	{
 		id = "249",
@@ -3692,7 +3696,11 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = {"85", "85", "85", "85", "100"},
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used; stat changes and switching out during the delay won't change the damage inflicted."
+		description = {"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
+		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
+		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
+		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
+	"Inflicts regular damage at the end of the third turn. Damage is calculated at the time this move is used. "}
 	},
 	{
 		id = "354",
