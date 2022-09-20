@@ -44,6 +44,27 @@ local function Main()
 		FormsUtils.popupDialog(message, 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
 	end
 
+	local function incrementAttempts(settingsName)
+		local folder = Paths.FOLDERS.DATA_FOLDER .. "\\settings\\attempts\\"
+		local attemptsPath = folder .. settingsName .. ".txt"
+		local attemptsFile = io.open(attemptsPath, "r")
+		if attemptsFile ~= nil then
+			local attempts = attemptsFile:read("*a")
+			if attempts == nil or tonumber(attempts) == nil then
+				attempts = 0
+			else
+				attempts = tonumber(attempts)
+			end
+			attempts = attempts + 1
+			attemptsFile:close()
+			attemptsFile = io.open(attemptsPath,"w")
+			if attemptsFile ~= nil then
+				attemptsFile:write(attempts)
+				attemptsFile:close()
+			end
+		end
+	end
+
 	local function generateROM()
 		client.pause()
 		local paths = {
@@ -60,8 +81,10 @@ local function Main()
 			end
 		end
 		local currentDirectory = FormsUtils.getCurrentDirectory()
-		local nextRomName = FormsUtils.getFileNameFromPath(paths.ROMPath)
-		local nextRomPath = currentDirectory .. "\\"..nextRomName
+		local rnqsName = FormsUtils.getFileNameFromPath(paths.RNQSPath)
+		local settingsName = rnqsName:sub(1, -6)
+		local nextRomName =  settingsName.. "_Auto_Randomized.nds"
+		local nextRomPath = currentDirectory .. "\\" .. nextRomName
 		local randomizerCommand =
 			string.format(
 			'java -Xmx4608M -jar "%s" cli -s "%s" -i "%s" -o "%s" -l',
@@ -74,7 +97,7 @@ local function Main()
 		local pipe = io.popen(randomizerCommand .. " 2>RomGenerationErrorLog.txt")
 		if pipe ~= nil then
 			local output = pipe:read("*all")
-			--print("> " .. output)
+		--print("> " .. output)
 		end
 		client.unpause()
 
@@ -83,13 +106,15 @@ local function Main()
 			return nil
 		end
 
+		incrementAttempts(settingsName)
+
 		return {
 			name = nextRomName,
 			path = nextRomPath
 		}
 	end
 
-	local function getnextRomPathFromBatch()
+	local function getNextRomPathFromBatch()
 		if settings.quickLoad.ROMS_FOLDER_PATH == nil or settings.quickLoad.ROMS_FOLDER_PATH == "" then
 			local message = "ROMS_FOLDER_PATH is not set. Please set this in the tracker's settings."
 			displayError(message)
@@ -133,7 +158,7 @@ local function Main()
 	local function checkForNextSeedCombo()
 		if program ~= nil and not program.isInControlsMenu() then
 			local check = MiscUtils.split(settings.controls.LOAD_NEXT_SEED, " ")
-			local buttons = Input.getJoypad() 
+			local buttons = Input.getJoypad()
 			for _, button in pairs(check) do
 				if not buttons[button] then
 					return false
@@ -150,7 +175,7 @@ local function Main()
 		if settings.quickLoad.LOAD_TYPE == "GENERATE_ROMS" then
 			nextRomInfo = generateROM()
 		else
-			nextRomInfo = getnextRomPathFromBatch()
+			nextRomInfo = getNextRomPathFromBatch()
 		end
 		if nextRomInfo ~= nil then
 			local name = nextRomInfo.name
