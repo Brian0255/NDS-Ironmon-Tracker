@@ -45,7 +45,7 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon HeartGold",
         BADGE_PREFIX = "HGSS",
         VERSION_GROUP = 3,
-        ENEMY_PARTY_OFFSET = 0xBA8,
+        ENEMY_PARTY_OFFSET = 0xBA0,
         ACTIVE_PID_DIFFERENCE=0x180,
         ENCRYPTED_POKEMON_SIZE = 236
     },
@@ -54,7 +54,7 @@ GameInfo.GAME_INFO = {
         NAME = "Pokemon SoulSilver",
         BADGE_PREFIX = "HGSS",
         VERSION_GROUP = 3,
-        ENEMY_PARTY_OFFSET = 0xBA8,
+        ENEMY_PARTY_OFFSET = 0xBA0,
         ACTIVE_PID_DIFFERENCE=0x180,
         ENCRYPTED_POKEMON_SIZE = 236
     },
