@@ -170,7 +170,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				end
 			end
 			local pid = Memory.read_u32_le(currentBase)
-
 			if pid ~= 0 then
 				pokemonDataReader.setCurrentBase(currentBase)
 				local pokemonData = pokemonDataReader.decryptPokemonInfo(false, i, true)
@@ -494,6 +493,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				enemyBattler.activeEnemyPokemon = pokemonData
 				if activePID ~= enemyBattler.lastValidPID then
 					local delay = 210
+					if gameInfo.GEN == 5 then
+						delay = 150
+					end
 					if enemyBattler.lastValidPID == -1 then
 						delay = 300
 						if gameInfo.GEN == 5 and battleDataFetched then
