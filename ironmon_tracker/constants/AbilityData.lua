@@ -429,7 +429,7 @@ AbilityData.ABILITIES =
         },
         {
             id = 83,
-            name = "Anger point",
+            name = "Anger Point",
             description = "Raises Attack to the maximum of six stages upon receiving a critical hit."
         },
         {
