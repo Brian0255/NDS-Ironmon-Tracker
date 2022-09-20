@@ -19,9 +19,9 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local totalIDs
     local currentIndex = -1
     local constants = {
-        TOP_FRAME_HEIGHT = 41,
-        BOTTOM_FRAME_HEIGHT = 145,
-        NAV_FRAME_HEIGHT = 21,
+        TOP_FRAME_HEIGHT = 25,
+        BOTTOM_FRAME_HEIGHT = 168,
+        NAV_FRAME_HEIGHT = 23,
         SEARCH_FRAME_HEIGHT = 97,
         SEARCH_BAR_HEIGHT = 14,
         MAIN_TEXT_HEADING_HEIGHT = 18,
@@ -109,9 +109,9 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         local currentResultWidth = 0
         for _, match in pairs(matches) do
             local name = PokemonData.POKEMON[match + 1].name
-			if PokemonData.ALTERNATE_FORMS[name] and PokemonData.ALTERNATE_FORMS[name].cosmetic then
-				name = PokemonData.ALTERNATE_FORMS[name].shortenedName
-			end
+            if PokemonData.ALTERNATE_FORMS[name] and PokemonData.ALTERNATE_FORMS[name].cosmetic then
+                name = PokemonData.ALTERNATE_FORMS[name].shortenedName
+            end
             local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
             currentResultWidth = currentResultWidth + labelWidth + 1 --layout spacing
             if currentResultWidth > maxSearchResultWidth then
@@ -211,112 +211,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         end
     end
 
-    local function initUI()
-        ui.controls = {}
-        ui.frames = {}
-        ui.frames.mainTopFrame =
-            Frame(
-            Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.TOP_FRAME_HEIGHT},
-                "Main background color",
-                nil
-            ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.VERTICAL,
-                0,
-                {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}
-            ),
-            nil
-        )
-        ui.controls.topHeading =
-            TextLabel(
-            Component(
-                ui.frames.mainTopFrame,
-                Box(
-                    {x = 5, y = 5},
-                    {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                        height = constants.MAIN_TEXT_HEADING_HEIGHT
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    false
-                )
-            ),
-            TextField(
-                "Tracked Pok\233mon",
-                {x = 20, y = 1},
-                TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-            )
-        )
-        ui.frames.navigationFrame =
-            Frame(
-            Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.NAV_FRAME_HEIGHT}
-                --"Top box background color",
-                --"Top box border color"
-            ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 56, y = 5}),
-            ui.frames.mainTopFrame
-        )
-        ui.controls.goBackwardButton =
-            TextLabel(
-            Component(
-                ui.frames.navigationFrame,
-                Box(
-                    {x = 0, y = 0},
-                    {
-                        width = constants.NAV_BUTTON_WIDTH,
-                        height = constants.NAV_BUTTON_WIDTH
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    false
-                )
-            ),
-            TextField(
-                "<",
-                {x = 1, y = -1},
-                TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-            )
-        )
-        ui.controls.goForwardButton =
-            TextLabel(
-            Component(
-                ui.frames.navigationFrame,
-                Box(
-                    {x = 0, y = 0},
-                    {
-                        width = constants.NAV_BUTTON_WIDTH,
-                        height = constants.NAV_BUTTON_WIDTH
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    false
-                )
-            ),
-            TextField(
-                ">",
-                {x = 2, y = -1},
-                TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-            )
-        )
-        ui.frames.mainBottomFrame =
-            Frame(
-            Box(
-                {
-                    x = Graphics.SIZES.SCREEN_WIDTH,
-                    y = Graphics.SIZES.MAIN_SCREEN_HEIGHT + constants.TOP_FRAME_HEIGHT - 2
-                },
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.BOTTOM_FRAME_HEIGHT},
-                "Main background color",
-                nil
-            ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = Graphics.SIZES.BORDER_MARGIN, y = 1}),
-            nil
-        )
+    local function initSearchFrame()
         ui.controls.searchHeading =
             TextLabel(
             Component(
@@ -393,6 +288,120 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 )
             )
         )
+    end
+
+    local function initNavigationFrame()
+        ui.frames.navigationFrame =
+            Frame(
+            Box(
+                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.NAV_FRAME_HEIGHT}
+                --"Top box background color",
+                --"Top box border color"
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 56, y = 5}),
+            ui.frames.mainBottomFrame
+        )
+        ui.controls.goBackwardButton =
+            TextLabel(
+            Component(
+                ui.frames.navigationFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = constants.NAV_BUTTON_WIDTH,
+                        height = constants.NAV_BUTTON_WIDTH
+                    },
+                    "Top box background color",
+                    "Top box border color",
+                    false
+                )
+            ),
+            TextField(
+                "<",
+                {x = 1, y = -1},
+                TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+        ui.controls.goForwardButton =
+            TextLabel(
+            Component(
+                ui.frames.navigationFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = constants.NAV_BUTTON_WIDTH,
+                        height = constants.NAV_BUTTON_WIDTH
+                    },
+                    "Top box background color",
+                    "Top box border color",
+                    false
+                )
+            ),
+            TextField(
+                ">",
+                {x = 2, y = -1},
+                TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+    end
+
+    local function initUI()
+        ui.controls = {}
+        ui.frames = {}
+        ui.frames.mainTopFrame =
+            Frame(
+            Box(
+                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.TOP_FRAME_HEIGHT},
+                "Main background color",
+                nil
+            ),
+            Layout(
+                Graphics.ALIGNMENT_TYPE.VERTICAL,
+                0,
+                {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}
+            ),
+            nil
+        )
+        ui.controls.topHeading =
+            TextLabel(
+            Component(
+                ui.frames.mainTopFrame,
+                Box(
+                    {x = 5, y = 5},
+                    {
+                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        height = constants.MAIN_TEXT_HEADING_HEIGHT
+                    },
+                    "Top box background color",
+                    "Top box border color",
+                    false
+                )
+            ),
+            TextField(
+                "Tracked Pok\233mon",
+                {x = 20, y = 1},
+                TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+
+        ui.frames.mainBottomFrame =
+            Frame(
+            Box(
+                {
+                    x = Graphics.SIZES.SCREEN_WIDTH,
+                    y = Graphics.SIZES.MAIN_SCREEN_HEIGHT + constants.TOP_FRAME_HEIGHT - 6
+                },
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.BOTTOM_FRAME_HEIGHT},
+                "Main background color",
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = Graphics.SIZES.BORDER_MARGIN, y = 1}),
+            nil
+        )
+        initNavigationFrame()
+        initSearchFrame()
         ui.controls.backspaceButton =
             Icon(
             Component(
@@ -487,7 +496,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         local letterRows = {
             {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"},
             {"A", "S", "D", "F", "G", "H", "J", "K", "L"},
-            {"Z", "X", "C", "V", "B", "N", "M","-"}
+            {"Z", "X", "C", "V", "B", "N", "M", "-"}
         }
         for i, letterRow in pairs(letterRows) do
             for _, letter in pairs(letterRow) do
