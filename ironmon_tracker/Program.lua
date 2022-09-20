@@ -154,6 +154,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			extraOffset = doublesOffset,
 			transformed = false
 		}
+		if gameInfo.GEN == 4 then
+			enemyBattlers[currentEnemyIndex].activePIDAddress = memoryAddresses.enemyBattleMonPID
+		end
 		local lookFor = memoryAddresses.enemyBattleMonPID + gameInfo.ACTIVE_PID_DIFFERENCE
 		if gen5AlternateDouble then
 			lookFor = lookFor + gameInfo.ACTIVE_PID_DIFFERENCE
@@ -217,6 +220,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			end
 			currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
 		end
+		print(enemyBattlers[1].teamPIDs)
 	end
 
 	local function tryToFetchBattleData()
@@ -367,6 +371,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function getEnemyBattleMonPID(enemyBattler)
 		local activePID = Memory.read_u32_le(enemyBattler.activePIDAddress)
+		print(activePID)
 		if activePID == 0 then
 			return Memory.read_u32_le(enemyBattler.addressBase)
 		else
@@ -454,6 +459,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if inBattle and battleDataFetched then
 			local enemyBattler = enemyBattlers[slot]
 			local currentBase = enemyBattler.addressBase
+			print(string.format("%X",currentBase))
 			local activePID
 			local transformed = checkForEnemyTransform(enemyBattler)
 			if transformed then
