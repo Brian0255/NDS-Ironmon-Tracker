@@ -211,7 +211,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 						if type(enemyBattler.teamPIDs[pid]) == "table" then
 							table.insert(enemyBattler.teamPIDs[pid], indexToInsert)
 						else
-							enemyBattler.teamPIDs[pid] = {enemyBattler.teamPIDs, indexToInsert}
+							enemyBattler.teamPIDs[pid] = {enemyBattler.teamPIDs[pid], indexToInsert}
 						end
 					else
 						enemyBattler.teamPIDs[pid] = indexToInsert
