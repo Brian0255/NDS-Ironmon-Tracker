@@ -419,8 +419,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					if GEN5_checkPlayerTransform(data) == true then
 						return nil
 					end
-					return data
 				end
+				return data
 			end
 		else
 			pokemonDataReader.setCurrentBase(memoryAddresses.playerBase)
