@@ -497,7 +497,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				if activePID ~= enemyBattler.lastValidPID then
 					local delay = 210
 					if gameInfo.GEN == 5 then
-						delay = 150
+						delay = 90
 					end
 					if enemyBattler.lastValidPID == -1 then
 						delay = 300
