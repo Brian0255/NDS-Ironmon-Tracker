@@ -387,6 +387,18 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return not enemyBattler.teamPIDs[activePID]
 	end
 
+	local function GEN5_checkPlayerTransform(compare)
+		local previous = playerPokemon
+		if compare.PID == previous.PID then
+			for statName, value in pairs(compare.stats) do
+				if previous[statName] ~= value then
+					return true
+				end
+			end
+		end
+		return false
+	end
+
 	local function getPokemonDataPlayer()
 		if inBattle and battleDataFetched then
 			local currentBase = memoryAddresses.playerBattleBase
@@ -402,7 +414,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if monIndex ~= nil then
 				playerMonIndex = monIndex
 				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
-				return pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
+				local data =  pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
+				if playerPokemon ~= nil and gameInfo.GEN==5 then
+					if GEN5_checkPlayerTransform(data) == true then
+						return nil
+					end
+					return data
+				end
 			end
 		else
 			pokemonDataReader.setCurrentBase(memoryAddresses.playerBase)
@@ -495,7 +513,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				enemyBattler.lastValidPokemon = pokemonData
 				enemyBattler.activeEnemyPokemon = pokemonData
 				if activePID ~= enemyBattler.lastValidPID then
-					local delay = 210
+					local delay = 150
 					if gameInfo.GEN == 5 then
 						delay = 90
 					end
@@ -785,7 +803,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function switchPokemonView()
 		if not inTrackedPokemonView then
-			if (inBattle and battleDataFetched) or locked and lockedPokemonCopy ~= nil then
+			if (inBattle and battleDataFetched) or (locked and lockedPokemonCopy ~= nil) then
 				if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
 					selectedPlayer = self.SELECTED_PLAYERS.ENEMY
 				else
