@@ -1168,7 +1168,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = {"100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "This move is replaced by the target's last successfully used move, and its PP changes to 5. Chatter, metronome, mimic, sketch, or struggle is selected, this move will fail."
+		description = "This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail."
 	},
 	{
 		id = "103",
