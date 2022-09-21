@@ -1986,7 +1986,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     function self.show()
         if activeHoverFrame ~= nil then
-            if activeHoverFrame.wasClicked and not settings.appearance.DISPLAY_HOVERS_TO_THE_RIGHT  then
+            if activeHoverFrame.wasClicked and not settings.appearance.CLICKABLE_INFO_HOVERING  then
                 activeHoverFrame = nil
             end
         end
