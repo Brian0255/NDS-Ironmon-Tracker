@@ -20,11 +20,6 @@ function MoveUtils.netEffectiveness(move, pkmnData, isEnemy, hiddenPowerType)
         end
         return 1.0
     end
-
-    if move["name"] == "Future Sight" or move["name"] == "Doom Desire" then
-        return 1.0
-    end
-
     local effectiveness = 1.0
     for _, type in ipairs(pkmnData["type"]) do
         local moveType = move.type
