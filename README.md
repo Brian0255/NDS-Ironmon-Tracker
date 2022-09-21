@@ -30,8 +30,6 @@ This project initially started from https://github.com/besteon/Ironmon-Tracker, 
 5. Open the Lua Console (Tools -> Lua Console). Click on the folder icon and open `Ironmon_Tracker.lua` in the location you extracted it to.
    - If you installed the tracker in Bizhawk's `Lua` folder, this location is shown by default and you should see the `Ironmon_Tracker.lua` file right away.
 
-![image](https://user-images.githubusercontent.com/61294586/173255514-90c40ced-dcbd-4fae-bc41-a4ede0046db9.png)
-
 ## Main Features
 
 - **Automatic Pokémon Tracking**: All of your Pokémon's data are updated as you play! Its stats, nature, moves(and various information about them), ability, and typing are all shown for you. No more having to bring up the summary constantly!
@@ -54,8 +52,7 @@ This project initially started from https://github.com/besteon/Ironmon-Tracker, 
 	3. Once you've been sent back to the lab and need to load the next seed, use the NEXT_SEED button combo in the Settings file.
 		- By default, the button combo is A,B,Start,Select.
 		
-- **Notes**: You can leave a quick note about an enemy Pokémon by clicking the note button at the bottom left of the tracker.
-	- **WARNING:** The notes feature can potentially cause slowdown. I would recommend you use Notepad++ or something similar to keep notes instead.
+- **Notes**: You can leave a quick note about an enemy Pokémon by clicking the note button in the middle of the tracker.
 
 ## Feedback
 
