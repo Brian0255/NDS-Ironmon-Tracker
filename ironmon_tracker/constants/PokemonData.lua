@@ -7780,7 +7780,7 @@ PokemonData.POKEMON = {
         weight = 16.3
     },
     {
-        name = "Basculin B",
+        name = "Basculin R",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
         bst = "460",
@@ -9413,13 +9413,13 @@ PokemonData.ALTERNATE_FORMS = {
             },
         }
     },
-    ["Basculin B"] = {
+    ["Basculin R"] = {
         shortenedName = "Basculin",
         cosmetic = true,
         startIndex = 0,
         forms = {
             {
-                name = "Basculin R",
+                name = "Basculin B",
                 type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "460",
