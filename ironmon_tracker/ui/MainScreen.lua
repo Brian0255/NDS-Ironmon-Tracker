@@ -1630,7 +1630,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             ["Heat Crash"] = weightDifferenceEntry,
             ["Heavy Slam"] = weightDifferenceEntry,
             ["Punishment"] = {
-                requirement = (not isEnemy) and program.isInBattle() and opposingPokemon ~= nil,
+                requirement = program.isInBattle() and opposingPokemon ~= nil,
                 calcFunction = function()
                     return MoveUtils.calculatePunishmentPower(opposingPokemon)
                 end
@@ -1853,6 +1853,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpMainPokemonInfo(isEnemy)
         local heldItemInfo = ItemData.GEN_5_ITEMS[currentPokemon.heldItem]
+        if heldItemInfo == nil then
+            heldItemInfo = {
+                name = "",
+                description = ""
+            }
+        end
         local name = currentPokemon.name
         ui.controls.pokemonNameLabel.setText(name)
         ui.controls.pokemonHP.setVisibility(not isEnemy)
