@@ -389,7 +389,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function GEN5_checkPlayerTransform(compare)
 		local previous = playerPokemon
-		if compare.PID == previous.PID then
+		if compare.PID == previous.PID and compare.level == previous.level then
 			for statName, value in pairs(compare.stats) do
 				if previous[statName] ~= value then
 					return true
