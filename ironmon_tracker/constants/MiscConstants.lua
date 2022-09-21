@@ -1,6 +1,6 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "0.4.2b"
+MiscConstants.TRACKER_VERSION = "0.4.2c"
 
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
