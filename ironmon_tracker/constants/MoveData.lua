@@ -1058,7 +1058,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Makes contact. User digs underground for one turn, becoming immune to all attacks except for earthquake, fissure, and magnitude, which hit for double power. User inflicts regular damage next turn."
+		description = "Makes contact. User digs underground for one turn, becoming immune to all attacks except for earthquake and magnitude, which hit for double power. User inflicts regular damage next turn."
 	},
 	{
 		id = "92",
