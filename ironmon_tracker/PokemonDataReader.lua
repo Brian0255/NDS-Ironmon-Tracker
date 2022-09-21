@@ -166,7 +166,7 @@ local function PokemonDataReader(initialProgram)
                 decryptedData[dataName[2]] = byte2Data
             end
             if dataName[1] == "alternateForm" then
-                decryptedData["isFemale"] = BitUtils.getBits(byte2Data,1,1)
+                decryptedData["isFemale"] = BitUtils.getBits(byte1Data,1,1)
             else
                 decryptedData[dataName[2]] = byte2Data
             end
