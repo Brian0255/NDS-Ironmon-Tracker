@@ -303,7 +303,7 @@ local function isLegacyNDSString(themeString)
             colorCounter = colorCounter + 1
         end
     end
-    return (colorCounter < #ThemeFactory.THEME_COLOR_KEYS_ORDERED)
+    return (colorCounter == #ThemeFactory.THEME_COLOR_KEYS_ORDERED - 1)
 end
 
 local function isGen3String(themeString)
