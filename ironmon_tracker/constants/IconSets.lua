@@ -28,5 +28,19 @@ IconSets.SETS = {
             y = -2
         },
         AUTHOR = "AmberCyprian"
-    }
+    },
+    {
+        NAME = "Explorers",
+        FILE_EXTENSION = ".png",
+        FOLDER_NAME = "mysteryDungeonSet",
+        IMAGE_OFFSET = {
+            x = 0,
+            y = -2
+        },
+        CHOOSE_IMAGE_OFFSET = {
+            x = 0,
+            y = -2
+        },
+        AUTHOR = "PMD Sprite Repository"
+    },
 }
