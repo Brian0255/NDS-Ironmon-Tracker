@@ -2005,7 +2005,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Ignores accuracy and evasion modifiers."
+		description = "Inflicts regular damage and makes contact. Ignores accuracy and evasion modifiers."
 	},
 	{
 		id = "186",
@@ -2085,7 +2085,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Resets the target's evasion to normal and prevents any further boosting until the target leaves the field. A ghost under this effect takes normal damage from normal and fighting moves."
+		description = "Ignores the target's boosted evasion stages until the target leaves the field. A ghost under this effect takes normal damage from normal and fighting moves."
 	},
 	{
 		id = "194",
@@ -2255,7 +2255,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets."
+		description = {"Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.", "Inflicts regular damage and makes contact. Power doubles after every time this move is used consecutively, maxing out at 16x. If this move misses, power resets."}
 	},
 	{
 		id = "211",
@@ -2295,7 +2295,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Only usable if the user is sleeping. Randomly selects and uses one of the user's other three moves. Use of the selected move dofiles and costs 0 PP..lua"
+		description = "Only usable if the user is sleeping. Randomly selects and uses one of the user's other three moves, with some exceptions. Use of the selected move costs 0 PP."
 	},
 	{
 		id = "215",
@@ -2425,7 +2425,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "The next 4-8 times the target attempts to move, it is forced to repeat its last used move."
+		description = {"The next 3-7(DP)/2-6(Pt)/4-8(HGSS) times the target attempts to move, it is forced to repeat its last used move.", "The next 3 times the target attempts to move, it is forced to repeat its last used move."}
 	},
 	{
 		id = "228",
@@ -2545,7 +2545,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce, fly, or sky drop, this move will hit with double power."
+		description = {"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce or fly, this move will hit with double power.", "Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce, fly, or sky drop, this move will hit with double power."}
 	},
 	{
 		id = "240",
@@ -2639,7 +2639,7 @@ MoveData.MOVES_MASTER_LIST = {
 		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
 		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
 		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
-		"Inflicts regular damage at the end of the third turn. Damage is calculated at the time this move is used."}
+		"Inflicts regular damage at the end of the third turn. Damage is calculated at the time damage is dealt."}
 	},
 	{
 		id = "249",
@@ -2665,11 +2665,11 @@ MoveData.MOVES_MASTER_LIST = {
 		id = "251",
 		name = "Beat Up",
 		type = PokemonData.POKEMON_TYPES.DARK,
-		power = "10",
+		power = {"10", "10", "10", "10", "VAR"},
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target."
+		description = {"Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target."}
 	},
 	{
 		-- Begin Gen 3 Moves
