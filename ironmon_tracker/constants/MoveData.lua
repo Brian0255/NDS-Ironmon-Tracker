@@ -336,7 +336,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = {"75", "75", "75", "75", "85"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
+		description = {"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
 	},
 	{
 		id = "21",
@@ -492,7 +492,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = {"85", "85", "85", "85", "90"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
+		description = {"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
 	},
 	{
 		id = "36",
@@ -648,7 +648,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = {"55", "55", "55", "80", "100"},
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field."
+		description = {"Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.", "Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.", "Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.", "Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.", "Disables the target's last used move, preventing its use for 4 turns, or until the target leaves the field. Using an item counts as a turn."}
 	},
 	{
 		id = "51",
@@ -978,7 +978,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = {"70", "70", "70", "70", "85"},
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
+		description = {"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
 	},
 	{
 		id = "84",
@@ -1168,7 +1168,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = {"100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.", "This move is replaced by the target's last successfully used move, with full PP. If Chatter, Metronome, Mimic, Sketch, Struggle, or Transform is selected, this move will fail."}
+		description = {"This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.", "This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.", "This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.", "This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.", "This move is replaced by the target's last successfully used move, with full PP. If Chatter, Metronome, Mimic, Sketch, Struggle, or Transform is selected, this move will fail."}
 	},
 	{
 		id = "103",
@@ -1218,7 +1218,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"Raises the user's evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's evasion by two stages. Stomp and Steamroller have double power against Pok\233mon that have used this move since entering the field."}
+		description = {"Raises the user's evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's evasion by two stages. Stomp and Steamroller have double power against Pok\233mon that have used this move since entering the field."}
 	},
 	{
 		id = "108",
@@ -1328,7 +1328,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.", "Selects any move at random and uses it. Assist, meta, protection, and reflection moves are not eligible."}
+		description = {"Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.", "Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.", "Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.", "Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.", "Selects any move at random and uses it. Assist, meta, protection, and reflection moves are not eligible."}
 	},
 	{
 		id = "119",
@@ -1348,7 +1348,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage."}
+		description = {"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage."}
 	},
 	{
 		id = "121",
@@ -1428,7 +1428,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"10", "10", "10", "10", "15"},
 		accuracy = {"75", "75", "75", "75", "85"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
+		description = {"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
 	},
 	{
 		id = "129",
@@ -1638,7 +1638,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {"Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.", "Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 1%."}
+		description = {"Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.", "Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.", "Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.", "Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.", "Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 1%."}
 	},
 	{
 		id = "150",
@@ -1678,7 +1678,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage."}
+		description = {"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's defense for damage calculation.", "User faints, even if the attack fails or misses. Inflicts regular damage."}
 	},
 	{
 		id = "154",
@@ -1748,7 +1748,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.", "User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible."}
+		description = {"User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.", "User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.", "User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.", "User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.", "User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible."}
 	},
 	{
 		id = "161",
@@ -2255,7 +2255,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.", "Inflicts regular damage and makes contact. Power doubles after every time this move is used consecutively, maxing out at 16x. If this move misses, power resets."}
+		description = {"Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.", "Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.", "Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.", "Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.", "Inflicts regular damage and makes contact. Power doubles after every time this move is used consecutively, maxing out at 16x. If this move misses, power resets."}
 	},
 	{
 		id = "211",
@@ -2425,7 +2425,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"The next 3-7(DP)/2-6(Pt)/4-8(HGSS) times the target attempts to move, it is forced to repeat its last used move.", "The next 3 times the target attempts to move, it is forced to repeat its last used move."}
+		description = {"The next 3-7(DP)/2-6(Pt)/4-8(HGSS) times the target attempts to move, it is forced to repeat its last used move.", "The next 3-7(DP)/2-6(Pt)/4-8(HGSS) times the target attempts to move, it is forced to repeat its last used move.", "The next 3-7(DP)/2-6(Pt)/4-8(HGSS) times the target attempts to move, it is forced to repeat its last used move.", "The next 3-7(DP)/2-6(Pt)/4-8(HGSS) times the target attempts to move, it is forced to repeat its last used move.", "The next 3 times the target attempts to move, it is forced to repeat its last used move."}
 	},
 	{
 		id = "228",
@@ -2545,7 +2545,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce or fly, this move will hit with double power.", "Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce, fly, or sky drop, this move will hit with double power."}
+		description = {"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce or fly, this move will hit with double power.", "Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce or fly, this move will hit with double power.", "Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce or fly, this move will hit with double power.", "Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce or fly, this move will hit with double power.", "Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of bounce, fly, or sky drop, this move will hit with double power."}
 	},
 	{
 		id = "240",
@@ -2659,7 +2659,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = {"70", "70", "70", "70", "85"},
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
+		description = {"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
 	},
 	{
 		id = "251",
@@ -2669,7 +2669,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target."}
+		description = {"Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target."}
 	},
 	{
 		-- Begin Gen 3 Moves
