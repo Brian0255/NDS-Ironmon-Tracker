@@ -2690,7 +2690,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends."
+		description = {"Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 3 turns. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends."}
 	},
 	{
 		id = "254",
@@ -2830,7 +2830,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Desert = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam"
+		description = {"Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam", "Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam", "Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam", "Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam", "Move depends on the terrain. Building = Tri Attack; Cave = Rock Slide; Water = Hydro Pump; Sand/Dirt/Rock = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam; Puddle = Mud Bomb"}
 	},
 	{
 		id = "268",
@@ -2850,7 +2850,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging."
+		description = {"Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.", "Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.", "Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.", "Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.", "Target is forced to only use damaging moves for the next 3 turns. Moves that select other moves not known in advance do not count as damaging."}
 	},
 	{
 		id = "270",
@@ -2940,7 +2940,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again."
+		description = {"User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item it consumed. The item must be used again before it can be recovered by this move again."}
 	},
 	{
 		id = "279",
@@ -3050,7 +3050,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. The next time a Pok\233mon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself"
+		description = "Increased priority. The next time a Pok\233mon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself."
 	},
 	{
 		id = "290",
@@ -3060,7 +3060,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze"
+		description = {"Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze", "Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze", "Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze", "Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze", "Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Puddle = -SPE; Snow/Ice = freeze"}
 	},
 	{
 		id = "291",
@@ -3166,7 +3166,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends."
+		description = {"Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Electric moves inflict one-third damage, regardless of target. If the user leaves the field, this effect ends."}
 	},
 	{
 		id = "301",
@@ -3326,7 +3326,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Resets the target's evasion to normal and prevents any further boosting until the target leaves the field. A ghost under this effect takes damage from normal and fighting moves."
+		description = "Ignores the target's boosted evasion stages until the target leaves the field. A ghost under this effect takes damage from normal and fighting moves."
 	},
 	{
 		id = "317",
@@ -3436,7 +3436,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of bounce, fly, or sky drop."
+		description = {"Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of bounce or fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of bounce or fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of bounce or fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of bounce or fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of bounce, fly, or sky drop."}
 	},
 	{
 		id = "328",
@@ -3626,7 +3626,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends."
+		description = {"Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.", "Fire moves inflict one-third damage, regardless of target. If the user leaves the field, this effect ends."}
 	},
 	{
 		id = "347",
@@ -3700,7 +3700,7 @@ MoveData.MOVES_MASTER_LIST = {
 		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
 		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
 		"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
-	"Inflicts regular damage at the end of the third turn. Damage is calculated at the time this move is used. "}
+		"Inflicts regular damage at the end of the third turn. Damage is calculated at the time damage is dealt."}
 	},
 	{
 		id = "354",
