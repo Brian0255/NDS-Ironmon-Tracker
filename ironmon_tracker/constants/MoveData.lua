@@ -1018,7 +1018,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "70",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target. During rain, this move has perfect accuracy."
+		description = "Inflicts regular damage. Has a 30% chance to paralyze the target. Has perfect accuracy in the rain, but only 50% accuracy in harsh sunlight."
 	},
 	{
 		id = "88",
@@ -4926,7 +4926,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Speed by two stages. Halves the user's weight, and this effect does not stack."
+		description = "Raises the user's Speed by two stages. If successful, reduces the user's weight by 100 kg (minimum 0.1 kg)."
 	},
 	{
 		id = "476",
@@ -4966,7 +4966,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Removes the target's immunity to ground-type damage."
+		description = "Inflicts regular damage. Removes the target's immunity to ground-type damage. This move will hit targets under the effect of bounce, fly, or sky drop."
 	},
 	{
 		id = "480",
@@ -4996,7 +4996,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has 10% chance to poison the target."
+		description = "Inflicts regular damage. Hits all adjacent pokemon. Has 10% chance to poison each target."
 	},
 	{
 		id = "483",
@@ -5106,7 +5106,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the target's ability to Simple."
+		description = "Changes the target's ability to Simple. This effect ends when the target leaves battle."
 	},
 	{
 		id = "494",
@@ -5446,7 +5446,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Lowers the target's Speed by one stage."
+		description = "Inflicts regular damage. Lowers the target's Speed by one stage."
 	},
 	{
 		id = "528",
@@ -5596,7 +5596,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "70",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to confuse the target. Has perfect accuracy in the rain, but only 50% accuracy in warm weather."
+		description = "Inflicts regular damage. Has a 30% chance to confuse the target. Has perfect accuracy in the rain, but only 50% accuracy in harsh sunlight."
 	},
 	{
 		id = "543",
@@ -5636,7 +5636,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the user is holding a plate or a drive, this move's type is the type corresponding to that item."
+		description = "Inflicts regular damage. If the user is holding a drive, this move's type is the type corresponding to that item."
 	},
 	{
 		id = "547",
@@ -5676,7 +5676,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to paralyze the target."
+		description = "Inflicts regular damage and makes contact. Has a 20% chance to paralyze the target."
 	},
 	{
 		id = "551",
@@ -5756,7 +5756,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a friendly Pok\233mon used Fusion Bolt earlier this turn, this move has double power."
+		description = "Inflicts regular damage. If any Pok\233mon used Fusion Bolt earlier this turn, this move has double power."
 	},
 	{
 		id = "559",
@@ -5766,7 +5766,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If a friendly Pok\233mon used Fusion Flare earlier this turn, this move has double power."
+		description = "Inflicts regular damage. If any Pok\233mon used Fusion Flare earlier this turn, this move has double power."
 	}
 }
 
