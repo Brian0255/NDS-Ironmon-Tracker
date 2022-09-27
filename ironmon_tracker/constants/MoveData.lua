@@ -3730,7 +3730,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the evasion of every Pok\233mon on the field is lowered by two stages. Cancels the effects of bounce, fly, and sky drop."
+		description = "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the accuracy of every Pok\233mon on the field is multiplied by 5/3. Cancels the effects of bounce, fly, and sky drop."
 	},
 	{
 		id = "357",
@@ -3740,7 +3740,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Resets the target's evasion to normal and prevents any further boosting until the target leaves the field. A dark Pok\233mon under this effect takes normal damage from psychic moves."
+		description = "Ignores the target's boosted evasion stages until the target leaves the field. A dark Pok\233mon under this effect takes normal damage from psychic moves."
 	},
 	{
 		id = "358",
@@ -3810,7 +3810,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage. Removes the effects of detect or protect from the target before hitting."
+		description = {"Increased priority. Inflicts regular damage. Removes the effects of detect or protect from the target before hitting. Fails if the target did not use detect or protect.", "Increased priority. Inflicts regular damage. Removes the effects of detect or protect from the target before hitting. Fails if the target did not use detect or protect.", "Increased priority. Inflicts regular damage. Removes the effects of detect or protect from the target before hitting. Fails if the target did not use detect or protect.", "Increased priority. Inflicts regular damage. Removes the effects of detect or protect from the target before hitting. Fails if the target did not use detect or protect.", "Increased priority. Inflicts regular damage. Removes the effects of detect or protect from the target before hitting."}
 	},
 	{
 		id = "365",
@@ -3820,7 +3820,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is holding a berry, this move has double power, and the user takes the berry and uses it immediately."
+		description = "Inflicts regular damage and makes contact. If the target is holding a berry, the user takes the berry and uses it immediately."
 	},
 	{
 		id = "366",
@@ -3830,7 +3830,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field."
+		description = {"For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next four turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field."}
 	},
 	{
 		id = "367",
@@ -3840,7 +3840,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises one of the target's stats by two stages. The raised stat is chosen at random from any stats that can be raised by two stages."
+		description = "Raises one of the target's stats by two stages. The raised stat is chosen at random from any stats that can be raised."
 	},
 	{
 		id = "368",
@@ -3880,7 +3880,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target uses a move or switches out this turn before this move is used, this move has double power."
+		description = "Inflicts regular damage and makes contact. If the target uses a move, switches out, or the trainer uses an item this turn before this move is used, this move has double power."
 	},
 	{
 		id = "372",
@@ -3900,7 +3900,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Target cannot use its held item for five turns. If the target leaves the field, this effect ends."
+		description = "Target cannot use its held item and its trainer cannot use items from the bag on it for five turns. If the target leaves the field, this effect ends."
 	},
 	{
 		id = "374",
@@ -3910,7 +3910,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power and type are determined by the user's held item. The item is consumed. If the user is not holding an item, or its item has no set type and power, this move will fail."
+		description = "Inflicts regular damage. Power is determined by the user's held item. The item is consumed. If the user is not holding an item, or its item has no set power, this move will fail."
 	},
 	{
 		id = "375",
@@ -3940,7 +3940,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target."
+		description = {"For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.", "For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.", "For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.", "For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.", "For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target. The target will also not be healed by held items or abilities."}
 	},
 	{
 		id = "378",
@@ -4020,7 +4020,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User swaps its Defense and Special Defense modifiers with the target."
+		description = "User swaps its Defense and Special Defense stat modifiers with the target."
 	},
 	{
 		id = "386",
@@ -4050,7 +4050,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the target's ability to insomnia."
+		description = "Changes the target's ability to insomnia for as long as it remains on the field."
 	},
 	{
 		id = "389",
@@ -4666,7 +4666,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the user is holding a plate or a drive, this move's type is the type corresponding to that item."
+		description = "Inflicts regular damage. If the user is holding a plate, this move's type is the type corresponding to that item."
 	},
 	{
 		id = "450",
@@ -4676,7 +4676,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is holding a berry, this move has double power, and the user takes the berry and uses it immediately."
+		description = "Inflicts regular damage and makes contact. If the target is holding a berry, the user takes the berry and uses it immediately."
 	},
 	{
 		id = "451",
@@ -4806,7 +4806,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = {"70", "70", "70", "70", "75"},
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {"Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Inflicts regular damage. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
+		description = {"Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "Inflicts regular damage. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
 	},
 	{
 		id = "464",
@@ -4816,7 +4816,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep."
+		description = "Puts all adjacent foes to sleep."
 	},
 	{
 		id = "465",
@@ -4846,7 +4846,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User vanishes for one turn, becoming immune to attack, and hits on the second turn."
+		description = "Inflicts regular damage and makes contact. User vanishes for one turn, becoming immune to attack, and hits on the second turn. Hits the target through protect and detect, and removes their effects."
 	},
 	{
 		id = "468",
