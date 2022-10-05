@@ -478,7 +478,10 @@ AbilityData.ABILITIES =
         {
             id = 92,
             name = "Skill Link",
-            description = "Extends two-to-five-hit moves and triple kick to their full length every time."
+            description = {
+                "Extends two-to-five-hit moves to their full length every time.",
+                "Extends two-to-five-hit moves and triple kick to their full length every time."
+            }
         },
         {
             id = 93,
