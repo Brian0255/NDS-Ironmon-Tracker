@@ -44,6 +44,10 @@ function GameConfigurator.initialize()
 	local memdomain = "Main RAM"
 	memory.usememorydomain(memdomain)
 	local gameCode = Memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
+	if not GameInfo.GAME_INFO[gameCode] then
+		FormsUtils.popupDialog("Your ROM is not currently supported by the tracker. Only English NDS ROMs are supported.", 250,100, FormsUtils.POPUP_DIALOG_TYPES.WARNING, false)
+		return
+	end
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	print(gameInfo.NAME .. " detected.")
 	GameConfigurator.initAlternateForms(gameInfo)
