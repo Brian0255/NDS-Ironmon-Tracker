@@ -13,7 +13,7 @@ IconSets.SETS = {
             x = 0,
             y = -5
         },
-        AUTHOR = "Various sources"
+        AUTHOR = {"Credit: Various sources"}
     },
     {
         NAME = "Stadium",
@@ -27,7 +27,7 @@ IconSets.SETS = {
             x = 0,
             y = -2
         },
-        AUTHOR = "AmberCyprian"
+        AUTHOR = {"Credit: AmberCyprian"}
     },
     {
         NAME = "Explorers",
@@ -41,6 +41,6 @@ IconSets.SETS = {
             x = 0,
             y = -2
         },
-        AUTHOR = "PMD Sprite Repository"
+        AUTHOR = {"Credit: PMD Sprite Repository", "Edited by Fellshadow"}
     },
 }
