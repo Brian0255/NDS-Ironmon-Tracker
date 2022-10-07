@@ -20,6 +20,9 @@ local function TextField(initialText, initialTextOffset, initialTextStyle, isJus
     function self.setText(newText)
         text = newText
     end
+    function self.getText()
+        return text
+    end
     function self.setTextOffset(newOffset)
         textOffset = {
             x = newOffset.x,

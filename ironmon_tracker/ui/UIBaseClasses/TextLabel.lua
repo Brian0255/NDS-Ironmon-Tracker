@@ -9,6 +9,9 @@ local function TextLabel(initialComponent, initialTextField, isJustifiable, init
     function self.setText(newText)
         textField.setText(newText)
     end
+    function self.getText()
+        return textField.getText()
+    end
     function self.move(newPosition)
         component.move(newPosition)
         textField.move(newPosition)
