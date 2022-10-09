@@ -700,6 +700,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					lastValidPlayerBattlePID = -1
 					inBattle = true
 					battleDataFetched = false
+					enemySlotIndex = 1
 					playerBattleTeamPIDs = {}
 					enemyBattlers = {}
 					GEN5_PIDSwitchData = {}

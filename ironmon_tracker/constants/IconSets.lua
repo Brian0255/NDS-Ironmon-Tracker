@@ -13,7 +13,7 @@ IconSets.SETS = {
             x = 0,
             y = -5
         },
-        AUTHOR = "Various sources"
+        AUTHOR = {"Credit: Various sources"}
     },
     {
         NAME = "Stadium",
@@ -27,6 +27,20 @@ IconSets.SETS = {
             x = 0,
             y = -2
         },
-        AUTHOR = "AmberCyprian"
-    }
+        AUTHOR = {"Credit: AmberCyprian"}
+    },
+    {
+        NAME = "Explorers",
+        FILE_EXTENSION = ".png",
+        FOLDER_NAME = "mysteryDungeonSet",
+        IMAGE_OFFSET = {
+            x = 0,
+            y = -2
+        },
+        CHOOSE_IMAGE_OFFSET = {
+            x = 0,
+            y = -2
+        },
+        AUTHOR = {"Credit: PMD Sprite Repository", "Edited by Fellshadow"}
+    },
 }
