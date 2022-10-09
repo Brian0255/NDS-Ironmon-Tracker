@@ -42,7 +42,7 @@ AbilityData.ABILITIES =
         {
             id = 6,
             name = "Damp",
-            description = "Prevents self destruct, explosion, and aftermath from working while the Pok\233mon is in battle."
+            description = "Prevents Selfdestruct, Explosion, and Aftermath from working while the Pok\233mon is in battle."
         },
         {
             id = 7,
@@ -72,7 +72,7 @@ AbilityData.ABILITIES =
         {
             id = 12,
             name = "Oblivious",
-            description = "Prevents infatuation and protects against captivate."
+            description = "Prevents infatuation and protects against Captivate."
         },
         {
             id = 13,
@@ -102,7 +102,7 @@ AbilityData.ABILITIES =
         {
             id = 18,
             name = "Flash Fire",
-            description = "Protects against fire moves. Once one has been blocked, the Pok\233mon's own Fire moves inflict 1.5x damage until it leaves battle."
+            description = "Protects against fire moves. Once one has been blocked, the Pok\233mon's own fire moves inflict 1.5x damage until it leaves battle."
         },
         {
             id = 19,
@@ -117,7 +117,10 @@ AbilityData.ABILITIES =
         {
             id = 21,
             name = "Suction Cups",
-            description = "Prevents being forced out of battle by other Pok\233mon's moves."
+            description = {
+                "Prevents being forced out of battle by other Pok\233mon's moves.",
+                "Prevents being forced out of battle by other Pok\233mon's moves or items."
+            }
         },
         {
             id = 22,
@@ -270,7 +273,7 @@ AbilityData.ABILITIES =
         {
             id = 51,
             name = "Keen Eye",
-            description = "Prevents accuracy from being lowered."
+            description = "Prevents Accuracy from being lowered."
         },
         {
             id = 52,
@@ -280,7 +283,10 @@ AbilityData.ABILITIES =
         {
             id = 53,
             name = "Pickup",
-            description = "Picks up other Pok\233mon's used and Flung held items. May also pick up an item after battle."
+            description = {
+                "10% chance to pick up an item after battle.",
+                "Picks up other Pok\233mon's used and Flung held items. May also pick up an item after battle."
+            }
         },
         {
             id = 54,
@@ -290,7 +296,7 @@ AbilityData.ABILITIES =
         {
             id = 55,
             name = "Hustle",
-            description = "Strengthens physical moves to inflict 1.5x damage, but decreases their accuracy to 0.8x."
+            description = "Strengthens physical moves to inflict 1.5x damage, but decreases their Accuracy to 0.8x."
         },
         {
             id = 56,
@@ -300,12 +306,18 @@ AbilityData.ABILITIES =
         {
             id = 57,
             name = "Plus",
-            description = "Increases Special Attack to 1.5x when a friendly Pok\233mon has plus or minus."
+            description = {
+                "Increases Special Attack to 1.5x when a friendly Pok\233mon has Minus.",
+                "Increases Special Attack to 1.5x when a friendly Pok\233mon has Plus or Minus."
+            }
         },
         {
             id = 58,
             name = "Minus",
-            description = "Increases Special Attack to 1.5x when a friendly Pok\233mon has plus or minus."
+            description = {
+                "Increases Special Attack to 1.5x when a friendly Pok\233mon has Plus.",
+                "Increases Special Attack to 1.5x when a friendly Pok\233mon has Plus or Minus."
+            }
         },
         {
             id = 59,
@@ -420,7 +432,7 @@ AbilityData.ABILITIES =
         {
             id = 81,
             name = "Snow Cloak",
-            description = "Increases evasion to 1.25x during hail. Protects against hail damage."
+            description = "Increases Evasion to 1.25x during hail. Protects against hail damage."
         },
         {
             id = 82,
@@ -458,7 +470,7 @@ AbilityData.ABILITIES =
         {
             id = 88,
             name = "Download",
-            description = "Raises the attack stat corresponding to the opponents' weaker defense one stage upon entering battle."
+            description = "Raises the Attack stat corresponding to the opponents' weaker Defense one stage upon entering battle."
         },
         {
             id = 89,
@@ -566,7 +578,7 @@ AbilityData.ABILITIES =
         {
             id = 109,
             name = "Unaware",
-            description = "Ignores other Pok\233mon's stat modifiers for damage and accuracy calculation."
+            description = "Ignores other Pok\233mon's stat modifiers for damage and Accuracy calculation."
         },
         {
             id = 110,
@@ -629,7 +641,7 @@ AbilityData.ABILITIES =
         {
             id = 121,
             name = "Multitype",
-            description = "Changes arceus's type and form to match its held Plate."
+            description = "Changes Arceus's type and form to match its held Plate."
         },
         {
             id = 122,
@@ -749,7 +761,7 @@ AbilityData.ABILITIES =
         {
             id = 145,
             name = "Big Pecks",
-            description = "Prevents defense from being lowered."
+            description = "Prevents Defense from being lowered."
         },
         {
             id = 146,
@@ -779,7 +791,7 @@ AbilityData.ABILITIES =
         {
             id = 151,
             name = "Infiltrator",
-            description = "Bypasses light screen, reflect, and safeguard."
+            description = "Bypasses Light Screen, Reflect, and Safeguard."
         },
         {
             id = 152,
