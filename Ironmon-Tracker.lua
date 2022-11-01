@@ -131,7 +131,7 @@ local function Main()
 		end
 
 		local nextRomName = romName:gsub(romNumber, tostring(romNumber + 1))
-		local nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "/" .. nextRomName
+		local nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "/" .. nextRomName .. ".nds"
 
 		local fileCheck = io.open(nextRomPath, "r")
 		if fileCheck ~= nil then
