@@ -3446,7 +3446,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = {"70", "70", "70", "70", "85"},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
+		description = {"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.", "For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."}
 	},
 	{
 		id = "329",
