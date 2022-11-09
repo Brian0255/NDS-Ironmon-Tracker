@@ -64,5 +64,8 @@ MiscConstants.DEFAULT_SETTINGS = {
         SPACER = true,
         PRIMARY_DOUBLE_BADGE_SET = "JOHTO",
         PRIMARY_BADGE_SET = "JOHTO"
+    },
+    automaticUpdates = {
+        LAST_DAY_CHECKED = ""
     }
 }
