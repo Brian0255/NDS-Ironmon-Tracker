@@ -57,7 +57,7 @@ local function Main()
 			end
 			attempts = attempts + 1
 			attemptsFile:close()
-			attemptsFile = io.open(attemptsPath,"w")
+			attemptsFile = io.open(attemptsPath, "w")
 			if attemptsFile ~= nil then
 				attemptsFile:write(attempts)
 				attemptsFile:close()
@@ -83,7 +83,7 @@ local function Main()
 		local currentDirectory = FormsUtils.getCurrentDirectory()
 		local rnqsName = FormsUtils.getFileNameFromPath(paths.RNQSPath)
 		local settingsName = rnqsName:sub(1, -6)
-		local nextRomName =  settingsName.. "_Auto_Randomized.nds"
+		local nextRomName = settingsName .. "_Auto_Randomized.nds"
 		local nextRomPath = currentDirectory .. "\\" .. nextRomName
 		local randomizerCommand =
 			string.format(
@@ -227,7 +227,6 @@ local function Main()
 		print("\nNDS-Ironmon-Tracker v" .. MiscConstants.TRACKER_VERSION)
 		print("NDS ROM detected. Loading...")
 		client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
-		local gameConfiguration = GameConfigurator.initialize()
 		local Tracker = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Tracker.lua")
 		local Program = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Program.lua")
 		local tracker = Tracker()
@@ -237,6 +236,11 @@ local function Main()
 		DrawingUtils.setColorSettings(settings.colorSettings)
 		DrawingUtils.setAppearanceSettings(settings.appearance)
 		IconDrawer.setSettings(settings)
+		local gameConfiguration = GameConfigurator.initialize()
+		if gameConfiguration == nil then
+			print("Pok\233mon White 2 is currently not supported. Terminating Lua script...")
+			return false
+		end
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
 		event.onexit(program.onProgramExit, "onProgramExit")
 		while not loadNextSeed do
