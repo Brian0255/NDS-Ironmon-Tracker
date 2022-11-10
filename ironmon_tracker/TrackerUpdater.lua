@@ -22,7 +22,6 @@ local function TrackerUpdater(initialSettings)
 
     local function runBatchCommand()
     
-        -- Temp Files/Folders used by batch operations
         local archiveName = "NDS-Ironmon-Tracker-main.tar.gz"
         local folderName = "NDS-Ironmon-Tracker-main"
 
@@ -61,7 +60,7 @@ local function TrackerUpdater(initialSettings)
     end
 
     local function isOnLatestVersion()
-        return (currentVersion.major * 10000 + currentVersion.minor * 100 + currentVersion.patch) >=
+        return(currentVersion.major * 10000 + currentVersion.minor * 100 + currentVersion.patch) >=
             (latestVersion.major * 10000 + latestVersion.minor * 100 + latestVersion.patch)
     end
 
