@@ -1,0 +1,5 @@
+Settings.ini
+*.trackerdata
+*.nds
+*.log
+RandomizerErrorLog.txt
