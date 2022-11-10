@@ -43,10 +43,10 @@ MiscConstants.DEFAULT_SETTINGS = {
     colorSettings = {
         ["Color move names by type"] = true,
         ["Draw shadows"] = true,
-        [" Draw move type icons"] = false,
-        [" Color move type icons"] = false,
-        [" Transparent backgrounds"] = false,
-        [" Show phys/spec move icons"] = true
+        ["Draw move type icons"] = false,
+        ["Color move type icons"] = false,
+        ["Transparent backgrounds"] = false,
+        ["Show phys/spec move icons"] = true
     },
     quickLoad = {
         LOAD_TYPE = "GENERATE_ROMS",
@@ -60,7 +60,6 @@ MiscConstants.DEFAULT_SETTINGS = {
         DOUBLE_BADGE_ALIGNMENT = "LEFT_AND_RIGHT",
         SHOW_BOTH_BADGES = true,
         SPACER = true,
-        PRIMARY_DOUBLE_BADGE_SET = "JOHTO",
         PRIMARY_BADGE_SET = "JOHTO"
     },
     automaticUpdates = {
