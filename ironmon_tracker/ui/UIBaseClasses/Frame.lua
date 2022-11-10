@@ -78,6 +78,9 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
     function self.setLayoutSpacing(newSpacing)
         layout.setSpacing(newSpacing)
     end
+    function self.setLayoutPadding(newPadding)
+        layout.setPadding(newPadding)
+    end
     function self.show()
         if visible then
             box.show()

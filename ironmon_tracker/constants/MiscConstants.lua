@@ -1,14 +1,12 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "0.4.3"
+MiscConstants.TRACKER_VERSION = "5.0.0"
 
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
         RIGHT_JUSTIFIED_NUMBERS = true,
         SHOW_POKECENTER_HEALS = false,
         SHOW_ACCURACY_AND_EVASION = true,
-        CLICKABLE_INFO_HOVERING = false,
-        DISPLAY_HOVERS_TO_THE_RIGHT = false,
         ICON_SET_INDEX=2
     },
     controls = {
@@ -64,5 +62,9 @@ MiscConstants.DEFAULT_SETTINGS = {
         SPACER = true,
         PRIMARY_DOUBLE_BADGE_SET = "JOHTO",
         PRIMARY_BADGE_SET = "JOHTO"
+    },
+    automaticUpdates = {
+        LAST_DAY_CHECKED = ""
     }
 }
+

@@ -68,9 +68,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         status = {}
     }
     local function onHoverInfoEnd()
-        if activeHoverFrame and not activeHoverFrame.wasClicked then
-            activeHoverFrame = nil
-        end
+        activeHoverFrame = nil
         program.drawCurrentScreens()
     end
 
@@ -82,11 +80,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
         control.setText(newPrediction)
         control.setTextColorKey(newColor)
-    end
-
-    local function wasActiveHoverClicked()
-        if activeHoverFrame == nil then return false end
-        return activeHoverFrame.wasClicked
     end
 
     local function onStatPredictionClick(params)
@@ -118,16 +111,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function moveHoverFrameToMouse(hoverFrame, alignment)
-        if settings.appearance.DISPLAY_HOVERS_TO_THE_RIGHT then
-            hoverFrame.move({
-                x = ui.frames.mainFrame.getPosition().x + ui.frames.mainFrame.getSize().width + Graphics.SIZES.BORDER_MARGIN,
-                y = Graphics.SIZES.BORDER_MARGIN
-            })
-        else
-            local position = Input.getMousePosition()
-            MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame, hoverFrame.getSize())
-            hoverFrame.move(position)
-        end
+        local position = Input.getMousePosition()
+        MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame, hoverFrame.getSize())
+        hoverFrame.move(position)
     end
 
     local function resetStatPredictionColor()
@@ -213,22 +199,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onPokemonImageHover(params)
-        local wasClicked = wasActiveHoverClicked()
-        if not wasClicked then
             if params.pokemon.pokemonID ~= 0 then
                 local pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
                 moveHoverFrameToMouse(pokemonHoverFrame,Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW)
                 activeHoverFrame = pokemonHoverFrame
                 program.drawCurrentScreens()
-                activeHoverFrame.wasClicked = wasClicked
                 pokemonHoverFrame.show()
             end
-        end
     end
 
     local function onItemBagInfoHover(params)
-        local wasClicked = wasActiveHoverClicked()
-        if not wasClicked then
         if ui.frames.healFrame.isVisible() then
             local items = params.items
             local itemType = params.itemType
@@ -252,14 +232,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 program.drawCurrentScreens()
                 itemsHoverFrame.show()
             end
-            activeHoverFrame.wasClicked = wasClicked
         end
-    end
     end
 
     local function onMoveHeaderHover(params)
-        local wasClicked = wasActiveHoverClicked()
-        if not wasClicked then
             if params.pokemon ~= nil then
                 local movelvls = params.pokemon.movelvls
                 local moveHeaderHoverFrame
@@ -281,16 +257,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     moveHoverFrameToMouse(moveHeaderHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
                 end
                 activeHoverFrame = moveHeaderHoverFrame
-                activeHoverFrame.wasClicked = wasClicked
                 program.drawCurrentScreens()
                 activeHoverFrame.show()
             end
-        end
     end
 
     local function onHoverInfo(hoverParams)
-        local wasClicked = wasActiveHoverClicked()
-        if not wasClicked then
         local BGColorKey = hoverParams.BGColorKey
         local BGColorFillKey = hoverParams.BGColorFillKey
         local textColorKey = hoverParams.textColorKey
@@ -302,11 +274,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
             moveHoverFrameToMouse(hoverFrame, alignment)
             activeHoverFrame = hoverFrame
-            activeHoverFrame.wasClicked = wasClicked
             program.drawCurrentScreens()
             hoverFrame.show()
         end
-    end
     end
 
     local function onHiddenPowerFrameCounter()
@@ -1991,11 +1961,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.show()
-        if activeHoverFrame ~= nil then
-            if activeHoverFrame.wasClicked and not settings.appearance.CLICKABLE_INFO_HOVERING  then
-                activeHoverFrame = nil
-            end
-        end
         self.updateBadgeLayout()
         readPokemonIntoUI()
         ui.frames.mainFrame.show()
@@ -2007,30 +1972,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
-    end
-
-    local function disablePinnedFrame(listener)
-        activeHoverFrame = nil
-        eventListeners.activeHoverClickListener = nil
-        program.drawCurrentScreens()
-        listener.reset()
-    end
-
-    local function createOnClickForHover(name, listener)
-        eventListeners[name.."Click"] = MouseClickEventListener(
-            listener.getControl(),
-            function()
-                if settings.appearance.CLICKABLE_INFO_HOVERING then
-                    listener.activateOnHover()
-                    if activeHoverFrame ~= nil then
-                        activeHoverFrame.wasClicked = false
-                        listener.activateOnHover()
-                        eventListeners.activeHoverClickListener = MouseClickEventListener(activeHoverFrame,disablePinnedFrame,listener)
-                        activeHoverFrame.wasClicked = true
-                    end
-                end
-            end
-        )
     end
 
     local function initEventListeners()
@@ -2101,12 +2042,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             MouseClickEventListener(ui.controls.increaseHealsIcon, onSurvivalHealClick, true)
         eventListeners.decreaseSurvivalHealsListener =
             MouseClickEventListener(ui.controls.decreaseHealsIcon, onSurvivalHealClick, false)
-        for name, listener in pairs(hoverListeners) do
-           createOnClickForHover(name,listener)
-        end
-        for i, listener in pairs(moveEventListeners) do
-            createOnClickForHover("moveHoverClick"..i,listener)
-        end
     end
 
     local function recalculateMainFrameSize(orientation)
