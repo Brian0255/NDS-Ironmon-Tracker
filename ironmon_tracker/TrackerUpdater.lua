@@ -1,0 +1,124 @@
+local function TrackerUpdater(initialSettings)
+    local self = {}
+    local settings = initialSettings
+    local lastDayChecked = settings.automaticUpdates.LAST_DAY_CHECKED
+
+    local currentVersion = {
+        major = 0,
+        minor = 0,
+        patch = 0
+    }
+
+    local latestVersion = {
+        major = 0,
+        minor = 0,
+        patch = 0
+    }
+
+
+    function self.getNewestVersionString()
+        return latestVersion.major.."."..latestVersion.minor.."."..latestVersion.patch
+    end
+
+    local function runBatchCommand()
+    
+        -- Temp Files/Folders used by batch operations
+        local archiveName = "NDS-Ironmon-Tracker-main.tar.gz"
+        local folderName = "NDS-Ironmon-Tracker-main"
+
+        local TAR_URL = "https://github.com/Brian0255/NDS-Ironmon-Tracker/archive/main.tar.gz"
+    
+        -- Each individual command listed in order, to be appended together later
+        local batchCommands = {
+            '(echo Downloading the latest NDS Ironmon Tracker version.',
+            string.format('curl -L "%s" -o "%s" --ssl-no-revoke', TAR_URL, archiveName),
+            'echo; && echo Extracting downloaded files.', -- "echo;" prints a new line
+            string.format('tar -xf "%s" && del "%s"', archiveName, archiveName),
+            'echo; && echo Applying the update; copying over files.',
+            string.format('rmdir "%s\\.vscode" /s /q', folderName),
+            string.format('del "%s\\.editorconfig" /q', folderName),
+            string.format('del "%s\\.gitattributes" /q', folderName),
+            string.format('del "%s\\.gitignore" /q', folderName),
+            string.format('del "%s\\README.md" /q', folderName),
+            string.format('xcopy "%s" /s /y /q', folderName),
+            string.format('rmdir "%s" /s /q', folderName),
+            'echo; && echo Version update completed successfully.',
+            'timeout /t 3) || pause', -- Pause if any of the commands fail, those grouped between ( )
+        }
+    
+        local combined_cmd = table.concat(batchCommands, ' && ')
+    
+        print(string.format("Installing upgrade to version "..self.getNewestVersionString().."."))
+    
+        local result = os.execute(combined_cmd)
+        if result ~= 0 then -- 0 = successful
+            print("Error trying to install: Unable to download, extract, or overwrite files properly.")
+            return false
+        end
+    
+        print("Update completed successfully.")
+        return true
+    end
+
+    local function isOnLatestVersion()
+        return (currentVersion.major * 10000 + currentVersion.minor * 100 + currentVersion.patch) >=
+            (latestVersion.major * 10000 + latestVersion.minor * 100 + latestVersion.patch)
+    end
+
+    local function parseVersionNumber(versionString)
+        if versionString == nil then
+            return MiscUtils.deepCopy(currentVersion)
+        end
+        local major, minor, patch = string.match(versionString, "(%d+)%.(%d+)%.(%d+)")
+        local versionTable = {
+            ["major"] = tonumber(major),
+            ["minor"] = tonumber(minor),
+            ["patch"] = tonumber(patch)
+        }
+        return versionTable
+    end
+
+    local function updateLatestVersion()
+        local versionURL = "https://api.github.com/repos/Brian0255/NDS-Ironmon-Tracker/releases/latest"
+        local pipe = io.popen("curl " .. versionURL .. " --ssl-no-revoke")
+        if pipe ~= "" then
+            local response = pipe:read("*all")
+            local latestVersionString = string.match(response, '"tag_name":.*(%d+%.%d+%.%d+)"')
+            latestVersion = parseVersionNumber(latestVersionString)
+        end
+    end
+
+    function self.updateExists()
+        updateLatestVersion()
+        settings.automaticUpdates.LAST_DAY_CHECKED = os.date("%x")
+        return not isOnLatestVersion()
+    end
+
+    function self.alreadyCheckedForTheDay()
+        local lastDay = settings.automaticUpdates.LAST_DAY_CHECKED
+        local currentDay = os.date("%x")
+        return currentDay == lastDay
+    end
+    
+    function self.downloadUpdate()
+        local wasSoundOn = client.GetSoundOn()
+        client.SetSoundOn(false)
+
+        gui.clearImageCache() 
+        emu.frameadvance() -- Required to allow the redraw to occur before batch commands begin
+
+        local success = runBatchCommand()
+
+        if client.GetSoundOn() ~= wasSoundOn then
+            client.SetSoundOn(wasSoundOn)
+        end
+
+        return success
+    end
+
+    currentVersion = parseVersionNumber(MiscConstants.TRACKER_VERSION)
+
+    return self
+end
+
+return TrackerUpdater
