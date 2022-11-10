@@ -193,24 +193,25 @@ local function Main()
 
 	local function readSettings()
 		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
+        local DEFAULT_SETTINGS = MiscUtils.deepCopy(MiscConstants.DEFAULT_SETTINGS)
 		local file = io.open("Settings.ini")
-		assert(file ~= nil)
-		settings = INI.parse(file:read("*a"), "memory")
-		local DEFAULT_SETTINGS = MiscUtils.deepCopy(MiscConstants.DEFAULT_SETTINGS)
-		if settings == nil then
-			settings = DEFAULT_SETTINGS
-		end
-		for key, table in pairs(DEFAULT_SETTINGS) do
-			if not settings[key] then
-				settings = DEFAULT_SETTINGS
-			end
-		end
-		io.close(file)
-		if settings.colorScheme["Default text color"] then
-			settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
-			settings.colorScheme["Bottom box text color"] = settings.colorScheme["Default text color"]
-			settings.colorScheme["Default text color"] = nil
-		end
+		if file == nil then
+            settings = DEFAULT_SETTINGS
+        else
+            settings = INI.parse(file:read("*a"), "memory")
+
+            for key, table in pairs(DEFAULT_SETTINGS) do
+                if not settings[key] then
+                    settings[key] = MiscUtils.deepCopy(table)
+                end
+            end
+            io.close(file)
+            if settings.colorScheme["Default text color"] then
+                settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
+                settings.colorScheme["Bottom box text color"] = settings.colorScheme["Default text color"]
+                settings.colorScheme["Default text color"] = nil
+            end
+        end
 	end
 
 	function self.run()
