@@ -12,7 +12,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		MAIN_OPTIONS_HEIGHT = 176,
+		MAIN_OPTIONS_HEIGHT = 196,
 		MAIN_BUTTONS_Y_OFFSET = 23,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
@@ -51,6 +51,9 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		program.setCurrentScreens({program.UI_SCREENS.QUICK_LOAD_SCREEN})
 		program.drawCurrentScreens()
 	end
+	local function onUpdateCheckerClick()
+		program.openUpdaterScreen()
+	end
 	local function onGoBackClick()
 		program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN})
 		program.drawCurrentScreens()
@@ -68,6 +71,8 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			MouseClickEventListener(ui.frames.editControlsButtonFrame, onEditControlsClick)
 		eventListeners.quickLoadClickListener =
 			MouseClickEventListener(ui.frames.quickLoadButtonFrame, onQuickLoadClick)
+		eventListeners.updaterClickListener =
+			MouseClickEventListener(ui.frames.updaterButtonFrame, onUpdateCheckerClick)
 	end
 	local function initBottomFrameControls()
 		TextLabel(
@@ -114,15 +119,17 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			trackerAppearanceButton = "Tracker Appearance",
 			trackedPokemonButton = "Tracked Pok\233mon ",
 			editControlsButton = "Edit Controls",
-			quickLoadButton = "QuickLoad Settings"
+			quickLoadButton = "QuickLoad Settings",
+			updaterButton = "Check for Updates"
 		}
-		local icons = {"SWORD", "SPARKLES", "PENCIL", "CONTROLLER", "LIGHTNING_BOLT"}
+		local icons = {"SWORD", "SPARKLES", "PENCIL", "CONTROLLER", "LIGHTNING_BOLT", "UPDATER_ICON"}
 		local order = {
 			"battleSettingsButton",
 			"trackerAppearanceButton",
 			"trackedPokemonButton",
 			"editControlsButton",
-			"quickLoadButton"
+			"quickLoadButton",
+			"updaterButton"
 		}
 		for i, key in pairs(order) do
 			local text = buttonNames[key]
@@ -202,7 +209,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		ui.frames.bottomFrame =
 			Frame(
 			Box(
-				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 122},
+				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 142},
 				{
 					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = 21
