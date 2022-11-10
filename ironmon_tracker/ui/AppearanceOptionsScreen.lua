@@ -13,14 +13,14 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_HEIGHT = 221,
+        MAIN_HEIGHT = 195,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
         MAIN_BUTTON_WIDTH = 106,
         MAIN_BUTTON_HEIGHT = 19,
         BADGE_COLOR_FRAME_HEIGHT = 84,
-        BUTTONS_FRAME_HEIGHT = 85
+        BUTTONS_FRAME_HEIGHT = 59
     }
     local ui = {}
     local eventListeners = {}
@@ -63,8 +63,6 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             "RIGHT_JUSTIFIED_NUMBERS",
             "SHOW_POKECENTER_HEALS",
             "SHOW_ACCURACY_AND_EVASION",
-            "CLICKABLE_INFO_HOVERING",
-            "DISPLAY_HOVERS_TO_THE_RIGHT",
             "BLIND_MODE"
         }
         ui.frames.buttonsFrame =

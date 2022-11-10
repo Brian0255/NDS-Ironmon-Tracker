@@ -34,6 +34,7 @@ local function FrameCounter(frameAmount, onZeroEvent, onZeroParams, syncWithClie
             end
         end
     end
+    reset()
     return self
 end
 

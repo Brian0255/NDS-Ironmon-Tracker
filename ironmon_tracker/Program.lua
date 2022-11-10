@@ -11,8 +11,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local QuickLoadScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/QuickLoadScreen.lua")
 	local EditControlsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EditControlsScreen.lua")
 	local PokemonIconsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PokemonIconsScreen.lua")
+	local UpdaterScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdaterScreen.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
 	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
+	local TrackerUpdater = dofile(Paths.FOLDERS.DATA_FOLDER.."/TrackerUpdater.lua")
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
 		ENEMY = 1
@@ -54,6 +56,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local GEN5_PIDSwitchData = {}
 	local firstBattleComplete = false
 	local frameCounters
+	local trackerUpdater = TrackerUpdater(settings)
 
 	function self.getGameInfo()
 		return gameInfo
@@ -73,7 +76,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		TRACKED_POKEMON_SCREEN = 6,
 		EDIT_CONTROLS_SCREEN = 7,
 		QUICK_LOAD_SCREEN = 8,
-		POKEMON_ICONS_SCREEN = 9
+		POKEMON_ICONS_SCREEN = 9,
+		UPDATER_SCREEN = 10,
 	}
 	self.UI_SCREEN_OBJECTS = {
 		[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self),
@@ -85,7 +89,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.TRACKED_POKEMON_SCREEN] = TrackedPokemonScreen(settings, tracker, self),
 		[self.UI_SCREENS.EDIT_CONTROLS_SCREEN] = EditControlsScreen(settings, tracker, self),
 		[self.UI_SCREENS.QUICK_LOAD_SCREEN] = QuickLoadScreen(settings, tracker, self),
-		[self.UI_SCREENS.POKEMON_ICONS_SCREEN] = PokemonIconsScreen(settings, tracker, self)
+		[self.UI_SCREENS.POKEMON_ICONS_SCREEN] = PokemonIconsScreen(settings, tracker, self),
+		[self.UI_SCREENS.UPDATER_SCREEN] = UpdaterScreen(settings, tracker, self)
 	}
 
 	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
@@ -742,6 +747,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	function self.openUpdaterScreen()
+		self.setCurrentScreens({self.UI_SCREENS.UPDATER_SCREEN})
+		local isUpdate = trackerUpdater.updateExists()
+		if isUpdate then
+			currentScreens[self.UI_SCREENS.UPDATER_SCREEN].setAsUpdateAvailable(trackerUpdater.getNewestVersionString())
+		else
+			currentScreens[self.UI_SCREENS.UPDATER_SCREEN].setAsNoUpdate()
+		end
+		self.drawCurrentScreens()
+	end
+
+
+	function self.tryToInstallUpdate()
+		return trackerUpdater.downloadUpdate()
+	end
+
 	function self.putTrackedPokemonIntoView(id)
 		selectedPlayer = self.SELECTED_PLAYERS.ENEMY
 		local template = tracker.convertTrackedIDToPokemonTemplate(id)
@@ -866,9 +887,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.drawCurrentScreens()
 		Graphics.SIZES.MAIN_SCREEN_PADDING = 199
-		if settings.appearance.DISPLAY_HOVERS_TO_THE_RIGHT then
-			Graphics.SIZES.MAIN_SCREEN_PADDING = 199 + 130
-		end
 		local total = 0
 		for _, screen in pairs(currentScreens) do
 			total = total + 1
@@ -985,9 +1003,19 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		forms.destroyall()
 	end
 
+	local function checkForUpdateBeforeLoading()
+		if not trackerUpdater.alreadyCheckedForTheDay() then
+			if trackerUpdater.updateExists() then
+				self.setCurrentScreens({self.UI_SCREENS.UPDATER_SCREEN})
+				currentScreens[self.UI_SCREENS.UPDATER_SCREEN].setAsUpdateAvailable(trackerUpdater.getNewestVersionString())
+			end
+		end
+	end
+
 	pokemonDataReader = PokemonDataReader(self)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
 	setPokemonForMainScreen()
+	checkForUpdateBeforeLoading()
 	self.drawCurrentScreens()
 
 	return self
