@@ -42,23 +42,22 @@ local function Main()
 	end
 
 	local function incrementAttempts(settingsName)
-		local folder = Paths.FOLDERS.DATA_FOLDER .. "\\settings\\attempts\\"
+		local folder = "attempts\\"
 		local attemptsPath = folder .. settingsName .. ".txt"
+		local attempts = 0
 		local attemptsFile = io.open(attemptsPath, "r")
 		if attemptsFile ~= nil then
-			local attempts = attemptsFile:read("*a")
-			if attempts == nil or tonumber(attempts) == nil then
-				attempts = 0
-			else
+			attempts = attemptsFile:read("*a")
+			if attempts ~= nil and tonumber(attempts) ~= nil then
 				attempts = tonumber(attempts)
 			end
-			attempts = attempts + 1
 			attemptsFile:close()
-			attemptsFile = io.open(attemptsPath, "w")
-			if attemptsFile ~= nil then
-				attemptsFile:write(attempts)
-				attemptsFile:close()
-			end
+		end
+		attempts = attempts + 1
+		attemptsFile = io.open(attemptsPath, "w")
+		if attemptsFile ~= nil then
+			attemptsFile:write(attempts)
+			attemptsFile:close()
 		end
 	end
 
@@ -196,14 +195,19 @@ local function Main()
         local DEFAULT_SETTINGS = MiscUtils.deepCopy(MiscConstants.DEFAULT_SETTINGS)
 		local file = io.open("Settings.ini")
 		if file == nil then
-            settings = DEFAULT_SETTINGS
+            settings = MiscUtils.deepCopy(DEFAULT_SETTINGS)
         else
             settings = INI.parse(file:read("*a"), "memory")
 
-            for key, table in pairs(DEFAULT_SETTINGS) do
-                if not settings[key] then
-                    settings[key] = MiscUtils.deepCopy(table)
+            for settingsGroup, options in pairs(DEFAULT_SETTINGS) do
+                if not settings[settingsGroup] then
+                    settings[settingsGroup] = MiscUtils.deepCopy(options)
                 end
+				for setting, settingValue in pairs(options) do
+					if settings[settingsGroup][setting] == nil then
+						settings[settingsGroup][setting] = settingValue
+					end
+				end
             end
             io.close(file)
             if settings.colorScheme["Default text color"] then
