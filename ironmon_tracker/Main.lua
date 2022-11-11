@@ -227,6 +227,7 @@ local function Main()
 			end
 			emu.frameadvance()
 		end
+		console.clear()
 		print("\nNDS-Ironmon-Tracker v" .. MiscConstants.TRACKER_VERSION)
 		print("NDS ROM detected. Loading...")
 		client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
