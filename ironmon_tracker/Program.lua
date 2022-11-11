@@ -760,6 +760,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 
 	function self.tryToInstallUpdate()
+		tracker.save()
 		return trackerUpdater.downloadUpdate()
 	end
 
