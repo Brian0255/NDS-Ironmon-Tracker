@@ -196,14 +196,19 @@ local function Main()
         local DEFAULT_SETTINGS = MiscUtils.deepCopy(MiscConstants.DEFAULT_SETTINGS)
 		local file = io.open("Settings.ini")
 		if file == nil then
-            settings = DEFAULT_SETTINGS
+            settings = MiscUtils.deepCopy(DEFAULT_SETTINGS)
         else
             settings = INI.parse(file:read("*a"), "memory")
 
-            for key, table in pairs(DEFAULT_SETTINGS) do
-                if not settings[key] then
-                    settings[key] = MiscUtils.deepCopy(table)
+            for settingsGroup, options in pairs(DEFAULT_SETTINGS) do
+                if not settings[settingsGroup] then
+                    settings[settingsGroup] = MiscUtils.deepCopy(options)
                 end
+				for setting, settingValue in pairs(options) do
+					if settings[settingsGroup][setting] == nil then
+						settings[settingsGroup][setting] = settingValue
+					end
+				end
             end
             io.close(file)
             if settings.colorScheme["Default text color"] then
