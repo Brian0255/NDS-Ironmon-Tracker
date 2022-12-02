@@ -67,6 +67,7 @@ local function PokemonDataReader(initialProgram)
             SPE = "---",
             SPA = "---",
             SPD = "---",},
+			isEgg = 0,
             nature = 0,
             encounterType = 0,
             moveIDs = {
@@ -104,6 +105,7 @@ local function PokemonDataReader(initialProgram)
                 {6, {"move4"}},
                 {8, {"move1PP", "move2PP"}},
                 {10, {"move3PP", "move4PP"}},
+				{18, {"isEgg"}},
                 {24, {"alternateForm", "nature"}}
             },
             C = {},
@@ -151,7 +153,9 @@ local function PokemonDataReader(initialProgram)
         local byte2Data = bit.bxor(encryptedByte2, bit.band(shift24, 0xFF))
         byte2Data = bit.band(byte2Data, 0xFF)
 
-        if combineBytes then
+        if dataName[1] == "isEgg" then
+			decryptedData[dataName[1]] = BitUtils.getBits(byte2Data,6,1)
+		elseif combineBytes then
             local combinedBytes = bit.band(byte2Data, 0x00FF)
             combinedBytes = bit.lshift(combinedBytes, 8)
             combinedBytes = bit.bor(combinedBytes, byte1Data)
@@ -306,7 +310,7 @@ local function PokemonDataReader(initialProgram)
                     SPE = decryptedData.SPE
                 }
                 if checkingParty then
-                    if decryptedData.curHP ~= 0 then
+                    if decryptedData.curHP ~= 0 and decryptedData.isEgg ~= 1 then
                         return decryptedData
                     end
                 else
