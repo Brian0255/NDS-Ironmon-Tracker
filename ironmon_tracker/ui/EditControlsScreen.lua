@@ -40,6 +40,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
     local self = {}
 
     local function onJoypadPress(params)
+        if eventListeners["currentButtonWaiter"] == nil then return end
         local button = params.button
         local settingToChange = params.settingToChange
         local additive = params.additive
