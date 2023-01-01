@@ -79,3 +79,50 @@ function MiscUtils.deepCopy(orig)
     end
     return copy
 end
+
+function MiscUtils.randomTableValue(t)
+    return t[math.random(#t)]
+end
+
+function MiscUtils.removeRandomTableValue(t)
+    local randomIndex = math.random(#t)
+    local value = t[randomIndex]
+    table.remove(t,randomIndex)
+    return value
+end
+
+function MiscUtils.combineTables(t1, t2)
+    for _, value in pairs(t2) do
+        table.insert(t1,value)
+    end
+end
+
+function MiscUtils.appendStringToFile(fileName, stringData)
+    local file = io.open(fileName, "a")
+    if file ~= nil then
+        file:write(stringData)
+        file:close()
+    end
+end
+
+function MiscUtils.saveTableToFile(fileName, tableData)
+    local file = io.open(fileName, "w")
+    if file ~= nil then
+        local data = Pickle.pickle(tableData)
+        file:write(data)
+        file:close()
+    end
+end
+
+function MiscUtils.getTableFromFile(fileName)
+    local file = io.open(fileName, "r")
+    if file ~= nil then
+        local fileContents = file:read("*a")
+        file:close()
+        local savedData
+        if fileContents ~= nil and fileContents ~= "" then
+            savedData = Pickle.unpickle(fileContents)
+            return savedData
+        end
+    end
+end
