@@ -14,7 +14,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local UpdaterScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdaterScreen.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
 	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
-	local TrackerUpdater = dofile(Paths.FOLDERS.DATA_FOLDER.."/TrackerUpdater.lua")
+	local TrackerUpdater = dofile(Paths.FOLDERS.DATA_FOLDER .. "/TrackerUpdater.lua")
+	local SeedLogger = dofile(Paths.FOLDERS.DATA_FOLDER .. "/SeedLogger.lua")
+	local PastRun = dofile(Paths.FOLDERS.DATA_FOLDER.."/PastRun.lua")
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
 		ENEMY = 1
@@ -37,6 +39,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
 	local inTrackedPokemonView = false
+	local inPastRunView = false
 	local statusItems = nil
 	local playerPokemon = nil
 	local enemyPokemon = nil
@@ -57,6 +60,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local firstBattleComplete = false
 	local frameCounters
 	local trackerUpdater = TrackerUpdater(settings)
+	local seedLogger
 
 	function self.getGameInfo()
 		return gameInfo
@@ -77,7 +81,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		EDIT_CONTROLS_SCREEN = 7,
 		QUICK_LOAD_SCREEN = 8,
 		POKEMON_ICONS_SCREEN = 9,
-		UPDATER_SCREEN = 10,
+		UPDATER_SCREEN = 10
 	}
 	self.UI_SCREEN_OBJECTS = {
 		[self.UI_SCREENS.MAIN_SCREEN] = MainScreen(settings, tracker, self),
@@ -103,12 +107,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local STAT_LIMIT = 2000
 		local statsToCheck = {
 			pokemonData.curHP,
-			pokemonData.maxHP,
-			pokemonData.ATK,
-			pokemonData.SPE,
-			pokemonData.DEF,
-			pokemonData.SPD,
-			pokemonData.SPA
+			pokemonData.stats.HP,
+			pokemonData.stats.ATK,
+			pokemonData.stats.SPE,
+			pokemonData.stats.DEF,
+			pokemonData.stats.SPD,
+			pokemonData.stats.SPA
 		}
 		for _, stat in pairs(statsToCheck) do
 			if stat > STAT_LIMIT or pokemonData.level > 100 then
@@ -138,6 +142,31 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		--compared to just you vs. 2 other enemy trainers
 		return Memory.read_u16_le(memoryAddresses.playerBattleMonPID) == 0 and
 			Memory.read_u16_le(memoryAddresses.enemyBattleMonPID) == 0
+	end
+
+	local function addEnemyBattler(currentBase, currentEnemyIndex, totalPlayerMons, startIndex)
+		currentEnemyIndex = currentEnemyIndex + 1
+		local total = 0
+		total = total + #enemyBattlers
+		if isGen5AlternateDoubleBattle() then
+			total = total + Memory.read_u32_le(memoryAddresses.enemyBase + gameInfo.ENEMY_PARTY_OFFSET - 0x04)
+			total = total * 2
+			total = total + totalPlayerMons
+		end
+		local activePID = memoryAddresses.enemyBattleMonPID + (currentEnemyIndex - 1) * 0x180
+		if gameInfo.GEN == 5 then
+			activePID = currentBase
+		end
+		enemyBattlers[currentEnemyIndex] = {
+			teamPIDs = {},
+			addressBase = currentBase,
+			activePIDAddress = activePID,
+			startIndex = startIndex,
+			lastValidPID = nil,
+			lastValidPokemon = nil,
+			secondMon = true,
+			extraOffset = 0x224 * total
+		}
 	end
 
 	local function fetchEnemyData()
@@ -183,30 +212,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				local pokemonData = pokemonDataReader.decryptPokemonInfo(false, i, true)
 				if validPokemonData(pokemonData) then
 					if pid == Memory.read_u32_le(lookFor) then
-						currentEnemyIndex = currentEnemyIndex + 1
 						lookFor = lookFor + gameInfo.ACTIVE_PID_DIFFERENCE
-						local previousTeam = enemyBattlers[currentEnemyIndex - 1]
-						local total = 0
-						total = total + #enemyBattlers
-						if isGen5AlternateDoubleBattle() then
-							total = total + Memory.read_u32_le(memoryAddresses.enemyBase + gameInfo.ENEMY_PARTY_OFFSET - 0x04)
-							total = total * 2
-							total = total + totalPlayerMons
-						end
-						local activePID = memoryAddresses.enemyBattleMonPID + (currentEnemyIndex - 1) * 0x180
-						if gameInfo.GEN == 5 then
-							activePID = currentBase
-						end
-						enemyBattlers[currentEnemyIndex] = {
-							teamPIDs = {},
-							addressBase = currentBase,
-							activePIDAddress = activePID,
-							startIndex = i,
-							lastValidPID = nil,
-							lastValidPokemon = nil,
-							secondMon = true,
-							extraOffset = 0x224 * total
-						}
+						addEnemyBattler(currentBase, currentEnemyIndex, totalPlayerMons, i)
 					end
 					local indexToInsert = i - enemyBattlers[currentEnemyIndex].startIndex
 
@@ -267,7 +274,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return true
 	end
 
-	local function addAdditionalDataToPokemon(pokemon)
+	function self.addAdditionalDataToPokemon(pokemon)
 		local constData = PokemonData.POKEMON[pokemon.pokemonID + 1]
 		for key, data in pairs(constData) do
 			--when tracker makes a template it does the name because alternate forms are complex, so don't overwrite it
@@ -404,6 +411,70 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return false
 	end
 
+	local function onRunEnded()
+		if playerPokemon == nil or enemyPokemon == nil then return end
+		local location = "an unknown location"
+		local date = os.date("%x %I:%M %p")
+		self.addAdditionalDataToPokemon(playerPokemon)
+		self.addAdditionalDataToPokemon(enemyPokemon)
+		local pastRun = PastRun(date, playerPokemon, enemyPokemon, location, badges)
+		seedLogger.logRun(pastRun)
+		--self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].updatePastRun(seedLogger.getPastRun())
+		--self.UI_SCREEN_OBJECTS[self.UI_SCREENS.STATISTICS_SCREEN].updateStatistics(seedLogger.getStatistics())
+	end
+
+	local function getPlayerParty()
+		local playerParty = {}
+		local currentBase = memoryAddresses.playerBattleBase
+		for monIndex = 0, 5, 1 do
+			pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
+			local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
+			if playerPokemon ~= nil and gameInfo.GEN == 5 then
+				if validPokemonData(data) then
+					table.insert(playerParty, data)
+				end
+			end
+		end
+		return playerParty
+	end
+
+	local function getHighestLevelPokemonFromParty(party)
+		local max = 0
+		local highestLevelPokemon = nil
+		for monIndex, mon in pairs(party) do
+			if mon.level > max then
+				max = mon.level
+				highestLevelPokemon = mon
+			end
+		end
+		return highestLevelPokemon
+	end
+
+	local function isPartyWiped(party)
+		for _, mon in pairs(party) do
+			if mon.HP ~= 0 then
+				return false
+			end
+		end
+		return true
+	end
+
+	local function checkIfRunHasEnded()
+		local party = getPlayerParty()
+		local runEnded = false
+		if settings.battle.RUN_OVER == "PARTY_WIPE" then
+			runEnded = isPartyWiped(party)
+		else
+			local highest = getHighestLevelPokemonFromParty(party)
+			if highest ~= nil then 
+				runEnded = (getHighestLevelPokemonFromParty(party).curHP == 0)
+			end
+		end
+		if runEnded then
+			onRunEnded()
+		end
+	end
+
 	local function getPokemonDataPlayer()
 		if inBattle and battleDataFetched then
 			local currentBase = memoryAddresses.playerBattleBase
@@ -419,8 +490,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if monIndex ~= nil then
 				playerMonIndex = monIndex
 				pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
-				local data =  pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
-				if playerPokemon ~= nil and gameInfo.GEN==5 then
+				local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
+				if playerPokemon ~= nil and gameInfo.GEN == 5 then
 					if GEN5_checkPlayerTransform(data) == true then
 						return nil
 					end
@@ -457,7 +528,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					local formStartIndex = formTable.index
 					local alternateFormID = formStartIndex + (alternateFormindex - 2)
 					pokemon.alternateFormID = alternateFormID
-					pokemon.name = PokemonData.POKEMON[alternateFormID+1].name
+					pokemon.name = PokemonData.POKEMON[alternateFormID + 1].name
 					if not formTable.cosmetic then
 						pokemon.pokemonID = alternateFormID
 						tracker.logPokemonAsAlternateForm(pokemon.pokemonID, pokemon.baseForm, pokemon.alternateForm)
@@ -552,7 +623,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				local data = GEN5_PIDSwitchData.switchSlots[switchAddr]
 				local currentValue = Memory.read_u32_le(switchAddr)
 				if currentValue == 0 then
-					return 
+					return
 				end
 				if not data.active and currentValue ~= data.initialValue and not GEN5_PIDSwitchData.initialPIDs[currentValue] then
 					data.active = true
@@ -642,9 +713,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local pokemonToDraw = pokemonForDrawing.pokemonToDraw
 		local opposingPokemon = pokemonForDrawing.opposingPokemon
 		if pokemonToDraw ~= nil then
-			addAdditionalDataToPokemon(pokemonToDraw)
+			self.addAdditionalDataToPokemon(pokemonToDraw)
 			if opposingPokemon ~= nil then
-				addAdditionalDataToPokemon(opposingPokemon)
+				self.addAdditionalDataToPokemon(opposingPokemon)
 			end
 			pokemonToDraw.owner = selectedPlayer
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setPokemonToDraw(pokemonToDraw, opposingPokemon)
@@ -691,6 +762,33 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function setUpBattleVariables()
+		refreshPointers()
+		lastValidPlayerBattlePID = -1
+		inBattle = true
+		battleDataFetched = false
+		enemySlotIndex = 1
+		playerBattleTeamPIDs = {}
+		enemyBattlers = {}
+		GEN5_PIDSwitchData = {}
+		frameCounters["fetchBattleData"] = FrameCounter(60, onBattleFetchFrameCounter)
+	end
+
+	local function endOfBattle()
+		if inBattle then
+			firstBattleComplete = true
+			for _, battler in pairs(enemyBattlers) do
+				if battler.lastValidPokemon ~= nil then
+					tracker.updateLastLevelSeen(battler.lastValidPokemon.pokemonID, battler.lastValidPokemon.level)
+				end
+			end
+		end
+		inBattle = false
+		if not locked then
+			selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+		end
+	end
+
 	local function readMemory()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
 			HGSS_checkLeagueDefeated()
@@ -700,34 +798,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if self.BATTLE_STATUS_TYPES[battleStatus] == true then
 				if not inBattle then
 					--Just started battle.
-					refreshPointers()
-					--lastValidEnemyBattlePID = -1
-					lastValidPlayerBattlePID = -1
-					inBattle = true
-					battleDataFetched = false
-					enemySlotIndex = 1
-					playerBattleTeamPIDs = {}
-					enemyBattlers = {}
-					GEN5_PIDSwitchData = {}
-					frameCounters["fetchBattleData"] = FrameCounter(60, onBattleFetchFrameCounter)
+					setUpBattleVariables()
 				else
 					if battleDataFetched then
 						frameCounters["fetchBattleData"] = nil
+						checkIfRunHasEnded()
 					end
 				end
 			else
-				if inBattle then
-					firstBattleComplete = true
-					for _, battler in pairs(enemyBattlers) do
-						if battler.lastValidPokemon ~= nil then
-							tracker.updateLastLevelSeen(battler.lastValidPokemon.pokemonID, battler.lastValidPokemon.level)
-						end
-					end
-				end
-				inBattle = false
-				if not locked then
-					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
-				end
+				endOfBattle()
 			end
 			local canUpdate = true
 			if
@@ -741,7 +820,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				updateEnemyPokemonData()
 				updateStatStages()
 			end
-			if not inTrackedPokemonView then
+			if not (inTrackedPokemonView or inPastRunView) then
 				setPokemonForMainScreen()
 			end
 		end
@@ -758,7 +837,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		self.drawCurrentScreens()
 	end
 
-
 	function self.tryToInstallUpdate()
 		tracker.save()
 		return trackerUpdater.downloadUpdate()
@@ -769,6 +847,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local template = tracker.convertTrackedIDToPokemonTemplate(id)
 		enemyPokemon = template
 		setPokemonForMainScreen()
+	end
+
+	function self.setSpecificPokemonAsMainScreen()
 	end
 
 	function self.initializePokemonIconsScreen()
@@ -806,7 +887,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				return totals
 			end
 
-			local maxHP = playerPokemon["HP"]
+			local maxHP = playerPokemon.stats.HP
 			if maxHP == 0 then
 				return totals
 			end
@@ -825,7 +906,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function switchPokemonView()
-		if not inTrackedPokemonView then
+		if not inTrackedPokemonView or inPastRunView then
 			if (inBattle and battleDataFetched) or (locked and lockedPokemonCopy ~= nil) then
 				if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
 					selectedPlayer = self.SELECTED_PLAYERS.ENEMY
@@ -964,15 +1045,27 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		currentScreens[self.UI_SCREENS.TRACKED_POKEMON_SCREEN].initialize()
 	end
 
-	function self.moveMainScreen(newPosition)
-		currentScreens[self.UI_SCREENS.MAIN_SCREEN].moveMainScreen(newPosition)
+	function self.setUpForPastRunView()
+		locked = false
+		inPastRunView = true
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].setUpForPastRunView()
 	end
 
+	--[[function self.moveMainScreen(newPosition)
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].moveMainScreen(newPosition)
+	end--]]
 	function self.undoTrackedPokemonView()
 		self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 		inTrackedPokemonView = false
 		selectedPlayer = self.SELECTED_PLAYERS.PLAYER
-		currentScreens[self.UI_SCREENS.MAIN_SCREEN].undoTrackedPokemonView()
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
+		readMemory()
+	end
+
+	function self.undoPastRunView()
+		self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
+		inPastRunView = false
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
 		readMemory()
 	end
 
@@ -1014,6 +1107,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	pokemonDataReader = PokemonDataReader(self)
+	seedLogger = SeedLogger(self)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
 	setPokemonForMainScreen()
 	checkForUpdateBeforeLoading()
