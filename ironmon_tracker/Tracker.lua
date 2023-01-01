@@ -9,20 +9,13 @@ local function Tracker()
 	}
 
 	local function loadData()
-		local file = io.open("autosave.trackerdata", "r")
-		if file ~= nil then
-			local fileContents = file:read("*a")
-			if fileContents ~= nil and fileContents ~= "" then
-				local savedData = Pickle.unpickle(fileContents)
-				if savedData ~= nil then
-					local savedRomHash = savedData.romHash
-					if savedRomHash == trackedData.romHash then
-						print("Matching ROM found. Loading previously tracked data...")
-						trackedData = savedData
-					end
-				end
+		local savedData = MiscUtils.getTableFromFile("autosave.trackerdata")
+		if savedData ~= nil then
+			local savedRomHash = savedData.romHash
+			if savedRomHash == trackedData.romHash then
+				print("Matching ROM found. Loading previously tracked data...")
+				trackedData = savedData
 			end
-			file:close()
 		end
 	end
 
@@ -334,12 +327,7 @@ local function Tracker()
 	end
 
 	function self.save()
-		local file = io.open("autosave.trackerdata", "w")
-		if file ~= nil then
-			local data = Pickle.pickle(trackedData)
-			file:write(data)
-			file:close()
-		end
+		MiscUtils.saveTableToFile("autosave.trackerdata", trackedData)
 	end
 
 	loadData()
