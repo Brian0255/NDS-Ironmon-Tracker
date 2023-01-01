@@ -19,7 +19,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local totalIDs
     local currentIndex = -1
     local constants = {
-        TOP_FRAME_HEIGHT = 25,
+        TOP_FRAME_HEIGHT = 0,
         BOTTOM_FRAME_HEIGHT = 168,
         NAV_FRAME_HEIGHT = 23,
         SEARCH_FRAME_HEIGHT = 97,
@@ -364,6 +364,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             ),
             nil
         )
+        --[[
         ui.controls.topHeading =
             TextLabel(
             Component(
@@ -384,7 +385,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 {x = 20, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
-        )
+        )--]]
 
         ui.frames.mainBottomFrame =
             Frame(
