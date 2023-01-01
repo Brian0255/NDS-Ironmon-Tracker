@@ -1,7 +1,13 @@
-local function PastRun(initialDate, initialFaintedPokemon, initialEnemyPokemon, initialLocation, initialBadges)
+local function PastRun(initialDate, initialFaintedPokemon, initialEnemyPokemon, initialLocation, initialBadges, initialProgress)
     local self = {}
 
     self.FaintingConstants = {}
+
+    self.FaintingConstants.PROGRESS = {
+        NOWHERE = 0,
+        PAST_LAB = 1,
+        WON = 2
+    }
 
     self.FaintingConstants.CAUSES = {
         STANDARD = 0,
@@ -73,6 +79,8 @@ local function PastRun(initialDate, initialFaintedPokemon, initialEnemyPokemon, 
     local badges = initialBadges
     local cause
     local description
+    local progress = initialProgress
+    if progress == nil then progress = self.FaintingConstants.PROGRESS.NOWHERE end
 
     local function getArticleBeforeName(enemyName)
         local vowels = {
@@ -142,24 +150,6 @@ local function PastRun(initialDate, initialFaintedPokemon, initialEnemyPokemon, 
         end
     end
 
-    local function removeUnnecessaryPokemonData(pokemon)
-        pokemon["statStages"] = nil
-        for statName, _ in pairs(pokemon.stats) do
-            pokemon[statName] = nil
-        end
-        pokemon["moveIDs"] = nil
-        pokemon["movePPs"] = nil
-        pokemon["stats"] = nil
-        pokemon["trainerID"] = nil
-        pokemon["encounterType"] = nil
-        pokemon["type"] = nil
-        pokemon["evolution"] = nil
-        pokemon["bst"] = nil
-        pokemon["movelvls"] = nil
-        pokemon["weight"] = nil
-        pokemon["name"] = nil
-    end
-
     figureOutCause()
     self.randomizeDescription()
 
@@ -187,18 +177,8 @@ local function PastRun(initialDate, initialFaintedPokemon, initialEnemyPokemon, 
         return badges
     end
 
-    --this is for saving it to file, lua table serialization doesn't like functions
-    function self.toSimpleTable()
-        removeUnnecessaryPokemonData(faintedPokemon)
-        removeUnnecessaryPokemonData(enemyPokemon)
-        return {
-            ["date"] = date,
-            ["faintedPokemon"] = faintedPokemon,
-            ["enemyPokemon"] = enemyPokemon,
-            ["location"] = location,
-            ["badges"] = badges
-
-        }
+    function self.getProgress()
+        return progress
     end
 
     return self
