@@ -227,7 +227,7 @@ function ThemeFactory.createLoadThemeForm()
     end
 end
 
-function ThemeFactory.createImportThemeForm()
+function ThemeFactory.createImportThemeForm(drawFunction)
     forms.destroyall()
     local importForm =
         forms.newform(
@@ -250,6 +250,7 @@ function ThemeFactory.createImportThemeForm()
         "Import",
         function()
             ThemeFactory.onImportThemeClick(forms.gettext(stringBox))
+            forms.destroyall()
         end,
         constants.IMPORT_THEME_WIDTH - 84,
         3,
