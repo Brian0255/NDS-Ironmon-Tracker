@@ -70,7 +70,7 @@ local function SettingToggleButton(
                     drawInnerFilledRectangle()
                 end
             else
-                if settings[settingsKey] then
+                if settings[settingsKey] == true then
                     drawCheckmark()
                 end
             end
@@ -83,8 +83,7 @@ local function SettingToggleButton(
         if inRadioGroup then
             settings[settingsKey] = state
         else
-            state = not state
-            settings[settingsKey] = state
+            settings[settingsKey] = not settings[settingsKey]
         end
     end
     function self.getPosition()
