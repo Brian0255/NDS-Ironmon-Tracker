@@ -31,15 +31,18 @@ function MiscUtils.numberToBool(value)
     return false
 end
 
-function MiscUtils.split(s, delimiter)
+function MiscUtils.split(s, delimiter, trimWhitespace)
     local result = {}
     for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
-        table.insert(result,match)
+        if trimWhitespace then
+            match = match:gsub("^%s*(.-)%s*$", "%1")
+        end
+        table.insert(result, match)
     end
     return result
 end
 
-function MiscUtils.tableContains(table,value)
+function MiscUtils.tableContains(table, value)
     for _, item in pairs(table) do
         if item == value then
             return true
@@ -68,7 +71,7 @@ end
 function MiscUtils.deepCopy(orig)
     local orig_type = type(orig)
     local copy
-    if orig_type == 'table' then
+    if orig_type == "table" then
         copy = {}
         for orig_key, orig_value in next, orig, nil do
             copy[MiscUtils.deepCopy(orig_key)] = MiscUtils.deepCopy(orig_value)
@@ -87,13 +90,13 @@ end
 function MiscUtils.removeRandomTableValue(t)
     local randomIndex = math.random(#t)
     local value = t[randomIndex]
-    table.remove(t,randomIndex)
+    table.remove(t, randomIndex)
     return value
 end
 
 function MiscUtils.combineTables(t1, t2)
     for _, value in pairs(t2) do
-        table.insert(t1,value)
+        table.insert(t1, value)
     end
 end
 
@@ -103,6 +106,11 @@ function MiscUtils.appendStringToFile(fileName, stringData)
         file:write(stringData)
         file:close()
     end
+end
+
+function MiscUtils.fileExists(fileName)
+    local file = io.open(fileName, "r")
+    return file ~= nil and io.close(file)
 end
 
 function MiscUtils.saveTableToFile(fileName, tableData)
