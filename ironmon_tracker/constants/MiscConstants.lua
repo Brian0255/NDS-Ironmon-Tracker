@@ -64,6 +64,9 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     automaticUpdates = {
         LAST_DAY_CHECKED = ""
+    },
+    pastRuns = {
+        MINIMUM_BADGE_FILTER = 0
     }
 }
 
