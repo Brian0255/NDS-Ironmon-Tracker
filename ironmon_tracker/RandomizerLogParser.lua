@@ -58,35 +58,39 @@ local function RandomizerLogParser()
         end
     end
 
+    local function readPokemonIntoTeam(pokemonInfo, trainerTeam)
+        local nameAndItem, level = pokemonInfo:match("(.*) Lv(%d+)")
+        local nameItemSplit = MiscUtils.split(nameAndItem, "@", true)
+        local heldItem = 1
+        if nameItemSplit[2] ~= nil then
+            local heldItemName = nameItemSplit[2]
+            if not itemIDMappings[heldItemName] then
+                print(heldItemName)
+            else
+                heldItem = itemIDMappings[heldItemName]
+            end
+        end
+        local pokemonName = nameItemSplit[1]
+        pokemonName = checkForNameReplacement(pokemonName)
+        local pokemonID = pokemonIDMappings[pokemonName]
+        local pokemon = {
+            ["pokemonID"] = pokemonID,
+            ["level"] = level,
+            ["heldItem"] = heldItem
+        }
+        table.insert(trainerTeam, pokemon)
+    end
+
     local function parseTrainers(lines, lineStart)
         local currentLineIndex = lineStart
         while lines[currentLineIndex] ~= "" do
             local currentLine = lines[currentLineIndex]
             local trainerTeam = {}
-            local trainer, teamList = currentLine:match("(.*)%) %- (.*)")
+            local trainer, teamList = currentLine:match("(.*)%).*%- (.*)")
             local trainerID = trainer:match("#(%d+)")
-            local teamInfo = MiscUtils.split(teamList,",",true)
+            local teamInfo = MiscUtils.split(teamList, ",", true)
             for _, pokemonInfo in pairs(teamInfo) do
-                local nameAndItem, level = pokemonInfo:match("(.*) Lv(%d+)")
-                local nameItemSplit = MiscUtils.split(nameAndItem,"@",true)
-                local heldItem = 1
-                if nameItemSplit[2] ~= nil then
-                    local heldItemName = nameItemSplit[2]
-                    if not itemIDMappings[heldItemName] then
-                        print(heldItemName)
-                    else
-                        heldItem = itemIDMappings[heldItemName]
-                    end
-                end
-                local pokemonName = nameItemSplit[1]
-                pokemonName = checkForNameReplacement(pokemonName)
-                local pokemonID = pokemonIDMappings[pokemonName]
-                local pokemon = {
-                    ["pokemonID"] = pokemonID,
-                    ["level"] = level,
-                    ["heldItem"] = heldItem
-                }
-                table.insert(trainerTeam, pokemon)
+                readPokemonIntoTeam(pokemonInfo, trainerTeam)
             end
             trainers[trainerID] = trainerTeam
             currentLineIndex = currentLineIndex + 1
@@ -155,27 +159,32 @@ local function RandomizerLogParser()
     end
 
     local function parsePokemon(lines, lineStart)
+        pokemonList = {}
         local currentLineIndex = lineStart + 1
         while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
             local currentLine = lines[currentLineIndex]
             local pokemonData = MiscUtils.split(currentLine, "|", true)
-            local pokemonName = pokemonData[2]
-            pokemonName = checkForNameReplacement(pokemonName)
-            local pokemonID = pokemonIDMappings[pokemonName]
-            local pokemon = pokemonList[pokemonID]
-            pokemon.stats = {
-                HP = pokemonData[4],
-                ATK = pokemonData[5],
-                DEF = pokemonData[6],
-                SPA = pokemonData[7],
-                SPD = pokemonData[8],
-                SPE = pokemonData[9]
-            }
-            local abilityNames = {pokemonData[10], pokemonData[11], pokemonData[12]}
-            pokemon.abilities = {}
-            for _, abilityName in pairs(abilityNames) do
-                if abilityIDMappings[abilityName] ~= nil and abilityName ~= "--" then
-                    table.insert(pokemon.abilities, abilityIDMappings[abilityName])
+            local pokemonID = tonumber(pokemonData[1]) + 1
+            if pokemonID ~= nil then
+                local pokemonName = pokemonData[2]
+                pokemonName = checkForNameReplacement(pokemonName)
+                pokemonIDMappings[pokemonName] = pokemonID
+                pokemonList[pokemonID] = {}
+                local pokemon = pokemonList[pokemonID]
+                pokemon.stats = {
+                    HP = tonumber(pokemonData[4]),
+                    ATK = tonumber(pokemonData[5]),
+                    DEF = tonumber(pokemonData[6]),
+                    SPA = tonumber(pokemonData[7]),
+                    SPD = tonumber(pokemonData[8]),
+                    SPE = tonumber(pokemonData[9])
+                }
+                local abilityNames = {pokemonData[10], pokemonData[11], pokemonData[12]}
+                pokemon.abilities = {}
+                for _, abilityName in pairs(abilityNames) do
+                    if abilityIDMappings[abilityName] ~= nil and abilityName ~= "--" then
+                        table.insert(pokemon.abilities, abilityIDMappings[abilityName])
+                    end
                 end
             end
             currentLineIndex = currentLineIndex + 1
@@ -184,8 +193,8 @@ local function RandomizerLogParser()
 
     self.LogParserConstants = {
         NAME_REPLACEMENTS = {
-            ["Nidoran♀"] = "Nidoran M",
-            ["Nidoran♂"] = "Nidoran F",
+            ["Nidoran♀"] = "Nidoran F",
+            ["Nidoran♂"] = "Nidoran M",
             ["Burmy"] = "Burmy P",
             ["Wormadam"] = "Wormadam P",
             ["Cherrim"] = "Cherrim O",
@@ -224,14 +233,25 @@ local function RandomizerLogParser()
             ["--TM Moves--"] = parseTMMoves,
             ["--TM Compatibility--"] = parseTMCompatibility,
             ["--Trainers Pokemon--"] = parseTrainers
+        },
+        PREFERRED_PARSE_ORDER = {
+            "--Pokemon Base Stats & Types--",
+            "--Pokemon Movesets--",
+            "--Randomized Evolutions--",
+            "--TM Moves--",
+            "--TM Compatibility--",
+            "--Trainers Pokemon--"
         }
     }
 
-    local function setUpMappings()
+    local function resetPokemon()
         for id, pokemon in pairs(PokemonData.POKEMON) do
             pokemonIDMappings[pokemon.name] = id
             pokemonList[id] = {}
         end
+    end
+
+    local function setUpMappings()
         for _, abilityInfo in pairs(AbilityData.ABILITIES) do
             abilityIDMappings[abilityInfo.name] = abilityInfo.id
         end
@@ -245,18 +265,23 @@ local function RandomizerLogParser()
 
     function self.parse(inputFile)
         if MiscUtils.fileExists(inputFile) then
-            pokemonList = {}
+            resetPokemon()
             trainers = {}
             TMs = {}
             local lines = {}
             for line in io.lines(inputFile) do
                 table.insert(lines, line)
             end
+            local sectionHeaderStarts = {}
             for index, line in pairs(lines) do
                 if self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[line] then
-                    local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[line]
-                    parseFunction(lines, index + 1)
+                    sectionHeaderStarts[line] = index + 1
                 end
+            end
+            for _, sectionName in pairs(self.LogParserConstants.PREFERRED_PARSE_ORDER) do
+                local lineStart = sectionHeaderStarts[sectionName]
+                local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[sectionName]
+                parseFunction(lines, lineStart)
             end
             return LogInfo(pokemonList, trainers, TMs)
         end
