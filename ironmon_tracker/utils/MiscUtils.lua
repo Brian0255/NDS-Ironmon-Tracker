@@ -31,6 +31,14 @@ function MiscUtils.numberToBool(value)
     return false
 end
 
+function MiscUtils.decreaseTableIndex(index, size)
+    return ((index + size - 2) % size) + 1
+end
+
+function MiscUtils.increaseTableIndex(index, size)
+    return (index % size) + 1
+end
+
 function MiscUtils.split(s, delimiter, trimWhitespace)
     local result = {}
     for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
