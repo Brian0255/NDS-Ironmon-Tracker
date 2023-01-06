@@ -1,9 +1,23 @@
 PokemonData = {}
 
-PokemonData.TYPE_LIST = {"BUG","DARK","DRAGON","ELECTRIC","FIGHTING","FIRE","FLYING","GHOST","GRASS","GROUND","ICE","NORMAL","POISON","PSYCHIC",
-"ROCK",
-"STEEL",
-"WATER"
+PokemonData.TYPE_LIST = {
+    "BUG",
+    "DARK",
+    "DRAGON",
+    "ELECTRIC",
+    "FIGHTING",
+    "FIRE",
+    "FLYING",
+    "GHOST",
+    "GRASS",
+    "GROUND",
+    "ICE",
+    "NORMAL",
+    "POISON",
+    "PSYCHIC",
+    "ROCK",
+    "STEEL",
+    "WATER"
 }
 
 -- Enumerated constants that defines the various types a Pokemon and its Moves are
@@ -9184,428 +9198,6 @@ PokemonData.POKEMON = {
 PokemonData.TOTAL_POKEMON = #PokemonData.POKEMON
 
 PokemonData.ALTERNATE_FORMS = {
-    ["Arceus"] = {
-        startIndex = 0,
-        forms = {
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.FIGHTING, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.FLYING, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.POISON, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.GROUND, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.ROCK, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.GHOST, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.STEEL, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.FIRE, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.ICE, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.DRAGON, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-            {
-                name = "Arceus",
-                type = {PokemonData.POKEMON_TYPES.DARK, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "720",
-                movelvls = {
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-                    {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-                },
-                weight = 320.0
-            },
-        }
-    },
-    ["Basculin R"] = {
-        shortenedName = "Basculin",
-        cosmetic = true,
-        startIndex = 0,
-        forms = {
-            {
-                name = "Basculin B",
-                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "460",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56}
-                },
-                weight = 18.0
-            }
-        }
-    },
-    ["Burmy P"] = {
-        shortenedName = "Burmy",
-        cosmetic = true,
-        index = 0,
-        forms = {
-            {
-                name = "Burmy S",
-                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = "20",
-                bst = "224",
-                movelvls = {
-                    {10, 20},
-                    {10, 15, 20},
-                    {10, 15, 20},
-                    {10, 15, 20},
-                    {10, 15, 20}
-                },
-                weight = 3.4
-            },
-            {
-                name = "Burmy T",
-                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = "20",
-                bst = "224",
-                movelvls = {
-                    {10, 20},
-                    {10, 15, 20},
-                    {10, 15, 20},
-                    {10, 15, 20},
-                    {10, 15, 20}
-                },
-                weight = 3.4
-            }
-        }
-    },
-    ["Castform"] = {
-        cosmetic = false,
-        index = 0,
-        forms = {
-            {
-                name = "Castform F",
-                type = {PokemonData.POKEMON_TYPES.FIRE, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "420",
-                movelvls = {
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
-                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
-                },
-                weight = 0.8
-            },
-            {
-                name = "Castform R",
-                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "420",
-                movelvls = {
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
-                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
-                },
-                weight = 0.8
-            },
-            {
-                name = "Castform S",
-                type = {PokemonData.POKEMON_TYPES.ICE, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "420",
-                movelvls = {
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
-                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
-                },
-                weight = 0.8
-            }
-        }
-    },
-    ["Cherrim O"] = {
-        shortenedName = "Cherrim",
-        cosmetic = true,
-        index = 0,
-        forms = {
-            {
-                name = "Cherrim S",
-                type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.EMPTY},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "450",
-                movelvls = {
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 20, 20, 30},
-                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
-                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
-                },
-                weight = 9.3
-            }
-        }
-    },
-    ["Darmanitan"] = {
-        cosmetic = false,
-        index = 0,
-        forms = {
-            {
-                name = "Darmanitan Z",
-                type = {PokemonData.POKEMON_TYPES.FIRE, PokemonData.POKEMON_TYPES.PSYCHIC},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "540",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54},
-                    {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54}
-                },
-                weight = 92.9
-            }
-        }
-    },
-    ["Deerling"] = {
-        cosmetic = true,
-        shortenedName = "Deerling",
-        forms = {
-        {
-            name = "Deerling",
-            type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
-            evolution = "34",
-            bst = "335",
-            movelvls = {
-                {},
-                {},
-                {},
-                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
-                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
-            },
-            weight = 19.5
-        },
-        {
-            name = "Deerling",
-            type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
-            evolution = "34",
-            bst = "335",
-            movelvls = {
-                {},
-                {},
-                {},
-                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
-                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
-            },
-            weight = 19.5
-        },
-        {
-            name = "Deerling",
-            type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
-            evolution = "34",
-            bst = "335",
-            movelvls = {
-                {},
-                {},
-                {},
-                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
-                {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
-            },
-            weight = 19.5
-        },
-    }
-    },
     ["Deoxys"] = {
         cosmetic = false,
         index = 0,
@@ -9654,45 +9246,57 @@ PokemonData.ALTERNATE_FORMS = {
             }
         }
     },
-    ["Frillish M"] = {
-        shortenedName = "Frillish",
-        cosmetic = true,
+    ["Wormadam P"] = {
+        cosmetic = false,
         index = 0,
         forms = {
             {
-                name = "Frillish F",
-                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
-                evolution = "40",
-                bst = "335",
+                name = "Wormadam S",
+                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.GROUND},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "424",
                 movelvls = {
-                    {},
-                    {},
-                    {},
-                    {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61},
-                    {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61}
+                    {10, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47}
                 },
-                weight = 33.0
+                weight = 6.5
             },
+            {
+                name = "Wormadam T",
+                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.STEEL},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "424",
+                movelvls = {
+                    {10, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
+                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47}
+                },
+                weight = 6.5
+            }
         }
     },
-    ["Gastrodon W"] = {
-        shortenedName = "Gastrodon",
-        cosmetic = true,
+    ["Shaymin L"] = {
+        cosmetic = false,
         index = 0,
         forms = {
             {
-                name = "Gastrodon E",
-                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GROUND},
+                name = "Shaymin S",
+                type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.FLYING},
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "475",
+                bst = "600",
                 movelvls = {
-                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
-                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
-                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
-                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
-                    {2, 4, 7, 11, 16, 22, 29, 41, 54}
+                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
+                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
+                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
+                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
+                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100}
                 },
-                weight = 29.9
+                weight = 2.1
             }
         }
     },
@@ -9713,122 +9317,6 @@ PokemonData.ALTERNATE_FORMS = {
                     {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50}
                 },
                 weight = 750.0
-            }
-        }
-    },
-    ["Jellicent M"] ={
-        shortenedName = "Jellicent",
-        cosmetic = true,
-        index = 0,
-        forms = {
-            {
-                name = "Jellicent F",
-                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "480",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69},
-                    {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69}
-                },
-                weight = 135.0
-            },
-        }
-    },
-    ["Keldeo"] = {
-        shortenedName = "Keldeo",
-        cosmetic = true,
-        index = 0,
-        forms = {
-            {
-                name = "Keldeo R",
-                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.FIGHTING},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "580",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73},
-                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73}
-                },
-                weight = 48.5
-            }
-        }
-    },
-    ["Kyurem"] = {
-        cosmetic = false,
-        index = 0,
-        forms = {
-            {
-                name = "Kyurem W",
-                type = {PokemonData.POKEMON_TYPES.DRAGON, PokemonData.POKEMON_TYPES.ICE},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "700",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
-                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
-                },
-                weight = 325.0
-            },
-            {
-                name = "Kyurem B",
-                type = {PokemonData.POKEMON_TYPES.DRAGON, PokemonData.POKEMON_TYPES.ICE},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "700",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
-                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
-                },
-                weight = 325.0
-            }
-        }
-    },
-    ["Landorus"] = {
-        cosmetic = false,
-        index = 0,
-        forms = {
-            {
-                name = "Landorus T",
-                type = {PokemonData.POKEMON_TYPES.GROUND, PokemonData.POKEMON_TYPES.FLYING},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "600",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
-                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
-                },
-                weight = 68.0
-            }
-        }
-    },
-    ["Meloetta A"] = {
-        cosmetic = false,
-        index = 0,
-        forms = {
-            {
-                name = "Meloetta P",
-                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.FIGHTING},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "600",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85},
-                    {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85}
-                },
-                weight = 6.5
             }
         }
     },
@@ -9908,72 +9396,403 @@ PokemonData.ALTERNATE_FORMS = {
             }
         }
     },
-    ["Sawsbuck"] = {
-        cosmetic = true,
-        shortenedName = "Sawsbuck",
-        index=  0,
-        forms = {
-            {
-                name = "Sawsbuck",
-                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "475",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
-                },
-                weight = 92.5
-            },
-            {
-                name = "Sawsbuck",
-                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "475",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
-                },
-                weight = 92.5
-            },
-            {
-                name = "Sawsbuck",
-                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "475",
-                movelvls = {
-                    {},
-                    {},
-                    {},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
-                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
-                },
-                weight = 92.5
-            },
-        }
-    },
-    ["Shaymin L"] = {
+    ["Castform"] = {
         cosmetic = false,
         index = 0,
         forms = {
             {
-                name = "Shaymin S",
-                type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.FLYING},
+                name = "Castform F",
+                type = {PokemonData.POKEMON_TYPES.FIRE, PokemonData.POKEMON_TYPES.EMPTY},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "420",
+                movelvls = {
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
+                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
+                },
+                weight = 0.8
+            },
+            {
+                name = "Castform R",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "420",
+                movelvls = {
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
+                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
+                },
+                weight = 0.8
+            },
+            {
+                name = "Castform S",
+                type = {PokemonData.POKEMON_TYPES.ICE, PokemonData.POKEMON_TYPES.EMPTY},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "420",
+                movelvls = {
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
+                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
+                },
+                weight = 0.8
+            }
+        }
+    },
+    ["Basculin R"] = {
+        shortenedName = "Basculin",
+        cosmetic = true,
+        startIndex = 0,
+        forms = {
+            {
+                name = "Basculin B",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "460",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56}
+                },
+                weight = 18.0
+            }
+        }
+    },
+    ["Darmanitan"] = {
+        cosmetic = false,
+        index = 0,
+        forms = {
+            {
+                name = "Darmanitan Z",
+                type = {PokemonData.POKEMON_TYPES.FIRE, PokemonData.POKEMON_TYPES.PSYCHIC},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "540",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54},
+                    {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54}
+                },
+                weight = 92.9
+            }
+        }
+    },
+    ["Meloetta A"] = {
+        cosmetic = false,
+        index = 0,
+        forms = {
+            {
+                name = "Meloetta P",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.FIGHTING},
                 evolution = PokemonData.EVOLUTION_TYPES.NONE,
                 bst = "600",
                 movelvls = {
-                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
-                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
-                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
-                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
-                    {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100}
+                    {},
+                    {},
+                    {},
+                    {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85},
+                    {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85}
                 },
-                weight = 2.1
+                weight = 6.5
+            }
+        }
+    },
+    ["Kyurem"] = {
+        cosmetic = false,
+        index = 0,
+        forms = {
+            {
+                name = "Kyurem W",
+                type = {PokemonData.POKEMON_TYPES.DRAGON, PokemonData.POKEMON_TYPES.ICE},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "700",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
+                },
+                weight = 325.0
+            },
+            {
+                name = "Kyurem B",
+                type = {PokemonData.POKEMON_TYPES.DRAGON, PokemonData.POKEMON_TYPES.ICE},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "700",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
+                    {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
+                },
+                weight = 325.0
+            }
+        }
+    },
+    ["Landorus"] = {
+        cosmetic = false,
+        index = 0,
+        forms = {
+            {
+                name = "Landorus T",
+                type = {PokemonData.POKEMON_TYPES.GROUND, PokemonData.POKEMON_TYPES.FLYING},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "600",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
+                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
+                },
+                weight = 68.0
+            }
+        }
+    },
+    ["Burmy P"] = {
+        shortenedName = "Burmy",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Burmy S",
+                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
+                evolution = "20",
+                bst = "224",
+                movelvls = {
+                    {10, 20},
+                    {10, 15, 20},
+                    {10, 15, 20},
+                    {10, 15, 20},
+                    {10, 15, 20}
+                },
+                weight = 3.4
+            },
+            {
+                name = "Burmy T",
+                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
+                evolution = "20",
+                bst = "224",
+                movelvls = {
+                    {10, 20},
+                    {10, 15, 20},
+                    {10, 15, 20},
+                    {10, 15, 20},
+                    {10, 15, 20}
+                },
+                weight = 3.4
+            }
+        }
+    },
+    ["Cherrim O"] = {
+        shortenedName = "Cherrim",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Cherrim S",
+                type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.EMPTY},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "450",
+                movelvls = {
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 20, 20, 30},
+                    {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
+                    {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
+                },
+                weight = 9.3
+            }
+        }
+    },
+    ["Deerling"] = {
+        cosmetic = true,
+        shortenedName = "Deerling",
+        forms = {
+            {
+                name = "Deerling",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = "34",
+                bst = "335",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
+                },
+                weight = 19.5
+            },
+            {
+                name = "Deerling",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = "34",
+                bst = "335",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
+                },
+                weight = 19.5
+            },
+            {
+                name = "Deerling",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = "34",
+                bst = "335",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
+                },
+                weight = 19.5
+            }
+        }
+    },
+    ["Frillish M"] = {
+        shortenedName = "Frillish",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Frillish F",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
+                evolution = "40",
+                bst = "335",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61}
+                },
+                weight = 33.0
+            }
+        }
+    },
+    ["Gastrodon W"] = {
+        shortenedName = "Gastrodon",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Gastrodon E",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GROUND},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "475",
+                movelvls = {
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54},
+                    {2, 4, 7, 11, 16, 22, 29, 41, 54}
+                },
+                weight = 29.9
+            }
+        }
+    },
+    ["Jellicent M"] = {
+        shortenedName = "Jellicent",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Jellicent F",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.GHOST},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "480",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69},
+                    {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69}
+                },
+                weight = 135.0
+            }
+        }
+    },
+    ["Keldeo"] = {
+        shortenedName = "Keldeo",
+        cosmetic = true,
+        index = 0,
+        forms = {
+            {
+                name = "Keldeo R",
+                type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.FIGHTING},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "580",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73},
+                    {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73}
+                },
+                weight = 48.5
+            }
+        }
+    },
+    ["Sawsbuck"] = {
+        cosmetic = true,
+        shortenedName = "Sawsbuck",
+        index = 0,
+        forms = {
+            {
+                name = "Sawsbuck",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "475",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
+                },
+                weight = 92.5
+            },
+            {
+                name = "Sawsbuck",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "475",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
+                },
+                weight = 92.5
+            },
+            {
+                name = "Sawsbuck",
+                type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
+                evolution = PokemonData.EVOLUTION_TYPES.NONE,
+                bst = "475",
+                movelvls = {
+                    {},
+                    {},
+                    {},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
+                    {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
+                },
+                weight = 92.5
             }
         }
     },
@@ -10056,40 +9875,6 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 8, 11, 15, 18, 23, 27, 33, 38, 44, 49, 55, 60, 66}
                 },
                 weight = 29.0
-            },
-        }
-    },
-    ["Wormadam P"] = {
-        cosmetic = false,
-        index = 0,
-        forms = {
-            {
-                name = "Wormadam S",
-                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.GROUND},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "424",
-                movelvls = {
-                    {10, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47}
-                },
-                weight = 6.5
-            },
-            {
-                name = "Wormadam T",
-                type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.STEEL},
-                evolution = PokemonData.EVOLUTION_TYPES.NONE,
-                bst = "424",
-                movelvls = {
-                    {10, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47},
-                    {10, 15, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47}
-                },
-                weight = 6.5
             }
         }
     }
