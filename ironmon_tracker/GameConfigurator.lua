@@ -1,5 +1,15 @@
 GameConfigurator = {}
 
+GameConfigurator.ALTERNATE_FORM_ORDER_GEN4 = {
+	"Deoxys","Wormadam P","Giratina A","Shaymin L","Rotom","Castform","Basculin R","Darmanitan","Meloetta A","Kyurem","Landorus","Thundurus","Tornadus","Burmy P",
+	"Cherrim O","Deerling","Frillish M","Gastrodon W","Jellicent M","Keldeo","Sawsbuck","Shellos W","Unfezant M"
+}
+
+GameConfigurator.ALTERNATE_FORM_ORDER_GEN5 = {
+	"Deoxys","Wormadam P","Shaymin L","Giratina A","Rotom","Castform","Basculin R","Darmanitan","Meloetta A","Kyurem","Landorus","Thundurus","Tornadus","Burmy P",
+	"Cherrim O","Deerling","Frillish M","Gastrodon W","Jellicent M","Keldeo","Sawsbuck","Shellos W","Unfezant M"
+}
+
 function GameConfigurator.initMoveData(gameInfo)
 	for _, move in pairs(MoveData.MOVES_MASTER_LIST) do
 		local moveToInsert = {
@@ -23,8 +33,13 @@ function GameConfigurator.initMoveData(gameInfo)
 end
 
 function GameConfigurator.initAlternateForms(gameInfo)
+	local formOrder = GameConfigurator.ALTERNATE_FORM_ORDER_GEN4
+	if gameInfo.GEN ==5 then
+		formOrder = GameConfigurator.ALTERNATE_FORM_ORDER_GEN5
+	end
 	local currentIndex = #PokemonData.POKEMON + 1
-	for baseForm, formTable in pairs(PokemonData.ALTERNATE_FORMS) do
+	for _, baseForm in pairs(formOrder) do
+		local formTable = PokemonData.ALTERNATE_FORMS[baseForm]
 		formTable.index = currentIndex
 		for i, form in pairs(formTable.forms) do
 			if baseForm == "Rotom" and gameInfo.GEN == 4 then
