@@ -1,0 +1,325 @@
+local function PokemonOverviewScreen(initialSettings, initialTracker, initialProgram, initialLogViewerScreen)
+    local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
+    local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
+    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
+    local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
+    local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
+    local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
+    local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageLabel.lua")
+    local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageField.lua")
+    local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
+    local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
+    local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
+    local PokemonSearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/PokemonSearchKeyboard.lua")
+    local ScreenStack = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScreenStack.lua")
+    local maxSearchResultWidth = 250
+    local logViewerScreen = initialLogViewerScreen
+    local settings = initialSettings
+    local sortedPokemonIDs = {}
+    local currentMatchSetIndex = 1
+    local currentMatchSets = {}
+    local pokemonSearchKeyboard
+    local program = initialProgram
+    local logInfo
+    local constants = {
+        SEARCH_HEADER_HEIGHT = 21,
+        RESULT_FRAME_HEIGHT = 55,
+        POKEMON_BUTTON_HEIGHT = 13,
+        SEARCH_RESULT_WIDTH = 34,
+        RESULT_IMAGE_FRAME_WIDTH = 212,
+        SEARCH_RESULT_HEIGHT = 38
+    }
+    local ui = {}
+    local matchFrames = {}
+    local matchClickEventListeners = {}
+    local eventListeners = {}
+    local self = {}
+    local screens = {}
+
+    local function onGoBackClick()
+    end
+
+    local function setUpPokemonIDs()
+        sortedPokemonIDs = {}
+        for id, _ in pairs(logInfo.getPokemon()) do
+            table.insert(sortedPokemonIDs, id)
+        end
+        MiscUtils.sortPokemonIDsByName(sortedPokemonIDs)
+    end
+
+    function self.initialize(newLogInfo)
+        logInfo = newLogInfo
+        setUpPokemonIDs()
+        pokemonSearchKeyboard.updateItemSet(sortedPokemonIDs)
+        pokemonSearchKeyboard.setDrawFunction(program.drawCurrentScreens)
+    end
+
+    local function clearMatchFrame(matchFrame)
+        matchFrame.nameLabel.setText("")
+        matchFrame.imageLabel.setPath("")
+    end
+
+    local function clearMatches()
+        currentMatchSets = {}
+        for _, matchFrame in pairs(matchFrames) do
+            clearMatchFrame(matchFrame)
+        end
+    end
+
+    local function readCurrentMatchSetIntoUI()
+        if #currentMatchSets == 0 then
+            return
+        end
+        local matchSet = currentMatchSets[currentMatchSetIndex]
+        for index = 1, 4, 1 do
+            local id = matchSet[index]
+            local matchFrame = matchFrames[index]
+            if id ~= nil then
+                local name = PokemonData.POKEMON[id + 1].name
+                local nameLength = DrawingUtils.calculateWordPixelLength(name)
+                local xOffset = (constants.SEARCH_RESULT_WIDTH - nameLength - 2) / 2
+                matchFrame.nameLabel.setTextOffset({x = xOffset, y = 1})
+                matchFrame.nameLabel.setText(name)
+                local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
+                DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, id, matchFrame.imageLabel, {x = 1, y = 0})
+                matchClickEventListeners[index].setOnClickParams(id)
+            else
+                clearMatchFrame(matchFrame)
+            end
+        end
+        program.drawCurrentScreens()
+    end
+
+    local function onMatchClick(id)
+        if id ~= nil then
+            print(id)
+            logViewerScreen.loadPokemonStats(id)
+        end
+    end
+
+    local function createMatchFrame()
+        local matchFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = constants.SEARCH_RESULT_WIDTH,
+                    height = constants.SEARCH_RESULT_HEIGHT
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = 0, y = 0}),
+            ui.frames.resultImageFrame
+        )
+        local matchImage =
+            ImageLabel(
+            Component(matchFrame, Box({x = 0, y = 0}, {width = 30, height = 28}, nil, nil)),
+            ImageField("", {x = 0, y = 0}, nil)
+        )
+        local matchLabel =
+            TextLabel(
+            Component(
+                matchFrame,
+                Box(
+                    {x = 5, y = 5},
+                    {
+                        width = 0,
+                        height = 0
+                    },
+                    nil,
+                    nil
+                )
+            ),
+            TextField(
+                "",
+                {x = 0, y = 1},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        table.insert(
+            matchFrames,
+            {
+                frame = matchFrame,
+                nameLabel = matchLabel,
+                imageLabel = matchImage
+            }
+        )
+        table.insert(matchClickEventListeners, MouseClickEventListener(matchFrame, onMatchClick))
+    end
+
+    local function createMatchFrames()
+        for i = 1, 4, 1 do
+            createMatchFrame()
+        end
+    end
+
+    local function createMatchSets(matches)
+        local currentMatchSet = {}
+        for index, match in pairs(matches) do
+            if #currentMatchSet == 4 then
+                table.insert(currentMatchSets, MiscUtils.deepCopy(currentMatchSet))
+                currentMatchSet = {}
+            end
+            table.insert(currentMatchSet, match)
+        end
+        if #currentMatchSet ~= 0 then
+            table.insert(currentMatchSets, MiscUtils.deepCopy(currentMatchSet))
+        end
+        currentMatchSetIndex = 1
+        readCurrentMatchSetIntoUI()
+    end
+
+    local function onForwardClick()
+        currentMatchSetIndex = MiscUtils.increaseTableIndex(currentMatchSetIndex, #currentMatchSets)
+        readCurrentMatchSetIntoUI()
+    end
+
+    local function onBackwardClick()
+        currentMatchSetIndex = MiscUtils.decreaseTableIndex(currentMatchSetIndex, #currentMatchSets)
+        readCurrentMatchSetIntoUI()
+    end
+
+
+    local function initUI()
+        ui.controls = {}
+        ui.frames = {}
+        ui.frames.mainFrame =
+            Frame(
+            Box(
+                {
+                    x = Graphics.SIZES.BORDER_MARGIN,
+                    y = Graphics.LOG_VIEWER.TAB_HEIGHT + Graphics.SIZES.BORDER_MARGIN + 5
+                },
+                {
+                    width = Graphics.SIZES.SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    height = Graphics.SIZES.SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN -
+                        Graphics.LOG_VIEWER.TAB_HEIGHT -
+                        5
+                },
+                "Top box background color",
+                "Top box border color"
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5),
+            ui.frames.mainFrame
+        )
+        ui.controls.searchHeading =
+            TextLabel(
+            Component(
+                ui.frames.mainFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = Graphics.SIZES.SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        height = constants.SEARCH_HEADER_HEIGHT
+                    },
+                    nil,
+                    nil
+                )
+            ),
+            TextField(
+                "Click the keys below to search any pokemon:",
+                {x = 32, y = 10},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        ui.frames.resultFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 0,
+                    height = constants.RESULT_FRAME_HEIGHT
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 3, y = 10}),
+            ui.frames.mainFrame
+        )
+        local frameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.resultFrame, 14, 12)
+        ui.frames.leftArrowFrame = frameInfo.frame
+        ui.controls.leftButton = frameInfo.button
+        ui.frames.resultImageFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = constants.RESULT_IMAGE_FRAME_WIDTH,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 21, {x = 6, y = 0}),
+            ui.frames.resultFrame
+        )
+        createMatchFrames()
+        frameInfo = FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.resultFrame, 14, 12)
+        ui.frames.rightArrowFrame = frameInfo.frame
+        ui.controls.rightButton = frameInfo.button
+        ui.frames.searchFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 0,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5, {x = 50, y = 0}),
+            ui.frames.mainFrame
+        )
+        pokemonSearchKeyboard =
+            PokemonSearchKeyboard(sortedPokemonIDs, ui.frames.searchFrame, createMatchSets, clearMatches)
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.rightButton, onForwardClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.leftButton, onBackwardClick))
+    end
+
+    function self.runEventListeners()
+        for _, eventListener in pairs(eventListeners) do
+            eventListener.listen()
+        end
+        for _, eventListener in pairs(matchClickEventListeners) do
+            eventListener.listen()
+        end
+        pokemonSearchKeyboard.runEventListeners()
+    end
+
+    function self.show()
+        local moreThan4 = #currentMatchSets > 1
+        ui.controls.rightButton.setVisibility(moreThan4)
+        ui.controls.leftButton.setVisibility(moreThan4)
+        ui.frames.mainFrame.show()
+    end
+
+    initUI()
+
+    return self
+end
+
+return PokemonOverviewScreen
