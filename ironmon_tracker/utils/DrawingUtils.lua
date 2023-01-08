@@ -69,7 +69,7 @@ function DrawingUtils.calculateWordPixelLength(text)
             totalLength = totalLength + 1
         end
     end
-    totalLength = totalLength + #text - 1 --space in between each character
+    totalLength = totalLength + #text --space in between each character
     return totalLength
 end
 
@@ -78,6 +78,56 @@ function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, s
         gui.drawRectangle(x, y, width + 2, height + 2, 0x00000000, shadowColor)
     end
     gui.drawRectangle(x, y, width, height, fill, background)
+end
+
+function DrawingUtils.drawBarGraph(position, size, dataSet, headingText, borderColorKey, textBarColorKey, graphPadding, maxValue)
+    local borderColor = DrawingUtils.convertColorKeyToColor(borderColorKey)
+    local textBarColor = DrawingUtils.convertColorKeyToColor(textBarColorKey)
+    local x,y = position.x, position.y 
+    local width, height = size.width, size.height
+    local topPoint = {
+        ["x"] = x + graphPadding,
+        ["y"] = y + graphPadding
+    }
+    local bottomLeftPoint = {
+        ["x"] = x + graphPadding,
+        ["y"] = y + height - graphPadding
+    }
+    local bottomRightPoint = {
+        ["x"] = x + width - graphPadding,
+        ["y"] = y + height - graphPadding
+    }
+    gui.drawLine(topPoint.x, topPoint.y, bottomLeftPoint.x, bottomLeftPoint.y,borderColor)
+    gui.drawLine(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y, borderColor)
+    local textLength = DrawingUtils.calculateWordPixelLength(headingText)
+    local textX = x + graphPadding + ((width - 2 * graphPadding - textLength) / 2)
+    local style = TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+    DrawingUtils.drawText(textX,y,headingText,style,DrawingUtils.calcShadowColor("Top box background color"))
+    local totalBars = 0
+    for _, _ in pairs(dataSet) do
+        totalBars = totalBars + 1
+    end
+    local barWidth = (width- 2 * graphPadding) / (totalBars + (totalBars / 2) + (1/2))
+    local spacing = barWidth / 2
+    local currentIndex = 0
+    --basically leave some room
+    local topValue = maxValue * 1.25 
+    local verticalDistance = math.abs(topPoint.y - bottomRightPoint.y)
+    for _, dataEntry in pairs(dataSet) do
+        local name, value = dataEntry[1], dataEntry[2]
+        local barX = math.floor(spacing + topPoint.x + ( (spacing+barWidth) * currentIndex) )
+        local verticalDistanceFraction = verticalDistance * (value/topValue)
+        local barY = bottomRightPoint.y - verticalDistanceFraction
+        gui.drawRectangle(barX, barY, barWidth, verticalDistanceFraction, textBarColor, textBarColor)
+        value = tostring(value)
+        local nameLength = DrawingUtils.calculateWordPixelLength(name)
+        local valueLength = DrawingUtils.calculateWordPixelLength(value)
+        local nameX = (barX + (barWidth - nameLength)/2) - 1
+        local valueX = (barX + (barWidth - valueLength)/2)  - 1
+        DrawingUtils.drawText(valueX,barY-12,value,style,DrawingUtils.calcShadowColor("Top box background color"))
+        DrawingUtils.drawText(nameX,bottomRightPoint.y + 2,name,style,DrawingUtils.calcShadowColor("Top box background color"))
+        currentIndex = currentIndex + 1
+    end
 end
 
 function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, justifiedSpacing)
