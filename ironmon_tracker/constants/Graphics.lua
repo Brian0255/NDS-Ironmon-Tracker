@@ -6,11 +6,15 @@ Graphics.SIZES = {
     MAIN_SCREEN_WIDTH = 150,
     MAIN_SCREEN_HEIGHT = 141,
     DEFAULT_TEXT_OFFSET = { x = 0, y = 0 },
-    SCREEN_HEIGHT = 160,
+    SCREEN_HEIGHT = 192,
     SCREEN_WIDTH = 256,
     BORDER_MARGIN = 5,
     MAIN_SCREEN_PADDING = 199,
     BADGE_COLOR_EDIT_PADDING = 349
+}
+Graphics.LOG_VIEWER = {
+    TAB_WIDTH = 52,
+    TAB_HEIGHT = 17
 }
 Graphics.ALIGNMENT_TYPE = {
     HORIZONTAL = 0,
@@ -53,7 +57,8 @@ Graphics.BUTTON_TEXT = {
 Graphics.LETTER_PIXEL_LENGTHS = {
     [" "] = 1,
     ["%"] = 7,
-    ["1"] = 3,
+    ["0"] = 4,
+    ["1"] = 4,
     ["2"] = 4,
     ["3"] = 4,
     ["4"] = 4,
