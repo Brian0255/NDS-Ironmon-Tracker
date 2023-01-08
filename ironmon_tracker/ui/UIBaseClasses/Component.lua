@@ -28,6 +28,10 @@ local function Component(initialFrame, initialBox)
         box.setBackgroundColorKey(newColorKey)
     end
 
+    function self.setBackgroundFillColorKey(newColorKey)
+        box.setBackgroundFillColorKey(newColorKey)
+    end
+
     function self.resize(newSize)
         box.resize(newSize)
     end
