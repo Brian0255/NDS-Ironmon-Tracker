@@ -4,13 +4,13 @@ local function LogInfo(initialPokemonList, initialTrainers, initialTMs)
     local trainers = initialTrainers
     local TMs = initialTMs
     function self.getPokemon()
-        return pokemonList
+        return MiscUtils.deepCopy(pokemonList)
     end
     function self.getTrainers()
-        return trainers
+        return MiscUtils.deepCopy(trainers)
     end
     function self.getTMs()
-        return TMs
+        return MiscUtils.deepCopy(TMs)
     end
     return self
 end
@@ -64,9 +64,7 @@ local function RandomizerLogParser()
         local heldItem = 1
         if nameItemSplit[2] ~= nil then
             local heldItemName = nameItemSplit[2]
-            if not itemIDMappings[heldItemName] then
-                print(heldItemName)
-            else
+            if itemIDMappings[heldItemName] then
                 heldItem = itemIDMappings[heldItemName]
             end
         end
