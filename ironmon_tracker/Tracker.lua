@@ -66,12 +66,7 @@ local function Tracker()
 				table.insert(ids, id)
 			end
 		end
-		table.sort(
-			ids,
-			function(k1, k2)
-				return PokemonData.POKEMON[k1 + 1].name < PokemonData.POKEMON[k2 + 1].name
-			end
-		)
+		MiscUtils.sortPokemonIDsByName(ids)
 		return ids
 	end
 
