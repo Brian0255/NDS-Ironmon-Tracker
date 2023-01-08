@@ -85,7 +85,7 @@ local function PokemonSearchKeyboard(
     local function onLetterPress(letter)
         currentSearchText = currentSearchText .. letter:lower()
         if #currentSearchText > max then
-            self.onBackspace()
+            onBackspace()
         else
             self.updateSearch()
         end
