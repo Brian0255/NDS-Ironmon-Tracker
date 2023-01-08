@@ -31,6 +31,9 @@ local function TextLabel(initialComponent, initialTextField, isJustifiable, init
     function self.setBackgroundColorKey(newColorKey)
         component.setBackgroundColorKey(newColorKey)
     end
+    function self.setBackgroundFillColorKey(newColorKey)
+        component.setBackgroundFillColorKey(newColorKey)
+    end
     function self.show()
         if visible then
             component.show()
@@ -46,6 +49,9 @@ local function TextLabel(initialComponent, initialTextField, isJustifiable, init
     end
     function self.setTextColorKey(newTextColorKey)
         textField.setTextColorKey(newTextColorKey)
+    end
+    function self.setShadowColorKey(newShadowColorKey)
+        textField.setShadowColorKey(newShadowColorKey)
     end
     function self.getPosition()
         return component.getPosition()
