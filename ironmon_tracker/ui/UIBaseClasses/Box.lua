@@ -22,6 +22,8 @@ local function Box(
     function self.move(newPosition)
         position.x = newPosition.x
         position.y = newPosition.y
+        relativePosition.x = newPosition.x
+        relativePosition.y = newPosition.y
     end
 
     function self.calculateActualPosition(parentPosition)
@@ -69,6 +71,10 @@ local function Box(
         else
             return 0x00000000
         end
+    end
+
+    function self.setBackgroundFillColorKey(newBackgroundFillColorKey)
+        backgroundFillColorKey = newBackgroundFillColorKey
     end
 
     function self.show()
