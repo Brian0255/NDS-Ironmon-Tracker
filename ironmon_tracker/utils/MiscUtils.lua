@@ -50,6 +50,15 @@ function MiscUtils.split(s, delimiter, trimWhitespace)
     return result
 end
 
+function MiscUtils.sortPokemonIDsByName(ids)
+    table.sort(
+        ids,
+        function(k1, k2)
+            return PokemonData.POKEMON[k1 + 1].name < PokemonData.POKEMON[k2 + 1].name
+        end
+    )
+end
+
 function MiscUtils.tableContains(table, value)
     for _, item in pairs(table) do
         if item == value then
