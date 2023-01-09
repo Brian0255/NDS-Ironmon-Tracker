@@ -9,6 +9,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
     local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageField.lua")
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER.."/FrameCounter.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
+    local ScrollEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScrollEventListener.lua")
 
     local self = {}
     local eventListeners = {}
@@ -67,6 +68,11 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
             )
         )
     end
+    local function updateScrollerFromCurrentIndex()
+        local maxVerticalRoom = frame.getSize().height - scroller.getSize().height
+        local scrollerY = (currentIndex-1)/(maxIndex-1) * maxVerticalRoom 
+        scroller.move({x=scrollerX,y=scrollerY})
+    end
 
     function self.setItems(newItems)
         itemSet = newItems
@@ -74,6 +80,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         maxIndex = limit - space + 1
         currentIndex = 1
         updateScrollerSize()
+        updateScrollerFromCurrentIndex()
         scroller.setVisibility(limit > spaceAvailable)
     end
 
@@ -84,22 +91,21 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         end
         return items
     end
-
-    local function updateScrollerFromCurrentIndex()
-        local maxVerticalRoom = frame.getSize().height - scroller.getSize().height
-        local scrollerY = (currentIndex-1)/(maxIndex-1) * maxVerticalRoom 
-        scroller.move({x=scrollerX,y=scrollerY})
-    end
-
     
     local function scrollForward()
-        currentIndex = math.min(currentIndex + 1,maxIndex)
-        updateScrollerFromCurrentIndex()
+        if not dragging then
+            currentIndex = math.min(currentIndex + 1,maxIndex)
+            updateScrollerFromCurrentIndex()
+            scrollReadingFunction()
+        end
     end
 
     local function scrollBackward()
-        currentIndex = math.max(1, currentIndex - 1)
-        updateScrollerFromCurrentIndex()
+        if not dragging then 
+            currentIndex = math.max(1, currentIndex - 1)
+            updateScrollerFromCurrentIndex()
+            scrollReadingFunction()
+        end
     end
 
 
@@ -139,22 +145,14 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
             for _, eventListener in pairs(eventListeners) do
                 eventListener.listen()
             end
-            if not dragging then
-                local scrollChange = Input.getScrollWheelChange()
-                if scrollChange < -100 then
-                    scrollForward()
-                    scrollReadingFunction()
-                elseif scrollChange > 100 then
-                    scrollBackward()
-                    scrollReadingFunction()
-                end
-            end
         end
     end
 
     createScroller()
+    table.insert(eventListeners, ScrollEventListener(frame, scrollForward, nil, Graphics.SCROLL_DIRECTION.DOWN))
+    table.insert(eventListeners, ScrollEventListener(frame, scrollBackward, nil, Graphics.SCROLL_DIRECTION.UP))
     table.insert(eventListeners, MouseClickEventListener(scroller, onScrollerClick))
-    table.insert(frameCounters, FrameCounter(5,updateScroller))
+    table.insert(frameCounters, FrameCounter(3,updateScroller))
 
     return self
 end
