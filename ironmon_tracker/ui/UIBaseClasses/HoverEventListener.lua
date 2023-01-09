@@ -35,6 +35,9 @@ local function HoverEventListener(
     function self.getOnHoverEndParams()
         return onHoverEndParams
     end
+    function self.setBackToZero()
+        framesWaited = 0
+    end
     local function resetCurrentAmount()
         local clientFrameRate = client.get_approx_framerate()
         if clientFrameRate ~= nil then
