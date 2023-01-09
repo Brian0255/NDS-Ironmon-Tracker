@@ -15,7 +15,7 @@ local function LogInfo(initialPokemonList, initialTrainers, initialTMs)
     return self
 end
 
-local function RandomizerLogParser()
+local function RandomizerLogParser(initialProgram)
     local self = {}
 
     local moveIDMappings = {}
@@ -23,6 +23,7 @@ local function RandomizerLogParser()
     local abilityIDMappings = {}
     local itemIDMappings = {}
 
+    local program = initialProgram
     local pokemonList = {}
     local trainers = {}
     local TMs = {}
@@ -43,9 +44,9 @@ local function RandomizerLogParser()
             pokemonName = checkForNameReplacement(pokemonName)
             local evolutions = {}
             --mr. mime is annoying, take out space after period then re-add it so the split works
-            evolutionList = evolutionList:gsub("%. ", "%.")
+            evolutionList = evolutionList:gsub("%. ", ".")
             for _, evolutionData in pairs(MiscUtils.split(evolutionList, " ", true)) do
-                local evolutionName = evolutionData:gsub(",", ""):gsub("%.", "%. ")
+                local evolutionName = evolutionData:gsub(",", ""):gsub("%.", ". ")
                 evolutionName = checkForNameReplacement(evolutionName)
                 if pokemonIDMappings[evolutionName] then
                     local evolutionID = pokemonIDMappings[evolutionName]
@@ -162,7 +163,7 @@ local function RandomizerLogParser()
         while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
             local currentLine = lines[currentLineIndex]
             local pokemonData = MiscUtils.split(currentLine, "|", true)
-            local pokemonID = tonumber(pokemonData[1]) + 1
+            local pokemonID = tonumber(pokemonData[1]) 
             if pokemonID ~= nil then
                 local pokemonName = pokemonData[2]
                 pokemonName = checkForNameReplacement(pokemonName)
@@ -177,6 +178,8 @@ local function RandomizerLogParser()
                     SPD = tonumber(pokemonData[8]),
                     SPE = tonumber(pokemonData[9])
                 }
+                pokemon.pokemonID = pokemonID
+                program.addAdditionalDataToPokemon(pokemon)
                 local abilityNames = {pokemonData[10], pokemonData[11], pokemonData[12]}
                 pokemon.abilities = {}
                 for _, abilityName in pairs(abilityNames) do
