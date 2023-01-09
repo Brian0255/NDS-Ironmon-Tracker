@@ -77,6 +77,16 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         activeHoverFrame = UIUtils.createAndDrawMoveHoverFrame(params, program.drawCurrentScreens, ui.frames.mainFrame)
     end
 
+    local function readMoveIntoListener(index, move)
+        local moveListener = moveHoverListeners[index]
+        local params = moveListener.getOnHoverParams()
+        params.move = move
+        moveListener.setOnHoverParams(params)
+        activeHoverFrame = nil
+        moveListener.setBackToZero()
+    end
+    
+
     local function readScrollMovesIntoUI()
         local items = movesScrollBar.getViewedItems()
         for i = 1, 8, 1 do
@@ -88,12 +98,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                     level = "  " .. level
                 end
                 moveString = level .. " " .. MoveData.MOVES[moveInfo.move + 1].name
-                local moveListener = moveHoverListeners[i]
-                local params = moveListener.getOnHoverParams()
-                params.move = moveInfo.move
-                moveListener.setOnHoverParams(params)
-                activeHoverFrame = nil
-                moveListener.setBackToZero()
+                readMoveIntoListener(i, moveInfo.move)
             end
             ui.controls.moveLabels[i].setTextColorKey("Top box text color")
             ui.controls.moveLabels[i].setText(moveString)
@@ -119,6 +124,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                     textColorKey = "Positive text color"
                 end
                 label.setTextColorKey(textColorKey)
+                readMoveIntoListener(i, moveID)
             end
             label.setText(moveString)
         end
