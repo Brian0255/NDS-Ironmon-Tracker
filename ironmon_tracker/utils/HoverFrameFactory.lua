@@ -3,6 +3,7 @@ HoverFrameFactory = {}
 local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Frame.lua")
 local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Box.lua")
 local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Component.lua")
+local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Icon.lua")
 local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/TextLabel.lua")
 local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/ImageLabel.lua")
 local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/ImageField.lua")
@@ -137,7 +138,7 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
     end
 end
 
-function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
+function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width, parentFrame)
     local padding = 5
     --subtract an extra 2 for each side (4) because the text actually gets drawn 2 pixels to the right even with 0 padding 
     local textArray = DrawingUtils.textToWrappedArray(text, width - 2 * padding - 4)
@@ -153,7 +154,7 @@ function HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text
             BGColorFillKey,nil,nil,true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 5}),
-        nil
+        parentFrame
     )
     for _, textSet in pairs(textArray) do
         local textLabel =
@@ -438,4 +439,139 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
     )
     readItemDataIntoFrame(items, itemType, itemHolderFrame)
     return itemHoverFrame
+end
+
+local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
+    local topFrameHeight = 17
+    local topInfoFrame = Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = 0,
+                height = topFrameHeight
+            },
+            nil, nil
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+        parentFrame
+    )
+    local categoryTypeFrame = Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = 46,
+                height = topFrameHeight
+            },
+            "Top box background color",
+            "Top box border color"
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 4, y = 1}),
+        topInfoFrame
+    )
+    local moveInfo = MoveData.MOVES[move+1]
+    local moveType = moveInfo.type
+    local movePP = moveInfo.pp
+    local moveAcc = moveInfo.accuracy
+    local power = moveInfo.power
+    local moveCategory = moveInfo.category
+    local moveDescription = moveInfo.description
+    local categoryIconName = MoveData.MOVE_CATEGORIES[moveCategory]
+    local categoryIcon = Icon(
+        Component(
+            categoryTypeFrame,
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {width = 9, height = 10},
+                nil,
+                nil
+            )
+        ),
+        categoryIconName,
+        {x = 0, y = 4}
+    )
+    local typeLabel = ImageLabel(
+        Component(
+             categoryTypeFrame,
+            Box(
+                {x = 0, y = 0},
+                {width = 31, height = 13},
+                nil, nil
+            )
+        ),
+        ImageField(
+            "ironmon_tracker/images/types/" .. moveType .. ".png",
+            {x = 1, y = 2},
+            {width = 30, height = 12}
+        )
+    )
+    local PPLabel = TextLabel(
+        Component(
+            topInfoFrame,
+            Box(
+                {x = 0, y = 0},
+                {width = 36, height = topFrameHeight},
+                "Top box background color",
+                "Top box border color"
+            )
+        ),
+        TextField(
+            "PP  "..movePP,
+            {x = 5, y = 3},
+            TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+        )
+    )
+    local powLabel = TextLabel(
+        Component(
+            topInfoFrame,
+            Box(
+                {x = 0, y = 0},
+                {width = 42, height = topFrameHeight},
+                "Top box background color",
+                "Top box border color"
+            )
+        ),
+        TextField(
+            "Pow  "..power,
+            {x = 2, y = 3},
+            TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+        )
+    )
+    local accLabel = TextLabel(
+        Component(
+            topInfoFrame,
+            Box(
+                {x = 0, y = 0},
+                {width = 40, height = topFrameHeight},
+                "Top box background color",
+                "Top box border color"
+            )
+        ),
+        TextField(
+            "Acc  "..moveAcc,
+            {x = 2, y = 3},
+            TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+        )
+    )
+end
+
+function HoverFrameFactory.createMoveHoverTextFrame(BGColorKey, BGColorFillKey, move)
+    local mainFrame = Frame(
+        Box(
+            {x = 0, y = 0},
+            {
+                width = 0,
+                height = 0
+            },
+            nil, nil
+        ),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
+        nil
+    )
+    buildTopInfoFrame(BGColorKey, BGColorFillKey, move, mainFrame)
+    local textFrame = HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, MoveData.MOVES[move+1].description, "Top box text color", 164, mainFrame)
+    mainFrame.resize({width = 164, height = 17 + textFrame.getSize().height})
+    return mainFrame
 end
