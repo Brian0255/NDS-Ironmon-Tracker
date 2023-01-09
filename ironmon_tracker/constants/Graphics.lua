@@ -50,6 +50,10 @@ Graphics.BADGE_ORIENTATION = {
     [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = "VERTICAL",
 
 }
+Graphics.SCROLL_DIRECTION = {
+    UP = 0,
+    DOWN = 1
+}
 Graphics.BUTTON_TEXT = {
     CHECKMARK = 0,
     FILLED_SQUARE = 1,
