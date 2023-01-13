@@ -21,6 +21,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local currentPokemon = nil
     local opposingPokemon = nil
     local inTrackedView = false
+    local inLockedView = false
     local defeatedLance = false
     local statCycleIndex = -1
     local stats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
@@ -68,6 +69,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         status = {}
     }
     local function onHoverInfoEnd()
+        print("ended")
         activeHoverFrame = nil
         program.drawCurrentScreens()
     end
@@ -108,12 +110,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             tracker.decreasePokecenterCount()
         end
         program.drawCurrentScreens()
-    end
-
-    local function moveHoverFrameToMouse(hoverFrame, alignment)
-        local position = Input.getMousePosition()
-        MiscUtils.clampFramePosition(alignment, position, ui.frames.mainFrame, hoverFrame.getSize())
-        hoverFrame.move(position)
     end
 
     local function resetStatPredictionColor()
@@ -199,13 +195,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onPokemonImageHover(params)
-            if params.pokemon.pokemonID ~= 0 then
-                local pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
-                moveHoverFrameToMouse(pokemonHoverFrame,Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW)
-                activeHoverFrame = pokemonHoverFrame
-                program.drawCurrentScreens()
-                pokemonHoverFrame.show()
-            end
+        activeHoverFrame =
+            UIUtils.createAndDrawTypeResistancesFrame(params, program.drawCurrentScreens, ui.frames.mainFrame)
     end
 
     local function onItemBagInfoHover(params)
@@ -221,13 +212,21 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     "Top box text color",
                     114
                 )
-                moveHoverFrameToMouse(hoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
+                UIUtils.moveHoverFrameToMouse(
+                    hoverFrame,
+                    Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
+                    ui.frames.mainFrame
+                )
                 activeHoverFrame = hoverFrame
                 program.drawCurrentScreens()
                 hoverFrame.show()
             else
                 local itemsHoverFrame = HoverFrameFactory.createItemBagHoverFrame(items, ui.frames.mainFrame, itemType)
-                moveHoverFrameToMouse(itemsHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
+                UIUtils.moveHoverFrameToMouse(
+                    itemsHoverFrame,
+                    Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
+                    ui.frames.mainFrame
+                )
                 activeHoverFrame = itemsHoverFrame
                 program.drawCurrentScreens()
                 itemsHoverFrame.show()
@@ -236,46 +235,40 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onMoveHeaderHover(params)
-            if params.pokemon ~= nil then
-                local movelvls = params.pokemon.movelvls
-                local moveHeaderHoverFrame
-                if #movelvls == 0 then
-                    moveHeaderHoverFrame =
-                        HoverFrameFactory.createHoverTextFrame(
-                        "Bottom box background color",
-                        "Bottom box border color",
-                        "This Pok\233mon does not learn any moves.",
-                        "Bottom box text color",
-                        126
-                    )
-                    moveHoverFrameToMouse(
-                        moveHeaderHoverFrame,
-                        Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
-                    )
-                else
-                    moveHeaderHoverFrame = HoverFrameFactory.createMoveLevelsHoverFrame(params.pokemon, params.mainFrame)
-                    moveHoverFrameToMouse(moveHeaderHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE)
-                end
-                activeHoverFrame = moveHeaderHoverFrame
-                program.drawCurrentScreens()
-                activeHoverFrame.show()
+        if params.pokemon ~= nil then
+            local movelvls = params.pokemon.movelvls
+            local moveHeaderHoverFrame
+            if #movelvls == 0 then
+                moveHeaderHoverFrame =
+                    HoverFrameFactory.createHoverTextFrame(
+                    "Bottom box background color",
+                    "Bottom box border color",
+                    "This Pok\233mon does not learn any moves.",
+                    "Bottom box text color",
+                    126
+                )
+                UIUtils.moveHoverFrameToMouse(
+                    moveHeaderHoverFrame,
+                    Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
+                    ui.frames.mainFrame
+                )
+            else
+                moveHeaderHoverFrame = HoverFrameFactory.createMoveLevelsHoverFrame(params.pokemon, params.mainFrame)
+                UIUtils.moveHoverFrameToMouse(
+                    moveHeaderHoverFrame,
+                    Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE,
+                    ui.frames.mainFrame
+                )
             end
+            activeHoverFrame = moveHeaderHoverFrame
+            program.drawCurrentScreens()
+            activeHoverFrame.show()
+        end
     end
 
     local function onHoverInfo(hoverParams)
-        local BGColorKey = hoverParams.BGColorKey
-        local BGColorFillKey = hoverParams.BGColorFillKey
-        local textColorKey = hoverParams.textColorKey
-        local text = hoverParams.text
-        if text ~= "" then
-            local width = hoverParams.width
-            local alignment = hoverParams.alignment
-            local hoverFrame =
-                HoverFrameFactory.createHoverTextFrame(BGColorKey, BGColorFillKey, text, textColorKey, width)
-            moveHoverFrameToMouse(hoverFrame, alignment)
-            activeHoverFrame = hoverFrame
-            program.drawCurrentScreens()
-            hoverFrame.show()
+        if hoverParams.text ~= "" then
+            activeHoverFrame = UIUtils.createAndDrawHoverFrame(hoverParams, program.drawCurrentScreens, ui.frames.mainFrame)
         end
     end
 
@@ -861,7 +854,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 10, height = 10},
+                    {width = 64, height = 10},
                     nil,
                     nil
                 )
@@ -1155,7 +1148,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 ),
                 TextField(
                     "Tail Whip",
-                    {x=-1,y=0},
+                    {x = -1, y = 0},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -1387,7 +1380,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         ui.controls.mainNoteLabel =
             TextLabel(
-            Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = 0, height = 8}, nil, nil)),
+            Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = constants.POKEMON_INFO_WIDTH, height = 8}, nil, nil)),
             TextField(
                 "",
                 {x = 1, y = 2},
@@ -1719,7 +1712,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function setEnemySpecificControls()
-        ui.controls.lockIcon.setVisibility(not inTrackedView and settings.battle.ENABLE_ENEMY_LOCKING)
+        ui.controls.lockIcon.setVisibility(not (inTrackedView or inLockedView) and settings.battle.ENABLE_ENEMY_LOCKING)
         local lockIcon = "LOCKED"
         if not program.isLocked() then
             lockIcon = "UNLOCKED"
@@ -1794,6 +1787,89 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
     end
+
+    local function readTeamInfoPokemonIntoUI()
+        ui.frames.healFrame.setVisibility(false)
+        ui.frames.enemyNoteFrame.setVisibility(true)
+        ui.controls.noteIcon.setVisibility(false)
+        ui.frames.survivalHealFrame.setVisibility(false)
+
+        eventListeners.loadStatOverview.setOnClickParams(currentPokemon.pokemonID)
+
+        --Repurpose notes into held item viewing.
+        local itemDescription = ""
+        if currentPokemon.heldItem ~= nil then
+            local heldItem = ItemData.ITEMS[currentPokemon.heldItem]
+            itemDescription = heldItem.description
+            ui.controls.mainNoteLabel.setText("Item: " .. heldItem.name)
+        else
+            ui.controls.mainNoteLabel.setText("Item: None")
+        end
+        hoverListeners.heldItemTeamInfo.getOnHoverParams().text = itemDescription
+        hoverListeners.abilityHoverListener.getOnHoverParams().text = ""
+        hoverListeners.heldItemHoverListener.getOnHoverParams().text = ""
+
+        --pokemon from a log trainer team have a list of abilities, show all 3
+        local newAbilityLabels = {ui.controls.pokemonHP, ui.controls.heldItem, ui.controls.abilityDetails}
+        local abilities = currentPokemon.abilities
+        for index = 1, 3, 1  do
+            local ability = abilities[index]
+            local hoverListener = hoverListeners["abilityHoverListener"..index]
+            local abilityName = ""
+            local abilityDescription = ""
+            if ability ~= nil then
+                local abilityData = AbilityData.ABILITIES[abilities[index] + 1]
+                abilityName = abilityData.name
+                abilityDescription = abilityData.description
+            end
+            newAbilityLabels[index].setText(abilityName)
+            hoverListener.getOnHoverParams().text = abilityDescription
+        end
+    end
+
+    function self.formatForTeamInfoView(pokemonLoadingFunction)
+        ui.frames.mainFrame.setBackgroundColorKey("")
+        inLockedView = true
+        eventListeners.loadStatOverview = MouseClickEventListener(ui.controls.pokemonImageLabel, pokemonLoadingFunction)
+        local newAbilityLabels = {ui.controls.pokemonHP, ui.controls.heldItem, ui.controls.abilityDetails}
+        for index, newAbilityLabel in pairs(newAbilityLabels) do
+            hoverListeners["abilityHoverListener" .. index] =
+                HoverEventListener(
+                newAbilityLabel,
+                onHoverInfo,
+                {
+                    BGColorKey = "Top box background color",
+                    BGColorFillKey = "Top box border color",
+                    text = "",
+                    textColorKey = "Top box text color",
+                    width = 120,
+                    alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
+                },
+                onHoverInfoEnd
+            )
+            newAbilityLabel.setTextColorKey("Intermediate text color")
+        end
+        hoverListeners.heldItemTeamInfo = HoverEventListener(
+            ui.controls.mainNoteLabel,
+            onHoverInfo,
+            {
+                BGColorKey = "Top box background color",
+                BGColorFillKey = "Top box border color",
+                text = "",
+                textColorKey = "Top box text color",
+                width = 120,
+                alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
+            },
+            onHoverInfoEnd
+        )
+        ui.controls.gearIcon.setVisibility(false)
+        local moveHeaderLabels = {"moveHeaderLearnedText", "moveHeaderAcc","moveHeaderPP","moveHeaderPow"}
+        for _, labelName in pairs(moveHeaderLabels) do
+            ui.controls[labelName].setTextColorKey("Top box text color")
+            ui.controls[labelName].setShadowColorKey("Top box background color")
+        end
+    end
+
     local function setUpMiscInfo(isEnemy)
         local pokecenters = tracker.getPokecenterCount()
         if pokecenters < 10 then
@@ -1851,7 +1927,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             evo = "SOON"
         end
         ui.controls.pokemonLevelAndEvo.setText("Lv. " .. currentPokemon.level .. " (" .. evo .. ")")
-        ui.controls.pokemonHP.setText("HP: " .. currentPokemon.curHP .. "/" .. currentPokemon.HP)
+        ui.controls.pokemonHP.setText("HP: " .. currentPokemon.curHP .. "/" .. currentPokemon.stats.HP)
         local abilityName = AbilityData.ABILITIES[currentPokemon.ability + 1].name
         if settings.appearance.BLIND_MODE then
             abilityName = "?"
@@ -1908,6 +1984,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         setUpMoves(isEnemy)
         setUpStatStages(isEnemy)
         setUpStatusIcon()
+        if pokemon.fromTeamInfoView then
+            readTeamInfoPokemonIntoUI()
+        end
     end
 
     local function openOptionsScreen()
@@ -2103,13 +2182,18 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         defeatedLance = newValue
     end
 
+    function self.setUpForLockedView()
+        inLockedView = true
+    end
+
     function self.setUpForTrackedPokemonView()
         inTrackedView = true
     end
 
-    function self.undoTrackedPokemonView()
+    function self.resetToDefault()
         ui.frames.mainFrame.move({x = Graphics.SIZES.SCREEN_WIDTH, y = 0})
         inTrackedView = false
+        inLockedView = false
     end
 
     function self.moveMainScreen(newPosition)
@@ -2117,7 +2201,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.updateBadgeLayout()
-        if inTrackedView then
+        if inTrackedView or inLockedView then
             ui.frames.badgeFrame1.setVisibility(false)
             ui.frames.badgeFrame2.setVisibility(false)
             recalculateMainFrameSize("VERTICAL")
