@@ -53,7 +53,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         if batchValid or romGenerationValid then
             local current_dir = FormsUtils.getCurrentDirectory()
             local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
-            if newPath ~= nil then
+            if newPath ~= nil and newPath ~= "" then
                 if isFolder then
                     newPath = newPath:sub(0, newPath:match("^.*()\\") - 1)
                 end
