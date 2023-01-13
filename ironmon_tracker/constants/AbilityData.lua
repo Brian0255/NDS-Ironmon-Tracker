@@ -1,6 +1,8 @@
 AbilityData = {}
 
-AbilityData.ABILITIES = {
+AbilityData.ABILITIES = {}
+
+AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 0,
         name = "---",
