@@ -103,6 +103,23 @@ function MoveUtils.getMoveHeader(pokemon)
     return header
 end
 
+function MoveUtils.calculateEnemyMovesAtLevel(learnSet, level)
+    local movesLearned = {}
+    for _, moveInfo in pairs(learnSet) do
+        local moveID, moveLevel = moveInfo.move, moveInfo.level
+        if moveLevel <= level then
+            table.insert(movesLearned, moveID)
+        end
+    end
+    if #movesLearned <= 4 then return movesLearned end
+    local movesCurrently = {}
+    local totalLearned = #movesLearned
+    for i = totalLearned - 3 , totalLearned, 1 do
+        table.insert(movesCurrently, movesLearned[i])
+    end
+    return movesCurrently
+end
+
 function MoveUtils.getTypeDefensesTable(pokemonData)
     local EFFECTIVENESS_TO_SYMBOL = {
         [4.0] = "4x",
