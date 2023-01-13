@@ -8,11 +8,11 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageLabel.lua")
     local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageField.lua")
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
-    local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
     local BarGraph = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/BarGraph.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local HoverEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/HoverEventListener.lua")
     local ScrollBar = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScrollBar.lua")
+
     local logViewerScreen = initialLogViewerScreen
     local settings = initialSettings
     local movesScrollBar
@@ -21,21 +21,24 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local viewingMoves = true
     local logPokemon = {}
     local currentIndex = 1
+    local currentEvoIndex = 1
+    local currentEvoList = {}
     local program = initialProgram
     local logInfo
     local constants = {
         STATS_FRAME_HEIGHT = Graphics.SIZES.SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN -
             Graphics.LOG_VIEWER.TAB_HEIGHT -
-            40,
-        STATS_FRAME_WIDTH = 150,
+            46,
+        STATS_FRAME_WIDTH = 144,
         NAV_NAME_FRAME_HEIGHT = 36,
         MOVES_FRAME_HEIGHT = 100,
         MOVE_LIST_FRAME_HEIGHT = 86,
         MOVE_ENTRY_HEIGHT = 12,
-        MOVES_FRAME_WIDTH = 87,
+        MOVES_FRAME_WIDTH = 93,
         MOVES_LABEL_HEIGHT = 14,
         POKEMON_NAME_WIDTH = 66,
-        ABILITY_FRAME_HEIGHT = 37
+        ABILITY_FRAME_HEIGHT = 37,
+        EVOS_FRAME_HEIGHT = 32
     }
     local activeHoverFrame = nil
     local ui = {}
@@ -85,7 +88,6 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         activeHoverFrame = nil
         moveListener.setBackToZero()
     end
-    
 
     local function readScrollMovesIntoUI()
         local items = movesScrollBar.getViewedItems()
@@ -93,7 +95,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             local moveString = ""
             local moveInfo = items[i]
             if moveInfo ~= nil then
-                local level = moveInfo.level
+                local level = tostring(moveInfo.level)
                 if #level == 1 then
                     level = "  " .. level
                 end
@@ -104,7 +106,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ui.controls.moveLabels[i].setText(moveString)
         end
         ui.controls.movesLabel.setText("Moves")
-        ui.controls.movesLabel.setTextOffset({x = 12, y = -1})
+        ui.controls.movesLabel.setTextOffset({x = 16, y = -1})
         program.drawCurrentScreens()
     end
 
@@ -129,7 +131,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             label.setText(moveString)
         end
         ui.controls.movesLabel.setText("Gym TMs")
-        ui.controls.movesLabel.setTextOffset({x = 6, y = -1})
+        ui.controls.movesLabel.setTextOffset({x = 9, y = -1})
         program.drawCurrentScreens()
     end
 
@@ -149,6 +151,51 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         end
     end
 
+    local function readGymTMs(pokemon)
+        local gymTMs = program.getGameInfo().GYM_TMS.set1
+        gymTMCompatibilityTable = {}
+        for i, gymTM in pairs(gymTMs) do
+            gymTMCompatibilityTable[i] = {gymTM, pokemon.pokemonTMsLearnable[gymTM]}
+        end
+    end
+
+    local function readStats(pokemon)
+        local orderedStats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
+        local dataSet = {}
+        for _, stat in pairs(orderedStats) do
+            table.insert(dataSet, {stat, pokemon.stats[stat]})
+        end
+        return dataSet
+    end
+
+    local function readCurrentEvoIntoUI()
+        local currentID = sortedPokemonIDs[currentIndex]
+        local totalEvos = 0
+        if currentEvoList ~= nil then
+            totalEvos = #currentEvoList
+            local evolution = currentEvoList[currentEvoIndex]
+            if evolution ~= nil then
+                local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
+                DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, evolution, ui.controls.evoImage, {x = 1, y = 0})
+                local evoInfo = PokemonData.POKEMON[currentID+1].evolution
+                if PokemonData.EVO_LONGER_NAMES[evoInfo] then
+                    evoInfo = PokemonData.EVO_LONGER_NAMES[evoInfo][currentEvoIndex]
+                end
+                if tonumber(evoInfo) ~= nil then
+                    evoInfo = "Level "..evoInfo
+                end
+                ui.controls.evoInfoLabel.setText(evoInfo) 
+                eventListeners.evoImageListener.setOnClickParams(evolution)
+            end
+        end
+        ui.frames.evoLeftArrowFrame.setVisibility(totalEvos > 1)
+        ui.frames.evoRightArrowFrame.setVisibility(totalEvos > 1)
+        ui.controls.evoImage.setVisibility(totalEvos ~= 0)
+        if totalEvos == 0 then
+            ui.controls.evoInfoLabel.setText("None")
+        end
+    end
+
     local function readCurrentIndexIntoUI()
         local currentID = sortedPokemonIDs[currentIndex]
         local name = PokemonData.POKEMON[currentID + 1].name
@@ -157,17 +204,9 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
         DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, currentID, ui.controls.pokemonImage, {x = 1, y = 0})
         local pokemon = logPokemon[currentID]
-        local orderedStats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
-        local dataSet = {}
-        for _, stat in pairs(orderedStats) do
-            table.insert(dataSet, {stat, pokemon.stats[stat]})
-        end
         movesScrollBar.setItems(pokemon.moves)
-        local gymTMs = program.getGameInfo().GYM_TMS.set1
-        gymTMCompatibilityTable = {}
-        for i, gymTM in pairs(gymTMs) do
-            gymTMCompatibilityTable[i] = {gymTM, pokemon.pokemonTMsLearnable[gymTM]}
-        end
+        local dataSet = readStats(pokemon)
+        readGymTMs(pokemon)
         readAbilitiesIntoUI(pokemon)
         local pokemonImageListener = hoverListeners.pokemonImageListener
         local pokemonImageParams = pokemonImageListener.getOnHoverParams()
@@ -176,8 +215,12 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         local heading = "Base Stats (" .. pokemon.bst .. " total)"
         ui.controls.statBarGraph.setDataSet(dataSet)
         ui.controls.statBarGraph.setHeadingText(heading)
-        readScrollMovesIntoUI()
+        currentEvoList = pokemon.evolutions
+        currentEvoIndex = 1
+        readCurrentEvoIntoUI()
+        viewingMoves = true
         movesScrollBar.setScrollReadingFunction(readScrollMovesIntoUI)
+        readScrollMovesIntoUI()
     end
 
     local function onForwardClick()
@@ -188,6 +231,18 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local function onBackwardClick()
         currentIndex = MiscUtils.decreaseTableIndex(currentIndex, #sortedPokemonIDs)
         readCurrentIndexIntoUI()
+    end
+
+    local function onRightEvoClick()
+        currentEvoIndex = MiscUtils.increaseTableIndex(currentEvoIndex, #currentEvoList)
+        readCurrentEvoIntoUI()
+        program.drawCurrentScreens()
+    end
+
+    local function onLeftEvoClick()
+        currentEvoIndex = MiscUtils.decreaseTableIndex(currentEvoIndex, #currentEvoList)
+        readCurrentEvoIntoUI()
+        program.drawCurrentScreens()
     end
 
     local function onMoveClick()
@@ -212,7 +267,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = constants.MOVES_FRAME_WIDTH - 10,
+                        width = constants.MOVES_FRAME_WIDTH - 20,
                         height = constants.MOVE_ENTRY_HEIGHT
                     },
                     nil,
@@ -228,20 +283,6 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                     "Top box text color",
                     "Top box background color"
                 )
-            )
-        )
-        
-        table.insert(
-            moveHoverListeners,
-            HoverEventListener(
-                label,
-                onMoveInfoHover,
-                {
-                    BGColorKey = "Top box background color",
-                    BGColorFillKey = "Top box border color",
-                    move = nil
-                },
-                onHoverInfoEnd
             )
         )
         return label
@@ -281,7 +322,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ),
             TextField(
                 "Abilities",
-                {x = 23, y = -1},
+                {x = 25, y = -1},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -396,7 +437,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ),
             TextField(
                 "Moves",
-                {x = 12, y = -1},
+                {x = 11, y = -1},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -441,6 +482,19 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         ui.controls.moveLabels = {}
         for i = 1, 8, 1 do
             ui.controls.moveLabels[i] = createMoveAbilityEntry(ui.frames.moveListFrame)
+            table.insert(
+                moveHoverListeners,
+                HoverEventListener(
+                    ui.controls.moveLabels[i],
+                    onMoveInfoHover,
+                    {
+                        BGColorKey = "Top box background color",
+                        BGColorFillKey = "Top box border color",
+                        move = nil
+                    },
+                    onHoverInfoEnd
+                )
+            )
         end
         movesScrollBar = ScrollBar(ui.frames.moveScrollerFrame, 7, {})
     end
@@ -460,10 +514,10 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 8, y = 0}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 6, y = 0}),
             ui.frames.nameStatsFrame
         )
-        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.navNameFrame, 14, 9)
+        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.navNameFrame, 12, 9)
         ui.frames.leftArrowFrame, ui.controls.leftArrowButton = arrowFrameInfo.frame, arrowFrameInfo.button
 
         ui.controls.pokemonImage =
@@ -508,6 +562,11 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         table.insert(eventListeners, MouseClickEventListener(ui.controls.leftArrowButton, onBackwardClick))
     end
 
+    local function onEvoImageClick(evolution)
+        logViewerScreen.addGoBackFunction(self.loadPokemonID, sortedPokemonIDs[currentIndex])
+        self.loadPokemonID(evolution)
+    end
+
     local function initStatGraph()
         ui.controls.statBarGraph =
             BarGraph(
@@ -517,7 +576,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                     {x = 0, y = 0},
                     {
                         width = constants.STATS_FRAME_WIDTH,
-                        height = 82
+                        height = 74
                     },
                     nil,
                     nil
@@ -533,6 +592,23 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     end
 
     local function initMainStatsUI()
+        ui.frames.statsEvosFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = constants.STATS_FRAME_WIDTH,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 3),
+            ui.frames.mainFrame
+        )
         ui.frames.nameStatsFrame =
             Frame(
             Box(
@@ -548,10 +624,101 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 "Top box border color"
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
-            ui.frames.mainFrame
+            ui.frames.statsEvosFrame
         )
         initNavNameFrame()
         initStatGraph()
+    end
+
+    local function initEvolutionsUI()
+        ui.frames.evosFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = constants.STATS_FRAME_WIDTH,
+                    height = constants.EVOS_FRAME_HEIGHT
+                },
+                "Top box background color",
+                "Top box border color"
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0),
+            ui.frames.statsEvosFrame
+        )
+        ui.controls.evosLabel =
+            TextLabel(
+            Component(
+                ui.frames.evosFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = 24,
+                        height = 0
+                    },
+                    nil,
+                    nil
+                )
+            ),
+            TextField(
+                "Evos:",
+                {x = 3, y = 10},
+                TextStyle(9, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+        ui.frames.evoImageFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 0,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0),
+            ui.frames.evosFrame
+        )
+        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.evoImageFrame, 12,9)
+        ui.frames.evoLeftArrowFrame, ui.controls.evoLeftButton = arrowFrameInfo.frame, arrowFrameInfo.button
+
+        ui.controls.evoImage =
+            ImageLabel(
+            Component(ui.frames.evoImageFrame, Box({x = 0, y = 0}, {width = 32, height = 28}, nil, nil)),
+            ImageField("", {x = 0, y = 0}, nil)
+        )
+
+        ui.controls.evoInfoLabel = TextLabel(
+            Component(
+                ui.frames.evoImageFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = 60,
+                        height = 0
+                    },
+                    nil, nil
+                )
+            ),
+            TextField(
+                "",
+                {x = 1, y = 10},
+                TextStyle(9, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+
+        arrowFrameInfo = FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.evoImageFrame, 14, 9)
+        ui.frames.evoRightArrowFrame, ui.controls.evoRightButton = arrowFrameInfo.frame, arrowFrameInfo.button
+
+        eventListeners.leftEvoListener = MouseClickEventListener(ui.controls.evoLeftButton, onLeftEvoClick, nil)
+        eventListeners.rightEvoListener = MouseClickEventListener(ui.controls.evoRightButton, onRightEvoClick, nil)
+        eventListeners.evoImageListener = MouseClickEventListener(ui.controls.evoImage, onEvoImageClick, nil)
     end
 
     local function initUI()
@@ -577,6 +744,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             nil
         )
         initMainStatsUI()
+        initEvolutionsUI()
         initMovesUI()
         initAbilitiesUI()
     end
