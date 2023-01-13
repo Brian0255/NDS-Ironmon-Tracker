@@ -32,6 +32,20 @@ function GameConfigurator.initMoveData(gameInfo)
 	end
 end
 
+function GameConfigurator.initAbilityData(gameInfo)
+	local versionDifferenceIndex = gameInfo.GEN - 3
+	for index, info in pairs(AbilityData.ABILITIES_MASTER_LIST) do
+		AbilityData.ABILITIES[index] = {}
+		for key, value in pairs(info) do
+			if type(value) == "table" then
+				AbilityData.ABILITIES[index][key] = value[versionDifferenceIndex]
+			else
+				AbilityData.ABILITIES[index][key] = value
+			end
+		end
+	end
+end
+
 function GameConfigurator.initAlternateForms(gameInfo)
 	local formOrder = GameConfigurator.ALTERNATE_FORM_ORDER_GEN4
 	if gameInfo.GEN ==5 then
@@ -71,6 +85,7 @@ function GameConfigurator.initialize()
 	print(gameInfo.NAME .. " detected.")
 	GameConfigurator.initAlternateForms(gameInfo)
 	GameConfigurator.initMoveData(gameInfo)
+	GameConfigurator.initAbilityData(gameInfo)
 
 	if gameInfo.GEN == 5 then
 		ItemData.ITEMS = ItemData.GEN_5_ITEMS
