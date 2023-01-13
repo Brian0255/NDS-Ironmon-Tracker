@@ -54,16 +54,22 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         pokemonSearchKeyboard.setDrawFunction(program.drawCurrentScreens)
     end
 
-    local function clearMatchFrame(matchFrame)
+    local function clearMatchFrame(matchFrame, index)
+        matchClickEventListeners[index].setOnClickParams(nil)
         matchFrame.nameLabel.setText("")
         matchFrame.imageLabel.setPath("")
     end
 
     local function clearMatches()
         currentMatchSets = {}
-        for _, matchFrame in pairs(matchFrames) do
-            clearMatchFrame(matchFrame)
+        for index, matchFrame in pairs(matchFrames) do
+            clearMatchFrame(matchFrame, index)
         end
+    end
+
+        function self.reset()
+        pokemonSearchKeyboard.clearKeyboard()
+        clearMatches()
     end
 
     local function readCurrentMatchSetIntoUI()
@@ -84,16 +90,22 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
                 DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, id, matchFrame.imageLabel, {x = 1, y = 0})
                 matchClickEventListeners[index].setOnClickParams(id)
             else
-                clearMatchFrame(matchFrame)
+                clearMatchFrame(matchFrame, index)
             end
         end
         program.drawCurrentScreens()
     end
 
+    local function goBackToOverview()
+        logViewerScreen.resetTabs()
+        logViewerScreen.changeActiveTabIndex(1)
+        program.drawCurrentScreens()
+    end
+
     local function onMatchClick(id)
         if id ~= nil then
-            print(id)
             logViewerScreen.loadPokemonStats(id)
+            logViewerScreen.addGoBackFunction(goBackToOverview)
         end
     end
 
@@ -163,17 +175,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
     end
 
     local function createMatchSets(matches)
-        local currentMatchSet = {}
-        for index, match in pairs(matches) do
-            if #currentMatchSet == 4 then
-                table.insert(currentMatchSets, MiscUtils.deepCopy(currentMatchSet))
-                currentMatchSet = {}
-            end
-            table.insert(currentMatchSet, match)
-        end
-        if #currentMatchSet ~= 0 then
-            table.insert(currentMatchSets, MiscUtils.deepCopy(currentMatchSet))
-        end
+        currentMatchSets = MiscUtils.splitTableByNumber(matches, 4)
         currentMatchSetIndex = 1
         readCurrentMatchSetIntoUI()
     end
@@ -209,7 +211,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
                 "Top box border color"
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5),
-            ui.frames.mainFrame
+            nil
         )
         ui.controls.searchHeading =
             TextLabel(
