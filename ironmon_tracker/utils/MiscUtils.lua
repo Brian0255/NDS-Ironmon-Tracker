@@ -77,27 +77,44 @@ function MiscUtils.mouseInRange(mouseX, mouseY, controlX, controlY, width, heigh
     return false
 end
 
-function MiscUtils.clampFramePosition(alignment, position, mainFrame, frameSize)
-    if alignment == Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE then
-        position.y = position.y - frameSize.height
-    end
-    position.x = math.min(position.x, mainFrame.getPosition().x + mainFrame.getSize().width - frameSize.width - 1)
-    position.y = math.max(0, position.y)
+function MiscUtils.round(number)
+    return math.floor(number + 0.5)
 end
 
-function MiscUtils.deepCopy(orig)
-    local orig_type = type(orig)
-    local copy
-    if orig_type == "table" then
-        copy = {}
-        for orig_key, orig_value in next, orig, nil do
-            copy[MiscUtils.deepCopy(orig_key)] = MiscUtils.deepCopy(orig_value)
+function MiscUtils.splitTableByNumber(tbl, number)
+    local sets = {}
+    local currentSet = {}
+    for index, val in pairs(tbl) do
+        if #currentSet == number then
+            table.insert(sets, MiscUtils.deepCopy(currentSet))
+            currentSet = {}
         end
-        setmetatable(copy, MiscUtils.deepCopy(getmetatable(orig)))
-    else -- number, string, boolean, etc
-        copy = orig
+        table.insert(currentSet, val)
     end
-    return copy
+    if #currentSet ~= 0 then
+        table.insert(sets, MiscUtils.deepCopy(currentSet))
+    end
+    return sets
+end
+
+function MiscUtils.deepCopy(o, seen)
+    seen = seen or {}
+    if o == nil then return nil end
+    if seen[o] then return seen[o] end
+  
+    local no
+    if type(o) == 'table' then
+      no = {}
+      seen[o] = no
+  
+      for k, v in next, o, nil do
+        no[MiscUtils.deepCopy(k, seen)] = MiscUtils.deepCopy(v, seen)
+      end
+      setmetatable(no, MiscUtils.deepCopy(getmetatable(o), seen))
+    else -- number, string, boolean, etc
+      no = o
+    end
+    return no
 end
 
 function MiscUtils.randomTableValue(t)
