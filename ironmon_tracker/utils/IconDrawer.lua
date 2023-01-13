@@ -7,7 +7,8 @@ IconDrawer.ICON_TYPES =
     MiscUtils.readOnly(
     {
         STANDARD = 0,
-        MOVE_TYPE = 1
+        MOVE_TYPE = 1,
+        STANDARD_NO_SHADOW = 2
     }
 )
 IconDrawer.ICONS =
@@ -798,6 +799,90 @@ IconDrawer.ICONS =
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
+        LOCATION_ICON_SMALL = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,1,1,0},
+                {0,1,0,0,0,1},
+                {0,1,0,1,0,1},
+                {0,1,0,0,0,1},
+                {0,0,1,0,1,0},
+                {0,0,1,0,1,0},
+                {0,0,0,1,0,0},
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        LOCATION_ICON_SMALL_FILLED = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,1,1,0},
+                {0,1,1,1,1,1},
+                {0,1,1,0,1,1},
+                {0,1,1,1,1,1},
+                {0,1,1,1,1,1},
+                {0,0,1,1,1,0},
+                {0,0,1,1,1,0},
+                {0,0,0,1,0,0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        LOCATION_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,1,1,0,0},
+                {0,1,1,1,1,1,0},
+                {1,1,1,0,1,1,1},
+                {1,1,0,0,0,1,1},
+                {1,1,1,0,1,1,1},
+                {0,1,1,1,1,1,0},
+                {0,1,1,1,1,1,0},
+                {0,0,1,1,1,0,0},
+                {0,0,1,1,1,0,0},
+                {0,0,0,1,0,0,0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        SMALL_DOT = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD_NO_SHADOW,
+            imageArray = {
+                {1,1},
+                {1,1}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        LARGE_DOT = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD_NO_SHADOW,
+            imageArray = {
+                {0,1,1,0},
+                {1,1,1,1},
+                {1,1,1,1},
+                {0,1,1,0}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        LONG_LEFT_ARROW = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,1,0,0,0,0,0,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0,0,0},
+                {0,0,1,0,0,0,0,0,0,0,0,0,0},
+                {0,1,1,1,1,1,1,1,1,1,1,1,1},
+                {0,0,1,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,1,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0},
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
     }
 )
 
@@ -835,7 +920,7 @@ function IconDrawer.drawIcon(iconName, x, y)
                     else
                         color = settings.colorScheme[iconColorKey]
                     end
-                    if settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"] then
+                    if iconType ~= IconDrawer.ICON_TYPES.STANDARD_NO_SHADOW and settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"] then
                         gui.drawPixel(x + offsetX + 1,y + offsetY + 1,shadowColor)
                     end
                     gui.drawPixel(x + offsetX, y + offsetY, color)
