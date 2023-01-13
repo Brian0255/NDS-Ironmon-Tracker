@@ -102,7 +102,7 @@ function DrawingUtils.drawBarGraph(position, size, dataSet, headingText, borderC
     local textLength = DrawingUtils.calculateWordPixelLength(headingText)
     local textX = x + graphPadding + ((width - 2 * graphPadding - textLength) / 2)
     local style = TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-    DrawingUtils.drawText(textX,y,headingText,style,DrawingUtils.calcShadowColor("Top box background color"))
+    DrawingUtils.drawText(textX,y-3,headingText,style,DrawingUtils.calcShadowColor("Top box background color"))
     local totalBars = 0
     for _, _ in pairs(dataSet) do
         totalBars = totalBars + 1
