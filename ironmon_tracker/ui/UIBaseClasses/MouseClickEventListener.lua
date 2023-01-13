@@ -12,7 +12,7 @@ local function MouseClickEventListener(initialControl, onClickFunction, initialO
     end
     function self.listen()
         local inRange = true
-        if control ~= nil then
+        if control ~= nil and control.isVisible() then
             local mousePosition = Input.getMousePosition()
             local position = control.getPosition()
             local size = control.getSize()
@@ -25,6 +25,8 @@ local function MouseClickEventListener(initialControl, onClickFunction, initialO
                 size.width,
                 size.height
             )
+        else
+            inRange = false
         end
         local leftPress = Input.getMouse()["Left"]
         if previouslyPressed ~= nil then
