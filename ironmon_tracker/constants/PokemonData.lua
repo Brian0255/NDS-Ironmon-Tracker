@@ -56,7 +56,7 @@ PokemonData.EVOLUTION_TYPES =
     {
         NONE = Graphics.TEXT.PLACEHOLDER, -- This Pokemon does not evolve.
         FRIEND = "FRIEND", -- High friendship
-        STONES = "STONES", -- Various evolution stone items
+        VARIOUS = "VARIOUS", -- Various evolution stone items
         THUNDER = "THUNDR", -- Thunder stone item
         FIRE = "FIRE", -- Fire stone item
         WATER = "WATER", -- Water stone item
@@ -78,9 +78,64 @@ PokemonData.EVOLUTION_TYPES =
         UPGRADE = "UPGRDE", --Up-Grade held item
         DRAGON_SCALE = "DRG SCL", --Dragon Scale held item
         METAL_COAT = "MTL COAT", --Metal Coat held item
-        KINGS_ROCK = "KNG RCK" --King's Rock held item
+        KINGS_ROCK = "KNG RCK", --King's Rock held item
+        CLAMPERL = "DST/DSS",
+        SNORUNT = "42/DAWN",
+        KIRLIA = "30/DAWN",
+        SLOWPOKE = "37/WTR",
+        POLIWHIRL = "RCK/WTR",
+        MANTYKE = "REMRAID",
+        KARRABLAST = "SHLMT",
+        SHELMET = "KRBLST",
+        BURMY = "20 M/F",
+        COMBEE = "21 F"
     }
 )
+
+PokemonData.EVO_LONGER_NAMES = {
+    [PokemonData.EVOLUTION_TYPES.FRIEND] = {"High friendship"},
+    [PokemonData.EVOLUTION_TYPES.VARIOUS] = {
+        "Leaf stone",
+        "Dawn stone",
+        "Thunder stone",
+        "Water stone",
+        "Fire stone",
+        "Sun stone",
+        "Moon stone"
+    },
+    [PokemonData.EVOLUTION_TYPES.THUNDER] = {"Thunder stone"},
+    [PokemonData.EVOLUTION_TYPES.FIRE] = {"Fire stone"},
+    [PokemonData.EVOLUTION_TYPES.WATER] = {"Water stone"},
+    [PokemonData.EVOLUTION_TYPES.MOON] = {"Moon stone"},
+    [PokemonData.EVOLUTION_TYPES.DAWN] = {"Dawn stone"},
+    [PokemonData.EVOLUTION_TYPES.DUSK] = {"Dusk stone"},
+    [PokemonData.EVOLUTION_TYPES.LEAF] = {"Leaf stone"},
+    [PokemonData.EVOLUTION_TYPES.SUN] = {"Sun stone"},
+    [PokemonData.EVOLUTION_TYPES.OVAL] = {"Oval stone"},
+    [PokemonData.EVOLUTION_TYPES.LEAF_SUN] = {"Leaf stone", "Sun stone"},
+    [PokemonData.EVOLUTION_TYPES.PROTECTOR] = {"Protector"},
+    [PokemonData.EVOLUTION_TYPES.ELECTIRIZER] = {"Electirizer"},
+    [PokemonData.EVOLUTION_TYPES.MAGMARIZER] = {"Magmarizer"},
+    [PokemonData.EVOLUTION_TYPES.SHINY_STONE] = {"Shiny stone"},
+    [PokemonData.EVOLUTION_TYPES.RAZOR_FANG] = {"Razor Fang"},
+    [PokemonData.EVOLUTION_TYPES.RAZOR_CLAW] = {"Razor Claw"},
+    [PokemonData.EVOLUTION_TYPES.DUBIOUS_DISC] = {"Dubious Disc"},
+    [PokemonData.EVOLUTION_TYPES.REAPER_CLOTH] = {"Reaper Cloth"},
+    [PokemonData.EVOLUTION_TYPES.UPGRADE] = {"Up-Grade"},
+    [PokemonData.EVOLUTION_TYPES.DRAGON_SCALE] = {"Dragon Scale"},
+    [PokemonData.EVOLUTION_TYPES.METAL_COAT] = {"Metal Coat"},
+    [PokemonData.EVOLUTION_TYPES.KINGS_ROCK] = {"King's Rock"},
+    [PokemonData.EVOLUTION_TYPES.CLAMPERL] = {"DeepSeaTooth", "DeepSeaScale"},
+    [PokemonData.EVOLUTION_TYPES.SNORUNT] = {"42", "Dawn stone, F"},
+    [PokemonData.EVOLUTION_TYPES.KIRLIA] = {"30", "Dawn stone, M"},
+    [PokemonData.EVOLUTION_TYPES.SLOWPOKE] = {"37", "King's Rock"},
+    [PokemonData.EVOLUTION_TYPES.POLIWHIRL] = {"Water stone", "King's Rock"},
+    [PokemonData.EVOLUTION_TYPES.MANTYKE] = {"Level w/ Remoraid"},
+    [PokemonData.EVOLUTION_TYPES.KARRABLAST] = {"Level w/ Shelmet"},
+    [PokemonData.EVOLUTION_TYPES.SHELMET] = {"Level w/ Karrablast"},
+    [PokemonData.EVOLUTION_TYPES.BURMY] = {"Level 20, F", "Level 20, M"},
+    [PokemonData.EVOLUTION_TYPES.COMBEE] = {"Level 21, F only"}
+}
 
 PokemonData.POKEMON = {
     {
@@ -948,7 +1003,7 @@ PokemonData.POKEMON = {
     {
         name = "Poliwhirl",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "RCK/WTR",
+        evolution = PokemonData.EVOLUTION_TYPES.POLIWHIRL,
         bst = "385",
         movelvls = {
             {5, 8, 11, 15, 18, 21, 27, 32, 37, 43, 48, 53},
@@ -1200,7 +1255,7 @@ PokemonData.POKEMON = {
     {
         name = "Slowpoke",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.PSYCHIC},
-        evolution = "WTR/37",
+        evolution = PokemonData.EVOLUTION_TYPES.SLOWPOKE,
         bst = "315",
         movelvls = {
             {6, 11, 15, 20, 25, 29, 34, 39, 43, 48, 53, 57},
@@ -1956,7 +2011,7 @@ PokemonData.POKEMON = {
     {
         name = "Eevee",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = PokemonData.EVOLUTION_TYPES.STONES,
+        evolution = PokemonData.EVOLUTION_TYPES.VARIOUS,
         bst = "325",
         movelvls = {
             {8, 15, 22, 29, 36, 43, 50, 57},
@@ -4028,7 +4083,7 @@ PokemonData.POKEMON = {
     {
         name = "Kirlia",
         type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "30/DWN",
+        evolution = PokemonData.EVOLUTION_TYPES.KIRLIA,
         bst = "278",
         movelvls = {
             {6, 10, 12, 17, 22, 25, 31, 36, 39, 45, 50, 53},
@@ -5148,7 +5203,7 @@ PokemonData.POKEMON = {
     {
         name = "Snorunt",
         type = {PokemonData.POKEMON_TYPES.ICE, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "42/DAWN",
+        evolution = PokemonData.EVOLUTION_TYPES.SNORUNT,
         bst = "300",
         movelvls = {
             {4, 10, 13, 19, 22, 28, 31, 37, 40, 46},
@@ -5218,7 +5273,7 @@ PokemonData.POKEMON = {
     {
         name = "Clamperl",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "DST/DSS",
+        evolution = PokemonData.EVOLUTION_TYPES.CLAMPERL,
         bst = "345",
         movelvls = {
             {},
@@ -5863,7 +5918,7 @@ PokemonData.POKEMON = {
     {
         name = "Burmy P",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "20",
+        evolution = PokemonData.EVOLUTION_TYPES.BURMY,
         bst = "224",
         movelvls = {
             {10, 20},
@@ -5905,7 +5960,7 @@ PokemonData.POKEMON = {
     {
         name = "Combee",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.FLYING},
-        evolution = "21",
+        evolution = PokemonData.EVOLUTION_TYPES.COMBEE,
         bst = "244",
         movelvls = {
             {},
@@ -6507,7 +6562,7 @@ PokemonData.POKEMON = {
     {
         name = "Mantyke",
         type = {PokemonData.POKEMON_TYPES.WATER, PokemonData.POKEMON_TYPES.FLYING},
-        evolution = "REMRAID",
+        evolution = PokemonData.EVOLUTION_TYPES.MANTYKE,
         bst = "345",
         movelvls = {
             {4, 10, 13, 19, 22, 28, 31, 37, 40, 46, 49},
@@ -8328,7 +8383,7 @@ PokemonData.POKEMON = {
     {
         name = "Karrablast",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "SHLMT",
+        evolution = PokemonData.EVOLUTION_TYPES.KARRABLAST,
         bst = "315",
         movelvls = {
             {},
@@ -8720,7 +8775,7 @@ PokemonData.POKEMON = {
     {
         name = "Shelmet",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.EMPTY},
-        evolution = "KRBLST",
+        evolution = PokemonData.EVOLUTION_TYPES.SHELMET,
         bst = "305",
         movelvls = {
             {},
