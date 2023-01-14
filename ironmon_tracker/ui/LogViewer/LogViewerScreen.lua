@@ -35,7 +35,8 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         "Pok\233mon",
         "Trainers",
         "Gym TMs",
-        "Statistics"
+        "Statistics",
+        "Info"
     }
     local tabControls = {}
     local ui = {}
@@ -106,7 +107,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.changeActiveTabIndex(newIndex)
-        program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
+        --program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
         currentIndex = newIndex
         tabScreenStack.setCurrentIndex(newIndex)
     end
@@ -114,6 +115,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     function self.resetTabs()
         pokemonOverviewScreen.reset()
         trainerOverviewScreen.reset()
+        statsScreen.reset()
         pokemonScreenStack.setCurrentIndex(1)
         trainerScreenStack.setCurrentIndex(1)
     end
@@ -126,8 +128,12 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function createTabs()
-        local xOffsets = {5, 10, 7, 7}
+        local xOffsets = {3, 6, 4, 4, 6}
         for index, tabName in pairs(tabs) do
+            local tabWidth = Graphics.LOG_VIEWER.TAB_WIDTH
+            if tabName == "Info" then
+                tabWidth = 30
+            end
             local tabControl =
                 TextLabel(
                 Component(
@@ -135,7 +141,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
                     Box(
                         {x = 5, y = 5},
                         {
-                            width = Graphics.LOG_VIEWER.TAB_WIDTH,
+                            width = tabWidth,
                             height = Graphics.LOG_VIEWER.TAB_HEIGHT
                         },
                         "Top box background color",
@@ -156,9 +162,10 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
             table.insert(eventListeners, MouseClickEventListener(tabControl, onTabClick, index))
             table.insert(tabControls, tabControl)
         end
-        local arrowFrameInfo = FrameFactory.createArrowFrame("LONG_LEFT_ARROW", ui.frames.tabFrame,  20, 3, 6)
+        local arrowFrameInfo = FrameFactory.createArrowFrame("LONG_LEFT_ARROW", ui.frames.tabFrame, 27, 3, 6, "Top box background color", "Top box background color")
         ui.frames.goBackFrame, ui.controls.goBackButton = arrowFrameInfo.frame, arrowFrameInfo.button
-        table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, onGoBackClick))
+        ui.frames.goBackFrame.resize({width = 27, height = Graphics.LOG_VIEWER.TAB_HEIGHT})
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.goBackFrame, onGoBackClick))
     end
 
 
@@ -204,6 +211,15 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         pokemonStatScreen.loadPokemonID(id)
     end
 
+    function self.readStats(pokemon)
+        local orderedStats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
+        local dataSet = {}
+        for _, stat in pairs(orderedStats) do
+            table.insert(dataSet, {stat, pokemon.stats[stat]})
+        end
+        return dataSet
+    end
+
     function self.initialize(newLogInfo)
         logInfo = newLogInfo
         self.changeActiveTabIndex(1)
@@ -211,6 +227,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         teamInfoScreen.initialize(logInfo)
         pokemonStatScreen.initialize(logInfo)
         pokemonOverviewScreen.initialize(logInfo)
+        statsScreen.initialize(logInfo)
     end
 
     function self.runEventListeners()
