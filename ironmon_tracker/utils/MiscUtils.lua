@@ -59,6 +59,14 @@ function MiscUtils.sortPokemonIDsByName(ids)
     )
 end
 
+function MiscUtils.shallowCopy(original)
+    local copy = {}
+    for key, value in pairs(original) do
+        copy[key] = value
+    end
+    return copy
+end
+
 function MiscUtils.tableContains(table, value)
     for _, item in pairs(table) do
         if item == value then
@@ -99,20 +107,24 @@ end
 
 function MiscUtils.deepCopy(o, seen)
     seen = seen or {}
-    if o == nil then return nil end
-    if seen[o] then return seen[o] end
-  
+    if o == nil then
+        return nil
+    end
+    if seen[o] then
+        return seen[o]
+    end
+
     local no
-    if type(o) == 'table' then
-      no = {}
-      seen[o] = no
-  
-      for k, v in next, o, nil do
-        no[MiscUtils.deepCopy(k, seen)] = MiscUtils.deepCopy(v, seen)
-      end
-      setmetatable(no, MiscUtils.deepCopy(getmetatable(o), seen))
+    if type(o) == "table" then
+        no = {}
+        seen[o] = no
+
+        for k, v in next, o, nil do
+            no[MiscUtils.deepCopy(k, seen)] = MiscUtils.deepCopy(v, seen)
+        end
+        setmetatable(no, MiscUtils.deepCopy(getmetatable(o), seen))
     else -- number, string, boolean, etc
-      no = o
+        no = o
     end
     return no
 end
