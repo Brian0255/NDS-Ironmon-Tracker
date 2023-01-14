@@ -6,7 +6,7 @@ local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Component.lua")
 local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/Layout.lua")
 local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
 
-function FrameFactory.createArrowFrame(iconName, parentFrame, frameWidth, verticalOffset, horizontalOffset)
+function FrameFactory.createArrowFrame(iconName, parentFrame, frameWidth, verticalOffset, horizontalOffset, backgroundColor, borderColor)
     verticalOffset = verticalOffset or 0
     horizontalOffset = horizontalOffset or 0
     local arrowFrame =
@@ -19,7 +19,8 @@ function FrameFactory.createArrowFrame(iconName, parentFrame, frameWidth, vertic
             {
                 width = frameWidth,
                 height = 12
-            }
+            },
+            backgroundColor, borderColor
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = horizontalOffset, y = verticalOffset}),
         parentFrame
