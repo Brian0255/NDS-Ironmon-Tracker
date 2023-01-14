@@ -1793,6 +1793,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.enemyNoteFrame.setVisibility(true)
         ui.controls.noteIcon.setVisibility(false)
         ui.frames.survivalHealFrame.setVisibility(false)
+        ui.frames.accEvaFrame.setVisibility(false)
 
         eventListeners.loadStatOverview.setOnClickParams(currentPokemon.pokemonID)
 
@@ -2047,7 +2048,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             extraThingsToDraw.moveEffectiveness = {}
             extraThingsToDraw.statStages = {}
         end
-        drawExtraStuff()
+        if not currentPokemon.fromTeamInfoView then
+            drawExtraStuff()
+        end
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
