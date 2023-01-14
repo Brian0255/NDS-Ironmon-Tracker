@@ -35,7 +35,6 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
     end
 
     function self.setTrainerGroup(newTrainerGroup)
-        print("called")
         currentTrainerGroup = newTrainerGroup
     end
 
@@ -83,7 +82,7 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
         --formatting to display it with the main screen
         program.addAdditionalDataToPokemon(pokemon)
         local logPokemon = logInfo.getPokemon()
-        pokemon.stats = MiscUtils.deepCopy(logPokemon[pokemon.pokemonID].stats)
+        pokemon.stats = MiscUtils.shallowCopy(logPokemon[pokemon.pokemonID].stats)
         for statName, baseStat in pairs(pokemon.stats) do
             pokemon.stats[statName] = estimateStat(statName, baseStat, pokemon.level, currentTrainer.iv)
         end
@@ -121,7 +120,7 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
                     ui.frames.pokeballFrame,
                     Box({x = 0, y = 0}, {width = constants.POKEBALL_SIZE, height = constants.POKEBALL_SIZE}, nil, nil)
                 ),
-                ImageField("ironmon_tracker/images/trainers/pokeball_large_off.png", {x = 1, y = 1}, nil)
+                ImageField("ironmon_tracker/images/trainers/pokeball_large_off2.png", {x = 1, y = 1}, nil)
             )
         end
         for i = #trainerTeam + 1, 6, 1 do
