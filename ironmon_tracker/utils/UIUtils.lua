@@ -48,7 +48,7 @@ function UIUtils.createAndDrawMoveHoverFrame(hoverParams, drawFunction, frameToA
     local BGColorFillKey = hoverParams.BGColorFillKey
     local move = hoverParams.move
     local hoverFrame
-    if move ~= nil then
+    if move ~= nil and move ~= -1 then
         local alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE
         hoverFrame = HoverFrameFactory.createMoveHoverTextFrame(BGColorKey, BGColorFillKey, move)
         UIUtils.moveHoverFrameToMouse(hoverFrame, alignment, frameToAlignWith)
