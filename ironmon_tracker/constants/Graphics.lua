@@ -13,7 +13,7 @@ Graphics.SIZES = {
     BADGE_COLOR_EDIT_PADDING = 349
 }
 Graphics.LOG_VIEWER = {
-    TAB_WIDTH = 52,
+    TAB_WIDTH = 45,
     TAB_HEIGHT = 17
 }
 Graphics.ALIGNMENT_TYPE = {
@@ -161,5 +161,8 @@ Graphics.TYPE_COLORS = {
     DARK = 0xFF6E5848,
     FAIRY = 0xFFEE99AC,
     UNKNOWN = 0xFF68A090 -- For the "Curse" move in Gen 2 - 4
+}
+Graphics.PATHS = {
+    TRAINER_IMAGES = "ironmon_tracker/images/trainers/"
 }
 
