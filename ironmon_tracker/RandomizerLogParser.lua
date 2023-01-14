@@ -1,17 +1,30 @@
-local function LogInfo(initialPokemonList, initialTrainers, initialTMs)
+local function LogInfo(initialPokemonList, initialTrainers, initialTMs, initialStarterNumber)
     local self = {}
     local pokemonList = initialPokemonList
     local trainers = initialTrainers
     local TMs = initialTMs
+    local starterNumber = initialStarterNumber
+
+    function self.getStarterNumber()
+        return 3
+     --starterNumber
+    end
+
     function self.getPokemon()
-        return MiscUtils.deepCopy(pokemonList)
+        return pokemonList
     end
+
     function self.getTrainers()
-        return MiscUtils.deepCopy(trainers)
+        return trainers
     end
+
     function self.getTMs()
-        return MiscUtils.deepCopy(TMs)
+        return TMs
     end
+
+    function self.getMappings()
+    end
+
     return self
 end
 
@@ -62,7 +75,7 @@ local function RandomizerLogParser(initialProgram)
     local function readPokemonIntoTeam(pokemonInfo, trainerTeam)
         local nameAndItem, level = pokemonInfo:match("(.*) Lv(%d+)")
         local nameItemSplit = MiscUtils.split(nameAndItem, "@", true)
-        local heldItem = 1
+        local heldItem = nil
         if nameItemSplit[2] ~= nil then
             local heldItemName = nameItemSplit[2]
             if itemIDMappings[heldItemName] then
@@ -74,8 +87,8 @@ local function RandomizerLogParser(initialProgram)
         local pokemonID = pokemonIDMappings[pokemonName]
         local pokemon = {
             ["pokemonID"] = pokemonID,
-            ["level"] = level,
-            ["heldItem"] = heldItem
+            ["level"] = tonumber(level),
+            ["heldItem"] = tonumber(heldItem)
         }
         table.insert(trainerTeam, pokemon)
     end
@@ -86,12 +99,14 @@ local function RandomizerLogParser(initialProgram)
             local currentLine = lines[currentLineIndex]
             local trainerTeam = {}
             local trainer, teamList = currentLine:match("(.*)%).*%- (.*)")
-            local trainerID = trainer:match("#(%d+)")
+            local trainerID = tonumber(trainer:match("#(%d+)"))
             local teamInfo = MiscUtils.split(teamList, ",", true)
             for _, pokemonInfo in pairs(teamInfo) do
                 readPokemonIntoTeam(pokemonInfo, trainerTeam)
             end
-            trainers[trainerID] = trainerTeam
+            if trainerID ~= nil then
+                trainers[trainerID] = trainerTeam
+            end
             currentLineIndex = currentLineIndex + 1
         end
     end
@@ -117,7 +132,7 @@ local function RandomizerLogParser(initialProgram)
                     pokemonList[pokemonID].moves,
                     {
                         ["move"] = id,
-                        ["level"] = level
+                        ["level"] = tonumber(level)
                     }
                 )
                 currentLineIndex = currentLineIndex + 1
@@ -163,7 +178,7 @@ local function RandomizerLogParser(initialProgram)
         while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
             local currentLine = lines[currentLineIndex]
             local pokemonData = MiscUtils.split(currentLine, "|", true)
-            local pokemonID = tonumber(pokemonData[1]) 
+            local pokemonID = tonumber(pokemonData[1])
             if pokemonID ~= nil then
                 local pokemonName = pokemonData[2]
                 pokemonName = checkForNameReplacement(pokemonName)
