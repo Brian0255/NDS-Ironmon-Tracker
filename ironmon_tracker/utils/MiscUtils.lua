@@ -140,6 +140,23 @@ function MiscUtils.removeRandomTableValue(t)
     return value
 end
 
+function MiscUtils.splitStringByAmount(input, amount)
+    local result = {}
+    local current = 0
+    local currentString = ""
+    for i = 1, #input, 1 do
+        local char = input:sub(i,i)
+        currentString = currentString..char
+        current = current + 1
+        if current == amount then
+            table.insert(result,currentString)
+            current = 0
+            currentString = ""
+        end
+    end
+    return result
+end
+
 function MiscUtils.combineTables(t1, t2)
     for _, value in pairs(t2) do
         table.insert(t1, value)
