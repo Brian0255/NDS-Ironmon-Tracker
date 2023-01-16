@@ -883,10 +883,29 @@ IconDrawer.ICONS =
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
+        TM_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,0,0,2,2,2,2,0,0,0,0},
+                {0,0,2,2,1,1,1,1,2,2,0,0},
+                {0,2,1,1,1,1,1,1,1,1,2,0},
+                {0,2,1,1,1,1,1,1,1,1,2,0},
+                {2,1,1,1,1,2,2,1,1,1,1,2},
+                {2,1,1,1,2,0,0,2,1,1,1,2},
+                {2,1,1,1,2,0,0,2,1,1,1,2},
+                {2,1,1,1,1,2,2,1,1,1,1,2},
+                {0,2,1,1,1,1,1,1,1,1,2,0},
+                {0,2,1,1,1,1,1,1,1,1,2,0},
+                {0,0,2,2,1,1,1,1,2,2,0,0},
+                {0,0,0,0,2,2,2,2,0,0,0,0}
+            },
+            colorKey = {"Top box border color", "Top box text color"},
+            backgroundColorKey = "Top box background color"
+        },
     }
 )
 
-function IconDrawer.drawIcon(iconName, x, y)
+function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride)
     local icon
     if IconDrawer.ICONS[iconName] then
         icon = IconDrawer.ICONS[iconName]
@@ -897,19 +916,25 @@ function IconDrawer.drawIcon(iconName, x, y)
         local iconType = icon.iconType
         local backgroundColorKey = icon.backgroundColorKey
         local shadowColor = DrawingUtils.calcShadowColor(backgroundColorKey)
-        local iconArray = icon.imageArray
-        local iconColorKey = icon.colorKey
-        if iconColorKey == "Top box border color" and settings.colorScheme["Top box background color"] == settings.colorScheme["Top box border color"] then
-            iconColorKey = "Top box text color"
-        elseif iconColorKey == "Bottom box border color" and settings.colorScheme["Bottom box background color"] == settings.colorScheme["Bottom box border color"] then
-            iconColorKey = "Bottom box text color"
+        if BGColorKeyOverride ~= nil then
+            shadowColor = DrawingUtils.calcShadowColor(BGColorKeyOverride)
         end
+        local iconArray = icon.imageArray
         for rowIndex = 1,#iconArray, 1 do
             for colIndex = 1,#(iconArray[1]) do
                 local offsetX = colIndex - 1
                 local offsetY = rowIndex - 1
-                local shouldColor = (iconArray[rowIndex][colIndex] == 1)
+                local shouldColor = (iconArray[rowIndex][colIndex] >= 1)
                 if shouldColor then
+                    local iconColorKey = icon.colorKey
+                    if type(icon.colorKey) == "table" then
+                        iconColorKey = icon.colorKey[iconArray[rowIndex][colIndex]]
+                    end
+                    if iconColorKey == "Top box border color" and settings.colorScheme["Top box background color"] == settings.colorScheme["Top box border color"] then
+                        iconColorKey = "Top box text color"
+                    elseif iconColorKey == "Bottom box border color" and settings.colorScheme["Bottom box background color"] == settings.colorScheme["Bottom box border color"] then
+                        iconColorKey = "Bottom box text color"
+                    end
                     local color
                     if iconType == IconDrawer.ICON_TYPES.MOVE_TYPE then
                         if settings.colorSettings["Color move type icons"] then
