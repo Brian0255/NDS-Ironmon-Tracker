@@ -118,14 +118,19 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             local TMInfo = items[i]
             if TMInfo ~= nil then
                 local TM, canLearn = TMInfo[1], TMInfo[2]
-                local moveID = logInfo.getTMs()[TM]
-                local moveName = MoveData.MOVES[moveID + 1].name
-                moveString = "TM" .. TM .. " " .. moveName
-                local textColorKey = "Top box text color"
-                if canLearn then
-                    textColorKey = "Positive text color"
+                local moveID = -1
+                if TM ~= -1 then
+                    moveID = logInfo.getTMs()[TM]
+                    local moveName = MoveData.MOVES[moveID + 1].name
+                    moveString = string.format("TM %02d " .. moveName, TM)
+                    local textColorKey = "Top box text color"
+                    if canLearn then
+                        textColorKey = "Positive text color"
+                    end
+                    label.setTextColorKey(textColorKey)
+                else
+                    moveHoverListeners[i].getOnHoverParams().move = -1
                 end
-                label.setTextColorKey(textColorKey)
                 readMoveIntoListener(i, moveID)
             end
             label.setText(moveString)
@@ -152,20 +157,11 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     end
 
     local function readGymTMs(pokemon)
-        local gymTMs = program.getGameInfo().GYM_TMS.set1
+        local gymTMs = program.getGameInfo().GYM_TMS
         gymTMCompatibilityTable = {}
         for i, gymTM in pairs(gymTMs) do
             gymTMCompatibilityTable[i] = {gymTM, pokemon.pokemonTMsLearnable[gymTM]}
         end
-    end
-
-    local function readStats(pokemon)
-        local orderedStats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
-        local dataSet = {}
-        for _, stat in pairs(orderedStats) do
-            table.insert(dataSet, {stat, pokemon.stats[stat]})
-        end
-        return dataSet
     end
 
     local function readCurrentEvoIntoUI()
@@ -176,15 +172,20 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             local evolution = currentEvoList[currentEvoIndex]
             if evolution ~= nil then
                 local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
-                DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, evolution, ui.controls.evoImage, {x = 1, y = 0})
-                local evoInfo = PokemonData.POKEMON[currentID+1].evolution
+                DrawingUtils.readPokemonIDIntoImageLabel(
+                    currentIconSet,
+                    evolution,
+                    ui.controls.evoImage,
+                    {x = 1, y = 0}
+                )
+                local evoInfo = PokemonData.POKEMON[currentID + 1].evolution
                 if PokemonData.EVO_LONGER_NAMES[evoInfo] then
                     evoInfo = PokemonData.EVO_LONGER_NAMES[evoInfo][currentEvoIndex]
                 end
                 if tonumber(evoInfo) ~= nil then
-                    evoInfo = "Level "..evoInfo
+                    evoInfo = "Level " .. evoInfo
                 end
-                ui.controls.evoInfoLabel.setText(evoInfo) 
+                ui.controls.evoInfoLabel.setText(evoInfo)
                 eventListeners.evoImageListener.setOnClickParams(evolution)
             end
         end
@@ -205,7 +206,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, currentID, ui.controls.pokemonImage, {x = 1, y = 0})
         local pokemon = logPokemon[currentID]
         movesScrollBar.setItems(pokemon.moves)
-        local dataSet = readStats(pokemon)
+        local dataSet = logViewerScreen.readStats(pokemon)
         readGymTMs(pokemon)
         readAbilitiesIntoUI(pokemon)
         local pokemonImageListener = hoverListeners.pokemonImageListener
@@ -685,7 +686,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0),
             ui.frames.evosFrame
         )
-        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.evoImageFrame, 12,9)
+        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.evoImageFrame, 12, 9)
         ui.frames.evoLeftArrowFrame, ui.controls.evoLeftButton = arrowFrameInfo.frame, arrowFrameInfo.button
 
         ui.controls.evoImage =
@@ -694,7 +695,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ImageField("", {x = 0, y = 0}, nil)
         )
 
-        ui.controls.evoInfoLabel = TextLabel(
+        ui.controls.evoInfoLabel =
+            TextLabel(
             Component(
                 ui.frames.evoImageFrame,
                 Box(
@@ -703,7 +705,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                         width = 60,
                         height = 0
                     },
-                    nil, nil
+                    nil,
+                    nil
                 )
             ),
             TextField(
