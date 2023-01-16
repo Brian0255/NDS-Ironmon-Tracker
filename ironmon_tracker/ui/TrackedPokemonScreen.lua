@@ -6,7 +6,6 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
-    local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local PokemonSearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/PokemonSearchKeyboard.lua")
     local settings = initialSettings
@@ -329,7 +328,9 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 3, y = 0}),
             ui.frames.searchFrame
         )
+
         pokemonSearchKeyboard = PokemonSearchKeyboard(sortedTrackedIDs,ui.frames.searchFrame, createLabelsFromMatches, clearMatches)
+        
         ui.frames.goBackFrame =
             Frame(
             Box(

@@ -120,7 +120,7 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
                     ui.frames.pokeballFrame,
                     Box({x = 0, y = 0}, {width = constants.POKEBALL_SIZE, height = constants.POKEBALL_SIZE}, nil, nil)
                 ),
-                ImageField("ironmon_tracker/images/trainers/pokeball_large_off2.png", {x = 1, y = 1}, nil)
+                ImageField("ironmon_tracker/images/trainers/pokeball_large_off.png", {x = 1, y = 1}, nil)
             )
         end
         for i = #trainerTeam + 1, 6, 1 do
@@ -312,7 +312,8 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
         end
         local centerX = (44 - length) / 2
         ui.controls.battlerNameLabel.setTextOffset({x = centerX, y = 2})
-        ui.controls.battlerImage.setPath("ironmon_tracker/images/trainers/" .. currentTrainer.name .. "_team.png")
+        local prefix = program.getGameInfo().BADGE_PREFIX
+        ui.controls.battlerImage.setPath("ironmon_tracker/images/trainers/"..prefix.."/" .. currentTrainer.name .. "_team.png")
         for _, pokemon in pairs(currentTrainerTeam) do
             formatPokemon(pokemon)
         end

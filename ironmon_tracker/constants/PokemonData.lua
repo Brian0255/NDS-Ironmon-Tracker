@@ -20,6 +20,8 @@ PokemonData.TYPE_LIST = {
     "WATER"
 }
 
+PokemonData.LAST_INDEX_GEN_4 = 494
+
 -- Enumerated constants that defines the various types a Pokemon and its Moves are
 PokemonData.POKEMON_TYPES =
     MiscUtils.readOnly(
