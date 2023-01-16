@@ -12,6 +12,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local PokemonStatScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/PokemonStatScreen.lua")
     local TrainerOverviewScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/TrainerOverviewScreen.lua")
     local TeamInfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/TeamInfoScreen.lua")
+    local InfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/InfoScreen.lua")
     local GymTMScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/GymTMScreen.lua")
     local StatsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/StatsScreen.lua")
     local ScreenStack = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScreenStack.lua")
@@ -29,7 +30,9 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local teamInfoScreen
     local pokemonScreenStack
     local trainerScreenStack
+    local infoScreen
     local sortedTrackedIDs
+    local trainerGroups
     local currentIndex = 1
     local tabs = {
         "Pok\233mon",
@@ -64,18 +67,20 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         )
     end
 
-    local function setPreviousTabIndex(newPreviousTabIndex)
-        previousTabIndex = newPreviousTabIndex
-    end
-
     function self.setTeamInfoTrainerGroup(newTrainerGroup)
         teamInfoScreen.setTrainerGroup(newTrainerGroup)
     end
 
-    local function undoOpenTrainerTeam(index)
+    local function undoOpenTrainerTeamFromCard(index)
         program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
         trainerScreenStack.setCurrentIndex(1)
         trainerOverviewScreen.onTabClick(index)
+    end
+
+    local function undoOpenTrainerTeamFromTMs()
+        program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
+        self.changeActiveTabIndex(3)
+        program.drawCurrentScreens()
     end
 
     local function goBackToTeamInfo()
@@ -90,11 +95,22 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.openTrainerTeam(battle)
-        self.addGoBackFunction(undoOpenTrainerTeam, trainerOverviewScreen.getCurrentScreenIndex())
         teamInfoScreen.setTrainerIndex(battle.index)
         teamInfoScreen.readCurrentTrainerIndex(pokemonLoadingFunction)
         trainerScreenStack.setCurrentIndex(2)
         program.drawCurrentScreens()
+    end
+
+    function self.openTrainerTeamFromCard(battle)
+        self.addGoBackFunction(undoOpenTrainerTeamFromCard, trainerOverviewScreen.getCurrentScreenIndex())
+        self.openTrainerTeam(battle)
+    end
+
+    function self.openTrainerTeamFromTMPage(trainerInfo)
+        self.addGoBackFunction(undoOpenTrainerTeamFromTMs)
+        self.changeActiveTabIndex(2)
+        trainerOverviewScreen.onTabClick(trainerInfo.groupIndex)
+        self.openTrainerTeam(trainerInfo.battle)
     end
 
     local function drawLineUnderActiveTab()
@@ -128,7 +144,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function createTabs()
-        local xOffsets = {3, 6, 4, 4, 6}
+        local xOffsets = {3, 6, 4, 4, 7}
         for index, tabName in pairs(tabs) do
             local tabWidth = Graphics.LOG_VIEWER.TAB_WIDTH
             if tabName == "Info" then
@@ -202,7 +218,8 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         statsScreen = StatsScreen(settings, tracker, program, self)
         pokemonScreenStack = ScreenStack({pokemonOverviewScreen, pokemonStatScreen})
         trainerScreenStack = ScreenStack({trainerOverviewScreen, teamInfoScreen})
-        tabScreenStack = ScreenStack({pokemonScreenStack, trainerScreenStack, gymTMScreen, statsScreen})
+        infoScreen = InfoScreen(settings, tracker, program, self)
+        tabScreenStack = ScreenStack({pokemonScreenStack, trainerScreenStack, gymTMScreen, statsScreen, infoScreen})
     end
 
     function self.loadPokemonStats(id)
@@ -220,14 +237,45 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         return dataSet
     end
 
+    local function formatTrainerGroups()
+        local starterNumber = logInfo.getStarterNumber()
+        for _, trainerGroup in pairs(trainerGroups) do
+            for index, battle in pairs(trainerGroup.battles) do
+                --bw gym 1 has 3 different trainers based on starter
+                if #battle == 3 then
+                    battle = battle[starterNumber]
+                end
+                local battleIndex = 1
+                --rivals have 3 different teams based on starter
+                if #battle.ids == 3 then
+                    battleIndex = starterNumber
+                end
+                battle.id = battle.ids[battleIndex]
+                battle.index = index
+                trainerGroup.battles[index] = battle
+                if trainerGroup.trainerType == TrainerData.TRAINER_TYPES.RIVAL then
+                    battle.name = trainerGroup.groupName
+                end
+            end
+        end
+    end
+
+    function self.getTrainerGroups()
+        return trainerGroups
+    end
+
     function self.initialize(newLogInfo)
         logInfo = newLogInfo
+        trainerGroups = MiscUtils.deepCopy(program.getGameInfo().TRAINERS.IMPORTANT_GROUPS)
+        formatTrainerGroups()
         self.changeActiveTabIndex(1)
         trainerOverviewScreen.initialize(logInfo)
         teamInfoScreen.initialize(logInfo)
         pokemonStatScreen.initialize(logInfo)
         pokemonOverviewScreen.initialize(logInfo)
         statsScreen.initialize(logInfo)
+        gymTMScreen.initialize(logInfo)
+        infoScreen.initialize(logInfo)
     end
 
     function self.runEventListeners()
@@ -239,8 +287,8 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
 
     function self.show()
         ui.frames.mainFrame.show()
-        tabScreenStack.show()
         drawLineUnderActiveTab()
+        tabScreenStack.show()
     end
 
     initUI()
