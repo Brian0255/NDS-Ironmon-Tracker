@@ -63,11 +63,11 @@ local function TrainerGroupOverviewScreen(initialSettings, initialTracker, initi
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
             rowFrame
         )
-        table.insert(eventListeners, MouseClickEventListener(cardFrame,logViewerScreen.openTrainerTeam, battle))
+        table.insert(eventListeners, MouseClickEventListener(cardFrame,logViewerScreen.openTrainerTeamFromCard, battle))
         ui.controls[battle.name .. "Image"] =
             ImageLabel(
             Component(cardFrame, Box({x = 0, y = 0}, {width = 0, height = constants.CARD_HEIGHT - 19}, nil, nil)),
-            ImageField("ironmon_tracker/images/trainers/" .. battle.name .. "_vs.png", {x = 1, y = 1}, nil)
+            ImageField("ironmon_tracker/images/trainers/"..program.getGameInfo().BADGE_PREFIX.."/" .. battle.name .. "_vs.png", {x = 1, y = 1}, nil)
         )
         local badgeNameFrame =
             Frame(
@@ -86,12 +86,15 @@ local function TrainerGroupOverviewScreen(initialSettings, initialTracker, initi
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
             cardFrame
         )
-        local badgePrefix = "BW"
+        local badgePrefix = program.getGameInfo().BADGE_PREFIX
+        if trainerGroup.groupName == "Kanto Gyms" then
+            badgePrefix = badgePrefix.."_K"
+        end
         local badgeNumber = battle.badgeNumber
         if badgeNumber ~= nil then
             local badge =
                 ImageLabel(
-                Component(badgeNameFrame, Box({x = 0, y = 0}, {width = 17, height = 16}, nil, nil)),
+                Component(badgeNameFrame, Box({x = 0, y = 0}, {width = 18, height = 16}, nil, nil)),
                 ImageField(
                     "ironmon_tracker/images/icons/" .. badgePrefix .. "_badge" .. badgeNumber .. ".png",
                     {x = 2, y = 2}
