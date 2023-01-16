@@ -10,6 +10,16 @@ GameConfigurator.ALTERNATE_FORM_ORDER_GEN5 = {
 	"Cherrim O","Deerling","Frillish M","Gastrodon W","Jellicent M","Keldeo","Sawsbuck","Shellos W","Unfezant M"
 }
 
+function GameConfigurator.initPokemon(gameInfo)
+	if gameInfo.GEN == 4 then
+		local pokemon = {}
+		for i = 1, PokemonData.LAST_INDEX_GEN_4, 1 do
+			table.insert(pokemon, PokemonData.POKEMON[i])
+		end
+		PokemonData.POKEMON = pokemon
+	end
+end
+
 function GameConfigurator.initMoveData(gameInfo)
 	for _, move in pairs(MoveData.MOVES_MASTER_LIST) do
 		local moveToInsert = {
@@ -78,11 +88,12 @@ function GameConfigurator.initialize()
 		return
 	end
 	if gameCode == GameInfo.VERSION_NUMBER.WHITE2 then
-		FormsUtils.popupDialog("Pok\233mon White 2 is not supported currently. Please use a Pok\233mon Black 2 ROM instead.", 250,100, FormsUtils.POPUP_DIALOG_TYPES.WARNING, false)
-		return
+		--FormsUtils.popupDialog("Pok\233mon White 2 is not supported currently. Please use a Pok\233mon Black 2 ROM instead.", 250,100, FormsUtils.POPUP_DIALOG_TYPES.WARNING, false)
+		--return
 	end
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	print(gameInfo.NAME .. " detected.")
+	GameConfigurator.initPokemon(gameInfo)
 	GameConfigurator.initAlternateForms(gameInfo)
 	GameConfigurator.initMoveData(gameInfo)
 	GameConfigurator.initAbilityData(gameInfo)
