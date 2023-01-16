@@ -1,13 +1,14 @@
-local function LogInfo(initialPokemonList, initialTrainers, initialTMs, initialStarterNumber)
+local function LogInfo(initialPokemonList, initialTrainers, initialTMs, initialStarterNumber, initialMiscInfo)
     local self = {}
     local pokemonList = initialPokemonList
     local trainers = initialTrainers
     local TMs = initialTMs
     local starterNumber = initialStarterNumber
+    local miscInfo = initialMiscInfo
 
     function self.getStarterNumber()
         return 3
-     --starterNumber
+        --starterNumber
     end
 
     function self.getPokemon()
@@ -23,6 +24,10 @@ local function LogInfo(initialPokemonList, initialTrainers, initialTMs, initialS
     end
 
     function self.getMappings()
+    end
+
+    function self.getMiscInfo()
+        return miscInfo
     end
 
     return self
@@ -172,6 +177,14 @@ local function RandomizerLogParser(initialProgram)
         end
     end
 
+    local function parseMiscInfo(lines)
+        return {
+            version = lines[1]:match("Randomizer Version: (.*)"),
+            seed = lines[2]:match("Random Seed: (%d+)"),
+            settingsString = lines[3]:match("Settings String: (.*)")
+        }
+    end
+
     local function parsePokemon(lines, lineStart)
         pokemonList = {}
         local currentLineIndex = lineStart + 1
@@ -299,7 +312,8 @@ local function RandomizerLogParser(initialProgram)
                 local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[sectionName]
                 parseFunction(lines, lineStart)
             end
-            return LogInfo(pokemonList, trainers, TMs)
+            local miscInfo = parseMiscInfo(lines)
+            return LogInfo(pokemonList, trainers, TMs, 1, miscInfo)
         end
     end
 
