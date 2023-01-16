@@ -34,29 +34,6 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
         return currentScreenIndex
     end
 
-    local function formatTrainerGroups()
-        local starterNumber = logInfo.getStarterNumber()
-        for _, trainerGroup in pairs(currentTrainerGroups) do
-            for index, battle in pairs(trainerGroup.battles) do
-                --bw gym 1 has 3 different trainers based on starter
-                if #battle == 3 then
-                    battle = battle[starterNumber]
-                end
-                local battleIndex = 1
-                --rivals have 3 different teams based on starter
-                if #battle.ids == 3 then
-                    battleIndex = starterNumber
-                end
-                battle.id = battle.ids[battleIndex]
-                battle.index = index
-                trainerGroup.battles[index] = battle
-                if trainerGroup.trainerType == TrainerData.TRAINER_TYPES.RIVAL then
-                    battle.name = trainerGroup.groupName
-                end
-            end
-        end
-    end
-
     function self.onTabClick(index)
         currentScreenIndex = index
         logViewerScreen.setTeamInfoTrainerGroup(currentTrainerGroups[currentScreenIndex])
@@ -150,8 +127,7 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
         mainScreenStack = ScreenStack()
         logInfo = newLogInfo
         local gameInfo = program.getGameInfo()
-        currentTrainerGroups = MiscUtils.deepCopy(gameInfo.TRAINERS.IMPORTANT_GROUPS)
-        formatTrainerGroups()
+        currentTrainerGroups = logViewerScreen.getTrainerGroups()
         self.reset()
     end
 

@@ -98,7 +98,7 @@ local function RivalOverviewScreen(initialSettings, initialTracker, initialProgr
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
             rowFrame
         )
-        table.insert(eventListeners, MouseClickEventListener(cardFrame,logViewerScreen.openTrainerTeam, battle))
+        table.insert(eventListeners, MouseClickEventListener(cardFrame,logViewerScreen.openTrainerTeamFromCard, battle))
         local locationLabelFrame =
             Frame(
             Box(
@@ -184,7 +184,7 @@ local function RivalOverviewScreen(initialSettings, initialTracker, initialProgr
     function self.setTrainerGroup(newTrainerGroup)
         trainerGroup = newTrainerGroup
         local rivalName = trainerGroup.groupName
-        ui.controls.rivalImage.setPath(Graphics.PATHS.TRAINER_IMAGES .. "/" .. rivalName .. "_rival.png")
+        ui.controls.rivalImage.setPath(Graphics.PATHS.TRAINER_IMAGES .. "/"..program.getGameInfo().BADGE_PREFIX.."/" .. rivalName .. "_rival.png")
         ui.frames.locationCardFrame.clearAllChildren()
         createLocationCardFrames()
     end
