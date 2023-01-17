@@ -140,6 +140,41 @@ function MiscUtils.removeRandomTableValue(t)
     return value
 end
 
+function MiscUtils.validPokemonData(pokemonData)
+    if pokemonData == nil or next(pokemonData) == nil or pokemonData.ability > 164 then
+        return false
+    end
+    --Sometimes the player's pokemon stats are just wildly out of bounds, need a sanity check.
+    local STAT_LIMIT = 2000
+    local statsToCheck = {
+        pokemonData.curHP,
+        pokemonData.stats.HP,
+        pokemonData.stats.ATK,
+        pokemonData.stats.SPE,
+        pokemonData.stats.DEF,
+        pokemonData.stats.SPD,
+        pokemonData.stats.SPA
+    }
+    for _, stat in pairs(statsToCheck) do
+        if stat > STAT_LIMIT or pokemonData.level > 100 then
+            return false
+        end
+    end
+    local id = tonumber(pokemonData.pokemonID)
+    local heldItem = tonumber(pokemonData.heldItem)
+    if id ~= nil then
+        if id < 0 or id > PokemonData.TOTAL_POKEMON + 200 or heldItem < 0 or heldItem > 650 then
+            return false
+        end
+        for _, move in pairs(pokemonData.moveIDs) do
+            if move < 0 or move > MoveData.TOTAL_MOVES + 1 then
+                return false
+            end
+        end
+        return true
+    end
+end
+
 function MiscUtils.splitStringByAmount(input, amount)
     local result = {}
     local current = 0
