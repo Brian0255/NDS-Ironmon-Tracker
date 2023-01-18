@@ -162,7 +162,7 @@ end
 function DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, pokemonID, imageLabel, imageOffset)
     local folderPath = Paths.FOLDERS.POKEMON_ICONS_FOLDER.."/"..currentIconSet.FOLDER_NAME.."/"
     local extension = currentIconSet.FILE_EXTENSION
-    imageLabel.setOffset(imageOffset)
+    imageLabel.setOffset(currentIconSet.IMAGE_OFFSET)
     local pokemonData = PokemonData.POKEMON[pokemonID+1]
     if not pokemonData.baseFormData then
         imageLabel.setPath(
