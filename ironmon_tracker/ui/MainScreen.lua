@@ -1992,6 +1992,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local pokemonHoverParams = hoverListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = currentPokemon
         local evo = currentPokemon.evolution
+        print(evo)
+        print(currentPokemon.isFemale)
+        --male/female difference evos
+        if type(evo) == "table" then
+            evo = evo[currentPokemon.isFemale + 1]
+        end
         if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and currentPokemon.friendship >= 220 then
             evo = "SOON"
         end

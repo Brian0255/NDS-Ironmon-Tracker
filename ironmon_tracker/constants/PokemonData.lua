@@ -69,28 +69,28 @@ PokemonData.EVOLUTION_TYPES =
         SUN = "SUN", -- Sun stone item
         OVAL = "OVAL", --Oval stone item
         LEAF_SUN = "LEAF/SUN", -- Leaf or Sun stone items
-        PROTECTOR = "PROTCTR", -- Protector held item
-        ELECTIRIZER = "ELECRZR", -- Elecirizer held item
+        PROTECTOR = "PROTCR", -- Protector held item
+        ELECTIRIZER = "ELERZR", -- Elecirizer held item
         MAGMARIZER = "MAGMZR", -- Magmarizer held item
         SHINY_STONE = "SHNY ST", -- Magmarizer held item
         RAZOR_FANG = "RZ FNG", -- Razor Fang held item
         RAZOR_CLAW = "RZ CLW", -- Razor Claw held item
         DUBIOUS_DISC = "DUB DSC", -- Dubious Disc held item
         REAPER_CLOTH = "REA CLH", -- Reaper Cloth held item
-        UPGRADE = "UPGRDE", --Up-Grade held item
+        UPGRADE = "UPGDE", --Up-Grade held item
         DRAGON_SCALE = "DRG SCL", --Dragon Scale held item
-        METAL_COAT = "MTL COAT", --Metal Coat held item
+        METAL_COAT = "MTL CT", --Metal Coat held item
         KINGS_ROCK = "KNG RCK", --King's Rock held item
         CLAMPERL = "DST/DSS",
-        SNORUNT = "42/DAWN",
-        KIRLIA = "30/DAWN",
+        SNORUNT = {"42", "42/DWN"}, 
+        KIRLIA = {"30/DWN", "30"},
         SLOWPOKE = "37/WTR",
         POLIWHIRL = "RCK/WTR",
-        MANTYKE = "REMRAID",
+        MANTYKE = "RMRAID",
         KARRABLAST = "SHLMT",
         SHELMET = "KRBLST",
         BURMY = "20 M/F",
-        COMBEE = "21 F"
+        COMBEE = { Graphics.TEXT.PLACEHOLDER, "21 F" }
     }
 )
 
