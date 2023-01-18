@@ -297,6 +297,7 @@ local function BattleHandler(
             if MiscUtils.validPokemonData(testForID) then
                 if testForID.pokemonID == memory.read_u16_le(memoryAddresses.enemyPokemonID + 180 * (slot - 1)) then
                     pokemonData = testForID
+                    return pokemonData
                 end
             end
         end
