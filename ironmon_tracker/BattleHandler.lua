@@ -62,6 +62,9 @@ local function BattleHandler(
                 ["initialValue"] = initialValue
             }
         end
+        for addr, val in pairs(GEN5_PIDSwitchData.switchSlots) do
+            print(string.format("%X",addr),val.initialValue)
+        end
     end
 
     local function isGen5AlternateDoubleBattle()
@@ -162,6 +165,7 @@ local function BattleHandler(
             end
             currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
         end
+        print(playerBattleTeamPIDs)
     end
 
     local function tryToFetchBattleData()
@@ -403,6 +407,7 @@ local function BattleHandler(
         --In gen 5, there is no active battler PID.
         --Instead, several memory addresses seemingly get updated when switch-ins occur.
         --So what we do is check these addresses. If the PID belongs to player or enemy, update accordingly.
+        local sawAZero = false
         if next(GEN5_PIDSwitchData) ~= nil then
             local start = memoryAddresses.playerBattleMonPID
             for i = 0, 5, 1 do
@@ -410,22 +415,28 @@ local function BattleHandler(
                 local data = GEN5_PIDSwitchData.switchSlots[switchAddr]
                 local currentValue = Memory.read_u32_le(switchAddr)
                 if currentValue == 0 then
-                    return
-                end
-                if
-                    not data.active and currentValue ~= data.initialValue and
-                        not GEN5_PIDSwitchData.initialPIDs[currentValue]
-                 then
-                    data.active = true
+                    sawAZero = true
+                else
+                    --checking for player pokeball being sent out (and changing the initial value if so), 
+                    --as well as making sure no switch in occured yet (seeing a zero means there was no switch in)
+                    if data.initialValue == 0 and sawAZero and currentValue ~= 0 then
+                        data.initialValue = currentValue
+                    end
                     if
-                        playerBattleTeamPIDs[currentValue] and
-                            GEN5_activePlayerMonPIDAddr == memoryAddresses.playerBattleBase
-                     then
-                        GEN5_activePlayerMonPIDAddr = switchAddr
-                    else
-                        for _, battler in pairs(enemyBattlers) do
-                            if battler.teamPIDs[currentValue] and battler.activePIDAddress == battler.addressBase then
-                                battler.activePIDAddress = switchAddr
+                        not data.active and currentValue ~= data.initialValue and
+                            not GEN5_PIDSwitchData.initialPIDs[currentValue]
+                    then
+                        data.active = true
+                        if
+                            playerBattleTeamPIDs[currentValue] and
+                                GEN5_activePlayerMonPIDAddr == memoryAddresses.playerBattleBase
+                        then
+                            GEN5_activePlayerMonPIDAddr = switchAddr
+                        else
+                            for _, battler in pairs(enemyBattlers) do
+                                if battler.teamPIDs[currentValue] and battler.activePIDAddress == battler.addressBase then
+                                    battler.activePIDAddress = switchAddr
+                                end
                             end
                         end
                     end
