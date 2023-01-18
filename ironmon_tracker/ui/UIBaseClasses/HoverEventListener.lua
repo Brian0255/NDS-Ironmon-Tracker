@@ -50,6 +50,7 @@ local function HoverEventListener(
     end
     resetCurrentAmount()
     function self.listen()
+        if not control.isVisible() then return end
         local position = control.getPosition()
         local size = control.getSize()
         local mousePosition = Input.getMousePosition()
