@@ -123,10 +123,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function scanForHealingItems()
 		healingItems = {}
 		statusItems = {}
-		local itemStart =
-			MiscUtils.inlineIf(battleHandler.isInBattle(), memoryAddresses.itemStartBattle, memoryAddresses.itemStartNoBattle)
-		local berryStart =
-			MiscUtils.inlineIf(battleHandler.isInBattle(), memoryAddresses.berryBagStartBattle, memoryAddresses.berryBagStart)
+		local itemStart, berryStart = memoryAddresses.itemStartNoBattle, memoryAddresses.berryBagStart
+		if battleHandler.isInBattle() then
+			itemStart, berryStart = memoryAddresses.itemStartBattle, memoryAddresses.berryBagStartBattle
+		end
 
 		--battle can be set a few frames before item bag for battle gets updated, need to check this value as well
 		local idAndQuantity = Memory.read_u32_le(memoryAddresses.itemStartBattle)
@@ -146,7 +146,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				id = bit.band(idAndQuantity, 0xFFFF)
 				if id ~= 0 then
 					quantity = bit.band(bit.rshift(idAndQuantity, 16), 0xFFFF)
-					--memory.write_u16_le(currentAddress+0x02,10)
 					if ItemData.HEALING_ITEMS[id] ~= nil then
 						healingItems[id] = quantity
 					end
@@ -310,7 +309,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function updateEnemyPokemonData()
-		if battleHandler.isInBattle() then
+		if battleHandler.inBattleAndFetched() then
 			enemyPokemon = getPokemonData(self.SELECTED_PLAYERS.ENEMY)
 			if enemyPokemon ~= nil then
 				if enemyPokemon.pokemonID ~= nil then
@@ -375,8 +374,28 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function updateLocation()
+		local childMap = Memory.read_u16_le(memoryAddresses.childMapHeader)
+		local parentMap = Memory.read_u16_le(memoryAddresses.parentMapHeader)
+		local locationData = gameInfo.LOCATION_DATA.locations
+		local areaName
+		if locationData[childMap] ~= nil then
+			areaName = locationData[childMap].name
+		elseif locationData[parentMap] ~= nil then
+			areaName = locationData[parentMap].name
+		end
+		if areaName ~= nil then
+			tracker.updateCurrentAreaName(areaName)
+		end
+	end
+
+	function self.isWildBattle()
+		return battleHandler.isWildBattle()
+	end
+
 	local function readMemory()
 		refreshPointers()
+		updateLocation()
 		battleHandler.updateBattleStatus()
 		if not battleHandler.isInBattle() and not locked then
 			selectedPlayer = self.SELECTED_PLAYERS.PLAYER
@@ -710,7 +729,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
 	local parser = RandomizerLogParser(self)
-	local logInfo = parser.parse("HeartGoldSoulSilver_Kaizo_Auto_Randomized.nds.log")
+	local logInfo = parser.parse("hgsslogtest.nds.log")
 	self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
 
 	return self
