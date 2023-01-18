@@ -1,5 +1,7 @@
 local function Tracker()
 	local self = {}
+	local currentAreaName = ""
+	local encounterData = {}
 	local trackedData = {
 		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
@@ -35,6 +37,39 @@ local function Tracker()
 		end
 	end
 
+	function self.updateEncounterData(pokemonID, level)
+		if not encounterData[currentAreaName] then
+			encounterData[currentAreaName] = {
+				areaName = currentAreaName,
+				encountersSeen = {},
+				uniqueSeen = 0
+			}
+		end
+		local areaData = encounterData[currentAreaName]
+		local seenEncounters = areaData.encountersSeen
+		if not seenEncounters[pokemonID] then
+			seenEncounters[pokemonID] = {}
+			areaData.uniqueSeen = areaData.uniqueSeen + 1
+		end
+		if not MiscUtils.tableContains(seenEncounters[pokemonID], level) then
+			table.insert(seenEncounters[pokemonID], level)
+		end
+		table.sort(
+			seenEncounters[pokemonID],
+			function(a, b)
+				return a < b
+			end
+		)
+	end
+
+	function self.getEncounterData()
+		return encounterData[currentAreaName]
+	end
+
+	function self.updateCurrentAreaName(newAreaName)
+		currentAreaName = newAreaName
+	end
+
 	local function checkIfPokemonUntracked(pokemonID)
 		if trackedData.trackedPokemon[pokemonID] == nil then
 			createNewPokemonEntry(pokemonID)
@@ -47,11 +82,11 @@ local function Tracker()
 	end
 
 	function self.increasePokecenterCount()
-		trackedData.pokecenterCount = math.min(99,trackedData.pokecenterCount + 1)
+		trackedData.pokecenterCount = math.min(99, trackedData.pokecenterCount + 1)
 	end
 
 	function self.decreasePokecenterCount()
-		trackedData.pokecenterCount = math.max(0,trackedData.pokecenterCount - 1)
+		trackedData.pokecenterCount = math.max(0, trackedData.pokecenterCount - 1)
 	end
 
 	function self.getPokecenterCount()
@@ -119,7 +154,7 @@ local function Tracker()
 			}
 		}
 		if id ~= 0 then
-			local constData = PokemonData.POKEMON[id+1]
+			local constData = PokemonData.POKEMON[id + 1]
 			local data = trackedData.trackedPokemon[id]
 			local name = constData.name
 			if PokemonData.ALTERNATE_FORMS[name] then
@@ -322,6 +357,7 @@ local function Tracker()
 	end
 
 	function self.save()
+		print("saving")
 		MiscUtils.saveTableToFile("autosave.trackerdata", trackedData)
 	end
 
