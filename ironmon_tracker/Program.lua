@@ -324,8 +324,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function updatePlayerPokemonData()
 		local pokemonToCheck = getPokemonData(self.SELECTED_PLAYERS.PLAYER)
 		if MiscUtils.validPokemonData(pokemonToCheck) then
+			local previousID = playerPokemon.pokemonID
 			playerPokemon = pokemonToCheck
 			self.checkForAlternateForm(playerPokemon)
+			if previousID == 0 then
+				tracker.setFirstPokemon(playerPokemon)
+			end
 		end
 	end
 
@@ -447,7 +451,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.tryToInstallUpdate()
-		tracker.save()
+		tracker.save(gameInfo.NAME)
 		return trackerUpdater.downloadUpdate()
 	end
 
@@ -628,7 +632,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			18000,
 			--18000,
 			function()
-				tracker.save()
+				tracker.save(gameInfo.NAME)
 				client.saveram()
 			end,
 			nil,
@@ -704,7 +708,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.onProgramExit()
-		tracker.save()
+		tracker.save(gameInfo.NAME)
 		client.saveram()
 		DrawingUtils.clearGUI()
 		forms.destroyall()

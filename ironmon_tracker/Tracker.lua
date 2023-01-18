@@ -3,6 +3,7 @@ local function Tracker()
 	local currentAreaName = ""
 	local encounterData = {}
 	local trackedData = {
+		firstPokemon = nil,
 		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
 		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
@@ -10,8 +11,14 @@ local function Tracker()
 		pokecenterCount = 10
 	}
 
-	local function loadData()
-		local savedData = MiscUtils.getTableFromFile("autosave.trackerdata")
+	function self.setFirstPokemon(pokemon)
+		if trackedData.firstPokemon == nil then
+			trackedData.firstPokemon = pokemon
+		end
+	end
+
+	function self.loadData(gameName)
+		local savedData = MiscUtils.getTableFromFile(gameName..".trackerdata")
 		if savedData ~= nil then
 			local savedRomHash = savedData.romHash
 			if savedRomHash == trackedData.romHash then
@@ -356,12 +363,12 @@ local function Tracker()
 		end
 	end
 
-	function self.save()
-		print("saving")
-		MiscUtils.saveTableToFile("autosave.trackerdata", trackedData)
+	function self.save(gameName)
+		if trackedData.firstPokemon ~= nil then
+			MiscUtils.saveTableToFile(gameName..".trackerdata", trackedData)
+		end
 	end
 
-	loadData()
 	return self
 end
 
