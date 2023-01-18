@@ -515,10 +515,10 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 6, y = 0}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 6, y = 2}),
             ui.frames.nameStatsFrame
         )
-        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.navNameFrame, 12, 9)
+        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.navNameFrame, 12, 8)
         ui.frames.leftArrowFrame, ui.controls.leftArrowButton = arrowFrameInfo.frame, arrowFrameInfo.button
 
         ui.controls.pokemonImage =
@@ -551,12 +551,12 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ),
             TextField(
                 "",
-                {x = 0, y = 8},
+                {x = 0, y = 7},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
 
-        arrowFrameInfo = FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.navNameFrame, 0, 9)
+        arrowFrameInfo = FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.navNameFrame, 0, 8)
         ui.frames.rightArrowFrame, ui.controls.rightArrowButton = arrowFrameInfo.frame, arrowFrameInfo.button
 
         table.insert(eventListeners, MouseClickEventListener(ui.controls.rightArrowButton, onForwardClick))
@@ -683,10 +683,10 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x=0,y=2}),
             ui.frames.evosFrame
         )
-        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.evoImageFrame, 12, 9)
+        local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.evoImageFrame, 12, 8)
         ui.frames.evoLeftArrowFrame, ui.controls.evoLeftButton = arrowFrameInfo.frame, arrowFrameInfo.button
 
         ui.controls.evoImage =
@@ -711,12 +711,12 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ),
             TextField(
                 "",
-                {x = 1, y = 10},
+                {x = 1, y = 8},
                 TextStyle(9, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
 
-        arrowFrameInfo = FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.evoImageFrame, 14, 9)
+        arrowFrameInfo = FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.evoImageFrame, 14, 8)
         ui.frames.evoRightArrowFrame, ui.controls.evoRightButton = arrowFrameInfo.frame, arrowFrameInfo.button
 
         eventListeners.leftEvoListener = MouseClickEventListener(ui.controls.evoLeftButton, onLeftEvoClick, nil)
