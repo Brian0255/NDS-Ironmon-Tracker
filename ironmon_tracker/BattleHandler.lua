@@ -27,7 +27,8 @@ local function BattleHandler(
     local enemySlotIndex = 1
     local frameCounters = {}
     local lastValidPlayerBattlePID = -1
-    local inBattle
+    local inBattle = false
+    local enemyTrainerID = nil
 
     self.BATTLE_STATUS_TYPES = {
         [0x2100] = true,
@@ -316,6 +317,11 @@ local function BattleHandler(
         return delay
     end
 
+    function self.isWildBattle()
+        if enemyTrainerID == nil then return false end
+        return enemyTrainerID == 0
+    end
+
     function self.getPokemonDataEnemy(slot)
         if inBattle and battleDataFetched then
             local enemyBattler = enemyBattlers[slot]
@@ -355,9 +361,11 @@ local function BattleHandler(
                     program.disableMoveEffectiveness()
                     program.addEffectivenessEnablingFrameCounter(delay)
                     tracker.updateCurrentLevel(pokemonData.pokemonID, pokemonData.level)
+                    if enemyTrainerID ~= nil and enemyTrainerID == 0 then
+                        tracker.updateEncounterData(pokemonData.pokemonID, pokemonData.level)
+                    end
                 end
                 enemyBattler.lastValidPID = activePID
-                print(pokemonData)
                 return pokemonData
             else
                 return nil
@@ -441,6 +449,7 @@ local function BattleHandler(
     local function onBattleFetchFrameCounter()
         battleDataFetched = tryToFetchBattleData()
         if battleDataFetched then
+            enemyTrainerID = Memory.read_u16_le(memoryAddresses.enemyTrainerID)
             GEN5_initializePIDSlots()
         end
     end
@@ -487,7 +496,6 @@ local function BattleHandler(
 
     function self.updateEnemySlotIndex(selectedPlayer)
         if enemySlotIndex == #enemyBattlers then
-            print("at max")
             selectedPlayer = program.SELECTED_PLAYERS.PLAYER
             enemySlotIndex = 1
         else
