@@ -1627,128 +1627,111 @@ LocationData.LOCATION_DATA = {
         },
         encounters = {
             ["Route 29"] = {
-                trainerClasses = {},
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 3, percent = 30},
-                        {level = 5, percent = 20},
-                        {level = 6, percent = 5}
+                        {level = 5, percent = 30},
+                        {level = 8, percent = 20},
+                        {level = 9, percent = 5}
                     },
                     {
-                        {level = 3, percent = 10},
-                        {level = 5, percent = 30}
+                        {level = 5, percent = 10},
+                        {level = 8, percent = 30}
                     },
                     {
-                        {level = 6, percent = 5}
+                        {level = 9, percent = 5}
                     }
                 }
             },
             ["Route 46"] = {
-                trainerClasses = {},
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 3, percent = 10},
-                        {level = 5, percent = 30}
+                        {level = 5, percent = 10},
+                        {level = 8, percent = 30}
                     },
                     {
-                        {level = 3, percent = 30},
-                        {level = 5, percent = 5}
+                        {level = 5, percent = 30},
+                        {level = 8, percent = 5}
                     },
                     {
-                        {level = 3, percent = 20},
-                        {level = 6, percent = 5}
+                        {level = 5, percent = 20},
+                        {level = 9, percent = 5}
                     }
                 }
             },
             ["Route 30"] = {
-                trainerClasses = {
-                    [2] = true,
-                    [6] = true
-                },
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 3, percent = 30},
-                        {level = 6, percent = 20}
-                    },
-                    {
                         {level = 5, percent = 30},
-                        {level = 6, percent = 5}
+                        {level = 9, percent = 20}
                     },
                     {
-                        {level = 6, percent = 15}
+                        {level = 8, percent = 30},
+                        {level = 9, percent = 5}
+                    },
+                    {
+                        {level = 9, percent = 15}
                     }
                 }
             },
             ["Route 31"] = {
-                trainerClasses = {
-                    [31] = true
-                },
                 totalPokemon = 4,
                 vanillaData = {
                     {
-                        {level = 6, percent = 30},
-                        {level = 8, percent = 5}
+                        {level = 9, percent = 30},
+                        {level = 12, percent = 5}
                     },
                     {
-                        {level = 5, percent = 30}
+                        {level = 8, percent = 30}
                     },
                     {
-                        {level = 5, percent = 20}
+                        {level = 8, percent = 20}
                     },
                     {
-                        {level = 8, percent = 15}
+                        {level = 12, percent = 15}
                     }
                 }
             },
             ["Route 32"] = {
-                trainerClasses = {
-                    [2] = true,
-                    [5] = true,
-                    [11] = true,
-                    [4] = true,
-                    [30] = true,
-                },
                 totalPokemon = 4,
                 vanillaData = {
                     {
-                        {level = 6, percent = 35},
-                        {level = 9, percent = 5}
+                        {level = 9, percent = 35},
+                        {level = 14, percent = 5}
                     },
                     {
-                        {level = 9, percent = 30}
+                        {level = 14, percent = 30}
                     },
                     {
-                        {level = 9, percent = 20}
+                        {level = 14, percent = 20}
                     },
                     {
-                        {level = 9, percent = 10}
+                        {level = 14, percent = 10}
                     }
                 }
             },
             ["Dark Cave"] = {
-                trainerClasses = {},
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 3, percent = 20},
+                        {level = 5, percent = 20},
+                        {level = 8, percent = 30},
+                        {level = 9, percent = 10}
+                    },
+                    {
                         {level = 5, percent = 30},
-                        {level = 6, percent = 10}
+                        {level = 8, percent = 5},
+                        {level = 9, percent = 4}
                     },
                     {
-                        {level = 3, percent = 30},
-                        {level = 5, percent = 5},
-                        {level = 6, percent = 4}
-                    },
-                    {
-                        {level = 6, percent = 1}
+                        {level = 9, percent = 1}
                     }
                 }
             },
             ["Ruins of Alph"] = {
-                trainerClasses = {},
+                totalPokemon = 1,
                 vanillaData = {
                     {
                         {level = 8, percent = 100}
@@ -1756,23 +1739,19 @@ LocationData.LOCATION_DATA = {
                 }
             },
             ["Sprout Tower"] = {
-                trainerClasses = {
-                    [79] = true,
-                    [111] = true
-                },
                 totalPokemon = 2,
                 vanillaData = {
                     {
-                        {level = 5, percent = 40},
-                        {level = 6, percent = 30},
-                        {level = 8, percent = 25},
-                        {level = 9, percent = 5}
+                        {level = 8, percent = 40},
+                        {level = 9, percent = 30},
+                        {level = 12, percent = 25},
+                        {level = 14, percent = 5}
                     },
                     {
-                        {level = 5, percent = 40},
-                        {level = 6, percent = 30},
-                        {level = 8, percent = 25},
-                        {level = 9, percent = 5}
+                        {level = 8, percent = 40},
+                        {level = 9, percent = 30},
+                        {level = 12, percent = 25},
+                        {level = 14, percent = 5}
                     }
                 }
             }
@@ -2070,6 +2049,171 @@ LocationData.LOCATION_DATA = {
                 name = "White Forest"
             }
         },
-        encounters = {}
+        encounters = {
+            ["Route 1"] = {
+                totalPokemon = 12,
+                vanillaData = {
+                    {
+                        {level = 3, percent = 20}
+                    },
+                    {
+                        {level = 3, percent = 20}
+                    },
+                    {
+                        {level = 5, percent = 10}
+                    },
+                    {
+                        {level = 5, percent = 10}
+                    },
+                    {
+                        {level = 6, percent = 10}
+                    },
+                    {
+                        {level = 6, percent = 10}
+                    },
+                    {
+                        {level = 6, percent = 5}
+                    },
+                    {
+                        {level = 6, percent = 5}
+                    },
+                    {
+                        {level = 6, percent = 4}
+                    },
+                    {
+                        {level = 6, percent = 4}
+                    },
+                    {
+                        {level = 6, percent = 1}
+                    },
+                    {
+                        {level = 6, percent = 1}
+                    }
+                }
+            },
+            ["Route 2"] = {
+                totalPokemon = 12,
+                vanillaData = {
+                    {
+                        {level = 6, percent = 20}
+                    },
+                    {
+                        {level = 6, percent = 20}
+                    },
+                    {
+                        {level = 6, percent = 10}
+                    },
+                    {
+                        {level = 8, percent = 10}
+                    },
+                    {
+                        {level = 8, percent = 10}
+                    },
+                    {
+                        {level = 8, percent = 10}
+                    },
+                    {
+                        {level = 9, percent = 5}
+                    },
+                    {
+                        {level = 9, percent = 5}
+                    },
+                    {
+                        {level = 11, percent = 4}
+                    },
+                    {
+                        {level = 11, percent = 4}
+                    },
+                    {
+                        {level = 11, percent = 1}
+                    },
+                    {
+                        {level = 11, percent = 1}
+                    }
+                }
+            },
+            ["Dreamyard"] = {
+                totalPokemon = 12,
+                vanillaData = {
+                    {
+                        {level = 12, percent = 20}
+                    },
+                    {
+                        {level = 12, percent = 20}
+                    },
+                    {
+                        {level = 12, percent = 10}
+                    },
+                    {
+                        {level = 14, percent = 10}
+                    },
+                    {
+                        {level = 14, percent = 10}
+                    },
+                    {
+                        {level = 15, percent = 10}
+                    },
+                    {
+                        {level = 15, percent = 5}
+                    },
+                    {
+                        {level = 15, percent = 5}
+                    },
+                    {
+                        {level = 17, percent = 4}
+                    },
+                    {
+                        {level = 17, percent = 4}
+                    },
+                    {
+                        {level = 17, percent = 1}
+                    },
+                    {
+                        {level = 17, percent = 1}
+                    }
+                }
+            },
+            ["Route 3"] = {
+                totalPokemon = 12,
+                vanillaData = {
+                    {
+                        {level = 12, percent = 20}
+                    },
+                    {
+                        {level = 12, percent = 20}
+                    },
+                    {
+                        {level = 12, percent = 10}
+                    },
+                    {
+                        {level = 14, percent = 10}
+                    },
+                    {
+                        {level = 14, percent = 10}
+                    },
+                    {
+                        {level = 14, percent = 10}
+                    },
+                    {
+                        {level = 14, percent = 5}
+                    },
+                    {
+                        {level = 15, percent = 5}
+                    },
+                    {
+                        {level = 15, percent = 4}
+                    },
+                    {
+                        {level = 17, percent = 4}
+                    },
+                    {
+                        {level = 17, percent = 1}
+                    },
+                    {
+                        {level = 17, percent = 1}
+                    }
+                }
+            }
+        }
     }
 }
