@@ -13,6 +13,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
+
     local settings = initialSettings
     local tracker = initialTracker
     local program = initialProgram
@@ -51,9 +52,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         STAT_FRAME_HEIGHT = 10
     }
     local eventListeners = {
-        abilityHoverListener = nil,
-        heldItemHoverListener = nil,
-        pokemonHoverListener = nil
+        abilityHoverListener = nil
     }
     local frameCounters = {}
     local hoverListeners = {}
@@ -69,7 +68,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         status = {}
     }
     local function onHoverInfoEnd()
-        print("ended")
         activeHoverFrame = nil
         program.drawCurrentScreens()
     end
@@ -199,6 +197,52 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             UIUtils.createAndDrawTypeResistancesFrame(params, program.drawCurrentScreens, ui.frames.mainFrame)
     end
 
+    local function onEncounterHoverEnd()
+        activeHoverFrame = nil
+        eventListeners.encounterFrameClick.setOnClickParams(true)
+        program.drawCurrentScreens()
+    end
+
+    local function onEncounterFrameClick(useTrackedData)
+        if activeHoverFrame ~= nil then
+            activeHoverFrame = nil
+            useTrackedData = not useTrackedData
+            local encounterData = tracker.getEncounterData()
+            local vanillaData = program.getGameInfo().LOCATION_DATA.encounters[encounterData.areaName]
+            if useTrackedData then
+                activeHoverFrame =
+                    UIUtils.createAndDrawTrackedEncounterData(
+                    vanillaData,
+                    encounterData,
+                    program.drawCurrentScreens,
+                    ui.frames.mainFrame
+                )
+            else
+                activeHoverFrame =
+                    UIUtils.createAndDrawVanillaEncounterData(
+                    encounterData.areaName,
+                    vanillaData,
+                    program.drawCurrentScreens,
+                    ui.frames.mainFrame
+                )
+            end
+            eventListeners.encounterFrameClick.setOnClickParams(useTrackedData)
+        end
+    end
+
+    local function onEncounterDataHover()
+        local encounterData = tracker.getEncounterData()
+        if encounterData == nil then return end
+        local vanillaData = program.getGameInfo().LOCATION_DATA.encounters[encounterData.areaName]
+        activeHoverFrame =
+            UIUtils.createAndDrawTrackedEncounterData(
+            vanillaData,
+            tracker.getEncounterData(),
+            program.drawCurrentScreens,
+            ui.frames.mainFrame
+        )
+    end
+
     local function onItemBagInfoHover(params)
         if ui.frames.healFrame.isVisible() then
             local items = params.items
@@ -268,7 +312,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function onHoverInfo(hoverParams)
         if hoverParams.text ~= "" then
-            activeHoverFrame = UIUtils.createAndDrawHoverFrame(hoverParams, program.drawCurrentScreens, ui.frames.mainFrame)
+            activeHoverFrame =
+                UIUtils.createAndDrawHoverFrame(hoverParams, program.drawCurrentScreens, ui.frames.mainFrame)
         end
     end
 
@@ -357,9 +402,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = Graphics.SIZES.MAIN_SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
             ui.frames.mainFrame
@@ -372,9 +415,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.STAT_INFO_HEIGHT - 1
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
             ui.frames.mainInnerFrame
@@ -418,9 +459,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = constants.POKEMON_INFO_X_OFFSET,
                     height = constants.POKEMON_INFO_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
             ui.frames.mainPokemonInfoFrame
@@ -435,9 +474,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = constants.POKEMON_INFO_X_OFFSET,
                     height = constants.POKEMON_INFO_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
             ui.frames.mainPokemonInfoFrame
@@ -452,9 +489,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = constants.POKEMON_INFO_X_OFFSET,
                     height = 10
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
             ui.frames.pokemonInfoFrame
@@ -486,9 +521,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = constants.POKEMON_INFO_WIDTH - 21,
                     height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 1}),
             ui.frames.miscInfoFrame
@@ -503,9 +536,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = constants.POKEMON_INFO_WIDTH - 26,
                     height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 4, y = 3}),
             ui.frames.miscInfoFrame,
@@ -521,9 +552,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = 30,
                     height = 0
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = -4, y = 3}),
             ui.frames.miscInfoFrame,
@@ -539,9 +568,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = 30,
                     height = 0
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = -1, y = 1}),
             ui.frames.miscInfoFrame
@@ -558,9 +585,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     width = Graphics.SIZES.MAIN_SCREEN_WIDTH - constants.POKEMON_INFO_WIDTH -
                         2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.STAT_INFO_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
             ui.frames.topHalfFrame
@@ -593,9 +618,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = 80,
                     height = constants.MOVE_HEADER_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 3, y = 3}),
             ui.frames.mainInnerFrame
@@ -665,8 +688,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         width = 45,
                         height = 10
                     },
-                    nil,
-                    nil,
                     nil
                 ),
                 Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 1, y = 0}),
@@ -829,9 +850,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 10, height = 10},
-                    nil,
-                    nil
+                    {width = 10, height = 10}
                 )
             ),
             TextField(
@@ -854,9 +873,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 64, height = 10},
-                    nil,
-                    nil
+                    {width = 64, height = 10}
                 )
             ),
             TextField(
@@ -879,9 +896,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 64, height = 10},
-                    nil,
-                    nil
+                    {width = 64, height = 10}
                 )
             ),
             TextField(
@@ -904,9 +919,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 64, height = 10},
-                    nil,
-                    nil
+                    {width = 64, height = 10}
                 )
             ),
             TextField(
@@ -920,22 +933,85 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 )
             )
         )
+        ui.frames.infoBottomFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 0,
+                    height = 0
+                }
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+            ui.frames.pokemonInfoFrame
+        )
         ui.controls.lockIcon =
             Icon(
             Component(
-                ui.frames.pokemonInfoFrame,
+                ui.frames.infoBottomFrame,
                 Box(
                     {
                         x = 0,
                         y = 0
                     },
-                    {width = 8, height = 10},
-                    nil,
-                    nil
+                    {width = 8, height = 9}
                 )
             ),
             "UNLOCKED",
             {x = 2, y = 0}
+        )
+        ui.frames.encounterDataFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 20,
+                    height = 10
+                }
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+            ui.frames.infoBottomFrame
+        )
+        table.insert(
+            eventListeners,
+            HoverEventListener(ui.frames.encounterDataFrame, onEncounterDataHover, nil, onEncounterHoverEnd)
+        )
+        eventListeners.encounterFrameClick =
+            MouseClickEventListener(ui.frames.encounterDataFrame, onEncounterFrameClick, true)
+        ui.controls.locationIcon =
+            Icon(
+            Component(ui.frames.encounterDataFrame, Box({x = 0, y = 0}, {width = 7, height = 0}, nil, nil)),
+            "LOCATION_ICON_SMALL_FILLED",
+            {x = 2, y = 2}
+        )
+        ui.controls.encountersSeen =
+            TextLabel(
+            Component(
+                ui.frames.encounterDataFrame,
+                Box(
+                    {
+                        x = 0,
+                        y = 0
+                    },
+                    {width = 0, height = 0}
+                )
+            ),
+            TextField(
+                "10/14",
+                Graphics.SIZES.DEFAULT_TEXT_OFFSET,
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
         )
         ui.controls.moveHeaderLearnedText =
             TextLabel(
@@ -946,9 +1022,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 80, height = 10},
-                    nil,
-                    nil
+                    {width = 80, height = 10}
                 )
             ),
             TextField(
@@ -971,9 +1045,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 17, height = 10},
-                    nil,
-                    nil
+                    {width = 17, height = 10}
                 )
             ),
             TextField(
@@ -996,9 +1068,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 23, height = 10},
-                    nil,
-                    nil
+                    {width = 23, height = 10}
                 )
             ),
             TextField(
@@ -1021,9 +1091,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                         x = 0,
                         y = 0
                     },
-                    {width = 25, height = 10},
-                    nil,
-                    nil
+                    {width = 25, height = 10}
                 )
             ),
             TextField(
@@ -1057,9 +1125,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     {
                         width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = constants.MOVE_ENTRY_HEIGHT
-                    },
-                    nil,
-                    nil
+                    }
                 ),
                 Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 1, y = 2}),
                 ui.frames.moveInfoFrame
@@ -1074,9 +1140,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     {
                         width = 81,
                         height = constants.MOVE_ENTRY_HEIGHT
-                    },
-                    nil,
-                    nil
+                    }
                 ),
                 Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
                 ui.frames[frameName]
@@ -1091,9 +1155,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                     {
                         width = 50,
                         height = constants.MOVE_ENTRY_HEIGHT
-                    },
-                    nil,
-                    nil
+                    }
                 ),
                 Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
                 ui.frames[frameName]
@@ -1107,9 +1169,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 9, height = 10},
-                        nil,
-                        nil
+                        {width = 9, height = 10}
                     )
                 ),
                 "PHYSICAL",
@@ -1124,9 +1184,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 10, height = 10},
-                        nil,
-                        nil
+                        {width = 10, height = 10}
                     )
                 ),
                 "DRAGON",
@@ -1141,9 +1199,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 70, height = 8},
-                        nil,
-                        nil
+                        {width = 70, height = 8}
                     )
                 ),
                 TextField(
@@ -1167,9 +1223,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 18, height = 10},
-                        nil,
-                        nil
+                        {width = 18, height = 10}
                     )
                 ),
                 TextField(
@@ -1194,9 +1248,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 21, height = 10},
-                        nil,
-                        nil
+                        {width = 21, height = 10}
                     )
                 ),
                 TextField(
@@ -1220,9 +1272,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                             x = 0,
                             y = 0
                         },
-                        {width = 10, height = 10},
-                        nil,
-                        nil
+                        {width = 10, height = 10}
                     ),
                     true
                 ),
@@ -1339,9 +1389,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = 30,
                     height = 0
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = -3, y = 2}),
             ui.frames.survivalHealFrame
@@ -1380,7 +1428,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         ui.controls.mainNoteLabel =
             TextLabel(
-            Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = constants.POKEMON_INFO_WIDTH, height = 8}, nil, nil)),
+            Component(
+                ui.frames.enemyNoteFrame,
+                Box({x = 0, y = 0}, {width = constants.POKEMON_INFO_WIDTH, height = 8}, nil, nil)
+            ),
             TextField(
                 "",
                 {x = 1, y = 2},
@@ -1402,9 +1453,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 {
                     width = constants.POKEMON_INFO_WIDTH - 26,
                     height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = 0, y = -2}),
             ui.frames.enemyNoteFrame
@@ -1711,6 +1760,21 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         checkForVariableMoves(isEnemy, moveIDs, movePPs)
     end
 
+    local function readTrackedEncountersIntoLabel()
+        if inTrackedView or not program.isWildBattle() then
+            ui.frames.encounterDataFrame.setVisibility(false)
+            return
+        end
+        local encounterData = tracker.getEncounterData()
+        if encounterData ~= nil then
+            local vanillaData = program.getGameInfo().LOCATION_DATA.encounters[encounterData.areaName]
+            ui.frames.encounterDataFrame.setVisibility(vanillaData ~= nil)
+            if vanillaData ~= nil then
+                ui.controls.encountersSeen.setText(encounterData.uniqueSeen .. "/" .. vanillaData.totalPokemon)
+            end
+        end
+    end
+
     local function setEnemySpecificControls()
         ui.controls.lockIcon.setVisibility(not (inTrackedView or inLockedView) and settings.battle.ENABLE_ENEMY_LOCKING)
         local lockIcon = "LOCKED"
@@ -1738,6 +1802,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(currentPokemon.pokemonID))
         ui.controls.healsLabel.setText("")
         ui.controls.statusItemsLabel.setText("")
+        readTrackedEncountersIntoLabel()
     end
 
     local function setUpStats(isEnemy)
@@ -1813,9 +1878,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         --pokemon from a log trainer team have a list of abilities, show all 3
         local newAbilityLabels = {ui.controls.pokemonHP, ui.controls.heldItem, ui.controls.abilityDetails}
         local abilities = currentPokemon.abilities
-        for index = 1, 3, 1  do
+        for index = 1, 3, 1 do
             local ability = abilities[index]
-            local hoverListener = hoverListeners["abilityHoverListener"..index]
+            local hoverListener = hoverListeners["abilityHoverListener" .. index]
             local abilityName = ""
             local abilityDescription = ""
             if ability ~= nil then
@@ -1850,7 +1915,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             )
             newAbilityLabel.setTextColorKey("Intermediate text color")
         end
-        hoverListeners.heldItemTeamInfo = HoverEventListener(
+        hoverListeners.heldItemTeamInfo =
+            HoverEventListener(
             ui.controls.mainNoteLabel,
             onHoverInfo,
             {
@@ -1864,7 +1930,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             onHoverInfoEnd
         )
         ui.controls.gearIcon.setVisibility(false)
-        local moveHeaderLabels = {"moveHeaderLearnedText", "moveHeaderAcc","moveHeaderPP","moveHeaderPow"}
+        local moveHeaderLabels = {"moveHeaderLearnedText", "moveHeaderAcc", "moveHeaderPP", "moveHeaderPow"}
         for _, labelName in pairs(moveHeaderLabels) do
             ui.controls[labelName].setTextColorKey("Top box text color")
             ui.controls[labelName].setShadowColorKey("Top box background color")
@@ -1896,6 +1962,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
         ui.frames.enemyNoteFrame.setVisibility(isEnemy)
         ui.frames.healFrame.setVisibility(not isEnemy)
+        ui.frames.infoBottomFrame.setVisibility(isEnemy)
+        ui.frames.encounterDataFrame.setVisibility(false)
     end
 
     local function setUpMainPokemonInfo(isEnemy)
