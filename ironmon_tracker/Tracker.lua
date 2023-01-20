@@ -1,15 +1,10 @@
 local function Tracker()
 	local self = {}
-	self.PROGRESS = {
-		NOWHERE = 0,
-		PAST_LAB = 1,
-		WON_CHALLENGE = 2
-	}
 
 	local currentAreaName = ""
 	local encounterData = {}
 	local trackedData = {
-		progress = self.PROGRESS.NOWHERE,
+		progress = PlaythroughConstants.PROGRESS.NOWHERE,
 		firstPokemon = nil,
 		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
@@ -286,6 +281,14 @@ local function Tracker()
 				}
 			end
 		end
+	end
+
+	function self.setProgress(newProgress)
+		trackedData.progress = newProgress
+	end
+
+	function self.getProgress()
+		return trackedData.progress
 	end
 
 	function self.setStatPredictions(pokemonID, newStats)
