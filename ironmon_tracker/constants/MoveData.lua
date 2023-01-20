@@ -13,30 +13,6 @@ MoveData.MOVE_CATEGORIES =
 
 MoveData.MOVES = {}
 
---List of pokemon types used to cycle through types when the Hidden Power button is clicked
-MoveData.HIDDEN_POWER_TYPE_LIST =
-	MiscUtils.readOnly(
-	{
-		PokemonData.POKEMON_TYPES.NORMAL,
-		PokemonData.POKEMON_TYPES.FIGHTING,
-		PokemonData.POKEMON_TYPES.FLYING,
-		PokemonData.POKEMON_TYPES.POISON,
-		PokemonData.POKEMON_TYPES.GROUND,
-		PokemonData.POKEMON_TYPES.ROCK,
-		PokemonData.POKEMON_TYPES.BUG,
-		PokemonData.POKEMON_TYPES.GHOST,
-		PokemonData.POKEMON_TYPES.STEEL,
-		PokemonData.POKEMON_TYPES.FIRE,
-		PokemonData.POKEMON_TYPES.WATER,
-		PokemonData.POKEMON_TYPES.GRASS,
-		PokemonData.POKEMON_TYPES.ELECTRIC,
-		PokemonData.POKEMON_TYPES.PSYCHIC,
-		PokemonData.POKEMON_TYPES.ICE,
-		PokemonData.POKEMON_TYPES.DRAGON,
-		PokemonData.POKEMON_TYPES.DARK
-	}
-)
-
 --Mapping of move types to move categories for gens 1-3
 MoveData.TYPE_CATEGORIES =
 	MiscUtils.readOnly(
