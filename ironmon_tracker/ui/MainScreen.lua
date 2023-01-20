@@ -395,7 +395,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             moveFrame.categoryIcon.setIconName(moveData.category)
             if settings.colorSettings["Color move names by type"] and moveID ~= 0 then
                 moveFrame.moveNameLabel.setTextColorKey(moveData.type)
-                if moveData.name == "Hidden Power" then
+                if moveData.name == "Hidden Power" and not isEnemy and not currentPokemon.fromTeamInfoView then
                     moveFrame.moveNameLabel.setTextColorKey(tracker.getCurrentHiddenPowerType())
                 end
             else
@@ -453,6 +453,22 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
         local moveIDs = currentPokemon.moveIDs
         local movePPs = {}
+        if isEnemy then
+            local info = MoveUtils.calculateEnemyPPs(
+                currentPokemon,
+                tracker.getMoves(currentPokemon.pokemonID),
+                settings.battle.SHOW_ACTUAL_ENEMY_PP
+            )
+            moveIDs, movePPs = info.moveIDs, info.movePPs
+        else
+            for i, moveID in pairs(moveIDs) do
+                if moveID == 0 then
+                    movePPs[i] = Graphics.TEXT.NO_PP
+                else
+                    movePPs[i] = currentPokemon.movePPs[i]
+                end
+            end
+        end
         if opposingPokemon ~= nil then
             setUpMoveEffectiveness(moveIDs)
         end
@@ -555,6 +571,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.noteIcon.setVisibility(false)
         ui.frames.survivalHealFrame.setVisibility(false)
         ui.frames.accEvaFrame.setVisibility(false)
+        ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
 
         eventListeners.loadStatOverview.setOnClickParams(currentPokemon.pokemonID)
 

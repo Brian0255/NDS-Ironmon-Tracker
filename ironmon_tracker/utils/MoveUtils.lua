@@ -66,6 +66,34 @@ local function getMoveAgeRanks(pokemon)
     return moveAgeRanks
 end
 
+function MoveUtils.calculateEnemyPPs(enemyPokemon, trackedMoves, showEnemyPP)
+    local moveIDs = {}
+    local movePPs = {}
+
+    for i, move in pairs(trackedMoves) do
+        moveIDs[i] = move.move
+        movePPs[i] = MoveData.MOVES[move.move + 1].pp
+    end
+
+    if showEnemyPP then
+        for i, move in pairs(moveIDs) do
+            for j, compare in pairs(enemyPokemon.moveIDs) do
+                if move == compare then
+                    movePPs[i] = enemyPokemon.movePPs[j]
+                    if move == 0 then
+                        movePPs[i] = Graphics.TEXT.NO_PP
+                    end
+                end
+            end
+        end
+    end
+
+    return {
+        ["moveIDs"] = moveIDs,
+        ["movePPs"] = movePPs
+    }
+end
+
 function MoveUtils.getStars(pokemon)
     local stars = {"", "", "", ""}
     local ageRanks = getMoveAgeRanks(pokemon)
