@@ -207,7 +207,7 @@ function ThemeFactory.createDefaultConfirmDialog()
 end
 
 function ThemeFactory.createLoadThemeForm()
-    local current_dir = io.popen "cd":read "*l"
+    local current_dir = Paths.CURRENT_DIRECTORY
     local ending = ".colortheme"
     local themeFile = forms.openfile("*" .. ending, current_dir .. "\\ironmon_tracker\\themes")
     local start = #themeFile - #ending

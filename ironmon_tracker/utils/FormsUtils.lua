@@ -71,10 +71,6 @@ function FormsUtils.getFileNameFromPath(path)
     return path:reverse():match("([^\\]*)\\"):reverse()
 end
 
-function FormsUtils.getCurrentDirectory()
-    return io.popen "cd":read "*l"
-end
-
 function FormsUtils.getCenter(width, height)
     return {
     xPos = client.xpos() + client.screenwidth() / 2 - width / 2,
