@@ -1,4 +1,4 @@
-local function MainOptionsScreen(initialSettings, initialTracker, initialProgram)
+local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram)
 	local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
 	local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
 	local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
@@ -12,7 +12,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		MAIN_OPTIONS_HEIGHT = 196,
+		TRACKED_INFO_HEIGHT = 158,
 		MAIN_BUTTONS_Y_OFFSET = 23,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
@@ -34,40 +34,27 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		program.openUpdaterScreen()
 	end
 
+	local function onTrackedPokemonClick()
+		program.setCurrentScreens({program.UI_SCREENS.TRACKED_POKEMON_SCREEN, program.UI_SCREENS.MAIN_SCREEN})
+		program.setUpForTrackedPokemonView()
+		program.drawCurrentScreens()
+	end
+
+	local function onOpenLogClick()
+		local logPath = forms.openfile("*.log", Paths.CURRENT_DIRECTORY)
+		program.openLogFromPath(logPath)
+	end
+
 	local function initEventListeners()
 		eventListeners.goBackClickListener =
-			MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_SCREEN)
-		eventListeners.battleSettingsClickListener =
-			MouseClickEventListener(ui.frames.battleSettingsButtonFrame, program.openScreen, program.UI_SCREENS.BATTLE_OPTIONS_SCREEN)
-		eventListeners.trackerAppearanceClickListener =
-			MouseClickEventListener(
-			ui.frames.trackerAppearanceButtonFrame,
-			program.openScreen,
-			program.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN
-		)
-		eventListeners.trackedInfoClickListener =
-			MouseClickEventListener(ui.frames.trackedInfoButtonFrame, program.openScreen, program.UI_SCREENS.TRACKED_INFO_SCREEN)
-		eventListeners.editControlsClickListener =
-			MouseClickEventListener(ui.frames.editControlsButtonFrame, program.openScreen, program.UI_SCREENS.EDIT_CONTROLS_SCREEN)
-		eventListeners.quickLoadClickListener =
-			MouseClickEventListener(ui.frames.quickLoadButtonFrame, program.openScreen, program.UI_SCREENS.QUICK_LOAD_SCREEN)
-		eventListeners.updaterClickListener = MouseClickEventListener(ui.frames.updaterButtonFrame, onUpdateCheckerClick)
+			MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_OPTIONS_SCREEN)
+		eventListeners.logOpenListenerr = 
+			MouseClickEventListener(ui.frames.openLogButtonFrame, onOpenLogClick)
+		eventListeners.trackedPokemonClickListener =
+			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
 	end
 
 	local function initBottomFrameControls()
-		TextLabel(
-			Component(ui.frames.bottomFrame, Box({x = 0, y = 0}, {width = 92, height = 18}, nil, nil)),
-			TextField(
-				"Tracker version: " .. MiscConstants.TRACKER_VERSION,
-				{x = 4, y = 1},
-				TextStyle(
-					Graphics.FONT.DEFAULT_FONT_SIZE,
-					Graphics.FONT.DEFAULT_FONT_FAMILY,
-					"Top box text color",
-					"Top box background color"
-				)
-			)
-		)
 		ui.controls.goBackButton =
 			TextLabel(
 			Component(
@@ -95,29 +82,23 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	end
 	local function initMainButtons()
 		local buttonNames = {
-			battleSettingsButton = "Battle Settings",
-			trackerAppearanceButton = "Tracker Appearance",
-			trackedInfoButton = "Tracked Info",
-			editControlsButton = "Edit Controls",
-			quickLoadButton = "QuickLoad Settings",
-			updaterButton = "Check for Updates"
+			trackedPokemonButton = "Tracked Pok\233mon",
+			pastRunsButton = "Past Runs",
+			statisticsButton = "Statistics",
+			openLogButton = "Open Log"
 		}
-		local icons = {"SWORD", "SPARKLES", "TRACKED_INFO_ICON", "CONTROLLER", "LIGHTNING_BOLT", "UPDATER_ICON"}
+		local icons = {"PENCIL", "PAST_RUN_ICON", "STATISTICS_ICON", "OPEN_LOG_ICON"}
 		local order = {
-			"battleSettingsButton",
-			"trackerAppearanceButton",
-			"trackedInfoButton",
-			"editControlsButton",
-			"quickLoadButton",
-			"updaterButton"
+			"trackedPokemonButton",
+			"pastRunsButton",
+			"statisticsButton",
+			"openLogButton"
 		}
 		local iconOffsets = {
 			{x = 2, y = 2},
-			{x = 2, y = 2},
-			{x = 4, y = 3},
-			{x = 2, y = 2},
-			{x = 2, y = 2},
-			{x = 2, y = 2},
+			{x = 3, y = 2},
+			{x = 3, y = 2},
+			{x = 3, y = 2}
 		}
 		for i, key in pairs(order) do
 			local text = buttonNames[key]
@@ -142,7 +123,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			Frame(
 			Box(
 				{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_OPTIONS_HEIGHT},
+				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.TRACKED_INFO_HEIGHT},
 				"Main background color",
 				nil
 			),
@@ -155,7 +136,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 				{x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN},
 				{
 					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-					height = constants.MAIN_OPTIONS_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
+					height = constants.TRACKED_INFO_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
 				},
 				"Top box background color",
 				"Top box border color"
@@ -172,7 +153,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		ui.frames.bottomFrame =
 			Frame(
 			Box(
-				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 142},
+				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 104},
 				{
 					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = 21
@@ -180,7 +161,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 				nil,
 				nil
 			),
-			Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 4, {x = 0, y = 3}),
+			Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 4, {x = 96, y = 3}),
 			ui.frames.mainInnerFrame
 		)
 		ui.controls.topHeading =
@@ -196,7 +177,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 				)
 			),
 			TextField(
-				"Config",
+				"Tracked Info",
 				{x = 48, y = 1},
 				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
@@ -216,5 +197,4 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	initEventListeners()
 	return self
 end
-
-return MainOptionsScreen
+return TrackedInfoScreen
