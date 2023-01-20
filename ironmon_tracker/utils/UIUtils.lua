@@ -36,11 +36,26 @@ function UIUtils.createAndDrawHoverFrame(hoverParams, drawFunction, frameToAlign
     return hoverFrame
 end
 
+function UIUtils.createAndDrawItemHoverFrame(items, itemType, frameToAlignWith, drawFunction)
+    local activeHoverFrame
+    local itemsHoverFrame = HoverFrameFactory.createItemBagHoverFrame(items, frameToAlignWith, itemType)
+    UIUtils.moveHoverFrameToMouse(itemsHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE, frameToAlignWith)
+    activeHoverFrame = itemsHoverFrame
+    drawFunction()
+    itemsHoverFrame.show()
+    return activeHoverFrame
+end
+
 function UIUtils.createAndDrawTypeResistancesFrame(params, drawFunction, frameToAlignWith)
     local pokemonHoverFrame
     if params.pokemonID ~= 0 then
         pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
-        moveAndShowHoverFrame(pokemonHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW, frameToAlignWith, drawFunction)
+        moveAndShowHoverFrame(
+            pokemonHoverFrame,
+            Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW,
+            frameToAlignWith,
+            drawFunction
+        )
     end
     return pokemonHoverFrame
 end
