@@ -12,6 +12,7 @@ local TextLabel = dofile(UIClassFolder .. "TextLabel.lua")
 local TextField = dofile(UIClassFolder .. "TextField.lua")
 local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
 local Layout = dofile(UIClassFolder .. "Layout.lua")
+local ImageField = dofile(UIClassFolder.."/ImageFIeld.lua")
 
 function DrawingUtils.setColorScheme(newScheme)
     colorScheme = newScheme
@@ -348,4 +349,32 @@ function DrawingUtils.getNatureColor(stat, nature)
         end
     end
     return color
+end
+
+function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
+    if extraThingsToDraw.statStages ~= nil then
+        for _, statStageInfo in pairs(extraThingsToDraw.statStages) do
+            DrawingUtils.drawStatStageChevrons(statStageInfo.position, statStageInfo.stage)
+        end
+    end
+    if extraThingsToDraw.moveEffectiveness ~= nil then
+        for _, entry in pairs(extraThingsToDraw.moveEffectiveness) do
+            DrawingUtils.drawMoveEffectiveness(entry.position, entry.effectiveness)
+        end
+    end
+    if extraThingsToDraw.nature ~= nil then
+        for _, entry in pairs(extraThingsToDraw.nature) do
+            DrawingUtils.drawNaturePlusMinus(entry.position, entry.effect)
+        end
+    end
+    if extraThingsToDraw.status ~= nil then
+        local statusImage =
+            ImageField(
+            extraThingsToDraw.status.statusImagePath,
+            extraThingsToDraw.status.position,
+            {width = 16, height = 8}
+        )
+        statusImage.move({x = 0, y = 0})
+        statusImage.show()
+    end
 end
