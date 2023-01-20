@@ -292,7 +292,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 )
             ),
             TextField(
-                "Tracked Pok\233mon",
+                "Tracked Pokémon",
                 {x = 20, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )

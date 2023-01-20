@@ -273,7 +273,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Pok\233mon Icon Sets",
+                "Pokémon Icon Sets",
                 {x = 16, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )

@@ -455,7 +455,7 @@ LocationData.LOCATION_DATA = {
                 name = "Route 36"
             },
             [150] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [151] = {
                 name = "Route 47"
@@ -845,28 +845,28 @@ LocationData.LOCATION_DATA = {
                 name = "Cliff Edge Gate"
             },
             [280] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [281] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [282] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [283] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [284] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [285] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [286] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [287] = {
-                name = "Pok\233athlon Dome"
+                name = "Pokéathlon Dome"
             },
             [288] = {
                 name = "Dragon's Den"
@@ -905,25 +905,25 @@ LocationData.LOCATION_DATA = {
                 name = "Route 26"
             },
             [300] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [301] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [302] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [303] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [304] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [305] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [306] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [307] = {
                 name = "S.S. Aqua"
@@ -1622,7 +1622,7 @@ LocationData.LOCATION_DATA = {
                 name = "Mystery Zone"
             },
             [539] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             }
         },
         encounters = {
@@ -1797,7 +1797,7 @@ LocationData.LOCATION_DATA = {
                 name = "Opelucid City"
             },
             [136] = {
-                name = "Pok\233mon League"
+                name = "Pokémon League"
             },
             [147] = {
                 name = "Unity Tower"
@@ -2016,7 +2016,7 @@ LocationData.LOCATION_DATA = {
                 name = "Route 15"
             },
             [381] = {
-                name = "Pok\233 Transfer Lab"
+                name = "Poké Transfer Lab"
             },
             [383] = {
                 name = "Route 16"

@@ -12,8 +12,8 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 1,
         name = "Stench",
         description = {
-            "Helps repel wild Pok\233mon.",
-            "Has a 10% chance of making target Pok\233mon flinch with each hit."
+            "Helps repel wild Pokémon.",
+            "Has a 10% chance of making target Pokémon flinch with each hit."
         }
     },
     {
@@ -42,7 +42,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 6,
         name = "Damp",
-        description = "Prevents Selfdestruct, Explosion, and Aftermath from working while the Pok\233mon is in battle."
+        description = "Prevents Selfdestruct, Explosion, and Aftermath from working while the Pokémon is in battle."
     },
     {
         id = 7,
@@ -57,7 +57,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 9,
         name = "Static",
-        description = "Has a 30% chance of paralyzing attacking Pok\233mon on contact."
+        description = "Has a 30% chance of paralyzing attacking Pokémon on contact."
     },
     {
         id = 10,
@@ -102,7 +102,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 18,
         name = "Flash Fire",
-        description = "Protects against fire moves. Once one has been blocked, the Pok\233mon's own fire moves inflict 1.5x damage until it leaves battle."
+        description = "Protects against fire moves. Once one has been blocked, the Pokémon's own fire moves inflict 1.5x damage until it leaves battle."
     },
     {
         id = 19,
@@ -118,8 +118,8 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 21,
         name = "Suction Cups",
         description = {
-            "Prevents being forced out of battle by other Pok\233mon's moves.",
-            "Prevents being forced out of battle by other Pok\233mon's moves or items."
+            "Prevents being forced out of battle by other Pokémon's moves.",
+            "Prevents being forced out of battle by other Pokémon's moves or items."
         }
     },
     {
@@ -135,7 +135,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 24,
         name = "Rough Skin",
-        description = "Damages attacking Pok\233mon for 1/8 their max HP on contact."
+        description = "Damages attacking Pokémon for 1/8 their max HP on contact."
     },
     {
         id = 25,
@@ -150,17 +150,17 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 27,
         name = "Effect Spore",
-        description = "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pok\233mon on contact."
+        description = "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pokémon on contact."
     },
     {
         id = 28,
         name = "Synchronize",
-        description = "Copies burns, paralysis, and poison received onto the Pok\233mon that inflicted them."
+        description = "Copies burns, paralysis, and poison received onto the Pokémon that inflicted them."
     },
     {
         id = 29,
         name = "Clear Body",
-        description = "Prevents stats from being lowered by other Pok\233mon."
+        description = "Prevents stats from being lowered by other Pokémon."
     },
     {
         id = 30,
@@ -171,8 +171,8 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 31,
         name = "Lightningrod",
         description = {
-            "Redirects single-target electric moves to this Pok\233mon where possible.",
-            "Redirects electric moves to this Pok\233mon and absorbs them, raising Special Attack one stage."
+            "Redirects single-target electric moves to this Pokémon where possible.",
+            "Redirects electric moves to this Pokémon and absorbs them, raising Special Attack one stage."
         }
     },
     {
@@ -208,7 +208,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 38,
         name = "Poison Point",
-        description = "Has a 30% chance of poisoning attacking Pok\233mon on contact."
+        description = "Has a 30% chance of poisoning attacking Pokémon on contact."
     },
     {
         id = 39,
@@ -248,7 +248,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 46,
         name = "Pressure",
-        description = "Increases the PP cost of moves targeting the Pok\233mon by one."
+        description = "Increases the PP cost of moves targeting the Pokémon by one."
     },
     {
         id = 47,
@@ -263,7 +263,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 49,
         name = "Flame Body",
-        description = "Has a 30% chance of burning attacking Pok\233mon on contact."
+        description = "Has a 30% chance of burning attacking Pokémon on contact."
     },
     {
         id = 50,
@@ -278,14 +278,14 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 52,
         name = "Hyper Cutter",
-        description = "Prevents Attack from being lowered by other Pok\233mon."
+        description = "Prevents Attack from being lowered by other Pokémon."
     },
     {
         id = 53,
         name = "Pickup",
         description = {
             "10% chance to pick up an item after battle.",
-            "Picks up other Pok\233mon's used and Flung held items. May also pick up an item after battle."
+            "Picks up other Pokémon's used and Flung held items. May also pick up an item after battle."
         }
     },
     {
@@ -301,22 +301,22 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 56,
         name = "Cute Charm",
-        description = "Has a 30% chance of infatuating attacking Pok\233mon on contact."
+        description = "Has a 30% chance of infatuating attacking Pokémon on contact."
     },
     {
         id = 57,
         name = "Plus",
         description = {
-            "Increases Special Attack to 1.5x when a friendly Pok\233mon has Minus.",
-            "Increases Special Attack to 1.5x when a friendly Pok\233mon has Plus or Minus."
+            "Increases Special Attack to 1.5x when a friendly Pokémon has Minus.",
+            "Increases Special Attack to 1.5x when a friendly Pokémon has Plus or Minus."
         }
     },
     {
         id = 58,
         name = "Minus",
         description = {
-            "Increases Special Attack to 1.5x when a friendly Pok\233mon has Plus.",
-            "Increases Special Attack to 1.5x when a friendly Pok\233mon has Plus or Minus."
+            "Increases Special Attack to 1.5x when a friendly Pokémon has Plus.",
+            "Increases Special Attack to 1.5x when a friendly Pokémon has Plus or Minus."
         }
     },
     {
@@ -327,7 +327,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 60,
         name = "Sticky Hold",
-        description = "Prevents a held item from being removed by other Pok\233mon."
+        description = "Prevents a held item from being removed by other Pokémon."
     },
     {
         id = 61,
@@ -382,7 +382,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 71,
         name = "Arena Trap",
-        description = "Prevents opponents from fleeing or switching out. Eluded by flying-types and Pok\233mon in the air."
+        description = "Prevents opponents from fleeing or switching out. Eluded by flying-types and Pokémon in the air."
     },
     {
         id = 72,
@@ -392,7 +392,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 73,
         name = "White Smoke",
-        description = "Prevents stats from being lowered by other Pok\233mon."
+        description = "Prevents stats from being lowered by other Pokémon."
     },
     {
         id = 74,
@@ -422,7 +422,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 79,
         name = "Rivalry",
-        description = "Increases damage inflicted to 1.25x against Pok\233mon of the same gender, but decreases damage to 0.75x against the opposite gender."
+        description = "Increases damage inflicted to 1.25x against Pokémon of the same gender, but decreases damage to 0.75x against the opposite gender."
     },
     {
         id = 80,
@@ -437,7 +437,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 82,
         name = "Gluttony",
-        description = "Makes the Pok\233mon eat any held Berry triggered by low HP below 1/2 its max HP."
+        description = "Makes the Pokémon eat any held Berry triggered by low HP below 1/2 its max HP."
     },
     {
         id = 83,
@@ -513,7 +513,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 96,
         name = "Normalize",
-        description = "Makes the Pok\233mon's moves all act normal-type."
+        description = "Makes the Pokémon's moves all act normal-type."
     },
     {
         id = 97,
@@ -528,12 +528,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 99,
         name = "No Guard",
-        description = "Ensures all moves used by and against the Pok\233mon hit."
+        description = "Ensures all moves used by and against the Pokémon hit."
     },
     {
         id = 100,
         name = "Stall",
-        description = "Makes the Pok\233mon move last within its move's priority bracket."
+        description = "Makes the Pokémon move last within its move's priority bracket."
     },
     {
         id = 101,
@@ -578,7 +578,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 109,
         name = "Unaware",
-        description = "Ignores other Pok\233mon's stat modifiers for damage and Accuracy calculation."
+        description = "Ignores other Pokémon's stat modifiers for damage and Accuracy calculation."
     },
     {
         id = 110,
@@ -598,14 +598,14 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 113,
         name = "Scrappy",
-        description = "Lets the Pok\233mon's normal and fighting moves hit ghost Pok\233mon."
+        description = "Lets the Pokémon's normal and fighting moves hit ghost Pokémon."
     },
     {
         id = 114,
         name = "Storm Drain",
         description = {
-            "Redirects single-target water moves to this Pok\233mon.",
-            "Redirects single-target water moves to this Pok\233mon and absorbs them, raising Special Attack one stage."
+            "Redirects single-target water moves to this Pokémon.",
+            "Redirects single-target water moves to this Pokémon and absorbs them, raising Special Attack one stage."
         }
     },
     {
@@ -626,7 +626,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 118,
         name = "Honey Gather",
-        description = "The Pok\233mon may pick up honey after battle."
+        description = "The Pokémon may pick up honey after battle."
     },
     {
         id = 119,
@@ -646,7 +646,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 122,
         name = "Flower Gift",
-        description = "Increases friendly Pok\233mon's Attack and Special Defense to 1.5x during strong sunlight."
+        description = "Increases friendly Pokémon's Attack and Special Defense to 1.5x during strong sunlight."
     },
     {
         id = 123,
@@ -656,7 +656,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 124,
         name = "Pickpocket",
-        description = "Steals attacking Pok\233mon's held items on contact."
+        description = "Steals attacking Pokémon's held items on contact."
     },
     {
         id = 125,
@@ -671,7 +671,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 127,
         name = "Unnerve",
-        description = "Prevents opposing Pok\233mon from eating held Berries."
+        description = "Prevents opposing Pokémon from eating held Berries."
     },
     {
         id = 128,
@@ -686,7 +686,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 130,
         name = "Cursed Body",
-        description = "Has a 30% chance of Disabling any move that hits the Pok\233mon."
+        description = "Has a 30% chance of Disabling any move that hits the Pokémon."
     },
     {
         id = 131,
@@ -696,7 +696,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 132,
         name = "Friend Guard",
-        description = "Decreases all direct damage taken by friendly Pok\233mon to 0.75x."
+        description = "Decreases all direct damage taken by friendly Pokémon to 0.75x."
     },
     {
         id = 133,
@@ -706,12 +706,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 134,
         name = "Heavy Metal",
-        description = "Doubles the Pok\233mon's weight."
+        description = "Doubles the Pokémon's weight."
     },
     {
         id = 135,
         name = "Light Metal",
-        description = "Halves the Pok\233mon's weight."
+        description = "Halves the Pokémon's weight."
     },
     {
         id = 136,
@@ -731,12 +731,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 139,
         name = "Harvest",
-        description = "Has a 50% chance of restoring a used Berry after each turn if the Pok\233mon has held no items in the meantime."
+        description = "Has a 50% chance of restoring a used Berry after each turn if the Pokémon has held no items in the meantime."
     },
     {
         id = 140,
         name = "Telepathy",
-        description = "Protects against friendly Pok\233mon's damaging moves."
+        description = "Protects against friendly Pokémon's damaging moves."
     },
     {
         id = 141,
@@ -751,7 +751,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 143,
         name = "Poison Touch",
-        description = "Has a 30% chance of poisoning target Pok\233mon upon contact."
+        description = "Has a 30% chance of poisoning target Pokémon upon contact."
     },
     {
         id = 144,
@@ -781,7 +781,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 149,
         name = "Illusion",
-        description = "Takes the appearance of the last conscious party Pok\233mon upon being sent out until hit by a damaging move."
+        description = "Takes the appearance of the last conscious party Pokémon upon being sent out until hit by a damaging move."
     },
     {
         id = 150,
@@ -796,12 +796,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 152,
         name = "Mummy",
-        description = "Changes attacking Pok\233mon's abilities to Mummy on contact."
+        description = "Changes attacking Pokémon's abilities to Mummy on contact."
     },
     {
         id = 153,
         name = "Moxie",
-        description = "Raises Attack one stage upon KOing a Pok\233mon."
+        description = "Raises Attack one stage upon KOing a Pokémon."
     },
     {
         id = 154,
@@ -836,7 +836,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 160,
         name = "Iron Barbs",
-        description = "Damages attacking Pok\233mon for 1/8 their max HP on contact."
+        description = "Damages attacking Pokémon for 1/8 their max HP on contact."
     },
     {
         id = 161,
@@ -846,7 +846,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 162,
         name = "Victory Star",
-        description = "Increases moves' accuracy to 1.1x for friendly Pok\233mon."
+        description = "Increases moves' accuracy to 1.1x for friendly Pokémon."
     },
     {
         id = 163,
