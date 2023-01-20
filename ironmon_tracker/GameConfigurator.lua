@@ -87,10 +87,6 @@ function GameConfigurator.initialize()
 		FormsUtils.popupDialog("Your ROM is not currently supported by the tracker. Only English NDS ROMs are supported.", 250,100, FormsUtils.POPUP_DIALOG_TYPES.WARNING, false)
 		return
 	end
-	if gameCode == GameInfo.VERSION_NUMBER.WHITE2 then
-		--FormsUtils.popupDialog("Pok\233mon White 2 is not supported currently. Please use a Pok\233mon Black 2 ROM instead.", 250,100, FormsUtils.POPUP_DIALOG_TYPES.WARNING, false)
-		--return
-	end
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	print(gameInfo.NAME .. " detected.")
 	GameConfigurator.initPokemon(gameInfo)
