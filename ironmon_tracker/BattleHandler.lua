@@ -447,6 +447,13 @@ local function BattleHandler(
 
     local function onEndOfBattle()
         if inBattle then
+            if not program.isRunOver() then
+                if gameInfo.TRAINERS.LAB_IDS[enemyTrainerID] then
+                    tracker.setProgress(PlaythroughConstants.PROGRESS.PAST_LAB)
+                elseif gameInfo.FINAL_FIGHT_ID[enemyTrainerID] then
+                    tracker.setProgress(PlaythroughConstants.PRORESS.WON)
+                end
+            end
             totalBattlesCompleted = totalBattlesCompleted + 1
             firstBattleComplete = true
             for _, battler in pairs(enemyBattlers) do
