@@ -53,6 +53,12 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         program.drawCurrentScreens()
     end
 
+    local function onMoveHoverEnd()
+        activeHoverFrame = nil
+        hoverListeners.moveInfoListener = nil
+        program.drawCurrentScreens()
+    end
+
     local function onHoverInfo(params)
         activeHoverFrame = UIUtils.createAndDrawHoverFrame(params, program.drawCurrentScreens, ui.frames.mainFrame)
     end
@@ -76,17 +82,17 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             UIUtils.createAndDrawTypeResistancesFrame(params, program.drawCurrentScreens, ui.frames.mainFrame)
     end
 
-    local function onMoveInfoHover(params)
+    local function onMoveInfoClick(params)
         activeHoverFrame = UIUtils.createAndDrawMoveHoverFrame(params, program.drawCurrentScreens, ui.frames.mainFrame)
+        hoverListeners.moveInfoListener = HoverEventListener(params.control, nil, nil, onMoveHoverEnd)
     end
 
     local function readMoveIntoListener(index, move)
         local moveListener = moveHoverListeners[index]
-        local params = moveListener.getOnHoverParams()
+        local params = moveListener.getOnClickParams()
         params.move = move
-        moveListener.setOnHoverParams(params)
+        moveListener.setOnClickParams(params)
         activeHoverFrame = nil
-        moveListener.setBackToZero()
     end
 
     local function readScrollMovesIntoUI()
@@ -129,7 +135,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                     end
                     label.setTextColorKey(textColorKey)
                 else
-                    moveHoverListeners[i].getOnHoverParams().move = -1
+                    moveHoverListeners[i].getOnClickParams().move = -1
                 end
                 readMoveIntoListener(i, moveID)
             end
@@ -268,7 +274,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = constants.MOVES_FRAME_WIDTH - 20,
+                        width = constants.MOVES_FRAME_WIDTH - 8,
                         height = constants.MOVE_ENTRY_HEIGHT
                     },
                     nil,
@@ -485,15 +491,15 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ui.controls.moveLabels[i] = createMoveAbilityEntry(ui.frames.moveListFrame)
             table.insert(
                 moveHoverListeners,
-                HoverEventListener(
+                MouseClickEventListener(
                     ui.controls.moveLabels[i],
-                    onMoveInfoHover,
+                    onMoveInfoClick,
                     {
                         BGColorKey = "Top box background color",
                         BGColorFillKey = "Top box border color",
-                        move = nil
-                    },
-                    onHoverInfoEnd
+                        move = nil,
+                        control = ui.controls.moveLabels[i]
+                    }
                 )
             )
         end

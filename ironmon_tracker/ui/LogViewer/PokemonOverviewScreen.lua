@@ -104,8 +104,8 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
 
     local function onMatchClick(id)
         if id ~= nil then
-            logViewerScreen.loadPokemonStats(id)
             logViewerScreen.addGoBackFunction(goBackToOverview)
+            logViewerScreen.loadPokemonStats(id)
         end
     end
 
