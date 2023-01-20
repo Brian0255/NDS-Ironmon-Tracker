@@ -35,7 +35,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local trainerGroups
     local currentIndex = 1
     local tabs = {
-        "Pok\233mon",
+        "Pokémon",
         "Trainers",
         "Gym TMs",
         "Statistics",
@@ -47,13 +47,23 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local self = {}
     local goBackFunctionList = {}
 
+    local function updateBackButton()
+        ui.controls.goBackButton.setIconName("LONG_LEFT_ARROW")
+        if #goBackFunctionList == 0 then
+            ui.controls.goBackButton.setIconName("BIG_X")
+        end
+    end
+
     local function onGoBackClick()
         local historyLength = #goBackFunctionList
         if historyLength ~= 0 then
             local mostRecent = goBackFunctionList[historyLength]
+            goBackFunctionList[historyLength] = nil
+            updateBackButton()
             local functionName, argument = mostRecent.functionName, mostRecent.argument
             functionName(argument)
-            goBackFunctionList[historyLength] = nil
+        else
+            program.openScreen(program.UI_SCREENS.MAIN_SCREEN)
         end
     end
 
@@ -65,6 +75,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
                 ["argument"] = argument
             }
         )
+        updateBackButton()
     end
 
     function self.setTeamInfoTrainerGroup(newTrainerGroup)
@@ -90,8 +101,8 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function pokemonLoadingFunction(id)
-        self.loadPokemonStats(id)
         self.addGoBackFunction(goBackToTeamInfo)
+        self.loadPokemonStats(id)
     end
 
     function self.openTrainerTeam(battle)
@@ -178,7 +189,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
             table.insert(eventListeners, MouseClickEventListener(tabControl, onTabClick, index))
             table.insert(tabControls, tabControl)
         end
-        local arrowFrameInfo = FrameFactory.createArrowFrame("LONG_LEFT_ARROW", ui.frames.tabFrame, 27, 3, 6, "Top box background color", "Top box background color")
+        local arrowFrameInfo = FrameFactory.createArrowFrame("BIG_X", ui.frames.tabFrame, 27, 3, 6, "Top box background color", "Top box background color")
         ui.frames.goBackFrame, ui.controls.goBackButton = arrowFrameInfo.frame, arrowFrameInfo.button
         ui.frames.goBackFrame.resize({width = 27, height = Graphics.LOG_VIEWER.TAB_HEIGHT})
         table.insert(eventListeners, MouseClickEventListener(ui.frames.goBackFrame, onGoBackClick))
