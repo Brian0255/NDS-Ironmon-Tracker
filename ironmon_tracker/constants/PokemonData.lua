@@ -12,7 +12,6 @@ PokemonData.TYPE_LIST = {
     "GRASS",
     "GROUND",
     "ICE",
-    "NORMAL",
     "POISON",
     "PSYCHIC",
     "ROCK",

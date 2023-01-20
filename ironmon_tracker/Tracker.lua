@@ -1,12 +1,19 @@
 local function Tracker()
 	local self = {}
+	self.PROGRESS = {
+		NOWHERE = 0,
+		PAST_LAB = 1,
+		WON_CHALLENGE = 2
+	}
+
 	local currentAreaName = ""
 	local encounterData = {}
 	local trackedData = {
+		progress = self.PROGRESS.NOWHERE,
 		firstPokemon = nil,
 		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
-		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
+		currentHiddenPowerType = PokemonData.POKEMON_TYPES.BUG,
 		currentHiddenPowerIndex = 1,
 		pokecenterCount = 10
 	}
