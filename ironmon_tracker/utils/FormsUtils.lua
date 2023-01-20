@@ -5,6 +5,39 @@ FormsUtils.POPUP_DIALOG_TYPES = {
     INFO = "Info"
 }
 
+function FormsUtils.createMainScreenNote(pokemonID, note, noteSettingFunction, drawingFunction)
+    local width, height = 270, 70
+    local clientCenter = FormsUtils.getCenter(width, height)
+    local charMax = 40
+    if pokemonID ~= nil then
+        forms.destroyall()
+        local noteForm =
+            forms.newform(
+            width,
+            height,
+            "Note (" .. charMax .. " char. max)",
+            function()
+            end
+        )
+        local textBox = forms.textbox(noteForm, note, 190, 0, nil, 5, 5)
+        forms.button(
+            noteForm,
+            "Set",
+            function()
+                noteSettingFunction(pokemonID, forms.gettext(textBox))
+                drawingFunction()
+                forms.destroy(noteForm)
+            end,
+            200,
+            4,
+            48,
+            22
+        )
+        forms.setlocation(noteForm, clientCenter.xPos, clientCenter.yPos)
+        forms.setproperty(textBox, "TabStop", true)
+    end
+end
+
 function FormsUtils.popupDialog(info, width, height, dialogType, pauseUntilClosed)
     if pauseUntilClosed == nil then
         pauseUntilClosed = false
