@@ -166,4 +166,41 @@ Graphics.TYPE_COLORS = {
 Graphics.PATHS = {
     TRAINER_IMAGES = "ironmon_tracker/images/trainers/"
 }
+Graphics.MAIN_SCREEN_CONSTANTS = {
+    STAT_PREDICTION_STATES = {
+        {text = "", color = "Top box text color"},
+        {text = "+", color = "Positive text color"},
+        {text = "_", color = "Negative text color"}
+    },
+    BADGE_HORIZONTAL_WIDTH = 140,
+    BADGE_HORIZONTAL_HEIGHT = 19,
+    BADGE_VERTICAL_WIDTH = 19,
+    BADGE_VERTICAL_HEIGHT = 131,
+    STAT_INFO_HEIGHT = 73,
+    HEALS_ACC_EVA_HEIGHT = 52,
+    MOVE_HEADER_HEIGHT = 14,
+    MOVE_ENTRY_HEIGHT = 10,
+    MOVE_Y_START = 97,
+    MOVE_FRAME_Y = 94,
+    MOVE_INFO_HEIGHT = 46,
+    BOTTOM_BOX_HEIGHT = 19,
+    POKEMON_INFO_STAT_OFFSET = 10,
+    POKEMON_INFO_X_OFFSET = 31,
+    POKEMON_INFO_Y_START = 0,
+    POKEMON_INFO_WIDTH = 96,
+    POKEMON_INFO_HEIGHT = 51,
+    STAT_FRAME_HEIGHT = 10
+}
+Graphics.MAIN_FRAME_BADGE_INDICES = {
+    [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE] = 1,
+    [Graphics.BADGE_ALIGNMENT_TYPE.BELOW] = 3,
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT] = 1,
+    [Graphics.BADGE_ALIGNMENT_TYPE.RIGHT] = 3,
+    [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = {1, 3},
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = {1, 3},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = {1, 2},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = {3, 3},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_LEFT] = {1, 2},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = {3, 3}
+}
 
