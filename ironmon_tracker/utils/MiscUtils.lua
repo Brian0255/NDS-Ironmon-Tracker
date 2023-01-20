@@ -105,6 +105,24 @@ function MiscUtils.splitTableByNumber(tbl, number)
     return sets
 end
 
+function MiscUtils.runExecuteCommand(command, errorOutput)
+    local tempFile = "commandResult.txt"
+    local completeCommand = string.format('%s 1>"%s"', command, tempFile)
+    if errorOutput then
+        completeCommand = string.format('%s 2>"%s"', completeCommand, errorOutput)
+    end
+    os.execute(completeCommand)
+    if MiscUtils.fileExists(tempFile) then
+        local file = io.open(tempFile)
+        if file ~= nil then
+            local contents = file:read("*a")
+            file:close()
+            return contents:gsub("\n","")
+        end
+    end
+    return nil
+end
+
 function MiscUtils.deepCopy(o, seen)
     seen = seen or {}
     if o == nil then

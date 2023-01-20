@@ -1,18 +1,22 @@
 local function Main()
 	local self = {}
 
+	--[[
 	if client.getversion == nil or client.getversion() ~= "2.8" then
 		print("This version of BizHawk is not supported. Please update to version 2.8 or higher.")
 		return
-	end
+	end--]]
 
+	dofile("ironmon_tracker/utils/MiscUtils.lua")
 	dofile("ironmon_tracker/constants/Paths.lua")
-	dofile(Paths.FOLDERS.DATA_FOLDER .. "/utils/MiscUtils.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Memory.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/StatisticsOrganizer.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/Graphics.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/PokemonData.lua")
+	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/LocationData.lua")
+	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/TrainerData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/GameInfo.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MemoryAddresses.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/ItemData.lua")
@@ -29,7 +33,10 @@ local function Main()
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/MoveUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/ThemeFactory.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/HoverFrameFactory.lua")
+	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/FrameFactory.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
+	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
+	Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
 
 	local settings
 	local program
@@ -62,7 +69,7 @@ local function Main()
 	end
 
 	local function generateROM()
-		client.pause()
+		--client.pause()
 		local paths = {
 			ROMPath = settings.quickLoad.ROM_PATH,
 			JARPath = settings.quickLoad.JAR_PATH,
@@ -76,7 +83,7 @@ local function Main()
 				return nil
 			end
 		end
-		local currentDirectory = FormsUtils.getCurrentDirectory()
+		local currentDirectory = Paths.CURRENT_DIRECTORY
 		local rnqsName = FormsUtils.getFileNameFromPath(paths.RNQSPath)
 		local settingsName = rnqsName:sub(1, -6)
 		local nextRomName = settingsName .. "_Auto_Randomized.nds"
@@ -90,14 +97,11 @@ local function Main()
 			nextRomPath
 		)
 		print("Generating next ROM...")
-		local pipe = io.popen(randomizerCommand .. " 2>RomGenerationErrorLog.txt")
-		if pipe ~= nil then
-			local output = pipe:read("*all")
-		--print("> " .. output)
-		end
+		local command = randomizerCommand
+		MiscUtils.runExecuteCommand(command, "RomGenerationErrorLog.txt")
 		client.unpause()
 
-		if not FormsUtils.fileExists(nextRomPath) then
+		if not MiscUtils.fileExists(nextRomPath) then
 			displayError('Next ROM failed to generate. Check the "RomGenerationErrorLog" file for more details.')
 			return nil
 		end
@@ -192,16 +196,16 @@ local function Main()
 
 	local function readSettings()
 		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
-        local DEFAULT_SETTINGS = MiscUtils.deepCopy(MiscConstants.DEFAULT_SETTINGS)
+        local DEFAULT_SETTINGS = MiscUtils.shallowCopy(MiscConstants.DEFAULT_SETTINGS)
 		local file = io.open("Settings.ini")
 		if file == nil then
-            settings = MiscUtils.deepCopy(DEFAULT_SETTINGS)
+            settings = DEFAULT_SETTINGS
         else
             settings = INI.parse(file:read("*a"), "memory")
 
             for settingsGroup, options in pairs(DEFAULT_SETTINGS) do
                 if not settings[settingsGroup] then
-                    settings[settingsGroup] = MiscUtils.deepCopy(options)
+                    settings[settingsGroup] = MiscUtils.shallowCopy(options)
                 end
 				for setting, settingValue in pairs(options) do
 					if settings[settingsGroup][setting] == nil then
@@ -226,6 +230,7 @@ local function Main()
 			end
 			emu.frameadvance()
 		end
+
 		console.clear()
 		print("\nNDS-Ironmon-Tracker v" .. MiscConstants.TRACKER_VERSION)
 		print("NDS ROM detected. Loading...")
@@ -244,7 +249,9 @@ local function Main()
 			print("Pok\233mon White 2 is currently not supported. Terminating Lua script...")
 			return false
 		end
+		local test = io.popen("cd"):read("l*")
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
+		tracker.loadData(gameConfiguration.gameInfo.NAME)
 		event.onexit(program.onProgramExit, "onProgramExit")
 		while not loadNextSeed do
 			program.main()
