@@ -13,6 +13,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local PokemonIconsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PokemonIconsScreen.lua")
 	local UpdaterScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdaterScreen.lua")
 	local LogViewerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/LogViewerScreen.lua")
+	local TrackedInfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackedInfoScreen.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
 	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
 	local TrackerUpdater = dofile(Paths.FOLDERS.DATA_FOLDER .. "/TrackerUpdater.lua")
@@ -34,6 +35,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local memoryAddresses = initialMemoryAddresses
 	local gameInfo = initialGameInfo
 	local settings = initialSettings
+	
+	local randomizerLogParser
 	local battleHandler
 
 	local runEvents = true
@@ -42,6 +45,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
 	local inTrackedPokemonView = false
+	local runOver = false
 	local inLockedView = false
 	local statusItems = nil
 	local playerPokemon = nil
@@ -60,6 +64,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return memoryAddresses
 	end
 
+	function self.openScreen(screen)
+		self.setCurrentScreens({screen})
+		self.drawCurrentScreens()
+	end
+
 	self.UI_SCREENS = {
 		MAIN_SCREEN = 0,
 		MAIN_OPTIONS_SCREEN = 1,
@@ -72,7 +81,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		QUICK_LOAD_SCREEN = 8,
 		POKEMON_ICONS_SCREEN = 9,
 		UPDATER_SCREEN = 10,
-		LOG_VIEWER_SCREEN = 11
+		LOG_VIEWER_SCREEN = 11,
+		TRACKED_INFO_SCREEN = 12,
+		PAST_RUNS_SCREEN = 13,
+		STATISTICS_SCREEN = 14
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -87,7 +99,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.QUICK_LOAD_SCREEN] = QuickLoadScreen(settings, tracker, self),
 		[self.UI_SCREENS.POKEMON_ICONS_SCREEN] = PokemonIconsScreen(settings, tracker, self),
 		[self.UI_SCREENS.UPDATER_SCREEN] = UpdaterScreen(settings, tracker, self),
-		[self.UI_SCREENS.LOG_VIEWER_SCREEN] = LogViewerScreen(settings, tracker, self)
+		[self.UI_SCREENS.LOG_VIEWER_SCREEN] = LogViewerScreen(settings, tracker, self),
+		[self.UI_SCREENS.TRACKED_INFO_SCREEN] = TrackedInfoScreen(settings, tracker, self),
 	}
 
 	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
@@ -184,7 +197,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return totals
 	end
 
-	local function checkProgress()
+	function self.isRunOver()
+		return runOver
 	end
 
 	local function onRunEnded()
@@ -195,11 +209,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local date = os.date("%x %I:%M %p")
 		self.addAdditionalDataToPokemon(playerPokemon)
 		self.addAdditionalDataToPokemon(enemyPokemon)
-		local progress = checkProgress()
+		local progress = tracker.getProgress()
 		local pastRun = PastRun(date, playerPokemon, enemyPokemon, location, badges, progress)
 		seedLogger.logRun(pastRun)
-		--self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].updatePastRun(seedLogger.getPastRun())
-		--self.UI_SCREEN_OBJECTS[self.UI_SCREENS.STATISTICS_SCREEN].updateStatistics(seedLogger.getStatistics())
+		runOver = true
 	end
 
 	local function getPlayerParty()
@@ -229,28 +242,17 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return highestLevelPokemon
 	end
 
-	local function isPartyWiped(party)
-		for _, mon in pairs(party) do
-			if mon.HP ~= 0 then
-				return false
-			end
-		end
-		return true
-	end
-
 	local function checkIfRunHasEnded()
-		local party = getPlayerParty()
-		local runEnded = false
-		if settings.battle.RUN_OVER == "PARTY_WIPE" then
-			runEnded = isPartyWiped(party)
-		else
+		if battleHandler.inBattleAndFetched() then
+			local party = getPlayerParty()
+			local runEnded = false
 			local highest = getHighestLevelPokemonFromParty(party)
 			if highest ~= nil then
 				runEnded = (highest.curHP == 0)
 			end
-		end
-		if runEnded then
-			onRunEnded()
+			if runEnded then
+				onRunEnded()
+			end
 		end
 	end
 
@@ -731,10 +733,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	checkForUpdateBeforeLoading()
 	self.drawCurrentScreens()
 
+	function self.openLogFromPath(logPath)
+		local logInfo = randomizerLogParser.parse(logPath)
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
+		self.openScreen(self.UI_SCREENS.LOG_VIEWER_SCREEN)
+	end
+
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
-	local parser = RandomizerLogParser(self)
-	local logInfo = parser.parse("hgsslogtest.nds.log")
-	self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
+	randomizerLogParser = RandomizerLogParser(self)
+
 
 	return self
 end
