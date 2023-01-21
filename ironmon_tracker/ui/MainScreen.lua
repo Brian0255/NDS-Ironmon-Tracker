@@ -441,8 +441,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             moveFrame.powLabel.setText(moveData.power)
             moveFrame.accLabel.setText(moveData.accuracy)
 
-            if moveData.name == "Return" and not isEnemy and currentPokemon.friendship == 255 then
-                moveFrame.powLabel.setText("102")
+            if moveData.name == "Return" and not isEnemy then
+                local basePower = math.max(currentPokemon.friendship / 2.5, 1)
+                basePower = math.floor(basePower)
+                if basePower >= 100 then
+                    moveFrame.powLabel.setText(tostring(basePower))
+                end
             end
 
             local listener = moveEventListeners[i]
