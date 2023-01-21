@@ -75,6 +75,7 @@ local function RandomizerLogParser(initialProgram)
             pokemonList[pokemonID].evolutions = evolutions
             currentLineIndex = currentLineIndex + 1
         end
+        return true
     end
 
     local function readPokemonIntoTeam(pokemonInfo, trainerTeam)
@@ -114,6 +115,7 @@ local function RandomizerLogParser(initialProgram)
             end
             currentLineIndex = currentLineIndex + 1
         end
+        return true
     end
 
     local function parsePokemonLevelupMoves(lines, lineStart)
@@ -147,6 +149,7 @@ local function RandomizerLogParser(initialProgram)
             end
             currentLineIndex = currentLineIndex + 1
         end
+        return true
     end
 
     local function parseTMMoves(lines, lineStart)
@@ -158,6 +161,7 @@ local function RandomizerLogParser(initialProgram)
             table.insert(TMs, moveID)
             currentLineIndex = currentLineIndex + 1
         end
+        return true
     end
 
     local function parseTMCompatibility(lines, lineStart)
@@ -175,6 +179,7 @@ local function RandomizerLogParser(initialProgram)
             end
             currentLineIndex = currentLineIndex + 1
         end
+        return true
     end
 
     local function parseMiscInfo(lines)
@@ -218,6 +223,17 @@ local function RandomizerLogParser(initialProgram)
             end
             currentLineIndex = currentLineIndex + 1
         end
+        return true
+    end
+
+    local function checkGameName(lines, lineStart)
+        local name = lines[lineStart]:match("Randomization of (Pokemon [%a%d ]+).* completed.")
+        name = MiscUtils.trimWhitespace(name)
+        local gameName = program.getGameInfo().NAME
+        if string.find(gameName, name) then
+            return true
+        end
+        return false
     end
 
     self.LogParserConstants = {
@@ -261,15 +277,18 @@ local function RandomizerLogParser(initialProgram)
             ["--Randomized Evolutions--"] = parseRandomizedEvolutions,
             ["--TM Moves--"] = parseTMMoves,
             ["--TM Compatibility--"] = parseTMCompatibility,
-            ["--Trainers Pokemon--"] = parseTrainers
+            ["--Trainers Pokemon--"] = parseTrainers,
+            ["------------------------------------------------------------------"] = checkGameName
         },
         PREFERRED_PARSE_ORDER = {
+            --game name
+            "------------------------------------------------------------------",
             "--Pokemon Base Stats & Types--",
             "--Pokemon Movesets--",
             "--Randomized Evolutions--",
             "--TM Moves--",
             "--TM Compatibility--",
-            "--Trainers Pokemon--"
+            "--Trainers Pokemon--",
         }
     }
 
@@ -302,15 +321,23 @@ local function RandomizerLogParser(initialProgram)
                 table.insert(lines, line)
             end
             local sectionHeaderStarts = {}
+            local totalFound = 0
             for index, line in pairs(lines) do
                 if self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[line] then
                     sectionHeaderStarts[line] = index + 1
+                    totalFound = totalFound + 1
+                    if totalFound == 7 then
+                        break
+                    end
                 end
             end
             for _, sectionName in pairs(self.LogParserConstants.PREFERRED_PARSE_ORDER) do
                 local lineStart = sectionHeaderStarts[sectionName]
                 local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[sectionName]
-                parseFunction(lines, lineStart)
+                local success = parseFunction(lines, lineStart)
+                if success == false then
+                    return nil
+                end
             end
             local miscInfo = parseMiscInfo(lines)
             return LogInfo(pokemonList, trainers, TMs, 1, miscInfo)
