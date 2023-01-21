@@ -11,6 +11,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local QuickLoadScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/QuickLoadScreen.lua")
 	local EditControlsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EditControlsScreen.lua")
 	local PokemonIconsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PokemonIconsScreen.lua")
+	local PastRunsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PastRunsScreen.lua")
 	local UpdaterScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdaterScreen.lua")
 	local LogViewerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/LogViewerScreen.lua")
 	local TrackedInfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackedInfoScreen.lua")
@@ -35,7 +36,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local memoryAddresses = initialMemoryAddresses
 	local gameInfo = initialGameInfo
 	local settings = initialSettings
-	
+
 	local randomizerLogParser
 	local battleHandler
 
@@ -45,7 +46,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
 	local inTrackedPokemonView = false
-	local runOver = false
+	local inPastRunView = true
 	local inLockedView = false
 	local statusItems = nil
 	local playerPokemon = nil
@@ -67,6 +68,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.openScreen(screen)
 		self.setCurrentScreens({screen})
 		self.drawCurrentScreens()
+	end
+
+	function self.openPastRunsScreen()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(seedLogger)
 	end
 
 	self.UI_SCREENS = {
@@ -101,6 +106,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.UPDATER_SCREEN] = UpdaterScreen(settings, tracker, self),
 		[self.UI_SCREENS.LOG_VIEWER_SCREEN] = LogViewerScreen(settings, tracker, self),
 		[self.UI_SCREENS.TRACKED_INFO_SCREEN] = TrackedInfoScreen(settings, tracker, self),
+		[self.UI_SCREENS.PAST_RUNS_SCREEN] = PastRunsScreen(settings, tracker, self),
 	}
 
 	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
@@ -197,63 +203,20 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return totals
 	end
 
-	function self.isRunOver()
-		return runOver
-	end
-
-	local function onRunEnded()
+	function self.onRunEnded()
+		if tracker.hasRunEnded() then return end
 		if playerPokemon == nil or enemyPokemon == nil then
 			return
 		end
-		local location = "an unknown location"
-		local date = os.date("%x %I:%M %p")
+		local location = tracker.getCurrentAreaName()
 		self.addAdditionalDataToPokemon(playerPokemon)
 		self.addAdditionalDataToPokemon(enemyPokemon)
 		local progress = tracker.getProgress()
-		local pastRun = PastRun(date, playerPokemon, enemyPokemon, location, badges, progress)
+		local date = os.date("%x %I:%M %p")
+		local seconds = os.time()
+		local pastRun = PastRun(date, seconds, playerPokemon, enemyPokemon, location, badges, progress)
 		seedLogger.logRun(pastRun)
-		runOver = true
-	end
-
-	local function getPlayerParty()
-		local playerParty = {}
-		local currentBase = memoryAddresses.playerBattleBase
-		for monIndex = 0, 5, 1 do
-			pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
-			local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
-			if playerPokemon ~= nil and gameInfo.GEN == 5 then
-				if MiscUtils.validPokemonData(data) then
-					table.insert(playerParty, data)
-				end
-			end
-		end
-		return playerParty
-	end
-
-	local function getHighestLevelPokemonFromParty(party)
-		local max = 0
-		local highestLevelPokemon = nil
-		for monIndex, mon in pairs(party) do
-			if mon.level > max then
-				max = mon.level
-				highestLevelPokemon = mon
-			end
-		end
-		return highestLevelPokemon
-	end
-
-	local function checkIfRunHasEnded()
-		if battleHandler.inBattleAndFetched() then
-			local party = getPlayerParty()
-			local runEnded = false
-			local highest = getHighestLevelPokemonFromParty(party)
-			if highest ~= nil then
-				runEnded = (highest.curHP == 0)
-			end
-			if runEnded then
-				onRunEnded()
-			end
-		end
+		tracker.setRunOver()
 	end
 
 	local function getPokemonDataPlayer()
@@ -363,7 +326,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				self.addAdditionalDataToPokemon(opposingPokemon)
 			end
 			pokemonToDraw.owner = selectedPlayer
-			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setPokemonToDraw(pokemonToDraw, opposingPokemon)
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setPokemonToDraw(pokemonToDraw, opposingPokemon)
 		end
 	end
 
@@ -417,6 +380,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			updatePlayerPokemonData()
 			updateEnemyPokemonData()
 			battleHandler.updateStatStages(playerPokemon, enemyPokemon)
+			battleHandler.checkIfRunHasEnded()
 		end
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
 			HGSS_checkLeagueDefeated()
@@ -597,9 +561,27 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return battleHandler.isInBattle()
 	end
 
+	function self.changeMainScreenForPastRunView()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setUpForPastRunView()
+	end
+
+	function self.loadPastRunIntoMainScreen(pastRun)
+		local runBadges = pastRun.getBadges()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].updateBadges(runBadges)
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setNotesAsPastRunDate(pastRun.getDate())
+	end
+
 	function self.changeMainScreenForTeamInfoView(pokemon, pokemonStatLoadingFunction)
 		self.setSpecificPokemonAsMainScreen(pokemon)
 		currentScreens[self.UI_SCREENS.MAIN_SCREEN].formatForTeamInfoView(pokemonStatLoadingFunction)
+	end
+
+	function self.undoTeamInfoView()
+		inLockedView = false
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].undoTeamInfoView()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
+		self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
+		readMemory()
 	end
 
 	local function readBadgeByte(address)
@@ -618,7 +600,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		else
 			badges.firstSet = readBadgeByte(memoryAddresses.badges)
 		end
-		currentScreens[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
+		if not inPastRunView then
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
+		end
 	end
 
 	local function saveSettings()
@@ -660,12 +644,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		inTrackedPokemonView = true
 		currentScreens[self.UI_SCREENS.MAIN_SCREEN].setUpForTrackedPokemonView()
 		currentScreens[self.UI_SCREENS.TRACKED_POKEMON_SCREEN].initialize()
-	end
-
-	function self.setUpForPastRunView()
-		locked = false
-		inLockedView = true
-		currentScreens[self.UI_SCREENS.MAIN_SCREEN].setUpForPastRunView()
 	end
 
 	function self.moveMainScreen(newPosition)
@@ -716,6 +694,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		forms.destroyall()
 	end
 
+	function self.getSeedLogger()
+		return seedLogger
+	end
+
 	local function checkForUpdateBeforeLoading()
 		if not trackerUpdater.alreadyCheckedForTheDay() then
 			if trackerUpdater.updateExists() then
@@ -735,13 +717,17 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.openLogFromPath(logPath)
 		local logInfo = randomizerLogParser.parse(logPath)
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
-		self.openScreen(self.UI_SCREENS.LOG_VIEWER_SCREEN)
+		if logInfo ~= nil then
+			self.setCurrentScreens({self.UI_SCREENS.LOG_VIEWER_SCREEN})
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
+			self.drawCurrentScreens()
+		else
+			print("game mismatch")
+		end
 	end
 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
 	randomizerLogParser = RandomizerLogParser(self)
-
 
 	return self
 end
