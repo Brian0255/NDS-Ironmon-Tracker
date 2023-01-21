@@ -21,6 +21,9 @@ local function Icon(initialComponent, initialIconName, initialIconOffset, initia
     function self.isVisible()
         return visible
     end
+    function self.setBackgroundColorKey(newBackgroundFillColorKey)
+        backgroundColorKey = newBackgroundFillColorKey
+    end
     function self.calculateActualPosition(parentPosition)
         component.calculateActualPosition(parentPosition)
     end
