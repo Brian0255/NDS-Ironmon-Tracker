@@ -4,6 +4,7 @@ local function Tracker()
 	local currentAreaName = ""
 	local encounterData = {}
 	local trackedData = {
+		runOver = false,
 		progress = PlaythroughConstants.PROGRESS.NOWHERE,
 		firstPokemon = nil,
 		trackedPokemon = {},
@@ -12,6 +13,14 @@ local function Tracker()
 		currentHiddenPowerIndex = 1,
 		pokecenterCount = 10
 	}
+
+	function self.setRunOver()
+		trackedData.runOver = true
+	end
+
+	function self.hasRunEnded()
+		return trackedData.runOver
+	end
 
 	function self.setFirstPokemon(pokemon)
 		if trackedData.firstPokemon == nil then
@@ -69,6 +78,10 @@ local function Tracker()
 				return a < b
 			end
 		)
+	end
+
+	function self.getCurrentAreaName()
+		return currentAreaName
 	end
 
 	function self.getEncounterData()
