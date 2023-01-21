@@ -1,13 +1,17 @@
 local function Main()
 	local self = {}
 
-	--[[
-	if client.getversion == nil or client.getversion() ~= "2.8" then
-		print("This version of BizHawk is not supported. Please update to version 2.8 or higher.")
-		return
-	end--]]
+	local function checkVersion()
+		local version = client.getversion()
+		--basically checking if older than 2.9
+		if tonumber(version:sub(1,1)) == 2 and tonumber(version:sub(3,3)) < 9 then
+			MiscConstants.accentedE = "\233"
+		end
+	end
 
 	dofile("ironmon_tracker/utils/MiscUtils.lua")
+	dofile("ironmon_tracker/constants/MiscConstants.lua")
+	checkVersion()
 	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
@@ -22,8 +26,8 @@ local function Main()
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/ItemData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscConstants.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/IconSets.lua")
+	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/PlaythroughConstants.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Input.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/DrawingUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/BitUtils.lua")
@@ -246,10 +250,10 @@ local function Main()
 		IconDrawer.setSettings(settings)
 		local gameConfiguration = GameConfigurator.initialize()
 		if gameConfiguration == nil then
-			print("Pok\233mon White 2 is currently not supported. Terminating Lua script...")
+			print("This game is not currently not supported. Terminating Lua script...")
 			return false
 		end
-		local test = io.popen("cd"):read("l*")
+		checkVersion()
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
 		tracker.loadData(gameConfiguration.gameInfo.NAME)
 		event.onexit(program.onProgramExit, "onProgramExit")

@@ -81,7 +81,6 @@ local function TrackerUpdater(initialSettings)
         local versionURL = "https://api.github.com/repos/Brian0255/NDS-Ironmon-Tracker/releases/latest"
         local command =  "curl " .. versionURL .. " --ssl-no-revoke"
         local response = MiscUtils.runExecuteCommand(command)
-        print(response)
         if response ~= nil and response ~= "" then
             local latestVersionString = string.match(response, '"tag_name":.*(%d+%.%d+%.%d+)"')
             latestVersion = parseVersionNumber(latestVersionString)
