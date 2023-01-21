@@ -247,14 +247,13 @@ IconDrawer.ICONS =
         PSYCHIC = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
+                {0,0,0,0,0,0,0,0},
                 {0,0,1,1,1,1,0,0},
-                {0,1,0,0,0,0,1,0},
-                {1,0,0,1,1,0,0,1},
-                {1,0,1,0,1,0,0,1},
-                {1,0,1,0,0,0,1,0},
-                {1,0,0,1,1,1,0,0},
-                {0,1,0,0,0,0,0,1},
-                {0,0,1,1,1,1,1,0}
+                {0,1,0,1,1,0,1,0},
+                {1,0,1,0,0,1,0,1},
+                {1,0,1,0,0,1,0,1},
+                {0,1,0,1,1,0,1,0},
+                {0,0,1,1,1,1,0,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
@@ -304,9 +303,10 @@ IconDrawer.ICONS =
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
         },
-        FIGHTING = {
+        FIGHTING_2 = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
+                {0,0,0,0,0,0,0,0},
                 {0,0,0,1,0,1,0,0},
                 {0,0,1,0,1,0,1,0},
                 {0,1,1,0,1,0,1,0},
@@ -315,6 +315,20 @@ IconDrawer.ICONS =
                 {1,0,0,0,0,0,1,0},
                 {0,1,0,0,0,0,1,0},
                 {0,0,1,1,1,1,0,0}
+            },
+            colorKey = nil,
+            backgroundColorKey = "Bottom box background color"
+        },
+        FIGHTING = {
+            iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
+            imageArray = {
+                {0,1,1,1,1,1,0},
+                {1,0,1,0,1,0,1},
+                {1,0,1,0,1,0,1},
+                {1,0,1,0,1,0,1},
+                {0,1,1,1,1,1,1},
+                {0,0,0,1,0,0,1},
+                {0,0,0,0,1,1,0}
             },
             colorKey = nil,
             backgroundColorKey = "Bottom box background color"
