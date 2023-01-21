@@ -218,7 +218,7 @@ local function PokemonDataReader(initialProgram)
             end
         end
         --Gen 5 does not update the current HP or moves/PP in the player's battle party memory. It's stored elsewhere as unencrypted data.
-        if program.isInBattle() and gameInfo.GEN == 5 then
+        if program.isInBattle() and gameInfo.GEN == 5 and not checkingEnemy then
             decryptedData.curHP = Memory.read_u16_le(addresses.curHPBattlePlayer + monIndex * 548)
             decryptedData.HP = Memory.read_u16_le(addresses.HPBattlePlayer + monIndex * 548)
             if not checkingEnemy then
@@ -262,7 +262,7 @@ local function PokemonDataReader(initialProgram)
     end
 
     function self.getDefaultPokemon()
-        return MiscUtils.deepCopy(constants.DEFAULT_POKEMON)
+        return MiscUtils.shallowCopy(constants.DEFAULT_POKEMON)
     end
 
     function self.decryptPokemonInfo(checkingParty, monIndex, checkingEnemy, extraOffset)
