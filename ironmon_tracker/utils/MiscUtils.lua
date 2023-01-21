@@ -39,11 +39,15 @@ function MiscUtils.increaseTableIndex(index, size)
     return (index % size) + 1
 end
 
+function MiscUtils.trimWhitespace(input)
+    return input:gsub("^%s*(.-)%s*$", "%1")
+end
+
 function MiscUtils.split(s, delimiter, trimWhitespace)
     local result = {}
     for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
         if trimWhitespace then
-            match = match:gsub("^%s*(.-)%s*$", "%1")
+            match = MiscUtils.trimWhitespace(match)
         end
         table.insert(result, match)
     end
