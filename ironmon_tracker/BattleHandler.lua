@@ -4,8 +4,7 @@ local function BattleHandler(
     initialPokemonDataReader,
     initialTracker,
     initialProgram)
-
-	local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
+    local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
 
     local self = {}
 
@@ -21,6 +20,7 @@ local function BattleHandler(
     local playerBattleTeamPIDs = {list = {}}
     local enemyBattlers = {}
     local playerMonIndex = 0
+    local highestLevelMonIndex = -1
     local firstBattleComplete = false
     local battleDataFetched = false
     local enemyMonIndex = 0
@@ -61,9 +61,6 @@ local function BattleHandler(
             GEN5_PIDSwitchData.switchSlots[addr] = {
                 ["initialValue"] = initialValue
             }
-        end
-        for addr, val in pairs(GEN5_PIDSwitchData.switchSlots) do
-            print(string.format("%X",addr),val.initialValue)
         end
     end
 
@@ -165,7 +162,6 @@ local function BattleHandler(
             end
             currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
         end
-        print(playerBattleTeamPIDs)
     end
 
     local function tryToFetchBattleData()
@@ -323,7 +319,9 @@ local function BattleHandler(
     end
 
     function self.isWildBattle()
-        if enemyTrainerID == nil then return false end
+        if enemyTrainerID == nil then
+            return false
+        end
         return enemyTrainerID == 0
     end
 
@@ -417,7 +415,7 @@ local function BattleHandler(
                 if currentValue == 0 then
                     sawAZero = true
                 else
-                    --checking for player pokeball being sent out (and changing the initial value if so), 
+                    --checking for player pokeball being sent out (and changing the initial value if so),
                     --as well as making sure no switch in occured yet (seeing a zero means there was no switch in)
                     if data.initialValue == 0 and sawAZero and currentValue ~= 0 then
                         data.initialValue = currentValue
@@ -425,12 +423,12 @@ local function BattleHandler(
                     if
                         not data.active and currentValue ~= data.initialValue and
                             not GEN5_PIDSwitchData.initialPIDs[currentValue]
-                    then
+                     then
                         data.active = true
                         if
                             playerBattleTeamPIDs[currentValue] and
                                 GEN5_activePlayerMonPIDAddr == memoryAddresses.playerBattleBase
-                        then
+                         then
                             GEN5_activePlayerMonPIDAddr = switchAddr
                         else
                             for _, battler in pairs(enemyBattlers) do
@@ -447,10 +445,11 @@ local function BattleHandler(
 
     local function onEndOfBattle()
         if inBattle then
-            if not program.isRunOver() then
+            if not tracker.hasRunEnded() then
                 if gameInfo.TRAINERS.LAB_IDS[enemyTrainerID] then
+                    print("won lab")
                     tracker.setProgress(PlaythroughConstants.PROGRESS.PAST_LAB)
-                elseif gameInfo.FINAL_FIGHT_ID[enemyTrainerID] then
+                elseif gameInfo.TRAINERS.FINAL_FIGHT_ID == enemyTrainerID then
                     tracker.setProgress(PlaythroughConstants.PRORESS.WON)
                 end
             end
@@ -462,13 +461,55 @@ local function BattleHandler(
                 end
             end
         end
+        highestLevelMonIndex = -1
         inBattle = false
+    end
+
+    local function getPlayerParty()
+        local playerParty = {}
+        local currentBase = memoryAddresses.playerBattleBase
+        for monIndex = 0, 5, 1 do
+            pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
+            local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
+            if MiscUtils.validPokemonData(data) then
+                playerParty[monIndex] = data
+            end
+        end
+        return playerParty
+    end
+
+    local function calculateHighestPlayerMonIndex()
+        local party = getPlayerParty()
+        local maxLevel = 0
+        local highestLevelPokemon = nil
+        for monIndex, mon in pairs(party) do
+            if mon.level > maxLevel then
+                maxLevel = mon.level
+                highestLevelMonIndex = monIndex
+            end
+        end
+    end
+
+    function self.checkIfRunHasEnded()
+        if not inBattle or not battleDataFetched then return end
+        if highestLevelMonIndex == -1 then
+            calculateHighestPlayerMonIndex()
+        end
+        local currentBase = memoryAddresses.playerBattleBase
+        pokemonDataReader.setCurrentBase(currentBase + highestLevelMonIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
+        local data = pokemonDataReader.decryptPokemonInfo(false, highestLevelMonIndex, false)
+        if MiscUtils.validPokemonData(data) then
+            if data.curHP == 0 then
+                program.onRunEnded()
+            end
+        end
     end
 
     local function onBattleFetchFrameCounter()
         battleDataFetched = tryToFetchBattleData()
         if battleDataFetched then
             enemyTrainerID = Memory.read_u16_le(memoryAddresses.enemyTrainerID)
+            calculateHighestPlayerMonIndex()
             GEN5_initializePIDSlots()
         end
     end
@@ -525,8 +566,8 @@ local function BattleHandler(
 
     function self.runFrameCounters()
         for _, frameCounter in pairs(frameCounters) do
-			frameCounter.decrement()
-		end
+            frameCounter.decrement()
+        end
     end
 
     return self
