@@ -455,7 +455,7 @@ LocationData.LOCATION_DATA = {
                 name = "Route 36"
             },
             [150] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [151] = {
                 name = "Route 47"
@@ -845,28 +845,28 @@ LocationData.LOCATION_DATA = {
                 name = "Cliff Edge Gate"
             },
             [280] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [281] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [282] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [283] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [284] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [285] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [286] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [287] = {
-                name = "Pokéathlon Dome"
+                name = "Pok"..MiscConstants.accentedE.."athlon Dome"
             },
             [288] = {
                 name = "Dragon's Den"
@@ -905,25 +905,25 @@ LocationData.LOCATION_DATA = {
                 name = "Route 26"
             },
             [300] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [301] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [302] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [303] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [304] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [305] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [306] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [307] = {
                 name = "S.S. Aqua"
@@ -1622,7 +1622,7 @@ LocationData.LOCATION_DATA = {
                 name = "Mystery Zone"
             },
             [539] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             }
         },
         encounters = {
@@ -1630,16 +1630,16 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 5, percent = 30},
-                        {level = 8, percent = 20},
-                        {level = 9, percent = 5}
+                        {level = 3, percent = 30},
+                        {level = 5, percent = 20},
+                        {level = 6, percent = 5}
                     },
                     {
-                        {level = 5, percent = 10},
-                        {level = 8, percent = 30}
+                        {level = 3, percent = 10},
+                        {level = 5, percent = 30}
                     },
                     {
-                        {level = 9, percent = 5}
+                        {level = 6, percent = 5}
                     }
                 }
             },
@@ -1647,16 +1647,16 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 5, percent = 10},
-                        {level = 8, percent = 30}
+                        {level = 3, percent = 10},
+                        {level = 5, percent = 30}
                     },
                     {
-                        {level = 5, percent = 30},
-                        {level = 8, percent = 5}
+                        {level = 3, percent = 30},
+                        {level = 5, percent = 5}
                     },
                     {
-                        {level = 5, percent = 20},
-                        {level = 9, percent = 5}
+                        {level = 3, percent = 20},
+                        {level = 6, percent = 5}
                     }
                 }
             },
@@ -1664,15 +1664,15 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
+                        {level = 3, percent = 30},
+                        {level = 6, percent = 20}
+                    },
+                    {
                         {level = 5, percent = 30},
-                        {level = 9, percent = 20}
+                        {level = 6, percent = 5}
                     },
                     {
-                        {level = 8, percent = 30},
-                        {level = 9, percent = 5}
-                    },
-                    {
-                        {level = 9, percent = 15}
+                        {level = 6, percent = 15}
                     }
                 }
             },
@@ -1680,17 +1680,17 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
-                        {level = 9, percent = 30},
-                        {level = 12, percent = 5}
+                        {level = 6, percent = 30},
+                        {level = 8, percent = 5}
                     },
                     {
-                        {level = 8, percent = 30}
+                        {level = 5, percent = 30}
                     },
                     {
-                        {level = 8, percent = 20}
+                        {level = 5, percent = 20}
                     },
                     {
-                        {level = 12, percent = 15}
+                        {level = 8, percent = 15}
                     }
                 }
             },
@@ -1699,16 +1699,16 @@ LocationData.LOCATION_DATA = {
                 vanillaData = {
                     {
                         {level = 9, percent = 35},
-                        {level = 14, percent = 5}
+                        {level = 9, percent = 5}
                     },
                     {
-                        {level = 14, percent = 30}
+                        {level = 9, percent = 30}
                     },
                     {
-                        {level = 14, percent = 20}
+                        {level = 9, percent = 20}
                     },
                     {
-                        {level = 14, percent = 10}
+                        {level = 9, percent = 10}
                     }
                 }
             },
@@ -1716,17 +1716,17 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 5, percent = 20},
-                        {level = 8, percent = 30},
-                        {level = 9, percent = 10}
-                    },
-                    {
+                        {level = 3, percent = 20},
                         {level = 5, percent = 30},
-                        {level = 8, percent = 5},
-                        {level = 9, percent = 4}
+                        {level = 6, percent = 10}
                     },
                     {
-                        {level = 9, percent = 1}
+                        {level = 3, percent = 30},
+                        {level = 5, percent = 5},
+                        {level = 6, percent = 4}
+                    },
+                    {
+                        {level = 6, percent = 1}
                     }
                 }
             },
@@ -1742,16 +1742,16 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 2,
                 vanillaData = {
                     {
-                        {level = 8, percent = 40},
-                        {level = 9, percent = 30},
-                        {level = 12, percent = 25},
-                        {level = 14, percent = 5}
+                        {level = 5, percent = 40},
+                        {level = 6, percent = 30},
+                        {level = 8, percent = 25},
+                        {level = 9, percent = 5}
                     },
                     {
-                        {level = 8, percent = 40},
-                        {level = 9, percent = 30},
-                        {level = 12, percent = 25},
-                        {level = 14, percent = 5}
+                        {level = 5, percent = 40},
+                        {level = 6, percent = 30},
+                        {level = 8, percent = 25},
+                        {level = 9, percent = 5}
                     }
                 }
             }
@@ -1797,7 +1797,7 @@ LocationData.LOCATION_DATA = {
                 name = "Opelucid City"
             },
             [136] = {
-                name = "Pokémon League"
+                name = "Pok"..MiscConstants.accentedE.."mon League"
             },
             [147] = {
                 name = "Unity Tower"
@@ -2016,7 +2016,7 @@ LocationData.LOCATION_DATA = {
                 name = "Route 15"
             },
             [381] = {
-                name = "Poké Transfer Lab"
+                name = "Pok"..MiscConstants.accentedE.." Transfer Lab"
             },
             [383] = {
                 name = "Route 16"

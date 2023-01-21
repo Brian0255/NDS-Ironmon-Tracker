@@ -2,6 +2,8 @@ MiscConstants = {}
 
 MiscConstants.TRACKER_VERSION = "5.0.0"
 
+MiscConstants.BIZHAWK_VERSION = client.getversion()
+
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
         RIGHT_JUSTIFIED_NUMBERS = true,
@@ -70,3 +72,4 @@ MiscConstants.DEFAULT_SETTINGS = {
     }
 }
 
+MiscConstants.accentedE = "é"

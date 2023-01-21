@@ -35,7 +35,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local trainerGroups
     local currentIndex = 1
     local tabs = {
-        "Pokémon",
+        "Pok"..MiscConstants.accentedE.."mon",
         "Trainers",
         "Gym TMs",
         "Statistics",
@@ -63,7 +63,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
             local functionName, argument = mostRecent.functionName, mostRecent.argument
             functionName(argument)
         else
-            program.openScreen(program.UI_SCREENS.MAIN_SCREEN)
+            program.undoTeamInfoView()
         end
     end
 

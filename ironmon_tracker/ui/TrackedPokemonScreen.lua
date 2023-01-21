@@ -182,7 +182,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             ),
             TextField(
                 "Search",
-                {x = 48, y = 1},
+                {x = 50, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -261,49 +261,13 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local function initUI()
         ui.controls = {}
         ui.frames = {}
-        ui.frames.mainTopFrame =
-            Frame(
-            Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.TOP_FRAME_HEIGHT},
-                "Main background color",
-                nil
-            ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.VERTICAL,
-                0,
-                {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}
-            ),
-            nil
-        )
-        ui.controls.topHeading =
-            TextLabel(
-            Component(
-                ui.frames.mainTopFrame,
-                Box(
-                    {x = 5, y = 5},
-                    {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                        height = constants.MAIN_TEXT_HEADING_HEIGHT
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    false
-                )
-            ),
-            TextField(
-                "Tracked Pokémon",
-                {x = 20, y = 1},
-                TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-            )
-        )
 
         ui.frames.mainBottomFrame =
             Frame(
             Box(
                 {
                     x = Graphics.SIZES.SCREEN_WIDTH,
-                    y = Graphics.SIZES.MAIN_SCREEN_HEIGHT + constants.TOP_FRAME_HEIGHT - 6
+                    y = Graphics.SIZES.MAIN_SCREEN_HEIGHT - 6
                 },
                 {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.BOTTOM_FRAME_HEIGHT},
                 "Main background color",
@@ -397,7 +361,6 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     end
 
     function self.show()
-        ui.frames.mainTopFrame.show()
         ui.frames.mainBottomFrame.show()
         readCurrentIndexIntoMainScreen()
     end
