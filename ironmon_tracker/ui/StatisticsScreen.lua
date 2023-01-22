@@ -17,6 +17,8 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram,
     local tracker = initialTracker
     local program = initialProgram
     local logViewerScreen = initialLogViewerScreen
+    local totalRunsPastLab
+    local totalRuns
     local logPokemon
     local currentIndex
     local currentStatistic
@@ -45,6 +47,10 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram,
     local function readCurrentStatisticIntoUI()
         currentStatistic = statisticSet[currentIndex]
         local name = currentStatistic[1]
+        ui.controls.mainBarGraph.setMaxValue(totalRunsPastLab)
+        if name == "Overall Progress" then
+            ui.controls.mainBarGraph.setMaxValue(totalRuns)
+        end
         local nameLength = DrawingUtils.calculateWordPixelLength(name)
         local offsetX = (constants.TOP_LABEL_WIDTH - nameLength + 2) / 2
         ui.controls.topLabel.setTextOffset({x = offsetX, y = -1})
@@ -74,8 +80,8 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram,
 
     function self.initialize(seedLogger)
         statisticSet = StatisticsOrganizer.createPastRunStatistics(seedLogger)
-        local totalRuns = seedLogger.getTotalRuns()
-        ui.controls.mainBarGraph.setMaxValue(totalRuns)
+        totalRuns = seedLogger.getTotalRuns()
+        totalRunsPastLab = seedLogger.getTotalRunsPastLab()
         ui.controls.totalRunsLabel.setText("Total runs: "..totalRuns)
         reset()
     end

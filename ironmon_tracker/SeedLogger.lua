@@ -59,6 +59,10 @@ local function SeedLogger(initialProgram, initialGameName)
         return newHashes
     end
 
+    function self.getTotalRunsPastLab()
+        return #pastRunKeyList
+    end
+
     function self.getTotalRuns()
         return totalRuns
     end
@@ -142,6 +146,7 @@ local function SeedLogger(initialProgram, initialGameName)
 
     local function parsePastRunFromLineLocation(lines, lineStart)
         local date, seconds = lines[lineStart]:match("(.*),(.*)")
+        seconds = tonumber(seconds)
         local faintedPokemonCSV = lines[lineStart + 1]
         local enemyPokemonCSV = lines[lineStart + 2]
         local badgeSet1CSV = lines[lineStart + 3]
@@ -288,6 +293,7 @@ local function SeedLogger(initialProgram, initialGameName)
                 if not pastRuns[ROMHash] then
                     print("logging run")
                     pastRuns[ROMHash] = pastRun
+                    table.insert(pastRunKeyList, ROMHash)
                     capLabRuns()
                     pastHashLogged = ROMHash
                 end
