@@ -26,66 +26,11 @@ local function PastRun(
     local location = initialLocation
     local badges = initialBadges
     local progress = initialProgress
-    local cause
     local description
     if progress == nil then
         progress = PlaythroughConstants.PROGRESS.NOWHERE
     end
 
-
-    local function getArticleBeforeName(enemyName)
-        local vowels = {
-            A = true,
-            E = true,
-            I = true,
-            O = true,
-            U = true
-        }
-        local beforeEnemyName = "a"
-        local firstLetter = enemyName:sub(1, 1)
-        if vowels[firstLetter] then
-            beforeEnemyName = beforeEnemyName .. "n"
-        end
-        return beforeEnemyName
-    end
-
-    local function randomizeDescription()
-        description = ""
-        local enemyName = enemyPokemon.name
-        local enemyAbility = AbilityData.ABILITIES[enemyPokemon.ability + 1].name
-        local beginning = MiscUtils.randomTableValue(PlaythroughConstants.BEGINNING_TEMPLATES)
-        local ending
-        local beforeEnemyName = getArticleBeforeName(enemyName)
-        ending = " " .. beforeEnemyName .. " " .. enemyName .. " with " .. enemyAbility .. " in " .. location .. ". "
-        description = beginning .. ending
-        description = string.gsub(description, "%%enemy%%", enemyName)
-    end
-
-    local function figureOutCause()
-        local abilityName = AbilityData.ABILITIES[enemyPokemon.ability].name
-        local causeMappings = {
-            [PlaythroughConstants.CAUSES.SHEDINJA] = function()
-                return enemyPokemon.name == "Shedinja"
-            end,
-            [PlaythroughConstants.CAUSES.IMPOSTER] = function()
-                return abilityName == "Imposter"
-            end,
-            [PlaythroughConstants.CAUSES.LOW_BST] = function()
-                return tonumber(faintedPokemon.bst) < 400
-            end,
-            [PlaythroughConstants.CAUSES.ENEMY_LOWER_BST] = function()
-                return (tonumber(faintedPokemon.bst) - tonumber(enemyPokemon.bst)) >= 100
-            end
-        }
-        cause = PlaythroughConstants.CAUSES.STANDARD
-        for reason, causeSatisfied in pairs(causeMappings) do
-            if causeSatisfied() then
-                cause = reason
-                --break out early in case of something like you being low BST and losing to Shedinja - Shedinja should override this
-                return
-            end
-        end
-    end
 
     function self.getDescription()
         return description
@@ -131,8 +76,6 @@ local function PastRun(
         return progress
     end
 
-    figureOutCause()
-    randomizeDescription()
 
     return self
 end
