@@ -39,58 +39,6 @@ local function PokemonDataReader(initialProgram)
             "DCAB",
             "DCBA"
         },
-        DEFAULT_POKEMON = {
-            pid = 0,
-            alternateForm = 0x0000,
-            pokemonID = 0,
-            trainerID = 0,
-            heldItem = 0,
-            friendship = 0,
-            ability = 0,
-            moves = {},
-            move1 = 0,
-            move2 = 0,
-            move3 = 0,
-            move4 = 0,
-            move1PP = 0,
-            move2PP = 0,
-            move3PP = 0,
-            move4PP = 0,
-            status = 0,
-            level = 0,
-            curHP = 0,
-            HP = 0,
-            stats = {
-            HP = "---",
-            ATK = "---",
-            DEF ="---",
-            SPE = "---",
-            SPA = "---",
-            SPD = "---",},
-			isEgg = 0,
-            nature = 0,
-            encounterType = 0,
-            moveIDs = {
-                0,
-                0,
-                0,
-                0
-            },
-            movePPs = {
-                "---",
-                "---",
-                "---",
-                "---"
-            },
-            statStages = {
-                ["HP"] = 6,
-                ["ATK"] = 6,
-                ["DEF"] = 6,
-                ["SPE"] = 6,
-                ["SPA"] = 6,
-                ["SPD"] = 6,
-            }
-        },
         IMPORTANT_BLOCK_DATA = {
             A = {
                 {0, {"pokemonID"}},
@@ -262,7 +210,7 @@ local function PokemonDataReader(initialProgram)
     end
 
     function self.getDefaultPokemon()
-        return MiscUtils.shallowCopy(constants.DEFAULT_POKEMON)
+        return MiscUtils.shallowCopy(MiscConstants.DEFAULT_POKEMON)
     end
 
     function self.decryptPokemonInfo(checkingParty, monIndex, checkingEnemy, extraOffset)
