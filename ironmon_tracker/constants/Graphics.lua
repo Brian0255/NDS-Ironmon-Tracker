@@ -59,6 +59,8 @@ Graphics.BUTTON_TEXT = {
     FILLED_SQUARE = 1,
 }
 Graphics.LETTER_PIXEL_LENGTHS = {
+    ["<"] = 4,
+    [">"] = 4,
     [" "] = 1,
     ["%"] = 7,
     ["0"] = 4,
@@ -111,7 +113,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     O = 5,
     p = 4,
     P = 4,
-    q = 3,
+    q = 4,
     Q = 5,
     r = 2,
     R = 5,
