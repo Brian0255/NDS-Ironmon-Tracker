@@ -340,7 +340,7 @@ function StatisticsOrganizer.createPastRunStatistics(seedLogger)
         statistics,
         StatisticsOrganizer.createAttributeStatistic(
             runHashes,
-            "Moves You Lost to",
+            "Moves Your Enemies Had",
             function(runHash)
                 local pokemon = pastRuns[runHash].getEnemyPokemon()
                 local moveNames = {}

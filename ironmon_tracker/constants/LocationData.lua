@@ -1767,16 +1767,16 @@ LocationData.LOCATION_DATA = {
                 name = "Striaton City"
             },
             [7] = {
-                name = "the first gym"
+                name = "Striaton City's gym"
             },
             [16] = {
                 name = "Nacrene City"
             },
             [18] = {
-                name = "the second gym"
+                name = "Nacrene City's gym"
             },
             [19] = {
-                name = "the second gym"
+                name = "Nimbasa City's gym"
             },
             [28] = {
                 name = "Castelia City"
@@ -1806,10 +1806,10 @@ LocationData.LOCATION_DATA = {
                 name = "Dreamyard"
             },
             [154] = {
-                name = "Pinwheel Forest Exterior"
+                name = "Pinwheel Exterior"
             },
             [155] = {
-                name = "Pinwheel Forest Interior"
+                name = "Pinwheel Forest"
             },
             [157] = {
                 name = "Desert Resort"
