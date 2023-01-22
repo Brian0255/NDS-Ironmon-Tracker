@@ -577,6 +577,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.healFrame.setVisibility(false)
         ui.frames.enemyNoteFrame.setVisibility(true)
         ui.controls.noteIcon.setVisibility(false)
+        ui.controls.mainNoteLabel.setVisibility(true)
         ui.frames.survivalHealFrame.setVisibility(false)
         ui.frames.accEvaFrame.setVisibility(false)
         ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
@@ -669,9 +670,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.gearIcon.setVisibility(true)
         local moveHeaderLabels = {"moveHeaderLearnedText", "moveHeaderAcc", "moveHeaderPP", "moveHeaderPow"}
         for _, labelName in pairs(moveHeaderLabels) do
-            ui.controls[labelName].setTextColorKey("Bottom box text color")
-            ui.controls[labelName].setShadowColorKey("Bottom box background color")
+            ui.controls[labelName].setTextColorKey("Move header text color")
+            ui.controls[labelName].setShadowColorKey("Main background color")
         end
+    end
+
+    function self.undoPastRunView()
+        inPastRunView = false
     end
 
     local function setUpMiscInfo(isEnemy)
@@ -695,9 +700,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
         ui.frames.enemyNoteFrame.setVisibility(isEnemy or inPastRunView)
         ui.controls.noteIcon.setVisibility(not inPastRunView)
+        ui.controls.pastRunLocationIcon.setVisibility(false)
+        ui.controls.noteLabels[1].setVisibility(inPastRunView)
+        ui.controls.noteLabels[2].setVisibility(inPastRunView)
         ui.frames.healFrame.setVisibility(not isEnemy and not inPastRunView)
         ui.frames.infoBottomFrame.setVisibility(isEnemy)
         ui.frames.encounterDataFrame.setVisibility(false)
+        ui.controls.gearIcon.setVisibility(not inTrackedView and not inPastRunView)
     end
 
     local function readNatureSpecificBerry(heldItemName, heldItemDescription)
@@ -801,7 +810,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function openOptionsScreen()
         ui.frames.mainFrame.setVisibility(false)
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
-        program.undoTrackedPokemonView()
         program.setCurrentScreens({program.UI_SCREENS.MAIN_OPTIONS_SCREEN})
         program.drawCurrentScreens()
         ui.frames.mainFrame.setVisibility(true)
@@ -884,8 +892,23 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
-    function self.setNotesAsPastRunDate(date)
-        ui.controls.mainNoteLabel.setText(date)
+    function self.setNotesAsPastRun(pastRun)
+        local location = pastRun.getLocation()
+        ui.controls.pastRunLocationIcon.setVisibility(true)
+        if location ~= "" then
+            ui.controls.mainNoteLabel.setVisibility(false)
+            ui.controls.noteLabels[1].setText(pastRun.getDate())
+            ui.controls.noteLabels[2].setText(pastRun.getLocation())
+        else
+            ui.controls.noteLabels[1].setVisibility(false)
+            ui.controls.noteLabels[2].setVisibility(false)
+            ui.controls.mainNoteLabel.setVisibility(true)
+            ui.controls.mainNoteLabel.setText("No data was found.")
+        end
+        if pastRun.getProgress() == PlaythroughConstants.PROGRESS.WON then
+            ui.controls.pastRunLocationIcon.setVisibility(false)
+            ui.controls.noteLabels[2].setText("You won!")
+        end
     end
 
     local function initStatListeners()
@@ -963,6 +986,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListeners,
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
+    end
+
+    function self.getMainFrameSize()
+        return ui.frames.mainFrame.getSize()
     end
 
     local function recalculateMainFrameSize(orientation)

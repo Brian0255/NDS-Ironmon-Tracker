@@ -71,7 +71,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.openPastRunsScreen()
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(seedLogger)
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(
+			seedLogger
+		)
 	end
 
 	self.UI_SCREENS = {
@@ -106,7 +108,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.UPDATER_SCREEN] = UpdaterScreen(settings, tracker, self),
 		[self.UI_SCREENS.LOG_VIEWER_SCREEN] = LogViewerScreen(settings, tracker, self),
 		[self.UI_SCREENS.TRACKED_INFO_SCREEN] = TrackedInfoScreen(settings, tracker, self),
-		[self.UI_SCREENS.PAST_RUNS_SCREEN] = PastRunsScreen(settings, tracker, self),
+		[self.UI_SCREENS.PAST_RUNS_SCREEN] = PastRunsScreen(settings, tracker, self)
 	}
 
 	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
@@ -204,7 +206,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.onRunEnded()
-		if tracker.hasRunEnded() then return end
+		if tracker.hasRunEnded() then
+			return
+		end
 		if playerPokemon == nil or enemyPokemon == nil then
 			return
 		end
@@ -339,7 +343,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function HGSS_checkLeagueDefeated()
 		if gameInfo.NAME == "Pokemon HeartGold" or gameInfo.NAME == "Pokemon SoulSilver" then
 			local leagueEvent = Memory.read_u8(memoryAddresses.leagueBeaten)
-			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setLanceDefeated(leagueEvent >= 3)
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setLanceDefeated(leagueEvent >= 3)
 		end
 	end
 
@@ -382,13 +386,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			battleHandler.updateStatStages(playerPokemon, enemyPokemon)
 			battleHandler.checkIfRunHasEnded()
 		end
-		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
-			HGSS_checkLeagueDefeated()
-			scanForHealingItems()
-			self.readBadgeMemory()
-			if not (inTrackedPokemonView or inLockedView) then
-				setPokemonForMainScreen()
-			end
+		HGSS_checkLeagueDefeated()
+		scanForHealingItems()
+		self.readBadgeMemory()
+		if not (inTrackedPokemonView or inLockedView) then
+			setPokemonForMainScreen()
 		end
 	end
 
@@ -568,7 +570,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.loadPastRunIntoMainScreen(pastRun)
 		local runBadges = pastRun.getBadges()
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].updateBadges(runBadges)
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setNotesAsPastRunDate(pastRun.getDate())
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].updateBadgeLayout()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].updateFromMainFrameSize(
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].getMainFrameSize()
+		)
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setNotesAsPastRun(pastRun)
 	end
 
 	function self.changeMainScreenForTeamInfoView(pokemon, pokemonStatLoadingFunction)
@@ -580,7 +586,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		inLockedView = false
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].undoTeamInfoView()
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
-		self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 		readMemory()
 	end
 
@@ -651,17 +656,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.undoTrackedPokemonView()
-		self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 		inTrackedPokemonView = false
 		selectedPlayer = self.SELECTED_PLAYERS.PLAYER
-		currentScreens[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
 		readMemory()
 	end
 
 	function self.undoPastRunView()
-		self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 		inLockedView = false
-		currentScreens[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].undoPastRunView()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
 		readMemory()
 	end
 
