@@ -660,6 +660,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.undoTeamInfoView()
+        ui.controls.pokemonHP.setTextColorKey("Top box text color")
         ui.frames.mainFrame.setBackgroundColorKey("Main background color")
         inLockedView = false
         eventListeners.loadStatOverview = nil
@@ -677,6 +678,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     function self.undoPastRunView()
         inPastRunView = false
+        ui.controls.noteLabels[1].setVisibility(false)
+        ui.controls.noteLabels[2].setVisibility(false)
+        ui.controls.pastRunLocationIcon.setVisibility(false)
     end
 
     local function setUpMiscInfo(isEnemy)
@@ -700,9 +704,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.statusItemsLabel.setText("Status items: " .. statusTotals)
         ui.frames.enemyNoteFrame.setVisibility(isEnemy or inPastRunView)
         ui.controls.noteIcon.setVisibility(not inPastRunView)
-        ui.controls.pastRunLocationIcon.setVisibility(false)
-        ui.controls.noteLabels[1].setVisibility(inPastRunView)
-        ui.controls.noteLabels[2].setVisibility(inPastRunView)
         ui.frames.healFrame.setVisibility(not isEnemy and not inPastRunView)
         ui.frames.infoBottomFrame.setVisibility(isEnemy)
         ui.frames.encounterDataFrame.setVisibility(false)
@@ -895,14 +896,14 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     function self.setNotesAsPastRun(pastRun)
         local location = pastRun.getLocation()
         ui.controls.pastRunLocationIcon.setVisibility(true)
-        if location ~= "" then
-            ui.controls.mainNoteLabel.setVisibility(false)
+        local validRun = (location ~= "")
+        ui.controls.noteLabels[1].setVisibility(validRun)
+        ui.controls.noteLabels[2].setVisibility(validRun)
+        ui.controls.mainNoteLabel.setVisibility(not validRun)
+        if validRun then
             ui.controls.noteLabels[1].setText(pastRun.getDate())
             ui.controls.noteLabels[2].setText(pastRun.getLocation())
         else
-            ui.controls.noteLabels[1].setVisibility(false)
-            ui.controls.noteLabels[2].setVisibility(false)
-            ui.controls.mainNoteLabel.setVisibility(true)
             ui.controls.mainNoteLabel.setText("No data was found.")
         end
         if pastRun.getProgress() == PlaythroughConstants.PROGRESS.WON then
