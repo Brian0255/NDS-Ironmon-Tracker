@@ -12,6 +12,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local EditControlsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EditControlsScreen.lua")
 	local PokemonIconsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PokemonIconsScreen.lua")
 	local PastRunsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PastRunsScreen.lua")
+	local StatisticsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/StatisticsScreen.lua")
 	local UpdaterScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdaterScreen.lua")
 	local LogViewerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/LogViewerScreen.lua")
 	local TrackedInfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackedInfoScreen.lua")
@@ -76,6 +77,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		)
 	end
 
+	function self.openStatisticsScreen()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.STATISTICS_SCREEN].initialize(
+			seedLogger
+		)
+		self.openScreen(self.UI_SCREENS.STATISTICS_SCREEN)
+	end
+
 	self.UI_SCREENS = {
 		MAIN_SCREEN = 0,
 		MAIN_OPTIONS_SCREEN = 1,
@@ -108,7 +116,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.UPDATER_SCREEN] = UpdaterScreen(settings, tracker, self),
 		[self.UI_SCREENS.LOG_VIEWER_SCREEN] = LogViewerScreen(settings, tracker, self),
 		[self.UI_SCREENS.TRACKED_INFO_SCREEN] = TrackedInfoScreen(settings, tracker, self),
-		[self.UI_SCREENS.PAST_RUNS_SCREEN] = PastRunsScreen(settings, tracker, self)
+		[self.UI_SCREENS.PAST_RUNS_SCREEN] = PastRunsScreen(settings, tracker, self),
+		[self.UI_SCREENS.STATISTICS_SCREEN] = StatisticsScreen(settings, tracker, self),
 	}
 
 	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
