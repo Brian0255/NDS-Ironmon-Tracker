@@ -1,10 +1,11 @@
-local function Icon(initialComponent, initialIconName, initialIconOffset, initialVisibility, initialBGColorKey)
+local function Icon(initialComponent, initialIconName, initialIconOffset, initialVisibility, initialBGColorKey, initialIconColorKey)
     local self = {}
     local component = initialComponent
     local iconName = initialIconName
     local iconOffset = initialIconOffset
     local visible = initialVisibility
     local backgroundColorKey = initialBGColorKey
+    local iconColorKey = initialIconColorKey
     if visible == nil then
         visible = true
     end
@@ -12,7 +13,7 @@ local function Icon(initialComponent, initialIconName, initialIconOffset, initia
         if visible then
             component.show()
             local position = component.getPosition()
-            IconDrawer.drawIcon(iconName, position.x + iconOffset.x, position.y + iconOffset.y, backgroundColorKey)
+            IconDrawer.drawIcon(iconName, position.x + iconOffset.x, position.y + iconOffset.y, backgroundColorKey, iconColorKey)
         end
     end
     function self.setVisibility(newVisibility)
@@ -23,6 +24,9 @@ local function Icon(initialComponent, initialIconName, initialIconOffset, initia
     end
     function self.setBackgroundColorKey(newBackgroundFillColorKey)
         backgroundColorKey = newBackgroundFillColorKey
+    end
+    function self.setIconColorKey(newIconColorKey)
+        iconColorKey = newIconColorKey
     end
     function self.calculateActualPosition(parentPosition)
         component.calculateActualPosition(parentPosition)

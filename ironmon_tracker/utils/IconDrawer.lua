@@ -1025,7 +1025,7 @@ IconDrawer.ICONS =
     }
 )
 
-function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride)
+function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride, colorKeyOverride)
     local icon
     if IconDrawer.ICONS[iconName] then
         icon = IconDrawer.ICONS[iconName]
@@ -1049,6 +1049,9 @@ function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride)
                     local iconColorKey = icon.colorKey
                     if type(icon.colorKey) == "table" then
                         iconColorKey = icon.colorKey[iconArray[rowIndex][colIndex]]
+                    end
+                    if colorKeyOverride ~= nil then
+                        iconColorKey = colorKeyOverride
                     end
                     if iconColorKey == "Top box border color" and settings.colorScheme["Top box background color"] == settings.colorScheme["Top box border color"] then
                         iconColorKey = "Top box text color"
