@@ -7,16 +7,16 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
-    local PokemonSearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES.."/PokemonSearchKeyboard.lua")
+    local PokemonSearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/PokemonSearchKeyboard.lua")
     local settings = initialSettings
     local pokemonSearchKeyboard
     local maxSearchResultWidth = 118
     local tracker = initialTracker
     local program = initialProgram
     local matchTextLabels = {}
-    local sortedTrackedIDs
+    local sortedTrackedIDs = {}
     local totalIDs
-    local currentIndex = -1
+    local currentIndex = 0
     local constants = {
         TOP_FRAME_HEIGHT = 25,
         BOTTOM_FRAME_HEIGHT = 168,
@@ -45,6 +45,12 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         if id == nil then
             id = 0
         end
+        local indexString = tostring(currentIndex)
+        local text = indexString .."/".. #sortedTrackedIDs
+        local xOffset = 7
+        xOffset = xOffset + ((2 - #indexString) * 6)
+        ui.controls.currentIndexLabel.setText(text)
+        ui.controls.currentIndexLabel.setTextOffset({x = xOffset, y = -1})
         program.putTrackedPokemonIntoView(id)
     end
 
@@ -146,12 +152,14 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     end
 
     local function onForwardClick()
+        if currentIndex == 0 then return end
         currentIndex = (currentIndex % totalIDs) + 1
         readCurrentIndexIntoMainScreen()
         program.drawCurrentScreens()
     end
 
     local function onBackwardClick()
+        if currentIndex == 0 then return end
         currentIndex = ((currentIndex + totalIDs - 2) % totalIDs) + 1
         readCurrentIndexIntoMainScreen()
         program.drawCurrentScreens()
@@ -160,8 +168,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local function onGoBackClick()
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
         program.undoTrackedPokemonView()
-        program.setCurrentScreens({program.UI_SCREENS.MAIN_OPTIONS_SCREEN})
-        program.drawCurrentScreens()
+        program.openScreen(program.UI_SCREENS.TRACKED_INFO_SCREEN)
     end
 
     local function initSearchFrame()
@@ -211,51 +218,34 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 --"Top box background color",
                 --"Top box border color"
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 56, y = 5}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3, {x = 28, y = 5}),
             ui.frames.mainBottomFrame
         )
-        ui.controls.goBackwardButton =
+        local arrowWidth = 16
+        local verticalOffset = 1
+        local arrowFrameInfo =
+            FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.navigationFrame, arrowWidth, verticalOffset)
+        local leftArrowFrame, leftArrowButton = arrowFrameInfo.frame, arrowFrameInfo.button
+        leftArrowButton.setBackgroundColorKey("Main background color")
+        leftArrowButton.setIconColorKey("Move header text color")
+        eventListeners.leftRunClick = MouseClickEventListener(leftArrowButton, onBackwardClick)
+
+        ui.controls.currentIndexLabel =
             TextLabel(
-            Component(
-                ui.frames.navigationFrame,
-                Box(
-                    {x = 0, y = 0},
-                    {
-                        width = constants.NAV_BUTTON_WIDTH,
-                        height = constants.NAV_BUTTON_WIDTH
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    false
-                )
-            ),
+            Component(ui.frames.navigationFrame, Box({x = 0, y = 0}, {width = 48, height = 0}, nil, nil, false)),
             TextField(
-                "<",
-                {x = 1, y = -1},
-                TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-            )
-        )
-        ui.controls.goForwardButton =
-            TextLabel(
-            Component(
-                ui.frames.navigationFrame,
-                Box(
-                    {x = 0, y = 0},
-                    {
-                        width = constants.NAV_BUTTON_WIDTH,
-                        height = constants.NAV_BUTTON_WIDTH
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    false
-                )
-            ),
-            TextField(
-                ">",
+                "100/103",
                 {x = 2, y = -1},
-                TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+                TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Move header text color", "Main background color")
             )
         )
+
+        arrowFrameInfo =
+            FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.navigationFrame, arrowWidth, verticalOffset)
+        local rightArrowFrame, rightArrowButton = arrowFrameInfo.frame, arrowFrameInfo.button
+        rightArrowButton.setBackgroundColorKey("Main background color")
+        rightArrowButton.setIconColorKey("Move header text color")
+        eventListeners.rightRunClick = MouseClickEventListener(rightArrowButton, onForwardClick)
     end
 
     local function initUI()
@@ -293,8 +283,9 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             ui.frames.searchFrame
         )
 
-        pokemonSearchKeyboard = PokemonSearchKeyboard(sortedTrackedIDs,ui.frames.searchFrame, createLabelsFromMatches, clearMatches)
-        
+        pokemonSearchKeyboard =
+            PokemonSearchKeyboard(sortedTrackedIDs, ui.frames.searchFrame, createLabelsFromMatches, clearMatches)
+
         ui.frames.goBackFrame =
             Frame(
             Box(
