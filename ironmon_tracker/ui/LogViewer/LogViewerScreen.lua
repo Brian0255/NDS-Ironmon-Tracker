@@ -64,6 +64,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
             functionName(argument)
         else
             program.undoTeamInfoView()
+            program.openScreen(program.UI_SCREENS.MAIN_SCREEN)
         end
     end
 
