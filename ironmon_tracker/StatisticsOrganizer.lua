@@ -193,7 +193,7 @@ local function createRunProgressStatistic(runHashes, pastRuns)
         )
     )
     for i = 1, 8, 1 do
-        local name = i .. " badge"
+        local name = i .. " Badge"
         if i > 1 then
             name = name .. "s"
         end
@@ -224,9 +224,10 @@ end
 local function createBSTRangeStats(runHashes, pastRuns, forEnemy)
     local BSTRangeStats = {}
     local ranges = {
+        {"< 300", 0, 299},
         {"300 - 399", 300, 399},
         {"400 - 499", 400, 499},
-        {"500+", 500, 599}
+        {"500+", 500, 800}
     }
     for _, rangeInfo in pairs(ranges) do
         local statName, lowEnd, highEnd = rangeInfo[1], rangeInfo[2], rangeInfo[3]
@@ -250,9 +251,9 @@ local function createBSTRangeStats(runHashes, pastRuns, forEnemy)
 end
 
 local function createPokemonTypeStats(pastRuns, runHashes, forEnemy)
-    local title = "Most Common Types You Ran"
+    local title = "Types You Ran"
     if forEnemy then
-        title = "Most Common Types You Lost to"
+        title = "Types You Lost to"
     end
     return StatisticsOrganizer.createAttributeStatistic(
         runHashes,
@@ -265,12 +266,23 @@ local function createPokemonTypeStats(pastRuns, runHashes, forEnemy)
             local newTypes = {}
             for i, pokemonType in pairs(types) do
                 if pokemonType ~= "" then
-                    table.insert(newTypes, pokemonType)
+                    table.insert(newTypes, MiscUtils.toTitleCase(pokemonType))
                 end
             end
             return newTypes
         end
     )
+end
+
+local function capAt10(statistic)
+    local statName, data = statistic[1], statistic[2]
+    local newData = {}
+    for i = 1, 10, 1 do
+        if data[i] then
+            newData[i] = data[i]
+        end
+    end
+    return {statName, newData}
 end
 
 function StatisticsOrganizer.createPastRunStatistics(seedLogger)
@@ -290,7 +302,7 @@ function StatisticsOrganizer.createPastRunStatistics(seedLogger)
         statistics,
         StatisticsOrganizer.createAttributeStatistic(
             runHashes,
-            "Most Common Pok" .. MiscConstants.accentedE .. "mon You Ran",
+            "Pok" .. MiscConstants.accentedE .. "mon You Ran",
             function(runHash)
                 return pastRuns[runHash].getFaintedPokemon().name
             end
@@ -301,7 +313,7 @@ function StatisticsOrganizer.createPastRunStatistics(seedLogger)
         statistics,
         StatisticsOrganizer.createAttributeStatistic(
             runHashes,
-            "Most Common" .. MiscConstants.accentedE .. "You Lost to",
+            "Pok" .. MiscConstants.accentedE .. "mon You Lost to",
             function(runHash)
                 return pastRuns[runHash].getEnemyPokemon().name
             end
@@ -312,7 +324,7 @@ function StatisticsOrganizer.createPastRunStatistics(seedLogger)
         statistics,
         StatisticsOrganizer.createAttributeStatistic(
             runHashes,
-            "Most Common Moves You Had",
+            "Moves You Had",
             function(runHash)
                 local pokemon = pastRuns[runHash].getFaintedPokemon()
                 local moveNames = {}
@@ -328,7 +340,7 @@ function StatisticsOrganizer.createPastRunStatistics(seedLogger)
         statistics,
         StatisticsOrganizer.createAttributeStatistic(
             runHashes,
-            "Most Common Moves You Lost to",
+            "Moves You Lost to",
             function(runHash)
                 local pokemon = pastRuns[runHash].getEnemyPokemon()
                 local moveNames = {}
@@ -344,7 +356,7 @@ function StatisticsOrganizer.createPastRunStatistics(seedLogger)
         statistics,
         StatisticsOrganizer.createAttributeStatistic(
             runHashes,
-            "Most Common Abilities You Had",
+            "Abilities You Had",
             function(runHash)
                 return AbilityData.ABILITIES[pastRuns[runHash].getFaintedPokemon().ability + 1].name
             end
@@ -355,12 +367,16 @@ function StatisticsOrganizer.createPastRunStatistics(seedLogger)
         statistics,
         StatisticsOrganizer.createAttributeStatistic(
             runHashes,
-            "Most Common Abilities You Lost to",
+            "Abilities You Lost to",
             function(runHash)
                 return AbilityData.ABILITIES[pastRuns[runHash].getEnemyPokemon().ability + 1].name
             end
         )
     )
+
+    for i, statistic in pairs(statistics) do
+        statistics[i] = capAt10(statistic)
+    end
 
     return statistics
 end
