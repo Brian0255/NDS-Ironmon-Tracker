@@ -1,6 +1,5 @@
 --main screen UI skeleton is in here to reduce bloat
 local function MainScreenUIInitializer(ui, gameInfo)
-
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
     local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
@@ -1089,22 +1088,55 @@ local function MainScreenUIInitializer(ui, gameInfo)
             ui.frames.enemyNoteFrame
         )
         ui.controls.noteLabels = {}
-        for i = 1, 2, 1 do
-            ui.controls.noteLabels[i] =
-                TextLabel(
-                Component(ui.frames.noteLabelsFrame, Box({x = 0, y = 0}, {width = 0, height = 8}, nil, nil)),
-                TextField(
-                    "",
-                    {x = 1, y = 0},
-                    TextStyle(
-                        Graphics.FONT.DEFAULT_FONT_SIZE,
-                        Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Top box text color",
-                        "Top box background color"
-                    )
+        ui.controls.noteLabels[1] =
+            TextLabel(
+            Component(ui.frames.noteLabelsFrame, Box({x = 0, y = 0}, {width = 0, height = 8}, nil, nil)),
+            TextField(
+                "",
+                {x = 1, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
                 )
             )
-        end
+        )
+        ui.frames.pastRunLocationAndNote =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 0,
+                    height = 0
+                }
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+            ui.frames.noteLabelsFrame
+        )
+        ui.controls.pastRunLocationIcon =
+            Icon(
+            Component(ui.frames.pastRunLocationAndNote, Box({x = 0, y = 0}, {width = 7, height = 0}, nil, nil)),
+            "LOCATION_ICON_SMALL_FILLED",
+            {x = 2, y = 2}
+        )
+        ui.controls.noteLabels[2] =
+            TextLabel(
+            Component(ui.frames.pastRunLocationAndNote, Box({x = 0, y = 0}, {width = 0, height = 8}, nil, nil)),
+            TextField(
+                "",
+                {x = 1, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
     end
 
     function self.initHiddenPowerArrows()
@@ -1138,7 +1170,6 @@ local function MainScreenUIInitializer(ui, gameInfo)
         )
     end
 
-
     function self.initUI()
         self.initMainFrames()
         self.initMoveInfo()
@@ -1148,7 +1179,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
         self.initMiscControls()
         self.initHiddenPowerArrows()
     end
-    
+
     return self
 end
 
