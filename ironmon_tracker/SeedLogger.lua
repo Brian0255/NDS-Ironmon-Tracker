@@ -42,30 +42,25 @@ local function SeedLogger(initialProgram, initialGameName)
         }
     }
 
-    local function getBadgeCount(pastRun)
-        local badges = pastRun.getBadges()
-        local count = 0
-        for _, badgeSet in pairs(badges) do
-            for _, badge in pairs(badgeSet) do
-                if badge == 1 then
-                    count = count + 1
-                end
+    self.SORT_METHODS = {
+        NEWEST = 0,
+        OLDEST = 1,
+        A_TO_Z = 2
+    }
+
+    local function filterPastRunsByBadgeCount(pastRunHashes, badgeCount)
+        local newHashes = {}
+        for _, hash in pairs(pastRunHashes) do
+            local run = pastRuns[hash]
+            if run.getBadgeCount() >= badgeCount then
+                table.insert(newHashes, hash)
             end
         end
-        return count
+        return newHashes
     end
 
-    local function filterPastRuns(badgeCountFilter)
-        local filteredRuns = {}
-        if badgeCountFilter == nil then
-            badgeCountFilter = 0
-        end
-        for hash, run in pairs(pastRuns) do
-            if getBadgeCount(run.getBadges()) >= badgeCountFilter then
-                filteredRuns[hash] = run
-            end
-        end
-        return filteredRuns
+    function self.getTotalRuns()
+        return totalRuns
     end
 
     --convert to comma separated values to save space (pickle will eat space and make past run loading slow)
@@ -134,7 +129,7 @@ local function SeedLogger(initialProgram, initialGameName)
     local function runToCSV(runHash, pastRun)
         local CSV = "log start\n"
         CSV = CSV .. runHash .. "\n"
-        CSV = CSV .. pastRun.getDate() .. "\n"
+        CSV = CSV .. pastRun.getDate() .. ","..pastRun.getSeconds().."\n"
         CSV = CSV .. pokemonToCSV(pastRun.getFaintedPokemon())
         CSV = CSV .. pokemonToCSV(pastRun.getEnemyPokemon())
         local badges = pastRun.getBadges()
@@ -146,7 +141,7 @@ local function SeedLogger(initialProgram, initialGameName)
     end
 
     local function parsePastRunFromLineLocation(lines, lineStart)
-        local date = lines[lineStart]
+        local date, seconds = lines[lineStart]:match("(.*),(.*)")
         local faintedPokemonCSV = lines[lineStart + 1]
         local enemyPokemonCSV = lines[lineStart + 2]
         local badgeSet1CSV = lines[lineStart + 3]
@@ -161,7 +156,7 @@ local function SeedLogger(initialProgram, initialGameName)
             ["secondSet"] = badgeSet2
         }
         local progress = tonumber(lines[lineStart + 6])
-        local pastRun = PastRun(date, faintedPokemon, enemyPokemon, location, badges, progress)
+        local pastRun = PastRun(date, seconds, faintedPokemon, enemyPokemon, location, badges, progress)
         return pastRun
     end
 
@@ -211,10 +206,14 @@ local function SeedLogger(initialProgram, initialGameName)
         )
     end
 
+    function self.getPastRuns()
+        return pastRuns
+    end
+
     function self.getPastRunHashesNewestFirst()
         local keys = MiscUtils.shallowCopy(pastRunKeyList)
         local function sortFunction(pastRun1, pastRun2)
-            return pastRun1.getDate() > pastRun2.getDate()
+            return pastRun1.getSeconds() > pastRun2.getSeconds()
         end
         sortPastRunKeys(keys, sortFunction)
         return keys 
@@ -223,7 +222,7 @@ local function SeedLogger(initialProgram, initialGameName)
     function self.getPastRunHashesOldestFirst()
         local keys = MiscUtils.shallowCopy(pastRunKeyList)
         local function sortFunction(pastRun1, pastRun2)
-            return pastRun1.getDate() < pastRun2.getDate()
+            return pastRun1.getSeconds() < pastRun2.getSeconds()
         end
         sortPastRunKeys(keys, sortFunction)
         return keys 
@@ -238,13 +237,38 @@ local function SeedLogger(initialProgram, initialGameName)
         return keys 
     end
 
+    function self.getPastRunHashesSorted(sortMethod, badgeFilter)
+        local sortMethodToFunction = {
+            [self.SORT_METHODS.A_TO_Z] = self.getPastRunHashesAToZ,
+            [self.SORT_METHODS.NEWEST] = self.getPastRunHashesNewestFirst,
+            [self.SORT_METHODS.OLDEST] = self.getPastRunHashesOldestFirst,
+        }
+        local pastRunHashes = sortMethodToFunction[sortMethod]()
+        return filterPastRunsByBadgeCount(pastRunHashes, badgeFilter)
+    end
+
+    function self.getDefaultPastRun()
+        return PastRun(
+            "",
+            0,
+            MiscUtils.shallowCopy(MiscConstants.DEFAULT_POKEMON),
+            MiscUtils.shallowCopy(MiscConstants.DEFAULT_POKEMON),
+            "",
+            {
+                firstSet = {0, 0, 0, 0, 0, 0, 0, 0},
+                secondSet = {0, 0, 0, 0, 0, 0, 0, 0}
+            },
+            0
+        )
+    end
+
     --keep past lab, but no badge records to a maximum of 100 to prevent large file
     local function capLabRuns()
         local keys = self.getPastRunHashesNewestFirst()
         local labKeys = {}
             for _, key in pairs(keys) do
                 local run = pastRuns[key]
-                if run.getProgress() == PlaythroughConstants.PROGRESS.PAST_LAB and getBadgeCount(run) == 0 then
+                if run.getProgress() == PlaythroughConstants.PROGRESS.PAST_LAB and run.getBadgeCount() == 0 then
                     table.insert(labKeys, key)
                 end
             end
@@ -262,13 +286,14 @@ local function SeedLogger(initialProgram, initialGameName)
         if pastHashLogged ~= ROMHash then
             if pastRun.getProgress() > PlaythroughConstants.PROGRESS.NOWHERE then
                 if not pastRuns[ROMHash] then
+                    print("logging run")
                     pastRuns[ROMHash] = pastRun
+                    capLabRuns()
+                    pastHashLogged = ROMHash
                 end
             end
-            capLabRuns()
-            saveRunsToFile()
         end
-        pastHashLogged = ROMHash
+        saveRunsToFile()
     end
 
     loadPastRuns()
