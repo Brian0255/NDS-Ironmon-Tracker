@@ -1,4 +1,13 @@
-local function BarGraph(initialComponent, initialDataSet, initialHeadingText, initialBorderColorKey, initialTextBarColorKey, initialGraphPadding, initialMaxValue)
+local function BarGraph(
+    initialComponent,
+    initialDataSet,
+    initialHeadingText,
+    initialBorderColorKey,
+    initialTextBarColorKey,
+    initialGraphPadding,
+    initialMaxValue,
+    initialOrientation,
+    initialHorizontalNamePadding)
     local self = {}
     local component = initialComponent
     local dataSet = initialDataSet
@@ -7,7 +16,9 @@ local function BarGraph(initialComponent, initialDataSet, initialHeadingText, in
     local textBarColorKey = initialTextBarColorKey
     local padding = initialGraphPadding
     local maxValue = initialMaxValue
+    local horizontalNamePadding = initialHorizontalNamePadding
     local visible = true
+    local orientation = initialOrientation or Graphics.ALIGNMENT_TYPE.VERTICAL
 
     function self.setDataSet(newDataSet)
         dataSet = newDataSet
@@ -22,7 +33,34 @@ local function BarGraph(initialComponent, initialDataSet, initialHeadingText, in
     end
 
     function self.show()
-        DrawingUtils.drawBarGraph(component.getPosition(), component.getSize(), dataSet, headingText, borderColorKey, textBarColorKey, padding, maxValue)
+        if orientation == Graphics.ALIGNMENT_TYPE.VERTICAL then
+            DrawingUtils.drawVerticalBarGraph(
+                component.getPosition(),
+                component.getSize(),
+                dataSet,
+                headingText,
+                borderColorKey,
+                textBarColorKey,
+                padding,
+                maxValue
+            )
+        else
+            DrawingUtils.drawHorizontalBarGraph(
+                component.getPosition(),
+                component.getSize(),
+                dataSet,
+                headingText,
+                borderColorKey,
+                textBarColorKey,
+                padding,
+                maxValue,
+                horizontalNamePadding
+            )
+        end
+    end
+
+    function self.setMaxValue(newMaxValue)
+        maxValue = newMaxValue
     end
 
     function self.getSize()
@@ -40,7 +78,7 @@ local function BarGraph(initialComponent, initialDataSet, initialHeadingText, in
     function self.getPosition()
         return component.getPosition()
     end
-    
+
     function self.resize(newSize)
         component.resize(newSize)
     end
