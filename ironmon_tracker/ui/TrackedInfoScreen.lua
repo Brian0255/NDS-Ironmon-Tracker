@@ -43,7 +43,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	local function onOpenLogClick()
 		local logPath = forms.openfile("*.log", Paths.CURRENT_DIRECTORY)
 		program.openLogFromPath(logPath)
-	end
+	end 
 
 	local function initEventListeners()
 		eventListeners.goBackClickListener =
@@ -52,6 +52,10 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			MouseClickEventListener(ui.frames.openLogButtonFrame, onOpenLogClick)
 		eventListeners.trackedPokemonClickListener =
 			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
+		eventListeners.pastRunsListeners = 
+			MouseClickEventListener(ui.frames.pastRunsButtonFrame, program.openPastRunsScreen)
+		eventListeners.statsListener =
+			MouseClickEventListener(ui.frames.statisticsButtonFrame, program.openStatisticsScreen)
 	end
 
 	local function initBottomFrameControls()
@@ -82,7 +86,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	end
 	local function initMainButtons()
 		local buttonNames = {
-			trackedPokemonButton = "Tracked Pokémon",
+			trackedPokemonButton = "Tracked Pok"..MiscConstants.accentedE.."mon",
 			pastRunsButton = "Past Runs",
 			statisticsButton = "Statistics",
 			openLogButton = "Open Log"
@@ -178,7 +182,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			),
 			TextField(
 				"Tracked Info",
-				{x = 48, y = 1},
+				{x = 36, y = 1},
 				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
 		)

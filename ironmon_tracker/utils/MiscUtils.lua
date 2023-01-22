@@ -220,6 +220,10 @@ function MiscUtils.combineTables(t1, t2)
     end
 end
 
+function MiscUtils.toTitleCase(input)
+    return input:sub(1,1):upper()..input:sub(2):lower()
+end
+
 function MiscUtils.appendStringToFile(fileName, stringData)
     local file = io.open(fileName, "a")
     if file ~= nil then
