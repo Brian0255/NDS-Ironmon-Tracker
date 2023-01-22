@@ -47,7 +47,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
 	local inTrackedPokemonView = false
-	local inPastRunView = true
+	local inPastRunView = false
 	local inLockedView = false
 	local statusItems = nil
 	local playerPokemon = nil
@@ -72,6 +72,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.openPastRunsScreen()
+		inPastRunView = true
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(
 			seedLogger
 		)
@@ -615,7 +616,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			badges.firstSet = readBadgeByte(memoryAddresses.badges)
 		end
 		if not inPastRunView then
-			currentScreens[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
 		end
 	end
 
@@ -673,6 +674,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.undoPastRunView()
 		inLockedView = false
+		inPastRunView = false
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].undoPastRunView()
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetToDefault()
 		readMemory()
