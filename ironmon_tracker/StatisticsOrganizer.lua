@@ -1,10 +1,7 @@
 StatisticsOrganizer = {}
 
-StatisticsOrganizer.STAT_SPREADS = {
-    SPECIAL_ATTACKER = {HP = 0, ATK = 255, DEF = 0, SPA = 0, SPD = 0, SPE = 255},
-    PHYSICAL_ATTACKER = {HP = 0, ATK = 0.6, DEF = 0, SPA = 0, SPD = 0, SPE = 0.4},
-    WALL = {HP = 255, ATK = 0, DEF = 255, SPA = 0, SPD = 255, SPE = 0}
-}
+--[[
+my stats calculations are very naive right now, could use this in the future
 
 function math.pearson(a)
     -- compute the mean
@@ -22,6 +19,7 @@ function math.pearson(a)
     return xy / math.sqrt(x2) / math.sqrt(y2)
 end
 
+--]]
 function StatisticsOrganizer.convertStatsToWeights(stats)
     local weights = {}
     local sum = 0
@@ -101,12 +99,12 @@ end
 
 --counted statistic is something like "how many mons are in the BST range of 400-500"
 function StatisticsOrganizer.createCountedStatistic(dataSet, statisticName, conditionFunction)
-    local total = countTotalWithCondition(conditionFunction)
+    local total = countTotalWithCondition(dataSet, conditionFunction)
     return {statisticName, total}
 end
 
 --attribute statistic is something like "most common types"
-function StatisticsOrganizer.createAttributeStatistic(dataSet, attributeReturningFunction)
+function StatisticsOrganizer.createAttributeStatistic(dataSet, statisticName, attributeReturningFunction)
     local counts = {}
     for _, data in pairs(dataSet) do
         local attributeValue = attributeReturningFunction(data)
@@ -124,7 +122,7 @@ function StatisticsOrganizer.createAttributeStatistic(dataSet, attributeReturnin
             counts[attributeValue] = counts[attributeValue] + 1
         end
     end
-    return sortAttributeCounts(counts)
+    return {statisticName, sortAttributeCounts(counts)}
 end
 
 local function sumSpecificStats(pokemonStats, statList)
@@ -152,7 +150,7 @@ local function createStatBasedStatistic(ids, logPokemon, statList, descending)
         end
     )
     local top10 = {}
-    for i = 1,10,1 do
+    for i = 1, 10, 1 do
         if statistic[i] then
             table.insert(top10, statistic[i])
         end
@@ -171,15 +169,198 @@ function StatisticsOrganizer.createLogStatistics(logInfo)
         {"Best Physical Hitters", {"ATK", "SPE"}, true},
         {"Biggest Special Walls", {"HP", "SPD"}, true},
         {"Best Defensive Tanks", {"HP", "DEF"}, true},
-        {"Bulkiest Overall", {"HP","DEF","SPD"}, true},
-        {"Most Frail", {"HP","DEF","SPD"}, false},
+        {"Bulkiest Overall", {"HP", "DEF", "SPD"}, true},
+        {"Most Frail", {"HP", "DEF", "SPD"}, false}
     }
     local data = {}
     for _, statisticSet in pairs(statisticsSets) do
         local name, args, descending = statisticSet[1], statisticSet[2], statisticSet[3]
-        table.insert(data, 
-            {name, createStatBasedStatistic(ids, logPokemon, args, descending)}
-    )
+        table.insert(data, {name, createStatBasedStatistic(ids, logPokemon, args, descending)})
     end
     return data
+end
+
+local function createRunProgressStatistic(runHashes, pastRuns)
+    local progressStats = {}
+    table.insert(
+        progressStats,
+        StatisticsOrganizer.createCountedStatistic(
+            runHashes,
+            "Past Lab",
+            function(runHash)
+                return pastRuns[runHash].getProgress() > 0
+            end
+        )
+    )
+    for i = 1, 8, 1 do
+        local name = i .. " badge"
+        if i > 1 then
+            name = name .. "s"
+        end
+        table.insert(
+            progressStats,
+            StatisticsOrganizer.createCountedStatistic(
+                runHashes,
+                name,
+                function(runHash)
+                    return pastRuns[runHash].getBadgeCount() >= i
+                end
+            )
+        )
+    end
+    table.insert(
+        progressStats,
+        StatisticsOrganizer.createCountedStatistic(
+            runHashes,
+            "Won",
+            function(runHash)
+                return pastRuns[runHash].getProgress() == 2
+            end
+        )
+    )
+    return progressStats
+end
+
+local function createBSTRangeStats(runHashes, pastRuns, forEnemy)
+    local BSTRangeStats = {}
+    local ranges = {
+        {"300 - 399", 300, 399},
+        {"400 - 499", 400, 499},
+        {"500+", 500, 599}
+    }
+    for _, rangeInfo in pairs(ranges) do
+        local statName, lowEnd, highEnd = rangeInfo[1], rangeInfo[2], rangeInfo[3]
+        table.insert(
+            BSTRangeStats,
+            StatisticsOrganizer.createCountedStatistic(
+                runHashes,
+                statName,
+                function(runHash)
+                    local run = pastRuns[runHash]
+                    local pokemon = run.getFaintedPokemon()
+                    if forEnemy then
+                        pokemon = run.getEnemyPokemon()
+                    end
+                    return tonumber(pokemon.bst) >= lowEnd and tonumber(pokemon.bst) <= highEnd
+                end
+            )
+        )
+    end
+    return BSTRangeStats
+end
+
+local function createPokemonTypeStats(pastRuns, runHashes, forEnemy)
+    local title = "Most Common Types You Ran"
+    if forEnemy then
+        title = "Most Common Types You Lost to"
+    end
+    return StatisticsOrganizer.createAttributeStatistic(
+        runHashes,
+        title,
+        function(runHash)
+            local types = pastRuns[runHash].getFaintedPokemon().type
+            if forEnemy then
+                types = pastRuns[runHash].getEnemyPokemon().type
+            end
+            local newTypes = {}
+            for i, pokemonType in pairs(types) do
+                if pokemonType ~= "" then
+                    table.insert(newTypes, pokemonType)
+                end
+            end
+            return newTypes
+        end
+    )
+end
+
+function StatisticsOrganizer.createPastRunStatistics(seedLogger)
+    local pastRuns = seedLogger.getPastRuns()
+    local runHashes = seedLogger.getPastRunHashesNewestFirst()
+    local statistics = {}
+    table.insert(statistics, {"Overall Progress", createRunProgressStatistic(runHashes, pastRuns)})
+
+    table.insert(statistics, {"BST Ranges You Ran", createBSTRangeStats(runHashes, pastRuns, false)})
+    table.insert(statistics, {"BST Ranges You Lost to", createBSTRangeStats(runHashes, pastRuns, true)})
+
+    table.insert(statistics, createPokemonTypeStats(pastRuns, runHashes, false))
+
+    table.insert(statistics, createPokemonTypeStats(pastRuns, runHashes, true))
+
+    table.insert(
+        statistics,
+        StatisticsOrganizer.createAttributeStatistic(
+            runHashes,
+            "Most Common Pok" .. MiscConstants.accentedE .. "mon You Ran",
+            function(runHash)
+                return pastRuns[runHash].getFaintedPokemon().name
+            end
+        )
+    )
+
+    table.insert(
+        statistics,
+        StatisticsOrganizer.createAttributeStatistic(
+            runHashes,
+            "Most Common" .. MiscConstants.accentedE .. "You Lost to",
+            function(runHash)
+                return pastRuns[runHash].getEnemyPokemon().name
+            end
+        )
+    )
+
+    table.insert(
+        statistics,
+        StatisticsOrganizer.createAttributeStatistic(
+            runHashes,
+            "Most Common Moves You Had",
+            function(runHash)
+                local pokemon = pastRuns[runHash].getFaintedPokemon()
+                local moveNames = {}
+                for _, moveID in pairs(pokemon.moveIDs) do
+                    table.insert(moveNames, MoveData.MOVES[moveID + 1].name)
+                end
+                return moveNames
+            end
+        )
+    )
+
+    table.insert(
+        statistics,
+        StatisticsOrganizer.createAttributeStatistic(
+            runHashes,
+            "Most Common Moves You Lost to",
+            function(runHash)
+                local pokemon = pastRuns[runHash].getEnemyPokemon()
+                local moveNames = {}
+                for _, moveID in pairs(pokemon.moveIDs) do
+                    table.insert(moveNames, MoveData.MOVES[moveID + 1].name)
+                end
+                return moveNames
+            end
+        )
+    )
+
+    table.insert(
+        statistics,
+        StatisticsOrganizer.createAttributeStatistic(
+            runHashes,
+            "Most Common Abilities You Had",
+            function(runHash)
+                return AbilityData.ABILITIES[pastRuns[runHash].getFaintedPokemon().ability + 1].name
+            end
+        )
+    )
+
+    table.insert(
+        statistics,
+        StatisticsOrganizer.createAttributeStatistic(
+            runHashes,
+            "Most Common Abilities You Lost to",
+            function(runHash)
+                return AbilityData.ABILITIES[pastRuns[runHash].getEnemyPokemon().ability + 1].name
+            end
+        )
+    )
+
+    return statistics
 end
