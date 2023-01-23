@@ -1,6 +1,5 @@
 local function SeedLogger(initialProgram, initialGameName)
     local PastRun = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PastRun.lua")
-    local StatisticsOrganizer = dofile(Paths.FOLDERS.DATA_FOLDER .. "/StatisticsOrganizer.lua")
 
     local pastRuns = {}
     local self = {}
@@ -10,6 +9,7 @@ local function SeedLogger(initialProgram, initialGameName)
     local totalRuns = 0
     local pastHashLogged = nil
     local pastRunKeyList = {}
+    local pastRunStatistics
 
     local encodingConstants = {
         POKEMON_KEY_LIST = {
@@ -191,14 +191,12 @@ local function SeedLogger(initialProgram, initialGameName)
 
     local function saveRunsToFile()
         local fileName = gameName .. ".pastlog"
-        --empties the file before beginning appending process
-        io.open(fileName, "w"):close()
         local completeRunString = totalRuns .. "\n"
         for runHash, run in pairs(pastRuns) do
             local runCSV = runToCSV(runHash, run)
             completeRunString = completeRunString .. runCSV
         end
-        MiscUtils.appendStringToFile(fileName, completeRunString)
+        MiscUtils.writeStringToFile(fileName, completeRunString)
     end
 
     local function sortPastRunKeys(keys, runComparingFunction)
@@ -209,6 +207,10 @@ local function SeedLogger(initialProgram, initialGameName)
                 return runComparingFunction(pastRun1, pastRun2)
             end
         )
+    end
+
+    function self.getPastRunStatistics()
+        return pastRunStatistics
     end
 
     function self.getPastRuns()
@@ -294,8 +296,8 @@ local function SeedLogger(initialProgram, initialGameName)
                     print("logging run")
                     pastRuns[ROMHash] = pastRun
                     table.insert(pastRunKeyList, ROMHash)
-                    capLabRuns()
                     pastHashLogged = ROMHash
+                    pastRunStatistics = StatisticsOrganizer.updateStatisticsWithNewRun(pastRun, pastRunStatistics, program.getGameInfo().NAME)
                 end
             end
         end
@@ -303,6 +305,7 @@ local function SeedLogger(initialProgram, initialGameName)
     end
 
     loadPastRuns()
+    pastRunStatistics = StatisticsOrganizer.loadPastRunStatistics(program.getGameInfo().NAME)
 
     return self
 end

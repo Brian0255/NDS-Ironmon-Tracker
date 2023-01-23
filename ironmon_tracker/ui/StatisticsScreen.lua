@@ -79,7 +79,7 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram,
     end
 
     function self.initialize(seedLogger)
-        statisticSet = StatisticsOrganizer.createPastRunStatistics(seedLogger)
+        statisticSet = seedLogger.getPastRunStatistics()
         totalRuns = seedLogger.getTotalRuns()
         totalRunsPastLab = seedLogger.getTotalRunsPastLab()
         ui.controls.totalRunsLabel.setText("Total runs: "..totalRuns)

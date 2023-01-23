@@ -232,6 +232,13 @@ function MiscUtils.appendStringToFile(fileName, stringData)
     end
 end
 
+function MiscUtils.writeStringToFile(fileName, input)
+    local file = io.open(fileName, "w")
+    if file == nil then return end
+    file:write(input)
+    file:close()
+end
+
 function MiscUtils.fileExists(fileName)
     local file = io.open(fileName, "r")
     return file ~= nil and io.close(file)
