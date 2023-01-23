@@ -372,9 +372,9 @@ LocationData.LOCATION_DATA = {
             [365] = {name = "Route 211"},
             [366] = {name = "Route 211"},
             [367] = {name = "Route 212"},
-            [368] = {name = "Pok"..MiscConstants.accentedE.."mon Mansion"},
-            [369] = {name = "Pok"..MiscConstants.accentedE.."mon Mansion"},
-            [370] = {name = "Pok"..MiscConstants.accentedE.."mon Mansion"},
+            [368] = {name = "Pok" .. MiscConstants.accentedE .. "mon Mansion"},
+            [369] = {name = "Pok" .. MiscConstants.accentedE .. "mon Mansion"},
+            [370] = {name = "Pok" .. MiscConstants.accentedE .. "mon Mansion"},
             [371] = {name = "Route 212"},
             [372] = {name = "Route 212"},
             [373] = {name = "Route 213"},
@@ -441,7 +441,7 @@ LocationData.LOCATION_DATA = {
             [434] = {name = "Solaceon Town"},
             [435] = {name = "Solaceon Town"},
             [436] = {name = "Solaceon Town"},
-            [437] = {name = "Pok"..MiscConstants.accentedE.."mon Day Care"},
+            [437] = {name = "Pok" .. MiscConstants.accentedE .. "mon Day Care"},
             [438] = {name = "Solaceon Town"},
             [439] = {name = "Solaceon Town"},
             [440] = {name = "Solaceon Town"},
@@ -496,7 +496,7 @@ LocationData.LOCATION_DATA = {
             [489] = {name = "Survival Area"},
             [490] = {name = "Resort Area"},
             [491] = {name = "Canalave City"},
-            [492] = {name = "Caf"..MiscConstants.accentedE},
+            [492] = {name = "Caf" .. MiscConstants.accentedE},
             [493] = {name = "Battle Tower"},
             [494] = {name = "Galactic HQ"},
             [495] = {name = "Pok" .. MiscConstants.accentedE .. "mon League"},
@@ -597,6 +597,112 @@ LocationData.LOCATION_DATA = {
             [590] = {name = "Iceberg Ruins"},
             [591] = {name = "Route 228"},
             [592] = {name = "Rpck Peak Ruins"}
+        },
+        encounters = {
+            ["Route 202"] = {
+                totalPokemon = 4,
+                vanillaData = {
+                    {
+                        {level = 3, percent = 5},
+                        {level = 5, percent = 20},
+                        {level = 6, percent = 5}
+                    },
+                    {
+                        {level = 3, percent = 5},
+                        {level = 6, percent = 5}
+                    },
+                    {
+                        {level = 5, percent = 10}
+                    },
+                    {
+                        {level = 5, percent = 20},
+                        {level = 6, percent = 10}
+                    }
+                }
+            },
+            ["Route 201"] = {
+                totalPokemon = 3,
+                vanillaData = {
+                    {
+                        {level = 3, percent = 45},
+                        {level = 5, percent = 15}
+                    },
+                    {
+                        {level = 3, percent = 5},
+                        {level = 5, percent = 25}
+                    },
+                    {
+                        {level = 5, percent = 10}
+                    }
+                }
+            },
+            ["Lake Verity"] = {
+                totalPokemon = 2,
+                vanillaData = {
+                    {
+                        {level = 3, percent = 40},
+                        {level = 5, percent = 10},
+                        {level = 6, percent = 10}
+                    },
+                    {
+                        {level = 5, percent = 30},
+                        {level = 6, percent = 10}
+                    }
+                }
+            },
+            ["Route 203"] = {
+                totalPokemon = 5,
+                vanillaData = {
+                    {
+                        {level = 6, percent = 10}
+                    },
+                    {
+                        {level = 6, percent = 10},
+                        {level = 8, percent = 5}
+                    },
+                    {
+                        {level = 6, percent = 40},
+                        {level = 9, percent = 4},
+                        {level = 11, percent = 1}
+                    },
+                    {
+                        {level = 8, percent = 5}
+                    },
+                    {
+                        {level = 8, percent = 20},
+                        {level = 9, percent = 4},
+                        {level = 11, percent = 1}
+                    }
+                }
+            },
+            ["Route 204"] = {
+                totalPokemon = 6,
+                vanillaData = {
+                    {
+                        {level = 5, percent = 10}
+                    },
+                    {
+                        {level = 6, percent = 20}
+                    },
+                    {
+                        {level = 6, percent = 10},
+                        {level = 8, percent = 5}
+                    },
+                    {
+                        {level = 6, percent = 20},
+                        {level = 8, percent = 5}
+                    },
+                    {
+                        {level = 6, percent = 20},
+                        {level = 8, percent = 4},
+                        {level = 9, percent = 1}
+                    },
+                    {
+                        {level = 8, percent = 4},
+                        {level = 9, percent = 1}
+                    }
+                }
+            }
         }
     },
     --heartgold/soulsilver
@@ -1283,13 +1389,19 @@ LocationData.LOCATION_DATA = {
             [7] = {name = "Striaton City's gym"},
             [16] = {name = "Nacrene City"},
             [18] = {name = "Nacrene City's gym"},
-            [19] = {name = "Nimbasa City's gym"},
+            [19] = {name = "Nacrene City's gym"},
             [28] = {name = "Castelia City"},
+            [29] = {name = "Castelia City's gym"},
             [62] = {name = "Nimbasa City"},
+            [63] = {name = "Nimbasa City's gym"},
             [96] = {name = "Driftveil City"},
+            [97] = {name = "Driftveil City's gym"},
             [107] = {name = "Mistralton City"},
+            [108] = {name = "Mistralton City's gym"},
             [113] = {name = "Icirrus City"},
+            [114] = {name = "Icirrus City's gym"},
             [120] = {name = "Opelucid City"},
+            [121] = {name = "Opelucid City's gym"},
             [136] = {name = "Pok" .. MiscConstants.accentedE .. "mon League"},
             [147] = {name = "Unity Tower"},
             [152] = {name = "Dreamyard"},
@@ -1537,6 +1649,210 @@ LocationData.LOCATION_DATA = {
                     },
                     {
                         {level = 17, percent = 1}
+                    }
+                }
+            }
+        }
+    },
+    --black2/white2
+    [0x4F455249] = {
+        locations = {
+            [0] = {name = "Black City"},
+            [6] = {name = "Striaton City"},
+            [16] = {name = "Nacrene City"},
+            [28] = {name = "Castelia City"},
+            [29] = {name = "Castelia City's gym"},
+            [62] = {name = "Nimbasa City"},
+            [67] = {name = "Nimbasa City's gym"},
+            [96] = {name = "Driftveil City"},
+            [102] = {name = "Driftveil City's gym"},
+            [107] = {name = "Mistralton City"},
+            [121] = {name = "Mistralton City's gym"},
+            [113] = {name = "Icirrus City"},
+            [120] = {name = "Opelucid City"},
+            [134] = {name = "Opelucid City's gym"},
+            [136] = {name = "Pok" .. MiscConstants.accentedE .. "mon League"},
+            [147] = {name = "Unity Tower"},
+            [152] = {name = "Dreamyard"},
+            [154] = {name = "Pinwheel Exterior"},
+            [155] = {name = "Pinwheel Forest"},
+            [157] = {name = "Desert Resort"},
+            [160] = {name = "Relic Castle"},
+            [191] = {name = "Cold Storage"},
+            [194] = {name = "Chargestone Cave"},
+            [198] = {name = "Twist Mountain"},
+            [205] = {name = "Dragonspiral Tower"},
+            [214] = {name = "Victory Road"},
+            [230] = {name = "Giant Chasm"},
+            [235] = {name = "Liberty Garden"},
+            [238] = {name = "P2 Laboratory"},
+            [240] = {name = "Undella Bay"},
+            [241] = {name = "Abyssal Ruins"},
+            [249] = {name = "Skyarrow Bridge"},
+            [253] = {name = "Driftveil Drawbridge"},
+            [254] = {name = "Tubeline Bridge"},
+            [255] = {name = "Village Bridge"},
+            [263] = {name = "Marvelous Bridge"},
+            [264] = {name = "N's Castle"},
+            [279] = {name = "Entree Forest"},
+            [289] = {name = "Nimbasa City"},
+            [290] = {name = "Driftveil City"},
+            [291] = {name = "Mistralton City"},
+            [292] = {name = "Icirrus City"},
+            [293] = {name = "Opelucid City"},
+            [294] = {name = "Black City"},
+            [295] = {name = "White Forest"},
+            [296] = {name = "Cold Storage"},
+            [297] = {name = "Chargestone Cave"},
+            [298] = {name = "Twist Mountain"},
+            [299] = {name = "Dragonspiral Tower"},
+            [300] = {name = "Giant Chasm"},
+            [301] = {name = "Driftveil Drawbridge"},
+            [302] = {name = "Tubeline Bridge"},
+            [303] = {name = "Marvelous Bridge"},
+            [304] = {name = "Route 5"},
+            [305] = {name = "Route 6"},
+            [306] = {name = "Route 7"},
+            [307] = {name = "Route 8"},
+            [308] = {name = "Route 9"},
+            [309] = {name = "Route 11"},
+            [310] = {name = "Route 12"},
+            [311] = {name = "Route 13"},
+            [312] = {name = "Route 14"},
+            [313] = {name = "Route 15"},
+            [314] = {name = "Route 16"},
+            [315] = {name = "Lacunosa Town"},
+            [316] = {name = "Undella Town"},
+            [317] = {name = "Route 1"},
+            [319] = {name = "Route 2"},
+            [321] = {name = "Route 3"},
+            [324] = {name = "Wellspring Cave"},
+            [326] = {name = "Route 4"},
+            [329] = {name = "Route 5"},
+            [331] = {name = "Route 6"},
+            [333] = {name = "Mistralton Cave"},
+            [337] = {name = "Route 7"},
+            [338] = {name = "Celestial Tower"},
+            [345] = {name = "Route 8"},
+            [346] = {name = "Moor of Icirrus"},
+            [348] = {name = "Route 9"},
+            [352] = {name = "Challenger's Cave"},
+            [355] = {name = "Route 10"},
+            [365] = {name = "Route 11"},
+            [368] = {name = "Route 12"},
+            [370] = {name = "Route 13"},
+            [374] = {name = "Route 14"},
+            [376] = {name = "Abundant Shrine"},
+            [378] = {name = "Route 15"},
+            [381] = {name = "Pok" .. MiscConstants.accentedE .. " Transfer Lab"},
+            [383] = {name = "Route 16"},
+            [385] = {name = "Lostlorn Forest"},
+            [387] = {name = "Route 18"},
+            [389] = {name = "Nuvema Town"},
+            [397] = {name = "Accumula Town"},
+            [406] = {name = "Lacunosa Town"},
+            [412] = {name = "Undella Town"},
+            [418] = {name = "Anville Town"},
+            [423] = {name = "Route 17"},
+            [424] = {name = "White Forest"},
+            [427] = {name = "Aspertia City"},
+            [165] = {name = "Aspertia City's gym"},
+            [437] = {name = "Route 19"},
+            [439] = {name = "Flocessy Town"},
+            [444] = {name = "Flocessy Ranch"},
+            [446] = {name = "Route 20"},
+            [448] = {name = "Virbank City"},
+            [176] = {name = "Virbank City's gym"},
+            [456] = {name = "Virbank Complex"},
+            [458] = {name = "Lentimas Town"},
+            [461] = {name = "Reversal Mountain"},
+            [462] = {name = "Strange House"},
+            [463] = {name = "Route 21"},
+            [464] = {name = "Marine Tube"},
+            [465] = {name = "Humilau City"},
+            [184] = {name = "Humilau City's gym"},
+            [474] = {name = "Route 22"},
+            [475] = {name = "Route 23"},
+            [30] = {name = "Castelia City's gym"},
+            [490] = {name = "Join Avenue"},
+            [495] = {name = "Castelia Sewers"},
+            [503] = {name = "Relic Passage"},
+            [506] = {name = "Clay Tunnel"},
+            [515] = {name = "Seaside Cave"},
+            [517] = {name = "Cave of Being"},
+            [518] = {name = "Hidden Grotto"},
+            [552] = {name = "Plasma Frigate"},
+            [566] = {name = "Pok" .. MiscConstants.accentedE .. "star Studios"},
+            [584] = {name = "Nature Preserve"},
+            [573] = {name = "Victory Road"}
+        },
+        encounters = {
+            ["Route 19"] = {
+                totalPokemon = 2,
+                vanillaData = {
+                    {
+                        {level = 3, percent = 20},
+                        {level = 5, percent = 10},
+                        {level = 6, percent = 20}
+                    },
+                    {
+                        {level = 3, percent = 20},
+                        {level = 5, percent = 10},
+                        {level = 6, percent = 20}
+                    }
+                }
+            },
+            ["Route 20"] = {
+                totalPokemon = 5,
+                vanillaData = {
+                    {
+                        {level = 3, percent = 20},
+                        {level = 6, percent = 5}
+                    },
+                    {
+                        {level = 3, percent = 20},
+                        {level = 5, percent = 10},
+                        {level = 6, percent = 5}
+                    },
+                    {
+                        {level = 5, percent = 20}
+                    },
+                    {
+                        {level = 5, percent = 10},
+                        {level = 6, percent = 5}
+                    },
+                    {
+                        {level = 6, percent = 5}
+                    }
+                }
+            },
+            ["Flocessy Ranch"] = {
+                totalPokemon = 7,
+                vanillaData = {
+                    {
+                        {level = 6, percent = 20},
+                        {level = 8, percent = 10},
+                        {level = 9, percent = 5},
+                        {level = 11, percent = 5}
+                    },
+                    {
+                        {level = 8, percent = 10}
+                    },
+                    {
+                        {level = 8, percent = 10}
+                    },
+                    {
+                        {level = 8, percent = 10}
+                    },
+                    {
+                        {level = 8, percent = 20}
+                    },
+                    {
+                        {level = 8, percent = 4},
+                        {level = 11, percent = 1}
+                    },
+                    {
+                        {level = 11, percent = 5}
                     }
                 }
             }
