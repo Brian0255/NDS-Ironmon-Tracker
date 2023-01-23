@@ -9,7 +9,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         RIGHT_JUSTIFIED_NUMBERS = true,
         SHOW_POKECENTER_HEALS = false,
         SHOW_ACCURACY_AND_EVASION = true,
-        ICON_SET_INDEX=2
+        ICON_SET_INDEX = 2
     },
     controls = {
         CHANGE_VIEW = "Start",
@@ -23,7 +23,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         SHOW_MOVE_EFFECTIVENESS = true,
         SHOW_ACTUAL_ENEMY_PP = true,
         SHOW_1ST_FIGHT_STATS_PLATINUM = true,
-        ENABLE_ENEMY_LOCKING = false,
+        ENABLE_ENEMY_LOCKING = false
     },
     colorScheme = {
         ["Main background color"] = 4278190080,
@@ -31,7 +31,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         ["Bottom box text color"] = 4294967295,
         ["Positive text color"] = 4278255360,
         ["Negative text color"] = 4294901760,
-        ["Intermediate text color"]=4294967040,
+        ["Intermediate text color"] = 4294967040,
         ["Move header text color"] = 4294967295,
         ["Top box border color"] = 4289374890,
         ["Bottom box border color"] = 4289374890,
@@ -96,12 +96,13 @@ MiscConstants.DEFAULT_POKEMON = {
     curHP = 0,
     HP = 0,
     stats = {
-    HP = "---",
-    ATK = "---",
-    DEF ="---",
-    SPE = "---",
-    SPA = "---",
-    SPD = "---",},
+        HP = "---",
+        ATK = "---",
+        DEF = "---",
+        SPE = "---",
+        SPA = "---",
+        SPD = "---"
+    },
     isEgg = 0,
     nature = 0,
     encounterType = 0,
@@ -123,6 +124,6 @@ MiscConstants.DEFAULT_POKEMON = {
         ["DEF"] = 6,
         ["SPE"] = 6,
         ["SPA"] = 6,
-        ["SPD"] = 6,
+        ["SPD"] = 6
     }
 }

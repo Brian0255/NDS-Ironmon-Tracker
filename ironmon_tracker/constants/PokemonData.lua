@@ -81,7 +81,7 @@ PokemonData.EVOLUTION_TYPES =
         METAL_COAT = "MTL CT", --Metal Coat held item
         KINGS_ROCK = "KNG RCK", --King's Rock held item
         CLAMPERL = "DST/DSS",
-        SNORUNT = {"42", "42/DWN"}, 
+        SNORUNT = {"42", "42/DWN"},
         KIRLIA = {"30/DWN", "30"},
         SLOWPOKE = "37/WTR",
         POLIWHIRL = "RCK/WTR",
@@ -89,7 +89,7 @@ PokemonData.EVOLUTION_TYPES =
         KARRABLAST = "SHLMT",
         SHELMET = "KRBLST",
         BURMY = "20 M/F",
-        COMBEE = { Graphics.TEXT.PLACEHOLDER, "21 F" }
+        COMBEE = {Graphics.TEXT.PLACEHOLDER, "21 F"}
     }
 )
 

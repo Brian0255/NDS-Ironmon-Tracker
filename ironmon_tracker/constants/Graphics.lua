@@ -5,7 +5,7 @@ Graphics.SIZES = {
     DOWN_GAP = 0,
     MAIN_SCREEN_WIDTH = 150,
     MAIN_SCREEN_HEIGHT = 141,
-    DEFAULT_TEXT_OFFSET = { x = 0, y = 0 },
+    DEFAULT_TEXT_OFFSET = {x = 0, y = 0},
     SCREEN_HEIGHT = 192,
     SCREEN_WIDTH = 256,
     BORDER_MARGIN = 5,
@@ -47,8 +47,7 @@ Graphics.BADGE_ORIENTATION = {
     [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = "HORIZONTAL",
     [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = "HORIZONTAL",
     [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = "HORIZONTAL",
-    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = "VERTICAL",
-
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = "VERTICAL"
 }
 Graphics.SCROLL_DIRECTION = {
     UP = 0,
@@ -56,7 +55,7 @@ Graphics.SCROLL_DIRECTION = {
 }
 Graphics.BUTTON_TEXT = {
     CHECKMARK = 0,
-    FILLED_SQUARE = 1,
+    FILLED_SQUARE = 1
 }
 Graphics.LETTER_PIXEL_LENGTHS = {
     ["<"] = 4,
@@ -89,7 +88,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     d = 4,
     D = 5,
     e = 4,
-    [""..MiscConstants.accentedE..""] = 4,
+    ["" .. MiscConstants.accentedE .. ""] = 4,
     E = 4,
     f = 2,
     F = 4,
@@ -132,7 +131,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     y = 3,
     Y = 5,
     z = 3,
-    Z = 4,
+    Z = 4
 }
 Graphics.FONT = {
     DEFAULT_FONT_SIZE = 9,
@@ -205,4 +204,3 @@ Graphics.MAIN_FRAME_BADGE_INDICES = {
     [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_LEFT] = {1, 2},
     [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = {3, 3}
 }
-

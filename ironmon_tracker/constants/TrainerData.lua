@@ -3,7 +3,7 @@ TrainerData = {}
 TrainerData.TRAINER_TYPES = {
     STANDARD = 0,
     RIVAL = 1,
-    GYM_LEADERS = 2,
+    GYM_LEADERS = 2
 }
 
 --[[
@@ -32,7 +32,7 @@ TrainerData.TRAINERS = {
                     {location = "Hearthorne City", ids = {470, 471, 472}, iv = 6},
                     {location = "Pastoria City", ids = {473, 474, 475}, iv = 9},
                     {location = "Canalave City", ids = {476, 477, 478}, iv = 12},
-                    {location = "Victory Road", ids = {479, 480, 481}, iv = 24},
+                    {location = "Victory Road", ids = {479, 480, 481}, iv = 24}
                 }
             },
             {
@@ -57,7 +57,7 @@ TrainerData.TRAINERS = {
                     {name = "Bertha", ids = {262}, iv = 30},
                     {name = "Flint", ids = {263}, iv = 30},
                     {name = "Lucian", ids = {264}, iv = 30},
-                    {name = "Cynthia", ids = {267}, iv = 30},
+                    {name = "Cynthia", ids = {267}, iv = 30}
                 }
             }
         }
@@ -69,12 +69,12 @@ TrainerData.TRAINERS = {
                 groupName = "Silver",
                 trainerType = TrainerData.TRAINER_TYPES.RIVAL,
                 battles = {
-                    {location = "Lab", ids = {495, 496, 497}, iv = 0},
-                    {location = "Azalea Town", ids = {1, 266, 269}, iv = 3},
-                    {location = "Burned Tower", ids = {263, 267, 270}, iv = 6},
-                    {location = "Goldenrod", ids = {288, 289, 271}, iv = 14},
-                    {location = "Victory Road", ids = {264, 268, 272}, iv = 19},
-                    {location = "Mt. Moon", ids = {285, 286, 287}, iv = 24}
+                    {location = "Lab", ids = {496, 497, 495}, iv = 0},
+                    {location = "Azalea Town", ids = {266, 269, 1}, iv = 3},
+                    {location = "Burned Tower", ids = {267, 270, 263}, iv = 6},
+                    {location = "Goldenrod", ids = {289, 271, 288}, iv = 14},
+                    {location = "Victory Road", ids = {268, 272, 264}, iv = 19},
+                    {location = "Mt. Moon", ids = {286, 287, 285}, iv = 24}
                 }
             },
             {
@@ -121,6 +121,12 @@ TrainerData.TRAINERS = {
     },
     --black
     [0x4F425249] = {
+        LAB_IDS = {
+            [53] = true,
+            [54] = true,
+            [55] = true
+        },
+        FINAL_FIGHT_ID = 232,
         IMPORTANT_GROUPS = {
             {
                 groupName = "Bianca",
@@ -164,8 +170,8 @@ TrainerData.TRAINERS = {
                     --first gym is annoying, there are different gym leaders you fight based on starter choice
                     {
                         {name = "Chili", ids = {11}, badgeNumber = 1, iv = 0},
-                        {name = "Cilan", ids = {12}, badgeNumber = 1, iv = 0},
-                        {name = "Cress", ids = {13}, badgeNumber = 1, iv = 0}
+                        {name = "Cress", ids = {13}, badgeNumber = 1, iv = 0},
+                        {name = "Cilan", ids = {12}, badgeNumber = 1, iv = 0}
                     },
                     {name = "Lenora", ids = {21}, badgeNumber = 2, iv = 6},
                     {name = "Burgh", ids = {22}, badgeNumber = 3, iv = 12},
@@ -235,8 +241,8 @@ TrainerData.TRAINERS = {
                     --first gym is annoying, there are different gym leaders you fight based on starter choice
                     {
                         {name = "Chili", ids = {11}, badgeNumber = 1, iv = 0},
-                        {name = "Cilan", ids = {12}, badgeNumber = 1, iv = 0},
-                        {name = "Cress", ids = {13}, badgeNumber = 1, iv = 0}
+                        {name = "Cress", ids = {13}, badgeNumber = 1, iv = 0},
+                        {name = "Cilan", ids = {12}, badgeNumber = 1, iv = 0}
                     },
                     {name = "Lenora", ids = {21}, badgeNumber = 2, iv = 6},
                     {name = "Burgh", ids = {22}, badgeNumber = 3, iv = 12},
@@ -297,7 +303,7 @@ TrainerData.TRAINERS = {
                     {name = "Marshal", ids = {39}, iv = 24},
                     {name = "Grimsley", ids = {40}, iv = 24},
                     {name = "Caitlin", ids = {41}, iv = 24},
-                    {name = "Iris", ids = {341}, iv = 30},
+                    {name = "Iris", ids = {341}, iv = 30}
                 }
             },
             {
@@ -305,9 +311,9 @@ TrainerData.TRAINERS = {
                 trainerType = TrainerData.TRAINER_TYPES.STANDARD,
                 battles = {
                     {name = "Colres", ids = {344}, iv = 24},
-                    {name = "Ghetsis", ids = {345}, iv = 24},
+                    {name = "Ghetsis", ids = {345}, iv = 24}
                 }
             }
         }
-    },
+    }
 }
