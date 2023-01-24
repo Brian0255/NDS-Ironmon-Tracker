@@ -23,6 +23,12 @@ WHITE2 = 0x4F445249
 TrainerData.TRAINERS = {
     --diamond/pearl/platinum
     [0x45414441] = {
+        LAB_IDS = {
+            [247] = true,
+            [248] = true,
+            [249] = true
+        },
+        FINAL_FIGHT_ID = 267,
         IMPORTANT_GROUPS = {
             {
                 groupName = "Barry",
@@ -64,6 +70,12 @@ TrainerData.TRAINERS = {
     },
     --heartgold/soulsilver
     [0x454B5049] = {
+        LAB_IDS = {
+            [496] = true,
+            [497] = true,
+            [495] = true
+        },
+        FINAL_FIGHT_ID = 260,
         IMPORTANT_GROUPS = {
             {
                 groupName = "Silver",
@@ -198,6 +210,12 @@ TrainerData.TRAINERS = {
     },
     --white
     [0x4F415249] = {
+        LAB_IDS = {
+            [53] = true,
+            [54] = true,
+            [55] = true
+        },
+        FINAL_FIGHT_ID = 232,
         IMPORTANT_GROUPS = {
             {
                 groupName = "Bianca",
@@ -269,6 +287,12 @@ TrainerData.TRAINERS = {
     },
     --black2/white2
     [0x4F455249] = {
+        LAB_IDS = {
+            [161] = true,
+            [162] = true,
+            [163] = true
+        },
+        FINAL_FIGHT_ID = 341,
         IMPORTANT_GROUPS = {
             {
                 groupName = "Hugh",
