@@ -65,10 +65,8 @@ local function PokemonSearchKeyboard(
     function self.updateSearch()
         resultClearingFunction()
         ui.controls.searchBarLabel.setText(currentSearchText)
-        if currentSearchText ~= "" then
-            getPossibleMatches()
-            resultDrawingFunction(matches)
-        end
+        getPossibleMatches()
+        resultDrawingFunction(matches)
     end
 
     local function onBackspace()
@@ -80,10 +78,7 @@ local function PokemonSearchKeyboard(
 
     local function onClear()
         currentSearchText = ""
-        ui.controls.searchBarLabel.setText(currentSearchText)
-        matches = {}
-        resultClearingFunction()
-        drawFunction()
+        self.updateSearch()
     end
 
     function self.clearKeyboard()

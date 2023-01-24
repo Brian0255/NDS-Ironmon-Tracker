@@ -68,8 +68,8 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
     end
 
     function self.reset()
-        pokemonSearchKeyboard.clearKeyboard()
         clearMatches()
+        pokemonSearchKeyboard.clearKeyboard()
     end
 
     local function readCurrentMatchSetIntoUI()
@@ -96,15 +96,9 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         program.drawCurrentScreens()
     end
 
-    local function goBackToOverview()
-        logViewerScreen.resetTabs()
-        logViewerScreen.changeActiveTabIndex(1)
-        program.drawCurrentScreens()
-    end
-
     local function onMatchClick(id)
         if id ~= nil then
-            logViewerScreen.addGoBackFunction(goBackToOverview)
+            logViewerScreen.addGoBackFunction(logViewerScreen.goBackToOverview)
             logViewerScreen.loadPokemonStats(id)
         end
     end
