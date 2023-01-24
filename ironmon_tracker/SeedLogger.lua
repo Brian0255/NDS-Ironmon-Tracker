@@ -49,6 +49,15 @@ local function SeedLogger(initialProgram, initialGameName)
         A_TO_Z = 2
     }
 
+    local function updateKeyList()
+        pastRunKeyList = {}
+        local currentIndex = 1
+        for runHash, _ in pairs(pastRuns) do
+            pastRunKeyList[currentIndex] = runHash
+            currentIndex = currentIndex + 1
+        end
+    end
+
     local function figureOutCause(pastRun)
         local faintedPokemon, enemyPokemon = pastRun.getFaintedPokemon(), pastRun.getEnemyPokemon()
         local abilityName = AbilityData.ABILITIES[enemyPokemon.ability].name
@@ -124,7 +133,7 @@ local function SeedLogger(initialProgram, initialGameName)
     end
 
     function self.getTotalRunsPastLab()
-        return #pastRunKeyList
+        return totalRunsPastLab
     end
 
     function self.getTotalRuns()
@@ -332,6 +341,21 @@ local function SeedLogger(initialProgram, initialGameName)
             },
             0
         )
+    end
+
+    function self.removeNoBadgeRuns()
+        local newRuns = {}
+        pastRunKeyList = {}
+        local currentIndex = 1
+        for runHash, run in pairs(pastRuns) do
+            if run.getBadgeCount() > 0 then
+                newRuns[runHash] = run
+                pastRunKeyList[currentIndex] = runHash
+                currentIndex = currentIndex + 1
+            end
+        end
+        pastRuns = newRuns
+        saveRunsToFile()
     end
 
     function self.logRun(pastRun)
