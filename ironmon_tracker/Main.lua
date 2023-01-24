@@ -9,6 +9,7 @@ local function Main()
 		end
 	end
 
+	dofile("ironmon_tracker/utils/FormsUtils.lua")
 	dofile("ironmon_tracker/utils/MiscUtils.lua")
 	dofile("ironmon_tracker/constants/MiscConstants.lua")
 	checkVersion()
@@ -32,7 +33,6 @@ local function Main()
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/DrawingUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/BitUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/MoveUtils.lua")
-	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/FormsUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/IconDrawer.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/MoveUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/ThemeFactory.lua")
@@ -105,7 +105,7 @@ local function Main()
 		MiscUtils.runExecuteCommand(command, "RomGenerationErrorLog.txt")
 		client.unpause()
 
-		if not MiscUtils.fileExists(nextRomPath) then
+		if not FormsUtils.fileExists(nextRomPath) then
 			displayError('Next ROM failed to generate. Check the "RomGenerationErrorLog" file for more details.')
 			return nil
 		end
@@ -135,14 +135,14 @@ local function Main()
 		end
 
 		local nextRomName = romName:gsub(romNumber, tostring(romNumber + 1))
-		local nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "/" .. nextRomName .. ".nds"
+		local nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "\\" .. nextRomName .. ".nds"
 
 		local fileCheck = io.open(nextRomPath, "r")
 		if fileCheck ~= nil then
 			io.close(fileCheck)
 		else
 			nextRomName = nextRomName:gsub(" ", "_")
-			nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "/" .. nextRomName .. ".nds"
+			nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "\\" .. nextRomName .. ".nds"
 			fileCheck = io.open(nextRomPath, "r")
 			if fileCheck == nil then
 				local message = "Unable to locate next ROM file to load."
