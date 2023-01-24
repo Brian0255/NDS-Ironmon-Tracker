@@ -87,3 +87,56 @@ function FormsUtils.shortenFolderName(path)
         return "..."..shortenedPath
     end
 end
+
+function FormsUtils.createConfirmDialog(callback)
+    forms.destroyall()
+    local center = FormsUtils.getCenter(288,130)
+    local x, y = center.xPos, center.yPos
+    local width, height = 288, 130
+    local confirmForm =
+        forms.newform(
+        width,
+        height,
+        "Confirm",
+        function()
+        end
+    )
+    forms.setlocation(confirmForm, x, y)
+    local canvas = forms.pictureBox(confirmForm, 0, 0, width, 52)
+
+    forms.drawText(canvas, 40, 10, "This action cannot be undone.", 0xFF000000, 0x00000000, 14, "Arial")
+    forms.drawText(canvas, 90, 32, "Are you sure?", 0xFF000000, 0x00000000, 14, "Arial")
+
+    local confirmButton =
+        forms.button(
+        confirmForm,
+        "Yes",
+        function()
+        end,
+        72,
+        height - 74,
+        60,
+        24
+    )
+
+    forms.addclick(
+        confirmButton,
+        function()
+            forms.destroy(confirmForm)
+
+            callback()
+        end
+    )
+
+    forms.button(
+        confirmForm,
+        "Cancel",
+        function()
+            forms.destroy(confirmForm)
+        end,
+        138,
+        height - 74,
+        60,
+        24
+    )
+end
