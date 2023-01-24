@@ -864,7 +864,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"Raises the user's Special Attack by one stage.","Raises the user's Attack and Special Attack by one stage each. During sunny day, raises both stats by two stages."}
+		description = {"Raises the user's Special Attack by one stage.","Raises the user's Special Attack by one stage.","Raises the user's Special Attack by one stage.","Raises the user's Special Attack by one stage.","Raises the user's Attack and Special Attack by one stage each. During sunny day, raises both stats by two stages."}
 	},
 	{
 		id = "75",
