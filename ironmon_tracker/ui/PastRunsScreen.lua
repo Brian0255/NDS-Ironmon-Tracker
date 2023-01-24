@@ -152,9 +152,16 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.mainFrame.setLayoutPadding({x=centerX + 5, y = 0})
         ui.frames.mainFrame.resize({["width"] = width, height = constants.MAIN_FRAME_HEIGHT - 1})
     end
+    
+
+    local function onConfirmRemoveNoBadgeRuns()
+        seedLogger.removeNoBadgeRuns()
+        self.initialize(seedLogger)
+    end
 
     local function onRemoveNoBadgeRunsClick()
-        FormsUtils.createConfirmDialog(seedLogger.removeNoBadgeRuns)
+        forms.destroyall()
+        FormsUtils.createConfirmDialog(onConfirmRemoveNoBadgeRuns)
     end
 
     function self.initialize(newSeedLogger)
