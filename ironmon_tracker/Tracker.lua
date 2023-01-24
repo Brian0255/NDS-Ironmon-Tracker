@@ -28,6 +28,11 @@ local function Tracker()
 		end
 	end
 
+	function self.getFirstPokemonID()
+		if trackedData.firstPokemon == nil then return end
+		return trackedData.firstPokemon.pokemonID
+	end
+
 	function self.loadData(gameName)
 		local savedData = MiscUtils.getTableFromFile(gameName..".trackerdata")
 		if savedData ~= nil then

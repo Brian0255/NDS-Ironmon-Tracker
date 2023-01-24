@@ -1,14 +1,21 @@
-local function LogInfo(initialPokemonList, initialTrainers, initialTMs, initialStarterNumber, initialMiscInfo)
+local function LogInfo(initialPokemonList, initialTrainers, initialTMs, initialStarterNumber, initialMiscInfo, initialStarters)
     local self = {}
     local pokemonList = initialPokemonList
     local trainers = initialTrainers
     local TMs = initialTMs
-    local starterNumber = initialStarterNumber
+    local starters = initialStarters
     local miscInfo = initialMiscInfo
+    local starterNumber = 1
+
+    function self.setStarterNumberFromPlayerPokemonID(id)
+        starterNumber = 1
+        if starters[id] then
+            starterNumber = starters[id]
+        end
+    end
 
     function self.getStarterNumber()
-        return 3
-        --starterNumber
+        return starterNumber
     end
 
     function self.getPokemon()
@@ -45,6 +52,7 @@ local function RandomizerLogParser(initialProgram)
     local pokemonList = {}
     local trainers = {}
     local TMs = {}
+    local starters = {}
 
     local function checkForNameReplacement(name)
         if self.LogParserConstants.NAME_REPLACEMENTS[name] then
@@ -226,6 +234,20 @@ local function RandomizerLogParser(initialProgram)
         return true
     end
 
+    local function parseMoveInfo(lines, lineStart)
+        if lineStart ~= nil then
+            moveIDMappings = {}
+            --header below section name that we don't care about
+            local currentLineIndex = lineStart + 1
+            while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
+                local lineInfo = MiscUtils.split(lines[currentLineIndex],"|",true)
+                local id, moveName = tonumber(lineInfo[1]), lineInfo[2]
+                moveIDMappings[moveName] = id
+                currentLineIndex = currentLineIndex + 1
+            end
+        end
+    end
+
     local function checkGameName(lines, lineStart)
         local name = lines[lineStart]:match("Randomization of (Pokemon [%a%d ]+).* completed.")
         name = MiscUtils.trimWhitespace(name)
@@ -234,6 +256,16 @@ local function RandomizerLogParser(initialProgram)
             return true
         end
         return false
+    end
+
+    local function parseStarterInfo(lines, lineStart)
+        starters = {}
+        for i = 0,2,1 do
+            local starterLine = lines[lineStart+i]
+            local number, name = starterLine:match("Set starter (%d+) to (.*)")
+            number = tonumber(number)
+            starters[pokemonIDMappings[name]] = number
+        end
     end
 
     self.LogParserConstants = {
@@ -278,17 +310,21 @@ local function RandomizerLogParser(initialProgram)
             ["--TM Moves--"] = parseTMMoves,
             ["--TM Compatibility--"] = parseTMCompatibility,
             ["--Trainers Pokemon--"] = parseTrainers,
-            ["------------------------------------------------------------------"] = checkGameName
+            ["--Move Data--"] = parseMoveInfo,
+            ["------------------------------------------------------------------"] = checkGameName,
+            ["--Random Starters--"] = parseStarterInfo
         },
         PREFERRED_PARSE_ORDER = {
             --game name
             "------------------------------------------------------------------",
+            "--Move Data--",
             "--Pokemon Base Stats & Types--",
             "--Pokemon Movesets--",
             "--Randomized Evolutions--",
             "--TM Moves--",
             "--TM Compatibility--",
             "--Trainers Pokemon--",
+            "--Random Starters--"
         }
     }
 
@@ -326,7 +362,7 @@ local function RandomizerLogParser(initialProgram)
                 if self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[line] then
                     sectionHeaderStarts[line] = index + 1
                     totalFound = totalFound + 1
-                    if totalFound == 7 then
+                    if totalFound == #self.LogParserConstants.PREFERRED_PARSE_ORDER then
                         break
                     end
                 end
@@ -340,7 +376,7 @@ local function RandomizerLogParser(initialProgram)
                 end
             end
             local miscInfo = parseMiscInfo(lines)
-            return LogInfo(pokemonList, trainers, TMs, 1, miscInfo)
+            return LogInfo(pokemonList, trainers, TMs, 1, miscInfo, starters)
         end
     end
 

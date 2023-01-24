@@ -741,8 +741,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.openLogFromPath(logPath)
 		local logInfo = randomizerLogParser.parse(logPath)
 		if logInfo ~= nil then
+			local playerPokemonID = tracker.getFirstPokemonID()
+			logInfo.setStarterNumberFromPlayerPokemonID(playerPokemonID)
 			self.setCurrentScreens({self.UI_SCREENS.LOG_VIEWER_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
+			if playerPokemonID ~= nil then
+				self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].loadPokemonStats(playerPokemonID)
+			end
 			self.drawCurrentScreens()
 		else
 			print("game mismatch")
