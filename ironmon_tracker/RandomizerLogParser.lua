@@ -263,6 +263,7 @@ local function RandomizerLogParser(initialProgram)
         for i = 0,2,1 do
             local starterLine = lines[lineStart+i]
             local number, name = starterLine:match("Set starter (%d+) to (.*)")
+            name = checkForNameReplacement(name)
             number = tonumber(number)
             starters[pokemonIDMappings[name]] = number
         end
@@ -348,7 +349,7 @@ local function RandomizerLogParser(initialProgram)
     end
 
     function self.parse(inputFile)
-        if MiscUtils.fileExists(inputFile) then
+        if FormsUtils.fileExists(inputFile) then
             resetPokemon()
             trainers = {}
             TMs = {}
