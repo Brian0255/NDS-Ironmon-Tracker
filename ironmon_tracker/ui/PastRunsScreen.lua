@@ -153,6 +153,10 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.mainFrame.resize({["width"] = width, height = constants.MAIN_FRAME_HEIGHT - 1})
     end
 
+    local function onRemoveNoBadgeRunsClick()
+        FormsUtils.createConfirmDialog(seedLogger.removeNoBadgeRuns)
+    end
+
     function self.initialize(newSeedLogger)
         seedLogger = newSeedLogger
         currentSortMethod = 0
@@ -160,6 +164,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         clearHighlights()
         currentPastRunHashes = seedLogger.getPastRunHashesSorted(currentSortMethod, currentBadgeFilter)
         initSortButtonEvents()
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.removeNoBadgeRunsButton, onRemoveNoBadgeRunsClick))
         pastRuns = seedLogger.getPastRuns()
         program.changeMainScreenForPastRunView()
         program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN, program.UI_SCREENS.PAST_RUNS_SCREEN})
@@ -259,9 +264,33 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         local goBackFrame =
             Frame(
             Box({x = 0, y = 0}, {width = 0, height = 0}),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 96, y = 4}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 4, {x = 4, y = 4}),
             ui.frames.badgeFrame
         )
+        ui.controls.removeNoBadgeRunsButton =
+        TextLabel(
+        Component(
+            goBackFrame,
+            Box(
+                {x = 0, y = 0},
+                {width = 88, height = 14},
+                "Top box background color",
+                "Top box border color",
+                true,
+                "Top box background color"
+            )
+        ),
+        TextField(
+            "Delete 0 Badge Runs",
+            {x = 2, y = 1},
+            TextStyle(
+                Graphics.FONT.DEFAULT_FONT_SIZE,
+                Graphics.FONT.DEFAULT_FONT_FAMILY,
+                "Top box text color",
+                "Top box background color"
+            )
+        )
+    )
         ui.controls.goBackButton =
             TextLabel(
             Component(
