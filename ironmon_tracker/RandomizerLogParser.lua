@@ -359,7 +359,7 @@ local function RandomizerLogParser(initialProgram)
             local sectionHeaderStarts = {}
             local totalFound = 0
             for index, line in pairs(lines) do
-                if self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[line] then
+                if self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[line] and not sectionHeaderStarts[line] then
                     sectionHeaderStarts[line] = index + 1
                     totalFound = totalFound + 1
                     if totalFound == #self.LogParserConstants.PREFERRED_PARSE_ORDER then
