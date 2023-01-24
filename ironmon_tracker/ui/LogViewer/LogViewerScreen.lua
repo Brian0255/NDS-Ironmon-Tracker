@@ -106,6 +106,12 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         self.loadPokemonStats(id)
     end
 
+    function self.goBackToOverview()
+        self.resetTabs()
+        self.changeActiveTabIndex(1)
+        program.drawCurrentScreens()
+    end
+
     function self.openTrainerTeam(battle)
         teamInfoScreen.setTrainerIndex(battle.index)
         trainerScreenStack.setCurrentIndex(2)
@@ -140,6 +146,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.resetTabs()
+        updateBackButton()
         --resets cause lots of screen drawing, disable it
         program.setCanDraw(false)
         pokemonOverviewScreen.reset()
