@@ -411,8 +411,9 @@ end
 function StatisticsOrganizer.loadPastRunStatistics(gameName)
     local pastRunStatistics = MiscUtils.getTableFromFile(gameName .. ".statistics")
     if pastRunStatistics == nil or pastRunStatistics == "" then
-        print("Creating new past run statistics...")
-        return MiscUtils.deepCopy(PlaythroughConstants.EMPTY_PAST_RUN_STATISTICS)
+        local statistics = MiscUtils.deepCopy(PlaythroughConstants.EMPTY_PAST_RUN_STATISTICS)
+        MiscUtils.saveTableToFile(gameName .. ".statistics", statistics)
+        return statistics
     end
     return pastRunStatistics
 end
