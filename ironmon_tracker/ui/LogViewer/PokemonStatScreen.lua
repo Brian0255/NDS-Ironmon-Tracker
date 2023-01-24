@@ -83,6 +83,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     end
 
     local function onMoveInfoClick(params)
+        if activeHoverFrame ~= nil then return end
         activeHoverFrame = UIUtils.createAndDrawMoveHoverFrame(params, program.drawCurrentScreens, ui.frames.mainFrame)
         hoverListeners.moveInfoListener = HoverEventListener(params.control, nil, nil, onMoveHoverEnd)
     end

@@ -51,31 +51,25 @@ PlaythroughConstants.EMPTY_PAST_RUN_STATISTICS = {
     {
         "Pok" .. MiscConstants.accentedE .. "mon You Ran",
         {}
-        
     },
     {
         "Pok" .. MiscConstants.accentedE .. "mon You Lost to",
         {}
-        
     },
     {
         "Moves You Had",
         {}
-        
     },
     {
         "Moves Your Enemies Had",
         {}
-        
     },
     {
         "Abilities You Had",
         {}
-        
     },
     {
         "Abilities You Lost to",
         {}
-        
     }
 }

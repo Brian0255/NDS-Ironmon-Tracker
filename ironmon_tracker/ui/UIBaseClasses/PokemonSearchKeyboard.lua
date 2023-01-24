@@ -52,10 +52,12 @@ local function PokemonSearchKeyboard(
 
     local function getPossibleMatches()
         matches = {}
+        local currentIndex = 1
         for _, id in pairs(itemSet) do
             local name = PokemonData.POKEMON[id + 1].name:lower()
             if name:sub(1, #currentSearchText) == currentSearchText:lower() then
-                table.insert(matches, id)
+                matches[currentIndex] = id
+                currentIndex = currentIndex + 1
             end
         end
     end
@@ -67,7 +69,6 @@ local function PokemonSearchKeyboard(
             getPossibleMatches()
             resultDrawingFunction(matches)
         end
-        drawFunction()
     end
 
     local function onBackspace()
@@ -79,7 +80,10 @@ local function PokemonSearchKeyboard(
 
     local function onClear()
         currentSearchText = ""
-        self.updateSearch()
+        ui.controls.searchBarLabel.setText(currentSearchText)
+        matches = {}
+        resultClearingFunction()
+        drawFunction()
     end
 
     function self.clearKeyboard()

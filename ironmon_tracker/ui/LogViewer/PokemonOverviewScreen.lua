@@ -67,7 +67,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         end
     end
 
-        function self.reset()
+    function self.reset()
         pokemonSearchKeyboard.clearKeyboard()
         clearMatches()
     end
@@ -190,7 +190,6 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         readCurrentMatchSetIntoUI()
     end
 
-
     local function initUI()
         ui.controls = {}
         ui.frames = {}
@@ -203,8 +202,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
                 },
                 {
                     width = Graphics.SIZES.SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                    height = Graphics.SIZES.SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN -
-                        Graphics.LOG_VIEWER.TAB_HEIGHT -
+                    height = Graphics.SIZES.SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN - Graphics.LOG_VIEWER.TAB_HEIGHT -
                         5
                 },
                 "Top box background color",
@@ -296,8 +294,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5, {x = 50, y = 0}),
             ui.frames.mainFrame
         )
-        pokemonSearchKeyboard =
-            PokemonSearchKeyboard(sortedPokemonIDs, ui.frames.searchFrame, createMatchSets, clearMatches)
+        pokemonSearchKeyboard = PokemonSearchKeyboard(sortedPokemonIDs, ui.frames.searchFrame, createMatchSets, clearMatches)
         table.insert(eventListeners, MouseClickEventListener(ui.controls.rightButton, onForwardClick))
         table.insert(eventListeners, MouseClickEventListener(ui.controls.leftButton, onBackwardClick))
     end

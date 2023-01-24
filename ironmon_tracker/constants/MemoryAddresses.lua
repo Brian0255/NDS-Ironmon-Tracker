@@ -98,7 +98,6 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.PLATINUM] = {
     }
 }
 
-
 MemoryAddresses[GameInfo.VERSION_NUMBER.DIAMOND] = {
     GLOBAL_POINTER = 0xB70,
     VERSION_POINTER_OFFSET = 0x20,

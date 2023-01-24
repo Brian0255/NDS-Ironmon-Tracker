@@ -53,6 +53,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local playerPokemon = nil
 	local enemyPokemon = nil
 	local activeColorPicker = nil
+	local canDraw = true
 	local pokemonDataReader
 	local frameCounters
 	local trackerUpdater = TrackerUpdater(settings)
@@ -402,6 +403,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if not (inTrackedPokemonView or inLockedView) then
 			setPokemonForMainScreen()
 		end
+		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
+			self.drawCurrentScreens()
+		end
 	end
 
 	function self.openUpdaterScreen()
@@ -555,7 +559,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	function self.setCanDraw(newCanDraw)
+		canDraw = newCanDraw
+	end
+
 	function self.drawCurrentScreens()
+		if not canDraw then return end
 		Graphics.SIZES.MAIN_SCREEN_PADDING = 199
 		local total = 0
 		for _, screen in pairs(currentScreens) do
@@ -627,11 +636,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	frameCounters = {
 		settingsSaving = FrameCounter(120, saveSettings, nil, true),
-		screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
+		--screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
 		trackerSaving = FrameCounter(
 			18000,
-			--18000,
 			function()
 				tracker.save(gameInfo.NAME)
 				client.saveram()

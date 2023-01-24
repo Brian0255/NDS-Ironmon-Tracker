@@ -35,7 +35,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local trainerGroups
     local currentIndex = 1
     local tabs = {
-        "Pok"..MiscConstants.accentedE.."mon",
+        "Pok" .. MiscConstants.accentedE .. "mon",
         "Trainers",
         "Gym TMs",
         "Statistics",
@@ -108,9 +108,8 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
 
     function self.openTrainerTeam(battle)
         teamInfoScreen.setTrainerIndex(battle.index)
-        teamInfoScreen.readCurrentTrainerIndex(pokemonLoadingFunction)
         trainerScreenStack.setCurrentIndex(2)
-        program.drawCurrentScreens()
+        teamInfoScreen.readCurrentTrainerIndex(pokemonLoadingFunction)
     end
 
     function self.openTrainerTeamFromCard(battle)
@@ -135,17 +134,20 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.changeActiveTabIndex(newIndex)
-        --program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
+        program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
         currentIndex = newIndex
         tabScreenStack.setCurrentIndex(newIndex)
     end
 
     function self.resetTabs()
+        --resets cause lots of screen drawing, disable it
+        program.setCanDraw(false)
         pokemonOverviewScreen.reset()
         trainerOverviewScreen.reset()
         statsScreen.reset()
         pokemonScreenStack.setCurrentIndex(1)
         trainerScreenStack.setCurrentIndex(1)
+        program.setCanDraw(true)
     end
 
     local function onTabClick(index)
@@ -190,12 +192,20 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
             table.insert(eventListeners, MouseClickEventListener(tabControl, onTabClick, index))
             table.insert(tabControls, tabControl)
         end
-        local arrowFrameInfo = FrameFactory.createArrowFrame("BIG_X", ui.frames.tabFrame, 27, 3, 6, "Top box background color", "Top box background color")
+        local arrowFrameInfo =
+            FrameFactory.createArrowFrame(
+            "BIG_X",
+            ui.frames.tabFrame,
+            27,
+            3,
+            6,
+            "Top box background color",
+            "Top box background color"
+        )
         ui.frames.goBackFrame, ui.controls.goBackButton = arrowFrameInfo.frame, arrowFrameInfo.button
         ui.frames.goBackFrame.resize({width = 27, height = Graphics.LOG_VIEWER.TAB_HEIGHT})
         table.insert(eventListeners, MouseClickEventListener(ui.frames.goBackFrame, onGoBackClick))
     end
-
 
     local function initUI()
         ui.controls = {}
@@ -208,11 +218,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
                 "Main background color",
                 "Main background color"
             ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.VERTICAL,
-                0,
-                {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}
-            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}),
             nil
         )
         ui.frames.tabFrame =
