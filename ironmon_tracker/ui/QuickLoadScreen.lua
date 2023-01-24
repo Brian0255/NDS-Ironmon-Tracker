@@ -60,6 +60,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 settings.quickLoad[settingKey] = newPath
                 pathLabel.setText(FormsUtils.shortenFolderName(newPath))
             end
+            program.drawCurrentScreens()
         end
     end
 

@@ -116,7 +116,7 @@ function MiscUtils.runExecuteCommand(command, errorOutput)
         completeCommand = string.format('%s 2>"%s"', completeCommand, errorOutput)
     end
     os.execute(completeCommand)
-    if MiscUtils.fileExists(tempFile) then
+    if FormsUtils.fileExists(tempFile) then
         local file = io.open(tempFile)
         if file ~= nil then
             local contents = file:read("*a")
@@ -237,11 +237,6 @@ function MiscUtils.writeStringToFile(fileName, input)
     if file == nil then return end
     file:write(input)
     file:close()
-end
-
-function MiscUtils.fileExists(fileName)
-    local file = io.open(fileName, "r")
-    return file ~= nil and io.close(file)
 end
 
 function MiscUtils.saveTableToFile(fileName, tableData)

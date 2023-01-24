@@ -21,8 +21,55 @@ WHITE2 = 0x4F445249
 
 --]]
 TrainerData.TRAINERS = {
-    --diamond/pearl/platinum
-    [0x45414441] = {
+        --diamond/pearl
+        [0x45414441] = {
+            LAB_IDS = {
+                [247] = true,
+                [248] = true,
+                [249] = true
+            },
+            FINAL_FIGHT_ID = 267,
+            IMPORTANT_GROUPS = {
+                {
+                    groupName = "Barry",
+                    trainerType = TrainerData.TRAINER_TYPES.RIVAL,
+                    battles = {
+                        {location = "Route 203", ids = {248, 249, 247}, iv = 3},
+                        {location = "Hearthorne City", ids = {471, 472, 470}, iv = 6},
+                        {location = "Pastoria City", ids = {474, 475, 473}, iv = 9},
+                        {location = "Canalave City", ids = {477, 478, 476}, iv = 12},
+                        {location = "Victory Road", ids = {480, 481, 479}, iv = 24}
+                    }
+                },
+                {
+                    groupName = "Gym Leaders",
+                    trainerType = TrainerData.TRAINER_TYPES.GYM_LEADERS,
+                    battles = {
+                        {name = "Roark", ids = {246}, badgeNumber = 1, iv = 6},
+                        {name = "Gardenia", ids = {315}, badgeNumber = 2, iv = 6},
+                        {name = "Maylene", ids = {317}, badgeNumber = 3, iv = 12},
+                        {name = "Wake", ids = {316}, badgeNumber = 4, iv = 12},
+                        {name = "Fantina", ids = {318}, badgeNumber = 5, iv = 18},
+                        {name = "Byron", ids = {250}, badgeNumber = 6, iv = 18},
+                        {name = "Candice", ids = {319}, badgeNumber = 7, iv = 24},
+                        {name = "Volkner", ids = {320}, badgeNumber = 8, iv = 24}
+                    }
+                },
+                {
+                    groupName = "Elite 4",
+                    trainerType = TrainerData.TRAINER_TYPES.STANDARD,
+                    battles = {
+                        {name = "Aaron", ids = {261}, iv = 30},
+                        {name = "Bertha", ids = {262}, iv = 30},
+                        {name = "Flint", ids = {263}, iv = 30},
+                        {name = "Lucian", ids = {264}, iv = 30},
+                        {name = "Cynthia", ids = {267}, iv = 30}
+                    }
+                }
+            }
+        },
+    --platinum
+    [0x45555043] = {
         LAB_IDS = {
             [247] = true,
             [248] = true,
@@ -34,11 +81,12 @@ TrainerData.TRAINERS = {
                 groupName = "Barry",
                 trainerType = TrainerData.TRAINER_TYPES.RIVAL,
                 battles = {
-                    {location = "Route 203", ids = {247, 248, 249}, iv = 3},
-                    {location = "Hearthorne City", ids = {470, 471, 472}, iv = 6},
-                    {location = "Pastoria City", ids = {473, 474, 475}, iv = 9},
-                    {location = "Canalave City", ids = {476, 477, 478}, iv = 12},
-                    {location = "Victory Road", ids = {479, 480, 481}, iv = 24}
+                    {location = "Lab", ids = {851, 852, 850}, iv = 0},
+                    {location = "Route 203", ids = {248, 249, 247}, iv = 3},
+                    {location = "Hearthorne City", ids = {471, 472, 470}, iv = 6},
+                    {location = "Pastoria City", ids = {474, 475, 473}, iv = 9},
+                    {location = "Canalave City", ids = {477, 478, 476}, iv = 12},
+                    {location = "Victory Road", ids = {480, 481, 479}, iv = 24}
                 }
             },
             {

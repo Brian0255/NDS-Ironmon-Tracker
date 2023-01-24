@@ -89,7 +89,6 @@ function FormsUtils.shortenFolderName(path)
 end
 
 function FormsUtils.createConfirmDialog(callback)
-    forms.destroyall()
     local center = FormsUtils.getCenter(288,130)
     local x, y = center.xPos, center.yPos
     local width, height = 288, 130

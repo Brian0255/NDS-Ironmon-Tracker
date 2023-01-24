@@ -94,19 +94,19 @@ local function SeedLogger(initialProgram, initialGameName)
         end
     end
 
-    function self.getRandomGameOverMessage(pastRun)
+    function self.getRandomRunOverMessage(pastRun)
         local cause = figureOutCause(pastRun)
         local message = ""
         local enemyPokemon = pastRun.getEnemyPokemon()
         local enemyName = enemyPokemon.name
         local endings = {}
-        local causeEntry = PlaythroughConstants.GAME_OVER_MESSAGES[cause]
+        local causeEntry = PlaythroughConstants.RUN_OVER_MESSAGES[cause]
 
         if cause ~= PlaythroughConstants.CAUSES.STANDARD then
             endings = MiscUtils.shallowCopy(causeEntry.messages)
         end
 
-        local standardEndings = PlaythroughConstants.GAME_OVER_MESSAGES[PlaythroughConstants.CAUSES.STANDARD].messages
+        local standardEndings = PlaythroughConstants.RUN_OVER_MESSAGES[PlaythroughConstants.CAUSES.STANDARD].messages
         if not causeEntry.exclusive then
             for _, messageToInsert in pairs(standardEndings) do
                 table.insert(endings, messageToInsert)
@@ -243,7 +243,7 @@ local function SeedLogger(initialProgram, initialGameName)
         local lines = {}
         local fileName = gameName .. ".pastlog"
         local currentRunIndex = 1
-        if MiscUtils.fileExists(fileName) then
+        if FormsUtils.fileExists(fileName) then
             for line in io.lines(fileName) do
                 table.insert(lines, line)
             end
@@ -365,7 +365,6 @@ local function SeedLogger(initialProgram, initialGameName)
             if pastRun.getProgress() > PlaythroughConstants.PROGRESS.NOWHERE then
                 totalRunsPastLab = totalRunsPastLab + 1
                 if not pastRuns[ROMHash] then
-                    print("logging run")
                     pastRuns[ROMHash] = pastRun
                     table.insert(pastRunKeyList, ROMHash)
                     pastHashLogged = ROMHash
