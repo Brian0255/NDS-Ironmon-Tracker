@@ -30,10 +30,6 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	}
 	local self = {}
 
-	local function onUpdateCheckerClick()
-		program.openUpdaterScreen()
-	end
-
 	local function onTrackedPokemonClick()
 		program.setCurrentScreens({program.UI_SCREENS.TRACKED_POKEMON_SCREEN, program.UI_SCREENS.MAIN_SCREEN})
 		program.setUpForTrackedPokemonView()

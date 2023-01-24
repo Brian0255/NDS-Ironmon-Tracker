@@ -349,6 +349,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         pokemonSearchKeyboard.updateItemSet(sortedTrackedIDs)
         pokemonSearchKeyboard.setDrawFunction(program.drawCurrentScreens)
         pokemonSearchKeyboard.updateSearch()
+        program.drawCurrentScreens()
     end
 
     function self.show()

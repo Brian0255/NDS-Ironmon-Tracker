@@ -154,56 +154,7 @@ function ThemeFactory.createSaveConfirmDialog(x, y, width, height, file)
 end
 
 function ThemeFactory.createDefaultConfirmDialog()
-    local x, y =
-        constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
-        constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2
-    local width, height = constants.SAVE_THEME_WIDTH, 130
-    local confirmForm =
-        forms.newform(
-        width,
-        height,
-        "Confirm",
-        function()
-        end
-    )
-    forms.setlocation(confirmForm, x, y)
-    local canvas = forms.pictureBox(confirmForm, 0, 0, width, 52)
-
-    forms.drawText(canvas, 40, 10, "This action cannot be undone.", 0xFF000000, 0x00000000, 14, "Arial")
-    forms.drawText(canvas, 90, 32, "Are you sure?", 0xFF000000, 0x00000000, 14, "Arial")
-
-    local confirmButton =
-        forms.button(
-        confirmForm,
-        "Yes",
-        function()
-        end,
-        72,
-        height - 74,
-        60,
-        24
-    )
-
-    forms.addclick(
-        confirmButton,
-        function()
-            forms.destroy(confirmForm)
-
-            ThemeFactory.restoreDefaults()
-        end
-    )
-
-    forms.button(
-        confirmForm,
-        "Cancel",
-        function()
-            forms.destroy(confirmForm)
-        end,
-        138,
-        height - 74,
-        60,
-        24
-    )
+    FormsUtils.createConfirmDialog(ThemeFactory.restoreDefaults)
 end
 
 function ThemeFactory.createLoadThemeForm()
