@@ -139,8 +139,7 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
 
     local function RGB_to_Hex()
         --%02x: 0 means replace " "s with "0"s, 2 is width, x means hex
-        local hex = string.format("%02x%02x%02x", red, green, blue)
-        return tonumber("0xFF" .. hex)
+        return tonumber(string.format("0xFF%02x%02x%02x", math.floor(red), math.floor(green), math.floor(blue)))
     end
 
     local function drawMainCanvas()

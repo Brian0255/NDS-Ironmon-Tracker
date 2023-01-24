@@ -403,7 +403,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if not (inTrackedPokemonView or inLockedView) then
 			setPokemonForMainScreen()
 		end
-		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] then
+		if (currentScreens[self.UI_SCREENS.MAIN_SCREEN] and #currentScreens == 1) 
+		or currentScreens[self.UI_SCREENS.COLOR_SCHEME_SCREEN] then
 			self.drawCurrentScreens()
 		end
 	end
