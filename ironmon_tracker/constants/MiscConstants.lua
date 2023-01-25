@@ -4,6 +4,8 @@ MiscConstants.TRACKER_VERSION = "5.1.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
+MiscConstants.accentedE = "é"
+
 MiscConstants.UPDATE_NOTES = {
     '-- Added a randomizer log viewer! You can view this after a run dies from a new "Run Over!" screen or from the "Tracked info" screen.',
     '-- Any runs past the lab are now tracked! You can also view these from the "Tracked info" screen.',
