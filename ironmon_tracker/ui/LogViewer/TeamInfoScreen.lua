@@ -109,6 +109,12 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
         gameInfo = program.getGameInfo()
     end
 
+    local function onPokeballClick(index)
+        ui.controls.pokeballs[currentTeamIndex].setPath("ironmon_tracker/images/trainers/pokeball_large_off.png")
+        currentTeamIndex = index
+        readCurrentTeamIndexIntoUI()
+    end
+
     local function createPokeballs(trainerTeam)
         ui.frames.pokeballFrame.clearAllChildren()
         ui.controls.pokeballs = {}
@@ -122,6 +128,7 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
                 ),
                 ImageField("ironmon_tracker/images/trainers/pokeball_large_off.png", {x = 1, y = 1}, nil)
             )
+            eventListeners["pokeball"..i] = MouseClickEventListener(ui.controls.pokeballs[i],onPokeballClick, i)
         end
         for i = #trainerTeam + 1, 6, 1 do
             ui.controls.pokeballs[i] =
@@ -130,6 +137,7 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
                 "LARGE_DOT",
                 {x = 6, y = 6}
             )
+            eventListeners["pokeball"..i] = nil
         end
     end
 
