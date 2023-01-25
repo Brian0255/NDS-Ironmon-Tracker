@@ -55,7 +55,7 @@ local function TrackerUpdater(initialSettings)
         print(string.format("Installing upgrade to version "..self.getNewestVersionString().."."))
     
         local result = os.execute(combined_cmd)
-        if result ~= 0 then -- 0 = successful
+        if not (result == true or result == 0) then
             print("Error trying to install: Unable to download, extract, or overwrite files properly.")
             return false
         end
