@@ -74,6 +74,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
 
     local function readCurrentMatchSetIntoUI()
         if #currentMatchSets == 0 then
+            program.drawCurrentScreens()
             return
         end
         local matchSet = currentMatchSets[currentMatchSetIndex]
