@@ -36,13 +36,13 @@ local function TrackerUpdater(initialSettings)
             string.format('tar -xzf "%s"', archiveName),
             string.format('del "%s"', archiveName),
 
-            string.format('rmdir "%s\\.vscode" /s /q', folderName),
-            string.format('del "%s\\.editorconfig" /q /f', folderName),
-            string.format('del "%s\\.gitattributes" /q /f', folderName),
-            string.format('del "%s\\.gitignore" /q /f', folderName),
-            string.format('del "%s\\README.md" /q /f', folderName),
-
             'echo; && echo Applying the update; copying over files.',
+            string.format('rmdir "%s\\.vscode" /s /q', folderName),
+            string.format('del "%s\\.editorconfig" /q', folderName),
+            string.format('del "%s\\.gitattributes" /q', folderName),
+            string.format('del "%s\\.gitignore" /q', folderName),
+            string.format('del "%s\\README.md" /q', folderName),
+
             string.format('xcopy "%s" /s /y /q', folderName),
             string.format('rmdir "%s" /s /q', folderName),
 
