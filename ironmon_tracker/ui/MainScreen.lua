@@ -200,7 +200,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 HoverFrameFactory.createHoverTextFrame(
                 "Bottom box background color",
                 "Bottom box border color",
-                "This Pok"..MiscConstants.accentedE.."mon does not learn any moves.",
+                "This Pok" .. MiscConstants.accentedE .. "mon does not learn any moves.",
                 "Bottom box text color",
                 126
             )
@@ -338,12 +338,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             }
             if statusTable[status] then
                 imgName = statusTable[status]
+            elseif status < 8 then
+                imgName = "SLP"
             else
-                if status < 8 then
-                    imgName = "SLP"
-                end
+                return ""
             end
-            return imgName
         elseif program.getGameInfo().GEN == 5 then
             imgName = MiscData.STATUS_TO_IMG_NAME[status]
             if imgName == nil then
@@ -381,7 +380,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 program.isInBattle()
             )
             if damage ~= nil then
-             moveFrame.powLabel.setText(damage)
+                moveFrame.powLabel.setText(damage)
             end
         end
     end
@@ -462,7 +461,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local moveIDs = currentPokemon.moveIDs
         local movePPs = {}
         if isEnemy then
-            local info = MoveUtils.calculateEnemyPPs(
+            local info =
+                MoveUtils.calculateEnemyPPs(
                 currentPokemon,
                 tracker.getMoves(currentPokemon.pokemonID),
                 settings.battle.SHOW_ACTUAL_ENEMY_PP
@@ -500,7 +500,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function setEnemySpecificControls()
-        ui.controls.lockIcon.setVisibility(not (inTrackedView or inLockedView or inPastRunView) and settings.battle.ENABLE_ENEMY_LOCKING)
+        ui.controls.lockIcon.setVisibility(
+            not (inTrackedView or inLockedView or inPastRunView) and settings.battle.ENABLE_ENEMY_LOCKING
+        )
         local lockIcon = "LOCKED"
         if not program.isLocked() then
             lockIcon = "UNLOCKED"
@@ -618,7 +620,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     function self.formatForTeamInfoView(pokemonLoadingFunction)
         ui.frames.mainFrame.setBackgroundColorKey("")
         inLockedView = true
-        eventListeners.loadStatOverview = MouseClickEventListener(ui.controls.pokemonImageLabel, pokemonLoadingFunction, currentPokemon.pokemonID)
+        eventListeners.loadStatOverview =
+            MouseClickEventListener(ui.controls.pokemonImageLabel, pokemonLoadingFunction, currentPokemon.pokemonID)
         local newAbilityLabels = {ui.controls.pokemonHP, ui.controls.heldItem, ui.controls.abilityDetails}
         for index, newAbilityLabel in pairs(newAbilityLabels) do
             hoverListeners["abilityHoverListener" .. index] =
@@ -664,7 +667,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.mainFrame.setBackgroundColorKey("Main background color")
         inLockedView = false
         eventListeners.loadStatOverview = nil
-        for i = 1,3,1 do
+        for i = 1, 3, 1 do
             hoverListeners["abilityHoverListener" .. i] = nil
         end
         hoverListeners.heldItemTeamInfo = nil
@@ -689,8 +692,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             pokecenters = " " .. pokecenters
         end
         ui.controls.survivalHealAmountLabel.setText(pokecenters)
-        local showAccEva = settings.appearance.SHOW_ACCURACY_AND_EVASION and program.isInBattle() and not isEnemy and not inLockedView and not inPastRunView
-        local showPokecenterHeals = not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS and not showAccEva and not inPastRunView
+        local showAccEva =
+            settings.appearance.SHOW_ACCURACY_AND_EVASION and program.isInBattle() and not isEnemy and not inLockedView and
+            not inPastRunView
+        local showPokecenterHeals =
+            not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS and not showAccEva and not inPastRunView
         ui.frames.accEvaFrame.setVisibility(showAccEva)
         ui.frames.survivalHealFrame.setVisibility(showPokecenterHeals)
         local healingTotals = program.getHealingTotals()
@@ -714,7 +720,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local badNatures = ItemData.NATURE_SPECIFIC_BERRIES[heldItemName]
         local natureName = MiscData.NATURES[currentPokemon.nature + 1]
         if badNatures[natureName] then
-            heldItemDescription = heldItemDescription .. " Your Pok"..MiscConstants.accentedE.."mon will dislike this."
+            heldItemDescription = heldItemDescription .. " Your Pok" .. MiscConstants.accentedE .. "mon will dislike this."
         else
             heldItemDescription = heldItemDescription .. " Yum!"
         end
