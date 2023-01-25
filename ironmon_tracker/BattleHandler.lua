@@ -447,7 +447,6 @@ local function BattleHandler(
         if inBattle then
             if not tracker.hasRunEnded() then
                 if gameInfo.TRAINERS.LAB_IDS[enemyTrainerID] then
-                    print("won lab")
                     tracker.setProgress(PlaythroughConstants.PROGRESS.PAST_LAB)
                 elseif gameInfo.TRAINERS.FINAL_FIGHT_ID == enemyTrainerID then
                     tracker.setProgress(PlaythroughConstants.PRORESS.WON)

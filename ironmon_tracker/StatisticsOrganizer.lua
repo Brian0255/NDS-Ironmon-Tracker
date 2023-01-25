@@ -269,7 +269,6 @@ local function createPokemonTypeStatistic(newPastRun, forEnemy, statisticSet)
     if forEnemy then
         title = "Types You Lost to"
     end
-    print(statisticSet[2])
     return StatisticsOrganizer.createAttributeStatistic(
         {newPastRun},
         title,
