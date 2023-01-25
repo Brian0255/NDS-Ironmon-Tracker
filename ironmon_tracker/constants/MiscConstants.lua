@@ -81,7 +81,7 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     automaticUpdates = {
         LAST_DAY_CHECKED = "",
-        UPDATE_WAS_DONE = false
+        UPDATE_WAS_DONE = true
     },
 }
 
