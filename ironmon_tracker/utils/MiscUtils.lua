@@ -110,7 +110,7 @@ function MiscUtils.splitTableByNumber(tbl, number)
 end
 
 function MiscUtils.runExecuteCommand(command, errorOutput)
-    local tempFile = "commandResult.txt"
+    local tempFile = "ironmon_tracker/commandResult.txt"
     local completeCommand = string.format('%s 1>"%s"', command, tempFile)
     if errorOutput then
         completeCommand = string.format('%s 2>"%s"', completeCommand, errorOutput)
@@ -210,6 +210,9 @@ function MiscUtils.splitStringByAmount(input, amount)
             current = 0
             currentString = ""
         end
+    end
+    if currentString ~= "" then
+        table.insert(result,currentString)
     end
     return result
 end

@@ -255,9 +255,7 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
                 {
                     width = 0,
                     height = 0
-                },
-                Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
-                ui.frames.mainFrame
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 94, y = 0}),
             ui.frames.mainFrame
