@@ -225,9 +225,9 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
         local centerPosition = FormsUtils.getCenter(formWidth, formHeight)
         forms.setlocation(copyForm, centerPosition.xPos, centerPosition.yPos)
         local textBoxLines = {
-            "Randomizer Version: "..miscInfo.version,
-            "Random Seed: " ..miscInfo.seed,
-            "Settings String: "..miscInfo.settingsString
+            "Randomizer Version: "..miscInfo.version.." ",
+            "Random Seed: " ..miscInfo.seed.. " ",
+            "Settings String: "..miscInfo.settingsString.. " "
         }
         local completeLines = table.concat(textBoxLines,"\r\n")
         forms.textbox(copyForm, completeLines, formWidth-36, formHeight-100, nil, 10, 10, true, false)
