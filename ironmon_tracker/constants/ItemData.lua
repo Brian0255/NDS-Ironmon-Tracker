@@ -260,7 +260,7 @@ ItemData.HEALING_ITEMS =
 ItemData.GEN_4_ITEMS = {
     [1] = {
         name = "Master Ball",
-        description = "Catches a wild Pok" .. MiscConstants.accentedE .. "mon every time."
+        description = "Catches a wild Pok" .. Chars.accentedE .. "mon every time."
     },
     [2] = {
         name = "Ultra Ball",
@@ -277,7 +277,7 @@ ItemData.GEN_4_ITEMS = {
     [5] = {
         name = "Safari Ball",
         description = "Tries to catch a wild Pok" ..
-            MiscConstants.accentedE .. "mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
+            Chars.accentedE .. "mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
     },
     [6] = {
         name = "Net Ball",
@@ -302,7 +302,7 @@ ItemData.GEN_4_ITEMS = {
     [11] = {
         name = "Luxury Ball",
         description = "Tries to catch a wild Pokemon. Caught Pok" ..
-            MiscConstants.accentedE .. "mon start with 200 happiness."
+            Chars.accentedE .. "mon start with 200 happiness."
     },
     [12] = {
         name = "Premier Ball",
@@ -314,7 +314,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [14] = {
         name = "Heal Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" .. MiscConstants.accentedE .. "mon are immediately healed."
+        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon are immediately healed."
     },
     [15] = {
         name = "Quick Ball",
@@ -434,7 +434,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [44] = {
         name = "Sacred Ash",
-        description = "Revives all fainted Pok" .. MiscConstants.accentedE .. "mon with full HP."
+        description = "Revives all fainted Pok" .. Chars.accentedE .. "mon with full HP."
     },
     [45] = {
         name = "Hp Up",
@@ -530,11 +530,11 @@ ItemData.GEN_4_ITEMS = {
     },
     [68] = {
         name = "Black Flute",
-        description = "Halves the wild Pok" .. MiscConstants.accentedE .. "mon encounter rate."
+        description = "Halves the wild Pok" .. Chars.accentedE .. "mon encounter rate."
     },
     [69] = {
         name = "White Flute",
-        description = "Doubles the wild Pok" .. MiscConstants.accentedE .. "mon encounter rate."
+        description = "Doubles the wild Pok" .. Chars.accentedE .. "mon encounter rate."
     },
     [70] = {
         name = "Shoal Salt",
@@ -634,7 +634,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [94] = {
         name = "Honey",
-        description = "Used to attract wild Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Used to attract wild Pok" .. Chars.accentedE .. "mon."
     },
     [95] = {
         name = "Growth Mulch",
@@ -714,51 +714,51 @@ ItemData.GEN_4_ITEMS = {
     },
     [137] = {
         name = "Grass Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [138] = {
         name = "Flame Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [139] = {
         name = "Bubble Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [140] = {
         name = "Bloom Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [141] = {
         name = "Tunnel Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [142] = {
         name = "Steel Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [143] = {
         name = "Heart Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [144] = {
         name = "Snow Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [145] = {
         name = "Space Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [146] = {
         name = "Air Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [147] = {
         name = "Mosaic Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [148] = {
         name = "Brick Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [149] = {
         name = "Cheri Berry",
@@ -803,27 +803,27 @@ ItemData.GEN_4_ITEMS = {
     [159] = {
         name = "Figy Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike spicy flavor."
+            Chars.accentedE .. "mon that dislike spicy flavor."
     },
     [160] = {
         name = "Wiki Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike dry flavor."
+            Chars.accentedE .. "mon that dislike dry flavor."
     },
     [161] = {
         name = "Mago Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike sweet flavor."
+            Chars.accentedE .. "mon that dislike sweet flavor."
     },
     [162] = {
         name = "Aguav Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike bitter flavor."
+            Chars.accentedE .. "mon that dislike bitter flavor."
     },
     [163] = {
         name = "Iapapa Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike sour flavor."
+            Chars.accentedE .. "mon that dislike sour flavor."
     },
     [164] = {
         name = "Razz Berry",
@@ -1036,7 +1036,7 @@ ItemData.GEN_4_ITEMS = {
     [216] = {
         name = "Exp Share",
         description = "Half the experience from a battle is split between Pok" ..
-            MiscConstants.accentedE .. "mon holding this item."
+            Chars.accentedE .. "mon holding this item."
     },
     [217] = {
         name = "Quick Claw",
@@ -1293,7 +1293,7 @@ ItemData.GEN_4_ITEMS = {
     [280] = {
         name = "Destiny Knot",
         description = "Infatuates opposing Pok" ..
-            MiscConstants.accentedE .. "mon when holder is inflicted with infatuation."
+            Chars.accentedE .. "mon when holder is inflicted with infatuation."
     },
     [281] = {
         name = "Black Sludge",
@@ -1326,7 +1326,7 @@ ItemData.GEN_4_ITEMS = {
     [288] = {
         name = "Sticky Barb",
         description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok" ..
-            MiscConstants.accentedE .. "mon takes 1/8 its max HP in damage and receive the item if not holding one."
+            Chars.accentedE .. "mon takes 1/8 its max HP in damage and receive the item if not holding one."
     },
     [289] = {
         name = "Power Bracer",
@@ -1914,7 +1914,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [435] = {
         name = "Fashion Case",
-        description = "Holds Pok" .. MiscConstants.accentedE .. "mon Accessories for use in Contests."
+        description = "Holds Pok" .. Chars.accentedE .. "mon Accessories for use in Contests."
     },
     [436] = {
         name = "Seal Bag",
@@ -1954,15 +1954,15 @@ ItemData.GEN_4_ITEMS = {
     },
     [445] = {
         name = "Old Rod",
-        description = "Used to catch Pok" .. MiscConstants.accentedE .. "mon in bodies of water."
+        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
     },
     [446] = {
         name = "Good Rod",
-        description = "Used to catch Pok" .. MiscConstants.accentedE .. "mon in bodies of water."
+        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
     },
     [447] = {
         name = "Super Rod",
-        description = "Used to catch Pok" .. MiscConstants.accentedE .. "mon in bodies of water."
+        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
     },
     [448] = {
         name = "Sprayduck",
@@ -2002,7 +2002,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [457] = {
         name = "Contest Pass",
-        description = "Allows participation in Pok" .. MiscConstants.accentedE .. "mon Contests."
+        description = "Allows participation in Pok" .. Chars.accentedE .. "mon Contests."
     },
     [458] = {
         name = "Magma Stone",
@@ -2067,12 +2067,12 @@ ItemData.GEN_4_ITEMS = {
     [493] = {
         name = "Level Ball",
         description = "Success rate based off of fraction target Pok" ..
-            MiscConstants.accentedE .. "mon is of user's Pokemon. Made from Red Apricorn."
+            Chars.accentedE .. "mon is of user's Pokemon. Made from Red Apricorn."
     },
     [498] = {
         name = "Moon Ball",
         description = "4x effectiveness on familes of Pok" ..
-            MiscConstants.accentedE .. "mon with a Moon Stone evolution. Made from Ylw Apricorn."
+            Chars.accentedE .. "mon with a Moon Stone evolution. Made from Ylw Apricorn."
     },
     [495] = {
         name = "Heavy Ball",
@@ -2081,11 +2081,11 @@ ItemData.GEN_4_ITEMS = {
     [492] = {
         name = "Fast Ball",
         description = "4x effectiveness on Pok" ..
-            MiscConstants.accentedE .. "mon with 100 or greater base speed. Made from Wht Apricorn."
+            Chars.accentedE .. "mon with 100 or greater base speed. Made from Wht Apricorn."
     },
     [497] = {
         name = "Friend Ball",
-        description = "Caught Pok" .. MiscConstants.accentedE .. "mon start with 200 happiness. Made from Grn Apricorn."
+        description = "Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness. Made from Grn Apricorn."
     },
     [496] = {
         name = "Love Ball",
@@ -2093,12 +2093,12 @@ ItemData.GEN_4_ITEMS = {
     },
     [500] = {
         name = "Park Ball",
-        description = "Catches Pok" .. MiscConstants.accentedE .. "mon in the Pal Park every time."
+        description = "Catches Pok" .. Chars.accentedE .. "mon in the Pal Park every time."
     },
     [499] = {
         name = "Sport Ball",
         description = "Tries to catch a Pok" ..
-            MiscConstants.accentedE .. "mon in the Bug-Catching contest in National Park. "
+            Chars.accentedE .. "mon in the Bug-Catching contest in National Park. "
     },
     [485] = {
         name = "Red Apricorn",
@@ -2178,7 +2178,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [478] = {
         name = "Red Scale",
-        description = "Trade to Mr. Pok" .. MiscConstants.accentedE .. "mon for an Exp. Share."
+        description = "Trade to Mr. Pok" .. Chars.accentedE .. "mon for an Exp. Share."
     },
     [479] = {
         name = "Lost Item",
@@ -2223,12 +2223,12 @@ ItemData.GEN_4_ITEMS = {
     [507] = {
         name = "Data Card-03",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have dashed in the Pokeathlon."
+            Chars.accentedE .. "mon have dashed in the Pokeathlon."
     },
     [508] = {
         name = "Data Card-04",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have jumped in the Pokeathlon."
+            Chars.accentedE .. "mon have jumped in the Pokeathlon."
     },
     [509] = {
         name = "Data Card-05",
@@ -2261,22 +2261,22 @@ ItemData.GEN_4_ITEMS = {
     [516] = {
         name = "Data Card-12",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have messed up in the Pokeathlon."
+            Chars.accentedE .. "mon have messed up in the Pokeathlon."
     },
     [517] = {
         name = "Data Card-13",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have defeated themselves in the Pokeathlon."
+            Chars.accentedE .. "mon have defeated themselves in the Pokeathlon."
     },
     [518] = {
         name = "Data Card-14",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have tackled in the Pokeathlon."
+            Chars.accentedE .. "mon have tackled in the Pokeathlon."
     },
     [519] = {
         name = "Data Card-15",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have fallen in the Pokeathlon."
+            Chars.accentedE .. "mon have fallen in the Pokeathlon."
     },
     [520] = {
         name = "Data Card-16",
@@ -2309,7 +2309,7 @@ ItemData.GEN_4_ITEMS = {
     [527] = {
         name = "Data Card-23",
         description = "Records the number of times the trainer has switched Pok" ..
-            MiscConstants.accentedE .. "mon in the Pokeathlon."
+            Chars.accentedE .. "mon in the Pokeathlon."
     },
     [528] = {
         name = "Data Card-24",
@@ -2318,12 +2318,12 @@ ItemData.GEN_4_ITEMS = {
     [529] = {
         name = "Data Card-25",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon received prizes in the Pokeathlon."
+            Chars.accentedE .. "mon received prizes in the Pokeathlon."
     },
     [530] = {
         name = "Data Card-26",
         description = "Records the number of times the trainer has instructed Pok" ..
-            MiscConstants.accentedE .. "mon in the Pokeathlon."
+            Chars.accentedE .. "mon in the Pokeathlon."
     },
     [531] = {
         name = "Data Card-27",
@@ -2346,7 +2346,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [1] = {
         name = "Master Ball",
-        description = "Catches a wild Pok" .. MiscConstants.accentedE .. "mon every time."
+        description = "Catches a wild Pok" .. Chars.accentedE .. "mon every time."
     },
     [2] = {
         name = "Ultra Ball",
@@ -2363,7 +2363,7 @@ ItemData.GEN_5_ITEMS = {
     [5] = {
         name = "Safari Ball",
         description = "Tries to catch a wild Pok" ..
-            MiscConstants.accentedE .. "mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
+            Chars.accentedE .. "mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
     },
     [6] = {
         name = "Net Ball",
@@ -2388,7 +2388,7 @@ ItemData.GEN_5_ITEMS = {
     [11] = {
         name = "Luxury Ball",
         description = "Tries to catch a wild Pokemon. Caught Pok" ..
-            MiscConstants.accentedE .. "mon start with 200 happiness."
+            Chars.accentedE .. "mon start with 200 happiness."
     },
     [12] = {
         name = "Premier Ball",
@@ -2400,7 +2400,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [14] = {
         name = "Heal Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" .. MiscConstants.accentedE .. "mon are immediately healed."
+        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon are immediately healed."
     },
     [15] = {
         name = "Quick Ball",
@@ -2520,7 +2520,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [44] = {
         name = "Sacred Ash",
-        description = "Revives all fainted Pok" .. MiscConstants.accentedE .. "mon with full HP."
+        description = "Revives all fainted Pok" .. Chars.accentedE .. "mon with full HP."
     },
     [45] = {
         name = "Hp Up",
@@ -2616,11 +2616,11 @@ ItemData.GEN_5_ITEMS = {
     },
     [68] = {
         name = "Black Flute",
-        description = "Halves the wild Pok" .. MiscConstants.accentedE .. "mon encounter rate."
+        description = "Halves the wild Pok" .. Chars.accentedE .. "mon encounter rate."
     },
     [69] = {
         name = "White Flute",
-        description = "Doubles the wild Pok" .. MiscConstants.accentedE .. "mon encounter rate."
+        description = "Doubles the wild Pok" .. Chars.accentedE .. "mon encounter rate."
     },
     [70] = {
         name = "Shoal Salt",
@@ -2720,7 +2720,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [94] = {
         name = "Honey",
-        description = "Used to attract Wild Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Used to attract Wild Pok" .. Chars.accentedE .. "mon."
     },
     [95] = {
         name = "Growth Mulch",
@@ -2841,27 +2841,27 @@ ItemData.GEN_5_ITEMS = {
     [159] = {
         name = "Figy Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike spicy flavor."
+            Chars.accentedE .. "mon that dislike spicy flavor."
     },
     [160] = {
         name = "Wiki Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike dry flavor."
+            Chars.accentedE .. "mon that dislike dry flavor."
     },
     [161] = {
         name = "Mago Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike sweet flavor."
+            Chars.accentedE .. "mon that dislike sweet flavor."
     },
     [162] = {
         name = "Aguav Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike bitter flavor."
+            Chars.accentedE .. "mon that dislike bitter flavor."
     },
     [163] = {
         name = "Iapapa Berry",
         description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            MiscConstants.accentedE .. "mon that dislike sour flavor."
+            Chars.accentedE .. "mon that dislike sour flavor."
     },
     [164] = {
         name = "Razz Berry",
@@ -3074,7 +3074,7 @@ ItemData.GEN_5_ITEMS = {
     [216] = {
         name = "Exp Share",
         description = "Half the experience from a battle is split between Pok" ..
-            MiscConstants.accentedE .. "mon holding this item."
+            Chars.accentedE .. "mon holding this item."
     },
     [217] = {
         name = "Quick Claw",
@@ -3331,7 +3331,7 @@ ItemData.GEN_5_ITEMS = {
     [280] = {
         name = "Destiny Knot",
         description = "Infatuates opposing Pok" ..
-            MiscConstants.accentedE .. "mon when holder is inflicted with infatuation."
+            Chars.accentedE .. "mon when holder is inflicted with infatuation."
     },
     [281] = {
         name = "Black Sludge",
@@ -3364,7 +3364,7 @@ ItemData.GEN_5_ITEMS = {
     [288] = {
         name = "Sticky Barb",
         description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok" ..
-            MiscConstants.accentedE .. "mon takes 1/8 its max HP in damage and receive the item if not holding one."
+            Chars.accentedE .. "mon takes 1/8 its max HP in damage and receive the item if not holding one."
     },
     [289] = {
         name = "Power Bracer",
@@ -3944,7 +3944,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [435] = {
         name = "Fashion Case",
-        description = "Holds Pok" .. MiscConstants.accentedE .. "mon Accessories for use in Contests."
+        description = "Holds Pok" .. Chars.accentedE .. "mon Accessories for use in Contests."
     },
     [436] = {
         name = "Seal Bag",
@@ -3984,15 +3984,15 @@ ItemData.GEN_5_ITEMS = {
     },
     [445] = {
         name = "Old Rod",
-        description = "Used to catch Pok" .. MiscConstants.accentedE .. "mon in bodies of water."
+        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
     },
     [446] = {
         name = "Good Rod",
-        description = "Used to catch Pok" .. MiscConstants.accentedE .. "mon in bodies of water."
+        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
     },
     [447] = {
         name = "Super Rod",
-        description = "Used to catch Pok" .. MiscConstants.accentedE .. "mon in bodies of water."
+        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
     },
     [448] = {
         name = "Sprayduck",
@@ -4032,7 +4032,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [457] = {
         name = "Contest Pass",
-        description = "Allows participation in Pok" .. MiscConstants.accentedE .. "mon Contests."
+        description = "Allows participation in Pok" .. Chars.accentedE .. "mon Contests."
     },
     [458] = {
         name = "Magma Stone",
@@ -4097,12 +4097,12 @@ ItemData.GEN_5_ITEMS = {
     [493] = {
         name = "Level Ball",
         description = "Success rate based off of fraction target Pok" ..
-            MiscConstants.accentedE .. "mon is of user's Pokemon. Made from Red Apricorn."
+            Chars.accentedE .. "mon is of user's Pokemon. Made from Red Apricorn."
     },
     [498] = {
         name = "Moon Ball",
         description = "4x effectiveness on familes of Pok" ..
-            MiscConstants.accentedE .. "mon with a Moon Stone evolution. Made from Ylw Apricorn."
+            Chars.accentedE .. "mon with a Moon Stone evolution. Made from Ylw Apricorn."
     },
     [495] = {
         name = "Heavy Ball",
@@ -4111,11 +4111,11 @@ ItemData.GEN_5_ITEMS = {
     [492] = {
         name = "Fast Ball",
         description = "4x effectiveness on Pok" ..
-            MiscConstants.accentedE .. "mon with 100 or greater base speed. Made from Wht Apricorn."
+            Chars.accentedE .. "mon with 100 or greater base speed. Made from Wht Apricorn."
     },
     [497] = {
         name = "Friend Ball",
-        description = "Caught Pok" .. MiscConstants.accentedE .. "mon start with 200 happiness. Made from Grn Apricorn."
+        description = "Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness. Made from Grn Apricorn."
     },
     [496] = {
         name = "Love Ball",
@@ -4123,12 +4123,12 @@ ItemData.GEN_5_ITEMS = {
     },
     [500] = {
         name = "Park Ball",
-        description = "Catches Pok" .. MiscConstants.accentedE .. "mon in the Pal Park every time."
+        description = "Catches Pok" .. Chars.accentedE .. "mon in the Pal Park every time."
     },
     [499] = {
         name = "Sport Ball",
         description = "Tries to catch a Pok" ..
-            MiscConstants.accentedE .. "mon in the Bug-Catching contest in National Park."
+            Chars.accentedE .. "mon in the Bug-Catching contest in National Park."
     },
     [485] = {
         name = "Red Apricorn",
@@ -4208,7 +4208,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [478] = {
         name = "Red Scale",
-        description = "Trade to Mr. Pok" .. MiscConstants.accentedE .. "mon for an Exp. Share."
+        description = "Trade to Mr. Pok" .. Chars.accentedE .. "mon for an Exp. Share."
     },
     [479] = {
         name = "Lost Item",
@@ -4253,12 +4253,12 @@ ItemData.GEN_5_ITEMS = {
     [507] = {
         name = "Data Card-03",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have dashed in the Pokeathlon."
+            Chars.accentedE .. "mon have dashed in the Pokeathlon."
     },
     [508] = {
         name = "Data Card-04",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have jumped in the Pokeathlon."
+            Chars.accentedE .. "mon have jumped in the Pokeathlon."
     },
     [509] = {
         name = "Data Card-05",
@@ -4291,22 +4291,22 @@ ItemData.GEN_5_ITEMS = {
     [516] = {
         name = "Data Card-12",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have messed up in the Pokeathlon."
+            Chars.accentedE .. "mon have messed up in the Pokeathlon."
     },
     [517] = {
         name = "Data Card-13",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have defeated themselves in the Pokeathlon."
+            Chars.accentedE .. "mon have defeated themselves in the Pokeathlon."
     },
     [518] = {
         name = "Data Card-14",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have tackled in the Pokeathlon."
+            Chars.accentedE .. "mon have tackled in the Pokeathlon."
     },
     [519] = {
         name = "Data Card-15",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon have fallen in the Pokeathlon."
+            Chars.accentedE .. "mon have fallen in the Pokeathlon."
     },
     [520] = {
         name = "Data Card-16",
@@ -4339,7 +4339,7 @@ ItemData.GEN_5_ITEMS = {
     [527] = {
         name = "Data Card-23",
         description = "Records the number of times the trainer has switched Pok" ..
-            MiscConstants.accentedE .. "mon in the Pokeathlon."
+            Chars.accentedE .. "mon in the Pokeathlon."
     },
     [528] = {
         name = "Data Card-24",
@@ -4348,12 +4348,12 @@ ItemData.GEN_5_ITEMS = {
     [529] = {
         name = "Data Card-25",
         description = "Records the number of times the trainer's Pok" ..
-            MiscConstants.accentedE .. "mon received prizes in the Pokeathlon."
+            Chars.accentedE .. "mon received prizes in the Pokeathlon."
     },
     [530] = {
         name = "Data Card-26",
         description = "Records the number of times the trainer has instructed Pok" ..
-            MiscConstants.accentedE .. "mon in the Pokeathlon."
+            Chars.accentedE .. "mon in the Pokeathlon."
     },
     [531] = {
         name = "Data Card-27",
@@ -4389,51 +4389,51 @@ ItemData.GEN_5_ITEMS = {
     },
     [137] = {
         name = "Greet Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [138] = {
         name = "Favored Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [139] = {
         name = "Rsvp Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [140] = {
         name = "Thanks Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [141] = {
         name = "Inquiry Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [142] = {
         name = "Like Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [143] = {
         name = "Reply Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [144] = {
         name = "Bridge Mail-s",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [145] = {
         name = "Bridge Mail-d",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [146] = {
         name = "Bridge Mail-t",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [147] = {
         name = "Bridge Mail-v",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [148] = {
         name = "Bridge Mail-m",
-        description = "Lets a Trainer write a message and send it via Pok" .. MiscConstants.accentedE .. "mon trade."
+        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
     },
     [537] = {
         name = "Prism Scale",
@@ -4450,7 +4450,7 @@ ItemData.GEN_5_ITEMS = {
     [540] = {
         name = "Rocky Helmet",
         description = "When the holder is hit by a contact move, the attacking Pok" ..
-            MiscConstants.accentedE .. "mon takes 1/6 its max HP in damage."
+            Chars.accentedE .. "mon takes 1/6 its max HP in damage."
     },
     [541] = {
         name = "Air Balloon",
@@ -4479,7 +4479,7 @@ ItemData.GEN_5_ITEMS = {
     [547] = {
         name = "Eject Button",
         description = "When the holder takes damage from a move, it switches out for a party Pok" ..
-            MiscConstants.accentedE .. "mon of the Trainer's choice."
+            Chars.accentedE .. "mon of the Trainer's choice."
     },
     [548] = {
         name = "Fire Gem",
@@ -4595,7 +4595,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [576] = {
         name = "Dream Ball",
-        description = "Catches Pok" .. MiscConstants.accentedE .. "mon found in the Dream World."
+        description = "Catches Pok" .. Chars.accentedE .. "mon found in the Dream World."
     },
     [577] = {
         name = "Poke Toy",
@@ -4603,7 +4603,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [578] = {
         name = "Prop Case",
-        description = "Stores props for the Pok" .. MiscConstants.accentedE .. "mon Musical."
+        description = "Stores props for the Pok" .. Chars.accentedE .. "mon Musical."
     },
     [579] = {
         name = "Dragon Skull",
@@ -4739,7 +4739,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [612] = {
         name = "Item Drop",
-        description = "Forces a friendly Pok" .. MiscConstants.accentedE .. "mon to drop its held item."
+        description = "Forces a friendly Pok" .. Chars.accentedE .. "mon to drop its held item."
     },
     [613] = {
         name = "Item Urge",

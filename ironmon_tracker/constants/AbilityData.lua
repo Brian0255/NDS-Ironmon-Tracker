@@ -12,8 +12,8 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 1,
         name = "Stench",
         description = {
-            "Helps repel wild Pok" .. MiscConstants.accentedE .. "mon.",
-            "Has a 10% chance of making target Pok" .. MiscConstants.accentedE .. "mon flinch with each hit."
+            "Helps repel wild Pok" .. Chars.accentedE .. "mon.",
+            "Has a 10% chance of making target Pok" .. Chars.accentedE .. "mon flinch with each hit."
         }
     },
     {
@@ -43,7 +43,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 6,
         name = "Damp",
         description = "Prevents Selfdestruct, Explosion, and Aftermath from working while the Pok" ..
-            MiscConstants.accentedE .. "mon is in battle."
+            Chars.accentedE .. "mon is in battle."
     },
     {
         id = 7,
@@ -58,7 +58,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 9,
         name = "Static",
-        description = "Has a 30% chance of paralyzing attacking Pok" .. MiscConstants.accentedE .. "mon on contact."
+        description = "Has a 30% chance of paralyzing attacking Pok" .. Chars.accentedE .. "mon on contact."
     },
     {
         id = 10,
@@ -104,7 +104,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 18,
         name = "Flash Fire",
         description = "Protects against fire moves. Once one has been blocked, the Pok" ..
-            MiscConstants.accentedE .. "mon's own fire moves inflict 1.5x damage until it leaves battle."
+            Chars.accentedE .. "mon's own fire moves inflict 1.5x damage until it leaves battle."
     },
     {
         id = 19,
@@ -120,8 +120,8 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 21,
         name = "Suction Cups",
         description = {
-            "Prevents being forced out of battle by other Pok" .. MiscConstants.accentedE .. "mon's moves.",
-            "Prevents being forced out of battle by other Pok" .. MiscConstants.accentedE .. "mon's moves or items."
+            "Prevents being forced out of battle by other Pok" .. Chars.accentedE .. "mon's moves.",
+            "Prevents being forced out of battle by other Pok" .. Chars.accentedE .. "mon's moves or items."
         }
     },
     {
@@ -137,7 +137,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 24,
         name = "Rough Skin",
-        description = "Damages attacking Pok" .. MiscConstants.accentedE .. "mon for 1/8 their max HP on contact."
+        description = "Damages attacking Pok" .. Chars.accentedE .. "mon for 1/8 their max HP on contact."
     },
     {
         id = 25,
@@ -153,18 +153,18 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 27,
         name = "Effect Spore",
         description = "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pok" ..
-            MiscConstants.accentedE .. "mon on contact."
+            Chars.accentedE .. "mon on contact."
     },
     {
         id = 28,
         name = "Synchronize",
         description = "Copies burns, paralysis, and poison received onto the Pok" ..
-            MiscConstants.accentedE .. "mon that inflicted them."
+            Chars.accentedE .. "mon that inflicted them."
     },
     {
         id = 29,
         name = "Clear Body",
-        description = "Prevents stats from being lowered by other Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Prevents stats from being lowered by other Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 30,
@@ -175,9 +175,9 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 31,
         name = "Lightningrod",
         description = {
-            "Redirects single-target electric moves to this Pok" .. MiscConstants.accentedE .. "mon where possible.",
+            "Redirects single-target electric moves to this Pok" .. Chars.accentedE .. "mon where possible.",
             "Redirects electric moves to this Pok" ..
-                MiscConstants.accentedE .. "mon and absorbs them, raising Special Attack one stage."
+                Chars.accentedE .. "mon and absorbs them, raising Special Attack one stage."
         }
     },
     {
@@ -213,7 +213,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 38,
         name = "Poison Point",
-        description = "Has a 30% chance of poisoning attacking Pok" .. MiscConstants.accentedE .. "mon on contact."
+        description = "Has a 30% chance of poisoning attacking Pok" .. Chars.accentedE .. "mon on contact."
     },
     {
         id = 39,
@@ -253,7 +253,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 46,
         name = "Pressure",
-        description = "Increases the PP cost of moves targeting the Pok" .. MiscConstants.accentedE .. "mon by one."
+        description = "Increases the PP cost of moves targeting the Pok" .. Chars.accentedE .. "mon by one."
     },
     {
         id = 47,
@@ -268,7 +268,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 49,
         name = "Flame Body",
-        description = "Has a 30% chance of burning attacking Pok" .. MiscConstants.accentedE .. "mon on contact."
+        description = "Has a 30% chance of burning attacking Pok" .. Chars.accentedE .. "mon on contact."
     },
     {
         id = 50,
@@ -283,7 +283,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 52,
         name = "Hyper Cutter",
-        description = "Prevents Attack from being lowered by other Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Prevents Attack from being lowered by other Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 53,
@@ -291,7 +291,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         description = {
             "10% chance to pick up an item after battle.",
             "Picks up other Pok" ..
-                MiscConstants.accentedE .. "mon's used and Flung held items. May also pick up an item after battle."
+                Chars.accentedE .. "mon's used and Flung held items. May also pick up an item after battle."
         }
     },
     {
@@ -307,22 +307,22 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 56,
         name = "Cute Charm",
-        description = "Has a 30% chance of infatuating attacking Pok" .. MiscConstants.accentedE .. "mon on contact."
+        description = "Has a 30% chance of infatuating attacking Pok" .. Chars.accentedE .. "mon on contact."
     },
     {
         id = 57,
         name = "Plus",
         description = {
-            "Increases Special Attack to 1.5x when a friendly Pok" .. MiscConstants.accentedE .. "mon has Minus.",
-            "Increases Special Attack to 1.5x when a friendly Pok" .. MiscConstants.accentedE .. "mon has Plus or Minus."
+            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Minus.",
+            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Plus or Minus."
         }
     },
     {
         id = 58,
         name = "Minus",
         description = {
-            "Increases Special Attack to 1.5x when a friendly Pok" .. MiscConstants.accentedE .. "mon has Plus.",
-            "Increases Special Attack to 1.5x when a friendly Pok" .. MiscConstants.accentedE .. "mon has Plus or Minus."
+            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Plus.",
+            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Plus or Minus."
         }
     },
     {
@@ -333,7 +333,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 60,
         name = "Sticky Hold",
-        description = "Prevents a held item from being removed by other Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Prevents a held item from being removed by other Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 61,
@@ -389,7 +389,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 71,
         name = "Arena Trap",
         description = "Prevents opponents from fleeing or switching out. Eluded by flying-types and Pok" ..
-            MiscConstants.accentedE .. "mon in the air."
+            Chars.accentedE .. "mon in the air."
     },
     {
         id = 72,
@@ -399,7 +399,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 73,
         name = "White Smoke",
-        description = "Prevents stats from being lowered by other Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Prevents stats from being lowered by other Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 74,
@@ -430,7 +430,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 79,
         name = "Rivalry",
         description = "Increases damage inflicted to 1.25x against Pok" ..
-            MiscConstants.accentedE .. "mon of the same gender, but decreases damage to 0.75x against the opposite gender."
+            Chars.accentedE .. "mon of the same gender, but decreases damage to 0.75x against the opposite gender."
     },
     {
         id = 80,
@@ -446,7 +446,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 82,
         name = "Gluttony",
         description = "Makes the Pok" ..
-            MiscConstants.accentedE .. "mon eat any held Berry triggered by low HP below 1/2 its max HP."
+            Chars.accentedE .. "mon eat any held Berry triggered by low HP below 1/2 its max HP."
     },
     {
         id = 83,
@@ -522,7 +522,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 96,
         name = "Normalize",
-        description = "Makes the Pok" .. MiscConstants.accentedE .. "mon's moves all act normal-type."
+        description = "Makes the Pok" .. Chars.accentedE .. "mon's moves all act normal-type."
     },
     {
         id = 97,
@@ -537,12 +537,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 99,
         name = "No Guard",
-        description = "Ensures all moves used by and against the Pok" .. MiscConstants.accentedE .. "mon hit."
+        description = "Ensures all moves used by and against the Pok" .. Chars.accentedE .. "mon hit."
     },
     {
         id = 100,
         name = "Stall",
-        description = "Makes the Pok" .. MiscConstants.accentedE .. "mon move last within its move's priority bracket."
+        description = "Makes the Pok" .. Chars.accentedE .. "mon move last within its move's priority bracket."
     },
     {
         id = 101,
@@ -588,7 +588,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 109,
         name = "Unaware",
         description = "Ignores other Pok" ..
-            MiscConstants.accentedE .. "mon's stat modifiers for damage and Accuracy calculation."
+            Chars.accentedE .. "mon's stat modifiers for damage and Accuracy calculation."
     },
     {
         id = 110,
@@ -609,15 +609,15 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 113,
         name = "Scrappy",
         description = "Lets the Pok" ..
-            MiscConstants.accentedE .. "mon's normal and fighting moves hit ghost Pok" .. MiscConstants.accentedE .. "mon."
+            Chars.accentedE .. "mon's normal and fighting moves hit ghost Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 114,
         name = "Storm Drain",
         description = {
-            "Redirects single-target water moves to this Pok" .. MiscConstants.accentedE .. "mon.",
+            "Redirects single-target water moves to this Pok" .. Chars.accentedE .. "mon.",
             "Redirects single-target water moves to this Pok" ..
-                MiscConstants.accentedE .. "mon and absorbs them, raising Special Attack one stage."
+                Chars.accentedE .. "mon and absorbs them, raising Special Attack one stage."
         }
     },
     {
@@ -638,7 +638,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 118,
         name = "Honey Gather",
-        description = "The Pok" .. MiscConstants.accentedE .. "mon may pick up honey after battle."
+        description = "The Pok" .. Chars.accentedE .. "mon may pick up honey after battle."
     },
     {
         id = 119,
@@ -659,7 +659,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 122,
         name = "Flower Gift",
         description = "Increases friendly Pok" ..
-            MiscConstants.accentedE .. "mon's Attack and Special Defense to 1.5x during strong sunlight."
+            Chars.accentedE .. "mon's Attack and Special Defense to 1.5x during strong sunlight."
     },
     {
         id = 123,
@@ -669,7 +669,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 124,
         name = "Pickpocket",
-        description = "Steals attacking Pok" .. MiscConstants.accentedE .. "mon's held items on contact."
+        description = "Steals attacking Pok" .. Chars.accentedE .. "mon's held items on contact."
     },
     {
         id = 125,
@@ -684,7 +684,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 127,
         name = "Unnerve",
-        description = "Prevents opposing Pok" .. MiscConstants.accentedE .. "mon from eating held Berries."
+        description = "Prevents opposing Pok" .. Chars.accentedE .. "mon from eating held Berries."
     },
     {
         id = 128,
@@ -699,7 +699,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 130,
         name = "Cursed Body",
-        description = "Has a 30% chance of Disabling any move that hits the Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Has a 30% chance of Disabling any move that hits the Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 131,
@@ -709,7 +709,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 132,
         name = "Friend Guard",
-        description = "Decreases all direct damage taken by friendly Pok" .. MiscConstants.accentedE .. "mon to 0.75x."
+        description = "Decreases all direct damage taken by friendly Pok" .. Chars.accentedE .. "mon to 0.75x."
     },
     {
         id = 133,
@@ -719,12 +719,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 134,
         name = "Heavy Metal",
-        description = "Doubles the Pok" .. MiscConstants.accentedE .. "mon's weight."
+        description = "Doubles the Pok" .. Chars.accentedE .. "mon's weight."
     },
     {
         id = 135,
         name = "Light Metal",
-        description = "Halves the Pok" .. MiscConstants.accentedE .. "mon's weight."
+        description = "Halves the Pok" .. Chars.accentedE .. "mon's weight."
     },
     {
         id = 136,
@@ -745,12 +745,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 139,
         name = "Harvest",
         description = "Has a 50% chance of restoring a used Berry after each turn if the Pok" ..
-            MiscConstants.accentedE .. "mon has held no items in the meantime."
+            Chars.accentedE .. "mon has held no items in the meantime."
     },
     {
         id = 140,
         name = "Telepathy",
-        description = "Protects against friendly Pok" .. MiscConstants.accentedE .. "mon's damaging moves."
+        description = "Protects against friendly Pok" .. Chars.accentedE .. "mon's damaging moves."
     },
     {
         id = 141,
@@ -765,7 +765,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 143,
         name = "Poison Touch",
-        description = "Has a 30% chance of poisoning target Pok" .. MiscConstants.accentedE .. "mon upon contact."
+        description = "Has a 30% chance of poisoning target Pok" .. Chars.accentedE .. "mon upon contact."
     },
     {
         id = 144,
@@ -796,7 +796,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
         id = 149,
         name = "Illusion",
         description = "Takes the appearance of the last conscious party Pok" ..
-            MiscConstants.accentedE .. "mon upon being sent out until hit by a damaging move."
+            Chars.accentedE .. "mon upon being sent out until hit by a damaging move."
     },
     {
         id = 150,
@@ -811,12 +811,12 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 152,
         name = "Mummy",
-        description = "Changes attacking Pok" .. MiscConstants.accentedE .. "mon's abilities to Mummy on contact."
+        description = "Changes attacking Pok" .. Chars.accentedE .. "mon's abilities to Mummy on contact."
     },
     {
         id = 153,
         name = "Moxie",
-        description = "Raises Attack one stage upon KOing a Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Raises Attack one stage upon KOing a Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 154,
@@ -851,7 +851,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 160,
         name = "Iron Barbs",
-        description = "Damages attacking Pok" .. MiscConstants.accentedE .. "mon for 1/8 their max HP on contact."
+        description = "Damages attacking Pok" .. Chars.accentedE .. "mon for 1/8 their max HP on contact."
     },
     {
         id = 161,
@@ -861,7 +861,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 162,
         name = "Victory Star",
-        description = "Increases moves' accuracy to 1.1x for friendly Pok" .. MiscConstants.accentedE .. "mon."
+        description = "Increases moves' accuracy to 1.1x for friendly Pok" .. Chars.accentedE .. "mon."
     },
     {
         id = 163,

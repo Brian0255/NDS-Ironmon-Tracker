@@ -35,7 +35,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local trainerGroups
     local currentIndex = 1
     local tabs = {
-        "Pok" .. MiscConstants.accentedE .. "mon",
+        "Pok" .. Chars.accentedE .. "mon",
         "Trainers",
         "Gym TMs",
         "Statistics",

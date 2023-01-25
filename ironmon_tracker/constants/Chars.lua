@@ -1,0 +1,3 @@
+Chars = {}
+
+Chars.accentedE = "é"

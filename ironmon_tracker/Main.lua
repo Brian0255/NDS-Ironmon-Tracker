@@ -1,17 +1,17 @@
 local function Main()
 	local self = {}
 
-	dofile("ironmon_tracker/utils/FormsUtils.lua")
-	dofile("ironmon_tracker/utils/MiscUtils.lua")
-	dofile("ironmon_tracker/constants/MiscConstants.lua")
-
-	MiscConstants.accentedE = "é"
+	dofile("ironmon_tracker/constants/Chars.lua")
 
 	local version = client.getversion()
 	--basically checking if older than 2.9
 	if tonumber(version:sub(1, 1)) == 2 and tonumber(version:sub(3, 3)) < 9 then
-		MiscConstants.accentedE = "\233"
+		Chars.accentedE = "\233"
 	end
+
+	dofile("ironmon_tracker/utils/FormsUtils.lua")
+	dofile("ironmon_tracker/utils/MiscUtils.lua")
+	dofile("ironmon_tracker/constants/MiscConstants.lua")
 
 	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
@@ -41,7 +41,7 @@ local function Main()
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
-	Graphics.LETTER_PIXEL_LENGTHS[MiscConstants.accentedE] = 4
+	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
 
 	local settings
 	local program

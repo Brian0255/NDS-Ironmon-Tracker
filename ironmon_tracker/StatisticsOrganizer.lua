@@ -301,9 +301,9 @@ local function capAt10(statistic)
 end
 
 local function createPokemonNameStatistic(newPastRun, forEnemy, statisticSet)
-    local title = "Pok" .. MiscConstants.accentedE .. "mon You Ran"
+    local title = "Pok" .. Chars.accentedE .. "mon You Ran"
     if forEnemy then
-        title = "Pok" .. MiscConstants.accentedE .. "mon You Lost to"
+        title = "Pok" .. Chars.accentedE .. "mon You Lost to"
     end
     return StatisticsOrganizer.createAttributeStatistic(
         {newPastRun},

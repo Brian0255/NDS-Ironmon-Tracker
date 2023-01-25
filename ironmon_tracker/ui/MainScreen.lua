@@ -200,7 +200,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 HoverFrameFactory.createHoverTextFrame(
                 "Bottom box background color",
                 "Bottom box border color",
-                "This Pok" .. MiscConstants.accentedE .. "mon does not learn any moves.",
+                "This Pok" .. Chars.accentedE .. "mon does not learn any moves.",
                 "Bottom box text color",
                 126
             )
@@ -720,7 +720,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local badNatures = ItemData.NATURE_SPECIFIC_BERRIES[heldItemName]
         local natureName = MiscData.NATURES[currentPokemon.nature + 1]
         if badNatures[natureName] then
-            heldItemDescription = heldItemDescription .. " Your Pok" .. MiscConstants.accentedE .. "mon will dislike this."
+            heldItemDescription = heldItemDescription .. " Your Pok" .. Chars.accentedE .. "mon will dislike this."
         else
             heldItemDescription = heldItemDescription .. " Yum!"
         end

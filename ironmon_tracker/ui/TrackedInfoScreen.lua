@@ -82,7 +82,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	end
 	local function initMainButtons()
 		local buttonNames = {
-			trackedPokemonButton = "Tracked Pok"..MiscConstants.accentedE.."mon",
+			trackedPokemonButton = "Tracked Pok"..Chars.accentedE.."mon",
 			pastRunsButton = "Past Runs",
 			statisticsButton = "Statistics",
 			openLogButton = "Open Log"
