@@ -576,6 +576,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function readTeamInfoPokemonIntoUI()
+        ui.controls.gearIcon.setVisibility(false)
         ui.frames.healFrame.setVisibility(false)
         ui.frames.enemyNoteFrame.setVisibility(true)
         ui.controls.noteIcon.setVisibility(false)
@@ -654,7 +655,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             },
             onHoverInfoEnd
         )
-        ui.controls.gearIcon.setVisibility(false)
         local moveHeaderLabels = {"moveHeaderLearnedText", "moveHeaderAcc", "moveHeaderPP", "moveHeaderPow"}
         for _, labelName in pairs(moveHeaderLabels) do
             ui.controls[labelName].setTextColorKey("Top box text color")
