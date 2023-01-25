@@ -145,8 +145,8 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
     [PlaythroughConstants.CAUSES.LOW_BST] = {
         exclusive = false,
         messages = {
-            "Doesn't look like that Pok\233mon was going to make it very far anyway.",
-            "Seems like that Pok\233mon was doomed from the get go.",
+            "Doesn't look like that Pok"..MiscConstants.accentedE.."mon was going to make it very far anyway.",
+            "Seems like that Pok"..MiscConstants.accentedE.."mon was doomed from the get go.",
             "Looks like that %enemy% did you a favor.",
             "Sometimes you're glad to go back to the lab.",
             "Were you honestly going to try and run that?"

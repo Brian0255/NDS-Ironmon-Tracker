@@ -763,7 +763,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	setPokemonForMainScreen()
 	checkForUpdateBeforeLoading()
 	checkIfUpdatePerformed()
-	self.drawCurrentScreens()
 
 	function self.openLogFromPath(logPath)
 		local logInfo = randomizerLogParser.parse(logPath)

@@ -4,6 +4,15 @@ local function Main()
 	dofile("ironmon_tracker/utils/FormsUtils.lua")
 	dofile("ironmon_tracker/utils/MiscUtils.lua")
 	dofile("ironmon_tracker/constants/MiscConstants.lua")
+
+	MiscConstants.accentedE = "é"
+
+	local version = client.getversion()
+	--basically checking if older than 2.9
+	if tonumber(version:sub(1, 1)) == 2 and tonumber(version:sub(3, 3)) < 9 then
+		MiscConstants.accentedE = "\233"
+	end
+
 	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
@@ -32,6 +41,7 @@ local function Main()
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
+	Graphics.LETTER_PIXEL_LENGTHS[MiscConstants.accentedE] = 4
 
 	local settings
 	local program
@@ -72,9 +82,7 @@ local function Main()
 		}
 		for name, path in pairs(paths) do
 			if not FormsUtils.fileExists(path) or path == "" then
-				displayError(
-					"Missing files have been detected for the QuickLoad feature. Please set these in the tracker's settings."
-				)
+				displayError("Missing files have been detected for the QuickLoad feature. Please set these in the tracker's settings.")
 				return nil
 			end
 		end
@@ -191,30 +199,30 @@ local function Main()
 
 	local function readSettings()
 		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
-        local DEFAULT_SETTINGS = MiscUtils.shallowCopy(MiscConstants.DEFAULT_SETTINGS)
+		local DEFAULT_SETTINGS = MiscUtils.shallowCopy(MiscConstants.DEFAULT_SETTINGS)
 		local file = io.open("Settings.ini")
 		if file == nil then
-            settings = DEFAULT_SETTINGS
-        else
-            settings = INI.parse(file:read("*a"), "memory")
+			settings = DEFAULT_SETTINGS
+		else
+			settings = INI.parse(file:read("*a"), "memory")
 
-            for settingsGroup, options in pairs(DEFAULT_SETTINGS) do
-                if not settings[settingsGroup] then
-                    settings[settingsGroup] = MiscUtils.shallowCopy(options)
-                end
+			for settingsGroup, options in pairs(DEFAULT_SETTINGS) do
+				if not settings[settingsGroup] then
+					settings[settingsGroup] = MiscUtils.shallowCopy(options)
+				end
 				for setting, settingValue in pairs(options) do
 					if settings[settingsGroup][setting] == nil then
 						settings[settingsGroup][setting] = settingValue
 					end
 				end
-            end
-            io.close(file)
-            if settings.colorScheme["Default text color"] then
-                settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
-                settings.colorScheme["Bottom box text color"] = settings.colorScheme["Default text color"]
-                settings.colorScheme["Default text color"] = nil
-            end
-        end
+			end
+			io.close(file)
+			if settings.colorScheme["Default text color"] then
+				settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
+				settings.colorScheme["Bottom box text color"] = settings.colorScheme["Default text color"]
+				settings.colorScheme["Default text color"] = nil
+			end
+		end
 	end
 
 	function self.run()

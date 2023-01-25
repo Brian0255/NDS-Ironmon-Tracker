@@ -4,14 +4,6 @@ MiscConstants.TRACKER_VERSION = "5.1.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
-MiscConstants.accentedE = "é"
-
-local version = client.getversion()
---basically checking if older than 2.9
-if tonumber(version:sub(1,1)) == 2 and tonumber(version:sub(3,3)) < 9 then
-    MiscConstants.accentedE = "\233"
-end
-
 MiscConstants.UPDATE_NOTES = {
     '-- Added a randomizer log viewer! You can view this after a run dies from a new "Run Over!" screen or from the "Tracked info" screen.',
     '-- Any runs past the lab are now tracked! You can also view these from the "Tracked info" screen.',

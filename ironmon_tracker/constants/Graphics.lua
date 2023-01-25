@@ -88,7 +88,6 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     d = 4,
     D = 5,
     e = 4,
-    ["" .. MiscConstants.accentedE .. ""] = 4,
     E = 4,
     f = 2,
     F = 4,
