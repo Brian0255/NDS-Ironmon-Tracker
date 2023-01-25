@@ -69,7 +69,7 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
             ["Best Physical Attackers"] = "The highest combination of Attack and Speed.",
             ["Biggest Special Walls"] = "The highest combination of HP and Special Defense.",
             ["Best Defensive Tanks"] = "The highest combination of HP and Defense.",
-            ["Bulkiest Overall"] = "The highest combination of HP, Defense, Special Defense.",
+            ["Bulkiest Overall"] = "The highest combination of HP, Defense, and Special Defense.",
             ["Most Frail"] = "The worst combination of Defense, Special Defense and HP."
         }
         local description = nameToDescription[name]
