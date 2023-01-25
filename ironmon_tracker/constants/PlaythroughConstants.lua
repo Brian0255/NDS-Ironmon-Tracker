@@ -78,30 +78,32 @@ PlaythroughConstants.CAUSES = {
     STANDARD = 0,
     SHEDINJA = 1,
     IMPOSTER = 2,
-    LOW_BST = 3,
-    ENEMY_LOWER_BST = 4,
-    LAB = 5,
-    PAST_LAB = 6,
-    WON = 7
+    ENEMY_LOWER_BST = 3,
+    WON = 4
+}
+
+--in case the death quotes file is nil or something dumb like that
+PlaythroughConstants.DEFAULT_STANDARD_MESSAGES = {
+    "Did you know? Your lab success rate is %labrate%.",
+    "Is this the part where it gets called a skill issue?",
+    "There's always next time...",
+    "Some things were just not meant to be.",
+    "Oh well.",
+    "Could have been worse, I guess. Or not.",
+    "Against all odds... you did not triumph.",
+    "How unfortunate.",
+    "Maybe you just didn't believe hard enough.",
+    "That's just the way it goes sometimes.",
+    "You should definitely pick the left ball next attempt.",
+    "Having fun yet?",
+    "%totalruns% attempts and counting...",
+    "The house always wins.",
+    "One day you'll finally push the boulder up that hill.",
+    "Anything that can go wrong, will go wrong.",
+    "Looks like your luck finally ran out."
 }
 
 PlaythroughConstants.RUN_OVER_MESSAGES = {
-    [PlaythroughConstants.CAUSES.LAB] = {
-        exclusive = false,
-        messages = {
-            "Just one more seed...",
-            "Did you know? Your lab success rate is %labrate%.",
-            "Oh no! Anyway..."
-        }
-    },
-    [PlaythroughConstants.CAUSES.PAST_LAB] = {
-        exclusive = false,
-        messages = {
-            "The lab was getting a little lonely anyway.",
-            "Might be a good time to get up and stretch.",
-            "Never get attached.",
-        }
-    },
     [PlaythroughConstants.CAUSES.WON] = {
         exclusive = true,
         messages = {
@@ -113,24 +115,7 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
         }
     },
     [PlaythroughConstants.CAUSES.STANDARD] = {
-        messages = {
-            "Is this the part where it gets called a skill issue?",
-            "There's always next time...",
-            "Some things were just not meant to be.",
-            "Oh well.",
-            "Could have been worse, I guess. Or not.",
-            "Against all odds... you did not triumph.",
-            "How unfortunate.",
-            "Maybe you just didn't believe hard enough.",
-            "That's just the way it goes sometimes.",
-            "You should definitely pick the left ball next attempt.",
-            "Having fun yet?",
-            "%totalruns% attempts and counting...",
-            "The house always wins.",
-            "One day you'll finally push the boulder up that hill.",
-            "Anything that can go wrong, will go wrong.",
-            "Looks like your luck finally ran out.",
-        }
+        messages = {}
     },
     [PlaythroughConstants.CAUSES.IMPOSTER] = {
         exclusive = true,
@@ -142,34 +127,47 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
             "Does this mean we can ban it now?"
         }
     },
-    [PlaythroughConstants.CAUSES.LOW_BST] = {
-        exclusive = false,
-        messages = {
-            "Doesn't look like that Pok"..Chars.accentedE.."mon was going to make it very far anyway.",
-            "Seems like that Pok"..Chars.accentedE.."mon was doomed from the get go.",
-            "Looks like that %enemy% did you a favor.",
-            "Sometimes you're glad to go back to the lab.",
-            "Were you honestly going to try and run that?"
-        }
-    },
     [PlaythroughConstants.CAUSES.ENEMY_LOWER_BST] = {
         exclusive = true,
         messages = {
             "Sometimes, the weaker triumph.",
-            "I'm not sure what happened there.",
             "A surprising outcome.",
             "I don't think anyone saw that coming.",
-            "Huh?"
+            "Huh?",
+            "How did you let that happen?",
+            "Miracles really can happen.",
+            "Surely that Pok" .. Chars.accentedE .. "mon had Huge Power.",
+            "I'm sorry, I think I need to look away for a second."
         }
     },
     [PlaythroughConstants.CAUSES.SHEDINJA] = {
         exclusive = true,
         messages = {
             "Never feels good to lose to that.",
-            "There are over 20 fire moves in the game, and you rolled 0 of them.",
+            "There are over 20 fire moves in the game, and you didn't roll a single one.",
             "Hope you didn't spend too long trying to stall it out.",
             "It was bound to happen at some point.",
             "The one Pok" .. Chars.accentedE .. "mon you didn't want to see..."
         }
     }
 }
+
+function PlaythroughConstants.initializeStandardMessages()
+    local quotesFile = "death_quotes.txt"
+    PlaythroughConstants.RUN_OVER_MESSAGES[PlaythroughConstants.CAUSES.STANDARD].messages =
+        MiscUtils.shallowCopy(PlaythroughConstants.DEFAULT_STANDARD_MESSAGES)
+
+    local newMessages = {}
+    local currentIndex = 1
+    if FormsUtils.fileExists(quotesFile) then
+        for line in io.lines(quotesFile) do
+            if line ~= "" then
+                newMessages[currentIndex] = line
+                currentIndex = currentIndex + 1
+            end
+        end
+    end
+    if next(newMessages) ~= nil then
+        PlaythroughConstants.RUN_OVER_MESSAGES[PlaythroughConstants.CAUSES.STANDARD].messages = newMessages
+    end
+end

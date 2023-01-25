@@ -28,7 +28,9 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 	function self.initialize(runOverMessage)
 		local messageLines = DrawingUtils.textToWrappedArray(runOverMessage, constants.MAX_MESSAGE_WIDTH)
 		for i, line in pairs(messageLines) do
-			ui.controls.messageLines[i].setText(line)
+			if i < 5 then
+				ui.controls.messageLines[i].setText(line)
+			end
 		end
 	end
 
@@ -48,7 +50,7 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 			ui.frames.mainInnerFrame
 		)
 		ui.controls.messageLines = {}
-		for i = 1, 3, 1 do
+		for i = 1, 4, 1 do
 			ui.controls.messageLines[i] =
 				TextLabel(
 				Component(ui.frames.messagesFrame, Box({x = 0, y = 0}, {width = 0, height = 14})),
