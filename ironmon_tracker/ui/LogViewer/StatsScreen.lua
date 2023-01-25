@@ -64,6 +64,20 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
         local offsetX = (constants.TOP_LABEL_WIDTH - nameLength - #name - 2)/2
         ui.controls.topLabel.setTextOffset({x = offsetX, y = 0})
         ui.controls.topLabel.setText(name)
+        local nameToDescription = {
+            ["Best Special Attackers"] = "The highest combination of Special Attack and Speed.",
+            ["Best Physical Attackers"] = "The highest combination of Attack and Speed.",
+            ["Biggest Special Walls"] = "The highest combination of HP and Special Defense.",
+            ["Best Defensive Tanks"] = "The highest combination of HP and Defense.",
+            ["Bulkiest Overall"] = "The highest combination of HP, Defense, Special Defense.",
+            ["Most Frail"] = "The worst combination of Defense, Special Defense and HP."
+        }
+        local description = nameToDescription[name]
+        local totalWidth = ui.frames.mainFrame.getSize().width - 10
+        local base = -30
+        local centerX = base + ((totalWidth - DrawingUtils.calculateWordPixelLength(description)) / 2)
+        ui.controls.description.setText(description)
+        ui.controls.description.setTextOffset({x=centerX, y = 0})
     end
 
     local function setUpCurrentStatisticIndex()
@@ -132,8 +146,33 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = -10, y = 18}),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = -10, y = 2}),
             ui.frames.mainFrame
+        )
+        ui.controls.description =
+            TextLabel(
+            Component(
+                ui.frames.statAreaFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = constants.TOP_LABEL_WIDTH,
+                        height = 16
+                    },
+                    nil,
+                    nil
+                )
+            ),
+            TextField(
+                "The highest combination of special attack and speed.",
+                {x = -30, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
         )
         ui.frames.currentPokemonFrame =  Frame(
             Box(

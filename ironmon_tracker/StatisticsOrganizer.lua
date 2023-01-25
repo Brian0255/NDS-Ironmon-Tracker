@@ -175,7 +175,7 @@ function StatisticsOrganizer.createLogStatistics(logInfo)
     end
     local statisticsSets = {
         {"Best Special Attackers", {"SPA", "SPE"}, true},
-        {"Best Physical Hitters", {"ATK", "SPE"}, true},
+        {"Best Physical Attackers", {"ATK", "SPE"}, true},
         {"Biggest Special Walls", {"HP", "SPD"}, true},
         {"Best Defensive Tanks", {"HP", "DEF"}, true},
         {"Bulkiest Overall", {"HP", "DEF", "SPD"}, true},
