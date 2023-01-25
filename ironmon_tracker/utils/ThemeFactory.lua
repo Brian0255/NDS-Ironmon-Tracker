@@ -46,111 +46,16 @@ local constants = {
 }
 
 function ThemeFactory.createSaveThemeForm()
-    local saveForm = forms.newform(constants.SAVE_THEME_WIDTH, constants.SAVE_THEME_HEIGHT, "Save theme")
-    forms.setlocation(
-        saveForm,
-        constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
-        constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2
-    )
-    local canvas = forms.pictureBox(saveForm, 0, 0, 100, 30)
-    local fileName = forms.textbox(saveForm, nil, 100, 30, nil, 100, 5)
-    local saveButton =
-        forms.button(
-        saveForm,
-        "Save",
-        function()
-        end,
-        206,
-        3,
-        60,
-        24
-    )
-    forms.addclick(
-        saveButton,
-        function()
-            ThemeFactory.onSaveThemeClick(fileName)
-        end
-    )
-    forms.drawText(canvas, 6, 7, "Theme name:", 0xFF000000, 0x00000000, 14, "Arial")
+    FormsUtils.createSaveForm(Paths.CURRENT_DIRECTORY.."/ironmon_tracker/themes","theme",".colortheme",ThemeFactory.saveFile)
 end
 
 function ThemeFactory.onImportThemeClick(text)
     ThemeFactory.readThemeString(text)
 end
 
-function ThemeFactory.onSaveThemeClick(fileNameTextbox)
-    local text = forms.gettext(fileNameTextbox)
-    if text ~= "" then
-        local savePath = constants.THEMES_PATH .. "/" .. text .. ".colortheme"
-        if not FormsUtils.fileExists(savePath) then
-            local file = io.open(savePath, "w")
-            ThemeFactory.saveFile(file)
-        else
-            local file = io.open(savePath, "w")
-            ThemeFactory.createSaveConfirmDialog(
-                constants.CENTER_X - constants.SAVE_THEME_WIDTH / 2,
-                constants.CENTER_Y - constants.SAVE_THEME_HEIGHT / 2,
-                constants.SAVE_THEME_WIDTH,
-                130,
-                file
-            )
-        end
-    end
-end
-
-function ThemeFactory.saveFile(file)
-    io.output(file)
+function ThemeFactory.saveFile(filePath)
     local settingsString = ThemeFactory.getThemeString()
-    io.write(settingsString)
-    forms.destroyall()
-    FormsUtils.popupDialog(
-        "File successfully saved.",
-        constants.SAVE_THEME_WIDTH,
-        78,
-        FormsUtils.POPUP_DIALOG_TYPES.INFO
-    )
-    io.close(file)
-end
-
-function ThemeFactory.createSaveConfirmDialog(x, y, width, height, file)
-    local confirmForm = forms.newform(width, height, "Confirm")
-    forms.setlocation(confirmForm, x, y)
-    local canvas = forms.pictureBox(confirmForm, 0, 0, width, 52)
-
-    forms.drawText(canvas, 16, 10, "A theme with this name already exists.", 0xFF000000, 0x00000000, 14, "Arial")
-    forms.drawText(canvas, 50, 32, "Do you want to replace it?", 0xFF000000, 0x00000000, 14, "Arial")
-
-    local confirmButton =
-        forms.button(
-        confirmForm,
-        "Yes",
-        function()
-        end,
-        72,
-        height - 74,
-        60,
-        24
-    )
-    forms.addclick(
-        confirmButton,
-        function()
-            ThemeFactory.saveFile(file)
-        end
-    )
-
-    forms.button(
-        confirmForm,
-        "Cancel",
-        function()
-            io.close(file)
-
-            forms.destroy(confirmForm)
-        end,
-        138,
-        height - 74,
-        60,
-        24
-    )
+    MiscUtils.writeStringToFile(filePath, settingsString)
 end
 
 function ThemeFactory.createDefaultConfirmDialog()

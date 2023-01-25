@@ -139,3 +139,103 @@ function FormsUtils.createConfirmDialog(callback)
         24
     )
 end
+
+local function onConfirm(fileSavingOperation, filePath)
+    fileSavingOperation(filePath)
+    forms.destroyall()
+    FormsUtils.popupDialog(
+        "File successfully saved.",
+        288,
+        78,
+        FormsUtils.POPUP_DIALOG_TYPES.INFO
+    )
+end
+
+local function createSaveConfirmDialog(x, y, width, height, fileSavingOperation, filePath)
+    local confirmForm = forms.newform(width, height, "Confirm")
+    forms.setlocation(confirmForm, x, y)
+    local canvas = forms.pictureBox(confirmForm, 0, 0, width, 52)
+
+    forms.drawText(canvas, 16, 10, "A theme with this name already exists.", 0xFF000000, 0x00000000, 14, "Arial")
+    forms.drawText(canvas, 50, 32, "Do you want to replace it?", 0xFF000000, 0x00000000, 14, "Arial")
+
+    local confirmButton =
+        forms.button(
+        confirmForm,
+        "Yes",
+        function()
+        end,
+        72,
+        height - 74,
+        60,
+        24
+    )
+    forms.addclick(
+        confirmButton,
+        function()
+            onConfirm(fileSavingOperation, filePath)
+        end
+    )
+
+    forms.button(
+        confirmForm,
+        "Cancel",
+        function()
+            forms.destroy(confirmForm)
+        end,
+        138,
+        height - 74,
+        60,
+        24
+    )
+end
+
+local function onSaveClick(x,y,fileNameTextbox, folderPath, fileExtension, fileSavingOperation)
+    local text = forms.gettext(fileNameTextbox)
+    if text ~= "" then
+        local savePath = folderPath.."\\" .. text .. fileExtension
+        if not FormsUtils.fileExists(savePath) then
+            fileSavingOperation(savePath)
+        else
+            createSaveConfirmDialog(
+                x,y,
+                288,
+                130,
+                fileSavingOperation,
+                savePath
+            )
+        end
+    end
+end
+
+function FormsUtils.createSaveForm(folderPath, fileType, fileExtension, fileSavingOperation)
+    local width, height = 288, 70
+    local saveForm = forms.newform(width, height, "Save "..fileType)
+    local center = FormsUtils.getCenter(width,height)
+    forms.setlocation(
+        saveForm,
+        center.xPos, center.yPos
+    )
+    local canvas = forms.pictureBox(saveForm, 0, 0, 100, 30)
+    local fileName = forms.textbox(saveForm, nil, 100, 30, nil, 100, 5)
+    local saveButton =
+        forms.button(
+        saveForm,
+        "Save",
+        function()
+        end,
+        206,
+        3,
+        60,
+        24
+    )
+    forms.addclick(
+        saveButton,
+        function()
+            onSaveClick(center.xPos, center.yPos, fileName, folderPath, fileExtension, fileSavingOperation)
+        end
+    )
+    local beforeName = fileType:sub(1,1):upper()..fileType:sub(2):lower()
+    forms.drawText(canvas, 6, 7, beforeName.." name:", 0xFF000000, 0x00000000, 14, "Arial")
+end
+

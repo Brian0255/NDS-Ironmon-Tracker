@@ -25,11 +25,13 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         BUTTON_SIZE = 10,
         SET_BUTTON_WIDTH = 34,
         SET_BUTTON_HEIGHT = 14,
+        SAVE_LOAD_BUTTON_WIDTH = 62,
+        SAVE_LOAD_BUTTON_HEIGHT = 16,
         CHOOSE_TYPE_FRAME_HEIGHT = 89,
         PATH_SETUP_FRAME_HEIGHT = 36,
         TYPE_OPTION_FRAME_HEIGHT = 13,
         BATCH_SETUP_FRAME_HEIGHT = 62,
-        GENERATE_ROM_FRAME_HEIGHT = 154
+        GENERATE_ROM_FRAME_HEIGHT = 179
     }
     local ui = {}
     local eventListeners = {}
@@ -48,8 +50,8 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         local settingKey = settingData.settingKey
         local fileExtension = settingData.fileExtension
         local relativePath = settingData.relativePath
-        local batchValid = isBatchButton and settings.quickLoad.LOAD_TYPE == "USE_BATCH" 
-        local romGenerationValid = (not isBatchButton) and settings.quickLoad.LOAD_TYPE == "GENERATE_ROMS" 
+        local batchValid = isBatchButton and settings.quickLoad.LOAD_TYPE == "USE_BATCH"
+        local romGenerationValid = (not isBatchButton) and settings.quickLoad.LOAD_TYPE == "GENERATE_ROMS"
         if batchValid or romGenerationValid then
             local current_dir = Paths.CURRENT_DIRECTORY
             local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
@@ -80,7 +82,14 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         ui.frames.mainFrame.resize({width = ui.frames.mainFrame.getSize().width, height = baseHeight})
     end
 
-    local function createPathSetupFrame(parentFrame, labelName, settingKey, fileExtension, relativePath, isFolder, isBatchButton)
+    local function createPathSetupFrame(
+        parentFrame,
+        labelName,
+        settingKey,
+        fileExtension,
+        relativePath,
+        isFolder,
+        isBatchButton)
         local pathFrame =
             Frame(
             Box(
@@ -162,7 +171,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             )
         )
-        local pathLabel =
+        ui.controls[settingKey] =
             TextLabel(
             Component(
                 pathFrame,
@@ -192,7 +201,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         local onSetParams = {
             ["isBatchButton"] = isBatchButton,
             ["isFolder"] = isFolder,
-            ["pathLabel"] = pathLabel,
+            ["pathLabel"] = ui.controls[settingKey],
             settingData = {
                 ["settingKey"] = settingKey,
                 ["fileExtension"] = fileExtension,
@@ -420,6 +429,94 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         createPathSetupFrame(ui.frames.mainBatchFrame, "ROMs Folder", "ROMS_FOLDER_PATH", ".nds", "", true, true)
     end
 
+    local function saveProfile(filePath)
+        local completeString = ""
+        local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
+        for _, settingName in pairs(settingsNames) do
+            completeString = completeString..settings.quickLoad[settingName].."\n"
+        end
+        MiscUtils.writeStringToFile(filePath, completeString)
+    end
+
+    local function onSaveProfileClick()
+        local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
+        for _, settingName in pairs(settingsNames) do
+            if settings.quickLoad[settingName] == nil or settings.quickLoad[settingName] == "" then
+                forms.destroyall()
+                FormsUtils.popupDialog(
+                    "Missing files have been detected. Fill these in before saving a profile.",
+                    250,
+                    120,
+                    FormsUtils.POPUP_DIALOG_TYPES.WARNING,
+                    true
+                )
+                return
+            end
+        end
+        FormsUtils.createSaveForm(Paths.CURRENT_DIRECTORY.."/ironmon_tracker/quickloadProfiles","profile",".qlp",saveProfile)
+    end
+
+    local function onLoadProfileClick()
+        local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
+        local profile = forms.openfile("*.qlp", Paths.CURRENT_DIRECTORY.."\\ironmon_tracker\\quickloadProfiles\\")
+        if profile == "" then return end
+        local currentIndex = 1
+        for line in io.lines(profile) do
+            local settingName = settingsNames[currentIndex]
+            settings.quickLoad[settingName] = line
+            ui.controls[settingName].setText(FormsUtils.shortenFolderName(line))
+            currentIndex = currentIndex + 1
+        end
+        program.drawCurrentScreens()
+    end
+
+    local function createSaveLoadButtons()
+        ui.frames.saveLoadFrame =
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {
+                    width = 0,
+                    height = 0
+                }
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 6, {x = 5, y = 0}),
+            ui.frames.mainROMGenerateFrame
+        )
+        local names = {"Save Profile", "Load Profile"}
+        local functions = {onSaveProfileClick, onLoadProfileClick}
+        for i = 1, 2, 1 do
+            local button =
+                TextLabel(
+                Component(
+                    ui.frames.saveLoadFrame,
+                    Box(
+                        {x = 0, y = 0},
+                        {
+                            width = constants.SAVE_LOAD_BUTTON_WIDTH,
+                            height = constants.SAVE_LOAD_BUTTON_HEIGHT
+                        },
+                        "Top box background color",
+                        "Top box border color",
+                        true,
+                        "Top box background color"
+                    )
+                ),
+                TextField(
+                    names[i],
+                    {x = 7, y = 2},
+                    TextStyle(
+                        Graphics.FONT.DEFAULT_FONT_SIZE,
+                        Graphics.FONT.DEFAULT_FONT_FAMILY,
+                        "Top box text color",
+                        "Top box background color"
+                    )
+                )
+            )
+            table.insert(eventListeners, MouseClickEventListener(button, functions[i]))
+        end
+    end
+
     local function createROMCreationFrame()
         ui.frames.mainROMGenerateFrame =
             Frame(
@@ -498,11 +595,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 "Main background color",
                 nil
             ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.VERTICAL,
-                0,
-                {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}
-            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}),
             nil
         )
         ui.controls.mainHeading =
@@ -529,6 +622,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         createChooseTypeFrame()
         createBatchSetupFrame()
         createROMCreationFrame()
+        createSaveLoadButtons()
         ui.frames.goBackFrame =
             Frame(
             Box(
