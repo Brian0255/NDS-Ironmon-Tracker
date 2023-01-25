@@ -748,19 +748,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function checkIfUpdatePerformed()
+		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
+			self.openUpdateNotes()
+			settings.automaticUpdates.UPDATE_WAS_DONE = false
+			self.saveSettings()
+		end
+	end
+	
 	pokemonDataReader = PokemonDataReader(self)
 	battleHandler = BattleHandler(gameInfo, memoryAddresses, pokemonDataReader, tracker, self)
 	seedLogger = SeedLogger(self, gameInfo.NAME)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
 	setPokemonForMainScreen()
 	checkForUpdateBeforeLoading()
+	checkIfUpdatePerformed()
 	self.drawCurrentScreens()
-
-	local function checkIfUpdatePerformed()
-		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
-			self.openUpdateNotes()
-		end
-	end
 
 	function self.openLogFromPath(logPath)
 		local logInfo = randomizerLogParser.parse(logPath)
@@ -775,15 +778,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				logScreen.loadPokemonStats(playerPokemonID)
 			end
 			self.drawCurrentScreens()
-		else
-			
 		end
 	end
 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
 	randomizerLogParser = RandomizerLogParser(self)
-
-	checkIfUpdatePerformed()
 
 	return self
 end
