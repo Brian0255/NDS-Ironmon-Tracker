@@ -90,6 +90,7 @@ local function Main()
 		local rnqsName = FormsUtils.getFileNameFromPath(paths.RNQSPath)
 		local settingsName = rnqsName:sub(1, -6)
 		local nextRomName = settingsName .. "_Auto_Randomized.nds"
+		nextRomName = nextRomName:gsub(" ","_")
 		local nextRomPath = currentDirectory .. "\\" .. nextRomName
 		local randomizerCommand =
 			string.format(
