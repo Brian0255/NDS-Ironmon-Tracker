@@ -1,8 +1,31 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.0.1"
+MiscConstants.TRACKER_VERSION = "5.1.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
+
+MiscConstants.accentedE = "é"
+
+local version = client.getversion()
+--basically checking if older than 2.9
+if tonumber(version:sub(1,1)) == 2 and tonumber(version:sub(3,3)) < 9 then
+    MiscConstants.accentedE = "\233"
+end
+
+MiscConstants.UPDATE_NOTES = {
+    '-- Added a randomizer log viewer! You can view this after a run dies from a new "Run Over!" screen or from the "Tracked info" screen.',
+    '-- Any runs past the lab are now tracked! You can also view these from the "Tracked info" screen.',
+    '-- Some fun statistics are here! They will only apply to runs past the lab, and you can view them in the "Tracked info" screen.',
+    "-- Added early pivot tracking! On early routes, the enemy screen will now show a location icon. Hovering over this shows Pok" ..
+        MiscConstants.accentedE .. "mon you've seen, and clicking while hovering shows vanilla data.",
+    "-- The tracker will now keep one autosave per game, instead of only one total.",
+    "-- Updated Fighting and Psychic type icons.",
+    "-- Fixed eggs being revealed early (thanks Fellshadow).",
+    "-- Pok"..MiscConstants.accentedE.."mon White 2 is now fully functional.",
+    "-- Added gender-specific evos for a few Pok"..MiscConstants.accentedE.."mon.",
+    "-- Fixed Illusion bug for your own Pok"..MiscConstants.accentedE.."mon.",
+    "-- Return's power will now be shown if friendship is near max.",
+}
 
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
@@ -65,14 +88,10 @@ MiscConstants.DEFAULT_SETTINGS = {
         PRIMARY_BADGE_SET = "JOHTO"
     },
     automaticUpdates = {
-        LAST_DAY_CHECKED = ""
+        LAST_DAY_CHECKED = "",
+        UPDATE_WAS_DONE = false
     },
-    pastRuns = {
-        MINIMUM_BADGE_FILTER = 0
-    }
 }
-
-MiscConstants.accentedE = "é"
 
 MiscConstants.DEFAULT_POKEMON = {
     pid = 0,
