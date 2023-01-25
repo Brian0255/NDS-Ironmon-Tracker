@@ -71,7 +71,7 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function onOpenLogClick()
-		local startingFolder = ""
+		local startingFolder = Paths.CURRENT_DIRECTORY.."\\"
 		if settings.quickLoad.LOAD_TYPE == "USE_BATCH" then
 			if settings.quickLoad.ROMS_FOLDER_PATH == nil or settings.quickLoad.ROMS_FOLDER_PATH == "" then
 				return
@@ -81,8 +81,6 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 
 		local romName = gameinfo.getromname()
 		local logPath = startingFolder .. romName .. ".nds.log"
-
-		print(logPath)
 
 		local fileExists = FormsUtils.fileExists(logPath)
 		if not fileExists then
