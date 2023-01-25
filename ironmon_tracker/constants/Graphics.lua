@@ -170,7 +170,8 @@ Graphics.MAIN_SCREEN_CONSTANTS = {
     STAT_PREDICTION_STATES = {
         {text = "", color = "Top box text color"},
         {text = "+", color = "Positive text color"},
-        {text = "_", color = "Negative text color"}
+        {text = "_", color = "Negative text color"},
+        {text = "=", color = "Top box text color"}
     },
     BADGE_HORIZONTAL_WIDTH = 140,
     BADGE_HORIZONTAL_HEIGHT = 19,

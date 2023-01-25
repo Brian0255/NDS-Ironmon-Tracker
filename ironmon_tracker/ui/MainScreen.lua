@@ -44,6 +44,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function setStatPredictionToControl(control, newPrediction, newColor)
         if newPrediction == "_" then
             control.setTextOffset({x = 0, y = -5})
+        elseif newPrediction == "=" then
+            control.setTextOffset({x= 0,y = -2})
         else
             control.setTextOffset({x = 0, y = -1})
         end
@@ -58,7 +60,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local pokemonStatPredictions = tracker.getStatPredictions(pokemonID)
             local states = constants.STAT_PREDICTION_STATES
             local currentState = pokemonStatPredictions[stat]
-            local nextState = (currentState % 3) + 1
+            local nextState = (currentState % 4) + 1
             pokemonStatPredictions[stat] = nextState
             tracker.setStatPredictions(pokemonID, pokemonStatPredictions)
             setStatPredictionToControl(
