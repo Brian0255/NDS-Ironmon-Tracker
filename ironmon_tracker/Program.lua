@@ -134,7 +134,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = UpdateNotesScreen(settings, tracker, self),
 	}
 
-	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
+	local currentScreens = {}
 
 	
 	local function getScreenTotal()
@@ -753,6 +753,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			self.openUpdateNotes()
 			settings.automaticUpdates.UPDATE_WAS_DONE = false
 			self.saveSettings()
+		else
+			self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
 		end
 	end
 	
