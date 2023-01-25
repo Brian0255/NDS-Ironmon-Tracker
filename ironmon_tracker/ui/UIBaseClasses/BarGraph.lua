@@ -21,7 +21,7 @@ local function BarGraph(
     local orientation = initialOrientation or Graphics.ALIGNMENT_TYPE.VERTICAL
 
     function self.setDataSet(newDataSet)
-        dataSet = newDataSet
+        dataSet = MiscUtils.shallowCopy(newDataSet)
     end
 
     function self.setHeadingText(newHeadingText)
