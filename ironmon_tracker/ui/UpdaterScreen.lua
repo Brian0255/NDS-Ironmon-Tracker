@@ -80,9 +80,9 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
             ui.controls.topTextLabel1.setText("Error updating, please try again.")
             ui.controls.topTextLabel2.setText("")
             ui.frames.goBackFrame.setVisibility(true)
-            program.drawCurrentScreens()
             errored = true
         end
+        program.drawCurrentScreens()
     end
 
     local function onIgnoreClick()
