@@ -378,6 +378,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local info = GameConfigurator.initializeMemoryAddresses()
 		gameInfo = info.gameInfo
 		memoryAddresses = info.memoryAddresses
+		battleHandler.setMemoryAddresses(memoryAddresses)
 	end
 
 	local function HGSS_checkLeagueDefeated()
