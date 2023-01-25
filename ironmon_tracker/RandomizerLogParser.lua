@@ -373,6 +373,8 @@ local function RandomizerLogParser(initialProgram)
                 local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[sectionName]
                 local success = parseFunction(lines, lineStart)
                 if success == false then
+                    forms.destroyall()
+		            FormsUtils.popupDialog("Game does not match. Only load logs with the same game as the one you're playing.", 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
                     return nil
                 end
             end
