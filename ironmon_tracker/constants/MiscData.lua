@@ -6,7 +6,7 @@ MiscData.STATUS_TO_IMG_NAME = {
 	[3] = "FRZ",
 	[4] = "BRN",
 	[5] = "PSN",
-	[6] = "",
+	[6] = ""
 }
 
 MiscData.STATUS_TYPE =

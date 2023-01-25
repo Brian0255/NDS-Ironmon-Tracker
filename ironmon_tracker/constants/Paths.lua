@@ -1,5 +1,7 @@
 Paths = {}
 
+Paths.CURRENT_DIRECTORY = ""
+
 Paths.FOLDERS = {
     DATA_FOLDER = "ironmon_tracker",
     UI_FOLDER = "ironmon_tracker/ui",

@@ -1,28 +1,46 @@
 local function Tracker()
 	local self = {}
+
+	local currentAreaName = ""
+	local encounterData = {}
 	local trackedData = {
+		runOver = false,
+		progress = PlaythroughConstants.PROGRESS.NOWHERE,
+		firstPokemon = nil,
 		trackedPokemon = {},
 		romHash = gameinfo.getromhash(),
-		currentHiddenPowerType = PokemonData.POKEMON_TYPES.NORMAL,
+		currentHiddenPowerType = PokemonData.POKEMON_TYPES.BUG,
 		currentHiddenPowerIndex = 1,
 		pokecenterCount = 10
 	}
 
-	local function loadData()
-		local file = io.open("autosave.trackerdata", "r")
-		if file ~= nil then
-			local fileContents = file:read("*a")
-			if fileContents ~= nil and fileContents ~= "" then
-				local savedData = Pickle.unpickle(fileContents)
-				if savedData ~= nil then
-					local savedRomHash = savedData.romHash
-					if savedRomHash == trackedData.romHash then
-						print("Matching ROM found. Loading previously tracked data...")
-						trackedData = savedData
-					end
-				end
+	function self.setRunOver()
+		trackedData.runOver = true
+	end
+
+	function self.hasRunEnded()
+		return trackedData.runOver
+	end
+
+	function self.setFirstPokemon(pokemon)
+		if trackedData.firstPokemon == nil then
+			trackedData.firstPokemon = pokemon
+		end
+	end
+
+	function self.getFirstPokemonID()
+		if trackedData.firstPokemon == nil then return end
+		return trackedData.firstPokemon.pokemonID
+	end
+
+	function self.loadData(gameName)
+		local savedData = MiscUtils.getTableFromFile(gameName..".trackerdata")
+		if savedData ~= nil then
+			local savedRomHash = savedData.romHash
+			if savedRomHash == trackedData.romHash then
+				print("Matching ROM found. Loading previously tracked data...")
+				trackedData = savedData
 			end
-			file:close()
 		end
 	end
 
@@ -42,6 +60,43 @@ local function Tracker()
 		end
 	end
 
+	function self.updateEncounterData(pokemonID, level)
+		if not encounterData[currentAreaName] then
+			encounterData[currentAreaName] = {
+				areaName = currentAreaName,
+				encountersSeen = {},
+				uniqueSeen = 0
+			}
+		end
+		local areaData = encounterData[currentAreaName]
+		local seenEncounters = areaData.encountersSeen
+		if not seenEncounters[pokemonID] then
+			seenEncounters[pokemonID] = {}
+			areaData.uniqueSeen = areaData.uniqueSeen + 1
+		end
+		if not MiscUtils.tableContains(seenEncounters[pokemonID], level) then
+			table.insert(seenEncounters[pokemonID], level)
+		end
+		table.sort(
+			seenEncounters[pokemonID],
+			function(a, b)
+				return a < b
+			end
+		)
+	end
+
+	function self.getCurrentAreaName()
+		return currentAreaName
+	end
+
+	function self.getEncounterData()
+		return encounterData[currentAreaName]
+	end
+
+	function self.updateCurrentAreaName(newAreaName)
+		currentAreaName = newAreaName
+	end
+
 	local function checkIfPokemonUntracked(pokemonID)
 		if trackedData.trackedPokemon[pokemonID] == nil then
 			createNewPokemonEntry(pokemonID)
@@ -54,11 +109,11 @@ local function Tracker()
 	end
 
 	function self.increasePokecenterCount()
-		trackedData.pokecenterCount = math.min(99,trackedData.pokecenterCount + 1)
+		trackedData.pokecenterCount = math.min(99, trackedData.pokecenterCount + 1)
 	end
 
 	function self.decreasePokecenterCount()
-		trackedData.pokecenterCount = math.max(0,trackedData.pokecenterCount - 1)
+		trackedData.pokecenterCount = math.max(0, trackedData.pokecenterCount - 1)
 	end
 
 	function self.getPokecenterCount()
@@ -69,16 +124,11 @@ local function Tracker()
 		local ids = {}
 		local pokemon = trackedData.trackedPokemon
 		for id, _ in pairs(pokemon) do
-			if id ~= 0 then
+			if id ~= 0 and id <= 690 then
 				table.insert(ids, id)
 			end
 		end
-		table.sort(
-			ids,
-			function(k1, k2)
-				return PokemonData.POKEMON[k1 + 1].name < PokemonData.POKEMON[k2 + 1].name
-			end
-		)
+		MiscUtils.sortPokemonIDsByName(ids)
 		return ids
 	end
 
@@ -131,7 +181,7 @@ local function Tracker()
 			}
 		}
 		if id ~= 0 then
-			local constData = PokemonData.POKEMON[id+1]
+			local constData = PokemonData.POKEMON[id + 1]
 			local data = trackedData.trackedPokemon[id]
 			local name = constData.name
 			if PokemonData.ALTERNATE_FORMS[name] then
@@ -251,6 +301,14 @@ local function Tracker()
 		end
 	end
 
+	function self.setProgress(newProgress)
+		trackedData.progress = newProgress
+	end
+
+	function self.getProgress()
+		return trackedData.progress
+	end
+
 	function self.setStatPredictions(pokemonID, newStats)
 		trackedData.trackedPokemon[pokemonID].statPredictions = newStats
 	end
@@ -333,16 +391,12 @@ local function Tracker()
 		end
 	end
 
-	function self.save()
-		local file = io.open("autosave.trackerdata", "w")
-		if file ~= nil then
-			local data = Pickle.pickle(trackedData)
-			file:write(data)
-			file:close()
+	function self.save(gameName)
+		if trackedData.firstPokemon ~= nil then
+			MiscUtils.saveTableToFile(gameName..".trackerdata", trackedData)
 		end
 	end
 
-	loadData()
 	return self
 end
 

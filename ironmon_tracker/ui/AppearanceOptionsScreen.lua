@@ -111,7 +111,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             local labelName
             labelName = key:gsub("_", " "):lower()
             labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
-            labelName = labelName:gsub("pokecenter", "Pok\233center")
+            labelName = labelName:gsub("pokecenter", "Pok"..MiscConstants.accentedE.."center")
             if key == "BLIND_MODE" then
                 labelName = "Blind mode (hides stats/ability)"
             end
@@ -150,7 +150,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         local buttons = {
             badgesAppearanceButton = {name = "Badges Appearance", iconName = program.getGameInfo().BADGE_PREFIX},
             colorThemeButton = {name = "Edit Color Theme", iconName = "PAINTBRUSH"},
-            pokemonIconsButton = {name = "Pok\233mon Icon Sets", iconName = "POKEBALL"}
+            pokemonIconsButton = {name = "Pok"..MiscConstants.accentedE.."mon Icon Sets", iconName = "POKEBALL"}
         }
         local order = {"pokemonIconsButton","badgesAppearanceButton", "colorThemeButton"}
         for i, key in pairs(order) do

@@ -6,7 +6,13 @@
 ----------------------------------------------
 
 Pickle = {
-	clone = function(t) local nt = {}; for i, v in pairs(t) do nt[i] = v end return nt end
+	clone = function(t)
+		local nt = {}
+		for i, v in pairs(t) do
+			nt[i] = v
+		end
+		return nt
+	end
 }
 
 function Pickle.pickle(t)
@@ -38,10 +44,14 @@ end
 
 function Pickle:value_(v)
 	local vtype = type(v)
-	if vtype == "string" then return string.format("%q", v)
-	elseif vtype == "number" then return v
-	elseif vtype == "boolean" then return tostring(v)
-	elseif vtype == "table" then return "{" .. self:ref_(v) .. "}"
+	if vtype == "string" then
+		return string.format("%q", v)
+	elseif vtype == "number" then
+		return v
+	elseif vtype == "boolean" then
+		return tostring(v)
+	elseif vtype == "table" then
+		return "{" .. self:ref_(v) .. "}"
 	--else error("pickle a "..type(v).." is not supported")
 	end
 end
@@ -49,7 +59,9 @@ end
 function Pickle:ref_(t)
 	local ref = self._tableToRef[t]
 	if not ref then
-		if t == self then error("can't pickle the pickle class") end
+		if t == self then
+			error("can't pickle the pickle class")
+		end
 		table.insert(self._refToTable, t)
 		ref = #self._refToTable
 		self._tableToRef[t] = ref
@@ -66,7 +78,13 @@ function Pickle.unpickle(s)
 		error("can't unpickle a " .. type(s) .. ", only strings")
 	end
 
-	local gentables = loadstring("return " .. s)
+	local gentables
+	--just assume not 2.8 is a newer version because no one uses older versions
+	if client.getversion() ~= "2.8" then
+		gentables = load("return" .. s)
+	else
+		gentables = loadstring("return " .. s)
+	end
 
 	-- Check if the data in the file is not in the form of Lua code
 	if gentables == nil or gentables == "" then
@@ -77,12 +95,22 @@ function Pickle.unpickle(s)
 
 	for tnum = 1, #tables do
 		local t = tables[tnum]
-		local tcopy = {};
-		for i, v in pairs(t) do tcopy[i] = v end
+		local tcopy = {}
+		for i, v in pairs(t) do
+			tcopy[i] = v
+		end
 		for i, v in pairs(tcopy) do
 			local ni, nv
-			if type(i) == "table" then ni = tables[i[1]] else ni = i end
-			if type(v) == "table" then nv = tables[v[1]] else nv = v end
+			if type(i) == "table" then
+				ni = tables[i[1]]
+			else
+				ni = i
+			end
+			if type(v) == "table" then
+				nv = tables[v[1]]
+			else
+				nv = v
+			end
 			t[i] = nil
 			t[ni] = nv
 		end

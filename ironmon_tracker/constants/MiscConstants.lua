@@ -1,13 +1,38 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.0.1"
+MiscConstants.TRACKER_VERSION = "5.1.0"
+
+MiscConstants.BIZHAWK_VERSION = client.getversion()
+
+MiscConstants.accentedE = "é"
+
+local version = client.getversion()
+--basically checking if older than 2.9
+if tonumber(version:sub(1,1)) == 2 and tonumber(version:sub(3,3)) < 9 then
+    MiscConstants.accentedE = "\233"
+end
+
+MiscConstants.UPDATE_NOTES = {
+    '-- Added a randomizer log viewer! You can view this after a run dies from a new "Run Over!" screen or from the "Tracked info" screen.',
+    '-- Any runs past the lab are now tracked! You can also view these from the "Tracked info" screen.',
+    '-- Some fun statistics are here! They will only apply to runs past the lab, and you can view them in the "Tracked info" screen.',
+    "-- Added early pivot tracking! On early routes, the enemy screen will now show a location icon. Hovering over this shows Pok" ..
+        MiscConstants.accentedE .. "mon you've seen, and clicking while hovering shows vanilla data.",
+    "-- The tracker will now keep one autosave per game, instead of only one total.",
+    "-- Updated Fighting and Psychic type icons.",
+    "-- Fixed eggs being revealed early (thanks Fellshadow).",
+    "-- Pok"..MiscConstants.accentedE.."mon White 2 is now fully functional.",
+    "-- Added gender-specific evos for a few Pok"..MiscConstants.accentedE.."mon.",
+    "-- Fixed Illusion bug for your own Pok"..MiscConstants.accentedE.."mon.",
+    "-- Return's power will now be shown if friendship is near max.",
+}
 
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
         RIGHT_JUSTIFIED_NUMBERS = true,
         SHOW_POKECENTER_HEALS = false,
         SHOW_ACCURACY_AND_EVASION = true,
-        ICON_SET_INDEX=2
+        ICON_SET_INDEX = 2
     },
     controls = {
         CHANGE_VIEW = "Start",
@@ -21,7 +46,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         SHOW_MOVE_EFFECTIVENESS = true,
         SHOW_ACTUAL_ENEMY_PP = true,
         SHOW_1ST_FIGHT_STATS_PLATINUM = true,
-        ENABLE_ENEMY_LOCKING = false,
+        ENABLE_ENEMY_LOCKING = false
     },
     colorScheme = {
         ["Main background color"] = 4278190080,
@@ -29,7 +54,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         ["Bottom box text color"] = 4294967295,
         ["Positive text color"] = 4278255360,
         ["Negative text color"] = 4294901760,
-        ["Intermediate text color"]=4294967040,
+        ["Intermediate text color"] = 4294967040,
         ["Move header text color"] = 4294967295,
         ["Top box border color"] = 4289374890,
         ["Bottom box border color"] = 4289374890,
@@ -63,7 +88,61 @@ MiscConstants.DEFAULT_SETTINGS = {
         PRIMARY_BADGE_SET = "JOHTO"
     },
     automaticUpdates = {
-        LAST_DAY_CHECKED = ""
-    }
+        LAST_DAY_CHECKED = "",
+        UPDATE_WAS_DONE = false
+    },
 }
 
+MiscConstants.DEFAULT_POKEMON = {
+    pid = 0,
+    alternateForm = 0x0000,
+    pokemonID = 0,
+    trainerID = 0,
+    heldItem = 0,
+    friendship = 0,
+    ability = 0,
+    moves = {},
+    move1 = 0,
+    move2 = 0,
+    move3 = 0,
+    move4 = 0,
+    move1PP = 0,
+    move2PP = 0,
+    move3PP = 0,
+    move4PP = 0,
+    status = 0,
+    level = 0,
+    curHP = 0,
+    HP = 0,
+    stats = {
+        HP = "---",
+        ATK = "---",
+        DEF = "---",
+        SPE = "---",
+        SPA = "---",
+        SPD = "---"
+    },
+    isEgg = 0,
+    nature = 0,
+    encounterType = 0,
+    moveIDs = {
+        0,
+        0,
+        0,
+        0
+    },
+    movePPs = {
+        "---",
+        "---",
+        "---",
+        "---"
+    },
+    statStages = {
+        ["HP"] = 6,
+        ["ATK"] = 6,
+        ["DEF"] = 6,
+        ["SPE"] = 6,
+        ["SPA"] = 6,
+        ["SPD"] = 6
+    }
+}

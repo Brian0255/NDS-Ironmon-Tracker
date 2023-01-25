@@ -51,6 +51,14 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
             end
         end
     end
+    function self.clearAllChildren()
+        for _, control in pairs(controls) do
+            if control.clearAllChildren then
+                control.clearAllChildren()
+            end
+        end
+        controls = {}
+    end
     function self.resize(newSize)
         box.resize(newSize)
     end

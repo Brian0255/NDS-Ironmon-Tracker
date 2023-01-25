@@ -23,57 +23,37 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	local eventListeners = {
 		battleSettingsClickListener = nil,
 		trackerAppearanceClickListener = nil,
-		trackedPokemonClickListener = nil,
+		trackedInfoClickListener = nil,
 		editControlsClickListener = nil,
 		quickLoadClickListener = nil,
 		goBackClickListener = nil
 	}
 	local self = {}
-	local function onTrackerAppearanceClick()
-		program.setCurrentScreens({program.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN})
-		program.drawCurrentScreens()
-	end
-	local function onBattleSettingsClick()
-		program.setCurrentScreens({program.UI_SCREENS.BATTLE_OPTIONS_SCREEN})
-		program.drawCurrentScreens()
-	end
-	local function onTrackedPokemonClick()
-		program.setCurrentScreens({program.UI_SCREENS.TRACKED_POKEMON_SCREEN, program.UI_SCREENS.MAIN_SCREEN})
-		program.moveMainScreen({x = Graphics.SIZES.SCREEN_WIDTH, y = 24})
-		program.setUpForTrackedPokemonView()
-		program.drawCurrentScreens()
-	end
-	local function onEditControlsClick()
-		program.setCurrentScreens({program.UI_SCREENS.EDIT_CONTROLS_SCREEN})
-		program.drawCurrentScreens()
-	end
-	local function onQuickLoadClick()
-		program.setCurrentScreens({program.UI_SCREENS.QUICK_LOAD_SCREEN})
-		program.drawCurrentScreens()
-	end
+
 	local function onUpdateCheckerClick()
 		program.openUpdaterScreen()
 	end
-	local function onGoBackClick()
-		program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN})
-		program.drawCurrentScreens()
-	end
 
 	local function initEventListeners()
-		eventListeners.goBackClickListener = MouseClickEventListener(ui.controls.goBackButton, onGoBackClick)
+		eventListeners.goBackClickListener =
+			MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_SCREEN)
 		eventListeners.battleSettingsClickListener =
-			MouseClickEventListener(ui.frames.battleSettingsButtonFrame, onBattleSettingsClick)
+			MouseClickEventListener(ui.frames.battleSettingsButtonFrame, program.openScreen, program.UI_SCREENS.BATTLE_OPTIONS_SCREEN)
 		eventListeners.trackerAppearanceClickListener =
-			MouseClickEventListener(ui.frames.trackerAppearanceButtonFrame, onTrackerAppearanceClick)
-		eventListeners.trackedPokemonClickListener =
-			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
+			MouseClickEventListener(
+			ui.frames.trackerAppearanceButtonFrame,
+			program.openScreen,
+			program.UI_SCREENS.APPEARANCE_OPTIONS_SCREEN
+		)
+		eventListeners.trackedInfoClickListener =
+			MouseClickEventListener(ui.frames.trackedInfoButtonFrame, program.openScreen, program.UI_SCREENS.TRACKED_INFO_SCREEN)
 		eventListeners.editControlsClickListener =
-			MouseClickEventListener(ui.frames.editControlsButtonFrame, onEditControlsClick)
+			MouseClickEventListener(ui.frames.editControlsButtonFrame, program.openScreen, program.UI_SCREENS.EDIT_CONTROLS_SCREEN)
 		eventListeners.quickLoadClickListener =
-			MouseClickEventListener(ui.frames.quickLoadButtonFrame, onQuickLoadClick)
-		eventListeners.updaterClickListener =
-			MouseClickEventListener(ui.frames.updaterButtonFrame, onUpdateCheckerClick)
+			MouseClickEventListener(ui.frames.quickLoadButtonFrame, program.openScreen, program.UI_SCREENS.QUICK_LOAD_SCREEN)
+		eventListeners.updaterClickListener = MouseClickEventListener(ui.frames.updaterButtonFrame, onUpdateCheckerClick)
 	end
+
 	local function initBottomFrameControls()
 		TextLabel(
 			Component(ui.frames.bottomFrame, Box({x = 0, y = 0}, {width = 92, height = 18}, nil, nil)),
@@ -117,59 +97,42 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		local buttonNames = {
 			battleSettingsButton = "Battle Settings",
 			trackerAppearanceButton = "Tracker Appearance",
-			trackedPokemonButton = "Tracked Pok\233mon ",
+			trackedInfoButton = "Tracked Info",
 			editControlsButton = "Edit Controls",
 			quickLoadButton = "QuickLoad Settings",
 			updaterButton = "Check for Updates"
 		}
-		local icons = {"SWORD", "SPARKLES", "PENCIL", "CONTROLLER", "LIGHTNING_BOLT", "UPDATER_ICON"}
+		local icons = {"SWORD", "SPARKLES", "TRACKED_INFO_ICON", "CONTROLLER", "LIGHTNING_BOLT", "UPDATER_ICON"}
 		local order = {
 			"battleSettingsButton",
 			"trackerAppearanceButton",
-			"trackedPokemonButton",
+			"trackedInfoButton",
 			"editControlsButton",
 			"quickLoadButton",
 			"updaterButton"
+		}
+		local iconOffsets = {
+			{x = 2, y = 2},
+			{x = 2, y = 2},
+			{x = 4, y = 3},
+			{x = 2, y = 2},
+			{x = 2, y = 2},
+			{x = 2, y = 2},
 		}
 		for i, key in pairs(order) do
 			local text = buttonNames[key]
 			local iconName = icons[i]
 			local frameName = key .. "Frame"
-			ui.frames[frameName] =
-				Frame(
-				Box(
-					{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-					{width = constants.MAIN_BUTTON_WIDTH, height = constants.MAIN_BUTTON_HEIGHT},
-					"Top box background color",
-					"Top box border color",
-					true,
-					"Top box background color"
-				),
-				Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2),
-				ui.frames.mainButtonFrame
-			)
-			Icon(
-				Component(ui.frames[frameName], Box({x = 0, y = 0}, {width = 16, height = 16}, nil, nil)),
+			local frameInfo = FrameFactory.createScreenOpeningFrame(
+				ui.frames.mainButtonFrame,
+				constants.MAIN_BUTTON_WIDTH,
+				constants.MAIN_BUTTON_HEIGHT,
 				iconName,
-				{x = 2, y = 2}
+				iconOffsets[i],
+				text
 			)
-			ui.controls[key] =
-				TextLabel(
-				Component(
-					ui.frames[frameName],
-					Box({x = 0, y = 0}, {width = constants.MAIN_BUTTON_WIDTH - 18, height = constants.MAIN_BUTTON_HEIGHT})
-				),
-				TextField(
-					text,
-					{x = 3, y = 4},
-					TextStyle(
-						Graphics.FONT.DEFAULT_FONT_SIZE,
-						Graphics.FONT.DEFAULT_FONT_FAMILY,
-						"Top box text color",
-						"Top box background color"
-					)
-				)
-			)
+			ui.frames[frameName] = frameInfo.frame
+			ui.controls[order[i]] = frameInfo.button
 		end
 	end
 	local function initUI()

@@ -1,5 +1,25 @@
 GameConfigurator = {}
 
+GameConfigurator.ALTERNATE_FORM_ORDER_GEN4 = {
+	"Deoxys","Wormadam P","Giratina A","Shaymin L","Rotom","Castform","Basculin R","Darmanitan","Meloetta A","Kyurem","Landorus","Thundurus","Tornadus","Burmy P",
+	"Cherrim O","Deerling","Frillish M","Gastrodon W","Jellicent M","Keldeo","Sawsbuck","Shellos W","Unfezant M"
+}
+
+GameConfigurator.ALTERNATE_FORM_ORDER_GEN5 = {
+	"Deoxys","Wormadam P","Shaymin L","Giratina A","Rotom","Castform","Basculin R","Darmanitan","Meloetta A","Kyurem","Landorus","Thundurus","Tornadus","Burmy P",
+	"Cherrim O","Deerling","Frillish M","Gastrodon W","Jellicent M","Keldeo","Sawsbuck","Shellos W","Unfezant M"
+}
+
+function GameConfigurator.initPokemon(gameInfo)
+	if gameInfo.GEN == 4 then
+		local pokemon = {}
+		for i = 1, PokemonData.LAST_INDEX_GEN_4, 1 do
+			table.insert(pokemon, PokemonData.POKEMON[i])
+		end
+		PokemonData.POKEMON = pokemon
+	end
+end
+
 function GameConfigurator.initMoveData(gameInfo)
 	for _, move in pairs(MoveData.MOVES_MASTER_LIST) do
 		local moveToInsert = {
@@ -22,9 +42,28 @@ function GameConfigurator.initMoveData(gameInfo)
 	end
 end
 
+function GameConfigurator.initAbilityData(gameInfo)
+	local versionDifferenceIndex = gameInfo.GEN - 3
+	for index, info in pairs(AbilityData.ABILITIES_MASTER_LIST) do
+		AbilityData.ABILITIES[index] = {}
+		for key, value in pairs(info) do
+			if type(value) == "table" then
+				AbilityData.ABILITIES[index][key] = value[versionDifferenceIndex]
+			else
+				AbilityData.ABILITIES[index][key] = value
+			end
+		end
+	end
+end
+
 function GameConfigurator.initAlternateForms(gameInfo)
+	local formOrder = GameConfigurator.ALTERNATE_FORM_ORDER_GEN4
+	if gameInfo.GEN ==5 then
+		formOrder = GameConfigurator.ALTERNATE_FORM_ORDER_GEN5
+	end
 	local currentIndex = #PokemonData.POKEMON + 1
-	for baseForm, formTable in pairs(PokemonData.ALTERNATE_FORMS) do
+	for _, baseForm in pairs(formOrder) do
+		local formTable = PokemonData.ALTERNATE_FORMS[baseForm]
 		formTable.index = currentIndex
 		for i, form in pairs(formTable.forms) do
 			if baseForm == "Rotom" and gameInfo.GEN == 4 then
@@ -48,14 +87,12 @@ function GameConfigurator.initialize()
 		FormsUtils.popupDialog("Your ROM is not currently supported by the tracker. Only English NDS ROMs are supported.", 250,100, FormsUtils.POPUP_DIALOG_TYPES.WARNING, false)
 		return
 	end
-	if gameCode == GameInfo.VERSION_NUMBER.WHITE2 then
-		FormsUtils.popupDialog("Pok\233mon White 2 is not supported currently. Please use a Pok\233mon Black 2 ROM instead.", 250,100, FormsUtils.POPUP_DIALOG_TYPES.WARNING, false)
-		return
-	end
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	print(gameInfo.NAME .. " detected.")
+	GameConfigurator.initPokemon(gameInfo)
 	GameConfigurator.initAlternateForms(gameInfo)
 	GameConfigurator.initMoveData(gameInfo)
+	GameConfigurator.initAbilityData(gameInfo)
 
 	if gameInfo.GEN == 5 then
 		ItemData.ITEMS = ItemData.GEN_5_ITEMS

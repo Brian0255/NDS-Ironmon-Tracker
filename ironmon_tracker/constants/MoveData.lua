@@ -13,30 +13,6 @@ MoveData.MOVE_CATEGORIES =
 
 MoveData.MOVES = {}
 
---List of pokemon types used to cycle through types when the Hidden Power button is clicked
-MoveData.HIDDEN_POWER_TYPE_LIST =
-	MiscUtils.readOnly(
-	{
-		PokemonData.POKEMON_TYPES.NORMAL,
-		PokemonData.POKEMON_TYPES.FIGHTING,
-		PokemonData.POKEMON_TYPES.FLYING,
-		PokemonData.POKEMON_TYPES.POISON,
-		PokemonData.POKEMON_TYPES.GROUND,
-		PokemonData.POKEMON_TYPES.ROCK,
-		PokemonData.POKEMON_TYPES.BUG,
-		PokemonData.POKEMON_TYPES.GHOST,
-		PokemonData.POKEMON_TYPES.STEEL,
-		PokemonData.POKEMON_TYPES.FIRE,
-		PokemonData.POKEMON_TYPES.WATER,
-		PokemonData.POKEMON_TYPES.GRASS,
-		PokemonData.POKEMON_TYPES.ELECTRIC,
-		PokemonData.POKEMON_TYPES.PSYCHIC,
-		PokemonData.POKEMON_TYPES.ICE,
-		PokemonData.POKEMON_TYPES.DRAGON,
-		PokemonData.POKEMON_TYPES.DARK
-	}
-)
-
 --Mapping of move types to move categories for gens 1-3
 MoveData.TYPE_CATEGORIES =
 	MiscUtils.readOnly(
@@ -316,7 +292,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = {"85", "100", "100", "100", "100"},
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. Switches the target out for another of its trainer's Pok\233mon selected at random. Doesn't affect Pok\233mon with suction cups or under the effect of ingrain."
+		description = "Decreased priority. Switches the target out for another of its trainer's Pok"..MiscConstants.accentedE.."mon selected at random. Doesn't affect Pok"..MiscConstants.accentedE.."mon with suction cups or under the effect of ingrain."
 	},
 	{
 		id = "19",
@@ -366,7 +342,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch. Power is doubled against Pok\233mon that are minimized."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch. Power is doubled against Pok"..MiscConstants.accentedE.."mon that are minimized."
 	},
 	{
 		id = "24",
@@ -608,7 +584,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. Switches the target out for another of its trainer's Pok\233mon selected at random. Wild battles end immediately."
+		description = "Decreased priority. Switches the target out for another of its trainer's Pok"..MiscConstants.accentedE.."mon selected at random. Wild battles end immediately."
 	},
 	{
 		id = "47",
@@ -688,7 +664,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Pok\233mon on the user's side of the field are immune to stat-lowering effects for five turns. Guard Swap, Heart Swap, and Power Swap may still be used."
+		description = "Pok"..MiscConstants.accentedE.."mon on the user's side of the field are immune to stat-lowering effects for five turns. Guard Swap, Heart Swap, and Power Swap may still be used."
 	},
 	{
 		id = "55",
@@ -878,7 +854,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn. Has no effect on grass Pok\233mon, and Liquid Ooze will cause the user to take damage."
+		description = "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn. Has no effect on grass Pok"..MiscConstants.accentedE.."mon, and Liquid Ooze will cause the user to take damage."
 	},
 	{
 		id = "74",
@@ -1218,7 +1194,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"Raises the user's Evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's Evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's Evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's Evasion by one stage. Stomp has double power against Pok\233mon that have used this move since entering the field.", "Raises the user's Evasion by two stages. Stomp and Steamroller have double power against Pok\233mon that have used this move since entering the field."}
+		description = {"Raises the user's Evasion by one stage. Stomp has double power against Pok"..MiscConstants.accentedE.."mon that have used this move since entering the field.", "Raises the user's Evasion by one stage. Stomp has double power against Pok"..MiscConstants.accentedE.."mon that have used this move since entering the field.", "Raises the user's Evasion by one stage. Stomp has double power against Pok"..MiscConstants.accentedE.."mon that have used this move since entering the field.", "Raises the user's Evasion by one stage. Stomp has double power against Pok"..MiscConstants.accentedE.."mon that have used this move since entering the field.", "Raises the user's Evasion by two stages. Stomp and Steamroller have double power against Pok"..MiscConstants.accentedE.."mon that have used this move since entering the field."}
 	},
 	{
 		id = "108",
@@ -1288,7 +1264,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes stat, Accuracy, and Evasion modifiers from every Pok\233mon on the field."
+		description = "Removes stat, Accuracy, and Evasion modifiers from every Pok"..MiscConstants.accentedE.."mon on the field."
 	},
 	{
 		id = "115",
@@ -1318,7 +1294,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority and makes contact. User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pok\233mon to hit it. Damage inflicted is typeless."
+		description = "Increased priority and makes contact. User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pok"..MiscConstants.accentedE.."mon to hit it. Damage inflicted is typeless."
 	},
 	{
 		id = "118",
@@ -1338,7 +1314,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Uses the last move targeted at the user by a Pok\233mon still on the field."
+		description = "Uses the last move targeted at the user by a Pok"..MiscConstants.accentedE.."mon still on the field."
 	},
 	{
 		id = "120",
@@ -1528,7 +1504,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Fails if not used on a sleeping Pok\233mon. Inflicts regular damage. Drains half the damage inflicted to heal the user."
+		description = "Fails if not used on a sleeping Pok"..MiscConstants.accentedE.."mon. Inflicts regular damage. Drains half the damage inflicted to heal the user."
 	},
 	{
 		id = "139",
@@ -1859,7 +1835,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Only works on sleeping Pok\233mon. Gives the target a nightmare, damaging it for 1/4 its max HP every turn. If the target wakes up or leaves the field, this effect ends."
+		description = "Only works on sleeping Pok"..MiscConstants.accentedE.."mon. Gives the target a nightmare, damaging it for 1/4 its max HP every turn. If the target wakes up or leaves the field, this effect ends."
 	},
 	{
 		id = "172",
@@ -1869,7 +1845,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target. Frozen Pok\233mon may use this move, in which case they will thaw."
+		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target. Frozen Pok"..MiscConstants.accentedE.."mon may use this move, in which case they will thaw."
 	},
 	{
 		id = "173",
@@ -2065,7 +2041,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Scatters spikes around the opposing field, which damage opposing Pok\233mon that enter the field for 1/8 of their max HP. Up to three layers of spikes may be laid down, adding 1/16 more damage for each layer."
+		description = "Scatters spikes around the opposing field, which damage opposing Pok"..MiscConstants.accentedE.."mon that enter the field for 1/8 of their max HP. Up to three layers of spikes may be laid down, adding 1/16 more damage for each layer."
 	},
 	{
 		id = "192",
@@ -2095,7 +2071,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the user faints before its next move, the Pok\233mon that fainted it will automatically faint. End-of-turn damage is ignored."
+		description = "If the user faints before its next move, the Pok"..MiscConstants.accentedE.."mon that fainted it will automatically faint. End-of-turn damage is ignored."
 	},
 	{
 		id = "195",
@@ -2105,7 +2081,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Every Pok\233mon is given a counter that starts at 3 and decreases by 1 at the end of every turn. When a Pok\233mon's counter reaches zero, that Pok\233mon faints."
+		description = "Every Pok"..MiscConstants.accentedE.."mon is given a counter that starts at 3 and decreases by 1 at the end of every turn. When a Pok"..MiscConstants.accentedE.."mon's counter reaches zero, that Pok"..MiscConstants.accentedE.."mon faints."
 	},
 	{
 		id = "196",
@@ -2165,7 +2141,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Summons a to a sandstorm for five turns. Pok\233mon that are not ground, rock, or steel take 1/16 their max HP at the end of every turn. Every rock Pok\233mon's Special Defense is raised by 50% for the duration of this effect."
+		description = "Summons a to a sandstorm for five turns. Pok"..MiscConstants.accentedE.."mon that are not ground, rock, or steel take 1/16 their max HP at the end of every turn. Every rock Pok"..MiscConstants.accentedE.."mon's Special Defense is raised by 50% for the duration of this effect."
 	},
 	{
 		id = "202",
@@ -2305,7 +2281,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes major status effects and confusion from every Pok\233mon in the user's party."
+		description = "Removes major status effects and confusion from every Pok"..MiscConstants.accentedE.."mon in the user's party."
 	},
 	{
 		id = "216",
@@ -2345,7 +2321,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Protects Pok\233mon on the user's side of the field from major status effects and confusion for five turns. This effect remains even if the user leaves the field."
+		description = "Protects Pok"..MiscConstants.accentedE.."mon on the user's side of the field from major status effects and confusion for five turns. This effect remains even if the user leaves the field."
 	},
 	{
 		id = "220",
@@ -2365,7 +2341,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 50% chance to burn the target. Frozen Pok\233mon may use this move, in which case they will thaw."
+		description = "Inflicts regular damage. Has a 50% chance to burn the target. Frozen Pok"..MiscConstants.accentedE.."mon may use this move, in which case they will thaw."
 	},
 	{
 		id = "222",
@@ -2415,7 +2391,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User switches out, and the trainer selects a replacement Pok\233mon from the party. Stat changes, confusion, and persistent move effects are passed along to the replacement Pok\233mon."
+		description = "User switches out, and the trainer selects a replacement Pok"..MiscConstants.accentedE.."mon from the party. Stat changes, confusion, and persistent move effects are passed along to the replacement Pok"..MiscConstants.accentedE.."mon."
 	},
 	{
 		id = "227",
@@ -2520,7 +2496,7 @@ MoveData.MOVES_MASTER_LIST = {
 	{
 		id = "237",
 		name = "Hidden Power",
-		type = PokemonData.POKEMON_TYPES.NORMAL,
+		type = PokemonData.POKEMON_TYPES.UNKNOWN,
 		power = "VAR",
 		pp = "15",
 		accuracy = "100",
@@ -2669,7 +2645,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts regular damage. Every Pok\233mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target."}
+		description = {"Inflicts typeless regular damage. Every Pok"..MiscConstants.accentedE.."mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok"..MiscConstants.accentedE.."mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok"..MiscConstants.accentedE.."mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts typeless regular damage. Every Pok"..MiscConstants.accentedE.."mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.", "Inflicts regular damage. Every Pok"..MiscConstants.accentedE.."mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target."}
 	},
 	{
 		-- Begin Gen 3 Moves
@@ -2690,7 +2666,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {"Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 3 turns. All Pok\233mon on the field wake up, and none can fall to sleep until the lock-in ends."}
+		description = {"Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok"..MiscConstants.accentedE.."mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok"..MiscConstants.accentedE.."mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok"..MiscConstants.accentedE.."mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok"..MiscConstants.accentedE.."mon on the field wake up, and none can fall to sleep until the lock-in ends.", "Inflicts regular damage. User is forced to use this move for 3 turns. All Pok"..MiscConstants.accentedE.."mon on the field wake up, and none can fall to sleep until the lock-in ends."}
 	},
 	{
 		id = "254",
@@ -2740,7 +2716,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the weather to hail for five turns, during which non-ice Pok\233mon are damaged for 1/16 their max HP at the end of every turn."
+		description = "Changes the weather to hail for five turns, during which non-ice Pok"..MiscConstants.accentedE.."mon are damaged for 1/16 their max HP at the end of every turn."
 	},
 	{
 		id = "259",
@@ -2820,7 +2796,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Until the end of this turn, any moves that opposing Pok\233mon target solely at the user's ally will instead target the user."
+		description = "Increased priority. Until the end of this turn, any moves that opposing Pok"..MiscConstants.accentedE.."mon target solely at the user's ally will instead target the user."
 	},
 	{
 		id = "267",
@@ -2870,7 +2846,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User and target permanently swap held items. Works even if one of the Pok\233mon isn't holding anything."
+		description = "User and target permanently swap held items. Works even if one of the Pok"..MiscConstants.accentedE.."mon isn't holding anything."
 	},
 	{
 		id = "272",
@@ -2900,7 +2876,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Uses a move from another Pok\233mon in the user's party, both selected at random. Moves from fainted Pok\233mon can be used."
+		description = "Uses a move from another Pok"..MiscConstants.accentedE.."mon in the user's party, both selected at random. Moves from fainted Pok"..MiscConstants.accentedE.."mon can be used."
 	},
 	{
 		id = "275",
@@ -2940,7 +2916,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok\233mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item it consumed. The item must be used again before it can be recovered by this move again."}
+		description = {"User recovers the last item consumed by the user or a Pok"..MiscConstants.accentedE.."mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok"..MiscConstants.accentedE.."mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok"..MiscConstants.accentedE.."mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item consumed by the user or a Pok"..MiscConstants.accentedE.."mon in its position on the field. The item must be used again before it can be recovered by this move again.", "User recovers the last item it consumed. The item must be used again before it can be recovered by this move again."}
 	},
 	{
 		id = "279",
@@ -3020,7 +2996,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Prevents any Pok\233mon on the opposing side of the field from using any move the user knows until the user leaves the field."
+		description = "Prevents any Pok"..MiscConstants.accentedE.."mon on the opposing side of the field from using any move the user knows until the user leaves the field."
 	},
 	{
 		id = "287",
@@ -3050,7 +3026,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. The next time a Pok\233mon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself."
+		description = "Increased priority. The next time a Pok"..MiscConstants.accentedE.."mon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself."
 	},
 	{
 		id = "290",
@@ -3286,7 +3262,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes major status effects and confusion from every Pok\233mon in the user's party."
+		description = "Removes major status effects and confusion from every Pok"..MiscConstants.accentedE.."mon in the user's party."
 	},
 	{
 		id = "313",
@@ -3436,7 +3412,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {"Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok\233mon under the effect of Bounce, Fly, or Sky Drop."}
+		description = {"Inflicts regular damage and makes contact. This move can hit Pok"..MiscConstants.accentedE.."mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok"..MiscConstants.accentedE.."mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok"..MiscConstants.accentedE.."mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok"..MiscConstants.accentedE.."mon under the effect of Bounce or Fly.", "Inflicts regular damage and makes contact. This move can hit Pok"..MiscConstants.accentedE.."mon under the effect of Bounce, Fly, or Sky Drop."}
 	},
 	{
 		id = "328",
@@ -3730,7 +3706,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok\233mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok\233mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok\233mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok\233mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok\233mon on the field is multiplied by 5/3. Cancels the effects of Bounce, Fly, and Sky Drop."}
+		description = {"For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok"..MiscConstants.accentedE.."mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok"..MiscConstants.accentedE.."mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok"..MiscConstants.accentedE.."mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok"..MiscConstants.accentedE.."mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.", "For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok"..MiscConstants.accentedE.."mon on the field is multiplied by 5/3. Cancels the effects of Bounce, Fly, and Sky Drop."}
 	},
 	{
 		id = "357",
@@ -3740,7 +3716,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Ignores the target's boosted Evasion stages until the target leaves the field. A dark Pok\233mon under this effect takes normal damage from psychic moves."
+		description = "Ignores the target's boosted Evasion stages until the target leaves the field. A dark Pok"..MiscConstants.accentedE.."mon under this effect takes normal damage from psychic moves."
 	},
 	{
 		id = "358",
@@ -3780,7 +3756,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User faints. Its replacement's HP is fully restored, and any major status effect is removed. If the replacement Pok\233mon is immediately fainted by a switch-in effect, the next replacement is healed by this move instead."
+		description = "User faints. Its replacement's HP is fully restored, and any major status effect is removed. If the replacement Pok"..MiscConstants.accentedE.."mon is immediately fainted by a switch-in effect, the next replacement is healed by this move instead."
 	},
 	{
 		id = "362",
@@ -3796,7 +3772,7 @@ MoveData.MOVES_MASTER_LIST = {
 		id = "363",
 		name = "Natural Gift",
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = "BRRY",
+		power = "BRY",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
@@ -3830,7 +3806,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {"For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next four turns, all Pok\233mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field."}
+		description = {"For the next three turns, all Pok"..MiscConstants.accentedE.."mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok"..MiscConstants.accentedE.."mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok"..MiscConstants.accentedE.."mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next three turns, all Pok"..MiscConstants.accentedE.."mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.", "For the next four turns, all Pok"..MiscConstants.accentedE.."mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field."}
 	},
 	{
 		id = "367",
@@ -3850,7 +3826,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Targets the last opposing Pok\233mon to hit the user with a damaging move this turn. Inflicts 1.5x the damage that move did to the user. Type immunity applies, but other type effects are ignored."
+		description = "Targets the last opposing Pok"..MiscConstants.accentedE.."mon to hit the user with a damaging move this turn. Inflicts 1.5x the damage that move did to the user. Type immunity applies, but other type effects are ignored."
 	},
 	{
 		id = "369",
@@ -3860,7 +3836,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User immediately switches out, and the trainer selects a replacement Pok\233mon from the party."
+		description = "Inflicts regular damage and makes contact. User immediately switches out, and the trainer selects a replacement Pok"..MiscConstants.accentedE.."mon from the party."
 	},
 	{
 		id = "370",
@@ -3980,7 +3956,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "For five turns, opposing Pok\233mon cannot score critical hits."
+		description = "For five turns, opposing Pok"..MiscConstants.accentedE.."mon cannot score critical hits."
 	},
 	{
 		id = "382",
@@ -4000,7 +3976,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Uses the last move that was used successfully by any Pok\233mon, including the user."
+		description = "Uses the last move that was used successfully by any Pok"..MiscConstants.accentedE.."mon, including the user."
 	},
 	{
 		id = "384",
@@ -4070,7 +4046,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Scatters poisoned spikes around the opposing field, which poison opposing Pok\233mon that enter the field. A second layer of these spikes may be laid down, in which case Pok\233mon will be badly poisoned instead."
+		description = "Scatters poisoned spikes around the opposing field, which poison opposing Pok"..MiscConstants.accentedE.."mon that enter the field. A second layer of these spikes may be laid down, in which case Pok"..MiscConstants.accentedE.."mon will be badly poisoned instead."
 	},
 	{
 		id = "391",
@@ -4110,7 +4086,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to burn the target. Frozen Pok\233mon will thaw if they use this move."
+		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to burn the target. Frozen Pok"..MiscConstants.accentedE.."mon will thaw if they use this move."
 	},
 	{
 		id = "395",
@@ -4320,7 +4296,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User and target permanently swap held items. Works even if one of the Pok\233mon isn't holding anything."
+		description = "User and target permanently swap held items. Works even if one of the Pok"..MiscConstants.accentedE.."mon isn't holding anything."
 	},
 	{
 		id = "416",
@@ -4500,7 +4476,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. For five turns, slower Pok\233mon will act before faster Pok\233mon. Move priority is not affected."
+		description = "Decreased priority. For five turns, slower Pok"..MiscConstants.accentedE.."mon will act before faster Pok"..MiscConstants.accentedE.."mon. Move priority is not affected."
 	},
 	{
 		id = "434",
@@ -4630,7 +4606,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Spreads sharp rocks around the opposing field, damaging any Pok\233mon that enters the field for 1/8 its max HP. This damage is affected by the entering Pok\233mon's susceptibility to rock moves."
+		description = "Spreads sharp rocks around the opposing field, damaging any Pok"..MiscConstants.accentedE.."mon that enters the field for 1/8 its max HP. This damage is affected by the entering Pok"..MiscConstants.accentedE.."mon's susceptibility to rock moves."
 	},
 	{
 		id = "447",
@@ -4866,7 +4842,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Moves with multiple targets will not hit friendly Pok\233mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
+		description = "Increased priority. Moves with multiple targets will not hit friendly Pok"..MiscConstants.accentedE.."mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
 	},
 	{
 		id = "470",
@@ -4876,7 +4852,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Averages the user's unmodified Defense with the target's unmodified Defense; the value becomes the unmodified Defense for both Pok\233mon. Unmodified Special Defense is averaged the same way."
+		description = "Averages the user's unmodified Defense with the target's unmodified Defense; the value becomes the unmodified Defense for both Pok"..MiscConstants.accentedE.."mon. Unmodified Special Defense is averaged the same way."
 	},
 	{
 		id = "471",
@@ -4886,7 +4862,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Averages the user's unmodified Attack with the target's unmodified Attack; the value becomes the unmodified Attack for both Pok\233mon. Unmodified Special Attack is averaged the same way."
+		description = "Averages the user's unmodified Attack with the target's unmodified Attack; the value becomes the unmodified Attack for both Pok"..MiscConstants.accentedE.."mon. Unmodified Special Attack is averaged the same way."
 	},
 	{
 		id = "472",
@@ -4896,7 +4872,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. For five turns, every Pok\233mon's Defense and Special Defense are swapped."
+		description = "Decreased priority. For five turns, every Pok"..MiscConstants.accentedE.."mon's Defense and Special Defense are swapped."
 	},
 	{
 		id = "473",
@@ -4936,7 +4912,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Until the end of this turn, any moves that opposing Pok\233mon target solely at the user's ally will instead target the user."
+		description = "Increased priority. Until the end of this turn, any moves that opposing Pok"..MiscConstants.accentedE.."mon target solely at the user's ally will instead target the user."
 	},
 	{
 		id = "477",
@@ -4956,7 +4932,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. For five turns, passive effects of held items are ignored, and Pok\233mon will not use their held items."
+		description = "Decreased priority. For five turns, passive effects of held items are ignored, and Pok"..MiscConstants.accentedE.."mon will not use their held items."
 	},
 	{
 		id = "479",
@@ -4986,7 +4962,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If this move successfully hits the target, any Pok\233mon adjacent to the target are damaged for 1/16 their max HP."
+		description = "Inflicts regular damage. If this move successfully hits the target, any Pok"..MiscConstants.accentedE.."mon adjacent to the target are damaged for 1/16 their max HP."
 	},
 	{
 		id = "482",
@@ -4996,7 +4972,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage and hits all adjacent Pok\233mon. Has 10% chance to poison each target."
+		description = "Inflicts regular damage and hits all adjacent Pok"..MiscConstants.accentedE.."mon. Has 10% chance to poison each target."
 	},
 	{
 		id = "483",
@@ -5026,7 +5002,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"10", "10", "10", "10", "15"},
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Only Pok\233mon that share a type with the user will take damage from this move."
+		description = "Inflicts regular damage. Only Pok"..MiscConstants.accentedE.."mon that share a type with the user will take damage from this move."
 	},
 	{
 		id = "486",
@@ -5186,7 +5162,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Moves with priority greater than 0 will not hit friendly Pok\233mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
+		description = "Increased priority. Moves with priority greater than 0 will not hit friendly Pok"..MiscConstants.accentedE.."mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
 	},
 	{
 		id = "502",
@@ -5196,7 +5172,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. User switches position on the field with the friendly Pok\233mon opposite it. If the user is in the middle position in a triple battle, or there are no other friendly Pok\233mon, this move will fail."
+		description = "Increased priority. User switches position on the field with the friendly Pok"..MiscConstants.accentedE.."mon opposite it. If the user is in the middle position in a triple battle, or there are no other friendly Pok"..MiscConstants.accentedE.."mon, this move will fail."
 	},
 	{
 		id = "503",
@@ -5266,7 +5242,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok\233mon, selected at random."
+		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok"..MiscConstants.accentedE.."mon, selected at random."
 	},
 	{
 		id = "510",
@@ -5316,7 +5292,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If a friendly Pok\233mon fainted on the previous turn, this move has double power."
+		description = "Inflicts regular damage and makes contact. If a friendly Pok"..MiscConstants.accentedE.."mon fainted on the previous turn, this move has double power."
 	},
 	{
 		id = "515",
@@ -5356,7 +5332,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a friendly Pok\233mon used grass pledge earlier this turn, all opposing Pok\233mon have halved Speed for four turns."
+		description = "Inflicts regular damage. If a friendly Pok"..MiscConstants.accentedE.."mon used grass pledge earlier this turn, all opposing Pok"..MiscConstants.accentedE.."mon have halved Speed for four turns."
 	},
 	{
 		id = "519",
@@ -5366,7 +5342,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a friendly Pok\233mon used water pledge earlier this turn, moves used by any friendly Pok\233mon have doubled effect chance for four turns."
+		description = "Inflicts regular damage. If a friendly Pok"..MiscConstants.accentedE.."mon used water pledge earlier this turn, moves used by any friendly Pok"..MiscConstants.accentedE.."mon have doubled effect chance for four turns."
 	},
 	{
 		id = "520",
@@ -5376,7 +5352,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a friendly Pok\233mon used fire pledge earlier this turn, all opposing Pok\233mon will take 1/8 their max HP in damage at the end of every turn for four turns."
+		description = "Inflicts regular damage. If a friendly Pok"..MiscConstants.accentedE.."mon used fire pledge earlier this turn, all opposing Pok"..MiscConstants.accentedE.."mon will take 1/8 their max HP in damage at the end of every turn for four turns."
 	},
 	{
 		id = "521",
@@ -5386,7 +5362,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pok\233mon from the party."
+		description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pok"..MiscConstants.accentedE.."mon from the party."
 	},
 	{
 		id = "522",
@@ -5426,7 +5402,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok\233mon, selected at random."
+		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok"..MiscConstants.accentedE.."mon, selected at random."
 	},
 	{
 		id = "526",
@@ -5756,7 +5732,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If any Pok\233mon used Fusion Bolt earlier this turn, this move has double power."
+		description = "Inflicts regular damage. If any Pok"..MiscConstants.accentedE.."mon used Fusion Bolt earlier this turn, this move has double power."
 	},
 	{
 		id = "559",
@@ -5766,7 +5742,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If any Pok\233mon used Fusion Flare earlier this turn, this move has double power."
+		description = "Inflicts regular damage. If any Pok"..MiscConstants.accentedE.."mon used Fusion Flare earlier this turn, this move has double power."
 	}
 }
 

@@ -1,4 +1,4 @@
-local function TextStyle(initialFontSize, initialFontFamily, initialTextColorKey, initialShadowColorKey, shouldBeBolded)
+local function TextStyle(initialFontSize, initialFontFamily, initialTextColorKey, initialShadowColorKey, shouldBeBolded, initial)
     local self = {}
     local bold = nil
     if shouldBeBolded then
@@ -22,6 +22,9 @@ local function TextStyle(initialFontSize, initialFontFamily, initialTextColorKey
     end
     function self.setTextColorKey(newColorKey)
         textColorKey = newColorKey
+    end
+    function self.setShadowColorKey(newShadowColorKey)
+        shadowColorKey = newShadowColorKey
     end
     function self.getShadowColorKey()
         return shadowColorKey

@@ -51,15 +51,16 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         local batchValid = isBatchButton and settings.quickLoad.LOAD_TYPE == "USE_BATCH" 
         local romGenerationValid = (not isBatchButton) and settings.quickLoad.LOAD_TYPE == "GENERATE_ROMS" 
         if batchValid or romGenerationValid then
-            local current_dir = FormsUtils.getCurrentDirectory()
+            local current_dir = Paths.CURRENT_DIRECTORY
             local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
-            if newPath ~= nil then
+            if newPath ~= nil and newPath ~= "" then
                 if isFolder then
                     newPath = newPath:sub(0, newPath:match("^.*()\\") - 1)
                 end
                 settings.quickLoad[settingKey] = newPath
                 pathLabel.setText(FormsUtils.shortenFolderName(newPath))
             end
+            program.drawCurrentScreens()
         end
     end
 

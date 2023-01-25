@@ -12,6 +12,7 @@ local TextLabel = dofile(UIClassFolder .. "TextLabel.lua")
 local TextField = dofile(UIClassFolder .. "TextField.lua")
 local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
 local Layout = dofile(UIClassFolder .. "Layout.lua")
+local ImageField = dofile(UIClassFolder .. "/ImageFIeld.lua")
 
 function DrawingUtils.setColorScheme(newScheme)
     colorScheme = newScheme
@@ -69,7 +70,7 @@ function DrawingUtils.calculateWordPixelLength(text)
             totalLength = totalLength + 1
         end
     end
-    totalLength = totalLength + #text - 1 --space in between each character
+    totalLength = totalLength + #text --space in between each character
     return totalLength
 end
 
@@ -78,6 +79,169 @@ function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, s
         gui.drawRectangle(x, y, width + 2, height + 2, 0x00000000, shadowColor)
     end
     gui.drawRectangle(x, y, width, height, fill, background)
+end
+
+function DrawingUtils.drawHorizontalBarGraph(
+    position,
+    size,
+    dataSet,
+    headingText,
+    borderColorKey,
+    textBarColorKey,
+    graphPadding,
+    maxValue,
+    horizontalPadding)
+    local borderColor = DrawingUtils.convertColorKeyToColor(borderColorKey)
+    local textBarColor = DrawingUtils.convertColorKeyToColor(textBarColorKey)
+    local x, y = position.x, position.y
+    local width, height = size.width, size.height
+    local namePadding = horizontalPadding
+    local topLeftPoint = {
+        ["x"] = x + graphPadding + namePadding,
+        ["y"] = y + graphPadding
+    }
+    local bottomLeftPoint = {
+        ["x"] = x + graphPadding + namePadding,
+        ["y"] = y + height - graphPadding - 3
+    }
+    local bottomRightPoint = {
+        ["x"] = x + width - 2 * graphPadding,
+        ["y"] = y + height - graphPadding
+    }
+
+    gui.drawLine(topLeftPoint.x, topLeftPoint.y, bottomLeftPoint.x, bottomLeftPoint.y, borderColor)
+    --gui.drawLine(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y, borderColor)
+
+    local textLength = DrawingUtils.calculateWordPixelLength(headingText)
+    local textX = x + graphPadding + namePadding + ((width - 2 * graphPadding - textLength - namePadding) / 2)
+    local style =
+        TextStyle(
+        Graphics.FONT.DEFAULT_FONT_SIZE,
+        Graphics.FONT.DEFAULT_FONT_FAMILY,
+        "Top box text color",
+        "Top box background color"
+    )
+
+    DrawingUtils.drawText(textX, y - 3, headingText, style, DrawingUtils.calcShadowColor("Top box background color"))
+
+    local totalBars = 0
+    for _, _ in pairs(dataSet) do
+        totalBars = totalBars + 1
+    end
+    local barHeight = (height - 2 * graphPadding) / (totalBars + (totalBars / 2) + (1 / 2))
+    local spacing =  barHeight / 2
+    local currentIndex = 0
+    local topValue = maxValue * 1.35
+    local horizontalDistance = math.abs(bottomRightPoint.x - bottomLeftPoint.x)
+    for _, dataEntry in pairs(dataSet) do
+        local name, value = dataEntry[1], dataEntry[2]
+        local barY = math.floor(spacing + topLeftPoint.y + ((spacing + barHeight) * currentIndex))
+        local horizontalDistanceFraction = horizontalDistance * (value / topValue)
+        local barX = bottomLeftPoint.x + 1
+        local verticalOffset = (barHeight - 10)/2
+        gui.drawRectangle(barX, barY, horizontalDistanceFraction, barHeight, textBarColor, textBarColor)
+
+        value = tostring(value)
+        local nameLength = DrawingUtils.calculateWordPixelLength(name)
+        local valueLength = DrawingUtils.calculateWordPixelLength(value)
+        local nameX = barX - nameLength - 4
+        local valueX = barX + horizontalDistanceFraction + 3
+
+        DrawingUtils.drawText(
+            valueX,
+            barY + verticalOffset,
+            value,
+            style,
+            DrawingUtils.calcShadowColor("Top box background color")
+        )
+        DrawingUtils.drawText(
+            nameX,
+            barY + verticalOffset,
+            name,
+            style,
+            DrawingUtils.calcShadowColor("Top box background color")
+        )
+
+        currentIndex = currentIndex + 1
+    end
+end
+
+function DrawingUtils.drawVerticalBarGraph(
+    position,
+    size,
+    dataSet,
+    headingText,
+    borderColorKey,
+    textBarColorKey,
+    graphPadding,
+    maxValue)
+    local borderColor = DrawingUtils.convertColorKeyToColor(borderColorKey)
+    local textBarColor = DrawingUtils.convertColorKeyToColor(textBarColorKey)
+    local x, y = position.x, position.y
+    local width, height = size.width, size.height
+    local topPoint = {
+        ["x"] = x + graphPadding,
+        ["y"] = y + graphPadding
+    }
+    local bottomLeftPoint = {
+        ["x"] = x + graphPadding,
+        ["y"] = y + height - graphPadding
+    }
+    local bottomRightPoint = {
+        ["x"] = x + width - graphPadding,
+        ["y"] = y + height - graphPadding
+    }
+
+    gui.drawLine(topPoint.x, topPoint.y, bottomLeftPoint.x, bottomLeftPoint.y, borderColor)
+    gui.drawLine(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y, borderColor)
+
+    local textLength = DrawingUtils.calculateWordPixelLength(headingText)
+    local textX = x + graphPadding + ((width - 2 * graphPadding - textLength) / 2)
+    local style =
+        TextStyle(
+        Graphics.FONT.DEFAULT_FONT_SIZE,
+        Graphics.FONT.DEFAULT_FONT_FAMILY,
+        "Top box text color",
+        "Top box background color"
+    )
+
+    DrawingUtils.drawText(textX, y - 3, headingText, style, DrawingUtils.calcShadowColor("Top box background color"))
+
+    local totalBars = 0
+    for _, _ in pairs(dataSet) do
+        totalBars = totalBars + 1
+    end
+    local barWidth = (width - 2 * graphPadding) / (totalBars + (totalBars / 2) + (1 / 2))
+    local spacing = barWidth / 2
+    local currentIndex = 0
+    --basically leave some room
+    local topValue = maxValue * 1.25
+    local verticalDistance = math.abs(topPoint.y - bottomRightPoint.y)
+    for _, dataEntry in pairs(dataSet) do
+        local name, value = dataEntry[1], dataEntry[2]
+        local barX = math.floor(spacing + topPoint.x + ((spacing + barWidth) * currentIndex))
+        local verticalDistanceFraction = verticalDistance * (value / topValue)
+        local barY = bottomRightPoint.y - verticalDistanceFraction
+
+        gui.drawRectangle(barX, barY, barWidth, verticalDistanceFraction, textBarColor, textBarColor)
+
+        value = tostring(value)
+        local nameLength = DrawingUtils.calculateWordPixelLength(name)
+        local valueLength = DrawingUtils.calculateWordPixelLength(value)
+        local nameX = (barX + (barWidth - nameLength) / 2) - 1
+        local valueX = (barX + (barWidth - valueLength) / 2) - 1
+
+        DrawingUtils.drawText(valueX, barY - 12, value, style, DrawingUtils.calcShadowColor("Top box background color"))
+        DrawingUtils.drawText(
+            nameX,
+            bottomRightPoint.y + 2,
+            name,
+            style,
+            DrawingUtils.calcShadowColor("Top box background color")
+        )
+
+        currentIndex = currentIndex + 1
+    end
 end
 
 function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, justifiedSpacing)
@@ -108,21 +272,18 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
     gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), bolded)
 end
 
-
 function DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, pokemonID, imageLabel, imageOffset)
-    local folderPath = Paths.FOLDERS.POKEMON_ICONS_FOLDER.."/"..currentIconSet.FOLDER_NAME.."/"
+    local folderPath = Paths.FOLDERS.POKEMON_ICONS_FOLDER .. "/" .. currentIconSet.FOLDER_NAME .. "/"
     local extension = currentIconSet.FILE_EXTENSION
-    imageLabel.setOffset(imageOffset)
-    local pokemonData = PokemonData.POKEMON[pokemonID+1]
+    imageLabel.setOffset(currentIconSet.IMAGE_OFFSET)
+    local pokemonData = PokemonData.POKEMON[pokemonID + 1]
     if not pokemonData.baseFormData then
-        imageLabel.setPath(
-            folderPath .. pokemonID .. extension
-        )
+        imageLabel.setPath(folderPath .. pokemonID .. extension)
     else
         local baseFormData = pokemonData.baseFormData
         if PokemonData.ALTERNATE_FORMS[baseFormData.baseFormName] then
             local index = baseFormData.alternateFormIndex
-            local path = folderPath.."alternateForms/" .. baseFormData.baseFormName .. "/" .. index .. extension
+            local path = folderPath .. "alternateForms/" .. baseFormData.baseFormName .. "/" .. index .. extension
             imageLabel.setPath(path)
         end
     end
@@ -250,12 +411,12 @@ function DrawingUtils.drawNaturePlusMinus(position, affect)
         color = "Negative text color"
     end
     DrawingUtils.drawText(
-                position.x,
-                position.y,
-                text,
-                TextStyle(5, Graphics.FONT.DEFAULT_FONT_FAMILY, color, "Top box background color"),
-                DrawingUtils.convertColorKeyToColor("Top box background color")
-            )
+        position.x,
+        position.y,
+        text,
+        TextStyle(5, Graphics.FONT.DEFAULT_FONT_FAMILY, color, "Top box background color"),
+        DrawingUtils.convertColorKeyToColor("Top box background color")
+    )
 end
 
 function DrawingUtils.getNatureColor(stat, nature)
@@ -298,4 +459,28 @@ function DrawingUtils.getNatureColor(stat, nature)
         end
     end
     return color
+end
+
+function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
+    if extraThingsToDraw.statStages ~= nil then
+        for _, statStageInfo in pairs(extraThingsToDraw.statStages) do
+            DrawingUtils.drawStatStageChevrons(statStageInfo.position, statStageInfo.stage)
+        end
+    end
+    if extraThingsToDraw.moveEffectiveness ~= nil then
+        for _, entry in pairs(extraThingsToDraw.moveEffectiveness) do
+            DrawingUtils.drawMoveEffectiveness(entry.position, entry.effectiveness)
+        end
+    end
+    if extraThingsToDraw.nature ~= nil then
+        for _, entry in pairs(extraThingsToDraw.nature) do
+            DrawingUtils.drawNaturePlusMinus(entry.position, entry.effect)
+        end
+    end
+    if extraThingsToDraw.status ~= nil then
+        local statusImage =
+            ImageField(extraThingsToDraw.status.statusImagePath, extraThingsToDraw.status.position, {width = 16, height = 8})
+        statusImage.move({x = 0, y = 0})
+        statusImage.show()
+    end
 end

@@ -40,34 +40,62 @@ end
 
 local function getMovesLearnedSince(pokemon)
     local pokemonLevel = pokemon.level
-    local movesLearnedSince = { 0, 0, 0, 0 }
-	local movelvls = pokemon.movelvls
-	for _, level in pairs(movelvls) do
-		for i, move in pairs(pokemon.moves) do
-			if level > move.level and level <= pokemonLevel then
-				movesLearnedSince[i] = movesLearnedSince[i] + 1
-			end
-		end
-	end
+    local movesLearnedSince = {0, 0, 0, 0}
+    local movelvls = pokemon.movelvls
+    for _, level in pairs(movelvls) do
+        for i, move in pairs(pokemon.moves) do
+            if level > move.level and level <= pokemonLevel then
+                movesLearnedSince[i] = movesLearnedSince[i] + 1
+            end
+        end
+    end
     return movesLearnedSince
 end
 
 local function getMoveAgeRanks(pokemon)
-    local moveAgeRanks = {1,1,1,1}
+    local moveAgeRanks = {1, 1, 1, 1}
     for i, move in pairs(pokemon.moves) do
-		for j, compare in pairs(pokemon.moves) do
-			if i ~= j then
-				if move.level > compare.level then
-					moveAgeRanks[i] = moveAgeRanks[i] + 1
-				end
-			end
-		end
-	end
+        for j, compare in pairs(pokemon.moves) do
+            if i ~= j then
+                if move.level > compare.level then
+                    moveAgeRanks[i] = moveAgeRanks[i] + 1
+                end
+            end
+        end
+    end
     return moveAgeRanks
 end
 
+function MoveUtils.calculateEnemyPPs(enemyPokemon, trackedMoves, showEnemyPP)
+    local moveIDs = {}
+    local movePPs = {}
+
+    for i, move in pairs(trackedMoves) do
+        moveIDs[i] = move.move
+        movePPs[i] = MoveData.MOVES[move.move + 1].pp
+    end
+
+    if showEnemyPP then
+        for i, move in pairs(moveIDs) do
+            for j, compare in pairs(enemyPokemon.moveIDs) do
+                if move == compare then
+                    movePPs[i] = enemyPokemon.movePPs[j]
+                    if move == 0 then
+                        movePPs[i] = Graphics.TEXT.NO_PP
+                    end
+                end
+            end
+        end
+    end
+
+    return {
+        ["moveIDs"] = moveIDs,
+        ["movePPs"] = movePPs
+    }
+end
+
 function MoveUtils.getStars(pokemon)
-    local stars = {"","","",""}
+    local stars = {"", "", "", ""}
     local ageRanks = getMoveAgeRanks(pokemon)
     local movesLearnedSince = getMovesLearnedSince(pokemon)
     for i, move in pairs(pokemon.moves) do
@@ -97,10 +125,89 @@ function MoveUtils.getMoveHeader(pokemon)
     end
     local extra = ""
     if count ~= #pokemon.movelvls then
-        extra = " ("..pokemon.movelvls[count + 1] .. ")"
+        extra = " (" .. pokemon.movelvls[count + 1] .. ")"
     end
     local header = "Moves: " .. count .. "/" .. #pokemon.movelvls .. extra
     return header
+end
+
+function MoveUtils.calculateVariableDamage(moveName, movePPs, index, currentPokemon, opposingPokemon, isEnemy, inBattle)
+    local lowHPCalcEntry = {
+        requirement = not isEnemy,
+        calcFunction = function()
+            return MoveUtils.calculateLowHPBasedDamage(currentPokemon.curHP, currentPokemon.stats.HP)
+        end
+    }
+    local highHPCalcEntry = {
+        requirement = not isEnemy,
+        calcFunction = function()
+            return MoveUtils.calculateHighHPBasedDamage(currentPokemon.curHP, currentPokemon.stats.HP)
+        end
+    }
+    local weightBasedEntry = {
+        requirement = inBattle and opposingPokemon ~= nil,
+        calcFunction = function()
+            return MoveUtils.calculateWeightBasedDamage(opposingPokemon.weight)
+        end
+    }
+    local weightDifferenceEntry = {
+        requirement = inBattle and opposingPokemon ~= nil,
+        calcFunction = function()
+            return MoveUtils.calculateWeightDifferenceDamage(currentPokemon, opposingPokemon)
+        end
+    }
+    local moveNamesToCalcFunctions = {
+        ["Flail"] = lowHPCalcEntry,
+        ["Reversal"] = lowHPCalcEntry,
+        ["Water Spout"] = highHPCalcEntry,
+        ["Eruption"] = highHPCalcEntry,
+        ["Trump Card"] = {
+            requirement = true,
+            calcFunction = function(movePP)
+                return MoveUtils.calculateTrumpCardPower(movePP)
+            end
+        },
+        ["Heat Crash"] = weightDifferenceEntry,
+        ["Heavy Slam"] = weightDifferenceEntry,
+        ["Punishment"] = {
+            requirement = inBattle and opposingPokemon ~= nil,
+            calcFunction = function()
+                return MoveUtils.calculatePunishmentPower(opposingPokemon)
+            end
+        },
+        ["Grass Knot"] = weightBasedEntry,
+        ["Low Kick"] = weightBasedEntry
+    }
+    local entry = moveNamesToCalcFunctions[moveName]
+    if entry then
+        if moveName ~= "Trump Card" then
+            if entry.requirement then
+                return entry.calcFunction()
+            end
+        else
+            return entry.calcFunction(movePPs[index])
+        end
+    end
+end
+
+
+function MoveUtils.calculateEnemyMovesAtLevel(learnSet, level)
+    local movesLearned = {}
+    for _, moveInfo in pairs(learnSet) do
+        local moveID, moveLevel = moveInfo.move, moveInfo.level
+        if moveLevel <= level then
+            table.insert(movesLearned, moveID)
+        end
+    end
+    if #movesLearned <= 4 then
+        return movesLearned
+    end
+    local movesCurrently = {}
+    local totalLearned = #movesLearned
+    for i = totalLearned - 3, totalLearned, 1 do
+        table.insert(movesCurrently, movesLearned[i])
+    end
+    return movesCurrently
 end
 
 function MoveUtils.getTypeDefensesTable(pokemonData)

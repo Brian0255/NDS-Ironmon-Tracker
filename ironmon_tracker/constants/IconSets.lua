@@ -42,5 +42,5 @@ IconSets.SETS = {
             y = -2
         },
         AUTHOR = {"Credit: PMD Sprite Repository", "Edited by Fellshadow"}
-    },
+    }
 }

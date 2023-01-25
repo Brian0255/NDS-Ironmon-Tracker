@@ -5,12 +5,16 @@ Graphics.SIZES = {
     DOWN_GAP = 0,
     MAIN_SCREEN_WIDTH = 150,
     MAIN_SCREEN_HEIGHT = 141,
-    DEFAULT_TEXT_OFFSET = { x = 0, y = 0 },
-    SCREEN_HEIGHT = 160,
+    DEFAULT_TEXT_OFFSET = {x = 0, y = 0},
+    SCREEN_HEIGHT = 192,
     SCREEN_WIDTH = 256,
     BORDER_MARGIN = 5,
     MAIN_SCREEN_PADDING = 199,
     BADGE_COLOR_EDIT_PADDING = 349
+}
+Graphics.LOG_VIEWER = {
+    TAB_WIDTH = 45,
+    TAB_HEIGHT = 17
 }
 Graphics.ALIGNMENT_TYPE = {
     HORIZONTAL = 0,
@@ -43,17 +47,23 @@ Graphics.BADGE_ORIENTATION = {
     [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = "HORIZONTAL",
     [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = "HORIZONTAL",
     [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = "HORIZONTAL",
-    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = "VERTICAL",
-
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = "VERTICAL"
+}
+Graphics.SCROLL_DIRECTION = {
+    UP = 0,
+    DOWN = 1
 }
 Graphics.BUTTON_TEXT = {
     CHECKMARK = 0,
-    FILLED_SQUARE = 1,
+    FILLED_SQUARE = 1
 }
 Graphics.LETTER_PIXEL_LENGTHS = {
+    ["<"] = 4,
+    [">"] = 4,
     [" "] = 1,
     ["%"] = 7,
-    ["1"] = 3,
+    ["0"] = 4,
+    ["1"] = 4,
     ["2"] = 4,
     ["3"] = 4,
     ["4"] = 4,
@@ -68,6 +78,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     ["."] = 1,
     ["("] = 2,
     [")"] = 2,
+    ["+"] = 4,
     a = 4,
     A = 5,
     b = 4,
@@ -77,7 +88,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     d = 4,
     D = 5,
     e = 4,
-    ["\233"] = 4,
+    ["" .. MiscConstants.accentedE .. ""] = 4,
     E = 4,
     f = 2,
     F = 4,
@@ -101,7 +112,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     O = 5,
     p = 4,
     P = 4,
-    q = 3,
+    q = 4,
     Q = 5,
     r = 2,
     R = 5,
@@ -120,7 +131,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     y = 3,
     Y = 5,
     z = 3,
-    Z = 4,
+    Z = 4
 }
 Graphics.FONT = {
     DEFAULT_FONT_SIZE = 9,
@@ -153,4 +164,43 @@ Graphics.TYPE_COLORS = {
     FAIRY = 0xFFEE99AC,
     UNKNOWN = 0xFF68A090 -- For the "Curse" move in Gen 2 - 4
 }
-
+Graphics.PATHS = {
+    TRAINER_IMAGES = "ironmon_tracker/images/trainers/"
+}
+Graphics.MAIN_SCREEN_CONSTANTS = {
+    STAT_PREDICTION_STATES = {
+        {text = "", color = "Top box text color"},
+        {text = "+", color = "Positive text color"},
+        {text = "_", color = "Negative text color"}
+    },
+    BADGE_HORIZONTAL_WIDTH = 140,
+    BADGE_HORIZONTAL_HEIGHT = 19,
+    BADGE_VERTICAL_WIDTH = 19,
+    BADGE_VERTICAL_HEIGHT = 131,
+    STAT_INFO_HEIGHT = 73,
+    HEALS_ACC_EVA_HEIGHT = 52,
+    MOVE_HEADER_HEIGHT = 14,
+    MOVE_ENTRY_HEIGHT = 10,
+    MOVE_Y_START = 97,
+    MOVE_FRAME_Y = 94,
+    MOVE_INFO_HEIGHT = 46,
+    BOTTOM_BOX_HEIGHT = 19,
+    POKEMON_INFO_STAT_OFFSET = 10,
+    POKEMON_INFO_X_OFFSET = 31,
+    POKEMON_INFO_Y_START = 0,
+    POKEMON_INFO_WIDTH = 96,
+    POKEMON_INFO_HEIGHT = 51,
+    STAT_FRAME_HEIGHT = 10
+}
+Graphics.MAIN_FRAME_BADGE_INDICES = {
+    [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE] = 1,
+    [Graphics.BADGE_ALIGNMENT_TYPE.BELOW] = 3,
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT] = 1,
+    [Graphics.BADGE_ALIGNMENT_TYPE.RIGHT] = 3,
+    [Graphics.BADGE_ALIGNMENT_TYPE.ABOVE_AND_BELOW] = {1, 3},
+    [Graphics.BADGE_ALIGNMENT_TYPE.LEFT_AND_RIGHT] = {1, 3},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_ABOVE] = {1, 2},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_BELOW] = {3, 3},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_LEFT] = {1, 2},
+    [Graphics.BADGE_ALIGNMENT_TYPE.BOTH_RIGHT] = {3, 3}
+}

@@ -3,14 +3,15 @@ local function HoverEventListener(
     onHoverFunction,
     initialOnHoverParams,
     onHoverEndFunction,
-    initialOnHoverEndParams)
+    initialOnHoverEndParams,
+    initialHoverActive)
     local self = {}
     local onHover = onHoverFunction
     local onHoverParams = initialOnHoverParams
     local onHoverEnd = onHoverEndFunction
     local onHoverEndParams = initialOnHoverEndParams
     local framesWaited = 0
-    local hoverActive = false
+    local hoverActive = initialHoverActive or false
     local baseWaitAmount = 30
     local currentWaitAmount = baseWaitAmount
     function self.reset()
@@ -35,6 +36,9 @@ local function HoverEventListener(
     function self.getOnHoverEndParams()
         return onHoverEndParams
     end
+    function self.setBackToZero()
+        framesWaited = 0
+    end
     local function resetCurrentAmount()
         local clientFrameRate = client.get_approx_framerate()
         if clientFrameRate ~= nil then
@@ -47,12 +51,13 @@ local function HoverEventListener(
     end
     resetCurrentAmount()
     function self.listen()
+        if not control.isVisible() then return end
         local position = control.getPosition()
         local size = control.getSize()
         local mousePosition = Input.getMousePosition()
         local inRange =
             MiscUtils.mouseInRange(mousePosition.x, mousePosition.y, position.x, position.y, size.width, size.height)
-        if not hoverActive then
+        if not hoverActive and onHover ~= nil then
             if inRange then
                 framesWaited = framesWaited + 1
                 if framesWaited == currentWaitAmount then
