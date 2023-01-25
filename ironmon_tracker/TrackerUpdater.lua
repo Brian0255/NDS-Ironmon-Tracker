@@ -31,16 +31,21 @@ local function TrackerUpdater(initialSettings)
         local batchCommands = {
             '(echo Downloading the latest NDS Ironmon Tracker version.',
             string.format('curl -L "%s" -o "%s" --ssl-no-revoke', TAR_URL, archiveName),
-            'echo; && echo Extracting downloaded files.', -- "echo;" prints a new line
-            string.format('tar -xf "%s" && del "%s"', archiveName, archiveName),
+
+            'echo; && echo Extracting downloaded files.',
+            string.format('tar -xzf "%s"', archiveName),
+            string.format('del "%s"', archiveName),
+
             'echo; && echo Applying the update; copying over files.',
-            string.format('rmdir "%s\\.vscode" /s /q', folderName),
-            string.format('del "%s\\.editorconfig" /q', folderName),
-            string.format('del "%s\\.gitattributes" /q', folderName),
-            string.format('del "%s\\.gitignore" /q', folderName),
-            string.format('del "%s\\README.md" /q', folderName),
             string.format('xcopy "%s" /s /y /q', folderName),
             string.format('rmdir "%s" /s /q', folderName),
+
+            string.format('rmdir "%s\\.vscode" /s /q', folderName),
+            string.format('del "%s\\.editorconfig" /q /f', folderName),
+            string.format('del "%s\\.gitattributes" /q /f', folderName),
+            string.format('del "%s\\.gitignore" /q /f', folderName),
+            string.format('del "%s\\README.md" /q /f', folderName),
+
             'echo; && echo Version update completed successfully.',
             'timeout /t 3) || pause', -- Pause if any of the commands fail, those grouped between ( )
         }
