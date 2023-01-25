@@ -34,7 +34,7 @@ local function Tracker()
 	end
 
 	function self.loadData(gameName)
-		local savedData = MiscUtils.getTableFromFile(gameName..".trackerdata")
+		local savedData = MiscUtils.getTableFromFile("savedData/"..gameName..".trackerdata")
 		if savedData ~= nil then
 			local savedRomHash = savedData.romHash
 			if savedRomHash == trackedData.romHash then
@@ -393,7 +393,7 @@ local function Tracker()
 
 	function self.save(gameName)
 		if trackedData.firstPokemon ~= nil then
-			MiscUtils.saveTableToFile(gameName..".trackerdata", trackedData)
+			MiscUtils.saveTableToFile("savedData/"..gameName..".trackerdata", trackedData)
 		end
 	end
 

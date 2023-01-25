@@ -71,27 +71,19 @@ local function SeedLogger(initialProgram, initialGameName)
             [PlaythroughConstants.CAUSES.IMPOSTER] = function()
                 return abilityName == "Imposter"
             end,
-            [PlaythroughConstants.CAUSES.LOW_BST] = function()
-                return tonumber(faintedPokemon.bst) < 400
-            end,
             [PlaythroughConstants.CAUSES.ENEMY_LOWER_BST] = function()
                 return (tonumber(faintedPokemon.bst) - tonumber(enemyPokemon.bst)) >= 100
             end,
-            [PlaythroughConstants.CAUSES.LAB] = function()
-                return pastRun.getProgress() == 0
-            end,
-            [PlaythroughConstants.CAUSES.PAST_LAB] = function()
-                return pastRun.getProgress() == 1
-            end
         }
         local cause = PlaythroughConstants.CAUSES.STANDARD
         for reason, causeSatisfied in pairs(causeMappings) do
             if causeSatisfied() then
                 cause = reason
-                --break out early in case of something like you being low BST and losing to Shedinja - Shedinja should override this
-                return cause
+                --break out early in case of something like you being low BST and losing to Shedinja - Shedinja should override this\
+                break
             end
         end
+        return cause
     end
 
     function self.getRandomRunOverMessage(pastRun)
@@ -241,7 +233,7 @@ local function SeedLogger(initialProgram, initialGameName)
     local function loadPastRuns()
         pastRuns = {}
         local lines = {}
-        local fileName = gameName .. ".pastlog"
+        local fileName = "savedData/"..gameName .. ".pastlog"
         local currentRunIndex = 1
         if FormsUtils.fileExists(fileName) then
             for line in io.lines(fileName) do
@@ -264,7 +256,7 @@ local function SeedLogger(initialProgram, initialGameName)
     end
 
     local function saveRunsToFile()
-        local fileName = gameName .. ".pastlog"
+        local fileName = "savedData/"..gameName .. ".pastlog"
         local completeRunString = totalRuns .. "," .. totalRunsPastLab .. "\n"
         for runHash, run in pairs(pastRuns) do
             local runCSV = runToCSV(runHash, run)

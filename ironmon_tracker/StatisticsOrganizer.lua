@@ -402,16 +402,16 @@ function StatisticsOrganizer.updateStatisticsWithNewRun(newPastRun, pastRunStati
         pastRunStatistics[index] = capAt10(statistic)
     end
 
-    MiscUtils.saveTableToFile(gameName .. ".statistics", pastRunStatistics)
+    MiscUtils.saveTableToFile("savedData/"..gameName .. ".statistics", pastRunStatistics)
 
     return pastRunStatistics
 end
 
 function StatisticsOrganizer.loadPastRunStatistics(gameName)
-    local pastRunStatistics = MiscUtils.getTableFromFile(gameName .. ".statistics")
+    local pastRunStatistics = MiscUtils.getTableFromFile("savedData/"..gameName .. ".statistics")
     if pastRunStatistics == nil or pastRunStatistics == "" then
         local statistics = MiscUtils.deepCopy(PlaythroughConstants.EMPTY_PAST_RUN_STATISTICS)
-        MiscUtils.saveTableToFile(gameName .. ".statistics", statistics)
+        MiscUtils.saveTableToFile("savedData/"..gameName .. ".statistics", statistics)
         return statistics
     end
     return pastRunStatistics
