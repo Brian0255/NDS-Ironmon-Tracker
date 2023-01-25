@@ -7,3 +7,4 @@ Settings.ini
 *.statistics
 *.colortheme
 *.qlp
+!death_quotes.txt
