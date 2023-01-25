@@ -17,6 +17,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local LogViewerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/LogViewerScreen.lua")
 	local TrackedInfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackedInfoScreen.lua")
 	local RunOverScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RunOverScreen.lua")
+	local UpdateNotesScreen = dofile(Paths.FOLDERS.UI_FOLDER.."/UpdateNotesScreen.lua")
 
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
 	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
@@ -74,6 +75,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		self.drawCurrentScreens()
 	end
 
+	function self.openUpdateNotes()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.UPDATE_NOTES_SCREEN].initialize()
+		self.openScreen(self.UI_SCREENS.UPDATE_NOTES_SCREEN)
+	end
+
 	function self.openPastRunsScreen()
 		inPastRunView = true
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(
@@ -104,7 +110,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		TRACKED_INFO_SCREEN = 12,
 		PAST_RUNS_SCREEN = 13,
 		STATISTICS_SCREEN = 14,
-		RUN_OVER_SCREEN = 15
+		RUN_OVER_SCREEN = 15,
+		UPDATE_NOTES_SCREEN = 16
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -124,6 +131,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.PAST_RUNS_SCREEN] = PastRunsScreen(settings, tracker, self),
 		[self.UI_SCREENS.STATISTICS_SCREEN] = StatisticsScreen(settings, tracker, self),
 		[self.UI_SCREENS.RUN_OVER_SCREEN] = RunOverScreen(settings, tracker, self),
+		[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = UpdateNotesScreen(settings, tracker, self),
 	}
 
 	local currentScreens = {[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]}
@@ -639,13 +647,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
-	local function saveSettings()
+	function self.saveSettings()
 		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 		INI.save("Settings.ini", settings)
 	end
 
 	frameCounters = {
-		settingsSaving = FrameCounter(120, saveSettings, nil, true),
+		settingsSaving = FrameCounter(120, self.saveSettings, nil, true),
 		--screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
 		trackerSaving = FrameCounter(
@@ -748,6 +756,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	checkForUpdateBeforeLoading()
 	self.drawCurrentScreens()
 
+	local function checkIfUpdatePerformed()
+		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
+			self.openUpdateNotes()
+		end
+	end
+
 	function self.openLogFromPath(logPath)
 		local logInfo = randomizerLogParser.parse(logPath)
 		if logInfo ~= nil then
@@ -762,12 +776,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			end
 			self.drawCurrentScreens()
 		else
-			print("game mismatch")
+			
 		end
 	end
 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
 	randomizerLogParser = RandomizerLogParser(self)
+
+	checkIfUpdatePerformed()
 
 	return self
 end

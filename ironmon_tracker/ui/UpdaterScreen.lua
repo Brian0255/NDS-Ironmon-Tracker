@@ -69,6 +69,8 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
         program.drawCurrentScreens()
         local success = program.tryToInstallUpdate()
         if success then
+            settings.automaticUpdates.UPDATE_WAS_DONE = true
+            program.saveSettings()
             ui.controls.topTextLabel1.setText("Update successful! The Tracker")
             ui.controls.topTextLabel2.setText("will now restart in 5 seconds.")
             frameCounters["trackerRestart"] = FrameCounter(300, restartTracker, nil, true)
