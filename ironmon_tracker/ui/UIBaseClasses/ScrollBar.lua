@@ -142,7 +142,6 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
             for _, eventListener in pairs(eventListeners) do
                 eventListener.listen()
             end
-            eventListeners.mouseClick.print()
         end
     end
 

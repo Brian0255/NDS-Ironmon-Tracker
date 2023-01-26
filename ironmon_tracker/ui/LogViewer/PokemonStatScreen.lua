@@ -19,6 +19,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local sortedPokemonIDs = {}
     local gymTMCompatibilityTable = {}
     local viewingMoves = true
+    local lastViewedItems = {}
     local logPokemon = {}
     local currentIndex = 1
     local currentEvoIndex = 1
@@ -98,6 +99,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
 
     local function readScrollMovesIntoUI()
         local items = movesScrollBar.getViewedItems()
+        if items[1] == lastViewedItems[1] then return end
         for i = 1, 8, 1 do
             local moveString = ""
             local moveInfo = items[i]
@@ -114,6 +116,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         end
         ui.controls.movesLabel.setText("Moves")
         ui.controls.movesLabel.setTextOffset({x = 16, y = -1})
+        lastViewedItems = MiscUtils.shallowCopy(items)
         program.drawCurrentScreens()
     end
 
