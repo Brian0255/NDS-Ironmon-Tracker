@@ -29,18 +29,24 @@ local function Tracker()
 	end
 
 	function self.getFirstPokemonID()
-		if trackedData.firstPokemon == nil then return end
+		if trackedData.firstPokemon == nil then
+			return
+		end
 		return trackedData.firstPokemon.pokemonID
 	end
 
 	function self.loadData(gameName)
-		local savedData = MiscUtils.getTableFromFile("savedData/"..gameName..".trackerdata")
-		if savedData ~= nil then
-			local savedRomHash = savedData.romHash
-			if savedRomHash == trackedData.romHash then
-				print("Matching ROM found. Loading previously tracked data...")
-				trackedData = savedData
-			end
+		local savedData = MiscUtils.getTableFromFile("savedData/" .. gameName .. ".trackerdata")
+		if savedData == nil then
+			savedData = MiscUtils.getTableFromFile("autosave.trackerdata")
+		end
+		if savedData == nil then
+			return
+		end
+		local savedRomHash = savedData.romHash
+		if savedRomHash == trackedData.romHash then
+			print("Matching ROM found. Loading previously tracked data...")
+			trackedData = savedData
 		end
 	end
 
@@ -393,7 +399,7 @@ local function Tracker()
 
 	function self.save(gameName)
 		if trackedData.firstPokemon ~= nil then
-			MiscUtils.saveTableToFile("savedData/"..gameName..".trackerdata", trackedData)
+			MiscUtils.saveTableToFile("savedData/" .. gameName .. ".trackerdata", trackedData)
 		end
 	end
 
