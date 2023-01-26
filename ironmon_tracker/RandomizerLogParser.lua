@@ -318,7 +318,8 @@ local function RandomizerLogParser(initialProgram)
             ["--Trainers Pokemon--"] = parseTrainers,
             ["--Move Data--"] = parseMoveInfo,
             ["------------------------------------------------------------------"] = checkGameName,
-            ["--Random Starters--"] = parseStarterInfo
+            ["--Random Starters--"] = parseStarterInfo,
+            ["--Custom Starters--"] = parseStarterInfo
         },
         PREFERRED_PARSE_ORDER = {
             --game name
@@ -330,7 +331,8 @@ local function RandomizerLogParser(initialProgram)
             "--TM Moves--",
             "--TM Compatibility--",
             "--Trainers Pokemon--",
-            "--Random Starters--"
+            "--Random Starters--",
+            "--Custom Starters--"
         }
     }
 
@@ -373,18 +375,20 @@ local function RandomizerLogParser(initialProgram)
             end
             for _, sectionName in pairs(self.LogParserConstants.PREFERRED_PARSE_ORDER) do
                 local lineStart = sectionHeaderStarts[sectionName]
+                if lineStart ~= nil then
                 local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[sectionName]
-                local success = parseFunction(lines, lineStart)
-                if success == false then
-                    forms.destroyall()
-                    FormsUtils.popupDialog(
-                        "Game does not match. Only load logs with the same game as the one you're playing.",
-                        250,
-                        120,
-                        FormsUtils.POPUP_DIALOG_TYPES.WARNING,
-                        true
-                    )
-                    return nil
+                    local success = parseFunction(lines, lineStart)
+                    if success == false then
+                        forms.destroyall()
+                        FormsUtils.popupDialog(
+                            "Game does not match. Only load logs with the same game as the one you're playing.",
+                            250,
+                            120,
+                            FormsUtils.POPUP_DIALOG_TYPES.WARNING,
+                            true
+                        )
+                        return nil
+                    end
                 end
             end
             local miscInfo = parseMiscInfo(lines)
