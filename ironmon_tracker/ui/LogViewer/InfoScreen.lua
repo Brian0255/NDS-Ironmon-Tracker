@@ -125,6 +125,7 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
     local function readInfoIntoRows()
         --rows are left label, right label
         local infoRows = {
+            {"Game Name:", program.getGameInfo().NAME:gsub("Pokemon","Pok"..Chars.accentedE.."mon")},
             {"Randomizer Version:", miscInfo.version},
             {"Random Seed:", miscInfo.seed}
         }
@@ -225,6 +226,7 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
         local centerPosition = FormsUtils.getCenter(formWidth, formHeight)
         forms.setlocation(copyForm, centerPosition.xPos, centerPosition.yPos)
         local textBoxLines = {
+            "Game Name: "..program.getGameInfo().NAME:gsub("Pokemon","Pok"..Chars.accentedE.."mon").." ",
             "Randomizer Version: "..miscInfo.version.." ",
             "Random Seed: " ..miscInfo.seed.. " ",
             "Settings String: "..miscInfo.settingsString.. " "
@@ -310,7 +312,7 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 3, y = 3}),
             nil
         )
-        for i = 1, 2, 1 do
+        for i = 1, 3, 1 do
             create2ElementRow(i)
         end
         initSettingsStringUI()
