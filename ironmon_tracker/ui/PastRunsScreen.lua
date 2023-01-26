@@ -39,6 +39,20 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         ENEMY = 1
     }
 
+    local function highlightCurrentButtons()
+        ui.sortButtons[currentSortMethod + 1].setBackgroundFillColorKey("Top box border color")
+        ui.sortButtons[currentSortMethod + 1].setTextColorKey("Positive text color")
+        ui.badgeButtons[currentBadgeFilter].setBackgroundFillColorKey("Top box border color")
+        ui.badgeButtons[currentBadgeFilter].setTextColorKey("Positive text color")
+    end
+
+    local function undoCurrentButtons()
+        ui.sortButtons[currentSortMethod + 1].setBackgroundFillColorKey("Top box background color")
+        ui.sortButtons[currentSortMethod + 1].setTextColorKey("Top box text color")
+        ui.badgeButtons[currentBadgeFilter].setBackgroundFillColorKey("Top box background color")
+        ui.badgeButtons[currentBadgeFilter].setTextColorKey("Top box text color")
+    end
+
     local function changeSelectedPokemon()
         if currentIndex == 0 then return end
         local currentHash = currentPastRunHashes[currentIndex]
@@ -58,9 +72,10 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         program.openScreen(program.UI_SCREENS.TRACKED_INFO_SCREEN)
     end
 
+  
+
     local function readCurrentIndex()
-        ui.sortButtons[currentSortMethod + 1].setTextColorKey("Positive text color")
-        ui.badgeButtons[currentBadgeFilter].setTextColorKey("Positive text color")
+        highlightCurrentButtons()
         local currentHash = currentPastRunHashes[currentIndex]
         local pastRun = pastRuns[currentHash]
         --[[
@@ -111,14 +126,15 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onSortClick(newSortMethod)
-        ui.sortButtons[currentSortMethod + 1].setTextColorKey("Top box text color")
+        undoCurrentButtons()
         currentSortMethod = newSortMethod
         currentPastRunHashes = seedLogger.getPastRunHashesSorted(currentSortMethod, currentBadgeFilter)
         reset()
     end
 
     local function setBadgeFilterAmount(newAmount)
-        ui.badgeButtons[currentBadgeFilter].setTextColorKey("Top box text color")
+        undoCurrentButtons()
+        ui.badgeButtons[currentBadgeFilter].setBackgroundFillColorKey("Top box background color")
         currentBadgeFilter = newAmount
         currentPastRunHashes = seedLogger.getPastRunHashesSorted(currentSortMethod, currentBadgeFilter)
         reset()
@@ -165,6 +181,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.initialize(newSeedLogger)
+        undoCurrentButtons()
         seedLogger = newSeedLogger
         currentSortMethod = 0
         currentBadgeFilter = 0
@@ -245,11 +262,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                     ui.frames.badgeButtonFrame,
                     Box(
                         {x = 0, y = 0},
-                        {width = 11, height = 11},
-                        "Top box background color",
-                        "Top box border color",
-                        true,
-                        "Top box background color"
+                        {width = 11, height = 11}
                     )
                 ),
                 TextField(
@@ -430,11 +443,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                     sortButtonFrame,
                     Box(
                         {x = 0, y = 0},
-                        {width = widths[i], height = 16},
-                        "Top box background color",
-                        "Top box border color",
-                        true,
-                        "Top box background color"
+                        {width = widths[i], height = 16}
                     )
                 ),
                 TextField(
