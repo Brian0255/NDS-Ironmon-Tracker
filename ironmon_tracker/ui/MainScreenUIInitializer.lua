@@ -18,7 +18,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
         ui.frames.hiddenPowerArrowsFrame =
             Frame(
             Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 1, y = 2}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 2}),
             nil
         )
         ui.frames.mainFrame =
