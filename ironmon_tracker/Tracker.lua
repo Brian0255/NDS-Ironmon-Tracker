@@ -4,7 +4,6 @@ local function Tracker()
 	local currentAreaName = ""
 	local encounterData = {}
 	local trackedData = {
-		wentInLabAlready = false,
 		runOver = false,
 		progress = PlaythroughConstants.PROGRESS.NOWHERE,
 		firstPokemon = nil,
@@ -102,13 +101,6 @@ local function Tracker()
 
 	function self.updateCurrentAreaName(newAreaName)
 		currentAreaName = newAreaName
-		if currentAreaName == "Lab" then
-			trackedData.wentInLabAlready = true
-		end
-	end
-
-	function self.alreadyWentInLab()
-		return trackedData.wentInLabAlready
 	end
 
 	local function checkIfPokemonUntracked(pokemonID)
