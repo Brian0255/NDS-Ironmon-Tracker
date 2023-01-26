@@ -604,12 +604,12 @@ LocationData.LOCATION_DATA = {
                 vanillaData = {
                     {
                         {level = 3, percent = 5},
-                        {level = 5, percent = 20},
+                        {level = 5, percent = 30},
                         {level = 6, percent = 5}
                     },
                     {
                         {level = 3, percent = 5},
-                        {level = 6, percent = 5}
+                        {level = 6, percent = 15}
                     },
                     {
                         {level = 5, percent = 10}
@@ -624,12 +624,12 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
-                        {level = 3, percent = 45},
-                        {level = 5, percent = 15}
+                        {level = 3, percent = 25},
+                        {level = 5, percent = 25}
                     },
                     {
-                        {level = 3, percent = 5},
-                        {level = 5, percent = 25}
+                        {level = 3, percent = 25},
+                        {level = 5, percent = 15}
                     },
                     {
                         {level = 5, percent = 10}
@@ -638,17 +638,18 @@ LocationData.LOCATION_DATA = {
             },
             ["Lake Verity"] = {
                 totalPokemon = 2,
-                vanillaData = {
-                    {
-                        {level = 3, percent = 40},
-                        {level = 5, percent = 10},
-                        {level = 6, percent = 10}
-                    },
-                    {
-                        {level = 5, percent = 30},
-                        {level = 6, percent = 10}
-                    }
-                }
+                vanilleData = {
+                {
+                    {level = 3, percent = 20},
+                    {level = 5, percent = 20},
+                    {level = 6, percent = 10}
+                },
+                {
+                    {level = 3, percent = 20},
+                    {level = 5, percent = 20},
+                    {level = 6, percent = 10}
+                },
+            }
             },
             ["Route 203"] = {
                 totalPokemon = 5,
@@ -657,19 +658,21 @@ LocationData.LOCATION_DATA = {
                         {level = 6, percent = 10}
                     },
                     {
+                        {level = 6, percent = 20},
+                        {level = 8, percent = 5}
+                    },
+                    {
                         {level = 6, percent = 10},
                         {level = 8, percent = 5}
                     },
                     {
-                        {level = 6, percent = 40},
+                        {level = 6, percent = 20},
+                        {level = 8, percent = 10},
                         {level = 9, percent = 4},
                         {level = 11, percent = 1}
                     },
                     {
-                        {level = 8, percent = 5}
-                    },
-                    {
-                        {level = 8, percent = 20},
+                        {level = 8, percent = 10},
                         {level = 9, percent = 4},
                         {level = 11, percent = 1}
                     }
@@ -682,7 +685,11 @@ LocationData.LOCATION_DATA = {
                         {level = 5, percent = 10}
                     },
                     {
-                        {level = 6, percent = 20}
+                        {level = 6, percent = 10}
+                    },
+                    {
+                        {level = 6, percent = 10},
+                        {level = 8, percent = 5}
                     },
                     {
                         {level = 6, percent = 10},
@@ -690,17 +697,14 @@ LocationData.LOCATION_DATA = {
                     },
                     {
                         {level = 6, percent = 20},
-                        {level = 8, percent = 5}
+                        {level = 8, percent = 4},
+                        {level = 9, percent = 1}
                     },
                     {
                         {level = 6, percent = 20},
                         {level = 8, percent = 4},
                         {level = 9, percent = 1}
                     },
-                    {
-                        {level = 8, percent = 4},
-                        {level = 9, percent = 1}
-                    }
                 }
             }
         }
@@ -769,7 +773,7 @@ LocationData.LOCATION_DATA = {
             [58] = {name = "Indigo Plateau"},
             [59] = {name = "Saffron City"},
             [60] = {name = "New Bark Town"},
-            [61] = {name = "New Bark Town"},
+            [61] = {name = "Lab"},
             [62] = {name = "New Bark Town"},
             [63] = {name = "New Bark Town"},
             [64] = {name = "New Bark Town"},
@@ -1480,6 +1484,7 @@ LocationData.LOCATION_DATA = {
             [385] = {name = "Lostlorn Forest"},
             [387] = {name = "Route 18"},
             [389] = {name = "Nuvema Town"},
+            [391] = {name = "Lab"},
             [397] = {name = "Accumula Town"},
             [406] = {name = "Lacunosa Town"},
             [412] = {name = "Undella Town"},

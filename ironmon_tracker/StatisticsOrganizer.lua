@@ -331,7 +331,6 @@ local function createPokemonMovesStatistic(newPastRun, forEnemy, statisticSet)
             local pokemon = pastRun.getFaintedPokemon()
             if forEnemy then
                 pokemon = pastRun.getEnemyPokemon()
-                print(pokemon.moveIDs)
             end
             local moveNames = {}
             for _, moveID in pairs(pokemon.moveIDs) do
