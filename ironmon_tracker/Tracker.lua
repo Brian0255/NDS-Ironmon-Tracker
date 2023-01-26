@@ -130,7 +130,9 @@ local function Tracker()
 		local ids = {}
 		local pokemon = trackedData.trackedPokemon
 		for id, _ in pairs(pokemon) do
-			if id ~= 0 and id <= 690 then
+			if not PokemonData.POKEMON[id+1] then
+				pokemon[id] = nil
+			else
 				table.insert(ids, id)
 			end
 		end

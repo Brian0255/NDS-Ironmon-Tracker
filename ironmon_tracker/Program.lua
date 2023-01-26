@@ -772,7 +772,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function checkIfUpdatePerformed()
-		if settings.automaticUpdates.UPDATE_WAS_DONE == false then
+		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
 			self.openUpdateNotes()
 			settings.automaticUpdates.UPDATE_WAS_DONE = false
 			self.saveSettings()

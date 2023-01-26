@@ -276,7 +276,7 @@ local function SeedLogger(initialProgram, initialGameName)
     end
 
     function self.getPastRunStatistics()
-        return pastRunStatistics
+        return StatisticsOrganizer.capStatistics(pastRunStatistics)
     end
 
     function self.getPastRuns()
