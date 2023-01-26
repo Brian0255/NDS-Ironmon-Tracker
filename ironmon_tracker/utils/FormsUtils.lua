@@ -140,7 +140,7 @@ function FormsUtils.createConfirmDialog(callback)
     )
 end
 
-local function onConfirm(fileSavingOperation, filePath)
+local function runOperation(fileSavingOperation, filePath)
     fileSavingOperation(filePath)
     forms.destroyall()
     FormsUtils.popupDialog(
@@ -149,6 +149,10 @@ local function onConfirm(fileSavingOperation, filePath)
         78,
         FormsUtils.POPUP_DIALOG_TYPES.INFO
     )
+end
+
+local function onConfirm(fileSavingOperation, filePath)
+   runOperation(fileSavingOperation, filePath)
 end
 
 local function createSaveConfirmDialog(x, y, width, height, fileSavingOperation, filePath)
@@ -195,7 +199,7 @@ local function onSaveClick(x,y,fileNameTextbox, folderPath, fileExtension, fileS
     if text ~= "" then
         local savePath = folderPath.."\\" .. text .. fileExtension
         if not FormsUtils.fileExists(savePath) then
-            fileSavingOperation(savePath)
+            runOperation(fileSavingOperation, savePath)
         else
             createSaveConfirmDialog(
                 x,y,

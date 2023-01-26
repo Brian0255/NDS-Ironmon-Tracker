@@ -770,14 +770,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.openLogFromPath(logPath)
 		local logInfo = randomizerLogParser.parse(logPath)
 		if logInfo ~= nil then
-			local playerPokemonID = tracker.getFirstPokemonID()
-			logInfo.setStarterNumberFromPlayerPokemonID(playerPokemonID)
+			local firstPokemonID = tracker.getFirstPokemonID()
+			logInfo.setStarterNumberFromPlayerPokemonID(firstPokemonID)
 			self.setCurrentScreens({self.UI_SCREENS.LOG_VIEWER_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
-			if playerPokemonID ~= nil then
+			if playerPokemon ~= nil and playerPokemon.pokemonID ~= NIL then
 				local logScreen = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN]
 				logScreen.addGoBackFunction(logScreen.goBackToOverview)
-				logScreen.loadPokemonStats(playerPokemonID)
+				logScreen.loadPokemonStats(playerPokemon.pokemonID)
 			end
 			self.drawCurrentScreens()
 		end
