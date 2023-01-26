@@ -1,10 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.1.0"
+MiscConstants.TRACKER_VERSION = "5.1.1"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
+    '-- 5.1.1: Fixed a combee crash, Tracked Pok'..Chars.accentedE..'mon viewing issues and a custom starters crash.',
     '-- Added a randomizer log viewer! You can view this after a run dies or from the "Tracked info" screen.',
     '-- When your run dies, there\'s now a special screen that displays one of a few messages. You can even change these yourself by opening "death_quotes.txt" in the main tracker folder!',
     '-- Any runs past the lab are now tracked! You can also view these from the "Tracked info" screen.',
