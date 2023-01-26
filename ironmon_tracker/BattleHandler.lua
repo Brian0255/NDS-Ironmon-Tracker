@@ -490,7 +490,9 @@ local function BattleHandler(
     end
 
     function self.checkIfRunHasEnded()
-        if not inBattle or not battleDataFetched then return end
+        if not inBattle or not battleDataFetched then
+            return
+        end
         if highestLevelMonIndex == -1 then
             calculateHighestPlayerMonIndex()
         end

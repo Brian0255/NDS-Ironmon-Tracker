@@ -19,8 +19,8 @@ local function PastRun(
     local date = initialDate
     local seconds = intitialSeconds
 
-    local faintedPokemon = initialFaintedPokemon
-    local enemyPokemon = initialEnemyPokemon
+    local faintedPokemon = MiscUtils.shallowCopy(initialFaintedPokemon)
+    local enemyPokemon = MiscUtils.shallowCopy(initialEnemyPokemon)
     fillPPsAndHP(faintedPokemon)
     fillPPsAndHP(enemyPokemon)
     local location = initialLocation

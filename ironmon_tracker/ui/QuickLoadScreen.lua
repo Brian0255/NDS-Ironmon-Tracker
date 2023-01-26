@@ -62,6 +62,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 settings.quickLoad[settingKey] = newPath
                 pathLabel.setText(FormsUtils.shortenFolderName(newPath))
             end
+            program.saveSettings()
             program.drawCurrentScreens()
         end
     end
@@ -467,6 +468,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             ui.controls[settingName].setText(FormsUtils.shortenFolderName(line))
             currentIndex = currentIndex + 1
         end
+        program.saveSettings()
         program.drawCurrentScreens()
     end
 
