@@ -149,6 +149,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 table.insert(matchEventListeners, MouseClickEventListener(label, setIndexFromID, match))
             end
         end
+        program.drawCurrentScreens()
     end
 
     local function onForwardClick()
