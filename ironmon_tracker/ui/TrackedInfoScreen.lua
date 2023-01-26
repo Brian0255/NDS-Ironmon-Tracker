@@ -85,7 +85,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			trackedPokemonButton = "Tracked Pok"..Chars.accentedE.."mon",
 			pastRunsButton = "Past Runs",
 			statisticsButton = "Statistics",
-			openLogButton = "Open Log"
+			openLogButton = "Open a Log"
 		}
 		local icons = {"PENCIL", "PAST_RUN_ICON", "STATISTICS_ICON", "OPEN_LOG_ICON"}
 		local order = {
