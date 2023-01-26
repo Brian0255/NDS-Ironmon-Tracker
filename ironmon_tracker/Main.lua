@@ -82,7 +82,7 @@ local function Main()
 		}
 		for name, path in pairs(paths) do
 			if not FormsUtils.fileExists(path) or path == "" then
-				displayError("Missing files have been detected for the QuickLoad feature. Please set these in the tracker's settings.")
+				self.displayError("Missing files have been detected for the QuickLoad feature. Please set these in the tracker's settings.")
 				return nil
 			end
 		end
@@ -106,7 +106,7 @@ local function Main()
 		client.unpause()
 
 		if not FormsUtils.fileExists(nextRomPath) then
-			displayError('Next ROM failed to generate. Check the "RomGenerationErrorLog" file for more details.')
+			self.displayError('Next ROM failed to generate. Check the "RomGenerationErrorLog" file for more details.')
 			return nil
 		end
 
@@ -121,7 +121,7 @@ local function Main()
 	local function getNextRomPathFromBatch()
 		if settings.quickLoad.ROMS_FOLDER_PATH == nil or settings.quickLoad.ROMS_FOLDER_PATH == "" then
 			local message = "ROMS_FOLDER_PATH is not set. Please set this in the tracker's settings."
-			displayError(message)
+			self.displayError(message)
 			return nil
 		end
 
@@ -130,7 +130,7 @@ local function Main()
 
 		if romNumber == nil then
 			local message = "Current ROM does not have any numbers in its name, unable to load next seed."
-			displayError(message)
+			self.displayError(message)
 			return nil
 		end
 
@@ -146,7 +146,7 @@ local function Main()
 			fileCheck = io.open(nextRomPath, "r")
 			if fileCheck == nil then
 				local message = "Unable to locate next ROM file to load."
-				displayError(message)
+				self.displayError(message)
 				return nil
 			else
 				io.close(fileCheck)
