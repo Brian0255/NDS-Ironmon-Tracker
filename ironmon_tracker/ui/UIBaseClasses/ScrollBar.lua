@@ -113,11 +113,8 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         local maxVerticalRoom = frame.getSize().height - scroller.getSize().height
         local distanceMovedDown = scroller.getPosition().y
         local percentange = distanceMovedDown/maxVerticalRoom
-        local oldIndex = currentIndex
         currentIndex = math.floor((percentange * (maxIndex-1)) + 1.5) 
-        if oldIndex ~= currentIndex then
-            scrollReadingFunction()
-        end
+        scrollReadingFunction()
     end
 
     local function updateScroller()
@@ -141,17 +138,18 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         if scroller.isVisible() then
             for _, frameCounter in pairs(frameCounters) do
                 frameCounter.decrement()
-            end
+            end 
             for _, eventListener in pairs(eventListeners) do
                 eventListener.listen()
             end
+            eventListeners.mouseClick.print()
         end
     end
 
     createScroller()
     table.insert(eventListeners, ScrollEventListener(frame, scrollForward, nil, Graphics.SCROLL_DIRECTION.DOWN))
     table.insert(eventListeners, ScrollEventListener(frame, scrollBackward, nil, Graphics.SCROLL_DIRECTION.UP))
-    table.insert(eventListeners, MouseClickEventListener(scroller, onScrollerClick))
+    eventListeners.mouseClick =  MouseClickEventListener(scroller, onScrollerClick)
     table.insert(frameCounters, FrameCounter(3,updateScroller))
 
     return self
