@@ -109,20 +109,29 @@ function MiscUtils.splitTableByNumber(tbl, number)
     return sets
 end
 
+function MiscUtils.getLinesFromFile(filePath)
+    if FormsUtils.fileExists(filePath) then
+        local file = io.open(filePath)
+        local lines = file:lines()
+        file:close()
+        return lines
+    end
+end
+
 function MiscUtils.runExecuteCommand(command, errorOutput)
-    local tempFile = "ironmon_tracker/commandResult.txt"
+    local prependDir = ""
+    if Paths.CURRENT_DIRECTORY ~= nil and Paths.CURRENT_DIRECTORY ~= "" then
+        prependDir = Paths.CURRENT_DIRECTORY .. "/"
+    end
+
+    local tempFile = prependDir .. "ironmon_tracker/commandResult.txt"
     local completeCommand = string.format('%s 1>"%s"', command, tempFile)
     if errorOutput then
         completeCommand = string.format('%s 2>"%s"', completeCommand, errorOutput)
     end
     os.execute(completeCommand)
     if FormsUtils.fileExists(tempFile) then
-        local file = io.open(tempFile)
-        if file ~= nil then
-            local contents = file:read("*a")
-            file:close()
-            return contents:gsub("\n","")
-        end
+        return table.concat(MiscUtils.readLinesFromFile(tempFile), "")
     end
     return nil
 end
@@ -233,6 +242,27 @@ function MiscUtils.appendStringToFile(fileName, stringData)
         file:write(stringData)
         file:close()
     end
+end
+
+function MiscUtils.readLinesFromFile(file)
+    local lines = {}
+
+    local file = io.open(file, "r")
+    if file == nil then
+        return lines
+    end
+
+    local fileContents = file:read("*a")
+    if fileContents ~= nil and fileContents ~= "" then
+        for line in fileContents:gmatch("([^\r\n]+)\r?\n") do
+            if line ~= nil then
+                table.insert(lines, line)
+            end
+        end
+    end
+    file:close()
+
+    return lines
 end
 
 function MiscUtils.writeStringToFile(fileName, input)
