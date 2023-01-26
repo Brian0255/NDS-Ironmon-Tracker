@@ -361,6 +361,14 @@ local function createAbilitiesStatistic(newPastRun, forEnemy, statisticSet)
     )
 end
 
+function StatisticsOrganizer.capStatistics(statistics)
+    local newStatistics = {}
+    for index, statistic in pairs(statistics) do
+        newStatistics[index] = capAt10(statistic)
+    end
+    return newStatistics
+end
+
 function StatisticsOrganizer.updateStatisticsWithNewRun(newPastRun, pastRunStatistics, gameName)
     --Analyze a new past run and update the existing statistics.
     --This allows the user to potentially clear out 0 badge past runs without affecting the statistics.
@@ -396,10 +404,6 @@ function StatisticsOrganizer.updateStatisticsWithNewRun(newPastRun, pastRunStati
         playerAbilities,
         enemyAbilities
     }
-
-    for index, statistic in pairs(pastRunStatistics) do
-        pastRunStatistics[index] = capAt10(statistic)
-    end
 
     MiscUtils.saveTableToFile("savedData/"..gameName .. ".statistics", pastRunStatistics)
 
