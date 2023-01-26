@@ -668,7 +668,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                     y = 0
                 },
                 {
-                    width = 20,
+                    width = 26,
                     height = 10
                 }
             ),
@@ -677,7 +677,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
         )
         ui.controls.locationIcon =
             Icon(
-            Component(ui.frames.encounterDataFrame, Box({x = 0, y = 0}, {width = 7, height = 0}, nil, nil)),
+            Component(ui.frames.encounterDataFrame, Box({x = 0, y = 0}, {width = 8, height = 0}, nil, nil)),
             "LOCATION_ICON_SMALL_FILLED",
             {x = 2, y = 2}
         )
