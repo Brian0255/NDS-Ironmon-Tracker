@@ -13,7 +13,7 @@ MiscConstants.UPDATE_NOTES = {
         Chars.accentedE .. "mon you've seen, and clicking while hovering shows vanilla data.",
     "-- Added profiles for quickload when generating new roms.",
     "-- Added a way to mark neutral stats.",
-    '-- Added a random Pok" .. Chars.accentedE .. "ball selector. You can turn this off if you want in the "Tracker Appearance" screen.',
+    '-- Added a random Pok' .. Chars.accentedE .. 'ball selector. You can turn this off if you want in the "Tracker Appearance" screen.',
     "-- The tracker will now keep one autosave per game, instead of only one total.",
     "-- Updated Fighting and Psychic type icons.",
     "-- Fixed eggs being revealed early (thanks Fellshadow).",
