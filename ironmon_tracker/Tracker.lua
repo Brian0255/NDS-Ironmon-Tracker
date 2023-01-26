@@ -24,7 +24,7 @@ local function Tracker()
 
 	function self.setFirstPokemon(pokemon)
 		if trackedData.firstPokemon == nil then
-			trackedData.firstPokemon = pokemon
+			trackedData.firstPokemon = MiscUtils.shallowCopy(pokemon)
 		end
 	end
 

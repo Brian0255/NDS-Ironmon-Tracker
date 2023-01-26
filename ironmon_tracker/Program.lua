@@ -17,7 +17,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local LogViewerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/LogViewerScreen.lua")
 	local TrackedInfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackedInfoScreen.lua")
 	local RunOverScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RunOverScreen.lua")
-	local UpdateNotesScreen = dofile(Paths.FOLDERS.UI_FOLDER.."/UpdateNotesScreen.lua")
+	local UpdateNotesScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdateNotesScreen.lua")
+	local RandomBallScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RandomBallScreen.lua")
 
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
 	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
@@ -72,6 +73,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.openScreen(screen)
 		self.setCurrentScreens({screen})
+		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
+			self.setCurrentScreens{screen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+		end
 		self.drawCurrentScreens()
 	end
 
@@ -82,15 +86,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.openPastRunsScreen()
 		inPastRunView = true
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(
-			seedLogger
-		)
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(seedLogger)
 	end
 
 	function self.openStatisticsScreen()
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.STATISTICS_SCREEN].initialize(
-			seedLogger
-		)
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.STATISTICS_SCREEN].initialize(seedLogger)
 		self.openScreen(self.UI_SCREENS.STATISTICS_SCREEN)
 	end
 
@@ -111,7 +111,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		PAST_RUNS_SCREEN = 13,
 		STATISTICS_SCREEN = 14,
 		RUN_OVER_SCREEN = 15,
-		UPDATE_NOTES_SCREEN = 16
+		UPDATE_NOTES_SCREEN = 16,
+		RANDOM_BALL_SCREEN = 17
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -132,11 +133,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.STATISTICS_SCREEN] = StatisticsScreen(settings, tracker, self),
 		[self.UI_SCREENS.RUN_OVER_SCREEN] = RunOverScreen(settings, tracker, self),
 		[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = UpdateNotesScreen(settings, tracker, self),
+		[self.UI_SCREENS.RANDOM_BALL_SCREEN] = RandomBallScreen(settings, tracker, self)
 	}
 
 	local currentScreens = {}
 
-	
 	local function getScreenTotal()
 		local total = 0
 		for _, screen in pairs(currentScreens) do
@@ -339,8 +340,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function getPokemonToDraw()
 		local pokemonToDraw = playerPokemon
-		local cantUpdate = not settings.battle.SHOW_1ST_FIGHT_STATS_PLATINUM and not battleHandler.firstBattleComplete() and
-				gameInfo.NAME == "Pokemon Platinum"
+		local cantUpdate =
+			not settings.battle.SHOW_1ST_FIGHT_STATS_PLATINUM and not battleHandler.firstBattleComplete() and
+			gameInfo.NAME == "Pokemon Platinum"
 		if cantUpdate then
 			pokemonToDraw = MiscUtils.shallowCopy(MiscConstants.DEFAULT_POKEMON)
 		end
@@ -424,8 +426,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if not (inTrackedPokemonView or inLockedView) then
 			setPokemonForMainScreen()
 		end
-		if (currentScreens[self.UI_SCREENS.MAIN_SCREEN] and getScreenTotal() == 1) 
-		or currentScreens[self.UI_SCREENS.COLOR_SCHEME_SCREEN] then
+		local beforeFirstPokemon =
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN] and currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN]
+		local afterFirstPokemon = currentScreens[self.UI_SCREENS.MAIN_SCREEN] and getScreenTotal() == 1
+		local inThemeView = currentScreens[self.UI_SCREENS.COLOR_SCHEME_SCREEN]
+		if beforeFirstPokemon and tracker.getFirstPokemonID() ~= nil then
+			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
+		end
+		if beforeFirstPokemon or afterFirstPokemon or inThemeView then
 			self.drawCurrentScreens()
 		end
 	end
@@ -586,7 +594,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.drawCurrentScreens()
-		if not canDraw then return end
+		if not canDraw then
+			return
+		end
 		Graphics.SIZES.MAIN_SCREEN_PADDING = 199
 		local total = getScreenTotal()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] and total == 1 then
@@ -758,7 +768,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
 		end
 	end
-	
+
 	pokemonDataReader = PokemonDataReader(self)
 	battleHandler = BattleHandler(gameInfo, memoryAddresses, pokemonDataReader, tracker, self)
 	seedLogger = SeedLogger(self, gameInfo.NAME)
@@ -774,7 +784,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			logInfo.setStarterNumberFromPlayerPokemonID(firstPokemonID)
 			self.setCurrentScreens({self.UI_SCREENS.LOG_VIEWER_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
-			if playerPokemon ~= nil and playerPokemon.pokemonID ~= NIL then
+			if playerPokemon ~= nil and playerPokemon.pokemonID ~= nil then
 				local logScreen = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN]
 				logScreen.addGoBackFunction(logScreen.goBackToOverview)
 				logScreen.loadPokemonStats(playerPokemon.pokemonID)
