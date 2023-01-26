@@ -75,6 +75,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		self.setCurrentScreens({screen})
 		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
 			self.setCurrentScreens{screen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+		if not tracker.alreadyWentInLab() then
+			self.setCurrentScreens{screen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+		end
 		elseif screen == self.UI_SCREENS.QUICK_LOAD_SCREEN then
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.QUICK_LOAD_SCREEN].initialize()
 		end
