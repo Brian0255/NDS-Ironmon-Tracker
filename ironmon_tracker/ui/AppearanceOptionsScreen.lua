@@ -13,14 +13,14 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_HEIGHT = 195,
+        MAIN_HEIGHT = 208,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
         MAIN_BUTTON_WIDTH = 106,
         MAIN_BUTTON_HEIGHT = 19,
         BADGE_COLOR_FRAME_HEIGHT = 84,
-        BUTTONS_FRAME_HEIGHT = 59
+        BUTTONS_FRAME_HEIGHT = 72
     }
     local ui = {}
     local eventListeners = {}
@@ -61,8 +61,9 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local function initAppearanceToggleButtons()
         local orderedKeys = {
             "RIGHT_JUSTIFIED_NUMBERS",
-            "SHOW_POKECENTER_HEALS",
             "SHOW_ACCURACY_AND_EVASION",
+            "RANDOM_BALL_PICKER",
+            "SHOW_POKECENTER_HEALS",
             "BLIND_MODE"
         }
         ui.frames.buttonsFrame =
