@@ -221,7 +221,7 @@ local function RandomizerLogParser(initialProgram)
                 }
                 pokemon.pokemonID = pokemonID
                 program.addAdditionalDataToPokemon(pokemon)
-                local abilityNames = {pokemonData[10], pokemonData[11], pokemonData[12]}
+                local abilityNames = {pokemonData[10], pokemonData[11]}
                 pokemon.abilities = {}
                 for _, abilityName in pairs(abilityNames) do
                     if abilityIDMappings[abilityName] ~= nil and abilityName ~= "--" then
@@ -251,11 +251,9 @@ local function RandomizerLogParser(initialProgram)
     local function checkGameName(lines, lineStart)
         local name = lines[lineStart]:match("Randomization of (Pokemon [%a%d ]+).* completed.")
         name = MiscUtils.trimWhitespace(name)
+        print(name)
         local gameName = program.getGameInfo().NAME
-        if string.find(gameName, name) then
-            return true
-        end
-        return false
+        return gameName == name
     end
 
     local function parseStarterInfo(lines, lineStart)

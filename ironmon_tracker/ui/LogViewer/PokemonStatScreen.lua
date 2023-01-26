@@ -31,13 +31,13 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             46,
         STATS_FRAME_WIDTH = 144,
         NAV_NAME_FRAME_HEIGHT = 36,
-        MOVES_FRAME_HEIGHT = 100,
-        MOVE_LIST_FRAME_HEIGHT = 86,
+        MOVES_FRAME_HEIGHT = 112,
+        MOVE_LIST_FRAME_HEIGHT = 98,
         MOVE_ENTRY_HEIGHT = 12,
         MOVES_FRAME_WIDTH = 93,
         MOVES_LABEL_HEIGHT = 14,
         POKEMON_NAME_WIDTH = 66,
-        ABILITY_FRAME_HEIGHT = 37,
+        ABILITY_FRAME_HEIGHT = 25,
         EVOS_FRAME_HEIGHT = 32
     }
     local activeHoverFrame = nil
@@ -504,7 +504,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 )
             )
         end
-        movesScrollBar = ScrollBar(ui.frames.moveScrollerFrame, 7, {})
+        movesScrollBar = ScrollBar(ui.frames.moveScrollerFrame, 8, {})
     end
 
     local function initNavNameFrame()
