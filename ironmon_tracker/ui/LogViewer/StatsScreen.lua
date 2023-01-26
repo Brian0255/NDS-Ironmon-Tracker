@@ -65,12 +65,12 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
         ui.controls.topLabel.setTextOffset({x = offsetX, y = 0})
         ui.controls.topLabel.setText(name)
         local nameToDescription = {
-            ["Best Special Attackers"] = "The highest combination of Special Attack and Speed.",
-            ["Best Physical Attackers"] = "The highest combination of Attack and Speed.",
-            ["Biggest Special Walls"] = "The highest combination of HP and Special Defense.",
-            ["Best Defensive Tanks"] = "The highest combination of HP and Defense.",
-            ["Bulkiest Overall"] = "The highest combination of HP, Defense, and Special Defense.",
-            ["Most Frail"] = "The worst combination of Defense, Special Defense and HP."
+            ["Best Special Attackers"] = "The highest amount of Special Attack and Speed.",
+            ["Best Physical Attackers"] = "The highest amount of Attack and Speed.",
+            ["Biggest Special Walls"] = "The highest amount of HP and Special Defense.",
+            ["Best Defensive Tanks"] = "The highest amount of HP and Defense.",
+            ["Bulkiest Overall"] = "The highest amount of HP, Defense, and Special Defense.",
+            ["Most Frail"] = "The worst amount of HP, Defense and Special Defense."
         }
         local description = nameToDescription[name]
         local totalWidth = ui.frames.mainFrame.getSize().width - 10
@@ -164,7 +164,7 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
                 )
             ),
             TextField(
-                "The highest combination of special attack and speed.",
+                "The highest amount of special attack and speed.",
                 {x = -30, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
