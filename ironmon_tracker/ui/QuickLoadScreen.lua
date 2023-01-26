@@ -67,6 +67,10 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         end
     end
 
+    function self.initialize()
+        ui.controls.quickLoadValue.setText(settings.controls.LOAD_NEXT_SEED:gsub(" ", "   "))
+    end
+
     local function onRadioClick(button)
         button.onClick()
         program.drawCurrentScreens()
@@ -315,7 +319,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             )
         )
-        local quickLoadValue =
+        ui.controls.quickLoadValue =
             TextLabel(
             Component(
                 ui.frames.quickLoadFrame,
@@ -331,7 +335,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                settings.controls.LOAD_NEXT_SEED:gsub(" ", "   "),
+                "",
                 {x = 0, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

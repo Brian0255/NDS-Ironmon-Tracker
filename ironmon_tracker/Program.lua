@@ -75,6 +75,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		self.setCurrentScreens({screen})
 		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
 			self.setCurrentScreens{screen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+		elseif screen == self.UI_SCREENS.QUICK_LOAD_SCREEN then
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.QUICK_LOAD_SCREEN].initialize()
 		end
 		self.drawCurrentScreens()
 	end
@@ -770,7 +772,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function checkIfUpdatePerformed()
-		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
+		if settings.automaticUpdates.UPDATE_WAS_DONE == false then
 			self.openUpdateNotes()
 			settings.automaticUpdates.UPDATE_WAS_DONE = false
 			self.saveSettings()
