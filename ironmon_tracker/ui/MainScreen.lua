@@ -45,7 +45,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if newPrediction == "_" then
             control.setTextOffset({x = 0, y = -5})
         elseif newPrediction == "=" then
-            control.setTextOffset({x= 0,y = -2})
+            control.setTextOffset({x = 0, y = -2})
         else
             control.setTextOffset({x = 0, y = -1})
         end
@@ -756,6 +756,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local evo = currentPokemon.evolution
         --male/female difference evos
         if type(evo) == "table" then
+            if not currentPokemon.isFemale then
+                currentPokemon.isFemale = 0
+            end
             evo = evo[currentPokemon.isFemale + 1]
         end
         if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and currentPokemon.friendship >= 220 then

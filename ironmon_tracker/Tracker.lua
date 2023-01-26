@@ -154,6 +154,7 @@ local function Tracker()
 		local template = {
 			baseForm = nil,
 			alternateForm = 0x00,
+			isFemale = 0,
 			pokemonID = 0,
 			heldItem = 0,
 			ability = 0,
