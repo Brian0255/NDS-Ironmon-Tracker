@@ -12,6 +12,7 @@ MiscConstants.UPDATE_NOTES = {
     "-- Added early pivot tracking! On early routes, the enemy screen will now show a location icon. Hovering over this shows Pok" ..
         Chars.accentedE .. "mon you've seen, and clicking while hovering shows vanilla data.",
     "-- Added profiles for quickload when generating new roms.",
+    "-- Added a way to mark neutral stats.",
     "-- Added a random Pok" .. Chars.accentedE .. "ball selector.",
     "-- The tracker will now keep one autosave per game, instead of only one total.",
     "-- Updated Fighting and Psychic type icons.",
@@ -20,7 +21,7 @@ MiscConstants.UPDATE_NOTES = {
     "-- Added gender-specific evos for a few Pok" .. Chars.accentedE .. "mon.",
     "-- Fixed Illusion bug for your own Pok" .. Chars.accentedE .. "mon.",
     "-- Return's power will now be shown if friendship is near max.",
-    "-- Special thanks to the Gen 3 tracker team, PyroMike and Darkeye."
+    "-- Special thanks to the Gen 3 tracker team, Mirasz, PyroMike and Darkeye."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
