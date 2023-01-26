@@ -236,7 +236,7 @@ local function SeedLogger(initialProgram, initialGameName)
         local fileName = "savedData/"..gameName .. ".pastlog"
         local currentRunIndex = 1
         if FormsUtils.fileExists(fileName) then
-            lines = MiscUtils.readLinesFromFile(fileName)
+            lines = MiscUtils.readLinesFromFile(fileName, true)
             if #lines > 0 then
                 totalRuns, totalRunsPastLab = string.match(lines[1], "(%d+),(%d+)")
                 totalRuns, totalRunsPastLab = tonumber(totalRuns, 10), tonumber(totalRunsPastLab, 10)

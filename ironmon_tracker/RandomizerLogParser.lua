@@ -1,4 +1,10 @@
-local function LogInfo(initialPokemonList, initialTrainers, initialTMs, initialStarterNumber, initialMiscInfo, initialStarters)
+local function LogInfo(
+    initialPokemonList,
+    initialTrainers,
+    initialTMs,
+    initialStarterNumber,
+    initialMiscInfo,
+    initialStarters)
     local self = {}
     local pokemonList = initialPokemonList
     local trainers = initialTrainers
@@ -53,6 +59,7 @@ local function RandomizerLogParser(initialProgram)
     local trainers = {}
     local TMs = {}
     local starters = {}
+    local totalLines
 
     local function checkForNameReplacement(name)
         if self.LogParserConstants.NAME_REPLACEMENTS[name] then
@@ -63,7 +70,7 @@ local function RandomizerLogParser(initialProgram)
 
     local function parseRandomizedEvolutions(lines, lineStart)
         local currentLineIndex = lineStart
-        while lines[currentLineIndex] ~= "" do
+        while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
             local currentLine = lines[currentLineIndex]
             local lineSplit = MiscUtils.split(currentLine, "->", true)
             local pokemonName, evolutionList = lineSplit[1], lineSplit[2]
@@ -109,7 +116,7 @@ local function RandomizerLogParser(initialProgram)
 
     local function parseTrainers(lines, lineStart)
         local currentLineIndex = lineStart
-        while lines[currentLineIndex] ~= "" do
+        while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
             local currentLine = lines[currentLineIndex]
             local trainerTeam = {}
             local trainer, teamList = currentLine:match("(.*)%).*%- (.*)")
@@ -128,7 +135,7 @@ local function RandomizerLogParser(initialProgram)
 
     local function parsePokemonLevelupMoves(lines, lineStart)
         local currentLineIndex = lineStart
-        while lines[currentLineIndex] ~= "" do
+        while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
             local currentLine = lines[currentLineIndex]
             local lineSplit = MiscUtils.split(currentLine, "->", true)
             local pokemonName = lineSplit[1]:match("%d+%s(.+)")
@@ -137,7 +144,8 @@ local function RandomizerLogParser(initialProgram)
             pokemonList[pokemonID].moves = {}
             --next 7 lines are not necessary, they're the base stats (which we grab elsewhere)
             currentLineIndex = currentLineIndex + 7
-            while #MiscUtils.split(lines[currentLineIndex], ":", true) == 2 and lines[currentLineIndex] ~= "Egg Moves:" do
+            while #MiscUtils.split(lines[currentLineIndex], ":", true) == 2 and lines[currentLineIndex] ~= "Egg Moves:" and
+                currentLineIndex <= totalLines do
                 currentLine = lines[currentLineIndex]
                 local moveInfo = MiscUtils.split(currentLine, ":", true)
                 local level = moveInfo[1]:match("%d+")
@@ -152,7 +160,7 @@ local function RandomizerLogParser(initialProgram)
                 )
                 currentLineIndex = currentLineIndex + 1
             end
-            while lines[currentLineIndex] ~= "" do
+            while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
                 currentLineIndex = currentLineIndex + 1
             end
             currentLineIndex = currentLineIndex + 1
@@ -162,7 +170,7 @@ local function RandomizerLogParser(initialProgram)
 
     local function parseTMMoves(lines, lineStart)
         local currentLineIndex = lineStart
-        while lines[currentLineIndex] ~= "" do
+        while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
             local currentLine = lines[currentLineIndex]
             local moveName = currentLine:match("[%a%d]+ (.*)")
             local moveID = moveIDMappings[moveName]
@@ -174,7 +182,7 @@ local function RandomizerLogParser(initialProgram)
 
     local function parseTMCompatibility(lines, lineStart)
         local currentLineIndex = lineStart
-        while lines[currentLineIndex] ~= "" do
+        while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
             local currentLine = lines[currentLineIndex]
             local lineSplit = MiscUtils.split(currentLine, "|", true)
             local pokemonName = lineSplit[1]:match("%d+%s(.+)")
@@ -201,7 +209,7 @@ local function RandomizerLogParser(initialProgram)
     local function parsePokemon(lines, lineStart)
         pokemonList = {}
         local currentLineIndex = lineStart + 1
-        while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
+        while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines) do
             local currentLine = lines[currentLineIndex]
             local pokemonData = MiscUtils.split(currentLine, "|", true)
             local pokemonID = tonumber(pokemonData[1])
@@ -239,8 +247,8 @@ local function RandomizerLogParser(initialProgram)
             moveIDMappings = {}
             --header below section name that we don't care about
             local currentLineIndex = lineStart + 1
-            while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
-                local lineInfo = MiscUtils.split(lines[currentLineIndex],"|",true)
+            while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines) do
+                local lineInfo = MiscUtils.split(lines[currentLineIndex], "|", true)
                 local id, moveName = tonumber(lineInfo[1]), lineInfo[2]
                 moveIDMappings[moveName] = id
                 currentLineIndex = currentLineIndex + 1
@@ -257,8 +265,8 @@ local function RandomizerLogParser(initialProgram)
 
     local function parseStarterInfo(lines, lineStart)
         starters = {}
-        for i = 0,2,1 do
-            local starterLine = lines[lineStart+i]
+        for i = 0, 2, 1 do
+            local starterLine = lines[lineStart + i]
             local number, name = starterLine:match("Set starter (%d+) to (.*)")
             name = checkForNameReplacement(name)
             number = tonumber(number)
@@ -350,7 +358,8 @@ local function RandomizerLogParser(initialProgram)
             resetPokemon()
             trainers = {}
             TMs = {}
-            local lines = MiscUtils.readLinesFromFile(inputFile)
+            local lines = MiscUtils.readLinesFromFile(inputFile, true)
+            totalLines = #lines
             local sectionHeaderStarts = {}
             local totalFound = 0
             for index, line in pairs(lines) do
@@ -368,7 +377,13 @@ local function RandomizerLogParser(initialProgram)
                 local success = parseFunction(lines, lineStart)
                 if success == false then
                     forms.destroyall()
-		            FormsUtils.popupDialog("Game does not match. Only load logs with the same game as the one you're playing.", 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
+                    FormsUtils.popupDialog(
+                        "Game does not match. Only load logs with the same game as the one you're playing.",
+                        250,
+                        120,
+                        FormsUtils.POPUP_DIALOG_TYPES.WARNING,
+                        true
+                    )
                     return nil
                 end
             end

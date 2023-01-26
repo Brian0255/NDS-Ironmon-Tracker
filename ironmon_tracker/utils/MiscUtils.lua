@@ -244,7 +244,7 @@ function MiscUtils.appendStringToFile(fileName, stringData)
     end
 end
 
-function MiscUtils.readLinesFromFile(file)
+function MiscUtils.readLinesFromFile(file, allowNewLines)
     local lines = {}
 
     local file = io.open(file, "r")
@@ -252,9 +252,14 @@ function MiscUtils.readLinesFromFile(file)
         return lines
     end
 
+    allowNewLines = allowNewLines or false
+    local char = "+"
+    if allowNewLines then
+        char = "*"
+    end
     local fileContents = file:read("*a")
     if fileContents ~= nil and fileContents ~= "" then
-        for line in fileContents:gmatch("([^\r\n]+)\r?\n") do
+        for line in fileContents:gmatch("([^\r\n]"..char..")\r?\n") do
             if line ~= nil then
                 table.insert(lines, line)
             end
