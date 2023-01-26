@@ -251,7 +251,6 @@ local function RandomizerLogParser(initialProgram)
     local function checkGameName(lines, lineStart)
         local name = lines[lineStart]:match("Randomization of (Pokemon [%a%d ]+).* completed.")
         name = MiscUtils.trimWhitespace(name)
-        print(name)
         local gameName = program.getGameInfo().NAME
         return gameName == name
     end
@@ -351,10 +350,7 @@ local function RandomizerLogParser(initialProgram)
             resetPokemon()
             trainers = {}
             TMs = {}
-            local lines = {}
-            for line in io.lines(inputFile) do
-                table.insert(lines, line)
-            end
+            local lines = MiscUtils.readLinesFromFile(inputFile)
             local sectionHeaderStarts = {}
             local totalFound = 0
             for index, line in pairs(lines) do

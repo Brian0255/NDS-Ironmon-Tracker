@@ -796,7 +796,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			logInfo.setStarterNumberFromPlayerPokemonID(firstPokemonID)
 			self.setCurrentScreens({self.UI_SCREENS.LOG_VIEWER_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
-			if playerPokemon ~= nil and playerPokemon.pokemonID ~= nil then
+			if playerPokemon ~= nil and playerPokemon.pokemonID ~= 0 then
 				local logScreen = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN]
 				logScreen.addGoBackFunction(logScreen.goBackToOverview)
 				logScreen.loadPokemonStats(playerPokemon.pokemonID)

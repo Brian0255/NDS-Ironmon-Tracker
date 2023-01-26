@@ -465,12 +465,11 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
         local profile = forms.openfile("*.qlp", Paths.CURRENT_DIRECTORY.."\\ironmon_tracker\\quickloadProfiles\\")
         if profile == "" then return end
-        local currentIndex = 1
-        for line in io.lines(profile) do
-            local settingName = settingsNames[currentIndex]
-            settings.quickLoad[settingName] = line
-            ui.controls[settingName].setText(FormsUtils.shortenFolderName(line))
-            currentIndex = currentIndex + 1
+         local lines = MiscUtils.readLinesFromFile(profile)
+        for i, line in pairs(lines) do
+        local settingName = settingsNames[i]
+        settings.quickLoad[settingName] = line
+        ui.controls[settingName].setText(FormsUtils.shortenFolderName(line))
         end
         program.saveSettings()
         program.drawCurrentScreens()

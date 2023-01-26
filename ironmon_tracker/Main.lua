@@ -40,8 +40,8 @@ local function Main()
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/FrameFactory.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
-	Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
 	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
+	Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
 
 	local settings
 	local program

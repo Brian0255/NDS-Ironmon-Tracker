@@ -153,21 +153,16 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
 }
 
 function PlaythroughConstants.initializeStandardMessages()
-    local quotesFile = "death_quotes.txt"
+    local quotesFile = Paths.CURRENT_DIRECTORY.."\\death_quotes.txt"
     PlaythroughConstants.RUN_OVER_MESSAGES[PlaythroughConstants.CAUSES.STANDARD].messages =
         MiscUtils.shallowCopy(PlaythroughConstants.DEFAULT_STANDARD_MESSAGES)
 
     local newMessages = {}
     local currentIndex = 1
     if FormsUtils.fileExists(quotesFile) then
-        for line in io.lines(quotesFile) do
-            if line ~= "" then
-                newMessages[currentIndex] = line
-                currentIndex = currentIndex + 1
-            end
-        end
+        newMessages = MiscUtils.readLinesFromFile(quotesFile)
     end
-    if next(newMessages) ~= nil then
+    if newMessages[1] ~= nil then
         PlaythroughConstants.RUN_OVER_MESSAGES[PlaythroughConstants.CAUSES.STANDARD].messages = newMessages
     end
 end
