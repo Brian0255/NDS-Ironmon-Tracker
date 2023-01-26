@@ -48,7 +48,7 @@ local function Main()
 
 	local loadNextSeed = false
 
-	local function displayError(message)
+	function self.displayError(message)
 		forms.destroyall()
 		FormsUtils.popupDialog(message, 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
 	end
@@ -254,8 +254,8 @@ local function Main()
 			print("This game is not currently not supported. Terminating Lua script...")
 			return false
 		end
-		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
 		tracker.loadData(gameConfiguration.gameInfo.NAME)
+		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
 		event.onexit(program.onProgramExit, "onProgramExit")
 		while not loadNextSeed do
 			program.main()
