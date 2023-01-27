@@ -1326,7 +1326,7 @@ LocationData.LOCATION_DATA = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
-                        {level = 9, percent = 35},
+                        {level = 6, percent = 35},
                         {level = 9, percent = 5}
                     },
                     {
