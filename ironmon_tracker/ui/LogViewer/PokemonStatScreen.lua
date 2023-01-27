@@ -763,6 +763,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     end
 
     function self.loadPokemonID(id)
+        lastViewedItems = {}
         for index, compare in pairs(sortedPokemonIDs) do
             if compare == id then
                 currentIndex = index
