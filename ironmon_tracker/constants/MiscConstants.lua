@@ -1,12 +1,15 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.1.3"
+MiscConstants.TRACKER_VERSION = "5.1.4"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- 5.1.3: Fixes a bug where the random ball picker would look bad with certain badge layouts.',
-    '-- Added a randomizer log viewer! You can view this after a run dies or from the "Tracked info" screen.',
+    "-- 5.1.4: Added new bookmark icon on the enemy screen. This allows you to mark a Pok" ..
+        Chars.accentedE ..
+            "mon for log viewing. Then, when in the log viewer, you can now press a button to show only marked Pok" ..
+                Chars.accentedE .. "mon.",
+    '-- 5.1.0: Added a randomizer log viewer! You can view this after a run dies or from the "Tracked info" screen.',
     '-- When your run dies, there\'s now a special screen that displays one of a few messages. You can even change these yourself by opening "death_quotes.txt" in the main tracker folder!',
     '-- Any runs past the lab are now tracked! You can also view these from the "Tracked info" screen.',
     '-- Some fun statistics are here! They will only apply to runs past the lab, and you can view them in the "Tracked info" screen.',
@@ -14,7 +17,8 @@ MiscConstants.UPDATE_NOTES = {
         Chars.accentedE .. "mon you've seen, and clicking while hovering shows vanilla data.",
     "-- Added profiles for quickload when generating new roms.",
     "-- Added a way to mark neutral stats.",
-    '-- Added a random Pok' .. Chars.accentedE .. 'ball selector. You can turn this off if you want in the "Tracker Appearance" screen.',
+    "-- Added a random Pok" ..
+        Chars.accentedE .. 'ball selector. You can turn this off if you want in the "Tracker Appearance" screen.',
     "-- The tracker will now keep one autosave per game, instead of only one total.",
     "-- Updated Fighting and Psychic type icons.",
     "-- Fixed eggs being revealed early (thanks Fellshadow).",
@@ -31,7 +35,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         RANDOM_BALL_PICKER = true,
         SHOW_POKECENTER_HEALS = false,
         ICON_SET_INDEX = 2,
-        BLIND_MODE=false,
+        BLIND_MODE = false
     },
     controls = {
         CHANGE_VIEW = "Start",
