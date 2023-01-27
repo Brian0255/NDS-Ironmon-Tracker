@@ -126,6 +126,7 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
         messages = {
             "Sometimes, the weaker triumph.",
             "A surprising outcome.",
+            "Miracles really can happen.",
             "I don't think anyone saw that coming.",
             "Huh?",
             "Surely that Pok" .. Chars.accentedE .. "mon had Huge Power.",
