@@ -75,7 +75,7 @@ local function Tracker()
 			print("Matching ROM found. Loading previously tracked data...")
 			for key, value in pairs(trackedData) do
 				if not savedData[key] then
-					savedData[key] = MiscUtils.shallowCopy(value)
+					savedData[key] = value
 				end
 			end
 			trackedData = savedData
