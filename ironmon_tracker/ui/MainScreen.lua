@@ -534,6 +534,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.abilityDetails.setText("Last level: " .. tracker.getLastLevelSeen(currentPokemon.pokemonID))
         ui.controls.healsLabel.setText("")
         ui.controls.statusItemsLabel.setText("")
+        local bookmarked = tracker.isMarked(currentPokemon.pokemonID)
+        local iconName = "BOOKMARK_FILLED"
+        if not bookmarked then
+            iconName = "BOOKMARK_EMPTY"
+        end
+        ui.controls.bookmarkIcon.setIconName(iconName)
         readTrackedEncountersIntoLabel()
     end
 
@@ -927,6 +933,22 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function onBookmarkClick()
+        local filled = string.match(ui.controls.bookmarkIcon.getIconName(), "FILLED")
+        local newIconName = "BOOKMARK_FILLED" 
+        if filled then
+            newIconName = "BOOKMARK_EMPTY"
+        end
+        ui.controls.bookmarkIcon.setIconName(newIconName)
+        filled = not filled
+        if filled then
+            tracker.markID(currentPokemon.pokemonID)
+        else
+            tracker.unmarkID(currentPokemon.pokemonID)
+        end
+        program.drawCurrentScreens()
+    end
+
     local function initStatListeners()
         for _, stat in pairs(stats) do
             local predictionLabel = stat .. "StatPrediction"
@@ -1002,6 +1024,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListeners,
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
+        table.insert(eventListeners,
+    MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
     end
 
     function self.getMainFrameSize()

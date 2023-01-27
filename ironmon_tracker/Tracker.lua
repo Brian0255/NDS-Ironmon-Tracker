@@ -35,7 +35,7 @@ local function Tracker()
 	end
 
 	function self.getMarkedIDs()
-		if next(trackedData.bookmarkedIDs) == nil then return end
+		if next(trackedData.bookmarkedIDs) == nil then return {} end
 		local ids = {}
 		for id, _ in pairs(trackedData.bookmarkedIDs) do
 			table.insert(ids, id)
