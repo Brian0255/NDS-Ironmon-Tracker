@@ -8,6 +8,7 @@ local function Tracker()
 		progress = PlaythroughConstants.PROGRESS.NOWHERE,
 		firstPokemon = nil,
 		trackedPokemon = {},
+		bookmarkedIDs = {},
 		romHash = gameinfo.getromhash(),
 		currentHiddenPowerType = PokemonData.POKEMON_TYPES.BUG,
 		currentHiddenPowerIndex = 1,
@@ -18,6 +19,32 @@ local function Tracker()
 		trackedData.runOver = true
 	end
 
+	function self.unmarkID(id)
+		trackedData.bookmarkedIDs[id] = nil
+	end
+
+	function self.markID(id)
+		trackedData.bookmarkedIDs[id] = true
+	end
+
+	function self.isMarked(id)
+		if trackedData.bookmarkedIDs[id] == nil then 
+			return false
+		end
+		return trackedData.bookmarkedIDs[id]
+	end
+
+	function self.getMarkedIDs()
+		if next(trackedData.bookmarkedIDs) == nil then return end
+		local ids = {}
+		for id, _ in pairs(trackedData.bookmarkedIDs) do
+			table.insert(ids, id)
+		end
+		MiscUtils.sortPokemonIDsByName(ids)
+		return ids
+	end
+
+	
 	function self.hasRunEnded()
 		return trackedData.runOver
 	end
@@ -46,8 +73,14 @@ local function Tracker()
 		local savedRomHash = savedData.romHash
 		if savedRomHash == trackedData.romHash then
 			print("Matching ROM found. Loading previously tracked data...")
+			for key, value in pairs(trackedData) do
+				if not savedData[key] then
+					savedData[key] = MiscUtils.shallowCopy(value)
+				end
+			end
 			trackedData = savedData
 		end
+		
 	end
 
 	local function createNewPokemonEntry(pokemonID)
