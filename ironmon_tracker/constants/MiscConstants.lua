@@ -21,7 +21,6 @@ MiscConstants.UPDATE_NOTES = {
     "-- Pok" .. Chars.accentedE .. "mon White 2 is now fully functional.",
     "-- Added gender-specific evos for a few Pok" .. Chars.accentedE .. "mon.",
     "-- Fixed Illusion bug for your own Pok" .. Chars.accentedE .. "mon.",
-    "-- Return's power will now be shown if friendship is near max.",
     "-- Special thanks to the Gen 3 tracker team, Mirasz, PyroMike and Darkeye."
 }
 
