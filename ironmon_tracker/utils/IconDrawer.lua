@@ -733,7 +733,7 @@ IconDrawer.ICONS =
                 {1,1,1,1,1,1,0},
                 {1,1,1,1,1,1,0},
                 {1,1,1,1,1,1,0},
-               {1,1,1,1,1,1,0},
+                {1,1,1,1,1,1,0},
             },
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
@@ -753,6 +753,82 @@ IconDrawer.ICONS =
                 {1,1,1,1,1,1,0},
             },
             colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        BOOKMARK_EMPTY = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,1,1,1,1,1,1,0},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,1,1,0,0,1},
+                {1,0,1,0,0,1,0,1},
+                {1,1,0,0,0,0,1,1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        BOOKMARK_FILLED = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,1,1,1,1,1,1,0},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,0,0,1,1,1},
+                {1,1,0,0,0,0,1,1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        BOOKMARK_EMPTY_LARGE = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,1,1,1,1,1,1,1,1,1,1,1,0},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,1,0,0,0,0,0,1},
+                {1,0,0,0,0,1,0,1,0,0,0,0,1},
+                {1,0,0,0,1,0,0,0,1,0,0,0,1},
+                {1,0,0,1,0,0,0,0,0,1,0,0,1},
+                {1,0,1,0,0,0,0,0,0,0,1,0,1},
+                {1,1,0,0,0,0,0,0,0,0,0,1,1}
+            },
+            colorKey = "Top box border color",
+            backgroundColorKey = "Top box background color"
+        },
+        BOOKMARK_FILLED_LARGE = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,1,1,1,1,1,1,1,1,1,1,1,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,0,1,1,1,1,1,1},
+                {1,1,1,1,1,0,0,0,1,1,1,1,1},
+                {1,1,1,1,0,0,0,0,0,1,1,1,1},
+                {1,1,1,0,0,0,0,0,0,0,1,1,1},
+                {1,1,0,0,0,0,0,0,0,0,0,1,1}
+            },
+            colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
         },
         POKEBALL = {

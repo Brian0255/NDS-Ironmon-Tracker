@@ -31,6 +31,9 @@ local function Icon(initialComponent, initialIconName, initialIconOffset, initia
     function self.calculateActualPosition(parentPosition)
         component.calculateActualPosition(parentPosition)
     end
+    function self.getIconName()
+        return iconName
+    end
     function self.setIconName(newIconName)
         iconName = newIconName
     end
