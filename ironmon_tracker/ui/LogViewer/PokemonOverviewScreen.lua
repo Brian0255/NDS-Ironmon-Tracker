@@ -17,9 +17,11 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
     local settings = initialSettings
     local sortedPokemonIDs = {}
     local currentMatchSetIndex = 1
+    local viewingMarked = false
     local currentMatchSets = {}
     local pokemonSearchKeyboard
     local program = initialProgram
+    local tracker = initialTracker
     local logInfo
     local constants = {
         SEARCH_HEADER_HEIGHT = 21,
@@ -36,19 +38,38 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
     local self = {}
     local screens = {}
 
-    local function onGoBackClick()
-    end
-
     local function setUpPokemonIDs()
         sortedPokemonIDs = {}
-        for id, _ in pairs(logInfo.getPokemon()) do
-            table.insert(sortedPokemonIDs, id)
+        if not viewingMarked then
+            for id, _ in pairs(logInfo.getPokemon()) do
+                table.insert(sortedPokemonIDs, id)
+            end
+            MiscUtils.sortPokemonIDsByName(sortedPokemonIDs)
+        else
+            sortedPokemonIDs = tracker.getMarkedIDs()
         end
-        MiscUtils.sortPokemonIDsByName(sortedPokemonIDs)
+        pokemonSearchKeyboard.updateItemSet(sortedPokemonIDs)
+    end
+    
+    local function updateBookmark()
+        local iconName = "BOOKMARK_EMPTY_LARGE"
+        if viewingMarked then
+            iconName = "BOOKMARK_FILLED_LARGE"
+        end
+        ui.controls.bookmarkIcon.setIconName(iconName)
+    end
+
+    local function onBookmarkClick()
+        viewingMarked = not viewingMarked
+        updateBookmark()
+        setUpPokemonIDs()
+        pokemonSearchKeyboard.clearKeyboard()
     end
 
     function self.initialize(newLogInfo)
         logInfo = newLogInfo
+        viewingMarked = false
+        updateBookmark()
         setUpPokemonIDs()
         pokemonSearchKeyboard.updateItemSet(sortedPokemonIDs)
         pokemonSearchKeyboard.setDrawFunction(program.drawCurrentScreens)
@@ -185,6 +206,76 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         readCurrentMatchSetIntoUI()
     end
 
+    local function initTopUI()
+        ui.frames.topFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 0,
+                    height = constants.SEARCH_HEADER_HEIGHT
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 32, y = 0}),
+            ui.frames.mainFrame
+        )
+        ui.controls.searchHeading =
+            TextLabel(
+            Component(
+                ui.frames.topFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = 188,
+                        height = constants.SEARCH_HEADER_HEIGHT
+                    },
+                    nil,
+                    nil
+                )
+            ),
+            TextField(
+                "Click the keys below to search any pokemon:",
+                {x = 0, y = 10},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        ui.frames.bookmarkFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 26,
+                    height = 26
+                },
+                "Top box background color",
+                "Top box border color"
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 5, y = 5}),
+            ui.frames.topFrame
+        )
+
+        ui.controls.bookmarkIcon =
+        Icon(
+        Component(ui.frames.bookmarkFrame, Box({x = 0, y = 0}, {width = 16, height = 16}, nil, nil)),
+        "BOOKMARK_EMPTY_LARGE",
+        {x = 2, y = 1}
+    )
+    eventListeners.onBookmarkClick = MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick)
+    end
+
     local function initUI()
         ui.controls = {}
         ui.frames = {}
@@ -206,31 +297,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5),
             nil
         )
-        ui.controls.searchHeading =
-            TextLabel(
-            Component(
-                ui.frames.mainFrame,
-                Box(
-                    {x = 0, y = 0},
-                    {
-                        width = Graphics.SIZES.SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                        height = constants.SEARCH_HEADER_HEIGHT
-                    },
-                    nil,
-                    nil
-                )
-            ),
-            TextField(
-                "Click the keys below to search any pokemon:",
-                {x = 32, y = 10},
-                TextStyle(
-                    Graphics.FONT.DEFAULT_FONT_SIZE,
-                    Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Top box text color",
-                    "Top box background color"
-                )
-            )
-        )
+        initTopUI()
         ui.frames.resultFrame =
             Frame(
             Box(
