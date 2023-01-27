@@ -84,7 +84,6 @@ PlaythroughConstants.CAUSES = {
 
 --in case the death quotes file is nil or something dumb like that
 PlaythroughConstants.DEFAULT_STANDARD_MESSAGES = {
-    "Did you know? Your lab success rate is %labrate%.",
     "There's always next time...",
     "Some things were just not meant to be.",
     "Oh well.",
@@ -94,7 +93,6 @@ PlaythroughConstants.DEFAULT_STANDARD_MESSAGES = {
     "That's just the way it goes sometimes.",
     "You should definitely pick the left ball next attempt.",
     "Having fun yet?",
-    "%totalruns% attempts and counting...",
     "The house always wins.",
     "Anything that can go wrong, will go wrong.",
     "Looks like your luck finally ran out."
@@ -119,7 +117,6 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
         messages = {
             "Sometimes, you really just can't face yourself.",
             "Looking in the mirror really is that painful.",
-            "Maybe try winning the coin flip next time.",
             "Dark Link was a lot easier than this...",
             "Does this mean we can ban it now?"
         }
@@ -131,9 +128,7 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
             "A surprising outcome.",
             "I don't think anyone saw that coming.",
             "Huh?",
-            "Miracles really can happen.",
             "Surely that Pok" .. Chars.accentedE .. "mon had Huge Power.",
-            "I'm sorry, I think I need to look away for a second."
         }
     },
     [PlaythroughConstants.CAUSES.SHEDINJA] = {
@@ -141,7 +136,6 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
         messages = {
             "Never feels good to lose to that.",
             "There are over 20 fire moves in the game, and you didn't roll a single one.",
-            "Hope you didn't spend too long trying to stall it out.",
             "It was bound to happen at some point.",
             "The one Pok" .. Chars.accentedE .. "mon you didn't want to see..."
         }
