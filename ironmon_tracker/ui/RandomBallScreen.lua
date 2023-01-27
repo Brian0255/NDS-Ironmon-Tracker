@@ -56,6 +56,10 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 			)
 	end
 
+	function self.initialize(position)
+		ui.frames.mainFrame.move({x=position.x+1,y=position.y+1})
+	end
+
 	local function initPokeballs()
 		ui.frames.pokeballFrame =
 			Frame(

@@ -251,6 +251,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    function self.getInnerFramePosition()
+        return ui.frames.mainInnerFrame.getPosition()
+    end
+
     local function onHiddenPowerFrameCounter()
         frameCounters["hiddenPowerCounter"] = nil
         justChangedHiddenPower = false

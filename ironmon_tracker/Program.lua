@@ -62,6 +62,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters
 	local trackerUpdater = TrackerUpdater(settings)
 	local seedLogger
+	
+	local currentScreens = {}
 
 	function self.getGameInfo()
 		return gameInfo
@@ -75,6 +77,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		self.setCurrentScreens({screen})
 		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
 			self.setCurrentScreens{screen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN].show()
+			local mainScreenPosition = currentScreens[self.UI_SCREENS.MAIN_SCREEN].getInnerFramePosition()
+			currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN].initialize(mainScreenPosition)
 		elseif screen == self.UI_SCREENS.QUICK_LOAD_SCREEN then
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.QUICK_LOAD_SCREEN].initialize()
 		end
@@ -137,8 +142,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = UpdateNotesScreen(settings, tracker, self),
 		[self.UI_SCREENS.RANDOM_BALL_SCREEN] = RandomBallScreen(settings, tracker, self)
 	}
-
-	local currentScreens = {}
 
 	local function getScreenTotal()
 		local total = 0
