@@ -85,20 +85,17 @@ PlaythroughConstants.CAUSES = {
 --in case the death quotes file is nil or something dumb like that
 PlaythroughConstants.DEFAULT_STANDARD_MESSAGES = {
     "Did you know? Your lab success rate is %labrate%.",
-    "Is this the part where it gets called a skill issue?",
     "There's always next time...",
     "Some things were just not meant to be.",
     "Oh well.",
     "Could have been worse, I guess. Or not.",
     "Against all odds... you did not triumph.",
     "How unfortunate.",
-    "Maybe you just didn't believe hard enough.",
     "That's just the way it goes sometimes.",
     "You should definitely pick the left ball next attempt.",
     "Having fun yet?",
     "%totalruns% attempts and counting...",
     "The house always wins.",
-    "One day you'll finally push the boulder up that hill.",
     "Anything that can go wrong, will go wrong.",
     "Looks like your luck finally ran out."
 }
@@ -134,7 +131,6 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
             "A surprising outcome.",
             "I don't think anyone saw that coming.",
             "Huh?",
-            "How did you let that happen?",
             "Miracles really can happen.",
             "Surely that Pok" .. Chars.accentedE .. "mon had Huge Power.",
             "I'm sorry, I think I need to look away for a second."
