@@ -259,6 +259,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local function onMoveClick()
         viewingMoves = not viewingMoves
         local currentID = sortedPokemonIDs[currentIndex]
+        lastViewedItems = {}
         local items = logPokemon[currentID].moves
         local readingFunction = readScrollMovesIntoUI
         if not viewingMoves then
