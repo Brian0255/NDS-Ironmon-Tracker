@@ -260,7 +260,9 @@ local function PokemonDataReader(initialProgram)
                 if checkingParty then
                     if decryptedData.curHP ~= 0 and decryptedData.isEgg ~= 1 then
                         return decryptedData
-                    end
+					elseif decryptedData.isEgg == 1 and not MiscUtils.validPokemonData(decryptedData) then
+						return {}
+					end
                 else
                     break
                 end
