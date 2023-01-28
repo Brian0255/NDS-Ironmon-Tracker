@@ -257,11 +257,13 @@ local function PokemonDataReader(initialProgram)
                     SPD = decryptedData.SPD,
                     SPE = decryptedData.SPE
                 }
+				if not MiscUtils.validPokemonData(decryptedData) then
+					print ("garbage")
+					return {}
+				end
                 if checkingParty then
                     if decryptedData.curHP ~= 0 and decryptedData.isEgg ~= 1 then
                         return decryptedData
-					elseif decryptedData.isEgg == 1 and not MiscUtils.validPokemonData(decryptedData) then
-						return {}
 					end
                 else
                     break
