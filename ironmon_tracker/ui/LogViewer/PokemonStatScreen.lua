@@ -73,6 +73,10 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         MiscUtils.sortPokemonIDsByName(sortedPokemonIDs)
     end
 
+    function self.updateIDs(newIDs)
+        sortedPokemonIDs = newIDs
+    end
+
     function self.initialize(newLogInfo)
         logInfo = newLogInfo
         setUpPokemonIDs()

@@ -49,6 +49,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
             sortedPokemonIDs = tracker.getMarkedIDs()
         end
         pokemonSearchKeyboard.updateItemSet(sortedPokemonIDs)
+        logViewerScreen.updatePokemonStatIDs(sortedPokemonIDs)
     end
     
     local function updateBookmark()

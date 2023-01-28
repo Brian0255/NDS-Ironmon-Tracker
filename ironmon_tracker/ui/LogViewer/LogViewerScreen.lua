@@ -247,6 +247,10 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         tabScreenStack = ScreenStack({pokemonScreenStack, trainerScreenStack, gymTMScreen, statsScreen, infoScreen})
     end
 
+    function self.updatePokemonStatIDs(newIDs)
+        pokemonStatScreen.updateIDs(newIDs)
+    end
+
     function self.loadPokemonStats(id)
         self.changeActiveTabIndex(1)
         pokemonScreenStack.setCurrentIndex(2)
