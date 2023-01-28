@@ -372,7 +372,11 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = {"25", "25", "25", "25", "10"},
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If this move misses, or has no effect, the user takes damage equal to half of its max HP rounded down. This move cannot be used while gravity is in effect."
+		description = {"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
+		"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
+		"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
+		"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
+		"Inflicts regular damage and makes contact. If this move misses, the user takes half its max HP in damage."
 	},
 	{
 		id = "27",
