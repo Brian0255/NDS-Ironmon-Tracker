@@ -258,7 +258,6 @@ local function PokemonDataReader(initialProgram)
                     SPE = decryptedData.SPE
                 }
 				if not MiscUtils.validPokemonData(decryptedData) then
-					print ("garbage")
 					return {}
 				end
                 if checkingParty then
