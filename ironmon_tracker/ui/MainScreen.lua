@@ -596,6 +596,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.survivalHealFrame.setVisibility(false)
         ui.frames.accEvaFrame.setVisibility(false)
         ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
+        ui.controls.noteLabels[1].setVisibility(false)
+        ui.controls.noteLabels[2].setVisibility(false)
 
         eventListeners.loadStatOverview.setOnClickParams(currentPokemon.pokemonID)
 

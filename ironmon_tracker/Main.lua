@@ -74,7 +74,6 @@ local function Main()
 	end
 
 	local function generateROM()
-		--client.pause()
 		local paths = {
 			ROMPath = settings.quickLoad.ROM_PATH,
 			JARPath = settings.quickLoad.JAR_PATH,
