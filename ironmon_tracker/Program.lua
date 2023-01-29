@@ -793,6 +793,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	checkIfUpdatePerformed()
 
 	function self.openLogFromPath(logPath)
+		local soundOn = client.GetSoundOn()
+		client.SetSoundOn(false)
 		local logInfo = randomizerLogParser.parse(logPath)
 		if logInfo ~= nil then
 			local firstPokemonID = tracker.getFirstPokemonID()
@@ -806,6 +808,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			end
 			self.drawCurrentScreens()
 		end
+		client.SetSoundOn(soundOn)
 	end
 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
