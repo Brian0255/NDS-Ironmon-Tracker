@@ -7,6 +7,7 @@ MiscConstants.BIZHAWK_VERSION = client.getversion()
 MiscConstants.UPDATE_NOTES = {
     '-- For friendship evolutions, the letters of "FRIEND" will now slowly light up green for a rough progress approximation.',
     '-- N is now the "past the lab" marker for Black/White.',
+    '-- Fixed the second slot Pok'..Chars.accentedE..'mon glitching in and out in HeartGold and SoulSilver.',
     '-- Various other bug fixes.'
 }
 
