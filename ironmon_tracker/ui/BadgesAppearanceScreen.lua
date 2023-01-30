@@ -65,7 +65,9 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                     settings.badgesAppearance,
                     "DOUBLE_BADGE_ALIGNMENT",
                     settingName,
-                    true
+                    true,
+                    true,
+                    program.saveSettings
                 )
                 table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
                 local text = settingName
@@ -134,7 +136,9 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 settings.badgesAppearance,
                 "PRIMARY_BADGE_SET",
                 settingName,
-                true
+                true,
+                true,
+                program.saveSettings
             )
             table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
             local text = settingName .. " first"
@@ -340,7 +344,9 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                     settings.badgesAppearance,
                     "SINGLE_BADGE_ALIGNMENT",
                     settingName,
-                    true
+                    true,
+                    true,
+                    program.saveSettings
                 )
                 table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
                 local text = settingName:sub(1, 1):upper() .. settingName:sub(2):lower()
@@ -392,7 +398,9 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             settings.badgesAppearance,
             "SPACER",
             nil,
-            false
+            false,
+            true,
+            program.saveSettings
         )
         local spacerLabel =  TextLabel(
             Component(
@@ -472,7 +480,9 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 settings.badgesAppearance,
                 "SHOW_BOTH_BADGES",
                 state,
-                true
+                true,
+                true,
+                program.saveSettings
             )
             table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
             TextLabel(

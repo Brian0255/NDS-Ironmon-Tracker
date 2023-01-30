@@ -31,36 +31,14 @@ local inifile = {
 	]] -- The above license is known as the Simplified BSD license.
 }
 
-local defaultBackend = "io"
-
-local backends = {
-	io = {
-		lines = function(name) return assert(io.open(name)):lines() end,
-		write = function(name, contents) assert(io.open(name, "w")):write(contents) end,
-	},
-	memory = {
-		lines = function(text) return text:gmatch("([^\r\n]+)\r?\n") end,
-		write = function(name, contents) return contents end,
-	},
-}
-
-if love then
-	backends.love = {
-		lines = love.filesystem.lines,
-		write = function(name, contents) love.filesystem.write(name, contents) end,
-	}
-	defaultBackend = "love"
-end
-
-function inifile.parse(name, backend)
-	backend = backend or defaultBackend
+function inifile.parse(name)
 	local t = {}
 	local section
 	local comments = {}
 	local sectionorder = {}
 	local cursectionorder
-
-	for line in backends[backend].lines(name) do
+	local lines = MiscUtils.readLinesFromFile(name, true)
+	for _, line in pairs(lines) do
 
 		-- Section headers
 		local s = line:match("^%[([^%]]+)%]$")
@@ -105,7 +83,6 @@ function inifile.parse(name, backend)
 end
 
 function inifile.save(name, t, backend)
-	backend = backend or defaultBackend
 	local contents = {}
 
 	-- Get our metadata if it exists
@@ -182,9 +159,10 @@ function inifile.save(name, t, backend)
 	end
 
 	local file = io.open(name,"w")
-	assert(file~=nil)
-	file:write(table.concat(contents, "\n"))
-	io.close(file)
+	if file ~= nil then
+		file:write(table.concat(contents, "\n"))
+		file:close()
+	end
 end
 
 return inifile

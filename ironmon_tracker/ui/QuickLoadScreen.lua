@@ -247,7 +247,9 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             settings.quickLoad,
             settingKey,
             settingValue,
-            true
+            true,
+            true,
+            program.saveSettings
         )
         local label =
             TextLabel(
@@ -441,6 +443,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             completeString = completeString..settings.quickLoad[settingName].."\n"
         end
         MiscUtils.writeStringToFile(filePath, completeString)
+        program.saveSettings()
     end
 
     local function onSaveProfileClick()
@@ -463,9 +466,12 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
 
     local function onLoadProfileClick()
         local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
+        local soundOn = client.GetSoundOn()
+        client.SetSoundOn(false)
         local profile = forms.openfile("*.qlp", Paths.CURRENT_DIRECTORY.."\\ironmon_tracker\\quickloadProfiles\\")
+        client.SetSoundOn(soundOn)
         if profile == "" then return end
-         local lines = MiscUtils.readLinesFromFile(profile)
+        local lines = MiscUtils.readLinesFromFile(profile)
         for i, line in pairs(lines) do
         local settingName = settingsNames[i]
         settings.quickLoad[settingName] = line

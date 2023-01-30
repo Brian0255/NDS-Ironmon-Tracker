@@ -1145,7 +1145,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
             Icon(
             Component(ui.frames.pastRunLocationAndNote, Box({x = 0, y = 0}, {width = 7, height = 0}, nil, nil)),
             "LOCATION_ICON_SMALL_FILLED",
-            {x = 2, y = 2}
+            {x = 2, y = 2}, false
         )
         ui.controls.noteLabels[2] =
             TextLabel(

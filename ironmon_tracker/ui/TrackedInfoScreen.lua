@@ -37,8 +37,11 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	end
 
 	local function onOpenLogClick()
+		local soundOn = client.GetSoundOn()
+		client.SetSoundOn(false)
 		local logPath = forms.openfile("*.log", Paths.CURRENT_DIRECTORY)
 		program.openLogFromPath(logPath)
+		client.SetSoundOn(soundOn)
 	end 
 
 	local function initEventListeners()

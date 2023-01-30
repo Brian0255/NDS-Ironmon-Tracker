@@ -1,4 +1,4 @@
-local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFunction, initialOnCloseParams)
+local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFunction, initialOnCloseParams, initialSaveFunction)
     local self = {}
 
     local width = 220
@@ -11,6 +11,7 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
 
     local onCloseFunction = initialOnCloseFunction
     local onCloseParams = initialOnCloseParams
+    local saveFunction = initialSaveFunction
 
     local hue = 0
     local sat = 0
@@ -250,6 +251,7 @@ local function ColorPicker(initialColorScheme, initialColorKey, initialOnCloseFu
     local function onSave()
         initialColor = color
         colorScheme[colorKey] = initialColor
+        saveFunction()
     end
 
     function self.show()

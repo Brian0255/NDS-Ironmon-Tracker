@@ -245,6 +245,7 @@ function MiscUtils.appendStringToFile(fileName, stringData)
 end
 
 function MiscUtils.readLinesFromFile(file, allowNewLines)
+    
     local lines = {}
 
     local file = io.open(file, "r")

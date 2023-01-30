@@ -129,7 +129,7 @@ function DrawingUtils.drawHorizontalBarGraph(
         totalBars = totalBars + 1
     end
     local barHeight = (height - 2 * graphPadding) / (totalBars + (totalBars / 2) + (1 / 2))
-    local spacing =  barHeight / 2
+    local spacing = barHeight / 2
     local currentIndex = 0
     local topValue = maxValue * 1.35
     local horizontalDistance = math.abs(bottomRightPoint.x - bottomLeftPoint.x)
@@ -138,7 +138,7 @@ function DrawingUtils.drawHorizontalBarGraph(
         local barY = math.floor(spacing + topLeftPoint.y + ((spacing + barHeight) * currentIndex))
         local horizontalDistanceFraction = horizontalDistance * (value / topValue)
         local barX = bottomLeftPoint.x + 1
-        local verticalOffset = (barHeight - 10)/2
+        local verticalOffset = (barHeight - 10) / 2
         gui.drawRectangle(barX, barY, horizontalDistanceFraction, barHeight, textBarColor, textBarColor)
 
         value = tostring(value)
@@ -462,6 +462,24 @@ function DrawingUtils.getNatureColor(stat, nature)
 end
 
 function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
+    if extraThingsToDraw.friendshipBar ~= nil then
+        local x, y, progress =
+            extraThingsToDraw.friendshipBar.x,
+            extraThingsToDraw.friendshipBar.y,
+            extraThingsToDraw.friendshipBar.progress
+        if progress < 1 then
+            IconDrawer.drawFriendshipProgress(x, y, progress)
+        else
+            local style =
+            TextStyle(
+            Graphics.FONT.DEFAULT_FONT_SIZE,
+            Graphics.FONT.DEFAULT_FONT_FAMILY,
+            "Positive text color",
+            "Top box background color"
+        )
+            DrawingUtils.drawText(x-2, y-3, "READY", style, DrawingUtils.calcShadowColor("Top box background color"))
+        end
+    end
     if extraThingsToDraw.statStages ~= nil then
         for _, statStageInfo in pairs(extraThingsToDraw.statStages) do
             DrawingUtils.drawStatStageChevrons(statStageInfo.position, statStageInfo.stage)

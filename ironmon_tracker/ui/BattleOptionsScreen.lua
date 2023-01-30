@@ -67,7 +67,9 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
                 settings.battle,
                 key,
                 nil,
-                false
+                false,
+                true,
+                program.saveSettings
             )
             local labelName
             if key == "SHOW_1ST_FIGHT_STATS_PLATINUM" then

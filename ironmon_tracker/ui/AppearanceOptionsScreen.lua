@@ -107,7 +107,9 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 settings.appearance,
                 key,
                 nil,
-                false
+                false,
+                true,
+                program.saveSettings
             )
             local labelName
             labelName = key:gsub("_", " "):lower()
