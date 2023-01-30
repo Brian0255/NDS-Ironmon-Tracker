@@ -765,7 +765,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return seedLogger
 	end
 
-	local function checkForUpdateBeforeLoading()
+	function self.checkForUpdateBeforeLoading()
+		if currentScreens[self.UI_SCREENS.UPDATE_NOTES_SCREEN] then return end
 		if not trackerUpdater.alreadyCheckedForTheDay() then
 			if trackerUpdater.updateExists() then
 				self.setCurrentScreens({self.UI_SCREENS.UPDATER_SCREEN})
@@ -775,7 +776,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function checkIfUpdatePerformed()
-		if currentScreens[self.UI_SCREENS.UPDATER_SCREEN] then return end
 		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
 			settings.automaticUpdates.UPDATE_WAS_DONE = false
 			self.openUpdateNotes()
@@ -790,8 +790,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	seedLogger = SeedLogger(self, gameInfo.NAME)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
 	setPokemonForMainScreen()
-	checkForUpdateBeforeLoading()
 	checkIfUpdatePerformed()
+	self.checkForUpdateBeforeLoading()
 
 	function self.openLogFromPath(logPath)
 		local soundOn = client.GetSoundOn()

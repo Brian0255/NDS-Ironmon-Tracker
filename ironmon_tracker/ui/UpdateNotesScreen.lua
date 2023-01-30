@@ -49,13 +49,7 @@ local function updatenotesscreen(initialSettings, initialTracker, initialProgram
 	local function createTextRow(index)
 		noteRows[index] =
 			TextLabel(
-			Component(
-				ui.frames.noteTextRowsFrame,
-				Box(
-					{x = 0, y = 0},
-					{width = 0, height = constants.NOTES_ROW_HEIGHT}
-				)
-			),
+			Component(ui.frames.noteTextRowsFrame, Box({x = 0, y = 0}, {width = 0, height = constants.NOTES_ROW_HEIGHT})),
 			TextField(
 				"",
 				{x = 0, y = 2},
@@ -113,6 +107,7 @@ local function updatenotesscreen(initialSettings, initialTracker, initialProgram
 
 	local function onCloseClick()
 		program.openScreen(program.UI_SCREENS.MAIN_SCREEN)
+		program.checkForUpdateBeforeLoading()
 	end
 
 	local function initBottomFrameControls()
