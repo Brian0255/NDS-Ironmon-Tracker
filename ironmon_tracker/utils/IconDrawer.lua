@@ -1098,6 +1098,333 @@ IconDrawer.ICONS =
             colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
         },
+        F1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        F2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {1},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        F3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {1},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        F4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        R1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        R2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {1},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        R3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {1},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        R4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {1},
+                {1},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        R5 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {1},
+                {1},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        I = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        E1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        E2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {1},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        E3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {1},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        E4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        E5 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        N1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        N2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {1},
+                {0},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        N3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {1},
+                {1},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        N4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {0},
+                {0},
+                {1},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        N5 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        D1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        D2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        D3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {0},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        D4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {1},
+                {0},
+                {0},
+                {1},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        D5 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {1},
+                {1},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
     }
 )
 
@@ -1151,5 +1478,23 @@ function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride, colorKeyOverrid
                 end
             end
         end
+    end
+end
+
+function IconDrawer.drawFriendshipProgress(x, y, progress)
+    local iconOrder = {
+        "F1","F2","F3","F4","","R1","R2","R3","R4","R5","","I","","E1","E2","E3","E4","","N1","N2","N3","N4","N5","", "D1","D2","D3","D4","D5"
+    }
+    local totalIcons = #iconOrder
+    local currentX = x
+    for index, iconName in pairs(iconOrder) do
+        if iconName ~= "" then
+            local colorKey = "Top box text color"
+            if index/totalIcons <= progress then
+                colorKey = "Positive text color"
+            end
+            IconDrawer.drawIcon(iconName, currentX, y, nil, colorKey)
+        end
+        currentX = currentX + 1
     end
 end

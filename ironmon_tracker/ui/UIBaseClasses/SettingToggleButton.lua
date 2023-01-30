@@ -4,13 +4,15 @@ local function SettingToggleButton(
     initialSettingsKey,
     initialState,
     isInRadioGroup,
-    initialVisibility)
+    initialVisibility,
+    initialSaveFunction)
     local self = {}
     local component = initialComponent
     local visible = initialVisibility
     local settings = initialSettings
     local settingsKey = initialSettingsKey
     local state = settings[settingsKey]
+    local saveFunction = initialSaveFunction
     if initialState ~= nil then
         state = initialState
     else
@@ -46,7 +48,7 @@ local function SettingToggleButton(
             position.x + 4,
             position.y + 9,
             position.x + size.width - 2,
-            position.y+1,
+            position.y + 1,
             DrawingUtils.convertColorKeyToColor("Positive text color")
         )
     end
@@ -85,6 +87,7 @@ local function SettingToggleButton(
         else
             settings[settingsKey] = not settings[settingsKey]
         end
+        saveFunction()
     end
     function self.getPosition()
         return component.getPosition()

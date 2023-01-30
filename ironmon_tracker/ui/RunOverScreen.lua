@@ -21,8 +21,11 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 	local self = {}
 
 	local function openLogIfNoneFound()
+		local soundOn = client.GetSoundOn()
+		client.SetSoundOn(false)
 		local logPath = forms.openfile("*.log", Paths.CURRENT_DIRECTORY)
 		program.openLogFromPath(logPath)
+		client.SetSoundOn(soundOn)
 	end
 
 	function self.initialize(runOverMessage)

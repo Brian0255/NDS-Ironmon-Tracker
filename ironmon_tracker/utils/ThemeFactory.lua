@@ -1,9 +1,14 @@
 ThemeFactory = {}
 
 local settings = nil
+local saveFunction = nil
 
 function ThemeFactory.setSettings(newSettings)
     settings = newSettings
+end
+
+function ThemeFactory.setSaveFunction(newSaveFunction)
+    saveFunction = newSaveFunction
 end
 
 ThemeFactory.THEME_COLOR_KEYS_ORDERED = {
@@ -56,6 +61,7 @@ end
 function ThemeFactory.saveFile(filePath)
     local settingsString = ThemeFactory.getThemeString()
     MiscUtils.writeStringToFile(filePath, settingsString)
+    saveFunction()
 end
 
 function ThemeFactory.createDefaultConfirmDialog()
@@ -203,4 +209,5 @@ function ThemeFactory.readThemeString(themeString)
             end
         end
     end
+    saveFunction()
 end

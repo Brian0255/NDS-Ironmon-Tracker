@@ -739,6 +739,7 @@ PokemonData.POKEMON = {
         name = "Golbat",
         type = {PokemonData.POKEMON_TYPES.POISON, PokemonData.POKEMON_TYPES.FLYING},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "455",
         movelvls = {
             {5, 9, 13, 17, 21, 27, 33, 39, 45, 51},
@@ -1733,6 +1734,7 @@ PokemonData.POKEMON = {
         name = "Chansey",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 140,
         bst = "450",
         movelvls = {
             {5, 9, 12, 16, 20, 23, 27, 31, 34, 38, 42, 46},
@@ -2559,6 +2561,7 @@ PokemonData.POKEMON = {
         name = "Pichu",
         type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "205",
         movelvls = {
             {5, 10, 13, 18},
@@ -2573,6 +2576,7 @@ PokemonData.POKEMON = {
         name = "Cleffa",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 140,
         bst = "218",
         movelvls = {
             {4, 7, 10, 13, 16},
@@ -2587,6 +2591,7 @@ PokemonData.POKEMON = {
         name = "Igglybuff",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "210",
         movelvls = {
             {5, 9, 13, 17},
@@ -2601,6 +2606,7 @@ PokemonData.POKEMON = {
         name = "Togepi",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "245",
         movelvls = {
             {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 51},
@@ -4323,6 +4329,7 @@ PokemonData.POKEMON = {
         name = "Azurill",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "190",
         movelvls = {
             {2, 7, 10, 15, 18},
@@ -5836,6 +5843,7 @@ PokemonData.POKEMON = {
         name = "Budew",
         type = {PokemonData.POKEMON_TYPES.GRASS, PokemonData.POKEMON_TYPES.POISON},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "280",
         movelvls = {
             {4, 7, 10, 13, 16},
@@ -6130,6 +6138,7 @@ PokemonData.POKEMON = {
         name = "Buneary",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 0,
         bst = "350",
         movelvls = {
             {6, 13, 16, 23, 26, 33, 36, 43, 46, 53},
@@ -6214,6 +6223,7 @@ PokemonData.POKEMON = {
         name = "Chingling",
         type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "285",
         movelvls = {
             {6, 9, 14, 17, 22},
@@ -6396,6 +6406,7 @@ PokemonData.POKEMON = {
         name = "Munchlax",
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "390",
         movelvls = {
             {4, 9, 12, 17, 20, 25, 28, 33, 36, 41, 44, 49},
@@ -6410,6 +6421,7 @@ PokemonData.POKEMON = {
         name = "Riolu",
         type = {PokemonData.POKEMON_TYPES.FIGHTING, PokemonData.POKEMON_TYPES.EMPTY},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "285",
         movelvls = {
             {6, 11, 15, 19, 24, 29},
@@ -7531,6 +7543,7 @@ PokemonData.POKEMON = {
         name = "Woobat",
         type = {PokemonData.POKEMON_TYPES.PSYCHIC, PokemonData.POKEMON_TYPES.FLYING},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "313",
         movelvls = {
             {},
@@ -7727,6 +7740,7 @@ PokemonData.POKEMON = {
         name = "Swadloon",
         type = {PokemonData.POKEMON_TYPES.BUG, PokemonData.POKEMON_TYPES.GRASS},
         evolution = PokemonData.EVOLUTION_TYPES.FRIEND,
+        baseFriendship = 70,
         bst = "380",
         movelvls = {
             {},

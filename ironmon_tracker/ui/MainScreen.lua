@@ -596,6 +596,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.survivalHealFrame.setVisibility(false)
         ui.frames.accEvaFrame.setVisibility(false)
         ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
+        ui.controls.noteLabels[1].setVisibility(false)
+        ui.controls.noteLabels[2].setVisibility(false)
 
         eventListeners.loadStatOverview.setOnClickParams(currentPokemon.pokemonID)
 
@@ -738,6 +740,33 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function setUpEvo(isEnemy)
+        extraThingsToDraw.friendshipBar = nil
+        local evo = currentPokemon.evolution
+        --male/female difference evos
+        if type(evo) == "table" then
+            if not currentPokemon.isFemale then
+                currentPokemon.isFemale = 0
+            end
+            evo = evo[currentPokemon.isFemale + 1]
+        end
+        if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and not inPastRunView then
+            local position = ui.controls.pokemonLevelAndEvo.getPosition()
+            local base = currentPokemon.baseFriendship or 0
+            local progress = (currentPokemon.friendship - base) / (220 - base)
+
+            extraThingsToDraw.friendshipBar = {
+                ["progress"] = progress,
+                x = position.x + 19 + (5 * #(tostring(currentPokemon.level))),
+                y = position.y + 3
+            }
+            if progress >= 1 then
+                evo = "READY"
+            end
+        end
+        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. currentPokemon.level .. " (" .. evo .. ")")
+    end
+
     local function setUpMainPokemonInfo(isEnemy)
         local heldItemInfo = ItemData.GEN_5_ITEMS[currentPokemon.heldItem]
         if heldItemInfo == nil then
@@ -761,20 +790,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             ui.controls.pokemonImageLabel,
             currentIconSet.IMAGE_OFFSET
         )
+        setUpEvo(isEnemy)
         local pokemonHoverParams = hoverListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = currentPokemon
-        local evo = currentPokemon.evolution
-        --male/female difference evos
-        if type(evo) == "table" then
-            if not currentPokemon.isFemale then
-                currentPokemon.isFemale = 0
-            end
-            evo = evo[currentPokemon.isFemale + 1]
-        end
-        if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and currentPokemon.friendship >= 220 then
-            evo = "SOON"
-        end
-        ui.controls.pokemonLevelAndEvo.setText("Lv. " .. currentPokemon.level .. " (" .. evo .. ")")
         ui.controls.pokemonHP.setText("HP: " .. currentPokemon.curHP .. "/" .. currentPokemon.stats.HP)
         local abilityName = AbilityData.ABILITIES[currentPokemon.ability + 1].name
         if settings.appearance.BLIND_MODE then
@@ -935,7 +953,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function onBookmarkClick()
         local filled = string.match(ui.controls.bookmarkIcon.getIconName(), "FILLED")
-        local newIconName = "BOOKMARK_FILLED" 
+        local newIconName = "BOOKMARK_FILLED"
         if filled then
             newIconName = "BOOKMARK_EMPTY"
         end
@@ -1024,8 +1042,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListeners,
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
-        table.insert(eventListeners,
-    MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
     end
 
     function self.getMainFrameSize()

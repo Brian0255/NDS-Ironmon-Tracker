@@ -168,9 +168,7 @@ TrainerData.TRAINERS = {
     --black
     [0x4F425249] = {
         LAB_IDS = {
-            [53] = true,
-            [54] = true,
-            [55] = true
+            [64] = true
         },
         FINAL_FIGHT_ID = 232,
         IMPORTANT_GROUPS = {
@@ -245,9 +243,7 @@ TrainerData.TRAINERS = {
     --white
     [0x4F415249] = {
         LAB_IDS = {
-            [53] = true,
-            [54] = true,
-            [55] = true
+            [64] = true
         },
         FINAL_FIGHT_ID = 232,
         IMPORTANT_GROUPS = {

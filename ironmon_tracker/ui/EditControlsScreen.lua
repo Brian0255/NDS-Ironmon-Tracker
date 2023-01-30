@@ -61,6 +61,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         ui.controls[settingToChange .. "Value"].setText(settings.controls[settingToChange]:gsub(" ", "   "))
         currentButtonWaiting.button.setText(currentButtonWaiting.previousText)
         currentButtonWaiting.button = nil
+        program.saveSettings()
         program.drawCurrentScreens()
     end
 
