@@ -770,19 +770,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if trackerUpdater.updateExists() then
 				self.setCurrentScreens({self.UI_SCREENS.UPDATER_SCREEN})
 				currentScreens[self.UI_SCREENS.UPDATER_SCREEN].setAsUpdateAvailable(trackerUpdater.getNewestVersionString())
-			else
-				print("no update")
 			end
-		else
-			print("already checked")
 		end
 	end
 
 	local function checkIfUpdatePerformed()
 		if currentScreens[self.UI_SCREENS.UPDATER_SCREEN] then return end
 		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
-			self.openUpdateNotes()
 			settings.automaticUpdates.UPDATE_WAS_DONE = false
+			self.openUpdateNotes()
 			self.saveSettings()
 		else
 			self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
