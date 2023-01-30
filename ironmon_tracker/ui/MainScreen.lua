@@ -753,7 +753,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if evo == PokemonData.EVOLUTION_TYPES.FRIEND and not isEnemy and not inPastRunView then
             local position = ui.controls.pokemonLevelAndEvo.getPosition()
             local base = currentPokemon.baseFriendship or 0
-            local progress = (currentPokemon.friendship - base) / (146 - base)
+            local progress = (currentPokemon.friendship - base) / (220 - base)
 
             extraThingsToDraw.friendshipBar = {
                 ["progress"] = progress,
