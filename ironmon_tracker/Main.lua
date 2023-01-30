@@ -216,6 +216,7 @@ local function Main()
 					end
 				end
 			end
+			INI.save("Settings.ini")
 			io.close(file)
 			INI.save("Settings.ini", settings)
 			if settings.colorScheme["Default text color"] then
