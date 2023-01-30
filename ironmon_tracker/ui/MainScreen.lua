@@ -738,6 +738,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         else
             heldItemDescription = heldItemDescription .. " Yum!"
         end
+        return heldItemDescription
     end
 
     local function setUpEvo(isEnemy)
@@ -815,7 +816,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         local itemHoverParams = hoverListeners.heldItemHoverListener.getOnHoverParams()
         local heldItemDescription = heldItemInfo.description
         if ItemData.NATURE_SPECIFIC_BERRIES[heldItemInfo.name] ~= nil then
-            readNatureSpecificBerry(heldItemInfo.name, heldItemDescription)
+            heldItemDescription = readNatureSpecificBerry(heldItemInfo.name, heldItemDescription)
         end
         itemHoverParams.text = heldItemDescription
     end
