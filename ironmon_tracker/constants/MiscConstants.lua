@@ -1,31 +1,13 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.1.4"
+MiscConstants.TRACKER_VERSION = "5.1.5"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- 5.1.4: Added new bookmark icon on the enemy screen. This allows you to mark a Pok" ..
-        Chars.accentedE ..
-            "mon for log viewing. Then, when in the log viewer, you can now press a button to show only marked Pok" ..
-                Chars.accentedE .. "mon.",
-    '-- 5.1.0: Added a randomizer log viewer! You can view this after a run dies or from the "Tracked info" screen.',
-    '-- When your run dies, there\'s now a special screen that displays one of a few messages. You can even change these yourself by opening "death_quotes.txt" in the main tracker folder!',
-    '-- Any runs past the lab are now tracked! You can also view these from the "Tracked info" screen.',
-    '-- Some fun statistics are here! They will only apply to runs past the lab, and you can view them in the "Tracked info" screen.',
-    "-- Added early pivot tracking! On early routes, the enemy screen will now show a location icon. Hovering over this shows Pok" ..
-        Chars.accentedE .. "mon you've seen, and clicking while hovering shows vanilla data.",
-    "-- Added profiles for quickload when generating new roms.",
-    "-- Added a way to mark neutral stats.",
-    "-- Added a random Pok" ..
-        Chars.accentedE .. 'ball selector. You can turn this off if you want in the "Tracker Appearance" screen.',
-    "-- The tracker will now keep one autosave per game, instead of only one total.",
-    "-- Updated Fighting and Psychic type icons.",
-    "-- Fixed eggs being revealed early (thanks Fellshadow).",
-    "-- Pok" .. Chars.accentedE .. "mon White 2 is now fully functional.",
-    "-- Added gender-specific evos for a few Pok" .. Chars.accentedE .. "mon.",
-    "-- Fixed Illusion bug for your own Pok" .. Chars.accentedE .. "mon.",
-    "-- Special thanks to the Gen 3 tracker team, Mirasz, PyroMike and Darkeye."
+    '-- For friendship evolutions, the letters of "FRIEND" will now slowly light up green for a rough progress approximation.',
+    '-- N is now the "past the lab" marker for Black/White.',
+    '-- Various other bug fixes.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
