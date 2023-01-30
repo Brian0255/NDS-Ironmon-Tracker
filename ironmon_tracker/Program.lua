@@ -777,6 +777,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function checkIfUpdatePerformed()
+		if currentScreens[self.UI_SCREENS.UPDATER_SCREEN] then return end
 		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
 			settings.automaticUpdates.UPDATE_WAS_DONE = false
 			self.openUpdateNotes()
