@@ -77,6 +77,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
         setAuthorLabel()
         frameCounters["changeIndex"].reset()
         randomizeIcon()
+        program.saveSettings()
         program.drawCurrentScreens()
     end
 

@@ -53,7 +53,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
     end
 
     local function onColorEditClick(colorKey)
-        local colorPicker = ColorPicker(settings.colorScheme, colorKey, onColorPickerEnd)
+        local colorPicker = ColorPicker(settings.colorScheme, colorKey, onColorPickerEnd, nil, program.saveSettings)
         program.setColorPicker(colorPicker)
     end
 
@@ -155,7 +155,11 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                     )
                 ),
                 settings.colorSettings,
-                colorSettingsKey
+                colorSettingsKey,
+                nil, 
+                false,
+                true,
+                program.saveSettings
             )
             table.insert(
                 eventListeners,

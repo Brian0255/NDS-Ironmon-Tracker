@@ -204,7 +204,7 @@ local function Main()
 		if file == nil then
 			settings = DEFAULT_SETTINGS
 		else
-			settings = INI.parse(file:read("*a"), "memory")
+			settings = INI.parse("Settings.ini")
 
 			for settingsGroup, options in pairs(DEFAULT_SETTINGS) do
 				if not settings[settingsGroup] then
@@ -255,6 +255,7 @@ local function Main()
 		end
 		tracker.loadData(gameConfiguration.gameInfo.NAME)
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
+		ThemeFactory.setSaveFunction(program.saveSettings)
 		event.onexit(program.onProgramExit, "onProgramExit")
 		while not loadNextSeed do
 			program.main()

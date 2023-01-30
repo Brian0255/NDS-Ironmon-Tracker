@@ -20,6 +20,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local UpdateNotesScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdateNotesScreen.lua")
 	local RandomBallScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RandomBallScreen.lua")
 
+	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
 	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
 	local TrackerUpdater = dofile(Paths.FOLDERS.DATA_FOLDER .. "/TrackerUpdater.lua")
@@ -71,6 +72,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.getAddresses()
 		return memoryAddresses
+	end
+
+	function self.saveSettings()
+		print("saving")
+		INI.save("Settings.ini", settings)
 	end
 
 	function self.openScreen(screen)
@@ -456,6 +462,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.openUpdaterScreen()
 		self.setCurrentScreens({self.UI_SCREENS.UPDATER_SCREEN})
 		local isUpdate = trackerUpdater.updateExists()
+		self.saveSettings()
 		if isUpdate then
 			currentScreens[self.UI_SCREENS.UPDATER_SCREEN].setAsUpdateAvailable(trackerUpdater.getNewestVersionString())
 		else
@@ -673,14 +680,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
-	function self.saveSettings()
-		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
-		INI.save("Settings.ini", settings)
-	end
-
 	frameCounters = {
-		settingsSaving = FrameCounter(120, self.saveSettings, nil, true),
-		--screenDrawing = FrameCounter(30, self.drawCurrentScreens, nil, true),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
 		trackerSaving = FrameCounter(
 			18000,
