@@ -216,6 +216,7 @@ local function Main()
 					end
 				end
 			end
+			INI.save("Settings.ini")
 			io.close(file)
 			if settings.colorScheme["Default text color"] then
 				settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
