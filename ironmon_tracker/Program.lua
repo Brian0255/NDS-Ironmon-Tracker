@@ -75,7 +75,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.saveSettings()
-		print("saving")
 		INI.save("Settings.ini", settings)
 	end
 
@@ -774,6 +773,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				self.drawCurrentScreens()
 			end
 		end
+		self.saveSettings()
 	end
 
 	local function checkIfUpdatePerformed()
