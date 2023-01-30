@@ -217,13 +217,13 @@ local function Main()
 				end
 			end
 			io.close(file)
-			INI.save("Settings.ini", settings)
 			if settings.colorScheme["Default text color"] then
 				settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]
 				settings.colorScheme["Bottom box text color"] = settings.colorScheme["Default text color"]
 				settings.colorScheme["Default text color"] = nil
 			end
 		end
+		INI.save("Settings.ini", settings)
 	end
 
 	function self.run()
