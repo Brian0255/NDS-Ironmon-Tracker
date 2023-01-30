@@ -792,8 +792,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	seedLogger = SeedLogger(self, gameInfo.NAME)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
 	setPokemonForMainScreen()
-	checkIfUpdatePerformed()
 	self.checkForUpdateBeforeLoading()
+	checkIfUpdatePerformed()
 
 	function self.openLogFromPath(logPath)
 		local soundOn = client.GetSoundOn()
