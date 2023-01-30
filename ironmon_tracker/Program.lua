@@ -771,6 +771,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if trackerUpdater.updateExists() then
 				self.setCurrentScreens({self.UI_SCREENS.UPDATER_SCREEN})
 				currentScreens[self.UI_SCREENS.UPDATER_SCREEN].setAsUpdateAvailable(trackerUpdater.getNewestVersionString())
+				self.drawCurrentScreens()
 			end
 		end
 	end
