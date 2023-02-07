@@ -1,14 +1,18 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.1.5"
+MiscConstants.TRACKER_VERSION = "5.1.6"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- For friendship evolutions, the letters of "FRIEND" will now slowly light up green for a rough progress approximation.',
-    '-- N is now the "past the lab" marker for Black/White.',
-    '-- Fixed the second slot Pok'..Chars.accentedE..'mon glitching in and out in HeartGold and SoulSilver.',
-    '-- Various other bug fixes.'
+    '-- The default "run over" detection is now when the first Pok'..Chars.accentedE..'mon faints. You can change this in the "Tracked Info" screen if you\'d like.',
+    '-- You can now take much longer notes for enemy Pok'..Chars.accentedE..'mon. Now, if you write a note longer than two lines, you can hover over the note area to see the full note.',
+    '-- The statistics screen will now take up the main screen space (like the log viewer) instead of the small tracker screen area.',
+    '-- Your total playtime for each game will now be shown in the "Overall Progress" page of the statistics screen.',
+    '-- Fixed a bug where wins were not being detected properly.',
+    '-- Fixed a bug where badges were not displaying correctly for HG/SS.',
+    '-- Fixed a bug with Lake Verity encounters.',
+    '-- Fixed a bug where the log viewer would sometimes crash viewing enemy teams in Platinum.',
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
