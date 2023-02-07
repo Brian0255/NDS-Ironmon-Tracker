@@ -109,15 +109,6 @@ function MiscUtils.splitTableByNumber(tbl, number)
     return sets
 end
 
-function MiscUtils.getLinesFromFile(filePath)
-    if FormsUtils.fileExists(filePath) then
-        local file = io.open(filePath)
-        local lines = file:lines()
-        file:close()
-        return lines
-    end
-end
-
 function MiscUtils.runExecuteCommand(command, errorOutput)
     local prependDir = ""
     if Paths.CURRENT_DIRECTORY ~= nil and Paths.CURRENT_DIRECTORY ~= "" then
@@ -172,7 +163,7 @@ function MiscUtils.removeRandomTableValue(t)
 end
 
 function MiscUtils.validPokemonData(pokemonData)
-    if pokemonData == nil or next(pokemonData) == nil or pokemonData.ability > 164 then
+    if pokemonData == nil or next(pokemonData) == nil then
         return false
     end
     --Sometimes the player's pokemon stats are just wildly out of bounds, need a sanity check.
@@ -187,23 +178,24 @@ function MiscUtils.validPokemonData(pokemonData)
         pokemonData.stats.SPA
     }
     for _, stat in pairs(statsToCheck) do
-        if stat > STAT_LIMIT or pokemonData.level > 100 then
+        if stat > STAT_LIMIT then
             return false
         end
     end
     local id = tonumber(pokemonData.pokemonID)
     local heldItem = tonumber(pokemonData.heldItem)
-    if id ~= nil then
-        if id < 0 or id > 690 or heldItem < 0 or heldItem > 650 then
+    if id == nil or pokemonData.level > 100 or pokemonData.ability > 164 then 
+        return false
+    end
+    if id < 0 or id > 690 or heldItem < 0 or heldItem > 650 then
+        return false
+    end
+    for _, move in pairs(pokemonData.moveIDs) do
+        if move < 0 or move > MoveData.TOTAL_MOVES + 1 then
             return false
         end
-        for _, move in pairs(pokemonData.moveIDs) do
-            if move < 0 or move > MoveData.TOTAL_MOVES + 1 then
-                return false
-            end
-        end
-        return true
     end
+    return true
 end
 
 function MiscUtils.splitStringByAmount(input, amount)
@@ -211,17 +203,17 @@ function MiscUtils.splitStringByAmount(input, amount)
     local current = 0
     local currentString = ""
     for i = 1, #input, 1 do
-        local char = input:sub(i,i)
-        currentString = currentString..char
+        local char = input:sub(i, i)
+        currentString = currentString .. char
         current = current + 1
         if current == amount then
-            table.insert(result,currentString)
+            table.insert(result, currentString)
             current = 0
             currentString = ""
         end
     end
     if currentString ~= "" then
-        table.insert(result,currentString)
+        table.insert(result, currentString)
     end
     return result
 end
@@ -233,7 +225,7 @@ function MiscUtils.combineTables(t1, t2)
 end
 
 function MiscUtils.toTitleCase(input)
-    return input:sub(1,1):upper()..input:sub(2):lower()
+    return input:sub(1, 1):upper() .. input:sub(2):lower()
 end
 
 function MiscUtils.appendStringToFile(fileName, stringData)
@@ -245,7 +237,6 @@ function MiscUtils.appendStringToFile(fileName, stringData)
 end
 
 function MiscUtils.readLinesFromFile(file, allowNewLines)
-    
     local lines = {}
 
     local file = io.open(file, "r")
@@ -260,22 +251,34 @@ function MiscUtils.readLinesFromFile(file, allowNewLines)
     end
     local fileContents = file:read("*a")
     if fileContents ~= nil and fileContents ~= "" then
-        for line in fileContents:gmatch("([^\r\n]"..char..")\r?\n") do
+        for line in fileContents:gmatch("([^\r\n]" .. char .. ")\r?\n") do
             if line ~= nil then
                 table.insert(lines, line)
             end
         end
     end
     file:close()
-
     return lines
+end
+
+function MiscUtils.readStringFromFile(fileName)
+    if FormsUtils.fileExists(fileName) then
+        local file = io.open(fileName, "r")
+        if file == nil then
+            return
+        end
+        local contents = file:read("*a")
+        file:close()
+        return contents
+    end
 end
 
 function MiscUtils.writeStringToFile(fileName, input)
     local file = io.open(fileName, "w")
-    if file == nil then return end
-    file:write(input)
-    file:close()
+    if file ~= nil then
+        file:write(input)
+        file:close()
+    end
 end
 
 function MiscUtils.saveTableToFile(fileName, tableData)
