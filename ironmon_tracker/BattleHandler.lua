@@ -3,7 +3,8 @@ local function BattleHandler(
     initialMemoryAddresses,
     initialPokemonDataReader,
     initialTracker,
-    initialProgram)
+    initialProgram,
+    initialSettings)
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
 
     local self = {}
@@ -13,6 +14,7 @@ local function BattleHandler(
     local pokemonDataReader = initialPokemonDataReader
     local tracker = initialTracker
     local program = initialProgram
+    local settings = initialSettings
 
     local GEN5_activePlayerMonPIDAddr = nil
     local GEN5_PIDSwitchData = {}
@@ -20,7 +22,7 @@ local function BattleHandler(
     local playerBattleTeamPIDs = {list = {}}
     local enemyBattlers = {}
     local playerMonIndex = 0
-    local highestLevelMonIndex = -1
+    local faintMonIndex = -1
     local firstBattleComplete = false
     local battleDataFetched = false
     local enemyMonIndex = 0
@@ -29,6 +31,7 @@ local function BattleHandler(
     local lastValidPlayerBattlePID = -1
     local inBattle = false
     local enemyTrainerID = nil
+    local GEN5_transformed = false
 
     self.BATTLE_STATUS_TYPES = {
         [0x2100] = true,
@@ -251,15 +254,15 @@ local function BattleHandler(
     end
 
     local function GEN5_checkPlayerTransform(currentPlayerPokemon, compare)
+        if GEN5_transformed then return end
         local previous = currentPlayerPokemon
         if compare.PID == previous.PID and compare.level == previous.level then
             for statName, value in pairs(compare.stats) do
                 if previous[statName] ~= value then
-                    return true
+                    GEN5_transformed = true
                 end
             end
         end
-        return false
     end
 
     function self.getPokemonDataPlayer(currentPlayerPokemon)
@@ -281,9 +284,8 @@ local function BattleHandler(
             pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
             local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
             if currentPlayerPokemon ~= nil and gameInfo.GEN == 5 then
-                if GEN5_checkPlayerTransform(currentPlayerPokemon, data) == true then
-                    return nil
-                end
+                GEN5_checkPlayerTransform(currentPlayerPokemon, data)
+                if GEN5_transformed then return nil end
             end
             return data
         end
@@ -449,7 +451,8 @@ local function BattleHandler(
                 if gameInfo.TRAINERS.LAB_IDS[enemyTrainerID] then
                     tracker.setProgress(PlaythroughConstants.PROGRESS.PAST_LAB)
                 elseif gameInfo.TRAINERS.FINAL_FIGHT_ID == enemyTrainerID then
-                    tracker.setProgress(PlaythroughConstants.PRORESS.WON)
+                    tracker.setProgress(PlaythroughConstants.PROGRESS.WON)
+                    program.onRunEnded()
                 end
             end
             totalBattlesCompleted = totalBattlesCompleted + 1
@@ -460,8 +463,9 @@ local function BattleHandler(
                 end
             end
         end
-        highestLevelMonIndex = -1
+        faintMonIndex = -1
         inBattle = false
+        GEN5_transformed = false
     end
 
     local function getPlayerParty()
@@ -480,25 +484,30 @@ local function BattleHandler(
     local function calculateHighestPlayerMonIndex()
         local party = getPlayerParty()
         local maxLevel = 0
-        local highestLevelPokemon = nil
+        local highestLevelMonIndex = -1
         for monIndex, mon in pairs(party) do
             if mon.level > maxLevel then
                 maxLevel = mon.level
                 highestLevelMonIndex = monIndex
             end
         end
+        return highestLevelMonIndex
     end
 
     function self.checkIfRunHasEnded()
         if not inBattle or not battleDataFetched then
             return
         end
-        if highestLevelMonIndex == -1 then
-            calculateHighestPlayerMonIndex()
+        if faintMonIndex == -1 then
+            if settings.trackedInfo.FAINT_DETECTION == PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT then
+                faintMonIndex = calculateHighestPlayerMonIndex()
+            elseif settings.trackedInfo.FAINT_DETECTION ==PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT then
+                faintMonIndex = 0
+            end
         end
         local currentBase = memoryAddresses.playerBattleBase
-        pokemonDataReader.setCurrentBase(currentBase + highestLevelMonIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
-        local data = pokemonDataReader.decryptPokemonInfo(false, highestLevelMonIndex, false)
+        pokemonDataReader.setCurrentBase(currentBase + faintMonIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
+        local data = pokemonDataReader.decryptPokemonInfo(false, faintMonIndex, false)
         if MiscUtils.validPokemonData(data) then
             if data.curHP == 0 then
                 program.onRunEnded()
