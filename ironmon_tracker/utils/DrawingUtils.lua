@@ -32,7 +32,7 @@ function DrawingUtils.clearGUI()
         Graphics.SIZES.SCREEN_WIDTH,
         0,
         Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.MAIN_SCREEN_WIDTH,
-        Graphics.SIZES.MAIN_SCREEN_HEIGHT,
+        Graphics.SIZES.MAIN_SCREEN_HEIGHT+200,
         0x00000000,
         0x00000000
     )
@@ -93,7 +93,7 @@ function DrawingUtils.drawHorizontalBarGraph(
     horizontalPadding)
     local borderColor = DrawingUtils.convertColorKeyToColor(borderColorKey)
     local textBarColor = DrawingUtils.convertColorKeyToColor(textBarColorKey)
-    local x, y = position.x, position.y
+    local x, y = position.x, position.y 
     local width, height = size.width, size.height
     local namePadding = horizontalPadding
     local topLeftPoint = {
@@ -135,7 +135,7 @@ function DrawingUtils.drawHorizontalBarGraph(
     local horizontalDistance = math.abs(bottomRightPoint.x - bottomLeftPoint.x)
     for _, dataEntry in pairs(dataSet) do
         local name, value = dataEntry[1], dataEntry[2]
-        local barY = math.floor(spacing + topLeftPoint.y + ((spacing + barHeight) * currentIndex))
+        local barY = math.floor(spacing + topLeftPoint.y + ((spacing + barHeight) * currentIndex)) - 1
         local horizontalDistanceFraction = horizontalDistance * (value / topValue)
         local barX = bottomLeftPoint.x + 1
         local verticalOffset = (barHeight - 10) / 2
@@ -258,6 +258,8 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
             elseif justifiedSpacing == 2 then
                 spacing = 3
             end
+        elseif text == "WT" then
+            spacing = 3
         else
             local number = tonumber(text)
             if number ~= nil then
