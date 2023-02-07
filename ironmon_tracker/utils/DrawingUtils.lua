@@ -260,6 +260,8 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
             end
         elseif text == "WT" then
             spacing = 3
+        elseif text == "ITM" then
+            spacing = 2
         else
             local number = tonumber(text)
             if number ~= nil then
