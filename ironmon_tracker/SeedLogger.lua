@@ -51,7 +51,7 @@ local function SeedLogger(initialProgram, initialGameName)
 
     local function figureOutCause(pastRun)
         local faintedPokemon, enemyPokemon = pastRun.getFaintedPokemon(), pastRun.getEnemyPokemon()
-        local abilityName = AbilityData.ABILITIES[enemyPokemon.ability].name
+        local abilityName = AbilityData.ABILITIES[enemyPokemon.ability + 1].name
         local causeMappings = {
             [PlaythroughConstants.CAUSES.WON] = function()
                 return pastRun.getProgress() == 2
