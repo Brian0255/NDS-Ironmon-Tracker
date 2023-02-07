@@ -16,7 +16,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
     local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
     local currentPokemonIndex = 600
     local constants = {
-        MAIN_FRAME_HEIGHT = 134,
+        MAIN_FRAME_HEIGHT = 142,
         POKEMON_ICON_WIDTH = 31,
         POKEMON_ICON_HEIGHT = 28,
         TEXT_HEADER_HEIGHT = 18,
