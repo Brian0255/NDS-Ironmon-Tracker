@@ -6,18 +6,23 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
 	local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
 	local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
+	local SettingToggleButton = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/SettingToggleButton.lua")
 	local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
 	local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
 	local settings = initialSettings
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		TRACKED_INFO_HEIGHT = 158,
-		MAIN_BUTTONS_Y_OFFSET = 23,
+		TRACKED_INFO_HEIGHT = 208,
+		MAIN_BUTTONS_Y_OFFSET = 5,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
 		MAIN_BUTTON_WIDTH = 110,
-		MAIN_BUTTON_HEIGHT = 19
+		MAIN_BUTTON_HEIGHT = 19,
+		BUTTONS_FRAME_HEIGHT = 102,
+		FAINT_DETECTION_FRAME_HEIGHT = 57,
+		FAINT_DETECTION_ROW_HEIGHT = 13,
+		BUTTON_SIZE = 10
 	}
 	local ui = {}
 	local eventListeners = {
@@ -42,19 +47,16 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 		local logPath = forms.openfile("*.log", Paths.CURRENT_DIRECTORY)
 		program.openLogFromPath(logPath)
 		client.SetSoundOn(soundOn)
-	end 
+	end
 
 	local function initEventListeners()
 		eventListeners.goBackClickListener =
 			MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_OPTIONS_SCREEN)
-		eventListeners.logOpenListenerr = 
-			MouseClickEventListener(ui.frames.openLogButtonFrame, onOpenLogClick)
+		eventListeners.logOpenListenerr = MouseClickEventListener(ui.frames.openLogButtonFrame, onOpenLogClick)
 		eventListeners.trackedPokemonClickListener =
 			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
-		eventListeners.pastRunsListeners = 
-			MouseClickEventListener(ui.frames.pastRunsButtonFrame, program.openPastRunsScreen)
-		eventListeners.statsListener =
-			MouseClickEventListener(ui.frames.statisticsButtonFrame, program.openStatisticsScreen)
+		eventListeners.pastRunsListeners = MouseClickEventListener(ui.frames.pastRunsButtonFrame, program.openPastRunsScreen)
+		eventListeners.statsListener = MouseClickEventListener(ui.frames.statisticsButtonFrame, program.openStatisticsScreen)
 	end
 
 	local function initBottomFrameControls()
@@ -85,7 +87,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	end
 	local function initMainButtons()
 		local buttonNames = {
-			trackedPokemonButton = "Tracked Pok"..Chars.accentedE.."mon",
+			trackedPokemonButton = "Tracked Pok" .. Chars.accentedE .. "mon",
 			pastRunsButton = "Past Runs",
 			statisticsButton = "Statistics",
 			openLogButton = "Open a Log"
@@ -107,7 +109,8 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			local text = buttonNames[key]
 			local iconName = icons[i]
 			local frameName = key .. "Frame"
-			local frameInfo = FrameFactory.createScreenOpeningFrame(
+			local frameInfo =
+				FrameFactory.createScreenOpeningFrame(
 				ui.frames.mainButtonFrame,
 				constants.MAIN_BUTTON_WIDTH,
 				constants.MAIN_BUTTON_HEIGHT,
@@ -119,6 +122,102 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			ui.controls[order[i]] = frameInfo.button
 		end
 	end
+
+	local function onFaintDetectionClick(button)
+		button.onClick()
+		program.drawCurrentScreens()
+	end
+
+	local function createFaintDetectionChoosingRow(settingKey, settingValue, labelName)
+		local frame =
+			Frame(
+			Box(
+				{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
+				{
+					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					height = constants.FAINT_DETECTION_ROW_HEIGHT
+				},
+				nil,
+				nil
+			),
+			Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 3),
+			ui.frames.faintDetectionFrame
+		)
+		local radioButton =
+			SettingToggleButton(
+			Component(
+				frame,
+				Box(
+					{x = 0, y = 0},
+					{width = constants.BUTTON_SIZE, height = constants.BUTTON_SIZE},
+					"Top box background color",
+					"Top box border color",
+					true,
+					"Top box background color"
+				)
+			),
+			settings.trackedInfo,
+			settingKey,
+			settingValue,
+			true,
+			true,
+			program.saveSettings
+		)
+		local label =
+			TextLabel(
+			Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0})),
+			TextField(
+				labelName,
+				{x = 0, y = 0},
+				TextStyle(
+					Graphics.FONT.DEFAULT_FONT_SIZE,
+					Graphics.FONT.DEFAULT_FONT_FAMILY,
+					"Top box text color",
+					"Top box background color"
+				)
+			)
+		)
+		table.insert(eventListeners, MouseClickEventListener(radioButton, onFaintDetectionClick, radioButton))
+	end
+
+	local function initFaintDetectionUI()
+		ui.frames.faintDetectionFrame =
+			Frame(
+			Box(
+				{x = 0, y = 0},
+				{
+					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					height = constants.FAINT_DETECTION_FRAME_HEIGHT
+				},
+				"Top box background color",
+				"Top box border color"
+			),
+			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5, {x = 5, y = 5}),
+			ui.frames.mainInnerFrame
+		)
+		ui.controls.faintDetectionLabel =
+			TextLabel(
+			Component(ui.frames.faintDetectionFrame, Box({x = 0, y = 0}, {width = 0, height = 11})),
+			TextField(
+				"Run is considered over when:",
+				{x = -1, y = 0},
+				TextStyle(
+					Graphics.FONT.DEFAULT_FONT_SIZE,
+					Graphics.FONT.DEFAULT_FONT_FAMILY,
+					"Top box text color",
+					"Top box background color"
+				)
+			)
+		)
+		local settingNames = {
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT] = "First Pok" .. Chars.accentedE .. "mon faints",
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT] = "Highest level faints"
+		}
+		for settingValue, name in pairs(settingNames) do
+			createFaintDetectionChoosingRow("FAINT_DETECTION", settingValue, name)
+		end
+	end
+
 	local function initUI()
 		ui.controls = {}
 		ui.frames = {}
@@ -144,28 +243,8 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 				"Top box background color",
 				"Top box border color"
 			),
-			nil,
+			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
 			ui.frames.mainFrame
-		)
-		ui.frames.mainButtonFrame =
-			Frame(
-			Box({x = constants.MAIN_BUTTONS_X_OFFSET, y = constants.MAIN_BUTTONS_Y_OFFSET}, {width = 0, height = 0}, nil, nil),
-			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, constants.MAIN_BUTTON_SPACING),
-			ui.frames.mainInnerFrame
-		)
-		ui.frames.bottomFrame =
-			Frame(
-			Box(
-				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 104},
-				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-					height = 21
-				},
-				nil,
-				nil
-			),
-			Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 4, {x = 96, y = 3}),
-			ui.frames.mainInnerFrame
 		)
 		ui.controls.topHeading =
 			TextLabel(
@@ -184,6 +263,36 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 				{x = 36, y = 1},
 				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
+		)
+		ui.frames.mainButtonFrame =
+			Frame(
+			Box(
+				{x = 0, y = 0},
+				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = constants.BUTTONS_FRAME_HEIGHT},
+				"Top box background color",
+				"Top box border color"
+			),
+			Layout(
+				Graphics.ALIGNMENT_TYPE.VERTICAL,
+				constants.MAIN_BUTTON_SPACING,
+				{x = constants.MAIN_BUTTONS_X_OFFSET, y = constants.MAIN_BUTTONS_Y_OFFSET}
+			),
+			ui.frames.mainInnerFrame
+		)
+		initFaintDetectionUI()
+		ui.frames.bottomFrame =
+			Frame(
+			Box(
+				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 104},
+				{
+					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					height = 22
+				},
+				"Top box background color",
+				"Top box border color"
+			),
+			Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 4, {x = 96, y = 4}),
+			ui.frames.mainInnerFrame
 		)
 		initMainButtons()
 		initBottomFrameControls()
