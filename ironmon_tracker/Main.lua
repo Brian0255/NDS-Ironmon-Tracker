@@ -11,6 +11,7 @@ local function Main()
 
 	dofile("ironmon_tracker/utils/FormsUtils.lua")
 	dofile("ironmon_tracker/utils/MiscUtils.lua")
+	dofile("ironmon_tracker/constants/PlaythroughConstants.lua")
 	dofile("ironmon_tracker/constants/MiscConstants.lua")
 
 	dofile("ironmon_tracker/constants/Paths.lua")
@@ -28,7 +29,6 @@ local function Main()
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/IconSets.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/PlaythroughConstants.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Input.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/DrawingUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/BitUtils.lua")
@@ -45,6 +45,7 @@ local function Main()
 
 	local settings
 	local program
+	local tracker
 
 	local loadNextSeed = false
 
@@ -172,6 +173,7 @@ local function Main()
 	end
 
 	local function loadNext()
+		tracker.updatePlaytime(program.getGameInfo().NAME)
 		local soundOn = client.GetSoundOn()
 		client.SetSoundOn(false)
 		local nextRomInfo
@@ -241,7 +243,7 @@ local function Main()
 		client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
 		local Tracker = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Tracker.lua")
 		local Program = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Program.lua")
-		local tracker = Tracker()
+		tracker = Tracker()
 		readSettings()
 		PlaythroughConstants.initializeStandardMessages()
 		ThemeFactory.setSettings(settings)
@@ -255,6 +257,7 @@ local function Main()
 			return false
 		end
 		tracker.loadData(gameConfiguration.gameInfo.NAME)
+		tracker.loadTotalPlaytime(gameConfiguration.gameInfo.NAME)
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
 		ThemeFactory.setSaveFunction(program.saveSettings)
 		event.onexit(program.onProgramExit, "onProgramExit")

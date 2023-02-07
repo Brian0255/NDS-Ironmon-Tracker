@@ -312,7 +312,9 @@ local function Tracker()
 
 	local function createNewMoveEntry(pokemonID, moveID, level)
 		local pokemonData = trackedData.trackedPokemon[pokemonID]
-		if pokemonData == nil then return end
+		if pokemonData == nil then
+			return
+		end
 		pokemonData.moves = {}
 		pokemonData.moves[1] = {
 			move = moveID,
@@ -392,7 +394,9 @@ local function Tracker()
 	end
 
 	function self.setStatPredictions(pokemonID, newStats)
-		if trackedData.trackedPokemon[pokemonID] == nil then return end
+		if trackedData.trackedPokemon[pokemonID] == nil then
+			return
+		end
 		trackedData.trackedPokemon[pokemonID].statPredictions = newStats
 	end
 
@@ -423,7 +427,7 @@ local function Tracker()
 
 	function self.getNote(pokemonID)
 		if trackedData.trackedPokemon[pokemonID] == nil then
-			return
+			return ""
 		end
 		local note = trackedData.trackedPokemon[pokemonID].note
 		if note ~= nil then
@@ -465,7 +469,14 @@ local function Tracker()
 	function self.getStatPredictions(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
 		if trackedData.trackedPokemon[pokemonID] == nil then
-			return
+			return {
+				HP = 1,
+				ATK = 1,
+				DEF = 1,
+				SPA = 1,
+				SPD = 1,
+				SPE = 1
+			}
 		end
 		if trackedData.trackedPokemon[pokemonID].statPredictions == nil then
 			return {

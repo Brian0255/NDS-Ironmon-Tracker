@@ -54,7 +54,9 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function changeSelectedPokemon()
-        if currentIndex == 0 then return end
+        if currentIndex == 0 then
+            return
+        end
         local currentHash = currentPastRunHashes[currentIndex]
         local pastRun = pastRuns[currentHash]
         if selectedPokemon == SELECTED_POKEMON.FAINTED then
@@ -71,8 +73,6 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         program.undoPastRunView()
         program.openScreen(program.UI_SCREENS.TRACKED_INFO_SCREEN)
     end
-
-  
 
     local function readCurrentIndex()
         highlightCurrentButtons()
@@ -92,7 +92,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         local xOffset = 2
         xOffset = xOffset + ((2 - #indexString) * 6)
         ui.currentIndexLabel.setText(currentIndex .. "/" .. #currentPastRunHashes)
-        ui.currentIndexLabel.setTextOffset({x=xOffset, y = -1})
+        ui.currentIndexLabel.setTextOffset({x = xOffset, y = -1})
         if pastRun == nil then
             pastRun = seedLogger.getDefaultPastRun()
             ui.currentIndexLabel.setText("0/0")
@@ -112,14 +112,18 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onForwardRunClick()
-        if currentIndex == 0 then return end
+        if currentIndex == 0 then
+            return
+        end
         currentIndex = MiscUtils.increaseTableIndex(currentIndex, #currentPastRunHashes)
         selectedPokemon = SELECTED_POKEMON.FAINTED
         readCurrentIndex()
     end
 
     local function onBackwardRunClick()
-        if currentIndex == 0 then return end
+        if currentIndex == 0 then
+            return
+        end
         currentIndex = MiscUtils.decreaseTableIndex(currentIndex, #currentPastRunHashes)
         selectedPokemon = SELECTED_POKEMON.FAINTED
         readCurrentIndex()
@@ -165,10 +169,9 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         local width = mainFrameSize.width
         local centerX = (width - (Graphics.SIZES.MAIN_SCREEN_WIDTH)) / 2
         ui.frames.mainFrame.move({x = Graphics.SIZES.SCREEN_WIDTH, y = height - 1})
-        ui.frames.mainFrame.setLayoutPadding({x=centerX + 5, y = 0})
+        ui.frames.mainFrame.setLayoutPadding({x = centerX + 5, y = 0})
         ui.frames.mainFrame.resize({["width"] = width, height = constants.MAIN_FRAME_HEIGHT - 1})
     end
-    
 
     local function onConfirmRemoveNoBadgeRuns()
         seedLogger.removeNoBadgeRuns()
@@ -176,7 +179,6 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onRemoveNoBadgeRunsClick()
-        forms.destroyall()
         FormsUtils.createConfirmDialog(onConfirmRemoveNoBadgeRuns)
     end
 
@@ -258,13 +260,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         for i = 0, 8, 1 do
             ui.badgeButtons[i] =
                 TextLabel(
-                Component(
-                    ui.frames.badgeButtonFrame,
-                    Box(
-                        {x = 0, y = 0},
-                        {width = 11, height = 11}
-                    )
-                ),
+                Component(ui.frames.badgeButtonFrame, Box({x = 0, y = 0}, {width = 11, height = 11})),
                 TextField(
                     i,
                     {x = 2, y = 0},
@@ -288,29 +284,29 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
             ui.frames.badgeFrame
         )
         ui.controls.removeNoBadgeRunsButton =
-        TextLabel(
-        Component(
-            goBackFrame,
-            Box(
-                {x = 0, y = 0},
-                {width = 88, height = 14},
-                "Top box background color",
-                "Top box border color",
-                true,
-                "Top box background color"
-            )
-        ),
-        TextField(
-            "Delete 0 Badge Runs",
-            {x = 2, y = 1},
-            TextStyle(
-                Graphics.FONT.DEFAULT_FONT_SIZE,
-                Graphics.FONT.DEFAULT_FONT_FAMILY,
-                "Top box text color",
-                "Top box background color"
+            TextLabel(
+            Component(
+                goBackFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {width = 88, height = 14},
+                    "Top box background color",
+                    "Top box border color",
+                    true,
+                    "Top box background color"
+                )
+            ),
+            TextField(
+                "Delete 0 Badge Runs",
+                {x = 2, y = 1},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
             )
         )
-    )
         ui.controls.goBackButton =
             TextLabel(
             Component(
@@ -439,13 +435,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         for i, buttonName in pairs(buttonNames) do
             ui.sortButtons[i] =
                 TextLabel(
-                Component(
-                    sortButtonFrame,
-                    Box(
-                        {x = 0, y = 0},
-                        {width = widths[i], height = 16}
-                    )
-                ),
+                Component(sortButtonFrame, Box({x = 0, y = 0}, {width = widths[i], height = 16})),
                 TextField(
                     buttonName,
                     {x = 3, y = 2},
