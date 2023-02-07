@@ -76,6 +76,9 @@ MiscConstants.DEFAULT_SETTINGS = {
     automaticUpdates = {
         LAST_DAY_CHECKED = "",
         UPDATE_WAS_DONE = true
+    },
+    trackedInfo = {
+        FAINT_DETECTION = PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT
     }
 }
 

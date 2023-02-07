@@ -76,10 +76,15 @@ PlaythroughConstants.EMPTY_PAST_RUN_STATISTICS = {
 
 PlaythroughConstants.CAUSES = {
     STANDARD = 0,
-    SHEDINJA = 1,
-    IMPOSTER = 2,
-    ENEMY_LOWER_BST = 3,
-    WON = 4
+    WON = 1,
+    SHEDINJA = 2,
+    IMPOSTER = 3,
+    ENEMY_LOWER_BST = 4,
+}
+
+PlaythroughConstants.FAINT_DETECTIONS = {
+    ON_FIRST_SLOT_FAINT = 0,
+    ON_HIGHEST_LEVEL_FAINT = 1
 }
 
 --in case the death quotes file is nil or something dumb like that
