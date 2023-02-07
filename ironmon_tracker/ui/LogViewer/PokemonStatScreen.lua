@@ -205,6 +205,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         end
         ui.frames.evoLeftArrowFrame.setVisibility(totalEvos > 1)
         ui.frames.evoRightArrowFrame.setVisibility(totalEvos > 1)
+        ui.controls.evoRightButton.setVisibility(totalEvos > 1)
+        ui.controls.evoLeftButton.setVisibility(totalEvos > 1)
         ui.controls.evoImage.setVisibility(totalEvos ~= 0)
         if totalEvos == 0 then
             ui.controls.evoInfoLabel.setText("None")
