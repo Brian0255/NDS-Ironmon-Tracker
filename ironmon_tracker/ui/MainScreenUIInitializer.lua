@@ -176,7 +176,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                     y = 0
                 },
                 {
-                    width = constants.POKEMON_INFO_WIDTH - 26,
+                    width = constants.POKEMON_INFO_WIDTH,
                     height = constants.STAT_INFO_HEIGHT - constants.POKEMON_INFO_HEIGHT
                 }
             ),
