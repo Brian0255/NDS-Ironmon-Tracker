@@ -72,7 +72,7 @@ IconDrawer.ICONS =
                 {1,0,0,0,0,0,0,0,1,0,0},
                 {1,1,1,1,1,1,1,1,1,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         NOTE_BOTTOM = {
@@ -382,7 +382,7 @@ IconDrawer.ICONS =
                 {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         SWORD = {
@@ -403,7 +403,7 @@ IconDrawer.ICONS =
                 {0,1,0,1,0,0,1,1,1,0,0,0,0,0,0,0},
                 {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         CONTROLLER = {
@@ -425,7 +425,7 @@ IconDrawer.ICONS =
                 {0,0,1,0,0,0,1,1,1,1,1,0,0,0,1,0},
                 {0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         PENCIL = {
@@ -447,7 +447,7 @@ IconDrawer.ICONS =
                 {0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
                 {0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         PAINTBRUSH = {
@@ -469,7 +469,7 @@ IconDrawer.ICONS =
                 {0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1},
                 {0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         BADGES = {
@@ -493,7 +493,7 @@ IconDrawer.ICONS =
                     {0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0},
                     {0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0}
                 },
-                colorKey = "Top box border color",
+                colorKey = "Top box text color",
                 backgroundColorKey = "Top box background color"
             },
             DPPT = {
@@ -516,7 +516,7 @@ IconDrawer.ICONS =
                     {0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
                     {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0}
                 },
-                colorKey = "Top box border color",
+                colorKey = "Top box text color",
                 backgroundColorKey = "Top box background color"
             },
             BW = {
@@ -539,7 +539,7 @@ IconDrawer.ICONS =
                     {1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0},
                     {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0}
                 },
-                colorKey = "Top box border color",
+                colorKey = "Top box text color",
                 backgroundColorKey = "Top box background color"
             },
             BW2 = {
@@ -562,7 +562,7 @@ IconDrawer.ICONS =
                     {0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
                     {0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0}
                 },
-                colorKey = "Top box border color",
+                colorKey = "Top box text color",
                 backgroundColorKey = "Top box background color"
             }
         },
@@ -633,7 +633,7 @@ IconDrawer.ICONS =
                 {0,0,0,0,1,0,1,0,0,0,0,0,0,0,0},
                 {0,0,0,0,1,1,0,0,0,0,0,0,0,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         UPDATER_ICON = {
@@ -656,7 +656,7 @@ IconDrawer.ICONS =
                 {0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         SURVIVAL_HEALS = {
@@ -674,7 +674,7 @@ IconDrawer.ICONS =
                 {1,0,0,0,0,0,0,0,0,0,1},
                 {1,1,1,1,1,1,1,1,1,1,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         UP_ARROW = {
@@ -806,7 +806,7 @@ IconDrawer.ICONS =
                 {1,0,1,0,0,0,0,0,0,0,1,0,1},
                 {1,1,0,0,0,0,0,0,0,0,0,1,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         BOOKMARK_FILLED_LARGE = {
@@ -828,7 +828,7 @@ IconDrawer.ICONS =
                 {1,1,1,0,0,0,0,0,0,0,1,1,1},
                 {1,1,0,0,0,0,0,0,0,0,0,1,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         POKEBALL = {
@@ -850,7 +850,7 @@ IconDrawer.ICONS =
                 {0,0,0,0,1,1,0,0,0,0,1,1,0,0,0},
                 {0,0,0,0,0,0,1,1,1,1,0,0,0,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         LEFT_ARROW_LARGE = {
@@ -900,7 +900,7 @@ IconDrawer.ICONS =
                 {0,0,1,0,1,0},
                 {0,0,0,1,0,0},
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         LOCATION_ICON_SMALL_FILLED = {
@@ -933,7 +933,7 @@ IconDrawer.ICONS =
                 {0,0,1,1,1,0,0},
                 {0,0,0,1,0,0,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         SMALL_DOT = {
@@ -942,7 +942,7 @@ IconDrawer.ICONS =
                 {1,1},
                 {1,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         LARGE_DOT = {
@@ -953,7 +953,7 @@ IconDrawer.ICONS =
                 {1,1,1,1},
                 {0,1,1,0}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         LONG_LEFT_ARROW = {
@@ -1029,7 +1029,7 @@ IconDrawer.ICONS =
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         STATISTICS_ICON = {
@@ -1051,7 +1051,7 @@ IconDrawer.ICONS =
                 {0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,0},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
        TRACKED_INFO_ICON = {
@@ -1072,7 +1072,7 @@ IconDrawer.ICONS =
                 {1,0,0,0,0,0,0,0,0,0,1},
                 {1,1,1,1,1,1,1,1,1,1,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         OPEN_LOG_ICON = {
@@ -1095,7 +1095,7 @@ IconDrawer.ICONS =
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}
             },
-            colorKey = "Top box border color",
+            colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
         F1 = {
