@@ -6,20 +6,19 @@ FormsUtils.POPUP_DIALOG_TYPES = {
 }
 
 function FormsUtils.createMainScreenNote(pokemonID, note, noteSettingFunction, drawingFunction)
-    local width, height = 270, 70
+    local width, height = 350, 70
     local clientCenter = FormsUtils.getCenter(width, height)
-    local charMax = 40
     if pokemonID ~= nil then
         forms.destroyall()
         local noteForm =
             forms.newform(
             width,
             height,
-            "Note (" .. charMax .. " char. max)",
+            "Note",
             function()
             end
         )
-        local textBox = forms.textbox(noteForm, note, 190, 0, nil, 5, 5)
+        local textBox = forms.textbox(noteForm, note, 270, 0, nil, 5, 5)
         forms.button(
             noteForm,
             "Set",
@@ -28,7 +27,7 @@ function FormsUtils.createMainScreenNote(pokemonID, note, noteSettingFunction, d
                 drawingFunction()
                 forms.destroy(noteForm)
             end,
-            200,
+            280,
             4,
             48,
             22
@@ -89,6 +88,7 @@ function FormsUtils.shortenFolderName(path)
 end
 
 function FormsUtils.createConfirmDialog(callback)
+    forms.destroyall()
     local center = FormsUtils.getCenter(288,130)
     local x, y = center.xPos, center.yPos
     local width, height = 288, 130
@@ -213,6 +213,7 @@ local function onSaveClick(x,y,fileNameTextbox, folderPath, fileExtension, fileS
 end
 
 function FormsUtils.createSaveForm(folderPath, fileType, fileExtension, fileSavingOperation)
+    forms.destroyall()
     local width, height = 288, 70
     local saveForm = forms.newform(width, height, "Save "..fileType)
     local center = FormsUtils.getCenter(width,height)
