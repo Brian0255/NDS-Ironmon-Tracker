@@ -62,10 +62,12 @@ local function RandomizerLogParser(initialProgram)
     local totalLines
 
     local function checkForNameReplacement(name)
+        return name
+        --[[
         if self.LogParserConstants.NAME_REPLACEMENTS[name] then
             return self.LogParserConstants.NAME_REPLACEMENTS[name]
         end
-        return name
+        return name--]]
     end
 
     local function parseRandomizedEvolutions(lines, lineStart)
@@ -74,13 +76,13 @@ local function RandomizerLogParser(initialProgram)
             local currentLine = lines[currentLineIndex]
             local lineSplit = MiscUtils.split(currentLine, "->", true)
             local pokemonName, evolutionList = lineSplit[1], lineSplit[2]
-            pokemonName = checkForNameReplacement(pokemonName)
+            pokemonName = pokemonName:lower()
             local evolutions = {}
             --mr. mime is annoying, take out space after period then re-add it so the split works
             evolutionList = evolutionList:gsub("%. ", ".")
             for _, evolutionData in pairs(MiscUtils.split(evolutionList, " ", true)) do
                 local evolutionName = evolutionData:gsub(",", ""):gsub("%.", ". ")
-                evolutionName = checkForNameReplacement(evolutionName)
+                evolutionName = evolutionName:lower()
                 if pokemonIDMappings[evolutionName] then
                     local evolutionID = pokemonIDMappings[evolutionName]
                     table.insert(evolutions, evolutionID)
@@ -93,7 +95,7 @@ local function RandomizerLogParser(initialProgram)
         return true
     end
 
-    local function readPokemonIntoTeam(pokemonInfo, trainerTeam)
+    local function readPokemonIntoTeam(pokemonInfo, trainerTeam, trainerID)
         local nameAndItem, level = pokemonInfo:match("(.*) Lv(%d+)")
         local nameItemSplit = MiscUtils.split(nameAndItem, "@", true)
         local heldItem = nil
@@ -104,7 +106,7 @@ local function RandomizerLogParser(initialProgram)
             end
         end
         local pokemonName = nameItemSplit[1]
-        pokemonName = checkForNameReplacement(pokemonName)
+        pokemonName = pokemonName:lower()
         local pokemonID = pokemonIDMappings[pokemonName]
         local pokemon = {
             ["pokemonID"] = pokemonID,
@@ -123,7 +125,7 @@ local function RandomizerLogParser(initialProgram)
             local trainerID = tonumber(trainer:match("#(%d+)"))
             local teamInfo = MiscUtils.split(teamList, ",", true)
             for _, pokemonInfo in pairs(teamInfo) do
-                readPokemonIntoTeam(pokemonInfo, trainerTeam)
+                readPokemonIntoTeam(pokemonInfo, trainerTeam, trainerID)
             end
             if trainerID ~= nil then
                 trainers[trainerID] = trainerTeam
@@ -139,7 +141,7 @@ local function RandomizerLogParser(initialProgram)
             local currentLine = lines[currentLineIndex]
             local lineSplit = MiscUtils.split(currentLine, "->", true)
             local pokemonName = lineSplit[1]:match("%d+%s(.+)")
-            pokemonName = checkForNameReplacement(pokemonName)
+            pokemonName = pokemonName:lower()
             local pokemonID = pokemonIDMappings[pokemonName]
             pokemonList[pokemonID].moves = {}
             --next 7 lines are not necessary, they're the base stats (which we grab elsewhere)
@@ -186,8 +188,7 @@ local function RandomizerLogParser(initialProgram)
             local currentLine = lines[currentLineIndex]
             local lineSplit = MiscUtils.split(currentLine, "|", true)
             local pokemonName = lineSplit[1]:match("%d+%s(.+)")
-            pokemonName = checkForNameReplacement(pokemonName)
-            local pokemonID = pokemonIDMappings[pokemonName]
+            local pokemonID = pokemonIDMappings[pokemonName:lower()]
             table.remove(lineSplit, 1)
             pokemonList[pokemonID].pokemonTMsLearnable = {}
             for index, TMInfo in pairs(lineSplit) do
@@ -215,7 +216,7 @@ local function RandomizerLogParser(initialProgram)
             local pokemonID = tonumber(pokemonData[1])
             if pokemonID ~= nil then
                 local pokemonName = pokemonData[2]
-                pokemonName = checkForNameReplacement(pokemonName)
+                pokemonName = pokemonName:lower()
                 pokemonIDMappings[pokemonName] = pokemonID
                 pokemonList[pokemonID] = {}
                 local pokemon = pokemonList[pokemonID]
@@ -268,7 +269,7 @@ local function RandomizerLogParser(initialProgram)
         for i = 0, 2, 1 do
             local starterLine = lines[lineStart + i]
             local number, name = starterLine:match("Set starter (%d+) to (.*)")
-            name = checkForNameReplacement(name)
+            name = name:lower()
             number = tonumber(number)
             starters[pokemonIDMappings[name]] = number
         end
@@ -338,7 +339,7 @@ local function RandomizerLogParser(initialProgram)
 
     local function resetPokemon()
         for id, pokemon in pairs(PokemonData.POKEMON) do
-            pokemonIDMappings[pokemon.name] = id
+            pokemonIDMappings[pokemon.name:lower()] = id
             pokemonList[id] = {}
         end
     end
