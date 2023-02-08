@@ -346,10 +346,9 @@ local function BattleHandler(
             local monIndex = enemyBattler.teamPIDs[activePID]
             if type(monIndex) == "table" then
                 pokemonData = handleIdenticalMonsInParty(slot, currentBase, monIndex)
-            end
-            if type(monIndex) == "table" then
-                --failure grabbing ID somehow, failsafe
-                monIndex = monIndex[1]
+                if pokemonData == nil then
+                    monIndex = monIndex[1]
+                end
             end
             if monIndex ~= nil and pokemonData == nil then
                 enemyMonIndex = monIndex
