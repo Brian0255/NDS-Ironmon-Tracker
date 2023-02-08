@@ -311,11 +311,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					}
 					local formStartIndex = formTable.index
 					local alternateFormID = formStartIndex + (alternateFormindex - 2)
-					pokemon.alternateFormID = alternateFormID
-					pokemon.name = PokemonData.POKEMON[alternateFormID + 1].name
-					if not formTable.cosmetic then
-						pokemon.pokemonID = alternateFormID
-						tracker.logPokemonAsAlternateForm(pokemon.pokemonID, pokemon.baseForm, pokemon.alternateForm)
+					if PokemonData.POKEMON[alternateFormID + 1] then
+						pokemon.alternateFormID = alternateFormID
+						pokemon.name = PokemonData.POKEMON[alternateFormID + 1].name
+						if not formTable.cosmetic then
+							pokemon.pokemonID = alternateFormID
+							tracker.logPokemonAsAlternateForm(pokemon.pokemonID, pokemon.baseForm, pokemon.alternateForm)
+						end
 					end
 				end
 			end

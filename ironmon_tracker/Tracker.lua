@@ -107,19 +107,16 @@ local function Tracker()
 	end
 
 	local function createNewPokemonEntry(pokemonID)
-		if pokemonID < 700 then
-			trackedData.trackedPokemon[0] = nil
-			trackedData.trackedPokemon[pokemonID] = {
-				moves = {},
-				statPredictions = nil,
-				abilities = {},
-				note = "",
-				amountSeen = 0,
-				lastLevelSeen = "---",
-				currentLevel = "---",
-				baseForm = nil
-			}
-		end
+		trackedData.trackedPokemon[pokemonID] = {
+			moves = {},
+			statPredictions = nil,
+			abilities = {},
+			note = "",
+			amountSeen = 0,
+			lastLevelSeen = "---",
+			currentLevel = "---",
+			baseForm = nil
+		}
 	end
 
 	function self.updateEncounterData(pokemonID, level)
@@ -166,10 +163,8 @@ local function Tracker()
 	end
 
 	local function updateAmountSeen(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
 		local data = trackedData.trackedPokemon[pokemonID]
-		if data == nil then
-			return
-		end
 		data.amountSeen = data.amountSeen + 1
 	end
 
@@ -202,9 +197,6 @@ local function Tracker()
 	function self.logPokemonAsAlternateForm(pokemonID, baseForm, alternateForm)
 		checkIfPokemonUntracked(pokemonID)
 		local data = trackedData.trackedPokemon[pokemonID]
-		if data == nil then
-			return
-		end
 		data.baseForm = {
 			name = baseForm.name,
 			cosmetic = baseForm.cosmetic
@@ -287,34 +279,28 @@ local function Tracker()
 	function self.updateCurrentLevel(pokemonID, level)
 		checkIfPokemonUntracked(pokemonID)
 		local data = trackedData.trackedPokemon[pokemonID]
-		if data == nil then
-			return
-		end
 		data.currentLevel = level
 	end
 
 	function self.updateLastLevelSeen(pokemonID, newLevel)
 		checkIfPokemonUntracked(pokemonID)
 		local data = trackedData.trackedPokemon[pokemonID]
-		if data == nil then
-			return
-		end
 		data.lastLevelSeen = newLevel
 	end
 
 	function self.getLastLevelSeen(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
 		return trackedData.trackedPokemon[pokemonID].lastLevelSeen
 	end
 
 	function self.getAmountSeen(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
 		return trackedData.trackedPokemon[pokemonID].amountSeen
 	end
 
 	local function createNewMoveEntry(pokemonID, moveID, level)
+		checkIfPokemonUntracked(pokemonID)
 		local pokemonData = trackedData.trackedPokemon[pokemonID]
-		if pokemonData == nil then
-			return
-		end
 		pokemonData.moves = {}
 		pokemonData.moves[1] = {
 			move = moveID,
@@ -343,9 +329,6 @@ local function Tracker()
 	function self.trackMove(pokemonID, moveID, level)
 		checkIfPokemonUntracked(pokemonID)
 		local pokemonData = trackedData.trackedPokemon[pokemonID]
-		if pokemonData == nil then
-			return
-		end
 		local currentMoves = pokemonData.moves
 		if next(currentMoves) == nil then
 			createNewMoveEntry(pokemonID, moveID, level)
@@ -394,9 +377,7 @@ local function Tracker()
 	end
 
 	function self.setStatPredictions(pokemonID, newStats)
-		if trackedData.trackedPokemon[pokemonID] == nil then
-			return
-		end
+		checkIfPokemonUntracked(pokemonID)
 		trackedData.trackedPokemon[pokemonID].statPredictions = newStats
 	end
 
@@ -417,9 +398,7 @@ local function Tracker()
 	end
 
 	function self.setNote(pokemonID, note)
-		if trackedData.trackedPokemon[pokemonID] == nil then
-			return
-		end
+		checkIfPokemonUntracked(pokemonID)
 		if note ~= nil then
 			trackedData.trackedPokemon[pokemonID].note = note
 		end
@@ -439,9 +418,6 @@ local function Tracker()
 
 	function self.getMoves(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
-		if trackedData.trackedPokemon[pokemonID] == nil then
-			return
-		end
 		if next(trackedData.trackedPokemon[pokemonID].moves) == nil then
 			for _ = 1, 4, 1 do
 				table.insert(
@@ -457,6 +433,7 @@ local function Tracker()
 	end
 
 	function self.getAbilities(pokemonID)
+		checkIfPokemonUntracked(pokemonID)
 		if trackedData.abilities[pokemonID] == nil then
 			return {
 				1
@@ -468,16 +445,6 @@ local function Tracker()
 
 	function self.getStatPredictions(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
-		if trackedData.trackedPokemon[pokemonID] == nil then
-			return {
-				HP = 1,
-				ATK = 1,
-				DEF = 1,
-				SPA = 1,
-				SPD = 1,
-				SPE = 1
-			}
-		end
 		if trackedData.trackedPokemon[pokemonID].statPredictions == nil then
 			return {
 				HP = 1,
