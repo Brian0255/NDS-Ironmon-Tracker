@@ -13,6 +13,7 @@ MiscConstants.UPDATE_NOTES = {
     '-- Fixed a bug where badges were not displaying correctly for HG/SS.',
     '-- Fixed a bug with Lake Verity encounters.',
     '-- Fixed a bug where the log viewer would sometimes crash viewing enemy teams in Platinum.',
+    '-- Fixed a bug where alternate forms would sometimes crash the tracker.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
