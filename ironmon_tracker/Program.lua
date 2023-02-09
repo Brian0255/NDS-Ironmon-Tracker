@@ -620,7 +620,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if not canDraw then
 			return
 		end
-		gui.clearGraphics()
+		DrawingUtils.clearGUI()
 		Graphics.SIZES.MAIN_SCREEN_PADDING = 199
 		local total = getScreenTotal()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] and total == 1 then
