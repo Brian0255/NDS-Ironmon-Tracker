@@ -61,15 +61,6 @@ local function RandomizerLogParser(initialProgram)
     local starters = {}
     local totalLines
 
-    local function checkForNameReplacement(name)
-        return name
-        --[[
-        if self.LogParserConstants.NAME_REPLACEMENTS[name] then
-            return self.LogParserConstants.NAME_REPLACEMENTS[name]
-        end
-        return name--]]
-    end
-
     local function parseRandomizedEvolutions(lines, lineStart)
         local currentLineIndex = lineStart
         while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
@@ -230,6 +221,10 @@ local function RandomizerLogParser(initialProgram)
                 }
                 pokemon.pokemonID = pokemonID
                 program.addAdditionalDataToPokemon(pokemon)
+                if pokemon.name == "Wormadam T" then
+                    print(pokemon)
+                    print(PokemonData.POKEMON[pokemonID+1])
+                end
                 local abilityNames = {pokemonData[10], pokemonData[11]}
                 pokemon.abilities = {}
                 for _, abilityName in pairs(abilityNames) do
@@ -276,40 +271,6 @@ local function RandomizerLogParser(initialProgram)
     end
 
     self.LogParserConstants = {
-        NAME_REPLACEMENTS = {
-            ["Nidoran♀"] = "Nidoran F",
-            ["Nidoran♂"] = "Nidoran M",
-            ["Burmy"] = "Burmy P",
-            ["Wormadam"] = "Wormadam P",
-            ["Cherrim"] = "Cherrim O",
-            ["Shellos"] = "Shellos W",
-            ["Gastrodon"] = "Gastrodon W",
-            ["Giratina"] = "Giratina A",
-            ["Shaymin"] = "Shaymin L",
-            ["Unfezant"] = "Unfezant M",
-            ["Basculin"] = "Basculin R",
-            ["Basculin-B"] = "Basculin B",
-            ["Frillish"] = "Frillish M",
-            ["Jellicent"] = "Jellicent M",
-            ["Meloetta"] = "Meloetta A",
-            ["Deoxys-A"] = "Deoxys A",
-            ["Deoxys-D"] = "Deoxys D",
-            ["Deoxys-S"] = "Deoxys S",
-            ["Wormadam-S"] = "Wormadam S",
-            ["Wormadam-T"] = "Wormadam T",
-            ["Shaymin-S"] = "Shaymin S",
-            ["Giratina-O"] = "Giratina O",
-            ["Rotom-H"] = "Rotom Heat",
-            ["Rotom-W"] = "Rotom Wash",
-            ["Rotom-Fr"] = "Rotom Frost",
-            ["Rotom-Fa"] = "Rotom Fan",
-            ["Rotom-M"] = "Rotom Mow",
-            ["Castform-F"] = "Castform F",
-            ["Castform-W"] = "Castform R",
-            ["Castform-I"] = "Castform S",
-            ["Darmanitan-Z"] = "Darmanitan Z",
-            ["Meloetta-P"] = "Meloetta P"
-        },
         SECTION_HEADER_TO_PARSE_FUNCTION = {
             ["--Pokemon Base Stats & Types--"] = parsePokemon,
             ["--Pokemon Movesets--"] = parsePokemonLevelupMoves,
