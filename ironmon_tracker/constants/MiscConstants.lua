@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.1.7"
+MiscConstants.TRACKER_VERSION = "5.1.8"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- 5.1.7 hotfix: Fixes a critical error where minimizing would crash BizHawk.',
+    '-- 5.1.8 hotfix: Fixes a critical error where minimizing would crash BizHawk.',
     '-- The default "run over" detection is now when the first Pok'..Chars.accentedE..'mon faints. You can change this in the "Tracked Info" screen if you\'d like.',
     '-- You can now take much longer notes for enemy Pok'..Chars.accentedE..'mon. Now, if you write a note longer than two lines, you can hover over the note area to see the full note.',
     '-- The statistics screen will now take up the main screen space (like the log viewer) instead of the small tracker screen area.',
