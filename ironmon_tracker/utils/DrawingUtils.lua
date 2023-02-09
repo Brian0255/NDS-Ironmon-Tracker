@@ -27,17 +27,6 @@ function DrawingUtils.setAppearanceSettings(newAppearanceSettings)
     appearanceSettings = newAppearanceSettings
 end
 
-function DrawingUtils.clearGUI()
-    gui.drawRectangle(
-        Graphics.SIZES.SCREEN_WIDTH,
-        0,
-        Graphics.SIZES.SCREEN_WIDTH + Graphics.SIZES.MAIN_SCREEN_WIDTH,
-        Graphics.SIZES.MAIN_SCREEN_HEIGHT+200,
-        0xFF000000,
-        0xFF000000
-    )
-end
-
 function DrawingUtils.textToWrappedArray(text, maxWidth)
     local words = MiscUtils.split(text, " ")
     local newWords = {}
