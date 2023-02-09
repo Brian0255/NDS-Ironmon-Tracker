@@ -52,11 +52,11 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	local function initEventListeners()
 		eventListeners.goBackClickListener =
 			MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_OPTIONS_SCREEN)
-		eventListeners.logOpenListenerr = MouseClickEventListener(ui.frames.openLogButtonFrame, onOpenLogClick)
+		eventListeners.logOpenListener = MouseClickEventListener(ui.frames.openLogButtonFrame, onOpenLogClick)
 		eventListeners.trackedPokemonClickListener =
 			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
-		eventListeners.pastRunsListeners = MouseClickEventListener(ui.frames.pastRunsButtonFrame, program.openPastRunsScreen)
-		eventListeners.statsListener = MouseClickEventListener(ui.frames.statisticsButtonFrame, program.openStatisticsScreen)
+		eventListeners.pastRunsListeners = MouseClickEventListener(ui.frames.pastRunsButtonFrame, program.openScreen, program.UI_SCREENS.PAST_RUNS_SCREEN)
+		eventListeners.statsListener = MouseClickEventListener(ui.frames.statisticsButtonFrame, program.openScreen, program.UI_SCREENS.STATISTICS_SCREEN)
 	end
 
 	local function initBottomFrameControls()

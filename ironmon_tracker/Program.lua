@@ -78,6 +78,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		INI.save("Settings.ini", settings)
 	end
 
+	local function checkIfNeedToInitialize(screen)
+		local blankInitialization = {
+			[self.UI_SCREENS.QUICK_LOAD_SCREEN] = true,
+			[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = true
+		}
+		local seedLoggerInitialization = {
+			[self.UI_SCREENS.STATISTICS_SCREEN] = true,
+			[self.UI_SCREENS.PAST_RUNS_SCREEN] = true
+		}
+		if blankInitialization[screen] then
+			self.UI_SCREEN_OBJECTS[screen].initialize()
+		elseif seedLoggerInitialization[screen] then
+			self.UI_SCREEN_OBJECTS[screen].initialize(seedLogger)
+		end
+	end
+
 	function self.openScreen(screen)
 		self.setCurrentScreens({screen})
 		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
@@ -85,25 +101,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].show()
 			local mainScreenPosition = currentScreens[self.UI_SCREENS.MAIN_SCREEN].getInnerFramePosition()
 			currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN].initialize(mainScreenPosition)
-		elseif screen == self.UI_SCREENS.QUICK_LOAD_SCREEN then
-			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.QUICK_LOAD_SCREEN].initialize()
 		end
+		checkIfNeedToInitialize(screen)
 		self.drawCurrentScreens()
-	end
-
-	function self.openUpdateNotes()
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.UPDATE_NOTES_SCREEN].initialize()
-		self.openScreen(self.UI_SCREENS.UPDATE_NOTES_SCREEN)
-	end
-
-	function self.openPastRunsScreen()
-		inPastRunView = true
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.PAST_RUNS_SCREEN].initialize(seedLogger)
-	end
-
-	function self.openStatisticsScreen()
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.STATISTICS_SCREEN].initialize(seedLogger)
-		self.openScreen(self.UI_SCREENS.STATISTICS_SCREEN)
 	end
 
 	self.UI_SCREENS = {
@@ -620,7 +620,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if not canDraw then
 			return
 		end
-		DrawingUtils.clearGUI()
 		Graphics.SIZES.MAIN_SCREEN_PADDING = 199
 		local total = getScreenTotal()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] and total == 1 then
@@ -761,7 +760,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		tracker.save(gameInfo.NAME)
 		tracker.updatePlaytime(gameInfo.NAME)
 		client.saveram()
-		DrawingUtils.clearGUI()
 		forms.destroyall()
 	end
 
@@ -789,7 +787,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 		if settings.automaticUpdates.UPDATE_WAS_DONE == true then
 			settings.automaticUpdates.UPDATE_WAS_DONE = false
-			self.openUpdateNotes()
+			self.openScreen(self.UI_SCREENS.UPDATE_NOTES_SCREEN)
 			self.saveSettings()
 		else
 			self.openScreen(self.UI_SCREENS.MAIN_SCREEN)

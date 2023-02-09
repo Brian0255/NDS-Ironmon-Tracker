@@ -221,10 +221,6 @@ local function RandomizerLogParser(initialProgram)
                 }
                 pokemon.pokemonID = pokemonID
                 program.addAdditionalDataToPokemon(pokemon)
-                if pokemon.name == "Wormadam T" then
-                    print(pokemon)
-                    print(PokemonData.POKEMON[pokemonID+1])
-                end
                 local abilityNames = {pokemonData[10], pokemonData[11]}
                 pokemon.abilities = {}
                 for _, abilityName in pairs(abilityNames) do
