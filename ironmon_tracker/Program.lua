@@ -467,6 +467,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local inThemeView = currentScreens[self.UI_SCREENS.COLOR_SCHEME_SCREEN]
 		if beforeFirstPokemon and tracker.getFirstPokemonID() ~= nil then
 			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(false)
 		end
 		if beforeFirstPokemon or afterFirstPokemon or inThemeView then
 			self.drawCurrentScreens()
