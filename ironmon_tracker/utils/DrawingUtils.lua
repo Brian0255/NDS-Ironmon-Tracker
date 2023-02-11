@@ -3,6 +3,7 @@ DrawingUtils = {}
 local colorScheme
 local colorSettings
 local appearanceSettings
+local blackInsteadOfTransparent
 
 local UIClassFolder = Paths.FOLDERS.UI_BASE_CLASSES .. "/"
 local Frame = dofile(UIClassFolder .. "Frame.lua")
@@ -21,6 +22,10 @@ end
 
 function DrawingUtils.setColorSettings(newColorSettings)
     colorSettings = newColorSettings
+end
+
+function DrawingUtils.setTransparentBackgroundOverride(newValue)
+    blackInsteadOfTransparent = newValue
 end
 
 function DrawingUtils.setAppearanceSettings(newAppearanceSettings)
@@ -289,7 +294,11 @@ function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
         ["Bottom box background color"] = true
     }
     if colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] and not transparentOverride then
-        return 0x00000000
+        if blackInsteadOfTransparent then
+            return 0xFF000000
+        else
+            return 0x00000000
+        end
     end
     local color = colorScheme[colorKey]
     if color == nil then
