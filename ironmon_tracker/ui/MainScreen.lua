@@ -15,6 +15,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local inTrackedView = false
     local inPastRunView = false
     local inLockedView = false
+    local randomBallPickerActive = false
     local defeatedLance = false
     local mainScreenUIInitializer
     local statCycleIndex = -1
@@ -903,9 +904,27 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         self.resetEventListeners()
     end
 
+    function self.setRandomBallPickerActive(newValue)
+        randomBallPickerActive = newValue
+    end
+
+    local function setUpBasedOnRandomBallPicker()
+        if randomBallPickerActive then
+            ui.controls.pokemonNameLabel.setText("")
+            ui.controls.pokemonLevelAndEvo.setText("")
+            ui.controls.pokemonHP.setText("")
+            ui.controls.heldItem.setText("")
+            ui.controls.abilityDetails.setText("")
+        end
+        ui.controls.pokemonImageLabel.setVisibility(not randomBallPickerActive)
+        ui.controls.pokemonType1.setVisibility(not randomBallPickerActive)
+        ui.controls.pokemonType2.setVisibility(not randomBallPickerActive)
+    end
+
     function self.show()
         self.updateBadgeLayout()
         readPokemonIntoUI()
+        setUpBasedOnRandomBallPicker()
         ui.frames.mainFrame.show()
         if not program.isInBattle() or inPastRunView or inTrackedView then
             extraThingsToDraw.moveEffectiveness = {}

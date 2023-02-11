@@ -13,7 +13,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		TRACKED_INFO_HEIGHT = 208,
+		TRACKED_INFO_HEIGHT = 209,
 		MAIN_BUTTONS_Y_OFFSET = 5,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
