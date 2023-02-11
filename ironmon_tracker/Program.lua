@@ -63,6 +63,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters
 	local trackerUpdater = TrackerUpdater(settings)
 	local seedLogger
+	local previousBackgroundColor
 
 	local currentScreens = {}
 
@@ -94,13 +95,25 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function checkForTransparenBackgroundException(screen)
+		local needSolidBackground = {
+			[self.UI_SCREENS.STATISTICS_SCREEN] = true,
+			[self.UI_SCREENS.LOG_VIEWER_SCREEN] = true
+		}
+		DrawingUtils.setTransparentBackgroundOverride(needSolidBackground[screen])
+	end
+
 	function self.openScreen(screen)
 		self.setCurrentScreens({screen})
+		checkForTransparenBackgroundException(screen)
 		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
 			self.setCurrentScreens {screen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(true)
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].show()
 			local mainScreenPosition = currentScreens[self.UI_SCREENS.MAIN_SCREEN].getInnerFramePosition()
 			currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN].initialize(mainScreenPosition)
+		else
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(false)
 		end
 		checkIfNeedToInitialize(screen)
 		self.drawCurrentScreens()
@@ -809,14 +822,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if logInfo ~= nil then
 			local firstPokemonID = tracker.getFirstPokemonID()
 			logInfo.setStarterNumberFromPlayerPokemonID(firstPokemonID)
-			self.setCurrentScreens({self.UI_SCREENS.LOG_VIEWER_SCREEN})
+			self.openScreen(self.UI_SCREENS.LOG_VIEWER_SCREEN)
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN].initialize(logInfo)
 			if playerPokemon ~= nil and playerPokemon.pokemonID ~= 0 then
 				local logScreen = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.LOG_VIEWER_SCREEN]
 				logScreen.addGoBackFunction(logScreen.goBackToOverview)
 				logScreen.loadPokemonStats(playerPokemon.pokemonID)
 			end
-			self.drawCurrentScreens()
 		end
 		client.SetSoundOn(soundOn)
 	end
