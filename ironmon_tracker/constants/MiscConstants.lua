@@ -1,11 +1,14 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.1.9"
+MiscConstants.TRACKER_VERSION = "5.1.10"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Hopefully fixes all bugs related to having transparent backgrounds on.'
+    '-- Survival\'s heal icon has been changed.',
+    '-- Fixed a bug where scrolling moves in the Log Viewer would not work with the mouse sometimes.',
+    '-- Fixed a bug with badges appearing incorrectly in the Past Run viewer.',
+    '-- Fixed a bug where hovering the enemy location icon to see encounters could crash the tracker.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
