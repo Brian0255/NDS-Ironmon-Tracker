@@ -59,6 +59,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         end
         local currentHash = currentPastRunHashes[currentIndex]
         local pastRun = pastRuns[currentHash]
+        program.loadPastRunIntoMainScreen(pastRun)
         if selectedPokemon == SELECTED_POKEMON.FAINTED then
             selectedPokemon = SELECTED_POKEMON.ENEMY
             program.setSpecificPokemonAsMainScreen(pastRun.getEnemyPokemon())
