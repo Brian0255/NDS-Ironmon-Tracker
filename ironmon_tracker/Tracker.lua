@@ -2,8 +2,8 @@ local function Tracker()
 	local self = {}
 
 	local currentAreaName = ""
-	local encounterData = {}
 	local trackedData = {
+		encounterData = {},
 		runOver = false,
 		progress = PlaythroughConstants.PROGRESS.NOWHERE,
 		firstPokemon = nil,
@@ -120,6 +120,7 @@ local function Tracker()
 	end
 
 	function self.updateEncounterData(pokemonID, level)
+		local encounterData = trackedData.encounterData
 		if not encounterData[currentAreaName] then
 			encounterData[currentAreaName] = {
 				areaName = currentAreaName,
@@ -149,7 +150,7 @@ local function Tracker()
 	end
 
 	function self.getEncounterData()
-		return encounterData[currentAreaName]
+		return trackedData.encounterData[currentAreaName]
 	end
 
 	function self.updateCurrentAreaName(newAreaName)
