@@ -1027,10 +1027,9 @@ local function MainScreenUIInitializer(ui, gameInfo)
             )
         )
         ui.controls.survivalHealsIcon =
-            Icon(
+            ImageLabel(
             Component(ui.frames.survivalHealFrame, Box({x = 0, y = 0}, {width = 8, height = 10}, nil, nil)),
-            "SURVIVAL_HEALS",
-            {x = 4, y = 1}
+            ImageField("ironmon_tracker/images/icons/heart.png", {x = 4, y = 1}, nil)
         )
         ui.frames.survivalHealAmountFrame =
             Frame(
