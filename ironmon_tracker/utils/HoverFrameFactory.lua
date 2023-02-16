@@ -812,25 +812,19 @@ local function sortTrackedEncounters(encounters)
         keys,
         function(key1, key2)
             local levels1, levels2 = encounters[key1], encounters[key2]
-            if levels1[1] == levels2[1] then
-                local currentIndex = 2
-                local keepGoing = true
-                while keepGoing do
-                    if levels1[currentIndex] == nil and levels2[currentIndex] == nil then
-                        return PokemonData.POKEMON[key1 + 1].name < PokemonData.POKEMON[key2 + 1].name
-                    elseif levels1[currentIndex] == nil and levels2[currentIndex] ~= nil then
-                        return levels2
-                    elseif levels2[currentIndex] == nil and levels1[currentIndex] ~= nil then
-                        return levels1
-                    else
-                        if levels1[currentIndex] ~= levels2[currentIndex] then
-                            return levels1[currentIndex] < levels2[currentIndex]
-                        end
-                    end
+            local currentIndex = 1
+            while true do
+                if levels1[currentIndex] == nil and levels2[currentIndex] == nil then
+                    return PokemonData.POKEMON[key1 + 1].name < PokemonData.POKEMON[key2 + 1].name
+                elseif levels1[currentIndex] == nil and levels2[currentIndex] ~= nil then
+                    return true
+                elseif levels2[currentIndex] == nil and levels1[currentIndex] ~= nil then
+                    return false
+                elseif levels1[currentIndex] ~= levels2[currentIndex] then
+                     return levels1[currentIndex] < levels2[currentIndex]
+                elseif levels1[currentIndex] == levels2[currentIndex] then
                     currentIndex = currentIndex + 1
                 end
-            else
-                return levels1[1] < levels2[1]
             end
         end
     )
