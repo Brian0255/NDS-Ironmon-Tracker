@@ -659,22 +659,22 @@ IconDrawer.ICONS =
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
-        SURVIVAL_HEALS = {
+        SURVIVAL_HEALS_OLD = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
                 {0,0,0,1,1,1,1,1,0,0,0},
                 {0,0,0,1,0,0,0,1,0,0,0},
                 {1,1,1,1,1,1,1,1,1,1,1},
-                {1,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,1,0,0,0,0,1},
-                {1,0,0,0,1,1,1,0,0,0,1},
-                {1,0,0,0,0,1,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,1},
+                {1,2,2,2,2,2,2,2,2,2,1},
+                {1,2,2,2,2,2,2,2,2,2,1},
+                {1,2,2,2,2,1,2,2,2,2,1},
+                {1,2,2,2,1,1,1,2,2,2,1},
+                {1,2,2,2,2,1,2,2,2,2,1},
+                {1,2,2,2,2,2,2,2,2,2,1},
+                {1,2,2,2,2,2,2,2,2,2,1},
                 {1,1,1,1,1,1,1,1,1,1,1}
             },
-            colorKey = "Top box border color",
+            colorKey = {"Top box border color","Negative text color"},
             backgroundColorKey = "Top box background color"
         },
         UP_ARROW = {
