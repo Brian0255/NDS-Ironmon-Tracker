@@ -27,10 +27,6 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
     local scrollerX = frame.getSize().width - 6
     local scrollReadingFunction = nil
 
-    local function onMouseUp()
-        dragging = false
-    end
-
     local function onScrollerClick()
         dragging = true
         scrollBaseY = scroller.getPosition().y - frame.getPosition().y
@@ -74,6 +70,12 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         scroller.move({x=scrollerX,y=scrollerY})
     end
 
+    local function onMouseUp()
+        dragging = false
+        updateScrollerFromCurrentIndex()
+        scrollReadingFunction()
+    end
+
     function self.setItems(newItems)
         itemSet = newItems
         limit = #itemSet
@@ -113,24 +115,24 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         local maxVerticalRoom = frame.getSize().height - scroller.getSize().height
         local distanceMovedDown = scroller.getPosition().y
         local percentange = distanceMovedDown/maxVerticalRoom
+        local previousIndex = currentIndex
         currentIndex = math.floor((percentange * (maxIndex-1)) + 1.5) 
-        scrollReadingFunction()
+        if previousIndex ~= currentIndex then
+            updateScrollerFromCurrentIndex()
+            scrollReadingFunction()
+        end
     end
 
     local function updateScroller()
         if dragging then
             local mouse = Input.getMouse()
-            if not mouse ["Left"] then
-                dragging = false
-            else
-                local currentMouseY = Input.getMousePosition().y
-                local difference = scrollBaseY + (currentMouseY - currentAnchorY)
-                local maxY = frame.getSize().height - scroller.getSize().height
-                difference = math.min(maxY, difference)
-                difference = math.max(0, difference)
-                scroller.move({x = scrollerX, y = difference})
-                updateItemsFromScroller()
-            end
+            local currentMouseY = Input.getMousePosition().y
+            local difference = scrollBaseY + (currentMouseY - currentAnchorY)
+            local maxY = frame.getSize().height - scroller.getSize().height
+            difference = math.min(maxY, difference)
+            difference = math.max(0, difference)
+            scroller.move({x = scrollerX, y = difference})
+            updateItemsFromScroller()
         end
     end
 
@@ -148,7 +150,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
     createScroller()
     table.insert(eventListeners, ScrollEventListener(frame, scrollForward, nil, Graphics.SCROLL_DIRECTION.DOWN))
     table.insert(eventListeners, ScrollEventListener(frame, scrollBackward, nil, Graphics.SCROLL_DIRECTION.UP))
-    eventListeners.mouseClick =  MouseClickEventListener(scroller, onScrollerClick)
+    eventListeners.mouseClick =  MouseClickEventListener(scroller, onScrollerClick, nil, onMouseUp)
     table.insert(frameCounters, FrameCounter(3,updateScroller))
 
     return self
