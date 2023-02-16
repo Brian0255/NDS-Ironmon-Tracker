@@ -713,6 +713,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             pokecenters = " " .. pokecenters
         end
         ui.controls.survivalHealAmountLabel.setText(pokecenters)
+       local survivalLabelOffset = {x=-2,y=-3}
+       if tonumber(pokecenters) > 9 then
+        survivalLabelOffset.x = -3
+       end
+       ui.controls.survivalHealAmountLabel.setTextOffset(survivalLabelOffset)
         local showAccEva =
             settings.appearance.SHOW_ACCURACY_AND_EVASION and program.isInBattle() and not isEnemy and not inLockedView and
             not inPastRunView

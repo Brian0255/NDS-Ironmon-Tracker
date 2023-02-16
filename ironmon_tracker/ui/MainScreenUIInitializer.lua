@@ -1043,7 +1043,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                     height = 0
                 }
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = -3, y = 2}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = -2, y = 2}),
             ui.frames.survivalHealFrame
         )
         ui.controls.decreaseHealsIcon =
@@ -1054,7 +1054,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
         )
         ui.controls.survivalHealAmountLabel =
             TextLabel(
-            Component(ui.frames.survivalHealAmountFrame, Box({x = 0, y = 0}, {width = 9, height = 8}, nil, nil)),
+            Component(ui.frames.survivalHealAmountFrame, Box({x = 0, y = 0}, {width = 8, height = 8}, nil, nil)),
             TextField(
                 "12",
                 {x = -2, y = -3},
