@@ -4,6 +4,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
     local MainScreenUIInitializer = dofile(Paths.FOLDERS.UI_FOLDER .. "/MainScreenUIInitializer.lua")
+	local BrowsManager = dofile(Paths.FOLDERS.EXTRAS_FOLDER .. "/BrowsManager.lua")
 
     local settings = initialSettings
     local tracker = initialTracker
@@ -18,6 +19,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local randomBallPickerActive = false
     local defeatedLance = false
     local mainScreenUIInitializer
+	local browsManager
     local statCycleIndex = -1
     local stats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
     local eventListeners = {
@@ -37,6 +39,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         statStages = {},
         status = {}
     }
+
     local function onHoverInfoEnd()
         activeHoverFrame = nil
         program.drawCurrentScreens()
@@ -284,6 +287,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.mainFrame = nil
         mainScreenUIInitializer = MainScreenUIInitializer(ui, program.getGameInfo())
         mainScreenUIInitializer.initUI()
+		browsManager = BrowsManager(settings, ui, currentPokemon, frameCounters, program)
+		browsManager.initialize()
     end
 
     local function setUpStatStages(isEnemy)
@@ -870,6 +875,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     function self.setPokemonToDraw(pokemon, otherPokemon)
         currentPokemon = pokemon
+		browsManager.setCurrentPokemon(pokemon)
         opposingPokemon = otherPokemon
     end
 
@@ -1087,7 +1093,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListeners,
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
-        table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
     end
 
     function self.getMainFrameSize()
