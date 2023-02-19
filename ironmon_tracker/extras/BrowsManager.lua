@@ -11,6 +11,7 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
 	local defaultFrames = 30
 	local fileEnding = ".png"
 	local currentPokemon = nil
+	local browsControls = {}
 
 	local self= {}
 
@@ -739,9 +740,9 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
 		local offsetAdjust = browsData.brows
 		local direction = browsData.direction
 		program.drawCurrentScreens()
-		for i = 1, 3, 1 do
+		for i = 1, #browsControls, 1 do
 			local controlID = "brows" .. i
-			local offset = {x=-100,y=-56}
+			local offset = {x=0,y=-56}
 			if browsUp then
                 if direction == 0 then
                     offset.y = offset.y - 3
@@ -757,39 +758,37 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
 			if offsetAdjust[i] ~= nil then
 				offset.x = offset.x + offsetAdjust[i].x
 				offset.y = offset.y + offsetAdjust[i].y - ((i-1) * 30)
-				filepath = Paths.FOLDERS.BROWS_IMAGES_FOLDER ..  offsetAdjust[i].file .. fileEnding
-				print ("adjusting")
-				print (offset)
+				filepath = Paths.FOLDERS.BROWS_IMAGES_FOLDER .. "/" ..  offsetAdjust[i].file .. fileEnding
 				ui.controls[controlID].setOffset(offset)
 			end
 			ui.controls[controlID].setPath(filepath)
-			print (controlID)
-			print (ui.controls[controlID].getPosition())
-			print (ui.controls[controlID].getPath())
 		end
+		program.drawCurrentScreens()
     end
 
 	function self.initialize()
-		--browsVisible = settings.extras.BROWS_ENABLED
-		browsVisible = true
+		browsVisible = settings.extras.BROWS_ENABLED
 		if tonumber(settings.extras.BROWS_FRAMES) then defaultFrames = tonumber(settings.extras.BROWS_FRAMES) end
 		frameCounters["browCounter"] = FrameCounter(defaultFrames, updateBrows, nil, true)
 		ui.controls.brows1 =
 			ImageLabel(
-			Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = -59}, {width = 30, height = 30}, nil, nil)),
-			ImageField("", {x = 0, y = -59}, nil),
+			Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
+			ImageField("", nil, nil),
 			browsVisible
 		)
 		ui.controls.brows2 = ImageLabel(
-			Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = -89}, {width = 30, height = 30}, nil, nil)),
-			ImageField("", {x = 0, y = -59}, nil),
+			Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
+			ImageField("", nil, nil),
 			browsVisible
 		)
 		ui.controls.brows3 = ImageLabel(
-			Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = -119}, {width = 30, height = 30}, nil, nil)),
-			ImageField("", {x = 0, y = -59}, nil),
+			Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
+			ImageField("", nil, nil),
 			browsVisible
 		)
+		browsControls[1] = ui.controls.brows1
+		browsControls[2] = ui.controls.brows1
+		browsControls[3] = ui.controls.brows1
 	end
 
 	function self.toggleBrows()
