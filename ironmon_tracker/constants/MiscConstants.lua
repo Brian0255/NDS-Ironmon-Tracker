@@ -79,6 +79,10 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     trackedInfo = {
         FAINT_DETECTION = PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT
+    },
+    extras = {
+        BROWS_ENABLED = false,
+        BROWS_FRAMES = 8
     }
 }
 
