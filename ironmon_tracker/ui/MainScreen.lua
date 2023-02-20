@@ -1093,7 +1093,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListeners,
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
-		table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
     end
 
     function self.getMainFrameSize()
