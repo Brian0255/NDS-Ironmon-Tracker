@@ -226,7 +226,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 Component(ui.frames.browsToggleFrame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
                 TextField(
                     labelName,
-                    {x = 0, y = 0},
+                    {x = 2, y = 0},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,

@@ -82,7 +82,7 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     extras = {
         BROWS_ENABLED = false,
-        BROWS_FRAMES = 30
+        BROWS_FRAMES = 8
     }
 }
 

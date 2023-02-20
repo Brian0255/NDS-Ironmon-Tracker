@@ -8,9 +8,10 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
 
     local browsVisible = true
     local browsUp = false
-    local defaultFrames = 30
+    local defaultFrames = 8
     local fileEnding = ".png"
     local currentPokemon = nil
+	local maxBrows = 6
     local browsControls = {}
 
     local self= {}
@@ -739,9 +740,14 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
         local browsData = perPokemonBrows()
         local offsetAdjust = browsData.brows
         local direction = browsData.direction
-        program.drawCurrentScreens()
-        for i = 1, #browsControls, 1 do
-            local controlID = "brows" .. i
+		local numControls = #browsControls
+		local prefix = "brows"
+		for i = 1, numControls, 1 do
+			ui.frames.pokemonImageTypeFrame.removeControl(browsControls[i])
+			browsControls[i] = nil
+		end
+        for i = 1, numControls, 1 do
+            local controlID = prefix .. i
             local offset = {x=0,y=-56}
             if browsUp then
                 if direction == 0 then
@@ -759,36 +765,32 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
                 offset.x = offset.x + offsetAdjust[i].x
                 offset.y = offset.y + offsetAdjust[i].y - ((i-1) * 30)
                 filepath = Paths.FOLDERS.BROWS_IMAGES_FOLDER .. "/" ..  offsetAdjust[i].file .. fileEnding
-                ui.controls[controlID].setOffset(offset)
             end
-            ui.controls[controlID].setPath(filepath)
+			ui.controls[controlID] =
+            ImageLabel(
+				Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
+				ImageField(filepath, offset, nil),
+				browsVisible
+        	)
+			browsControls[i] = ui.controls[controlID]
         end
         program.drawCurrentScreens()
     end
 
     function self.initialize()
-        browsVisible = settings.extras.BROWS_ENABLED
+		browsVisible = currentIconSet and currentIconSet.NAME == "Stadium" and settings.extras.BROWS_ENABLED
         if tonumber(settings.extras.BROWS_FRAMES) then defaultFrames = tonumber(settings.extras.BROWS_FRAMES) end
         frameCounters["browCounter"] = FrameCounter(defaultFrames, updateBrows, nil, true)
-        ui.controls.brows1 =
+		local prefix = "brows"
+		for i=1,maxBrows,1 do
+			ui.controls[prefix .. i] =
             ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
-            ImageField("", nil, nil),
-            browsVisible
-        )
-        ui.controls.brows2 = ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
-            ImageField("", nil, nil),
-            browsVisible
-        )
-        ui.controls.brows3 = ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
-            ImageField("", nil, nil),
-            browsVisible
-        )
-        browsControls[1] = ui.controls.brows1
-        browsControls[2] = ui.controls.brows1
-        browsControls[3] = ui.controls.brows1
+				Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
+				ImageField("", {x = 0, y = 0}, nil),
+				browsVisible
+        	)
+			browsControls[i] = ui.controls[prefix .. i]
+		end
     end
 
     function self.setCurrentPokemon(pokemon)
@@ -798,9 +800,9 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
     function self.show()
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
         browsVisible = currentIconSet and currentIconSet.NAME == "Stadium" and settings.extras.BROWS_ENABLED
-        ui.controls.brows1.setVisibility(browsVisible)
-        ui.controls.brows2.setVisibility(browsVisible)
-        ui.controls.brows3.setVisibility(browsVisible)
+		for i=1,#browsControls,1 do
+			browsControls[i].setVisibility(browsVisible)
+		end
     end
 
     return self
