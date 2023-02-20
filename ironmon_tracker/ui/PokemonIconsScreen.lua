@@ -8,13 +8,15 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
     local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageLabel.lua")
     local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageField.lua")
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
-    local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
+	local SettingToggleButton = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/SettingToggleButton.lua")
+	local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
     local settings = initialSettings
     local tracker = initialTracker
     local program = initialProgram
     local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
     local currentPokemonIndex = 600
+
     local constants = {
         MAIN_FRAME_HEIGHT = 142,
         POKEMON_ICON_WIDTH = 31,
@@ -25,7 +27,8 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
         BOTTOM_FRAME_HEIGHT = 24,
         NAV_BUTTON_WIDTH = 12,
         NAV_LABEL_WIDTH = 50,
-        NAV_FRAME_HEIGHT = 21
+        NAV_FRAME_HEIGHT = 21,
+		TOGGLE_BUTTON_SIZE = 10,
     }
     local ui = {}
     local eventListeners = {}
@@ -80,6 +83,11 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
         program.saveSettings()
         program.drawCurrentScreens()
     end
+
+	local function toggleBrowsClick(button)
+		button.onClick()
+		program.drawCurrentScreens()
+	end
 
     local function onForwardClick()
         local currentIndex = settings.appearance.ICON_SET_INDEX
@@ -172,9 +180,67 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
+
         table.insert(eventListeners, MouseClickEventListener(ui.controls.goForwardButton, onForwardClick))
         table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackwardButton, onBackwardClick))
     end
+
+	local function setUpBrowsToggle()
+		local isVisible = currentIconSet and currentIconSet.NAME == "Stadium"
+
+		ui.frames.browsToggleFrame =
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {
+                    width = 0,
+                    height = constants.POKEMON_ICON_HEIGHT + Graphics.SIZES.BORDER_MARGIN
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 29, y = -10}),
+            ui.frames.iconFrame
+        )
+		ui.controls.browsToggleBox =
+			SettingToggleButton(
+			Component(
+				ui.frames.browsToggleFrame,
+				Box(
+					{x = 0, y = 0},
+					{width = constants.TOGGLE_BUTTON_SIZE, height = constants.TOGGLE_BUTTON_SIZE},
+					"Top box background color",
+					"Top box border color",
+					true,
+					"Top box background color"
+				)
+			),
+			settings.extras,
+			"BROWS_ENABLED",
+			nil,
+			false,
+			isVisible,
+			program.saveSettings
+		)
+		local labelName = "Enable Brows"
+		ui.controls.browsToggleLabel =
+			TextLabel(
+				Component(ui.frames.browsToggleFrame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
+				TextField(
+					labelName,
+					{x = 0, y = 0},
+					TextStyle(
+						Graphics.FONT.DEFAULT_FONT_SIZE,
+						Graphics.FONT.DEFAULT_FONT_FAMILY,
+						"Top box text color",
+						"Top box background color"
+					)
+				),
+				nil,
+				isVisible
+		)
+		table.insert(eventListeners, MouseClickEventListener(ui.controls.browsToggleBox, toggleBrowsClick, ui.controls.browsToggleBox))
+	end
 
     local function setUpPokemonIcon()
         ui.frames.pokemonIconFrame =
@@ -310,6 +376,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
         setupNavFrameButtons()
         setUpPokemonIcon()
         setUpAuthorLabels()
+		setUpBrowsToggle()
         ui.frames.goBackFrame =
             Frame(
             Box(
@@ -370,6 +437,8 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
     end
 
     function self.show()
+		ui.controls.browsToggleBox.setVisibility(currentIconSet and currentIconSet.NAME == "Stadium")
+		ui.controls.browsToggleLabel.setVisibility(currentIconSet and currentIconSet.NAME == "Stadium")
         ui.frames.mainFrame.show()
     end
 

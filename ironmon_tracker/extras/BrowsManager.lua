@@ -791,15 +791,16 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
 		browsControls[3] = ui.controls.brows1
 	end
 
-	function self.toggleBrows()
-		browsVisible = not browsVisible
+	function self.setCurrentPokemon(pokemon)
+		currentPokemon = pokemon
+	end
+
+	function self.show()
+		local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
+		browsVisible = currentIconSet and currentIconSet.NAME == "Stadium" and settings.extras.BROWS_ENABLED
 		ui.controls.brows1.setVisibility(browsVisible)
 		ui.controls.brows2.setVisibility(browsVisible)
 		ui.controls.brows3.setVisibility(browsVisible)
-	end
-
-	function self.setCurrentPokemon(pokemon)
-		currentPokemon = pokemon
 	end
 
 	return self

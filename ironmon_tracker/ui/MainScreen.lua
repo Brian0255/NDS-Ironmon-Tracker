@@ -936,6 +936,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         self.updateBadgeLayout()
         readPokemonIntoUI()
         setUpBasedOnRandomBallPicker()
+		browsManager.show()
         ui.frames.mainFrame.show()
         if not program.isInBattle() or inPastRunView or inTrackedView then
             extraThingsToDraw.moveEffectiveness = {}
