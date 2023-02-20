@@ -16,7 +16,6 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
     local program = initialProgram
     local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
     local currentPokemonIndex = 600
-
     local constants = {
         MAIN_FRAME_HEIGHT = 142,
         POKEMON_ICON_WIDTH = 31,
@@ -180,7 +179,6 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 TextStyle(10, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
-
         table.insert(eventListeners, MouseClickEventListener(ui.controls.goForwardButton, onForwardClick))
         table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackwardButton, onBackwardClick))
     end
@@ -199,7 +197,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 29, y = -10}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 29, y = -11}),
             ui.frames.iconFrame
         )
         ui.controls.browsToggleBox =

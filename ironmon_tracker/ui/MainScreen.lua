@@ -39,7 +39,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         statStages = {},
         status = {}
     }
-
     local function onHoverInfoEnd()
         activeHoverFrame = nil
         program.drawCurrentScreens()
