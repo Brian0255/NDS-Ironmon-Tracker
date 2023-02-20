@@ -281,6 +281,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local seconds = os.time()
 		local pastRun = PastRun(date, seconds, playerPokemon, enemyPokemon, location, badges, progress)
 		seedLogger.logRun(pastRun)
+		tracker.updatePlaytime(gameInfo.NAME)
 		local runOverMessage = seedLogger.getRandomRunOverMessage(pastRun)
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RUN_OVER_SCREEN].initialize(runOverMessage)
 		self.setCurrentScreens({})
@@ -706,7 +707,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			nil,
 			true
 		),
-		playtimeUpdate = FrameCounter(300, tracker.updatePlaytime, gameInfo.NAME, true)
 	}
 
 	function self.pauseEventListeners()
