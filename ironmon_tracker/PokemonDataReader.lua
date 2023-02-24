@@ -232,7 +232,9 @@ local function PokemonDataReader(initialProgram)
             SPD = decryptedData.SPD,
             SPE = decryptedData.SPE
         }
-        decryptedData.experience = tonumber(string.format("%X",decryptedData.experience2..decryptedData.experience1),16)
+        local fourBytes = bit.band(decryptedData.experience2, 0x0000FFFF)
+        fourBytes = bit.lshift(fourBytes, 16)
+        decryptedData.experience = fourBytes + decryptedData.experience1
     end
 
     function self.getDefaultPokemon()
