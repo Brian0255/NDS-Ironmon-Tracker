@@ -86,6 +86,7 @@ MiscConstants.DEFAULT_SETTINGS = {
 MiscConstants.DEFAULT_POKEMON = {
     pid = 0,
     alternateForm = 0x0000,
+    experience = 0,
     pokemonID = 0,
     trainerID = 0,
     heldItem = 0,
