@@ -17,6 +17,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local inPastRunView = false
     local inLockedView = false
     local randomBallPickerActive = false
+    local hoveringOverLevel = false
     local defeatedLance = false
     local mainScreenUIInitializer
     local browsManager
@@ -37,7 +38,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         moveEffectiveness = {},
         nature = {},
         statStages = {},
-        status = {}
+        status = {},
+        experienceBar = {}
     }
     local function onHoverInfoEnd()
         activeHoverFrame = nil
@@ -115,6 +117,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 onStatPredictionClick(params)
             end
         end
+    end
+
+    local function onPokemonLevelHoverEnd()
+        hoveringOverLevel = false
+        program.drawCurrentScreens()
+    end
+
+    local function onPokemonLevelHover()
+        if inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then return end
+        hoveringOverLevel = true
+        program.drawCurrentScreens()
     end
 
     local function readStatPredictions(pokemonID)
@@ -288,6 +301,17 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         mainScreenUIInitializer.initUI()
         browsManager = BrowsManager(settings, ui, currentPokemon, frameCounters, program)
         browsManager.initialize()
+    end
+
+    local function setUpEXPBar(isEnemy)
+        extraThingsToDraw.experienceBar = nil
+        if isEnemy or not hoveringOverLevel or currentPokemon.fromTeamInfoView then return end
+        local type1Position = ui.controls.pokemonLevelAndEvo.getPosition()
+        extraThingsToDraw.experienceBar = {
+                x = type1Position.x + 2,
+                y = type1Position.y + 4,
+            percent = MiscUtils.calculateExperiencePercent(currentPokemon.level, currentPokemon.experience)
+        }
     end
 
     local function setUpStatStages(isEnemy)
@@ -782,6 +806,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             end
         end
         ui.controls.pokemonLevelAndEvo.setText("Lv. " .. currentPokemon.level .. " (" .. evo .. ")")
+        if hoveringOverLevel then
+            ui.controls.pokemonLevelAndEvo.setText("")
+        end
     end
 
     local function setUpMainPokemonInfo(isEnemy)
@@ -862,6 +889,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if pokemon.fromTeamInfoView then
             readTeamInfoPokemonIntoUI()
         end
+        setUpEXPBar(isEnemy)
     end
 
     local function openOptionsScreen()
@@ -1094,6 +1122,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
         table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
+        eventListeners.levelHoverListener = 
+        HoverEventListener(ui.controls.pokemonLevelAndEvo, onPokemonLevelHover, nil, onPokemonLevelHoverEnd, nil, false, true)
     end
 
     function self.getMainFrameSize()
