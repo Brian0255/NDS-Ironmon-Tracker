@@ -184,7 +184,7 @@ function MiscUtils.validPokemonData(pokemonData)
     end
     local id = tonumber(pokemonData.pokemonID)
     local heldItem = tonumber(pokemonData.heldItem)
-    if id == nil or pokemonData.level > 100 or pokemonData.ability > 164 then 
+    if id == nil or pokemonData.level > 100 or pokemonData.ability > 164 then
         return false
     end
     if id < 0 or id > 690 or heldItem < 0 or heldItem > 650 then
@@ -259,6 +259,25 @@ function MiscUtils.readLinesFromFile(file, allowNewLines)
     end
     file:close()
     return lines
+end
+
+local function calculateFluctuatingAtLevel(level)
+    if level < 15 then
+        return math.floor((level ^ 3 * (((level + 1) / 3) + 24)) / 50)
+    elseif level < 36 then
+        return math.floor((level ^ 3 * (level + 14))/50)
+    elseif level < 100 then
+        return math.floor((level ^ 3 * ((level/2) + 32))/50)
+    end
+    return 0
+end
+
+function MiscUtils.calculateExperiencePercent(level, currentExperience)
+    if currentExperience == 0 then return 0 end
+    local nextLevel = level + 1
+    local expAtCurrent = calculateFluctuatingAtLevel(level)
+    local expAtNextLevel = calculateFluctuatingAtLevel(nextLevel)
+    return (currentExperience - expAtCurrent) / (expAtNextLevel - expAtCurrent)
 end
 
 function MiscUtils.readStringFromFile(fileName)
