@@ -1,15 +1,16 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.2.0"
+MiscConstants.TRACKER_VERSION = "5.2.1"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Courtesy of Ninjafriend, there is now animated brows for the Pok'..Chars.accentedE..'mon stadium set. You can enable this in the icon sets menu under "Tracker Appearance."'
+    '-- The tracker will now show the Pok'..Chars.accentedE..'mon\'s experience bar when you hover over the level info. This will only be accurate for Fluctuating experience at the moment. You can disable this in the "Tracker Appearance" settings.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
+        EXPERIENCE_BAR = true,
         RIGHT_JUSTIFIED_NUMBERS = true,
         SHOW_ACCURACY_AND_EVASION = true,
         RANDOM_BALL_PICKER = true,
