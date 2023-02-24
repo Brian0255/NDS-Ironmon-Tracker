@@ -44,6 +44,8 @@ local function PokemonDataReader(initialProgram)
                 {0, {"pokemonID"}},
                 {2, {"heldItem"}},
                 {4, {"trainerID"}},
+                {8, {"experience1"}},
+                {10, {"experience2"}},
                 {12, {"friendship", "ability"}}
             },
             B = {
@@ -209,6 +211,30 @@ local function PokemonDataReader(initialProgram)
         end
     end
 
+    local function formatData()
+        decryptedData.moveIDs = {
+            decryptedData.move1,
+            decryptedData.move2,
+            decryptedData.move3,
+            decryptedData.move4
+        }
+        decryptedData.movePPs = {
+            decryptedData.move1PP,
+            decryptedData.move2PP,
+            decryptedData.move3PP,
+            decryptedData.move4PP
+        }
+        decryptedData.stats = {
+            HP = decryptedData.HP,
+            ATK = decryptedData.ATK,
+            DEF = decryptedData.DEF,
+            SPA = decryptedData.SPA,
+            SPD = decryptedData.SPD,
+            SPE = decryptedData.SPE
+        }
+        decryptedData.experience = tonumber(string.format("%X",decryptedData.experience2..decryptedData.experience1),16)
+    end
+
     function self.getDefaultPokemon()
         return MiscUtils.shallowCopy(MiscConstants.DEFAULT_POKEMON)
     end
@@ -229,13 +255,7 @@ local function PokemonDataReader(initialProgram)
                 decryptBlocks(blockReadingStart, blockOrder)
                 local battleStatStart = currentBase + 0x88
                 decryptBattleStats(battleStatStart, monIndex, checkingEnemy, extraOffset)
-                decryptedData.moveIDs = {
-                    decryptedData.move1,
-                    decryptedData.move2,
-                    decryptedData.move3,
-                    decryptedData.move4
-                }
-
+                formatData()
                 local sum = 0
                 for _, moveID in pairs(decryptedData.moveIDs) do
                     sum = sum + moveID
@@ -243,20 +263,7 @@ local function PokemonDataReader(initialProgram)
                 if sum == 0 then
                     return {}
                 end
-                decryptedData.movePPs = {
-                    decryptedData.move1PP,
-                    decryptedData.move2PP,
-                    decryptedData.move3PP,
-                    decryptedData.move4PP
-                }
-                decryptedData.stats = {
-                    HP = decryptedData.HP,
-                    ATK = decryptedData.ATK,
-                    DEF = decryptedData.DEF,
-                    SPA = decryptedData.SPA,
-                    SPD = decryptedData.SPD,
-                    SPE = decryptedData.SPE
-                }
+
 				if not MiscUtils.validPokemonData(decryptedData) then
 					return {}
 				end
