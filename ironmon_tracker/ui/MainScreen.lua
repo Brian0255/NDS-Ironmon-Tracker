@@ -126,6 +126,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function onPokemonLevelHover()
         if inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then return end
+        if not settings.appearance["EXPERIENCE_BAR"] then return end
         hoveringOverLevel = true
         program.drawCurrentScreens()
     end
