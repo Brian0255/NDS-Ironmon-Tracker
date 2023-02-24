@@ -650,6 +650,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.changeMainScreenForPastRunView()
+		inPastRunView = true
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setUpForPastRunView()
 	end
 
