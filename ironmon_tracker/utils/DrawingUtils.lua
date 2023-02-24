@@ -87,7 +87,7 @@ function DrawingUtils.drawHorizontalBarGraph(
     horizontalPadding)
     local borderColor = DrawingUtils.convertColorKeyToColor(borderColorKey)
     local textBarColor = DrawingUtils.convertColorKeyToColor(textBarColorKey)
-    local x, y = position.x, position.y 
+    local x, y = position.x, position.y
     local width, height = size.width, size.height
     local namePadding = horizontalPadding
     local topLeftPoint = {
@@ -307,17 +307,26 @@ function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
     return color
 end
 
-function DrawingUtils.calcShadowColor(colorKey)
-    local color = colorScheme[colorKey]
+function DrawingUtils.calcShadowColor(colorKey, veryDark, colorCode)
+    local color = colorCode
+    if color == nil then
+        color = colorScheme[colorKey]
+    end
     local color_hexval = (color - 0xFF000000)
 
     local r = bit.rshift(color_hexval, 16)
     local g = bit.rshift(bit.band(color_hexval, 0x00FF00), 8)
     local b = bit.band(color_hexval, 0x0000FF)
 
-    r = math.max(r * .92, 0)
-    g = math.max(g * .92, 0)
-    b = math.max(b * .92, 0)
+    local multiplier = .92
+
+    if veryDark then
+        multiplier = .88
+    end
+
+    r = math.max(r * multiplier, 0)
+    g = math.max(g * multiplier, 0)
+    b = math.max(b * multiplier, 0)
 
     color_hexval = bit.lshift(r, 16) + bit.lshift(g, 8) + b
     return (0xFF000000 + color_hexval)
@@ -463,7 +472,30 @@ function DrawingUtils.getNatureColor(stat, nature)
     return color
 end
 
+function DrawingUtils.drawExperienceBar(x, y, percent)
+    local width = 61
+    local multiplier = math.min(1,percent)
+    local expBarWidth = math.floor((width - 4) * multiplier)
+    local outlineColor = DrawingUtils.convertColorKeyToColor("Top box border color")
+    local expBarColor = DrawingUtils.convertColorKeyToColor("Positive text color")
+    local darkenedExpColor = DrawingUtils.calcShadowColor("Positive text color", true)
+    gui.drawRectangle(x + 1, y, width - 2, 3, outlineColor, nil)
+    gui.drawRectangle(x, y + 1, 0, 1, outlineColor, outlineColor)
+    gui.drawRectangle(x + width, y + 1, 0, 1, outlineColor, outlineColor)
+    if expBarWidth > 0 then
+        gui.drawRectangle(x + 2, y + 2, expBarWidth, 0, expBarColor, expBarColor)
+        gui.drawRectangle(x + 2, y + 1, expBarWidth, 0, darkenedExpColor, darkenedExpColor)
+    end
+end
+
 function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
+    if extraThingsToDraw.experienceBar ~= nil then
+        local x, y, percent =
+            extraThingsToDraw.experienceBar.x - 1,
+            extraThingsToDraw.experienceBar.y,
+            extraThingsToDraw.experienceBar.percent
+        DrawingUtils.drawExperienceBar(x, y, percent)
+    end
     if extraThingsToDraw.friendshipBar ~= nil then
         local x, y, progress =
             extraThingsToDraw.friendshipBar.x,
@@ -473,13 +505,13 @@ function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
             IconDrawer.drawFriendshipProgress(x, y, progress)
         else
             local style =
-            TextStyle(
-            Graphics.FONT.DEFAULT_FONT_SIZE,
-            Graphics.FONT.DEFAULT_FONT_FAMILY,
-            "Positive text color",
-            "Top box background color"
-        )
-            DrawingUtils.drawText(x-2, y-3, "READY", style, DrawingUtils.calcShadowColor("Top box background color"))
+                TextStyle(
+                Graphics.FONT.DEFAULT_FONT_SIZE,
+                Graphics.FONT.DEFAULT_FONT_FAMILY,
+                "Positive text color",
+                "Top box background color"
+            )
+            DrawingUtils.drawText(x - 2, y - 3, "READY", style, DrawingUtils.calcShadowColor("Top box background color"))
         end
     end
     if extraThingsToDraw.statStages ~= nil then
