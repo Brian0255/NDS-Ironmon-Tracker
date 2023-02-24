@@ -547,7 +547,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         x = 0,
                         y = 0
                     },
-                    {width = 10, height = 10}
+                    {width = 62, height = 10}
                 )
             ),
             TextField(
