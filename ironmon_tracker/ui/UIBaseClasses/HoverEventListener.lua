@@ -4,12 +4,14 @@ local function HoverEventListener(
     initialOnHoverParams,
     onHoverEndFunction,
     initialOnHoverEndParams,
-    initialHoverActive)
+    initialHoverActive,
+    initialOverrideWait)
     local self = {}
     local onHover = onHoverFunction
     local onHoverParams = initialOnHoverParams
     local onHoverEnd = onHoverEndFunction
     local onHoverEndParams = initialOnHoverEndParams
+    local overrideWait = initialOverrideWait or false
     local framesWaited = 0
     local hoverActive = initialHoverActive or false
     local baseWaitAmount = 30
@@ -60,7 +62,7 @@ local function HoverEventListener(
         if not hoverActive and onHover ~= nil then
             if inRange then
                 framesWaited = framesWaited + 1
-                if framesWaited == currentWaitAmount then
+                if overrideWait or framesWaited == currentWaitAmount then
                     onHover(onHoverParams)
                     hoverActive = true
                     resetCurrentAmount()
