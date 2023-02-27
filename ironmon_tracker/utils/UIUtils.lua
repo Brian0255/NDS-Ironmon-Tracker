@@ -1,5 +1,11 @@
 UIUtils = {}
 
+local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
+local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
+local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
+local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
+local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
+
 function UIUtils.clampFramePosition(alignment, position, frameToAlignWith, frameSize)
     if alignment == Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE then
         position.y = position.y - frameSize.height
@@ -87,4 +93,82 @@ function UIUtils.createAndDrawVanillaEncounterData(areaName, vanillaData, drawFu
     hoverFrame = HoverFrameFactory.createVanillaEncountersHoverFrame(areaName, vanillaData)
     moveAndShowHoverFrame(hoverFrame, alignment, frameToAlignWith, drawFunction)
     return hoverFrame
+end
+
+function UIUtils.createKeyboardMatchLabel(parentFrame, name, labelHeight)
+    local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
+    local matchLabel =
+        TextLabel(
+        Component(
+            parentFrame,
+            Box(
+                {x = 5, y = 5},
+                {
+                    width = labelWidth,
+                    height = labelHeight
+                },
+                "Top box background color",
+                "Top box border color",
+                true,
+                "Top box background color"
+            )
+        ),
+        TextField(
+            name,
+            {x = 1, y = 1},
+            TextStyle(
+                Graphics.FONT.DEFAULT_FONT_SIZE,
+                Graphics.FONT.DEFAULT_FONT_FAMILY,
+                "Top box text color",
+                "Top box background color"
+            )
+        )
+    )
+    return matchLabel
+end
+
+function UIUtils.createKeyboardLabelsFromMatches(matches, dataGroup, parentFrame, maxSearchResultWidth, labelHeight)
+    local matchTextLabels = {}
+    local currentResultWidth = 0
+    for _, match in pairs(matches) do
+        local name = dataGroup[match + 1].name
+        if dataGroup.ALTERNATE_FORMS then
+            if dataGroup.ALTERNATE_FORMS[name] and dataGroup.ALTERNATE_FORMS[name].cosmetic then
+                name = dataGroup.ALTERNATE_FORMS[name].shortenedName
+            end
+        end
+        local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
+        currentResultWidth = currentResultWidth + labelWidth + 1 --layout spacing
+        if currentResultWidth > maxSearchResultWidth then
+            table.insert(
+                matchTextLabels,
+                TextLabel(
+                    Component(
+                        parentFrame,
+                        Box(
+                            {x = 5, y = 5},
+                            {
+                                width = 20,
+                                height = labelHeight
+                            }
+                        )
+                    ),
+                    TextField(
+                        ". . .",
+                        {x = -1, y = 4},
+                        TextStyle(
+                            Graphics.FONT.DEFAULT_FONT_SIZE,
+                            Graphics.FONT.DEFAULT_FONT_FAMILY,
+                            "Top box text color",
+                            "Top box background color"
+                        )
+                    )
+                )
+            )
+            break
+        else
+             table.insert(matchTextLabels, UIUtils.createKeyboardMatchLabel(parentFrame, name, labelHeight))
+        end
+    end
+    return matchTextLabels
 end

@@ -7,7 +7,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
-    local PokemonSearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/PokemonSearchKeyboard.lua")
+    local SearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/SearchKeyboard.lua")
     local settings = initialSettings
     local pokemonSearchKeyboard
     local maxSearchResultWidth = 118
@@ -72,82 +72,11 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         matchTextLabels = {}
     end
 
-    local function createMatchTextLabel(name)
-        local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
-        local matchLabel =
-            TextLabel(
-            Component(
-                ui.frames.resultFrame,
-                Box(
-                    {x = 5, y = 5},
-                    {
-                        width = labelWidth,
-                        height = constants.POKEMON_BUTTON_HEIGHT
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    true,
-                    "Top box background color"
-                )
-            ),
-            TextField(
-                name,
-                {x = 1, y = 1},
-                TextStyle(
-                    Graphics.FONT.DEFAULT_FONT_SIZE,
-                    Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Top box text color",
-                    "Top box background color"
-                )
-            )
-        )
-        table.insert(matchTextLabels, matchLabel)
-        return matchLabel
-    end
-
     local function createLabelsFromMatches(matches)
         matchEventListeners = {}
-        local currentResultWidth = 0
-        for _, match in pairs(matches) do
-            local name = PokemonData.POKEMON[match + 1].name
-            if PokemonData.ALTERNATE_FORMS[name] and PokemonData.ALTERNATE_FORMS[name].cosmetic then
-                name = PokemonData.ALTERNATE_FORMS[name].shortenedName
-            end
-            local labelWidth = DrawingUtils.calculateWordPixelLength(name) + 5
-            currentResultWidth = currentResultWidth + labelWidth + 1 --layout spacing
-            if currentResultWidth > maxSearchResultWidth then
-                table.insert(
-                    matchTextLabels,
-                    TextLabel(
-                        Component(
-                            ui.frames.resultFrame,
-                            Box(
-                                {x = 5, y = 5},
-                                {
-                                    width = 20,
-                                    height = constants.POKEMON_BUTTON_HEIGHT
-                                },
-                                nil,
-                                nil
-                            )
-                        ),
-                        TextField(
-                            ". . .",
-                            {x = -1, y = 4},
-                            TextStyle(
-                                Graphics.FONT.DEFAULT_FONT_SIZE,
-                                Graphics.FONT.DEFAULT_FONT_FAMILY,
-                                "Top box text color",
-                                "Top box background color"
-                            )
-                        )
-                    )
-                )
-                break
-            else
-                local label = createMatchTextLabel(name)
-                table.insert(matchEventListeners, MouseClickEventListener(label, setIndexFromID, match))
-            end
+        matchTextLabels = UIUtils.createKeyboardLabelsFromMatches(matches, PokemonData.POKEMON, ui.frames.resultFrame, maxSearchResultWidth,constants.POKEMON_BUTTON_HEIGHT)
+        for index, label in pairs(matchTextLabels) do
+            table.insert(matchEventListeners, MouseClickEventListener(label, setIndexFromID, matches[index]))
         end
         program.drawCurrentScreens()
     end
@@ -285,7 +214,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
         )
 
         pokemonSearchKeyboard =
-            PokemonSearchKeyboard(sortedTrackedIDs, ui.frames.searchFrame, createLabelsFromMatches, clearMatches)
+            SearchKeyboard(sortedTrackedIDs, ui.frames.searchFrame, createLabelsFromMatches, clearMatches)
 
         ui.frames.goBackFrame =
             Frame(

@@ -234,7 +234,6 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                         "Top box background color"
                     )
                 ),
-                nil,
                 isVisible
         )
         table.insert(eventListeners, MouseClickEventListener(ui.controls.browsToggleBox, toggleBrowsClick, ui.controls.browsToggleBox))
