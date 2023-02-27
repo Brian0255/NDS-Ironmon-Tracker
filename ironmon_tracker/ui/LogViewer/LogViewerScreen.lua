@@ -15,6 +15,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local InfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/InfoScreen.lua")
     local GymTMScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/GymTMScreen.lua")
     local StatsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/StatsScreen.lua")
+    local SearchScreen = dofile(Paths.FOLDERS.UI_FOLDER.."/LogViewer/SearchScreen.lua")
     local ScreenStack = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScreenStack.lua")
     local tabScreenStack
     local settings = initialSettings
@@ -31,6 +32,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local pokemonScreenStack
     local trainerScreenStack
     local infoScreen
+    local searchScreen
     local sortedTrackedIDs
     local trainerGroups
     local currentIndex = 1
@@ -38,8 +40,9 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         "Pok" .. Chars.accentedE .. "mon",
         "Trainers",
         "Gym TMs",
-        "Statistics",
-        "Info"
+        "Stats",
+        "Info",
+        "Search"
     }
     local tabControls = {}
     local ui = {}
@@ -95,6 +98,12 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         program.drawCurrentScreens()
     end
 
+    local function undoOpenTrainerTeamFromSearch()
+        program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
+        self.changeActiveTabIndex(6)
+        program.drawCurrentScreens()
+    end
+
     local function goBackToTeamInfo()
         self.changeActiveTabIndex(2)
         program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN, program.UI_SCREENS.MAIN_SCREEN})
@@ -106,16 +115,21 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         self.loadPokemonStats(id)
     end
 
+    function self.goBackToSearchScreen()
+        self.changeActiveTabIndex(6)
+        program.drawCurrentScreens()
+    end
+
     function self.goBackToOverview()
         self.resetTabs()
         self.changeActiveTabIndex(1)
         program.drawCurrentScreens()
     end
 
-    function self.openTrainerTeam(battle)
+    function self.openTrainerTeam(battle, teamIndex)
         teamInfoScreen.setTrainerIndex(battle.index)
         trainerScreenStack.setCurrentIndex(2)
-        teamInfoScreen.readCurrentTrainerIndex(pokemonLoadingFunction)
+        teamInfoScreen.readCurrentTrainerIndex(pokemonLoadingFunction, teamIndex)
     end
 
     function self.openTrainerTeamFromCard(battle)
@@ -128,6 +142,13 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         self.changeActiveTabIndex(2)
         trainerOverviewScreen.onTabClick(trainerInfo.groupIndex)
         self.openTrainerTeam(trainerInfo.battle)
+    end
+
+    function self.openTrainerTeamFromSearch(trainerInfo, pokemonIndex)
+        self.addGoBackFunction(undoOpenTrainerTeamFromSearch)
+        self.changeActiveTabIndex(2)
+        trainerOverviewScreen.onTabClick(trainerInfo.groupIndex)
+        self.openTrainerTeam(trainerInfo.battle, pokemonIndex)
     end
 
     local function drawLineUnderActiveTab()
@@ -152,6 +173,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         pokemonOverviewScreen.reset()
         trainerOverviewScreen.reset()
         statsScreen.reset()
+        searchScreen.reset()
         pokemonScreenStack.setCurrentIndex(1)
         trainerScreenStack.setCurrentIndex(1)
         program.setCanDraw(true)
@@ -165,12 +187,10 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function createTabs()
-        local xOffsets = {3, 6, 4, 4, 7}
+        local xOffsets = {3, 3, 3, 3, 3, 3}
+        local widths = {46, 39, 42, 27, 22, 34}
         for index, tabName in pairs(tabs) do
-            local tabWidth = Graphics.LOG_VIEWER.TAB_WIDTH
-            if tabName == "Info" then
-                tabWidth = 30
-            end
+            local tabWidth = widths[index]
             local tabControl =
                 TextLabel(
                 Component(
@@ -205,12 +225,12 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
             ui.frames.tabFrame,
             27,
             3,
-            6,
+            5,
             "Top box background color",
             "Top box background color"
         )
         ui.frames.goBackFrame, ui.controls.goBackButton = arrowFrameInfo.frame, arrowFrameInfo.button
-        ui.frames.goBackFrame.resize({width = 27, height = Graphics.LOG_VIEWER.TAB_HEIGHT})
+        ui.frames.goBackFrame.resize({width = 26, height = Graphics.LOG_VIEWER.TAB_HEIGHT})
         table.insert(eventListeners, MouseClickEventListener(ui.frames.goBackFrame, onGoBackClick))
     end
 
@@ -241,10 +261,11 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         teamInfoScreen = TeamInfoScreen(settings, tracker, program, self)
         gymTMScreen = GymTMScreen(settings, tracker, program, self)
         statsScreen = StatsScreen(settings, tracker, program, self)
+        searchScreen = SearchScreen(settings,tracker,program,self)
         pokemonScreenStack = ScreenStack({pokemonOverviewScreen, pokemonStatScreen})
         trainerScreenStack = ScreenStack({trainerOverviewScreen, teamInfoScreen})
         infoScreen = InfoScreen(settings, tracker, program, self)
-        tabScreenStack = ScreenStack({pokemonScreenStack, trainerScreenStack, gymTMScreen, statsScreen, infoScreen})
+        tabScreenStack = ScreenStack({pokemonScreenStack, trainerScreenStack, gymTMScreen, statsScreen, infoScreen, searchScreen})
     end
 
     function self.updatePokemonStatIDs(newIDs)
@@ -304,8 +325,10 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         statsScreen.initialize(logInfo)
         gymTMScreen.initialize(logInfo)
         infoScreen.initialize(logInfo)
+        searchScreen.initialize(logInfo, trainerGroups)
         self.resetTabs()
         self.changeActiveTabIndex(1)
+        program.drawCurrentScreens()
     end
 
     function self.runEventListeners()
