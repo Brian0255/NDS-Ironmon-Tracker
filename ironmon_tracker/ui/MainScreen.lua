@@ -125,7 +125,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onPokemonLevelHover()
-        if inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then return end
+        local isEnemy = currentPokemon.owner == program.SELECTED_PLAYERS.ENEMY
+        if isEnemy or inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then return end
         if not settings.appearance["EXPERIENCE_BAR"] then return end
         hoveringOverLevel = true
         program.drawCurrentScreens()
