@@ -304,7 +304,7 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
         initPokeballFrame()
     end
 
-    function self.readCurrentTrainerIndex(newPokemonLoadingFunction)
+    function self.readCurrentTrainerIndex(newPokemonLoadingFunction, teamIndex)
         pokemonLoadingFunction = newPokemonLoadingFunction
         currentTrainer = currentTrainerGroup.battles[currentTrainerIndex]
         local teamID = currentTrainer.id
@@ -331,6 +331,9 @@ local function TeamInfoScreen(initialSettings, initialTracker, initialProgram, i
         ui.controls.rightPokemonButton.setVisibility(#currentTrainerTeam > 1)
         createPokeballs(currentTrainerTeam)
         currentTeamIndex = 1
+        if teamIndex ~= nil then
+            currentTeamIndex = teamIndex
+        end
         readCurrentTeamIndexIntoUI()
     end
 
