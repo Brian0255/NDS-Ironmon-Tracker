@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.2.1"
+MiscConstants.TRACKER_VERSION = "5.3.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- The tracker will now show the Pok'..Chars.accentedE..'mon\'s experience bar when you hover over the level info. This will only be accurate for Fluctuating experience at the moment. You can disable this in the "Tracker Appearance" settings.'
+    '-- Adds a new much requested Search feature to the Log Viewer. Try it out!'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
