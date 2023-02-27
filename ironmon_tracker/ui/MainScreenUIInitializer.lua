@@ -868,8 +868,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         "Top box background color"
                     ),
                     true
-                ),
-                nil
+                )
             )
             local predictionLabel = stat .. "StatPrediction"
             ui.controls[predictionLabel] =
@@ -894,9 +893,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         "Top box text color",
                         "Top box background color"
                     )
-                ),
-                nil,
-                false
+                )
             )
         end
         ui.frames.BSTFrame =
