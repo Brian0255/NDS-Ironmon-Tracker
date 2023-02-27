@@ -1,8 +1,9 @@
-local function PokemonSearchKeyboard(
+local function SearchKeyboard(
     initialItemSet,
     initialParentFrame,
     initialResultDrawingFunction,
-    initialResultClearingFunction)
+    initialResultClearingFunction,
+    initialDataGroup)
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
     local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
@@ -18,6 +19,7 @@ local function PokemonSearchKeyboard(
     local drawFunction
     local resultDrawingFunction = initialResultDrawingFunction
     local resultClearingFunction = initialResultClearingFunction
+    local dataGroup = initialDataGroup or PokemonData.POKEMON
     local currentSearchText = ""
     local matches = {}
     local ui = {}
@@ -31,15 +33,18 @@ local function PokemonSearchKeyboard(
         MAIN_TEXT_HEADING_HEIGHT = 18,
         KEYBOARD_FRAME_HEIGHT = 50,
         KEYBOARD_BUTTON_WIDTH = 13,
-        POKEMON_BUTTON_HEIGHT = 13,
         SPACEBAR_WIDTH = 98,
         SEARCH_BAR_WIDTH = 68,
         CLEAR_BUTTON_WIDTH = 30,
-        BACKSPACE_BUTTON_WIDTH = 18,
+        BACKSPACE_BUTTON_WIDTH = 18
     }
 
     function self.getMatches()
         return matches
+    end
+
+    function self.updateDataGroup(newDataGroup)
+        dataGroup = newDataGroup
     end
 
     function self.updateItemSet(newItemSet)
@@ -54,10 +59,12 @@ local function PokemonSearchKeyboard(
         matches = {}
         local currentIndex = 1
         for _, id in pairs(itemSet) do
-            local name = PokemonData.POKEMON[id + 1].name:lower()
-            if name:sub(1, #currentSearchText) == currentSearchText:lower() then
-                matches[currentIndex] = id
-                currentIndex = currentIndex + 1
+            if dataGroup[id+1] then
+                local name = dataGroup[id + 1].name:lower()
+                if name:sub(1, #currentSearchText) == currentSearchText:lower() then
+                    matches[currentIndex] = id
+                    currentIndex = currentIndex + 1
+                end
             end
         end
     end
@@ -161,12 +168,7 @@ local function PokemonSearchKeyboard(
                     TextField(
                         displayedLetter,
                         {x = xOffset, y = 1},
-                        TextStyle(
-                            9,
-                            Graphics.FONT.DEFAULT_FONT_FAMILY,
-                            "Top box text color",
-                            "Top box background color"
-                        )
+                        TextStyle(9, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
                     )
                 )
                 table.insert(eventListeners, MouseClickEventListener(ui.controls[letter], onLetterPress, letter))
@@ -302,4 +304,4 @@ local function PokemonSearchKeyboard(
     return self
 end
 
-return PokemonSearchKeyboard
+return SearchKeyboard

@@ -21,7 +21,11 @@ function GameConfigurator.initPokemon(gameInfo)
 end
 
 function GameConfigurator.initMoveData(gameInfo)
-	for _, move in pairs(MoveData.MOVES_MASTER_LIST) do
+	MoveData.MOVES = {}
+	for index, move in pairs(MoveData.MOVES_MASTER_LIST) do
+		if gameInfo.GEN == 4 and index == 469 then
+			return
+		end
 		local moveToInsert = {
 			id = 1,
 			name = "---",
@@ -43,8 +47,12 @@ function GameConfigurator.initMoveData(gameInfo)
 end
 
 function GameConfigurator.initAbilityData(gameInfo)
+	AbilityData.ABILITIES = {}
 	local versionDifferenceIndex = gameInfo.GEN - 3
 	for index, info in pairs(AbilityData.ABILITIES_MASTER_LIST) do
+		if gameInfo.GEN == 4 and index == 125 then
+			return
+		end
 		AbilityData.ABILITIES[index] = {}
 		for key, value in pairs(info) do
 			if type(value) == "table" then

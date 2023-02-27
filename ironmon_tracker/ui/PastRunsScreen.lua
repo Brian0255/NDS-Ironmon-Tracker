@@ -7,7 +7,6 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
-    local PokemonSearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/PokemonSearchKeyboard.lua")
     local settings = initialSettings
     local tracker = initialTracker
     local seedLogger
@@ -39,19 +38,10 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         ENEMY = 1
     }
 
-    local function highlightCurrentButtons()
-        ui.sortButtons[currentSortMethod + 1].setBackgroundFillColorKey("Top box border color")
-        ui.sortButtons[currentSortMethod + 1].setTextColorKey("Positive text color")
-        ui.badgeButtons[currentBadgeFilter].setBackgroundFillColorKey("Top box border color")
-        ui.badgeButtons[currentBadgeFilter].setTextColorKey("Positive text color")
-    end
-
-    local function undoCurrentButtons()
-        ui.sortButtons[currentSortMethod + 1].setBackgroundFillColorKey("Top box background color")
-        ui.sortButtons[currentSortMethod + 1].setTextColorKey("Top box text color")
-        ui.badgeButtons[currentBadgeFilter].setBackgroundFillColorKey("Top box background color")
-        ui.badgeButtons[currentBadgeFilter].setTextColorKey("Top box text color")
-    end
+    local sorting = {
+        minimumBadges = 0,
+        sortType = 0
+    }
 
     local function changeSelectedPokemon()
         if currentIndex == 0 then
@@ -76,19 +66,8 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function readCurrentIndex()
-        highlightCurrentButtons()
         local currentHash = currentPastRunHashes[currentIndex]
         local pastRun = pastRuns[currentHash]
-        --[[
-        local description = pastRun.getDescription()
-        local lines = DrawingUtils.textToWrappedArray(description, constants.FRAME_WIDTH - 10)
-        for i = 1, 3, 1 do
-            local line = ""
-            if lines[i] then
-                line = lines[i]
-            end
-            ui.descriptionLabels[i].setText(line)
-        end --]]
         local indexString = tostring(currentIndex)
         local xOffset = 2
         xOffset = xOffset + ((2 - #indexString) * 6)
@@ -130,16 +109,17 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         readCurrentIndex()
     end
 
-    local function onSortClick(newSortMethod)
-        undoCurrentButtons()
+    local function onSortClick(params)
+        local newSortMethod, button = params.sortMethod, params.button
+        button.onRadioClick()
+        sorting.sortType = newSortMethod
         currentSortMethod = newSortMethod
         currentPastRunHashes = seedLogger.getPastRunHashesSorted(currentSortMethod, currentBadgeFilter)
         reset()
     end
 
     local function setBadgeFilterAmount(newAmount)
-        undoCurrentButtons()
-        ui.badgeButtons[currentBadgeFilter].setBackgroundFillColorKey("Top box background color")
+        ui.badgeButtons[newAmount].onRadioClick()
         currentBadgeFilter = newAmount
         currentPastRunHashes = seedLogger.getPastRunHashesSorted(currentSortMethod, currentBadgeFilter)
         reset()
@@ -152,16 +132,11 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
             seedLogger.SORT_METHODS.A_TO_Z
         }
         for i, button in pairs(ui.sortButtons) do
-            table.insert(eventListeners, MouseClickEventListener(button, onSortClick, methodOrder[i]))
-        end
-    end
-
-    local function clearHighlights()
-        for _, button in pairs(ui.sortButtons) do
-            button.setTextColorKey("Top box text color")
-        end
-        for _, button in pairs(ui.badgeButtons) do
-            button.setTextColorKey("Top box text color")
+            local params = {
+                sortMethod = methodOrder[i],
+                ["button"] = button
+            }
+            table.insert(eventListeners, MouseClickEventListener(button, onSortClick, params))
         end
     end
 
@@ -184,11 +159,11 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.initialize(newSeedLogger)
-        undoCurrentButtons()
+        sorting.minimumBadges = 0
+        sorting.sortType = 0
         seedLogger = newSeedLogger
         currentSortMethod = 0
         currentBadgeFilter = 0
-        clearHighlights()
         currentPastRunHashes = seedLogger.getPastRunHashesSorted(currentSortMethod, currentBadgeFilter)
         initSortButtonEvents()
         table.insert(eventListeners, MouseClickEventListener(ui.controls.removeNoBadgeRunsButton, onRemoveNoBadgeRunsClick))
@@ -271,7 +246,11 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                         "Top box text color",
                         "Top box background color"
                     )
-                )
+                ),
+                true,
+                sorting,
+                "minimumBadges",
+                i
             )
             table.insert(eventListeners, MouseClickEventListener(ui.badgeButtons[i], setBadgeFilterAmount, i))
         end
@@ -446,46 +425,15 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                         "Top box text color",
                         "Top box background color"
                     )
-                )
+                ),
+                true,
+                sorting,
+                "sortType",
+                i - 1
             )
         end
     end
 
-    --[[
-    local function initDescriptionUI()
-        local descriptionFrame =
-            Frame(
-            Box(
-                {x = 0, y = 0},
-                {width = constants.FRAME_WIDTH, height = constants.DESCRIPTION_FRAME_HEIGHT},
-                "Top box background color",
-                "Top box border color"
-            ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 3}),
-            ui.frames.mainFrame
-        )
-        ui.descriptionLabels = {}
-        for i = 1, 3, 1 do
-            ui.descriptionLabels[i] =
-                TextLabel(
-                Component(
-                    descriptionFrame,
-                    Box({x = 0, y = 0}, {width = 0, height = constants.DESCRIPTION_LABEL_HEIGHT}, nil, nil, false)
-                ),
-                TextField(
-                    "",
-                    {x = 5, y = 0},
-                    TextStyle(
-                        Graphics.FONT.DEFAULT_FONT_SIZE,
-                        Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Top box text color",
-                        "Top box background color"
-                    )
-                )
-            )
-        end
-    end
-    --]]
     local function initUI()
         ui.controls = {}
         ui.frames = {}
