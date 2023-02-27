@@ -300,7 +300,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.mainFrame = nil
         mainScreenUIInitializer = MainScreenUIInitializer(ui, program.getGameInfo())
         mainScreenUIInitializer.initUI()
-        browsManager = BrowsManager(settings, ui, currentPokemon, frameCounters, program)
+        browsManager = BrowsManager(initialSettings, ui, frameCounters, initialProgram, initialProgram.UI_SCREENS.MAIN_SCREEN)
         browsManager.initialize()
     end
 
@@ -1123,7 +1123,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
         table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
-        eventListeners.levelHoverListener = 
+        eventListeners.levelHoverListener =
         HoverEventListener(ui.controls.pokemonLevelAndEvo, onPokemonLevelHover, nil, onPokemonLevelHoverEnd, nil, false, true)
     end
 

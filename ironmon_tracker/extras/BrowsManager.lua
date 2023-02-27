@@ -1,4 +1,4 @@
-local function BrowsManager(settings, ui, currentPokemon, frameCounters, program)
+local function BrowsManager(settings, ui, frameCounters, program, screen)
 
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
@@ -6,13 +6,15 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
     local ImageLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageLabel.lua")
     local ImageField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ImageField.lua")
 
-    local browsVisible = true
+    local browsVisible = false
     local browsUp = false
     local defaultFrames = 8
     local fileEnding = ".png"
     local currentPokemon = nil
 	local maxBrows = 6
     local browsControls = {}
+	local currentScreen = nil
+	local frameUIPath = nil
 
     local self= {}
 
@@ -55,7 +57,7 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
         [36]={direction=0, brows={{x=11,y=7,file="Brows20Left"},{x=9,y=9,file="Brows20RightFlat"},}},
         [37]={direction=0, brows={{x=-4,y=7,file="Brows25Right"},}},
         [38]={direction=0, brows={{x=-6,y=5,file="Brows25Right"},}},
-        [39]={direction=1, brows={{x=4,y=1,file="Brows30Left"},{x=4,y=6,file="Brows30RightFlat"},}},
+        [39]={direction=0, brows={{x=4,y=1,file="Brows30Left"},{x=4,y=6,file="Brows30RightFlat"},}},
         [40]={direction=0, brows={{x=-2,y=3,file="Brows30Right"},{x=2,y=3,file="Brows30Left"},}},
         [41]={direction=2, brows={{x=-3,y=7,file="Brows20Right"},{x=3,y=4,file="Brows20Right"},}},
         [42]={direction=0, brows={{x=3,y=1,file="Brows20Right"},{x=6,y=2,file="Brows15Left"},}},
@@ -420,7 +422,7 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
         [401]={direction=0, brows={{x=3,y=5,file="Brows20Left"},{x=4,y=6,file="Brows20Right"},}},
         [402]={direction=0, brows={{x=6,y=1,file="Brows20Left"},{x=11,y=2,file="Brows20Right"},}},
         [403]={direction=0, brows={{x=1,y=0,file="Brows25Left"},{x=5,y=4,file="Brows25RightFlat"},}},
-        [404]={direction=0, brows={{x=2,y=7,file="Brows25LeftTall"},{x=8,y=7,file="Brows25RightTall"},}},
+        [404]={direction=0, brows={{x=2,y=7,file="Brows25RightTall"},{x=8,y=7,file="Brows25RightTall"},}},
         [405]={direction=0, brows={{x=-1,y=10,file="Brows25LeftTall"},}},
         [406]={direction=0, brows={{x=8,y=7,file="Brows20Left"},{x=11,y=7,file="Brows20Right"},}},
         [407]={direction=0, brows={{x=5,y=3,file="Brows25LeftFlat"},{x=2,y=0,file="Brows25Right"},}},
@@ -744,12 +746,18 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
 		local numControls = #browsControls
 		local prefix = "brows"
 		for i = 1, numControls, 1 do
-			ui.frames.pokemonImageTypeFrame.removeControl(browsControls[i])
+			frameUIPath.removeControl(browsControls[i])
 			browsControls[i] = nil
 		end
         for i = 1, numControls, 1 do
             local controlID = prefix .. i
-            local offset = {x=0,y=-56}
+			local offset = {x=0,y=0}
+			if currentScreen == program.UI_SCREENS.MAIN_SCREEN then
+            	offset.y = offset.y-56 - ((i-1) * 30)
+			elseif currentScreen == program.UI_SCREENS.LOG_VIEWER_SCREEN then
+				offset.y = offset.y-2
+				offset.x = offset.x - 105 - ((i-1) * 33)
+			end
             if browsUp then
                 if direction == 0 then
                     offset.y = offset.y - 3
@@ -766,12 +774,12 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
             local filepath = ""
             if offsetAdjust[i] ~= nil then
                 offset.x = offset.x + offsetAdjust[i].x
-                offset.y = offset.y + offsetAdjust[i].y - ((i-1) * 30)
+                offset.y = offset.y + offsetAdjust[i].y
                 filepath = Paths.FOLDERS.BROWS_IMAGES_FOLDER .. "/" ..  offsetAdjust[i].file .. fileEnding
             end
 			ui.controls[controlID] =
             ImageLabel(
-				Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
+				Component(frameUIPath, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
 				ImageField(filepath, offset, nil),
 				browsVisible
         	)
@@ -781,18 +789,25 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
     end
 
     function self.initialize()
-		browsVisible = currentIconSet and currentIconSet.NAME == "Stadium" and settings.extras.BROWS_ENABLED
-        if tonumber(settings.extras.BROWS_FRAMES) then defaultFrames = tonumber(settings.extras.BROWS_FRAMES) end
+		currentScreen = screen
+		if currentScreen == program.UI_SCREENS.MAIN_SCREEN then
+			frameUIPath = ui.frames.pokemonImageTypeFrame
+		elseif currentScreen == program.UI_SCREENS.LOG_VIEWER_SCREEN then
+			frameUIPath = ui.frames.navNameFrame
+		end
+		if tonumber(settings.extras.BROWS_FRAMES) then defaultFrames = tonumber(settings.extras.BROWS_FRAMES) end
         frameCounters["browCounter"] = FrameCounter(defaultFrames, updateBrows, nil, true)
-		local prefix = "brows"
-		for i=1,maxBrows,1 do
-			ui.controls[prefix .. i] =
-            ImageLabel(
-				Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
-				ImageField("", {x = 0, y = 0}, nil),
-				browsVisible
-        	)
-			browsControls[i] = ui.controls[prefix .. i]
+		if frameUIPath ~= nil then
+			local prefix = "brows"
+			for i=1,maxBrows,1 do
+				ui.controls[prefix .. i] =
+				ImageLabel(
+					Component(frameUIPath, Box({x = 0, y = 0}, {width = 30, height = 30}, nil, nil)),
+					ImageField("", {x = 0, y = 0}, nil),
+					browsVisible
+				)
+				browsControls[i] = ui.controls[prefix .. i]
+			end
 		end
     end
 
@@ -802,7 +817,10 @@ local function BrowsManager(settings, ui, currentPokemon, frameCounters, program
 
     function self.show()
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
-        browsVisible = currentIconSet and currentIconSet.NAME == "Stadium" and settings.extras.BROWS_ENABLED
+		if currentScreen == program.UI_SCREENS.LOG_VIEWER_SCREEN then
+			--figure something out here if display doesn't quite work
+		end
+        browsVisible = settings.extras.BROWS_ENABLED and currentIconSet and currentIconSet.NAME == "Stadium"
 		for i=1,#browsControls,1 do
 			browsControls[i].setVisibility(browsVisible)
 		end
