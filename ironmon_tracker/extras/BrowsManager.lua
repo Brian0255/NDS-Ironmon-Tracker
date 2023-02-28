@@ -726,7 +726,7 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
     }
 
     local function perPokemonBrows()
-        local defaultReturn = {direction=0, brows={x=0,y=0, file="Brows25"}}
+        local defaultReturn = {direction=0, brows={x=0,y=0, file=""}}
         if currentPokemon == nil then
             return defaultReturn
         end
@@ -737,7 +737,7 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
         if browsOptions[imageID] ~= nil then return browsOptions[imageID] else return defaultReturn end
     end
 
-    local function updateBrows()
+    local function updateBrows(forceRedraw)
         if not browsVisible or currentPokemon == nil then return end
         browsUp = not browsUp
         local browsData = perPokemonBrows()
@@ -785,7 +785,8 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
         	)
 			browsControls[i] = ui.controls[controlID]
         end
-        program.drawCurrentScreens()
+
+		program.drawCurrentScreens()
     end
 
     function self.initialize()
@@ -812,7 +813,14 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
     end
 
     function self.setCurrentPokemon(pokemon)
+		local needReset = currentPokemon == nil or pokemon == nil or currentPokemon.pokemonID ~= pokemon.pokemonID
         currentPokemon = pokemon
+		if needReset then
+			browsUp = false
+			frameCounters["browCounter"].reset()
+			updateBrows()
+			print (pokemon.pokemonID)
+		end
     end
 
     function self.show()
