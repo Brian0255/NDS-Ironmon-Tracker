@@ -12,8 +12,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local HoverEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/HoverEventListener.lua")
     local ScrollBar = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScrollBar.lua")
-	local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
-	local BrowsManager = dofile(Paths.FOLDERS.EXTRAS_FOLDER .. "/BrowsManager.lua")
+    local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
+    local BrowsManager = dofile(Paths.FOLDERS.EXTRAS_FOLDER .. "/BrowsManager.lua")
 
     local logViewerScreen = initialLogViewerScreen
     local settings = initialSettings
@@ -28,7 +28,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local currentEvoList = {}
     local program = initialProgram
     local logInfo
-	local browsManager
+    local browsManager
     local constants = {
         STATS_FRAME_HEIGHT = Graphics.SIZES.SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN -
             Graphics.LOG_VIEWER.TAB_HEIGHT -
@@ -50,7 +50,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local abilityHoverListeners = {}
     local moveHoverListeners = {}
     local hoverListeners = {}
-	local frameCounters = {}
+    local frameCounters = {}
     local self = {}
 
     local function onHoverInfoEnd()
@@ -77,9 +77,9 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         MiscUtils.sortPokemonIDsByName(sortedPokemonIDs)
     end
 
-	function self.getCurrentIndex()
-		return currentIndex
-	end
+    function self.getCurrentIndex()
+        return currentIndex
+    end
 
     function self.updateIDs(newIDs)
         sortedPokemonIDs = newIDs
@@ -88,8 +88,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     function self.initialize(newLogInfo)
         logInfo = newLogInfo
         setUpPokemonIDs()
-		browsManager = BrowsManager(initialSettings, ui, frameCounters, initialProgram, initialProgram.UI_SCREENS.LOG_VIEWER_SCREEN)
-		browsManager.initialize()
+        browsManager = BrowsManager(initialSettings, ui, frameCounters, initialProgram, initialProgram.UI_SCREENS.LOG_VIEWER_SCREEN)
+        browsManager.initialize()
     end
 
     local function onPokemonImageHover(params)
@@ -225,7 +225,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         local currentID = sortedPokemonIDs[currentIndex]
         local name = PokemonData.POKEMON[currentID + 1].name
         local nameLength = DrawingUtils.calculateWordPixelLength(name)
-		browsManager.setCurrentPokemon({["pokemonID"] = currentID, ["baseFormData"] = PokemonData.POKEMON[currentID + 1].baseFormData})
+        browsManager.setCurrentPokemon({["pokemonID"] = currentID, ["baseFormData"] = PokemonData.POKEMON[currentID + 1].baseFormData})
         ui.controls.pokemonNameLabel.setText(name)
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
         DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, currentID, ui.controls.pokemonImage, {x = 1, y = 0})
@@ -247,7 +247,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         viewingMoves = true
         movesScrollBar.setScrollReadingFunction(readScrollMovesIntoUI)
         readScrollMovesIntoUI()
-		self.show()
+        self.show()
     end
 
     local function onForwardClick()
@@ -797,7 +797,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 eventListener.listen()
             end
         end
-		self.runFrameCounters()
+        self.runFrameCounters()
     end
 
     function self.runFrameCounters()
@@ -809,7 +809,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
 
     function self.show()
         ui.frames.mainFrame.show()
-		browsManager.show()
+        browsManager.show()
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
