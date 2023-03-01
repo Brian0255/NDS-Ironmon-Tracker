@@ -57,7 +57,7 @@ GameInfo.GAME_INFO = {
         ENEMY_PARTY_OFFSET = 0xBA0,
         ACTIVE_PID_DIFFERENCE = 0x180,
         ENCRYPTED_POKEMON_SIZE = 236,
-        GYM_TMS = {51, 89, 45, 30, 01, 23, 07, 59, -1, 34, 48, 19, 03, 84, 80, 50, 92},
+        GYM_TMS = {51, 89, 45, 30, 01, 23, 07, 59, -1, 80, 03, 34, 19, 84, 48, 50, 92},
         TRAINERS = TrainerData.TRAINERS[GameInfo.VERSION_NUMBER.HEART_GOLD],
         LOCATION_DATA = LocationData.LOCATION_DATA[GameInfo.VERSION_NUMBER.HEART_GOLD]
     },
@@ -69,7 +69,7 @@ GameInfo.GAME_INFO = {
         ENEMY_PARTY_OFFSET = 0xBA0,
         ACTIVE_PID_DIFFERENCE = 0x180,
         ENCRYPTED_POKEMON_SIZE = 236,
-        GYM_TMS = {51, 89, 45, 30, 01, 23, 07, 59, -1, 34, 48, 19, 03, 84, 80, 50, 92},
+        GYM_TMS = {51, 89, 45, 30, 01, 23, 07, 59, -1, 80, 03, 34, 19, 84, 48, 50, 92},
         TRAINERS = TrainerData.TRAINERS[GameInfo.VERSION_NUMBER.HEART_GOLD],
         LOCATION_DATA = LocationData.LOCATION_DATA[GameInfo.VERSION_NUMBER.HEART_GOLD]
     },
