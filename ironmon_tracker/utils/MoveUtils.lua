@@ -1,5 +1,19 @@
 MoveUtils = {}
 
+function MoveUtils.calculateLevelRangeOfMove(levelIndex, learnSet)
+    local startLevel = learnSet[levelIndex].level
+    local endLevel = 100
+    local indexThatReplaces = levelIndex + 4
+    if learnSet[indexThatReplaces] then
+        local replacementLevel = learnSet[indexThatReplaces].level 
+        endLevel = replacementLevel - 1
+    end
+    if endLevel < startLevel then
+        endLevel = startLevel
+    end
+    return "Lv. ".. startLevel .. " - "..endLevel
+end
+
 function MoveUtils.netEffectiveness(move, pkmnData, isEnemy, hiddenPowerType)
     local NO_EFFECT_PAIRINGS = {
         [PokemonData.POKEMON_TYPES.NORMAL] = PokemonData.POKEMON_TYPES.GHOST,

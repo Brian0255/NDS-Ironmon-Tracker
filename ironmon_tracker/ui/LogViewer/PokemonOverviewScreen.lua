@@ -10,9 +10,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
     local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
     local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
-    local PokemonSearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/PokemonSearchKeyboard.lua")
-    local ScreenStack = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScreenStack.lua")
-    local maxSearchResultWidth = 250
+    local SearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/SearchKeyboard.lua")
     local logViewerScreen = initialLogViewerScreen
     local settings = initialSettings
     local sortedPokemonIDs = {}
@@ -357,7 +355,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5, {x = 50, y = 0}),
             ui.frames.mainFrame
         )
-        pokemonSearchKeyboard = PokemonSearchKeyboard(sortedPokemonIDs, ui.frames.searchFrame, createMatchSets, clearMatches)
+        pokemonSearchKeyboard = SearchKeyboard(sortedPokemonIDs, ui.frames.searchFrame, createMatchSets, clearMatches)
         table.insert(eventListeners, MouseClickEventListener(ui.controls.rightButton, onForwardClick))
         table.insert(eventListeners, MouseClickEventListener(ui.controls.leftButton, onBackwardClick))
     end
