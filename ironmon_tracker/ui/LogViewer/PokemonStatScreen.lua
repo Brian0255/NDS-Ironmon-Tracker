@@ -225,6 +225,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         local currentID = sortedPokemonIDs[currentIndex]
         local name = PokemonData.POKEMON[currentID + 1].name
         local nameLength = DrawingUtils.calculateWordPixelLength(name)
+		browsManager.setCurrentPokemon({["pokemonID"] = currentID, ["baseFormData"] = PokemonData.POKEMON[currentID + 1].baseFormData})
         ui.controls.pokemonNameLabel.setText(name)
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
         DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, currentID, ui.controls.pokemonImage, {x = 1, y = 0})
@@ -246,7 +247,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         viewingMoves = true
         movesScrollBar.setScrollReadingFunction(readScrollMovesIntoUI)
         readScrollMovesIntoUI()
-		browsManager.setCurrentPokemon({["pokemonID"] = currentID})
+		self.show()
     end
 
     local function onForwardClick()

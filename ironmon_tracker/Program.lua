@@ -665,8 +665,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.changeMainScreenForTeamInfoView(pokemon, pokemonStatLoadingFunction)
-		currentScreens[self.UI_SCREENS.MAIN_SCREEN].formatForTeamInfoView(pokemonStatLoadingFunction)
 		self.setSpecificPokemonAsMainScreen(pokemon)
+		currentScreens[self.UI_SCREENS.MAIN_SCREEN].formatForTeamInfoView(pokemonStatLoadingFunction)
 	end
 
 	function self.undoTeamInfoView()

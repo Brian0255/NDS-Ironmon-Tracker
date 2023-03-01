@@ -15,6 +15,7 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
     local browsControls = {}
 	local currentScreen = nil
 	local frameUIPath = nil
+	local needReset = false
 
     local self= {}
 
@@ -737,7 +738,7 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
         if browsOptions[imageID] ~= nil then return browsOptions[imageID] else return defaultReturn end
     end
 
-    local function updateBrows()
+    local function updateBrows(skipRedraw)
         if not browsVisible or currentPokemon == nil then return end
         browsUp = not browsUp
         local browsData = perPokemonBrows()
@@ -785,6 +786,7 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
         	)
 			browsControls[i] = ui.controls[controlID]
         end
+		if skipRedraw == false then return end
 		program.drawCurrentScreens()
     end
 
@@ -812,13 +814,8 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
     end
 
     function self.setCurrentPokemon(pokemon)
-		local needReset = currentPokemon == nil or pokemon == nil or currentPokemon.pokemonID ~= pokemon.pokemonID
+		needReset = currentPokemon == nil or pokemon == nil or currentPokemon.pokemonID ~= pokemon.pokemonID
         currentPokemon = pokemon
-		if needReset then
-			browsUp = false
-			frameCounters["browCounter"].reset()
-			updateBrows()
-		end
     end
 
     function self.show()
@@ -829,6 +826,11 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
         browsVisible = settings.extras.BROWS_ENABLED and currentIconSet and currentIconSet.NAME == "Stadium"
 		for i=1,#browsControls,1 do
 			browsControls[i].setVisibility(browsVisible)
+		end
+		if browsVisible and needReset then
+			browsUp = not browsUp
+			updateBrows(false)
+			needReset = false
 		end
     end
 
