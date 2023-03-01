@@ -737,7 +737,7 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
         if browsOptions[imageID] ~= nil then return browsOptions[imageID] else return defaultReturn end
     end
 
-    local function updateBrows(forceRedraw)
+    local function updateBrows()
         if not browsVisible or currentPokemon == nil then return end
         browsUp = not browsUp
         local browsData = perPokemonBrows()
@@ -785,7 +785,6 @@ local function BrowsManager(settings, ui, frameCounters, program, screen)
         	)
 			browsControls[i] = ui.controls[controlID]
         end
-
 		program.drawCurrentScreens()
     end
 
