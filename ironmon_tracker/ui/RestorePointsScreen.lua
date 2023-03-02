@@ -39,22 +39,24 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
         local minutesAgo = math.floor(secondsAgo / 60)
         local text = "Just now"
         if minutesAgo ~= 0 then
-            text = minutesAgo.." minute"
+            text = minutesAgo .. " minute"
             if minutesAgo == 1 then
-                text = text.." ago"
+                text = text .. " ago"
             else
-                text = text.."s ago"
+                text = text .. "s ago"
             end
         end
         frame.timeLabel.setText(text)
     end
 
     local function loadPresent()
-        memorysavestate.loadcorestate(presentID)
+        if presentID ~= nil then
+            memorysavestate.loadcorestate(presentID)
+        end
     end
 
     local function onLoadRestorePoint(index)
-        local id = restorePoints[index].id 
+        local id = restorePoints[index].id
         if id == nil then
             return
         end
@@ -65,7 +67,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
         end
         memorysavestate.loadcorestate(id)
     end
-    
+
     local function readRestorePointsIntoUI()
         for index = 1, 3, 1 do
             local restorePoint = restorePoints[index]
@@ -193,7 +195,8 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 14, y = 5}),
             parentFrame
         )
-        local button = TextLabel(
+        local button =
+            TextLabel(
             Component(
                 frame,
                 Box(
@@ -315,8 +318,9 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 7, {x = 7, y = 7}),
             ui.frames.mainInnerFrame
         )
-        ui.controls.noRestorePoints = TextLabel(
-            Component(ui.frames.mainButtonsFrame, Box({x = 0,y = 0}, {width = 0, height = 12})),
+        ui.controls.noRestorePoints =
+            TextLabel(
+            Component(ui.frames.mainButtonsFrame, Box({x = 0, y = 0}, {width = 0, height = 12})),
             TextField(
                 "No restore points available.",
                 {x = -2, y = -2},
@@ -371,7 +375,10 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
                 )
             )
         )
-        table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.TRACKED_INFO_SCREEN))
+        table.insert(
+            eventListeners,
+            MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.TRACKED_INFO_SCREEN)
+        )
     end
 
     local function initUI()
