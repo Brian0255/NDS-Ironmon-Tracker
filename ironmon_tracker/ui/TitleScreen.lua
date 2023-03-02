@@ -288,7 +288,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	function self.moveMainFrame(newPosition)
-		ui.frames.mainFrame.move({x = newPosition.x - 5, y = newPosition.y - 5})
+		ui.frames.mainFrame.move({x = newPosition.x, y = newPosition.y})
 	end
 
 	local function changeFavorite(index, newID)
@@ -594,7 +594,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 			TextField(
 				versionText,
 				{x = 4, y = 0},
-				TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Main background color")
+				TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
 		)
 		ui.frames.topInfoFrame =
@@ -619,12 +619,12 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		ui.frames.mainFrame =
 			Frame(
 			Box(
-				{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = Graphics.SIZES.MAIN_SCREEN_HEIGHT},
+				{x = Graphics.SIZES.SCREEN_WIDTH, y = 5},
+				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 10, height = Graphics.SIZES.MAIN_SCREEN_HEIGHT - 10},
 				"Main background color",
 				nil
 			),
-			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 5, y = 5}),
+			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
 			nil
 		)
 		ui.frames.mainInnerFrame =

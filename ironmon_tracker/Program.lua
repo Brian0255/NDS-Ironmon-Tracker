@@ -446,6 +446,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function updateLocation()
 		local childMap = Memory.read_u16_le(memoryAddresses.childMapHeader)
 		local parentMap = Memory.read_u16_le(memoryAddresses.parentMapHeader)
+		print(parentMap)
 		local locationData = gameInfo.LOCATION_DATA.locations
 		local areaName
 		if locationData[childMap] ~= nil then
