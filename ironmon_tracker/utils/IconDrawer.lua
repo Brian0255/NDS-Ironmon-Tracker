@@ -936,6 +936,38 @@ IconDrawer.ICONS =
             colorKey = "Top box border color",
             backgroundColorKey = "Top box background color"
         },
+        CLOCK = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,1,1,1,1,1,0,0},
+                {0,1,0,0,0,0,0,1,0},
+                {1,0,0,0,1,0,0,0,1},
+                {1,0,0,0,1,0,0,0,1},
+                {1,0,0,0,1,1,0,0,1},
+                {1,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,1},
+                {0,1,0,0,0,0,0,1,0},
+                {0,0,1,1,1,1,1,0,0},
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        CLOCK_SMALL = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,0,1,1,1,1,1,0,0},
+                {0,0,1,0,0,0,0,0,1,0},
+                {0,1,0,0,0,1,0,0,0,1},
+                {0,1,0,0,0,1,0,0,0,1},
+                {0,1,0,0,0,1,1,0,0,1},
+                {0,1,0,0,0,0,0,0,0,1},
+                {0,1,0,0,0,0,0,0,0,1},
+                {0,0,1,0,0,0,0,0,1,0},
+                {0,0,0,1,1,1,1,1,0,0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
         SMALL_DOT = {
             iconType = IconDrawer.ICON_TYPES.STANDARD_NO_SHADOW,
             imageArray = {
@@ -1094,6 +1126,27 @@ IconDrawer.ICONS =
                 {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        RESTORE_POINTS_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,0,0},
+                {0,0,1,0,0,0,0,0,0,0,0,0,0,1,0},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {0,1,0,0,0,0,1,0,0,0,0,1,0,0,1},
+                {0,1,0,0,0,1,1,0,0,0,1,1,0,0,1},
+                {0,1,0,0,1,1,1,0,0,1,1,1,0,0,1},
+                {0,1,0,1,1,1,1,0,1,1,1,1,0,0,1},
+                {0,1,0,1,1,1,1,0,1,1,1,1,0,0,1},
+                {0,1,0,0,1,1,1,0,0,1,1,1,0,0,1},
+                {0,1,0,0,0,1,1,0,0,0,1,1,0,0,1},
+                {0,1,0,0,0,0,1,0,0,0,0,1,0,0,1},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {0,0,1,0,0,0,0,0,0,0,0,0,0,1,0},
+                {0,0,0,1,1,1,1,1,1,1,1,1,1,0,0}
             },
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
