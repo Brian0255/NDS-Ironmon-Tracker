@@ -456,8 +456,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if areaName ~= nil and areaName ~= locationData[0].name then
 			tracker.updateCurrentAreaName(areaName)
 			if currentScreens[self.UI_SCREENS.TITLE_SCREEN] then
-				doneWithTitleScreen = true
-				self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
+				if gameInfo.NAME == "Pokemon Platinum" and childMap == 104 then
+					doneWithTitleScreen = false
+				else
+					doneWithTitleScreen = true
+					self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
+				end
 			end
 		end
 		return areaName
