@@ -252,14 +252,14 @@ function MiscUtils.validPokemonData(pokemonData)
     end
     local id = tonumber(pokemonData.pokemonID)
     local heldItem = tonumber(pokemonData.heldItem)
-    if id == nil or pokemonData.level > 100 or pokemonData.ability > 164 then
+    if id == nil or pokemonData.level > 100 or not AbilityData.ABILITIES[pokemonData.ability+1] then
         return false
     end
-    if id < 0 or id > 690 or heldItem < 0 or heldItem > 650 then
+    if not PokemonData.POKEMON[id + 1] or heldItem > 650 then
         return false
     end
     for _, move in pairs(pokemonData.moveIDs) do
-        if move < 0 or move > MoveData.TOTAL_MOVES + 1 then
+        if not MoveData.MOVES[move + 1] then
             return false
         end
     end
