@@ -101,10 +101,6 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
 
     function self.initialize()
         loadedARestore = false
-        if presentID ~= nil then
-            memorysavestate.removestate(presentID)
-        end
-        presentID = memorysavestate.savecorestate()
         readRestorePointsIntoUI()
     end
 
