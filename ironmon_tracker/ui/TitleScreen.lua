@@ -64,13 +64,13 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		return true
 	end
 	
-	local function formatPercentMapping(mapping, pastRunStatistics, totalRunsPastLab)
+	local function formatPercentMapping(mapping, pastRunStatistics, runAmount)
 		local statKey, dataEntryKey = mapping.statKey, mapping.dataEntryKey
 		local statistic = pastRunStatistics[statKey]
 		local title, statisticData = statistic[1], statistic[2]
 		local dataEntry = statisticData[dataEntryKey]
 		local total = tonumber(dataEntry[2])
-		local percent = string.format("%.1f", total / totalRunsPastLab * 100) .. "%"
+		local percent = string.format("%.1f", total / runAmount * 100) .. "%"
 		return mapping.title:gsub("%%percent%%",percent.."%")
 	end
 
@@ -180,7 +180,11 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				table.insert(choices, description)
 			end
 			for _, mapping in pairs(percentStatisticMappings) do
-				local description = formatPercentMapping(mapping, statistics, seedLogger.getTotalRunsPastLab())
+				local runsToUse = seedLogger.getTotalRunsPastLab()
+				if mapping.statKey == 1 then
+					runsToUse = seedLogger.getTotalRuns()
+				end
+				local description = formatPercentMapping(mapping, statistics, runsToUse)
 				table.insert(choices, description)
 			end
 			local text = MiscUtils.randomTableValue(choices)
