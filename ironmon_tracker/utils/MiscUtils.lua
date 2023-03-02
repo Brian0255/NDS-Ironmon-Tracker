@@ -230,6 +230,22 @@ function MiscUtils.removeRandomTableValue(t)
     return value
 end
 
+function MiscUtils.copyFile(file, destinationPath)
+    local fileToCopy = io.open(file, "rb")
+    if fileToCopy == nil then
+        return
+    end
+    local destination = io.open(destinationPath, "wb")
+    if destination == nil then
+        return
+    end
+    local contents = fileToCopy:read("*a")
+    destination:write(contents)
+
+    fileToCopy:close()
+    destination:close()
+end
+
 function MiscUtils.validPokemonData(pokemonData)
     if pokemonData == nil or next(pokemonData) == nil then
         return false
