@@ -126,7 +126,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function onPokemonLevelHover()
         local isEnemy = currentPokemon.owner == program.SELECTED_PLAYERS.ENEMY
-        if isEnemy or inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then return end
+        if randomBallPickerActive or  isEnemy or inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then 
+            onPokemonLevelHoverEnd()
+            return
+        end
         if not settings.appearance["EXPERIENCE_BAR"] then return end
         hoveringOverLevel = true
         program.drawCurrentScreens()
@@ -307,7 +310,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpEXPBar(isEnemy)
         extraThingsToDraw.experienceBar = nil
-        if isEnemy or not hoveringOverLevel or currentPokemon.fromTeamInfoView then return end
+        if isEnemy or not hoveringOverLevel or currentPokemon.fromTeamInfoView then 
+            return
+         end
         local type1Position = ui.controls.pokemonLevelAndEvo.getPosition()
         extraThingsToDraw.experienceBar = {
                 x = type1Position.x + 2,
@@ -1019,6 +1024,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function onBookmarkClick()
+        if currentPokemon.pokemonID == 0 then
+            return
+        end
         local filled = string.match(ui.controls.bookmarkIcon.getIconName(), "FILLED")
         local newIconName = "BOOKMARK_FILLED"
         if filled then

@@ -13,7 +13,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
     local program = initialProgram
     local constants = {
         TOP_FRAME_HEIGHT = 108,
-        SINGLE_BADGE_ALIGNMENT_FRAME_HEIGHT = 90,
+        SINGLE_BADGE_ALIGNMENT_FRAME_HEIGHT = 78,
         DOUBLE_ALIGNMENT_HEIGHT = 112,
         HGSS_HEADING_HEIGHT = 62,
         BUTTON_SIZE = 10,
@@ -75,10 +75,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 text = text:gsub("_", " ")
                 text = text:sub(1, 1):upper() .. text:sub(2):lower()
                 TextLabel(
-                    Component(
-                        frames[i],
-                        Box({x = 0, y = 0}, {width = 50, height = constants.MAIN_BUTTON_HEIGHT}, nil, nil)
-                    ),
+                    Component(frames[i], Box({x = 0, y = 0}, {width = 50, height = constants.MAIN_BUTTON_HEIGHT}, nil, nil)),
                     TextField(
                         text,
                         {x = 0, y = 0},
@@ -183,7 +180,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 {x = 5, y = 0},
                 {
                     width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                    height = constants.DOUBLE_ALIGNMENT_HEIGHT - Graphics.SIZES.BORDER_MARGIN
+                    height = constants.DOUBLE_ALIGNMENT_HEIGHT - Graphics.SIZES.BORDER_MARGIN - 2
                 },
                 "Top box background color",
                 "Top box border color"
@@ -197,10 +194,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 ui.frames.doubleAlignmentInnerFrame,
                 Box(
                     {x = 5, y = 0},
-                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
-                    nil,
-                    nil,
-                    false
+                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18}
                 )
             ),
             TextField(
@@ -217,10 +211,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 ui.frames.doubleAlignmentInnerFrame,
                 Box(
                     {x = 5, y = 0},
-                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 16},
-                    nil,
-                    nil,
-                    false
+                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 16}
                 )
             ),
             TextField(
@@ -236,9 +227,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 {
                     width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.MAIN_BUTTON_HEIGHT
-                },
-                nil,
-                nil
+                }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2, {x = 6, y = 0}),
             ui.frames.doubleAlignmentInnerFrame
@@ -371,21 +360,24 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
     end
 
     local function createSpacerButton()
-        local spacerFrame = Frame(
+        local spacerFrame =
+            Frame(
             Box(
                 {x = 0, y = 0},
                 {
                     width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = 0
                 },
-                "Top box background color","Top box border color"
+                "Top box background color",
+                "Top box border color"
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 5, {x = 14, y = 5}),
             ui.frames.singleBadgeAlignmentFrame
         )
-        local spacerButton = SettingToggleButton(
+        local spacerButton =
+            SettingToggleButton(
             Component(
-               spacerFrame,
+                spacerFrame,
                 Box(
                     {x = 0, y = 0},
                     {width = constants.BUTTON_SIZE, height = constants.BUTTON_SIZE},
@@ -402,24 +394,21 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             true,
             program.saveSettings
         )
-        local spacerLabel =  TextLabel(
-            Component(
-                spacerFrame,
-                Box(
-                    {x = 0, y = 0},
-                    {width = 0, height = 0},
-                    nil,
-                    nil,
-                    false
-                )
-            ),
+        local spacerLabel =
+            TextLabel(
+            Component(spacerFrame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
             TextField(
                 "Spacer",
                 {x = 0, y = 0},
-                TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
             )
         )
-    table.insert(eventListeners,MouseClickEventListener(spacerButton, onSpacerClick, spacerButton))
+        table.insert(eventListeners, MouseClickEventListener(spacerButton, onSpacerClick, spacerButton))
     end
 
     local function setUpSingleAlignmentUI()
@@ -467,7 +456,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             local radioButton =
                 SettingToggleButton(
                 Component(
-                   frames[i],
+                    frames[i],
                     Box(
                         {x = 0, y = 0},
                         {width = constants.BUTTON_SIZE, height = constants.BUTTON_SIZE},
@@ -486,10 +475,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             )
             table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
             TextLabel(
-                Component(
-                    frames[i],
-                    Box({x = 0, y = 0}, {width = 32, height = constants.MAIN_BUTTON_HEIGHT}, nil, nil)
-                ),
+                Component(frames[i], Box({x = 0, y = 0}, {width = 32, height = constants.MAIN_BUTTON_HEIGHT}, nil, nil)),
                 TextField(
                     settingNames[i],
                     {x = 0, y = 0},
@@ -548,7 +534,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 {x = 5, y = 0},
                 {
                     width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                    height = constants.HGSS_HEADING_HEIGHT - Graphics.SIZES.BORDER_MARGIN
+                    height = 55
                 },
                 "Top box background color",
                 "Top box border color"
@@ -562,10 +548,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 ui.frames.HGSSInnerFrame,
                 Box(
                     {x = 5, y = 0},
-                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 16},
-                    nil,
-                    nil,
-                    false
+                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 16}
                 )
             ),
             TextField(
@@ -640,7 +623,9 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
     function self.show()
         local gameName = program.getGameInfo().NAME
         ui.frames.HGSSOuterFrame.setVisibility(gameName == "Pokemon HeartGold" or gameName == "Pokemon SoulSilver")
-        ui.frames.doubleAlignmentOuterFrame.setVisibility(settings.badgesAppearance.SHOW_BOTH_BADGES and ui.frames.HGSSOuterFrame.isVisible())
+        ui.frames.doubleAlignmentOuterFrame.setVisibility(
+            settings.badgesAppearance.SHOW_BOTH_BADGES and ui.frames.HGSSOuterFrame.isVisible()
+        )
         ui.frames.mainFrame.show()
     end
 
