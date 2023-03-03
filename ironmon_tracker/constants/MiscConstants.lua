@@ -9,7 +9,7 @@ MiscConstants.UPDATE_NOTES = {
     '-- Overhauled "Color move type icons" in the Theme editor to make colored icons look much nicer on all backgrounds. Try it out!',
     '-- Added a new "Restore Points" page under "Tracked Info." This allows you to go back in time in case your game softlocks or experiences another major issue.',
     '-- When generating a new ROM, the current log file will be backed up and saved.',
-    '-- Fixed Kanto TMs being out of order when vieweing HG/SS logs through the tracker.',
+    '-- Fixed Kanto TMs being out of order when viewing HG/SS logs through the tracker.',
     '-- Various other adjustments and fixes.'
 }
 
