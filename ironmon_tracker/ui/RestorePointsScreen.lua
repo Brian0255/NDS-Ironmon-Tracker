@@ -62,7 +62,9 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
         end
         if not loadedARestore then
             loadedARestore = true
-            memorysavestate.removestate(presentID)
+            if presentID ~= nil then
+                memorysavestate.removestate(presentID)
+            end
             presentID = memorysavestate.savecorestate()
         end
         memorysavestate.loadcorestate(id)
@@ -102,6 +104,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
     end
 
     function self.initialize()
+        presentID = nil
         loadedARestore = false
         readRestorePointsIntoUI()
     end
@@ -435,7 +438,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
     function self.update()
         local currentSeconds = os.time()
         --create a restore point every 5 minutes
-        if (currentSeconds - currentBaseSeconds) > (60 * 5) then
+        if (currentSeconds - currentBaseSeconds) > (60 * 1) then
             createRestorePoint()
             currentBaseSeconds = currentSeconds
         end
