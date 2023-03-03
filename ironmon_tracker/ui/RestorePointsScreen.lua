@@ -438,7 +438,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
     function self.update()
         local currentSeconds = os.time()
         --create a restore point every 5 minutes
-        if (currentSeconds - currentBaseSeconds) > (60 * 1) then
+        if (currentSeconds - currentBaseSeconds) > (60 * 5) then
             createRestorePoint()
             currentBaseSeconds = currentSeconds
         end
