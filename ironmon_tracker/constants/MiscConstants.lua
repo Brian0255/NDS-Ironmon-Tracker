@@ -1,11 +1,16 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.3.0"
+MiscConstants.TRACKER_VERSION = "5.4.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Adds a new much requested Search feature to the Log Viewer. Try it out!'
+    '-- Added a title screen with favorites, attempts, and some calculated statistics! You can click any favorite to set them and you can click the attempts to change that as well.',
+    '-- Overhauled "Color move type icons" in the Theme editor to make colored icons look much nicer on all backgrounds. Try it out!',
+    '-- Added a new "Restore Points" page under "Tracked Info." This allows you to go back in time in case your game softlocks or experiences another major issue.',
+    '-- When generating a new ROM, the current log file will be backed up and saved.',
+    '-- Fixed Kanto TMs being out of order when vieweing HG/SS logs through the tracker.',
+    '-- Various other adjustments and fixes.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
