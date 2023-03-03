@@ -18,6 +18,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local inLockedView = false
     local randomBallPickerActive = false
     local hoveringOverLevel = false
+    local runEvents = true
     local defeatedLance = false
     local mainScreenUIInitializer
     local browsManager
@@ -918,6 +919,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     function self.runEventListeners()
+        if not runEvents then
+            return
+        end
         local listenerGroups = {eventListeners, hoverListeners, statPredictionEventListeners, moveEventListeners}
         for _, listenerGroup in pairs(listenerGroups) do
             for _, eventListener in pairs(listenerGroup) do
@@ -1205,6 +1209,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     function self.setUpForPastRunView()
         inPastRunView = true
+    end
+
+    function self.setRunEventListeners(shouldRunEvents)
+        runEvents = shouldRunEvents
     end
 
     function self.resetToDefault()

@@ -792,6 +792,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.main()
 		Input.updateMouse()
 		Input.updateJoypad()
+		local onTitle = currentScreens[self.UI_SCREENS.TITLE_SCREEN] ~= nil
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRunEventListeners(not onTitle)
 		if runEvents then
 			for _, eventListener in pairs(eventListeners) do
 				eventListener.listen()
