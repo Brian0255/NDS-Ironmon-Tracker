@@ -7,7 +7,7 @@ MiscConstants.BIZHAWK_VERSION = client.getversion()
 MiscConstants.UPDATE_NOTES = {
     '-- Log backups are now in the savedData folder to prevent confusion. You should delete the old backup if you are still seeing what looks like 2 identical logs.',
     '-- Fixed a bug where hovering over route data with Transparent Backgrounds on would look bad.',
-    '-- Fixed a bug with that was causing a slight FPS dip.'
+    '-- Fixed a bug that was causing a slight FPS dip.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
