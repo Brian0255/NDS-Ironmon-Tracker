@@ -71,8 +71,7 @@ local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
                     )
                 ),
                 ImageField(
-                    "ironmon_tracker/images/types/" ..
-                        PokemonData.POKEMON_TYPES[defenseTable[currentTypeIndex]] .. ".png",
+                    "ironmon_tracker/images/types/" .. PokemonData.POKEMON_TYPES[defenseTable[currentTypeIndex]] .. ".png",
                     {x = 1, y = 1},
                     {width = 30, height = 12}
                 )
@@ -474,9 +473,7 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
             {
                 width = 0,
                 height = topFrameHeight
-            },
-            nil,
-            nil
+            }
         ),
         Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
         parentFrame
@@ -490,7 +487,10 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
                 height = topFrameHeight
             },
             "Top box background color",
-            "Top box border color"
+            "Top box border color",
+            false,
+            nil,
+            true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 4, y = 2}),
         topInfoFrame
@@ -535,7 +535,10 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
                 {x = 0, y = 0},
                 {width = 36, height = topFrameHeight},
                 "Top box background color",
-                "Top box border color"
+                "Top box border color",
+                false,
+                nil,
+                true
             )
         ),
         TextField(
@@ -557,7 +560,10 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
                 {x = 0, y = 0},
                 {width = 42, height = topFrameHeight},
                 "Top box background color",
-                "Top box border color"
+                "Top box border color",
+                false,
+                nil,
+                true
             )
         ),
         TextField(
@@ -567,7 +573,10 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
                 Graphics.FONT.DEFAULT_FONT_SIZE,
                 Graphics.FONT.DEFAULT_FONT_FAMILY,
                 "Top box text color",
-                "Top box background color"
+                "Top box background color",
+                false,
+                nil,
+                true
             )
         )
     )
@@ -579,7 +588,10 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
                 {x = 0, y = 0},
                 {width = 40, height = topFrameHeight},
                 "Top box background color",
-                "Top box border color"
+                "Top box border color",
+                false,
+                nil,
+                true
             )
         ),
         TextField(
@@ -605,7 +617,10 @@ function HoverFrameFactory.createMoveHoverTextFrame(BGColorKey, BGColorFillKey, 
                 height = 0
             },
             nil,
-            nil
+            nil,
+            false,
+            nil,
+            true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
         nil
@@ -629,7 +644,12 @@ local function createAreaLabel(areaName, parentFrame, size)
         TextLabel(
         Component(
             parentFrame,
-            Box({x = 0, y = 0}, {width = size.width, height = size.height}, "Top box background color", "Top box border color")
+            Box(
+                {x = 0, y = 0},
+                {width = size.width, height = size.height},
+                "Top box background color",
+                "Top box border color"
+            )
         ),
         TextField(
             areaName,
@@ -760,7 +780,7 @@ local function createTrackedEncounterRowFrame(parentFrame)
 end
 
 local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData)
-    local name  = "?"
+    local name = "?"
     if pokemonID ~= -1 then
         name = PokemonData.POKEMON[pokemonID + 1].name
     end
@@ -821,7 +841,7 @@ local function sortTrackedEncounters(encounters)
                 elseif levels2[currentIndex] == nil and levels1[currentIndex] ~= nil then
                     return false
                 elseif levels1[currentIndex] ~= levels2[currentIndex] then
-                     return levels1[currentIndex] < levels2[currentIndex]
+                    return levels1[currentIndex] < levels2[currentIndex]
                 elseif levels1[currentIndex] == levels2[currentIndex] then
                     currentIndex = currentIndex + 1
                 end
@@ -841,7 +861,10 @@ function HoverFrameFactory.createTrackedEncountersHoverFrame(vanillaData, encoun
                 height = 72
             },
             "Top box background color",
-            "Top box border color"
+            "Top box border color",
+            false,
+            nil,
+            true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 3, {x = 0, y = 0}),
         nil
@@ -876,7 +899,10 @@ function HoverFrameFactory.createVanillaEncountersHoverFrame(areaName, encounter
                 height = 0
             },
             "Top box background color",
-            "Top box border color"
+            "Top box border color",
+            false,
+            nil,
+            true
         ),
         Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 2, {x = 0, y = 0}),
         nil
