@@ -18,6 +18,7 @@ function GameConfigurator.initPokemon(gameInfo)
 		end
 		PokemonData.POKEMON = pokemon
 	end
+	PokemonData.NAMES_MAPPING = {}
 end
 
 function GameConfigurator.initMoveData(gameInfo)
@@ -99,6 +100,11 @@ function GameConfigurator.initialize()
 	print(gameInfo.NAME .. " detected.")
 	GameConfigurator.initPokemon(gameInfo)
 	GameConfigurator.initAlternateForms(gameInfo)
+	for id, pokemonData in pairs(PokemonData.POKEMON) do
+		if id ~= 1 then
+			PokemonData.NAMES_MAPPING[pokemonData.name] = id - 1
+		end
+	end
 	GameConfigurator.initMoveData(gameInfo)
 	GameConfigurator.initAbilityData(gameInfo)
 

@@ -1,11 +1,13 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.3.0"
+MiscConstants.TRACKER_VERSION = "5.4.1"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Adds a new much requested Search feature to the Log Viewer. Try it out!'
+    '-- Log backups are now in the savedData folder to prevent confusion. You should delete the old backup if you are still seeing what looks like 2 identical logs.',
+    '-- Fixed a bug where hovering over route data with Transparent Backgrounds on would look bad.',
+    '-- Fixed a bug that was causing a slight FPS dip.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {

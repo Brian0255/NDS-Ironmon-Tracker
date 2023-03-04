@@ -19,6 +19,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local RunOverScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RunOverScreen.lua")
 	local UpdateNotesScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/UpdateNotesScreen.lua")
 	local RandomBallScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RandomBallScreen.lua")
+	local TitleScreen = dofile(Paths.FOLDERS.UI_FOLDER.."/TitleScreen.lua")
+	local RestorePointsScreen = dofile(Paths.FOLDERS.UI_FOLDER.."/RestorePointsScreen.lua")
 
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
@@ -52,6 +54,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
 	local inTrackedPokemonView = false
+	local doneWithTitleScreen = false
 	local inPastRunView = false
 	local inLockedView = false
 	local statusItems = nil
@@ -82,11 +85,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function checkIfNeedToInitialize(screen)
 		local blankInitialization = {
 			[self.UI_SCREENS.QUICK_LOAD_SCREEN] = true,
-			[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = true
+			[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = true,
+			[self.UI_SCREENS.RESTORE_POINTS_SCREEN] = true
 		}
 		local seedLoggerInitialization = {
 			[self.UI_SCREENS.STATISTICS_SCREEN] = true,
-			[self.UI_SCREENS.PAST_RUNS_SCREEN] = true
+			[self.UI_SCREENS.PAST_RUNS_SCREEN] = true,
+			[self.UI_SCREENS.TITLE_SCREEN] = true
 		}
 		if blankInitialization[screen] then
 			self.UI_SCREEN_OBJECTS[screen].initialize()
@@ -103,11 +108,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		DrawingUtils.setTransparentBackgroundOverride(needSolidBackground[screen])
 	end
 
-	function self.openScreen(screen)
-		self.setCurrentScreens({screen})
-		checkForTransparenBackgroundException(screen)
-		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
-			self.setCurrentScreens {screen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+	local function checkRandomBallPicker(newScreen)
+		if currentScreens[self.UI_SCREENS.TITLE_SCREEN] then
+			return
+		end
+		if newScreen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER then
+			self.setCurrentScreens {newScreen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(true)
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].show()
 			local mainScreenPosition = currentScreens[self.UI_SCREENS.MAIN_SCREEN].getInnerFramePosition()
@@ -115,6 +121,25 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		else
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(false)
 		end
+	end
+
+	local function checkForTitleScreen(newScreen)
+		local tryingToOpenMain =  newScreen == self.UI_SCREENS.MAIN_SCREEN and not doneWithTitleScreen
+		if newScreen == self.UI_SCREENS.TITLE_SCREEN or tryingToOpenMain then
+			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN, self.UI_SCREENS.TITLE_SCREEN})
+			--show the main screen once so the position recalculates itself
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN].show()
+			local mainScreenPosition = currentScreens[self.UI_SCREENS.MAIN_SCREEN].getInnerFramePosition()
+			currentScreens[self.UI_SCREENS.TITLE_SCREEN].moveMainFrame(mainScreenPosition)
+			currentScreens[self.UI_SCREENS.TITLE_SCREEN].initialize(seedLogger)
+		end
+	end
+
+	function self.openScreen(screen)
+		self.setCurrentScreens({screen})
+		checkForTransparenBackgroundException(screen)
+		checkForTitleScreen(screen)
+		checkRandomBallPicker(screen)
 		checkIfNeedToInitialize(screen)
 		self.drawCurrentScreens()
 	end
@@ -137,7 +162,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		STATISTICS_SCREEN = 14,
 		RUN_OVER_SCREEN = 15,
 		UPDATE_NOTES_SCREEN = 16,
-		RANDOM_BALL_SCREEN = 17
+		RANDOM_BALL_SCREEN = 17,
+		TITLE_SCREEN = 18,
+		RESTORE_POINTS_SCREEN = 19
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -158,7 +185,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.STATISTICS_SCREEN] = StatisticsScreen(settings, tracker, self),
 		[self.UI_SCREENS.RUN_OVER_SCREEN] = RunOverScreen(settings, tracker, self),
 		[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = UpdateNotesScreen(settings, tracker, self),
-		[self.UI_SCREENS.RANDOM_BALL_SCREEN] = RandomBallScreen(settings, tracker, self)
+		[self.UI_SCREENS.RANDOM_BALL_SCREEN] = RandomBallScreen(settings, tracker, self),
+		[self.UI_SCREENS.TITLE_SCREEN] = TitleScreen(settings,tracker,self),
+		[self.UI_SCREENS.RESTORE_POINTS_SCREEN] = RestorePointsScreen(settings,tracker,self)
 	}
 
 	local function getScreenTotal()
@@ -183,18 +212,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				pokemon[key] = data
 			end
 		end
-		--[[
-		local childHeader = Memory.read_u16_le(memoryAddresses.childMapHeader)
-		local parentHeader = Memory.read_u16_le(memoryAddresses.parentMapHeader)
-		local locationData = gameInfo.LOCATION_DATA
-		pokemon.location = ""
-		if locationData[childHeader] then
-			pokemon.location = locationData[childHeader]
-		else
-			if locationData[parentHeader] then
-				pokemon.location = locationData[parentHeader]
-			end
-		end--]]
 	end
 
 	local function scanForHealingItems()
@@ -436,9 +453,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		elseif locationData[parentMap] ~= nil then
 			areaName = locationData[parentMap].name
 		end
-		if areaName ~= nil then
+		if areaName ~= nil and areaName ~= locationData[0].name then
 			tracker.updateCurrentAreaName(areaName)
+			if currentScreens[self.UI_SCREENS.TITLE_SCREEN] then
+				if gameInfo.NAME == "Pokemon Platinum" and childMap == 104 then
+					doneWithTitleScreen = false
+				else
+					doneWithTitleScreen = true
+					self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
+				end
+			end
 		end
+		return areaName
+	end
+
+	function self.getCurrentLocation()
+		return updateLocation()
 	end
 
 	function self.isWildBattle()
@@ -585,7 +615,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				if self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] then
 					self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
 					readMemory()
-					self.drawCurrentScreens()
 				end
 			end
 		end
@@ -643,6 +672,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for _, screen in pairs(currentScreens) do
 			screen.show()
 		end
+		--self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].show()
+		--self.UI_SCREEN_OBJECTS[self.UI_SCREENS._SCREEN].show()
 	end
 
 	function self.isInBattle()
@@ -697,7 +728,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function updateRestorePoints()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RESTORE_POINTS_SCREEN].update()
+		if currentScreens[self.UI_SCREENS.RESTORE_POINTS_SCREEN] then
+			self.drawCurrentScreens()
+		end
+	end
+
 	frameCounters = {
+		restorePointUpdate = FrameCounter(30, updateRestorePoints),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
 		trackerSaving = FrameCounter(
 			18000,
@@ -756,6 +795,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.main()
 		Input.updateMouse()
 		Input.updateJoypad()
+		local onTitle = currentScreens[self.UI_SCREENS.TITLE_SCREEN] ~= nil
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRunEventListeners(not onTitle)
 		if runEvents then
 			for _, eventListener in pairs(eventListeners) do
 				eventListener.listen()
@@ -805,7 +846,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			self.openScreen(self.UI_SCREENS.UPDATE_NOTES_SCREEN)
 			self.saveSettings()
 		else
-			self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
+			self.openScreen(self.UI_SCREENS.TITLE_SCREEN)
 		end
 	end
 

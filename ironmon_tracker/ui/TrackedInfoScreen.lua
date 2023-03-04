@@ -13,13 +13,13 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		TRACKED_INFO_HEIGHT = 209,
+		TRACKED_INFO_HEIGHT = 232,
 		MAIN_BUTTONS_Y_OFFSET = 5,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
 		MAIN_BUTTON_WIDTH = 110,
 		MAIN_BUTTON_HEIGHT = 19,
-		BUTTONS_FRAME_HEIGHT = 102,
+		BUTTONS_FRAME_HEIGHT = 125,
 		FAINT_DETECTION_FRAME_HEIGHT = 57,
 		FAINT_DETECTION_ROW_HEIGHT = 13,
 		BUTTON_SIZE = 10
@@ -55,8 +55,16 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 		eventListeners.logOpenListener = MouseClickEventListener(ui.frames.openLogButtonFrame, onOpenLogClick)
 		eventListeners.trackedPokemonClickListener =
 			MouseClickEventListener(ui.frames.trackedPokemonButtonFrame, onTrackedPokemonClick)
-		eventListeners.pastRunsListeners = MouseClickEventListener(ui.frames.pastRunsButtonFrame, program.openScreen, program.UI_SCREENS.PAST_RUNS_SCREEN)
-		eventListeners.statsListener = MouseClickEventListener(ui.frames.statisticsButtonFrame, program.openScreen, program.UI_SCREENS.STATISTICS_SCREEN)
+		eventListeners.pastRunsListeners =
+			MouseClickEventListener(ui.frames.pastRunsButtonFrame, program.openScreen, program.UI_SCREENS.PAST_RUNS_SCREEN)
+		eventListeners.statsListener =
+			MouseClickEventListener(ui.frames.statisticsButtonFrame, program.openScreen, program.UI_SCREENS.STATISTICS_SCREEN)
+		eventListeners.openRestorePoints =
+			MouseClickEventListener(
+			ui.frames.openRestorePointsButtonFrame,
+			program.openScreen,
+			program.UI_SCREENS.RESTORE_POINTS_SCREEN
+		)
 	end
 
 	local function initBottomFrameControls()
@@ -90,20 +98,23 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			trackedPokemonButton = "Tracked Pok" .. Chars.accentedE .. "mon",
 			pastRunsButton = "Past Runs",
 			statisticsButton = "Statistics",
-			openLogButton = "Open a Log"
+			openLogButton = "Open a Log",
+			openRestorePointsButton = "Restore Points"
 		}
-		local icons = {"PENCIL", "PAST_RUN_ICON", "STATISTICS_ICON", "OPEN_LOG_ICON"}
+		local icons = {"PENCIL", "PAST_RUN_ICON", "STATISTICS_ICON", "OPEN_LOG_ICON", "RESTORE_POINTS_ICON"}
 		local order = {
 			"trackedPokemonButton",
 			"pastRunsButton",
 			"statisticsButton",
-			"openLogButton"
+			"openLogButton",
+			"openRestorePointsButton"
 		}
 		local iconOffsets = {
 			{x = 2, y = 2},
 			{x = 3, y = 2},
 			{x = 3, y = 2},
-			{x = 3, y = 2}
+			{x = 3, y = 2},
+			{x = 3, y = 3}
 		}
 		for i, key in pairs(order) do
 			local text = buttonNames[key]
@@ -210,7 +221,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			)
 		)
 		local settingNames = {
-			[PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT] = "First Pok" .. Chars.accentedE .. "mon faints",
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT] = "Lead Pok" .. Chars.accentedE .. "mon faints",
 			[PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT] = "Highest level faints"
 		}
 		for settingValue, name in pairs(settingNames) do

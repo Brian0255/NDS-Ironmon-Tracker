@@ -54,24 +54,38 @@ local function Main()
 		FormsUtils.popupDialog(message, 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
 	end
 
-	local function incrementAttempts(settingsName)
-		local folder = "attempts\\"
-		local attemptsPath = folder .. settingsName .. ".txt"
+	local function incrementAndSaveFile(path)
 		local attempts = 0
-		local attemptsFile = io.open(attemptsPath, "r")
+		local attemptsFile = io.open(path, "r")
 		if attemptsFile ~= nil then
 			attempts = attemptsFile:read("*a")
 			if attempts ~= nil and tonumber(attempts) ~= nil then
-				attempts = tonumber(attempts)
+				attempts = tonumber(attempts, 10)
 			end
 			attemptsFile:close()
 		end
 		attempts = attempts + 1
-		attemptsFile = io.open(attemptsPath, "w")
+		attemptsFile = io.open(path, "w")
 		if attemptsFile ~= nil then
 			attemptsFile:write(attempts)
 			attemptsFile:close()
 		end
+	end
+
+	local function incrementAttempts(settingsName)
+		local folder = "savedData\\"
+		local attemptsPath = folder .. program.getGameInfo().NAME .. " Attempts.txt"
+		local settingsSpecificFolder = "attempts\\"
+		local settingsAttemptsPath = settingsSpecificFolder .. settingsName .. ".txt"
+		incrementAndSaveFile(attemptsPath)
+		incrementAndSaveFile(settingsAttemptsPath)
+	end
+
+	local function createBackupOfLog(romName)
+		local backupPath = Paths.CURRENT_DIRECTORY.."\\savedData\\"..romName.."_backup.nds.log"
+		print(romName)
+		local romPath = Paths.CURRENT_DIRECTORY.."\\"..romName
+		MiscUtils.copyFile(romPath..".nds.log", backupPath)
 	end
 
 	local function generateROM()
@@ -92,6 +106,7 @@ local function Main()
 		local nextRomName = settingsName .. "_Auto_Randomized.nds"
 		nextRomName = nextRomName:gsub(" ","_")
 		local nextRomPath = currentDirectory .. "\\" .. nextRomName
+		createBackupOfLog(nextRomName:match("(.*)%.nds"))
 		local randomizerCommand =
 			string.format(
 			'java -Xmx4608M -jar "%s" cli -s "%s" -i "%s" -o "%s" -l',

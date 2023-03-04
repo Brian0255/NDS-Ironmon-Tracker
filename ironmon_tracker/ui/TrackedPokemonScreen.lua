@@ -164,7 +164,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             TextLabel(
             Component(ui.frames.navigationFrame, Box({x = 0, y = 0}, {width = 48, height = 0}, nil, nil, false)),
             TextField(
-                "100/103",
+                "",
                 {x = 2, y = -1},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Move header text color", "Main background color")
             )

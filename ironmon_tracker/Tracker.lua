@@ -185,7 +185,7 @@ local function Tracker()
 		local ids = {}
 		local pokemon = trackedData.trackedPokemon
 		for id, _ in pairs(pokemon) do
-			if not PokemonData.POKEMON[id + 1] then
+			if not PokemonData.POKEMON[id + 1] or id == 0 then
 				pokemon[id] = nil
 			else
 				table.insert(ids, id)
