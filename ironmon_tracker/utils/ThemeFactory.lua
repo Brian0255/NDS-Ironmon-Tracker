@@ -156,6 +156,7 @@ function ThemeFactory.getThemeString()
     for _, key in pairs(ThemeFactory.COLOR_SETTINGS_KEYS_ORDERED) do
         completeString = completeString .. MiscUtils.boolToNumber(settings.colorSettings[key]) .. " "
     end
+    --completeString = completeString:sub(1,#completeString-1)
     return completeString
 end
 
