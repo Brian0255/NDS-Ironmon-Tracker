@@ -81,7 +81,6 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
             end
         end
         ui.controls.noRestorePoints.setVisibility(#restorePoints == 0)
-        program.drawCurrentScreens()
     end
 
     local function createRestorePoint()
@@ -100,13 +99,11 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
             local restorePoint = table.remove(restorePoints, maxRestorePoints + 1)
             memorysavestate.removestate(restorePoint.id)
         end
-        readRestorePointsIntoUI()
     end
 
     function self.initialize()
         presentID = nil
         loadedARestore = false
-        readRestorePointsIntoUI()
     end
 
     local function initDescriptionUI()

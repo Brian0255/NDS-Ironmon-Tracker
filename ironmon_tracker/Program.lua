@@ -730,6 +730,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function updateRestorePoints()
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RESTORE_POINTS_SCREEN].update()
+		if currentScreens[self.UI_SCREENS.RESTORE_POINTS_SCREEN] then
+			self.drawCurrentScreens()
+		end
 	end
 
 	frameCounters = {
