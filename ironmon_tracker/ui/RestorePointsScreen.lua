@@ -56,18 +56,21 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
     end
 
     local function onLoadRestorePoint(index)
-        local id = restorePoints[index].id
-        if id == nil then
-            return
-        end
-        if not loadedARestore then
-            loadedARestore = true
-            if presentID ~= nil then
-                memorysavestate.removestate(presentID)
+        local restorePoint = restorePoints[index]
+        if restorePoint ~= nil then
+            local id = restorePoint.id
+            if id == nil then
+                return
             end
-            presentID = memorysavestate.savecorestate()
+            if not loadedARestore then
+                loadedARestore = true
+                if presentID ~= nil then
+                    memorysavestate.removestate(presentID)
+                end
+                presentID = memorysavestate.savecorestate()
+            end
+            memorysavestate.loadcorestate(id)
         end
-        memorysavestate.loadcorestate(id)
     end
 
     local function readRestorePointsIntoUI()
