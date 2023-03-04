@@ -82,8 +82,10 @@ local function Main()
 	end
 
 	local function createBackupOfLog(romName)
-		local backupPath = romName.."_backup.nds.log"
-		MiscUtils.copyFile(romName..".nds.log", backupPath)
+		local backupPath = Paths.CURRENT_DIRECTORY.."\\savedData\\"..romName.."_backup.nds.log"
+		print(romName)
+		local romPath = Paths.CURRENT_DIRECTORY.."\\"..romName
+		MiscUtils.copyFile(romPath..".nds.log", backupPath)
 	end
 
 	local function generateROM()
@@ -104,7 +106,7 @@ local function Main()
 		local nextRomName = settingsName .. "_Auto_Randomized.nds"
 		nextRomName = nextRomName:gsub(" ","_")
 		local nextRomPath = currentDirectory .. "\\" .. nextRomName
-		createBackupOfLog(nextRomPath:match("(.*)%.nds"))
+		createBackupOfLog(nextRomName:match("(.*)%.nds"))
 		local randomizerCommand =
 			string.format(
 			'java -Xmx4608M -jar "%s" cli -s "%s" -i "%s" -o "%s" -l',
