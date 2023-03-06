@@ -247,7 +247,6 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         viewingMoves = true
         movesScrollBar.setScrollReadingFunction(readScrollMovesIntoUI)
         readScrollMovesIntoUI()
-        self.show()
     end
 
     local function onForwardClick()
@@ -808,8 +807,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
 
 
     function self.show()
+		browsManager.show()
         ui.frames.mainFrame.show()
-        browsManager.show()
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
