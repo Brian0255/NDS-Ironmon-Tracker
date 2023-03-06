@@ -47,6 +47,7 @@ end
 
 local function readAttempts()
     for loadType, _ in pairs(attempts) do
+        attempts[loadType] = 0
         local path = attemptsPaths[loadType]
         if path ~= nil then
             local attemptsFile = io.open(path, "r")
