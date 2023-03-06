@@ -67,6 +67,9 @@ function FormsUtils.fileExists(path)
 end
 
 function FormsUtils.getFileNameFromPath(path)
+    if path == nil or path == "" then
+        return nil
+    end
     return path:reverse():match("([^\\]*)\\"):reverse()
 end
 
@@ -284,7 +287,12 @@ function FormsUtils.createFavoriteChoosingForm(callback, favoritesIndex)
     )
 end
 
-function FormsUtils.createAttemptEditingWindow(currentAttempts, callback)
+function FormsUtils.displayError(message)
+    forms.destroyall()
+    FormsUtils.popupDialog(message, 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
+end
+
+function FormsUtils.createAttemptEditingWindow(currentAttempts, onAttemptsSet, UICallback)
     local mainWidth, mainHeight = 270, 106
     local form =
         forms.newform(
@@ -308,7 +316,7 @@ function FormsUtils.createAttemptEditingWindow(currentAttempts, callback)
         form,
         "Set",
         function()
-            callback(tonumber(forms.gettext(attemptsEdit),10))
+            onAttemptsSet(tonumber(forms.gettext(attemptsEdit),10), UICallback)
             forms.destroy(form)
         end,
         textboxWidth + 20,
