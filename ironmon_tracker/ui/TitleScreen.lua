@@ -256,39 +256,26 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	local function readAttemptsIntoUI()
 		local attemptsText = "Attempts: " .. attempts
 		ui.controls.attemptsLabel.setText(attemptsText)
-	end
-
-	local function readAttempts()
-		local fileName = "savedData\\" .. program.getGameInfo().NAME .. " Attempts.txt"
-		local attemptsString = MiscUtils.readStringFromFile(fileName)
-		if attemptsString ~= nil and attemptsString ~= "" then
-			attempts = tonumber(attemptsString, 10)
-		end
-		if attempts == nil then
-			attempts = 0
-		end
-		readAttemptsIntoUI()
-	end
-
-	local function onAttemptsSet(newAttempts)
-		local fileName = "savedData\\" .. program.getGameInfo().NAME .. " Attempts.txt"
-		attempts = newAttempts
-		MiscUtils.writeStringToFile(fileName, attempts)
-		readAttemptsIntoUI()
 		program.drawCurrentScreens()
 	end
 
+	local function onAttemptsSet()
+		attempts = QuickLoader.getAttempts()
+		readAttemptsIntoUI()
+	end
+
 	local function onAttemptsClick()
-		FormsUtils.createAttemptEditingWindow(attempts, onAttemptsSet)
+		QuickLoader.openAttemptsEditingWindow(onAttemptsSet)
 	end
 
 	function self.initialize(newSeedLogger)
 		seedLogger = newSeedLogger
 		initFavorites()
-		readAttempts()
+		attempts = QuickLoader.getAttempts()
 		local name = program.getGameInfo().NAME:gsub("Pokemon", "Pok" .. Chars.accentedE .. "mon")
 		ui.controls.gameLabel.setText(name)
 		getRandomStatistic()
+		readAttemptsIntoUI()
 	end
 
 	function self.moveMainFrame(newPosition)
