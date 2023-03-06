@@ -61,7 +61,6 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 break
             end
         end
-        readCurrentIndexIntoMainScreen()
         program.drawCurrentScreens()
     end
 
@@ -84,14 +83,12 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     local function onForwardClick()
         if currentIndex == 0 then return end
         currentIndex = (currentIndex % totalIDs) + 1
-        readCurrentIndexIntoMainScreen()
         program.drawCurrentScreens()
     end
 
     local function onBackwardClick()
         if currentIndex == 0 then return end
         currentIndex = ((currentIndex + totalIDs - 2) % totalIDs) + 1
-        readCurrentIndexIntoMainScreen()
         program.drawCurrentScreens()
     end
 
