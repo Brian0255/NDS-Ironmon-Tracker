@@ -54,7 +54,7 @@ local function Main()
 		FormsUtils.popupDialog(message, 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
 	end
 
-	local function incrementAndSaveFile(path)
+	local function incrementAndSaveFile(path, romNumber)
 		local attempts = 0
 		local attemptsFile = io.open(path, "r")
 		if attemptsFile ~= nil then
@@ -63,6 +63,10 @@ local function Main()
 				attempts = tonumber(attempts, 10)
 			end
 			attemptsFile:close()
+		else
+			if romNumber ~= nil then
+				attempts = tonumber(romNumber,10)
+			end
 		end
 		attempts = attempts + 1
 		attemptsFile = io.open(path, "w")
@@ -72,18 +76,17 @@ local function Main()
 		end
 	end
 
-	local function incrementAttempts(settingsName)
+	local function incrementAttempts(attemptsFileName, romNumber)
 		local folder = "savedData\\"
 		local attemptsPath = folder .. program.getGameInfo().NAME .. " Attempts.txt"
 		local settingsSpecificFolder = "attempts\\"
-		local settingsAttemptsPath = settingsSpecificFolder .. settingsName .. ".txt"
+		local settingsAttemptsPath = settingsSpecificFolder .. attemptsFileName .. ".txt"
 		incrementAndSaveFile(attemptsPath)
-		incrementAndSaveFile(settingsAttemptsPath)
+		incrementAndSaveFile(settingsAttemptsPath, romNumber)
 	end
 
 	local function createBackupOfLog(romName)
 		local backupPath = Paths.CURRENT_DIRECTORY.."\\savedData\\"..romName.."_backup.nds.log"
-		print(romName)
 		local romPath = Paths.CURRENT_DIRECTORY.."\\"..romName
 		MiscUtils.copyFile(romPath..".nds.log", backupPath)
 	end
@@ -141,7 +144,7 @@ local function Main()
 		end
 
 		local romName = gameinfo.getromname()
-		local romNumber = romName:match("%d+")
+		local nameWithoutNumbers, romNumber = romName:match("(.*)(%d+)")
 
 		if romNumber == nil then
 			local message = "Current ROM does not have any numbers in its name, unable to load next seed."
@@ -167,6 +170,8 @@ local function Main()
 				io.close(fileCheck)
 			end
 		end
+
+		incrementAttempts(nameWithoutNumbers, romNumber)
 
 		return {
 			name = nextRomName,
