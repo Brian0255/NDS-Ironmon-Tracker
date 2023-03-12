@@ -12,13 +12,14 @@ MiscConstants.UPDATE_NOTES = {
 
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
+        AUTO_POKEMON_THEMES = false,
         EXPERIENCE_BAR = true,
         RIGHT_JUSTIFIED_NUMBERS = true,
         SHOW_ACCURACY_AND_EVASION = true,
         RANDOM_BALL_PICKER = true,
         SHOW_POKECENTER_HEALS = false,
         ICON_SET_INDEX = 2,
-        BLIND_MODE = false
+        BLIND_MODE = false,
     },
     controls = {
         CHANGE_VIEW = "Start",
