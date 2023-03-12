@@ -217,7 +217,7 @@ local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
     local moveLabelHeight = 16
     local movesLearnedMarkings = MoveUtils.getMovesLearned(movelvls, level)
     for i, moveLevel in pairs(movelvls) do
-        local textColorKey = "Bottom box text color"
+        local textColorKey = "Top box text color"
         if movesLearnedMarkings[moveLevel] then
             textColorKey = "Negative text color"
         end
@@ -237,8 +237,8 @@ local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
                         y = 0
                     },
                     {width = moveLabelWidth, height = moveLabelHeight},
-                    "Bottom box background color",
-                    "Bottom box border color",
+                    "Top box background color",
+                    "Top box border color",
                     nil,
                     nil,
                     true
@@ -251,7 +251,7 @@ local function fillMoveHeaderHoverRows(movelvls, level, rowFrames)
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
                     textColorKey,
-                    "Bottom box background color"
+                    "Top box background color"
                 )
             )
         )
@@ -293,8 +293,8 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
                     y = 0
                 },
                 {width = frameWidth, height = textHeaderHeight},
-                "Bottom box background color",
-                "Bottom box border color",
+                "Top box background color",
+                "Top box border color",
                 nil,
                 nil,
                 true
@@ -303,7 +303,7 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
         TextField(
             "Moves Learned",
             {x = 30, y = 1},
-            TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Bottom box text color", "Bottom box background color")
+            TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
         )
     )
     local moveLevelsFrame =
@@ -314,8 +314,8 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
                 width = frameWidth,
                 height = moveLevelsFrameHeight
             },
-            "Bottom box background color",
-            "Bottom box border color",
+            "Top box background color",
+            "Top box border color",
             nil,
             nil,
             true

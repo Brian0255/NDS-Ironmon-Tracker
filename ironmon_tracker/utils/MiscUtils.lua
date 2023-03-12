@@ -219,6 +219,12 @@ function MiscUtils.deepCopy(o, seen)
     return no
 end
 
+function MiscUtils.copyTableIntoAnother(source, destination)
+    for key, value in pairs(source) do
+        destination[key] = value
+    end
+end
+
 function MiscUtils.randomTableValue(t)
     return t[math.random(#t)]
 end

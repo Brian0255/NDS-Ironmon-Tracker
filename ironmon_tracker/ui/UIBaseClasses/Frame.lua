@@ -30,6 +30,9 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
     function self.setBackgroundColorKey(newColorKey)
         box.setBackgroundColorKey(newColorKey)
     end
+    function self.setBackgroundFillColorKey(newColorKey)
+        box.setBackgroundFillColorKey(newColorKey)
+    end
     function self.changeParentFrame(newFrame, newIndex)
         if parentFrame ~= nil then
             parentFrame.removeControl(self)

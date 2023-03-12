@@ -13,14 +13,14 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_HEIGHT = 221,
+        MAIN_HEIGHT = 234,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
         MAIN_BUTTON_WIDTH = 106,
         MAIN_BUTTON_HEIGHT = 19,
         BADGE_COLOR_FRAME_HEIGHT = 84,
-        BUTTONS_FRAME_HEIGHT = 85
+        BUTTONS_FRAME_HEIGHT = 98
     }
     local ui = {}
     local eventListeners = {}
@@ -60,6 +60,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
 
     local function initAppearanceToggleButtons()
         local orderedKeys = {
+            "AUTO_POKEMON_THEMES",
             "RIGHT_JUSTIFIED_NUMBERS",
             "SHOW_ACCURACY_AND_EVASION",
             "EXPERIENCE_BAR",
@@ -115,7 +116,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             local labelName
             labelName = key:gsub("_", " "):lower()
             labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
-            labelName = labelName:gsub("pokecenter", "Pok"..Chars.accentedE.."center")
+            labelName = labelName:gsub("poke", "Pok"..Chars.accentedE)
             if key == "BLIND_MODE" then
                 labelName = "Blind mode (hides stats/ability)"
             end
