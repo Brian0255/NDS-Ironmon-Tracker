@@ -2,7 +2,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
 	local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
 	local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
-	local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
+	local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
 	local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
 	local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
 	local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
@@ -63,7 +63,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		end
 		return true
 	end
-	
+
 	local function formatPercentMapping(mapping, pastRunStatistics, runAmount)
 		local statKey, dataEntryKey = mapping.statKey, mapping.dataEntryKey
 		local statistic = pastRunStatistics[statKey]
@@ -169,7 +169,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		}
 	}
 
-	
+
 	local function getRandomStatistic()
 		local statistics = seedLogger.getPastRunStatistics()
 		local completeText = "Fun statistics will be shown here once you play enough."

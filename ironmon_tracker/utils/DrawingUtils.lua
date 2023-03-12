@@ -13,7 +13,7 @@ local TextLabel = dofile(UIClassFolder .. "TextLabel.lua")
 local TextField = dofile(UIClassFolder .. "TextField.lua")
 local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
 local Layout = dofile(UIClassFolder .. "Layout.lua")
-local ImageField = dofile(UIClassFolder .. "/ImageFIeld.lua")
+local ImageField = dofile(UIClassFolder .. "/ImageField.lua")
 
 function DrawingUtils.initialize(initialSettings)
     settings = initialSettings

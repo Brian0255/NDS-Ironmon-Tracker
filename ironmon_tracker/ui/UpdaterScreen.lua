@@ -1,7 +1,7 @@
 local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
-    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
+    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
     local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
     local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
@@ -31,7 +31,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
     local eventListeners = {}
     local self = {}
 
-    
+
     local function reset()
         ui.controls.ignoreButton.setVisibility(true)
         ui.controls.installButton.setVisibility(true)
@@ -39,7 +39,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
         ui.frames.updateInfoFrame.setLayoutPadding({x=26,y=5})
         self.setAsUpdateAvailable(newestVersionString)
     end
-    
+
     local function onGoBackClick()
         if not errored then
             program.setCurrentScreens({program.UI_SCREENS.MAIN_OPTIONS_SCREEN})
