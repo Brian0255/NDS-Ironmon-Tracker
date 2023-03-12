@@ -53,7 +53,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
     end
 
     local function onColorEditClick(colorKey)
-        local colorPicker = ColorPicker(settings.colorScheme, colorKey, onColorPickerEnd, nil, program.saveSettings)
+        local colorPicker = ColorPicker(settings.colorScheme, colorKey, onColorPickerEnd, nil, program.saveSettingsWithTheme)
         program.setColorPicker(colorPicker)
     end
 
@@ -159,7 +159,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 nil, 
                 false,
                 true,
-                program.saveSettings
+                program.saveSettingsWithTheme
             )
             table.insert(
                 eventListeners,
@@ -182,6 +182,10 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             )
         end
+    end
+
+    local function onImportClick()
+        ThemeFactory.createImportThemeForm(program.drawCurrentScreens)
     end
 
     local function createImportExportButtons()
@@ -249,7 +253,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
         )
         table.insert(
             eventListeners,
-            MouseClickEventListener(ui.controls.importTheme, ThemeFactory.createImportThemeForm)
+            MouseClickEventListener(ui.controls.importTheme, onImportClick)
         )
         table.insert(
             eventListeners,
