@@ -219,7 +219,7 @@ PokemonData.POKEMON = {
             {7, 10, 16, 19, 25, 28, 34, 37, 43, 46}
         },
         weight = 8.5,
-        theme = "000000 000000 0068F4 A42602 69219C FFFFFF CE7107 F09028 F1C28E F09028 4A3CAC 000000 000000 000000 0 1 1 1 0 1"
+        theme = "FFFFFF FFFFFF BED9FF FEB7BD FFE851 FFFFFF B16106 EE8513 EBAB65 EE8513 4A3CAC FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Charmeleon",
@@ -234,7 +234,7 @@ PokemonData.POKEMON = {
             {7, 10, 17, 21, 28, 32, 39, 43, 50, 54}
         },
         weight = 19.0,
-        theme = "000000 000000 0068F4 A42602 69219C FFFFFF CE7107 F09028 F1C28E F09028 4A3CAC 000000 000000 000000 0 1 1 1 0 1"
+        theme = "FFFFFF FFFFFF BED9FF FEB7BD FFE851 FFFFFF B16106 EE8513 EBAB65 EE8513 4A3CAC FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Charizard",
@@ -249,7 +249,7 @@ PokemonData.POKEMON = {
             {7, 10, 17, 21, 28, 32, 36, 41, 47, 56, 62, 71, 77}
         },
         weight = 90.5,
-        theme = "000000 000000 0068F4 A42602 69219C FFFFFF CE7107 F09028 F1C28E F09028 4A3CAC 000000 000000 000000 0 1 1 1 0 1"
+        theme = "FFFFFF FFFFFF BED9FF FEB7BD FFE851 FFFFFF B16106 EE8513 EBAB65 EE8513 4A3CAC FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Squirtle",
@@ -1540,7 +1540,7 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 26, 29, 33, 36, 40, 43, 47}
         },
         weight = 0.1,
-        theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 F96661 7E63CE 9F8ADB 7E63CE 9F8ADB 493F74 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
+        theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 F57984 54457B 715EA4 9587BB 715EA4 54457B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Haunter",
@@ -1555,7 +1555,7 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 25, 28, 33, 39, 44, 50, 55, 61}
         },
         weight = 0.1,
-        theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 F96661 7E63CE 9F8ADB 7E63CE 9F8ADB 493F74 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
+        theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 F57984 54457B 715EA4 9587BB 715EA4 54457B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Gengar",
@@ -1570,7 +1570,7 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 25, 28, 33, 39, 44, 50, 55, 61}
         },
         weight = 40.5,
-        theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 F96661 7E63CE 9F8ADB 7E63CE 9F8ADB 493F74 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
+        theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 F57984 54457B 715EA4 9587BB 715EA4 54457B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Onix",
@@ -3990,7 +3990,7 @@ PokemonData.POKEMON = {
             {7, 10, 16, 19, 25, 28, 34, 37, 43}
         },
         weight = 2.5,
-        THEME = "000000 FFFFFF 003DBB B40002 8F720F FFFFFF ECC47F F7E6C8 DB8D78 CB593B 5E534E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
+        theme = "000000 FFFFFF 003DBB B40002 8F720F FFFFFF ECC47F F7E6C8 DB8D78 CB593B 5E534E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Combusken",
@@ -4005,7 +4005,7 @@ PokemonData.POKEMON = {
             {7, 13, 16, 17, 21, 28, 32, 39, 43, 50, 54}
         },
         weight = 19.5,
-        THEME = "000000 FFFFFF 003DBB B40002 8F720F FFFFFF ECC47F F7E6C8 DB8D78 CB593B 5E534E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
+        theme = "000000 FFFFFF 003DBB B40002 8F720F FFFFFF ECC47F F7E6C8 DB8D78 CB593B 5E534E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Blaziken",
@@ -4020,7 +4020,7 @@ PokemonData.POKEMON = {
             {7, 13, 16, 17, 21, 28, 32, 36, 42, 49, 59, 66}
         },
         weight = 52.0,
-        THEME = "000000 FFFFFF 003DBB B40002 8F720F FFFFFF ECC47F F7E6C8 DB8D78 CB593B 5E534E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
+        theme = "000000 FFFFFF 003DBB B40002 8F720F FFFFFF ECC47F F7E6C8 DB8D78 CB593B 5E534E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Mudkip",
@@ -7341,7 +7341,8 @@ PokemonData.POKEMON = {
             {4, 10, 13, 19, 22, 28, 31, 37, 40, 51, 59},
             {4, 10, 13, 19, 22, 28, 31, 37, 40, 51, 59}
         },
-        weight = 26.6
+        weight = 26.6,
+        theme = "FFFFFF 000000 C1D6FE FFBEC0 FFE92C FFFFFF 2984B3 50A9D7 DCC8B4 F8F4F0 734B89 000000 000000 000000 0 1 1 1 0 1"
     },
     {
         name = "Rotom",
@@ -7355,7 +7356,8 @@ PokemonData.POKEMON = {
             {8, 15, 22, 29, 36, 43, 50, 57, 64},
             {8, 15, 22, 29, 36, 43, 50, 57, 64}
         },
-        weight = .3
+        weight = .3,
+        theme = "FFFFFF FFFFFF C1D6FE FEC6CC FFF181 FFFFFF C14F21 EA6A3C F2A88D EA6A3C 734B89 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Uxie",
@@ -7369,7 +7371,8 @@ PokemonData.POKEMON = {
             {6, 16, 21, 31, 36, 46, 51, 61, 66, 76},
             {6, 16, 21, 31, 36, 46, 51, 61, 66, 76}
         },
-        weight = .3
+        weight = .3,
+        theme = "000000 FFFFFF 023596 B40002 7E5A10 FFFFFF D4A545 F3D667 BAC9D6 87A1B8 42577D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Mesprit",
@@ -7383,7 +7386,8 @@ PokemonData.POKEMON = {
             {6, 16, 21, 31, 36, 46, 51, 61, 66, 76},
             {6, 16, 21, 31, 36, 46, 51, 61, 66, 76}
         },
-        weight = .3
+        weight = .3,
+        theme = "FFFFFF FFFFFF CCDDFE FED6D6 FEF9A3 FFFFFF C8467A E86AA0 BAC9D6 87A1B8 42577D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Azelf",
@@ -7397,7 +7401,8 @@ PokemonData.POKEMON = {
             {6, 16, 21, 31, 36, 46, 51, 61, 66, 76},
             {6, 16, 21, 31, 36, 46, 51, 61, 66, 76}
         },
-        weight = .3
+        weight = .3,
+        theme = "FFFFFF FFFFFF CCDDFE FED6D6 FEF9A3 FFFFFF 34709A 5395C4 BAC9D6 87A1B8 42577D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Dialga",
@@ -7411,7 +7416,8 @@ PokemonData.POKEMON = {
             {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50},
             {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50}
         },
-        weight = 683.0
+        weight = 683.0,
+        theme = "FFFFFF FFFFFF CCDDFE FDB4B2 FEF9A3 FFFFFF 0E456E 145D95 AABED5 7092BA 0E456E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Palkia",
@@ -7425,7 +7431,8 @@ PokemonData.POKEMON = {
             {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50},
             {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50}
         },
-        weight = 336.0
+        weight = 336.0,
+        theme = "000000 000000 022F85 B40002 5F5276 FFFFFF C0B0E3 EDE2FE C0B0E3 EDE2FE 8D5A89 000000 000000 000000 0 1 1 1 0 1"
     },
     {
         name = "Heatran",
@@ -7439,7 +7446,8 @@ PokemonData.POKEMON = {
             {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 88, 96},
             {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 88, 96}
         },
-        weight = 430.0
+        weight = 430.0,
+        theme = "FFFFFF FFFFFF D0DFFE FFC8C9 FDFF8E FFFFFF 676764 8B8B87 6E7272 494C4C 773D2B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Regigigas",
@@ -7453,7 +7461,8 @@ PokemonData.POKEMON = {
             {25, 40, 50, 65, 75, 90, 100},
             {25, 40, 50, 65, 75, 90, 100}
         },
-        weight = 420.0
+        weight = 420.0,
+        theme = "000000 000000 033295 B40002 976515 FFFFFF CA9918 FFCC3E C2D2DB E4FFFF 296B3A 000000 000000 000000 0 1 1 1 0 1"
     },
     {
         name = "Giratina A",
@@ -7467,7 +7476,8 @@ PokemonData.POKEMON = {
             {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50},
             {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50}
         },
-        weight = 750.0
+        weight = 750.0,
+        theme = "FFFFFF FFFFFF C6D8FD FFC5C5 FEF988 FFFFFF 2E3133 424649 C5CED5 879AAA BD3D3F FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Cresselia",
@@ -7481,7 +7491,8 @@ PokemonData.POKEMON = {
             {11, 20, 29, 38, 47, 57, 66, 75, 84, 93},
             {11, 20, 29, 38, 47, 57, 66, 75, 84, 93}
         },
-        weight = 85.6
+        weight = 85.6,
+        theme = "000000 FFFFFF 033295 B40002 9F5F0A FFFFFF CB9433 FFD477 B1BEF7 7089F0 B54C85 FFFFFF FFFFFF 000000 0 1 1 1 0 1"
     },
     {
         name = "Phione",
@@ -7495,7 +7506,8 @@ PokemonData.POKEMON = {
             {9, 16, 24, 31, 39, 46, 54, 61, 69},
             {9, 16, 24, 31, 39, 46, 54, 61, 69}
         },
-        weight = 3.1
+        weight = 3.1,
+        theme = "FFFFFF FFFFFF BBE0FF FEC3C1 FFE848 FFFFFF 0F77A1 119CD8 0F77A1 119CD8 0B5776 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Manaphy",
@@ -7509,7 +7521,8 @@ PokemonData.POKEMON = {
             {9, 16, 24, 31, 39, 46, 54, 61, 69, 76},
             {9, 16, 24, 31, 39, 46, 54, 61, 69, 76}
         },
-        weight = 1.4
+        weight = 1.4,
+        theme = "FFFFFF FFFFFF BBE0FF FEC3C1 FFE848 FFFFFF 0F77A1 119CD8 0F77A1 119CD8 0B5776 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Darkrai",
@@ -7523,7 +7536,8 @@ PokemonData.POKEMON = {
             {11, 20, 29, 38, 47, 57, 66, 75, 84, 93},
             {11, 20, 29, 38, 47, 57, 66, 75, 84, 93}
         },
-        weight = 50.5
+        weight = 50.5,
+        theme = "000000 FFFFFF 004B8B B40002 606060 FFFFFF B4C8D5 DDE6EC E98482 DE433F 2F2F2F FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Shaymin L",
@@ -7537,7 +7551,8 @@ PokemonData.POKEMON = {
             {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
             {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100}
         },
-        weight = 2.1
+        weight = 2.1,
+        theme = "000000 000000 004B8B B40002 55702F FFFFFF 6B9B33 9BCB63 B4C8D5 DDE6EC B4536F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Arceus",
@@ -7551,7 +7566,8 @@ PokemonData.POKEMON = {
             {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
             {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
         },
-        weight = 320.0
+        weight = 320.0,
+        theme = "FFFFFF 000000 C8E5FF FFD9DA F8FE69 FFFFFF 3A3D3F 565B5E B4C8D5 DDE6EC 255132 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     --gen 5(#494-649)
     {
@@ -7566,7 +7582,8 @@ PokemonData.POKEMON = {
             {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97},
             {9, 17, 25, 33, 41, 49, 57, 65, 73, 81, 89, 97}
         },
-        weight = 4.0
+        weight = 4.0,
+        theme = "FFFFFF 000000 ADD8FE FCC4C5 F8FE69 FFFFFF BB4E1B E16930 D3B462 FFE5AE 355493 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Snivy",
@@ -7580,7 +7597,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43}
         },
-        weight = 8.1
+        weight = 8.1,
+        theme = "FFFFFF 000000 CCE6FE FCD1D2 FFEE9F FFFFFF 007348 119A6E BBE3CD A3D9BB 007348 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Servine",
@@ -7594,7 +7612,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52}
         },
-        weight = 16.0
+        weight = 16.0,
+        theme = "FFFFFF 000000 CCE6FE FCD1D2 FFEE9F FFFFFF 007348 119A6E BBE3CD A3D9BB 007348 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Serperior",
@@ -7608,7 +7627,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 38, 44, 50, 56, 62},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 38, 44, 50, 56, 62}
         },
-        weight = 63.0
+        weight = 63.0,
+        theme = "FFFFFF 000000 CCE6FE FCD1D2 FFEE9F FFFFFF 007348 119A6E BBE3CD A3D9BB 007348 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Tepig",
@@ -7622,7 +7642,8 @@ PokemonData.POKEMON = {
             {3, 7, 9, 13, 15, 19, 21, 25, 27, 31, 33, 37, 39, 43},
             {3, 7, 9, 13, 15, 19, 21, 25, 27, 31, 33, 37, 39, 43}
         },
-        weight = 9.9
+        weight = 9.9,
+        theme = "FFFFFF FFFFFF CCE6FE FDDDA5 FEE677 FFFFFF CC4B09 F56921 EC897F E13F2E 3B3B3B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Pignite",
@@ -7636,7 +7657,8 @@ PokemonData.POKEMON = {
             {3, 7, 9, 13, 15, 17, 20, 23, 28, 31, 36, 39, 44, 47, 52},
             {3, 7, 9, 13, 15, 17, 20, 23, 28, 31, 36, 39, 44, 47, 52}
         },
-        weight = 55.5
+        weight = 55.5,
+        theme = "FFFFFF FFFFFF CCE6FE FDDDA5 FEE677 FFFFFF CC4B09 F56921 EC897F E13F2E 3B3B3B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Emboar",
@@ -7650,7 +7672,8 @@ PokemonData.POKEMON = {
             {3, 7, 9, 13, 15, 17, 20, 23, 28, 31, 38, 43, 50, 55, 62},
             {3, 7, 9, 13, 15, 17, 20, 23, 28, 31, 38, 43, 50, 55, 62}
         },
-        weight = 150.0
+        weight = 150.0,
+        theme = "FFFFFF FFFFFF CCE6FE FDDDA5 FEE677 FFFFFF CC4B09 F56921 EC897F E13F2E 3B3B3B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Oshawott",
@@ -7664,7 +7687,8 @@ PokemonData.POKEMON = {
             {5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, 37, 41, 43},
             {5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, 37, 41, 43}
         },
-        weight = 5.9
+        weight = 5.9,
+        theme = "000000 FFFFFF 024685 B40002 7E6315 FFFFFF AF9637 D6C47E 3A97E6 1873C1 123E7F FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Dewott",
@@ -7678,7 +7702,8 @@ PokemonData.POKEMON = {
             {5, 7, 11, 13, 17, 20, 25, 28, 33, 36, 41, 44, 49, 52},
             {5, 7, 11, 13, 17, 20, 25, 28, 33, 36, 41, 44, 49, 52}
         },
-        weight = 24.5
+        weight = 24.5,
+        theme = "image.png"
     },
     {
         name = "Samurott",
@@ -7692,7 +7717,8 @@ PokemonData.POKEMON = {
             {5, 7, 11, 13, 17, 20, 25, 28, 33, 36, 38, 45, 50, 57, 62},
             {5, 7, 11, 13, 17, 20, 25, 28, 33, 36, 38, 45, 50, 57, 62}
         },
-        weight = 94.6
+        weight = 94.6,
+        theme = "image.png"
     },
     {
         name = "Patrat",
@@ -7706,7 +7732,8 @@ PokemonData.POKEMON = {
             {3, 6, 8, 11, 13, 16, 18, 21, 23, 26, 28, 31, 33, 36},
             {3, 6, 8, 11, 13, 16, 18, 21, 23, 26, 28, 31, 33, 36}
         },
-        weight = 11.6
+        weight = 11.6,
+        theme = "FFFFFF 000000 97CCFC FEADAD FFF670 FFFFFF 773A33 A85248 D49548 FECB60 773A33 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Watchog",
@@ -7720,7 +7747,8 @@ PokemonData.POKEMON = {
             {3, 6, 8, 11, 13, 16, 18, 20, 22, 25, 29, 32, 36, 39, 43},
             {3, 6, 8, 11, 13, 16, 18, 20, 22, 25, 29, 32, 36, 39, 43}
         },
-        weight = 27.0
+        weight = 27.0,
+        theme = "FFFFFF 000000 97CCFC FEADAD FFF670 FFFFFF 773A33 A85248 D49548 FECB60 773A33 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Lillipup",
@@ -7734,7 +7762,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 26, 29, 33, 36, 40},
             {5, 8, 12, 15, 19, 22, 26, 29, 33, 36, 40}
         },
-        weight = 4.1
+        weight = 4.1,
+        theme = "FFFFFF 000000 BCDEFD FECCCC FFF78E FFFFFF 8A512C BE703D D3AA57 FFE5AE 3A455A 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Herdier",
@@ -7748,7 +7777,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 20, 24, 29, 33, 38, 42, 47},
             {5, 8, 12, 15, 20, 24, 29, 33, 38, 42, 47}
         },
-        weight = 14.7
+        weight = 14.7,
+        theme = "FFFFFF 000000 BCDEFD FECCCC FFF78E FFFFFF 8A512C BE703D D3AA57 FFE5AE 3A455A 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Stoutland",
@@ -7762,7 +7792,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 20, 24, 29, 36, 42, 51, 59},
             {5, 8, 12, 15, 20, 24, 29, 36, 42, 51, 59}
         },
-        weight = 61.0
+        weight = 61.0,
+        theme = "FFFFFF 000000 BCDEFD FECCCC FFF78E FFFFFF 8A512C BE703D D3AA57 FFE5AE 3A455A 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Purrloin",
@@ -7776,7 +7807,8 @@ PokemonData.POKEMON = {
             {3, 6, 10, 12, 15, 19, 21, 24, 28, 30, 33, 37, 39, 42, 46},
             {3, 6, 10, 12, 15, 19, 21, 24, 28, 30, 33, 37, 39, 42, 46}
         },
-        weight = 10.1
+        weight = 10.1,
+        theme = "FFFFFF 000000 BCDEFD FECCCC FFF78E FFFFFF 6B5074 906F9C D3AA57 F9DB72 A84F5B 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Liepard",
@@ -7790,7 +7822,8 @@ PokemonData.POKEMON = {
             {3, 6, 10, 12, 15, 19, 22, 26, 31, 34, 38, 43, 47, 50, 55},
             {3, 6, 10, 12, 15, 19, 22, 26, 31, 34, 38, 43, 47, 50, 55}
         },
-        weight = 37.5
+        weight = 37.5,
+        theme = "FFFFFF 000000 BCDEFD FECCCC FFF78E FFFFFF 6B5074 906F9C D3AA57 F9DB72 A84F5B 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Pansage",
@@ -7804,7 +7837,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43}
         },
-        weight = 10.5
+        weight = 10.5,
+        theme = "FFFFFF 000000 BCDEFD FECCCC FFF78E FFFFFF 236047 348D68 D29B62 F5D695 236047 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Simisage",
@@ -7818,7 +7852,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = 30.5
+        weight = 30.5,
+        theme = "FFFFFF 000000 BCDEFD FECCCC FFF78E FFFFFF 236047 348D68 D29B62 F5D695 236047 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Pansear",
@@ -7832,7 +7867,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43}
         },
-        weight = 11.0
+        weight = 11.0,
+        theme = "FFFFFF 000000 BCDEFD FED9C1 FFF78E FFFFFF D1352D EF5945 D29B62 F5D695 7D2B2C 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Simisear",
@@ -7846,7 +7882,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = 28.0
+        weight = 28.0,
+        theme = "FFFFFF 000000 BCDEFD FED9C1 FFF78E FFFFFF D1352D EF5945 D29B62 F5D695 7D2B2C 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Panpour",
@@ -7860,7 +7897,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43}
         },
-        weight = 13.5
+        weight = 13.5,
+        theme = "FFFFFF 000000 B6D2FF FFBFBE FFF78E FFFFFF 00819F 00AED6 D29B62 F5D695 00819F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Simipour",
@@ -7874,7 +7912,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = 29.0
+        weight = 29.0,
+        theme = "FFFFFF 000000 B6D2FF FFBFBE FFF78E FFFFFF 00819F 00AED6 D29B62 F5D695 00819F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Munna",
@@ -7888,7 +7927,8 @@ PokemonData.POKEMON = {
             {5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, 37, 41, 43, 47},
             {5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 35, 37, 41, 43, 47}
         },
-        weight = 23.3
+        weight = 23.3,
+        theme = "000000 FFFFFF 003B9C B40002 804860 FFFFFF E98F9D FFC6CC AE9CE3 967FDB B5638B FFFFFF FFFFFF 000000 0 1 1 1 0 1"
     },
     {
         name = "Musharna",
@@ -7902,7 +7942,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = 60.5
+        weight = 60.5,
+        theme = "000000 FFFFFF 003B9C B40002 804860 FFFFFF E98F9D FFC6CC AE9CE3 967FDB B5638B FFFFFF FFFFFF 000000 0 1 1 1 0 1"
     },
     {
         name = "Pidove",
@@ -7916,7 +7957,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 43, 46, 50},
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 43, 46, 50}
         },
-        weight = 2.1
+        weight = 2.1,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 2D2F3E 4D4F69 A39EB2 8A839D 2D2F3E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Tranquill",
@@ -7930,7 +7972,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 15, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59},
             {4, 8, 11, 15, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59}
         },
-        weight = 15.0
+        weight = 15.0,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 2D2F3E 4D4F69 A39EB2 8A839D 2D2F3E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Unfezant M",
@@ -7944,7 +7987,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 15, 18, 23, 27, 33, 38, 44, 49, 55, 60, 66},
             {4, 8, 11, 15, 18, 23, 27, 33, 38, 44, 49, 55, 60, 66}
         },
-        weight = 29.0
+        weight = 29.,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF AD2C2D EA4655 A39EB2 8A839D 2D2F3E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Blitzle",
@@ -7958,7 +8002,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 43},
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 43}
         },
-        weight = 29.8
+        weight = 29.8,
+        theme = "FFFFFF 000000 B6D5FF EFD0D8 FFFC81 FFFFFF 373536 514E4F B8BEC7 EDEFF1 005D87 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Zebstrika",
@@ -7972,7 +8017,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 15, 18, 22, 25, 31, 36, 42, 47, 53},
             {4, 8, 11, 15, 18, 22, 25, 31, 36, 42, 47, 53}
         },
-        weight = 79.5
+        weight = 79.5,
+        theme = "FFFFFF 000000 B6D5FF EFD0D8 FFFC81 FFFFFF 373536 514E4F B8BEC7 EDEFF1 005D87 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Roggenrola",
@@ -7986,7 +8032,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 14, 17, 20, 23, 27, 30, 33, 36, 40},
             {4, 7, 10, 14, 17, 20, 23, 27, 30, 33, 36, 40}
         },
-        weight = 18.0
+        weight = 18.0,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 9D2D27 DF4442 808AAE 515FA0 3D4661 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Boldore",
@@ -8000,7 +8047,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 14, 17, 20, 23, 25, 30, 36, 42, 48, 55},
             {4, 7, 10, 14, 17, 20, 23, 25, 30, 36, 42, 48, 55}
         },
-        weight = 102.0
+        weight = 102.0,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 9D2D27 DF4442 808AAE 515FA0 3D4661 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Gigalith",
@@ -8014,7 +8062,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 14, 17, 20, 23, 25, 30, 36, 42, 48, 55},
             {4, 7, 10, 14, 17, 20, 23, 25, 30, 36, 42, 48, 55}
         },
-        weight = 260.0
+        weight = 260.0,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 9D2D27 DF4442 808AAE 515FA0 3D4661 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Woobat",
@@ -8029,7 +8078,8 @@ PokemonData.POKEMON = {
             {4, 8, 12, 15, 19, 21, 25, 29, 29, 32, 36, 41, 47},
             {4, 8, 12, 15, 19, 21, 25, 29, 29, 32, 36, 41, 47}
         },
-        weight = 2.1
+        weight = 2.1,
+        theme = "FFFFFF 000000 B6D5FF EFD0D8 FFFC81 FFFFFF 305E87 4482BA 7AA5D3 B6DCF2 A24660 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Swoobat",
@@ -8043,7 +8093,8 @@ PokemonData.POKEMON = {
             {4, 8, 12, 15, 19, 21, 25, 29, 29, 32, 36, 41, 47},
             {4, 8, 12, 15, 19, 21, 25, 29, 29, 32, 36, 41, 47}
         },
-        weight = 10.5
+        weight = 10.5,
+        theme = "FFFFFF 000000 B6D5FF EFD0D8 FFFC81 FFFFFF 305E87 4482BA 7AA5D3 B6DCF2 A24660 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Drilbur",
@@ -8057,7 +8108,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 26, 29, 33, 36, 40, 43, 47},
             {5, 8, 12, 15, 19, 22, 26, 29, 33, 36, 40, 43, 47}
         },
-        weight = 8.5
+        weight = 8.5,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 646578 88899B AE978E 866C60 934C49 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Excadrill",
@@ -8071,7 +8123,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 26, 29, 31, 36, 42, 49, 55, 62},
             {5, 8, 12, 15, 19, 22, 26, 29, 31, 36, 42, 49, 55, 62}
         },
-        weight = 40.4
+        weight = 40.4,
+        theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 646578 88899B AE978E 866C60 934C49 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Audino",
@@ -8085,7 +8138,8 @@ PokemonData.POKEMON = {
             {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55},
             {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55}
         },
-        weight = 31.0
+        weight = 31.0,
+        theme = "FFFFFF 000000 CFE3FF FECCCC FFF07A FFFFFF C14770 DA6886 AE978E F5DC96 0772AF 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Timburr",
@@ -8099,7 +8153,8 @@ PokemonData.POKEMON = {
             {4, 8, 12, 16, 20, 24, 28, 31, 34, 37, 40, 43, 46, 49},
             {4, 8, 12, 16, 20, 24, 28, 31, 34, 37, 40, 43, 46, 49}
         },
-        weight = 12.5
+        weight = 12.5,
+        theme = "FFFFFF FFFFFF CFE3FF FECFD7 FDF296 FFFFFF 895F42 B18261 AFAEA8 8C8B83 AD5483 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Gurdurr",
@@ -8113,7 +8168,8 @@ PokemonData.POKEMON = {
             {4, 8, 12, 16, 20, 24, 29, 33, 37, 41, 45, 49, 53, 57},
             {4, 8, 12, 16, 20, 24, 29, 33, 37, 41, 45, 49, 53, 57}
         },
-        weight = 40.0
+        weight = 40.0,
+        theme = "FFFFFF FFFFFF CFE3FF FECFD7 FDF296 FFFFFF 895F42 B18261 AFAEA8 8C8B83 AD5483 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Conkeldurr",
@@ -8127,7 +8183,8 @@ PokemonData.POKEMON = {
             {4, 8, 12, 16, 20, 24, 29, 33, 37, 41, 45, 49, 53, 57},
             {4, 8, 12, 16, 20, 24, 29, 33, 37, 41, 45, 49, 53, 57}
         },
-        weight = 87.0
+        weight = 87.0,
+        theme = "FFFFFF FFFFFF CFE3FF FECFD7 FDF296 FFFFFF 895F42 B18261 AFAEA8 8C8B83 AD5483 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Tympole",
@@ -8141,7 +8198,8 @@ PokemonData.POKEMON = {
             {5, 9, 12, 16, 20, 23, 27, 31, 34, 38, 42, 45},
             {5, 9, 12, 16, 20, 23, 27, 31, 34, 38, 42, 45}
         },
-        weight = 4.5
+        weight = 4.5,
+        theme = "FFFFFF FFFFFF CFE3FF FECFD7 FDF296 FFFFFF 216BA3 2B8AD3 A6CEDC 5AA4BF 393939 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Palpitoad",
@@ -8155,7 +8213,8 @@ PokemonData.POKEMON = {
             {5, 9, 12, 16, 20, 23, 28, 33, 37, 42, 47, 51},
             {5, 9, 12, 16, 20, 23, 28, 33, 37, 42, 47, 51}
         },
-        weight = 17.0
+        weight = 17.0,
+        theme = "FFFFFF FFFFFF CFE3FF FECFD7 FDF296 FFFFFF 216BA3 2B8AD3 A6CEDC 5AA4BF 393939 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Seismitoad",
@@ -8169,7 +8228,8 @@ PokemonData.POKEMON = {
             {5, 9, 12, 16, 20, 23, 28, 33, 36, 39, 44, 49, 53, 59},
             {5, 9, 12, 16, 20, 23, 28, 33, 36, 39, 44, 49, 53, 59}
         },
-        weight = 62.0
+        weight = 62.0,
+        theme = "FFFFFF FFFFFF CFE3FF FECFD7 FDF296 FFFFFF 216BA3 2B8AD3 A6CEDC 5AA4BF 393939 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Throh",
@@ -8183,7 +8243,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53},
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53}
         },
-        weight = 55.5
+        weight = 55.5,
+        theme = "FFFFFF 000000 CFE3FF FECFD7 FDF296 FFFFFF A83723 DD504E CFB484 EFE6D6 282828 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Sawk",
@@ -8197,7 +8258,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53},
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53}
         },
-        weight = 51.0
+        weight = 51.0,
+        theme = "FFFFFF 000000 98CCFF FECFD7 FDF296 FFFFFF 234D8A 326DC3 CFB484 EFE6D6 282828 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Sewaddle",
@@ -8211,7 +8273,8 @@ PokemonData.POKEMON = {
             {8, 15, 22, 29, 36, 43},
             {8, 15, 22, 29, 36, 43}
         },
-        weight = 2.5
+        weight = 2.5,
+        theme = "000000 FFFFFF 0052A3 B40002 7A670C FFFFFF C3AD1C F1E062 9DC771 77AA40 3C7444 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Swadloon",
@@ -8226,7 +8289,8 @@ PokemonData.POKEMON = {
             {20},
             {20}
         },
-        weight = 7.3
+        weight = 7.3,
+        theme = "000000 FFFFFF 0052A3 B40002 7A670C FFFFFF C3AD1C F1E062 9DC771 77AA40 3C7444 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Leavanny",
@@ -8240,7 +8304,8 @@ PokemonData.POKEMON = {
             {8, 15, 22, 29, 32, 36, 39, 43, 46, 50},
             {8, 15, 22, 29, 32, 36, 39, 43, 46, 50}
         },
-        weight = 20.5
+        weight = 20.5,
+        theme = "000000 FFFFFF 0052A3 B40002 7A670C FFFFFF C3AD1C F1E062 9DC771 77AA40 3C7444 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Venipede",
@@ -8254,7 +8319,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 26, 29, 33, 36, 40, 43},
             {5, 8, 12, 15, 19, 22, 26, 29, 33, 36, 40, 43}
         },
-        weight = 5.3
+        weight = 5.3,
+        theme = "FFFFFF FFFFFF CFE7FF FEC9CA FFF076 FFFFFF B03641 D7495A 7F8EAB 5A6A89 82398B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Whirlipede",
@@ -8268,7 +8334,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 22, 23, 28, 32, 37, 41, 46, 50},
             {5, 8, 12, 15, 19, 22, 23, 28, 32, 37, 41, 46, 50}
         },
-        weight = 58.5
+        weight = 58.5,
+        theme = "FFFFFF FFFFFF CFE7FF FEC9CA FFF076 FFFFFF B03641 D7495A 7F8EAB 5A6A89 82398B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Scolipede",
@@ -8282,7 +8349,8 @@ PokemonData.POKEMON = {
             {5, 8, 12, 15, 19, 23, 28, 30, 33, 39, 44, 50, 55},
             {5, 8, 12, 15, 19, 23, 28, 30, 33, 39, 44, 50, 55}
         },
-        weight = 200.5
+        weight = 200.5,
+        theme = "FFFFFF FFFFFF CFE7FF FEC9CA FFF076 FFFFFF B03641 D7495A 7F8EAB 5A6A89 82398B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Cottonee",
@@ -8296,7 +8364,8 @@ PokemonData.POKEMON = {
             {4, 8, 10, 13, 17, 19, 22, 26, 28, 31, 35, 37, 40, 44, 46},
             {4, 8, 10, 13, 17, 19, 22, 26, 28, 31, 35, 37, 40, 44, 46}
         },
-        weight = .6
+        weight = .6,
+        theme = "000000 FFFFFF 004A95 B40002 8B7144 FFFFFF BDA478 E7DECE BB9E80 A67F58 2C6F46 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Whimsicott",
@@ -8310,7 +8379,8 @@ PokemonData.POKEMON = {
             {10, 28, 46},
             {10, 28, 46}
         },
-        weight = 6.6
+        weight = 6.6,
+        theme = "000000 FFFFFF 004A95 B40002 8B7144 FFFFFF BDA478 E7DECE BB9E80 A67F58 2C6F46 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Petilil",
@@ -8324,7 +8394,8 @@ PokemonData.POKEMON = {
             {4, 8, 10, 13, 17, 19, 22, 26, 28, 31, 35, 37, 40, 44, 46},
             {4, 8, 10, 13, 17, 19, 22, 26, 28, 31, 35, 37, 40, 44, 46}
         },
-        weight = 6.6
+        weight = 6.6,
+        theme = "FFFFFF FFFFFF CFE6FF FFCFD1 FFF792 FFFFFF BE4725 D9603E 268A4D 30AC60 6C8561 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Lilligant",
@@ -8338,7 +8409,8 @@ PokemonData.POKEMON = {
             {10, 28, 46},
             {10, 28, 46}
         },
-        weight = 16.3
+        weight = 16.3,
+        theme = "FFFFFF FFFFFF CFE6FF FFCFD1 FFF792 FFFFFF BE4725 D9603E 268A4D 30AC60 6C8561 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Basculin R",
@@ -8352,7 +8424,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56}
         },
-        weight = 18.0
+        weight = 18.0,
+        theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 FFFFFF 323431 50544F F3A6A1 EA635B 297A4E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Sandile",
@@ -8366,7 +8439,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43, 46},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43, 46}
         },
-        weight = 15.2
+        weight = 15.2,
+        theme = "FFFFFF 000000 A5D4FF FFBECF FFE670 FFFFFF AA3732 CB544F 8E9DAA CAD1D7 444444 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Krokorok",
@@ -8380,7 +8454,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 32, 36, 40, 44, 48, 52},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 32, 36, 40, 44, 48, 52}
         },
-        weight = 33.4
+        weight = 33.4,
+        theme = "FFFFFF 000000 A5D4FF FFBECF FFE670 FFFFFF AA3732 CB544F 8E9DAA CAD1D7 444444 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Krookodile",
@@ -8394,7 +8469,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 32, 36, 42, 48, 54, 60},
             {4, 7, 10, 13, 16, 19, 22, 25, 28, 32, 36, 42, 48, 54, 60}
         },
-        weight = 96.3
+        weight = 96.3,
+        theme = "FFFFFF 000000 A5D4FF FFBECF FFE670 FFFFFF AA3732 CB544F 8E9DAA CAD1D7 444444 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Darumaka",
@@ -8408,7 +8484,8 @@ PokemonData.POKEMON = {
             {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 42},
             {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 42}
         },
-        weight = 37.5
+        weight = 37.5,
+        theme = "FFFFFF FFFFFF A5D4FF FFBECF FFE670 FFFFFF 942E1F D2432E CA9C78 B87B4B 732318 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Darmanitan",
@@ -8422,7 +8499,8 @@ PokemonData.POKEMON = {
             {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54},
             {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54}
         },
-        weight = 92.9
+        weight = 92.9,
+        theme = "FFFFFF FFFFFF A5D4FF FFBECF FFE670 FFFFFF 942E1F D2432E CA9C78 B87B4B 732318 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Maractus",
@@ -8436,7 +8514,8 @@ PokemonData.POKEMON = {
             {3, 6, 10, 13, 15, 18, 22, 26, 29, 33, 38, 42, 45, 50, 55, 57},
             {3, 6, 10, 13, 15, 18, 22, 26, 29, 33, 38, 42, 45, 50, 55, 57}
         },
-        weight = 28.0
+        weight = 28.0,
+        theme = "FFFFFF FFFFFF B0D9FF FFCFDB FFE670 FFFFFF 3B893D 54B457 346461 3F7874 AC6597 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Dwebble",
@@ -8450,7 +8529,8 @@ PokemonData.POKEMON = {
             {5, 7, 11, 13, 17, 19, 23, 24, 29, 31, 35, 37, 41, 43},
             {5, 7, 11, 13, 17, 19, 23, 24, 29, 31, 35, 37, 41, 43}
         },
-        weight = 14.5
+        weight = 14.5,
+        theme = "FFFFFF FFFFFF B0D9FF FFCFDB FFE670 FFFFFF 634A35 856446 E49F80 D87244 634A35 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Crustle",
@@ -8464,7 +8544,8 @@ PokemonData.POKEMON = {
             {5, 7, 11, 13, 17, 19, 23, 24, 29, 31, 38, 43, 50, 55},
             {5, 7, 11, 13, 17, 19, 23, 24, 29, 31, 38, 43, 50, 55}
         },
-        weight = 200.0
+        weight = 200.0,
+        theme = "FFFFFF FFFFFF B0D9FF FFCFDB FFE670 FFFFFF 634A35 856446 E49F80 D87244 634A35 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Scraggy",
@@ -8478,7 +8559,8 @@ PokemonData.POKEMON = {
             {5, 9, 12, 16, 20, 23, 27, 31, 34, 38, 42, 45, 49, 53},
             {5, 9, 12, 16, 20, 23, 27, 31, 34, 38, 42, 45, 49, 53}
         },
-        weight = 11.8
+        weight = 11.8,
+        theme = "FFFFFF FFFFFF B0D9FF FFCFDB FFE670 FFFFFF 9D2E27 D63D38 EFA66E E87823 313131 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Scrafty",
@@ -8492,7 +8574,8 @@ PokemonData.POKEMON = {
             {5, 9, 12, 16, 20, 23, 27, 31, 34, 38, 45, 51, 58, 65},
             {5, 9, 12, 16, 20, 23, 27, 31, 34, 38, 45, 51, 58, 65}
         },
-        weight = 30.0
+        weight = 30.0,
+        theme = "FFFFFF FFFFFF B0D9FF FFCFDB FFE670 FFFFFF 9D2E27 D63D38 EFA66E E87823 313131 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Sigilyph",
@@ -8506,7 +8589,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 14, 18, 21, 24, 28, 31, 34, 38, 41, 44, 48, 51},
             {4, 8, 11, 14, 18, 21, 24, 28, 31, 34, 38, 41, 44, 48, 51}
         },
-        weight = 14.0
+        weight = 14.0,
+        theme = "000000 FFFFFF 0057AA B40002 825E0F FFFFFF C59814 ECC245 4EB06C 2D8748 1D6FB3 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Yamask",
@@ -8520,7 +8604,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 33, 37, 41, 45, 49},
             {5, 9, 13, 17, 21, 25, 29, 33, 33, 37, 41, 45, 49}
         },
-        weight = 1.5
+        weight = 1.5,
+        theme = "FFFFFF 000000 BBDDFF FFC8C9 FFF670 FF6567 187387 2196AF C89C14 ECC64F 212121 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Cofagrigus",
@@ -8534,7 +8619,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 33, 34, 39, 45, 51, 57},
             {5, 9, 13, 17, 21, 25, 29, 33, 33, 34, 39, 45, 51, 57}
         },
-        weight = 76.5
+        weight = 76.5,
+        theme = "FFFFFF 000000 BBDDFF FFC8C9 FFF670 FF6567 187387 2196AF C89C14 ECC64F 212121 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Tirtouga",
@@ -8548,7 +8634,8 @@ PokemonData.POKEMON = {
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 38, 41, 45, 48, 51},
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 38, 41, 45, 48, 51}
         },
-        weight = 16.5
+        weight = 16.5,
+        theme = "FFFFFF 000000 BBDDFF FFC8C9 FFF670 FFFFFF 216392 2F8CCF 72A3B4 C3DFE5 495764 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Carracosta",
@@ -8562,7 +8649,8 @@ PokemonData.POKEMON = {
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 40, 45, 51, 56, 61},
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 40, 45, 51, 56, 61}
         },
-        weight = 81.0
+        weight = 81.0,
+        theme = "FFFFFF 000000 BBDDFF FFC8C9 FFF670 FFFFFF 216392 2F8CCF 72A3B4 C3DFE5 495764 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Archen",
@@ -8576,7 +8664,8 @@ PokemonData.POKEMON = {
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 38, 41, 45, 48, 51},
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 38, 41, 45, 48, 51}
         },
-        weight = 9.5
+        weight = 9.5,
+        theme = "FFFFFF FFFFFF BBDDFF FFC8C9 FFF670 FFFFFF 1C7260 269780 ED8B82 E55749 0860BF FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Archeops",
@@ -8590,7 +8679,8 @@ PokemonData.POKEMON = {
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 40, 45, 51, 56, 61},
             {5, 8, 11, 15, 18, 21, 25, 28, 31, 35, 40, 45, 51, 56, 61}
         },
-        weight = 32.0
+        weight = 32.0,
+        theme = "FFFFFF FFFFFF BBDDFF FFC8C9 FFF670 FFFFFF 1C7260 269780 ED8B82 E55749 0860BF FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Trubbish",
@@ -8604,7 +8694,8 @@ PokemonData.POKEMON = {
             {3, 7, 12, 14, 18, 23, 23, 25, 29, 34, 36, 40, 45, 47},
             {3, 7, 12, 14, 18, 23, 23, 25, 29, 34, 36, 40, 45, 47}
         },
-        weight = 31.0
+        weight = 31.0,
+        theme = "FFFFFF FFFFFF BBDDFF FFC8C9 FFF670 FFFFFF 1B6549 268A64 C5B4A5 A3876F 008AAA FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Garbodor",
@@ -8618,7 +8709,8 @@ PokemonData.POKEMON = {
             {3, 7, 12, 14, 18, 23, 23, 25, 29, 34, 39, 46, 54, 59},
             {3, 7, 12, 14, 18, 23, 23, 25, 29, 34, 39, 46, 54, 59}
         },
-        weight = 107.3
+        weight = 107.3,
+        theme = "FFFFFF FFFFFF BBDDFF FFC8C9 FFF670 FFFFFF 1B6549 268A64 C5B4A5 A3876F 008AAA FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Zorua",
@@ -8632,7 +8724,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57},
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57}
         },
-        weight = 12.5
+        weight = 12.5,
+        theme = "FFFFFF FFFFFF BBDDFF FFC8C9 FFF670 FFFFFF 811A2D BE2743 53545A 686A71 2F3B4D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Zoroark",
@@ -8646,7 +8739,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 30, 34, 39, 44, 49, 54, 59, 64},
             {5, 9, 13, 17, 21, 25, 29, 30, 34, 39, 44, 49, 54, 59, 64}
         },
-        weight = 81.1
+        weight = 81.1,
+        theme = "FFFFFF FFFFFF BBDDFF FFC8C9 FFF670 FFFFFF 811A2D BE2743 53545A 686A71 2F3B4D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Minccino",
@@ -8660,7 +8754,8 @@ PokemonData.POKEMON = {
             {3, 7, 9, 13, 15, 19, 21, 25, 27, 31, 33, 37, 39, 43, 45, 49},
             {3, 7, 9, 13, 15, 19, 21, 25, 27, 31, 33, 37, 39, 43, 45, 49}
         },
-        weight = 5.8
+        weight = 5.8,
+        theme = "000000 000000 004388 B40002 626262 FFFFFF A7B2D8 E6E9F4 95949D BCBBC1 9C496A 000000 000000 000000 0 1 1 1 0 1"
     },
     {
         name = "Cinccino",
@@ -8674,7 +8769,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = 7.5
+        weight = 7.5,
+        theme = "000000 000000 004388 B40002 626262 FFFFFF A7B2D8 E6E9F4 95949D BCBBC1 9C496A 000000 000000 000000 0 1 1 1 0 1"
     },
     {
         name = "Gothita",
@@ -8688,7 +8784,8 @@ PokemonData.POKEMON = {
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 33, 37, 40, 46, 48},
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 33, 37, 40, 46, 48}
         },
-        weight = 5.8
+        weight = 5.8,
+        theme = "FFFFFF FFFFFF C9E3FE FFD2D3 FFF781 FFFFFF 383738 525152 7D7B7D 525152 A34D82 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Gothorita",
@@ -8702,7 +8799,8 @@ PokemonData.POKEMON = {
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 43, 50, 53},
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 43, 50, 53}
         },
-        weight = 18.0
+        weight = 18.0,
+        theme = "FFFFFF FFFFFF C9E3FE FFD2D3 FFF781 FFFFFF 383738 525152 7D7B7D 525152 A34D82 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Gothitelle",
@@ -8716,7 +8814,8 @@ PokemonData.POKEMON = {
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 45, 54, 59},
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 45, 54, 59}
         },
-        weight = 44.0
+        weight = 44.0,
+        theme = "FFFFFF FFFFFF C9E3FE FFD2D3 FFF781 FFFFFF 383738 525152 7D7B7D 525152 A34D82 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Solosis",
@@ -8730,7 +8829,8 @@ PokemonData.POKEMON = {
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 33, 37, 40, 46, 48},
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 33, 37, 40, 46, 48}
         },
-        weight = 1.0
+        weight = 1.0,
+        theme = "FFFFFF 000000 C9E3FE FFD2D3 FFF781 FFFFFF 285F43 3C8C63 87CE67 C4E7B4 285F43 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Duosion",
@@ -8744,7 +8844,8 @@ PokemonData.POKEMON = {
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 43, 50, 53},
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 43, 50, 53}
         },
-        weight = 8.0
+        weight = 8.0,
+        theme = "FFFFFF 000000 C9E3FE FFD2D3 FFF781 FFFFFF 285F43 3C8C63 87CE67 C4E7B4 285F43 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Reuniclus",
@@ -8758,7 +8859,8 @@ PokemonData.POKEMON = {
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 41, 45, 54, 59},
             {3, 7, 10, 14, 16, 19, 24, 25, 28, 31, 34, 39, 41, 45, 54, 59}
         },
-        weight = 20.1
+        weight = 20.1,
+        theme = "FFFFFF 000000 C9E3FE FFD2D3 FFF781 FFFFFF 285F43 3C8C63 87CE67 C4E7B4 285F43 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Ducklett",
@@ -8772,7 +8874,8 @@ PokemonData.POKEMON = {
             {3, 6, 9, 13, 15, 19, 21, 24, 27, 30, 34, 37, 41, 46},
             {3, 6, 9, 13, 15, 19, 21, 24, 27, 30, 34, 37, 41, 46}
         },
-        weight = 5.5
+        weight = 5.5,
+        theme = "000000 000000 024992 B40002 626262 FFFFFF 9E9E9E EAEFE5 4FA8DB 87C4E9 505F75 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Swanna",
@@ -8786,7 +8889,8 @@ PokemonData.POKEMON = {
             {3, 6, 9, 13, 15, 19, 21, 24, 27, 30, 34, 40, 47, 55},
             {3, 6, 9, 13, 15, 19, 21, 24, 27, 30, 34, 40, 47, 55}
         },
-        weight = 24.2
+        weight = 24.2,
+        theme = "000000 000000 024992 B40002 626262 FFFFFF 9E9E9E EAEFE5 4FA8DB 87C4E9 505F75 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Vanillite",
@@ -8800,7 +8904,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 26, 31, 35, 40, 44, 49, 53},
             {4, 7, 10, 13, 16, 19, 22, 26, 31, 35, 40, 44, 49, 53}
         },
-        weight = 5.7
+        weight = 5.7,
+        theme = "000000 FFFFFF 024992 B40002 626262 FFFFFF A7A7D1 E4E4F1 92C0F1 63A6EC 79519C FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Vanillish",
@@ -8814,7 +8919,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 26, 31, 36, 42, 47, 53, 58},
             {4, 7, 10, 13, 16, 19, 22, 26, 31, 36, 42, 47, 53, 58}
         },
-        weight = 41.0
+        weight = 41.0,
+        theme = "000000 FFFFFF 024992 B40002 626262 FFFFFF A7A7D1 E4E4F1 92C0F1 63A6EC 79519C FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Vanilluxe",
@@ -8828,7 +8934,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 26, 31, 36, 42, 50, 59, 67},
             {4, 7, 10, 13, 16, 19, 22, 26, 31, 36, 42, 50, 59, 67}
         },
-        weight = 57.5
+        weight = 57.5,
+        theme = "000000 FFFFFF 024992 B40002 626262 FFFFFF A7A7D1 E4E4F1 92C0F1 63A6EC 79519C FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Deerling",
@@ -8842,7 +8949,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
         },
-        weight = 19.5
+        weight = 19.5,
+        theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C CDAD56 F0D7A4 BD5563 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Sawsbuck",
@@ -8856,7 +8964,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
         },
-        weight = 92.5
+        weight = 92.5,
+        theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C CDAD56 F0D7A4 BD5563 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Emolga",
@@ -8870,7 +8979,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 19, 22, 26, 30, 34, 38, 42, 46, 50},
             {4, 7, 10, 13, 16, 19, 22, 26, 30, 34, 38, 42, 46, 50}
         },
-        weight = 5.0
+        weight = 5.0,
+        theme = "000000 000000 024C99 B40002 767676 FFFFFF B9B9B9 F1F1F1 D3B03B F2D65D 414141 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Karrablast",
@@ -8884,7 +8994,8 @@ PokemonData.POKEMON = {
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56},
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56}
         },
-        weight = 5.9
+        weight = 5.9,
+        theme = "FFFFFF FFFFFF BBDCFE FEC1C2 FEF073 FFFFFF AC2930 D2444B B6B6BC 94949C 0152A4 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Escavalier",
@@ -8898,7 +9009,8 @@ PokemonData.POKEMON = {
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56},
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56}
         },
-        weight = 33.0
+        weight = 33.0,
+        theme = "FFFFFF FFFFFF BBDCFE FEC1C2 FEF073 FFFFFF AC2930 D2444B B6B6BC 94949C 0152A4 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Foongus",
@@ -8912,7 +9024,8 @@ PokemonData.POKEMON = {
             {6, 8, 12, 15, 18, 20, 24, 28, 32, 35, 39, 43, 45, 50},
             {6, 8, 12, 15, 18, 20, 24, 28, 32, 35, 39, 43, 45, 50}
         },
-        weight = 1.0
+        weight = 1.0,
+        theme = "FFFFFF FFFFFF BBDCFE FEC6C7 FEF073 FFFFFF B92D59 D34A75 BCB9B2 9D988D 594239 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Amoonguss",
@@ -8926,7 +9039,8 @@ PokemonData.POKEMON = {
             {6, 8, 12, 15, 18, 20, 24, 28, 32, 35, 43, 49, 54, 62},
             {6, 8, 12, 15, 18, 20, 24, 28, 32, 35, 43, 49, 54, 62}
         },
-        weight = 10.5
+        weight = 10.5,
+        theme = "FFFFFF FFFFFF BBDCFE FEC6C7 FEF073 FFFFFF B92D59 D34A75 BCB9B2 9D988D 594239 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Frillish M",
@@ -8940,7 +9054,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61},
             {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61}
         },
-        weight = 33.0
+        weight = 33.0,
+        theme = "FFFFFF FFFFFF BBDCFE FEC6C7 FEF073 FFFFFF 02709D 039BD9 B7C4E0 8A9FCC 02709D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Jellicent M",
@@ -8954,7 +9069,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69},
             {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69}
         },
-        weight = 135.0
+        weight = 135.0,
+        theme = "FFFFFF FFFFFF BBDCFE FEC6C7 FEF073 FFFFFF 02709D 039BD9 B7C4E0 8A9FCC 02709D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Alomomola",
@@ -8968,7 +9084,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61},
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61}
         },
-        weight = 31.6
+        weight = 31.6,
+        theme = "FFFFFF 000000 C6E1FD FEE3CB FEE68E FFFFFF CC3F51 EA6274 E78084 FEBAB7 B3485E 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Joltik",
@@ -8982,7 +9099,8 @@ PokemonData.POKEMON = {
             {4, 7, 12, 15, 18, 23, 26, 29, 34, 37, 40, 45, 48},
             {4, 7, 12, 15, 18, 23, 26, 29, 34, 37, 40, 45, 48}
         },
-        weight = .6
+        weight = .6,
+        theme = "000000 000000 0658AE B40002 977701 FFFFFF CA9C19 FEDD62 CA9C19 FEDD62 4053AA 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Galvantula",
@@ -8996,7 +9114,8 @@ PokemonData.POKEMON = {
             {4, 7, 12, 15, 18, 23, 26, 29, 34, 40, 46, 54, 60},
             {4, 7, 12, 15, 18, 23, 26, 29, 34, 40, 46, 54, 60}
         },
-        weight = 14.3
+        weight = 14.3,
+        theme = "000000 000000 0658AE B40002 977701 FFFFFF CA9C19 FEDD62 CA9C19 FEDD62 4053AA 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Ferroseed",
@@ -9010,7 +9129,8 @@ PokemonData.POKEMON = {
             {6, 9, 14, 18, 21, 26, 30, 35, 38, 43, 47, 52, 55},
             {6, 9, 14, 18, 21, 26, 30, 35, 38, 43, 47, 52, 55}
         },
-        weight = 18.8
+        weight = 18.8,
+        theme = "FFFFFF 000000 C0DDFC FEBBBC FDFA9A FFFFFF 2D7C56 399D6D 9AA19B CCCFCC 35383A 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Ferrothorn",
@@ -9024,7 +9144,8 @@ PokemonData.POKEMON = {
             {6, 9, 14, 18, 21, 26, 30, 35, 38, 40, 46, 53, 61, 67},
             {6, 9, 14, 18, 21, 26, 30, 35, 38, 40, 46, 53, 61, 67}
         },
-        weight = 110.0
+        weight = 110.0,
+        theme = "FFFFFF 000000 C0DDFC FEBBBC FDFA9A FFFFFF 2D7C56 399D6D 9AA19B CCCFCC 35383A 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Klink",
@@ -9038,7 +9159,8 @@ PokemonData.POKEMON = {
             {6, 11, 16, 21, 26, 31, 36, 39, 42, 45, 48, 51, 54, 57},
             {6, 11, 16, 21, 26, 31, 36, 39, 42, 45, 48, 51, 54, 57}
         },
-        weight = 21.0
+        weight = 21.0,
+        theme = "FFFFFF FFFFFF C0DDFC FEBBBC FDFA9A FFFFFF 006D7D 0097AD B63929 E3584E 747680 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Klang",
@@ -9052,7 +9174,8 @@ PokemonData.POKEMON = {
             {6, 11, 16, 21, 26, 31, 36, 40, 44, 48, 52, 56, 60, 64},
             {6, 11, 16, 21, 26, 31, 36, 40, 44, 48, 52, 56, 60, 64}
         },
-        weight = 51.0
+        weight = 51.0,
+        theme = "FFFFFF FFFFFF C0DDFC FEBBBC FDFA9A FFFFFF 006D7D 0097AD B63929 E3584E 747680 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Klinklang",
@@ -9066,7 +9189,8 @@ PokemonData.POKEMON = {
             {6, 11, 16, 21, 25, 31, 36, 40, 44, 48, 54, 60, 66, 72},
             {6, 11, 16, 21, 25, 31, 36, 40, 44, 48, 54, 60, 66, 72}
         },
-        weight = 81.0
+        weight = 81.0,
+        theme = "FFFFFF FFFFFF C0DDFC FEBBBC FDFA9A FFFFFF 006D7D 0097AD B63929 E3584E 747680 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Tynamo",
@@ -9080,7 +9204,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = .3
+        weight = .3,
+        theme = "FFFFFF 000000 C8DEFF FECCCC FEFE88 FFFFFF 0B414D 116273 C2A353 EFDDA6 B14352 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Eelektrik",
@@ -9094,7 +9219,8 @@ PokemonData.POKEMON = {
             {9, 19, 29, 39, 44, 49, 54, 59, 64, 69, 74},
             {9, 19, 29, 39, 44, 49, 54, 59, 64, 69, 74}
         },
-        weight = 22.0
+        weight = 22.0,
+        theme = "FFFFFF 000000 C8DEFF FECCCC FEFE88 FFFFFF 0B414D 116273 C2A353 EFDDA6 B14352 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Eelektross",
@@ -9108,7 +9234,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = 80.5
+        weight = 80.5,
+        theme = "FFFFFF 000000 C8DEFF FECCCC FEFE88 FFFFFF 0B414D 116273 C2A353 EFDDA6 B14352 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Elgyem",
@@ -9122,7 +9249,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 43, 46, 50, 50, 53, 56},
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 43, 46, 50, 50, 53, 56}
         },
-        weight = 9.0
+        weight = 9.0,
+        theme = "FFFFFF FFFFFF BED7FF FDC3C3 FEF89D FFFFFF 775750 A07A72 8C8A8C 5A595A 237C61 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Beheeyem",
@@ -9136,7 +9264,8 @@ PokemonData.POKEMON = {
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 45, 50, 56, 58, 63, 68},
             {4, 8, 11, 15, 18, 22, 25, 29, 32, 36, 39, 45, 50, 56, 58, 63, 68}
         },
-        weight = 34.5
+        weight = 34.5,
+        theme = "FFFFFF FFFFFF BED7FF FDC3C3 FEF89D FFFFFF 775750 A07A72 8C8A8C 5A595A 237C61 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Litwick",
@@ -9150,7 +9279,8 @@ PokemonData.POKEMON = {
             {3, 5, 7, 10, 13, 16, 20, 24, 28, 33, 38, 43, 49, 55, 61},
             {3, 5, 7, 10, 13, 16, 20, 24, 28, 33, 38, 43, 49, 55, 61}
         },
-        weight = 3.1
+        weight = 3.1,
+        theme = "FFFFFF 000000 BED7FF FDC3C3 FEF89D FFEC70 5F3DC1 755ED8 828CDE C5CBF7 000000 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Lampent",
@@ -9164,7 +9294,8 @@ PokemonData.POKEMON = {
             {3, 5, 7, 10, 13, 16, 20, 24, 28, 33, 38, 45, 53, 61, 69},
             {3, 5, 7, 10, 13, 16, 20, 24, 28, 33, 38, 45, 53, 61, 69}
         },
-        weight = 13.0
+        weight = 13.0,
+        theme = "FFFFFF 000000 BED7FF FDC3C3 FEF89D FFEC70 5F3DC1 755ED8 828CDE C5CBF7 000000 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Chandelure",
@@ -9178,7 +9309,8 @@ PokemonData.POKEMON = {
             {},
             {}
         },
-        weight = 34.3
+        weight = 34.3,
+        theme = "FFFFFF 000000 BED7FF FDC3C3 FEF89D FFEC70 5F3DC1 755ED8 828CDE C5CBF7 000000 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Axew",
@@ -9192,7 +9324,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56, 61},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56, 61}
         },
-        weight = 18.0
+        weight = 18.0,
+        theme = "FFFFFF FFFFFF BED7FF FDC3C3 FEF89D FFFFFF 9D2729 CA3335 454553 5B5B6C 7E752B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Fraxure",
@@ -9206,7 +9339,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 42, 48, 54, 60, 66},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 42, 48, 54, 60, 66}
         },
-        weight = 36.0
+        weight = 36.0,
+        theme = "FFFFFF FFFFFF BED7FF FDC3C3 FEF89D FFFFFF 9D2729 CA3335 454553 5B5B6C 7E752B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Haxorus",
@@ -9220,7 +9354,8 @@ PokemonData.POKEMON = {
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 42, 50, 58, 66, 74},
             {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 42, 50, 58, 66, 74}
         },
-        weight = 105.5
+        weight = 105.5,
+        theme = "FFFFFF FFFFFF BED7FF FDC3C3 FEF89D FFFFFF 9D2729 CA3335 454553 5B5B6C 7E752B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Cubchoo",
@@ -9234,7 +9369,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 36, 41, 45, 49, 53, 57},
             {5, 9, 13, 17, 21, 25, 29, 33, 36, 41, 45, 49, 53, 57}
         },
-        weight = 8.5
+        weight = 8.5,
+        theme = "000000 000000 003995 B40002 547D80 FFFFFF 95BFDD D2F3FF 81ABD8 9FDEF4 414141 000000 000000 000000 0 1 1 1 0 1"
     },
     {
         name = "Beartic",
@@ -9248,7 +9384,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 36, 37, 41, 45, 53, 59, 66},
             {5, 9, 13, 17, 21, 25, 29, 33, 36, 37, 41, 45, 53, 59, 66}
         },
-        weight = 260.0
+        weight = 260.0,
+        theme = "000000 000000 003995 B40002 547D80 FFFFFF 95BFDD D2F3FF 81ABD8 9FDEF4 414141 000000 000000 000000 0 1 1 1 0 1"
     },
     {
         name = "Cryogonal",
@@ -9262,7 +9399,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 21, 25, 29, 33, 37, 37, 41, 45, 49, 53, 57, 61},
             {5, 9, 13, 17, 21, 21, 25, 29, 33, 37, 37, 41, 45, 49, 53, 57, 61}
         },
-        weight = 148.0
+        weight = 148.0,
+        theme = "FFFFFF FFFFFF CCDFFE FFC8C8 FEFDB1 FFFFFF 23347B 334CB3 89A5DE 5E85D3 325592 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Shelmet",
@@ -9276,7 +9414,8 @@ PokemonData.POKEMON = {
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56},
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56}
         },
-        weight = 7.7
+        weight = 7.7,
+        theme = "FFFFFF FFFFFF CCDFFE FFBEC0 FEFDB1 FFFFFF AA3C56 D74C6B 98ADD6 6785C3 3A5894 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Accelgor",
@@ -9290,7 +9429,8 @@ PokemonData.POKEMON = {
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56},
             {4, 8, 13, 16, 20, 25, 28, 32, 37, 40, 44, 49, 52, 56}
         },
-        weight = 25.3
+        weight = 25.3,
+        theme = "FFFFFF FFFFFF CCDFFE FFBEC0 FEFDB1 FFFFFF AA3C56 D74C6B 98ADD6 6785C3 3A5894 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Stunfisk",
@@ -9304,7 +9444,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 30, 35, 40, 45, 50, 55, 61},
             {5, 9, 13, 17, 21, 25, 30, 35, 40, 45, 50, 55, 61}
         },
-        weight = 11.0
+        weight = 11.0,
+        theme = "FFFFFF 000000 CCDFFE FFC8CA FEFDB1 FFFFFF 945E3E CF7D55 D8C752 FEDF73 634545 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Mienfoo",
@@ -9318,7 +9459,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61},
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61}
         },
-        weight = 20.0
+        weight = 20.0,
+        theme = "000000 FEFEFF 015DAF C0070B A05B5B FFFFFF CEAAAA E7D5D5 C0B0D3 9D84BB A06C49 FFFFFF FFFFFF 000000 0 1 1 1 0 1"
     },
     {
         name = "Mienshao",
@@ -9332,7 +9474,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 56, 63, 70},
             {5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 56, 63, 70}
         },
-        weight = 35.5
+        weight = 35.5,
+        theme = "000000 FEFEFF 015DAF C0070B A05B5B FFFFFF CEAAAA E7D5D5 C0B0D3 9D84BB A06C49 FFFFFF FFFFFF 000000 0 1 1 1 0 1"
     },
     {
         name = "Druddigon",
@@ -9346,7 +9489,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 18, 21, 25, 27, 31, 35, 40, 45, 49, 55, 62},
             {5, 9, 13, 18, 21, 25, 27, 31, 35, 40, 45, 49, 55, 62}
         },
-        weight = 139.0
+        weight = 139.0,
+        theme = "FFFFFF 000000 B9DDFD FCC0C1 FFF2B4 FFFFFF B01827 E33647 CDAD4C E3D098 1E4C9E 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Golett",
@@ -9360,7 +9504,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 30, 35, 40, 45, 50, 55},
             {5, 9, 13, 17, 21, 25, 30, 35, 40, 45, 50, 55}
         },
-        weight = 92.0
+        weight = 92.0,
+        theme = "FFFFFF 000000 C6E3FD FCC0C1 FFF2B4 FFFFFF 0F5864 157B8B 4E93A1 97D1D7 88642C 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Golurk",
@@ -9374,7 +9519,8 @@ PokemonData.POKEMON = {
             {5, 9, 13, 17, 21, 25, 30, 35, 40, 43, 50, 60, 70},
             {5, 9, 13, 17, 21, 25, 30, 35, 40, 43, 50, 60, 70}
         },
-        weight = 330.0
+        weight = 330.0,
+        theme = "FFFFFF 000000 C6E3FD FCC0C1 FFF2B4 FFFFFF 0F5864 157B8B 4E93A1 97D1D7 88642C 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Pawniard",
@@ -9388,7 +9534,8 @@ PokemonData.POKEMON = {
             {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 54, 57, 62},
             {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 54, 57, 62}
         },
-        weight = 10.2
+        weight = 10.2,
+        theme = "FFFFFF 000000 C3E2FD FEC1C4 FFF2B4 FFFFFF 8A2929 B83838 ABABAB E0E0E0 605F6F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Bisharp",
@@ -9402,7 +9549,8 @@ PokemonData.POKEMON = {
             {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 57, 63, 71},
             {6, 9, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 57, 63, 71}
         },
-        weight = 70.0
+        weight = 70.0,
+        theme = "FFFFFF 000000 C3E2FD FEC1C4 FFF2B4 FFFFFF 8A2929 B83838 ABABAB E0E0E0 605F6F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Bouffalant",
@@ -9416,7 +9564,8 @@ PokemonData.POKEMON = {
             {6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61},
             {6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61}
         },
-        weight = 94.6
+        weight = 94.6,
+        theme = "FFFFFF FFFFFF C3E2FD FEC1C4 FFF2B4 FFFFFF 362F24 554A39 C7A47B AB7E48 362F24 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Rufflet",
@@ -9430,7 +9579,8 @@ PokemonData.POKEMON = {
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 55, 59, 64},
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 55, 59, 64}
         },
-        weight = 10.5
+        weight = 10.5,
+        theme = "000000 FFFFFF 0040A2 B40002 837341 FFFFFF B7AC80 F3EED6 898BAB 64668C 8F363D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Braviary",
@@ -9444,7 +9594,8 @@ PokemonData.POKEMON = {
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 51, 57, 63, 70},
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 51, 57, 63, 70}
         },
-        weight = 41.0
+        weight = 41.0,
+        theme = "000000 FFFFFF 0040A2 B40002 837341 FFFFFF B7AC80 F3EED6 898BAB 64668C 8F363D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Vullaby",
@@ -9458,7 +9609,8 @@ PokemonData.POKEMON = {
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 55, 59, 64},
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 55, 59, 64}
         },
-        weight = 9.0
+        weight = 9.0,
+        theme = "FFFFFF FFFFFF C8DDFF FDC9CB FEF8A3 FFFFFF C5516E DA6E85 88705B AC9682 3B3B3B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Mandibuzz",
@@ -9472,7 +9624,8 @@ PokemonData.POKEMON = {
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 51, 57, 63, 70},
             {5, 10, 14, 19, 23, 28, 32, 37, 41, 46, 50, 51, 57, 63, 70}
         },
-        weight = 39.5
+        weight = 39.5,
+        theme = "FFFFFF FFFFFF C8DDFF FDC9CB FEF8A3 FFFFFF C5516E DA6E85 88705B AC9682 3B3B3B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Heatmor",
@@ -9486,7 +9639,8 @@ PokemonData.POKEMON = {
             {6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 56, 56, 61},
             {6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 56, 56, 61}
         },
-        weight = 58.0
+        weight = 58.0,
+        theme = "FFFFFF 000000 C8DDFF FDC9CB FEF8A3 FFFFFF 745D4A 9B7D63 BE8E45 F2CF68 96393B 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Durant",
@@ -9500,7 +9654,8 @@ PokemonData.POKEMON = {
             {6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66},
             {6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66}
         },
-        weight = 33.0
+        weight = 33.0,
+        theme = "FFFFFF FFFFFF C8DDFF FDC9CB FEF8A3 FFFFFF 707070 929292 515259 64656E 984B4D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Deino",
@@ -9514,7 +9669,8 @@ PokemonData.POKEMON = {
             {4, 9, 12, 17, 20, 25, 28, 32, 38, 42, 48, 52, 58, 62},
             {4, 9, 12, 17, 20, 25, 28, 32, 38, 42, 48, 52, 58, 62}
         },
-        weight = 17.3
+        weight = 17.3,
+        theme = "FFFFFF FFFFFF C8DDFF FDC9CB FEF8A3 FFFFFF A23761 C45380 3668B0 5585CA 3D3C3D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Zweilous",
@@ -9528,7 +9684,8 @@ PokemonData.POKEMON = {
             {4, 9, 12, 17, 20, 25, 28, 32, 38, 42, 48, 55, 64, 71},
             {4, 9, 12, 17, 20, 25, 28, 32, 38, 42, 48, 55, 64, 71}
         },
-        weight = 50.0
+        weight = 50.0,
+        theme = "FFFFFF FFFFFF C8DDFF FDC9CB FEF8A3 FFFFFF A23761 C45380 3668B0 5585CA 3D3C3D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Hydreigon",
@@ -9542,7 +9699,8 @@ PokemonData.POKEMON = {
             {4, 9, 12, 17, 20, 25, 28, 32, 38, 42, 48, 55, 68, 79},
             {4, 9, 12, 17, 20, 25, 28, 32, 38, 42, 48, 55, 68, 79}
         },
-        weight = 160.0
+        weight = 160.0,
+        theme = "FFFFFF FFFFFF C8DDFF FDC9CB FEF8A3 FFFFFF A23761 C45380 3668B0 5585CA 3D3C3D FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Larvesta",
@@ -9556,7 +9714,8 @@ PokemonData.POKEMON = {
             {10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
             {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
         },
-        weight = 28.8
+        weight = 28.8,
+        theme = "FFFFFF 000000 C8DDFF FDC9CB FEF8A3 FFFFFF 424242 5D5D5D 7EA6B3 B7DFE4 9E482F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Volcarona",
@@ -9570,7 +9729,8 @@ PokemonData.POKEMON = {
             {10, 20, 30, 40, 50, 59, 60, 70, 80, 90, 100},
             {10, 20, 30, 40, 50, 59, 60, 70, 80, 90, 100}
         },
-        weight = 46.0
+        weight = 46.0,
+        theme = "FFFFFF 000000 C8DDFF FDC9CB FEF8A3 FFFFFF 424242 5D5D5D 7EA6B3 B7DFE4 9E482F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Cobalion",
@@ -9584,7 +9744,8 @@ PokemonData.POKEMON = {
             {7, 13, 19, 25, 31, 37, 42, 49, 55, 61, 67, 73},
             {7, 13, 19, 25, 31, 37, 42, 49, 55, 61, 67, 73}
         },
-        weight = 250.0
+        weight = 250.0,
+        theme = "000000 000000 0048BE B40002 A87523 FFFFFF BA9358 E9CA99 83BBDE C3DEEF 00777D 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Terrakion",
@@ -9598,7 +9759,8 @@ PokemonData.POKEMON = {
             {7, 13, 19, 25, 31, 37, 42, 49, 55, 61, 67, 73},
             {7, 13, 19, 25, 31, 37, 42, 49, 55, 61, 67, 73}
         },
-        weight = 260.0
+        weight = 260.0,
+        theme = "FFFFFF 000000 B7D2FE FEC9CA FFF8BE FFFFFF 413731 62534A CDAF7F E3D2B8 7A6C6D 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Virizion",
@@ -9612,7 +9774,8 @@ PokemonData.POKEMON = {
             {7, 13, 19, 25, 31, 37, 42, 49, 55, 61, 67, 73},
             {7, 13, 19, 25, 31, 37, 42, 49, 55, 61, 67, 73}
         },
-        weight = 200.0
+        weight = 200.0,
+        theme = "FFFFFF 000000 B7D2FE FEC9CA FFF8BE FFFFFF 517C3B 6EA750 CDCD78 F4F3CF B05767 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Tornadus",
@@ -9626,7 +9789,8 @@ PokemonData.POKEMON = {
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
         },
-        weight = 63.0
+        weight = 63.0,
+        theme = "FFFFFF 000000 B7D2FE FEC9CA FFF8BE FFFFFF 3D8E4A 4DB35E BECEE6 EFF3F9 763E94 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Thundurus",
@@ -9640,7 +9804,8 @@ PokemonData.POKEMON = {
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
         },
-        weight = 61.0
+        weight = 61.0,
+        theme = "FFFFFF 000000 D0E1FE FEC9CA FFF8BE FFFFFF 1A82C2 3CA4E4 BECEE6 EFF3F9 554399 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Reshiram",
@@ -9654,7 +9819,8 @@ PokemonData.POKEMON = {
             {8, 15, 22, 29, 36, 43, 50, 54, 64, 71, 78, 85, 92, 100},
             {8, 15, 22, 29, 36, 43, 50, 54, 64, 71, 78, 85, 92, 100}
         },
-        weight = 330.0
+        weight = 330.0,
+        theme = "000000 000000 0343B0 B40002 666666 FFFFFF A2B1C8 E0E2EC 9697BA C9CADC BE4F2F 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Zekrom",
@@ -9668,7 +9834,8 @@ PokemonData.POKEMON = {
             {8, 15, 22, 29, 36, 43, 50, 54, 64, 71, 78, 85, 92, 100},
             {8, 15, 22, 29, 36, 43, 50, 54, 64, 71, 78, 85, 92, 100}
         },
-        weight = 345.0
+        weight = 345.0,
+        theme = "FFFFFF FFFFFF C8DDFF FDC9CB FEF8A3 FFFFFF 161616 30313A 00C4FC 30313A 161616 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Landorus",
@@ -9682,7 +9849,8 @@ PokemonData.POKEMON = {
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
         },
-        weight = 68.0
+        weight = 68.0,
+        theme = "FFFFFF 000000 D0E1FE FEC1C1 FFF8BE FFFFFF BD4A15 E66326 BECEE6 EFF3F9 B24C49 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Kyurem",
@@ -9696,7 +9864,8 @@ PokemonData.POKEMON = {
             {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
             {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
         },
-        weight = 325.0
+        weight = 325.0,
+        theme = "000000 FFFFFF 0044B4 B40002 2E6971 FFFFFF 73BBC5 C7E4E8 ADB0B4 80858B 4C4F53 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Keldeo",
@@ -9710,7 +9879,8 @@ PokemonData.POKEMON = {
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73},
             {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73}
         },
-        weight = 48.5
+        weight = 48.5,
+        theme = "FFFFFF 000000 BED6FF FFC5C5 FFFB7D FFFFFF 1C81D1 55A7E8 D8CA8E FFF3B4 CA493E 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Meloetta A",
@@ -9724,7 +9894,8 @@ PokemonData.POKEMON = {
             {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85},
             {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85}
         },
-        weight = 6.5
+        weight = 6.5,
+        theme = "FFFFFF FFFFFF BED6FF FFC5C5 FFFB7D FFFFFF 2A8496 3EB1C8 95CF9C 58B563 4E463F FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
     },
     {
         name = "Genesect",
@@ -9738,7 +9909,8 @@ PokemonData.POKEMON = {
             {7, 11, 18, 22, 29, 33, 40, 44, 51, 55, 62, 66, 73, 77},
             {7, 11, 18, 22, 29, 33, 40, 44, 51, 55, 62, 66, 73, 77}
         },
-        weight = 82.5
+        weight = 82.5,
+        theme = "FFFFFF 000000 C5DAFF FFCFCF FFFB7D FFFFFF 7A3B9B A05FC2 A076D7 CFB6FD A83E3A 000000 000000 FFFFFF 0 1 1 1 0 1"
     }
 }
 
@@ -9848,7 +10020,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100},
                     {10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100}
                 },
-                weight = 2.1
+                weight = 2.1,
+                theme = "000000 000000 004B8B B40002 55702F FFFFFF 6B9B33 9BCB63 B4C8D5 DDE6EC B64B3B 000000 000000 FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -9868,7 +10041,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50},
                     {6, 10, 15, 19, 24, 28, 33, 37, 42, 46, 50}
                 },
-                weight = 750.0
+                weight = 750.0,
+                theme = "FFFFFF FFFFFF C6D8FD FFC5C5 FEF988 FFFFFF 2E3133 424649 C5CED5 879AAA BD3D3F FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -9888,7 +10062,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
-                weight = .3
+                weight = .3,
+                theme = "FFFFFF FFFFFF C1D6FE FEC6CC FFF181 FFFFFF C14F21 EA6A3C F2A88D EA6A3C A9322E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Rotom Wash",
@@ -9902,7 +10077,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
-                weight = .3
+                weight = .3,
+                theme = "FFFFFF FFFFFF C1D6FE FEC6CC FFF181 FFFFFF C14F21 EA6A3C F2A88D EA6A3C 2E5AA4 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Rotom Frost",
@@ -9916,7 +10092,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
-                weight = .3
+                weight = .3,
+                theme = "FFFFFF FFFFFF C1D6FE FEC6CC FFF181 FFFFFF C14F21 EA6A3C F2A88D EA6A3C 795299 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Rotom Fan",
@@ -9930,7 +10107,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
-                weight = .3
+                weight = .3,
+                theme = "FFFFFF FFFFFF C1D6FE FEC6CC FFF181 FFFFFF C14F21 EA6A3C F2A88D EA6A3C 88705A FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Rotom Mow",
@@ -9944,7 +10122,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {8, 15, 22, 29, 36, 43, 50, 57, 64},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64}
                 },
-                weight = .3
+                weight = .3,
+                theme = "FFFFFF FFFFFF C1D6FE FEC6CC FFF181 FFFFFF C14F21 EA6A3C F2A88D EA6A3C 4F6E3B FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -9964,7 +10143,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
                     {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
                 },
-                weight = 0.8
+                weight = 0.8,
+                theme = "FFFFFF 000000 BED7FF FED6D6 FEF89D FFFFFF C5521E F26D35 A9ACBB DDDEE4 C54F3E 000000 000000 000000 0 1 1 1 0 1"
             },
             {
                 name = "Castform R",
@@ -9978,7 +10158,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
                     {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
                 },
-                weight = 0.8
+                weight = 0.8,
+                theme = "FFFFFF 000000 BED7FF FED6D6 FEF89D FFFFFF 3E65C3 708DD3 9F9F9F C5C5C5 3E65C3 000000 000000 000000 0 1 1 1 0 1"
             },
             {
                 name = "Castform S",
@@ -9992,7 +10173,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {10, 10, 10, 20, 30, 30, 30, 40, 50, 50, 50},
                     {10, 10, 10, 15, 20, 20, 20, 30, 40, 40, 40}
                 },
-                weight = 0.8
+                weight = 0.8,
+                theme = "FFFFFF FFFFFF BED7FF FED6D6 FEF89D FFFFFF 467168 5E998C B8A3D9 8D6BC2 467168 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10013,7 +10195,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56},
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51, 56}
                 },
-                weight = 18.0
+                weight = 18.0,
+                theme = "FFFFFF FFFFFF A5D4FF FF99B4 FFE670 FFFFFF 323431 50544F 70B6D2 0098B9 297A4E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10033,7 +10216,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54},
                     {3, 6, 9, 11, 14, 17, 19, 22, 25, 27, 30, 33, 35, 39, 47, 54}
                 },
-                weight = 92.9
+                weight = 92.9,
+                theme = "FFFFFF FFFFFF B0D9FF FFCFDB FFE670 FFFFFF 356C82 589FBA AAC4DC 7FA6CA 356C82 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10053,7 +10237,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85},
                     {6, 11, 16, 21, 26, 31, 36, 43, 50, 57, 64, 71, 78, 85}
                 },
-                weight = 6.5
+                weight = 6.5,
+                theme = "FFFFFF FFFFFF C5DAFF FFCFCF FFFB7D FFFFFF C65241 E97055 DB8395 CD536C 4E463F FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10073,7 +10258,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
                 },
-                weight = 325.0
+                weight = 325.0,
+                theme = "000000 FFFFFF 0044B4 B40002 2E6971 FFFFFF 73BBC5 C7E4E8 ADB0B4 80858B 4C4F53 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Kyurem B",
@@ -10087,7 +10273,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92},
                     {8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92}
                 },
-                weight = 325.0
+                weight = 325.0,
+                theme = "000000 FFFFFF 0044B4 B40002 2E6971 FFFFFF 73BBC5 C7E4E8 ADB0B4 80858B 4C4F53 FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10107,7 +10294,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
                 },
-                weight = 68.0
+                weight = 68.0,
+                theme = "FFFFFF 000000 D0E1FE FEC1C1 FFF8BE FFFFFF BD4A15 E66326 BECEE6 EFF3F9 B24C49 000000 000000 FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10186,7 +10374,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
                 },
-                weight = 19.5
+                weight = 19.5,
+                theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C CDAD56 F0D7A4 2E8365 000000 000000 FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Deerling",
@@ -10200,7 +10389,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
                 },
-                weight = 19.5
+                weight = 19.5,
+                theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C CDAD56 F0D7A4 C45B55 000000 000000 FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Deerling",
@@ -10214,7 +10404,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51},
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 41, 46, 51}
                 },
-                weight = 19.5
+                weight = 19.5,
+                theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C B2B2B2 F1F1F1 593E2E 000000 000000 FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10235,7 +10426,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61},
                     {5, 9, 13, 17, 22, 27, 32, 37, 43, 49, 55, 61}
                 },
-                weight = 33.0
+                weight = 33.0,
+                theme = "000000 000000 025CB8 B40002 845162 FFFFFF DF7BA6 FFADD1 CE9DB0 F4DAE7 B94F72 000000 000000 000000 0 1 1 1 0 1"
             }
         }
     },
@@ -10278,7 +10470,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69},
                     {5, 9, 13, 17, 22, 27, 32, 37, 45, 53, 61, 69}
                 },
-                weight = 135.0
+                weight = 135.0,
+                theme = "000000 000000 025CB8 B40002 845162 FFFFFF DF7BA6 FFADD1 CE9DB0 F4DAE7 B94F72 000000 000000 000000 0 1 1 1 0 1"
             }
         }
     },
@@ -10299,7 +10492,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73}
                 },
-                weight = 48.5
+                weight = 48.5,
+                theme = "FFFFFF 000000 BED6FF FFC5C5 FFFB7D FFFFFF 1C81D1 55A7E8 D8CA8E FFF3B4 CA493E 000000 000000 FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10320,7 +10514,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
                 },
-                weight = 92.5
+                weight = 92.5,
+                theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C CDAD56 F0D7A4 2E8365 000000 000000 FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Sawsbuck",
@@ -10334,7 +10529,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
                 },
-                weight = 92.5
+                weight = 92.5,
+                theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C CDAD56 F0D7A4 C45B55 000000 000000 FFFFFF 0 1 1 1 0 1"
             },
             {
                 name = "Sawsbuck",
@@ -10348,7 +10544,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60},
                     {4, 7, 10, 13, 16, 20, 24, 28, 32, 36, 37, 44, 52, 60}
                 },
-                weight = 92.5
+                weight = 92.5,
+                theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C B2B2B2 F1F1F1 593E2E 000000 000000 FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10390,7 +10587,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
                 },
-                weight = 61.0
+                weight = 61.0,
+                theme = "FFFFFF 000000 D0E1FE FEC9CA FFF8BE FFFFFF 1A82C2 3CA4E4 BECEE6 EFF3F9 554399 000000 000000 FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10410,7 +10608,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85},
                     {7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85}
                 },
-                weight = 63.0
+                weight = 63.0,
+                theme = "FFFFFF 000000 B7D2FE FEC9CA FFF8BE FFFFFF 3D8E4A 4DB35E BECEE6 EFF3F9 763E94 000000 000000 FFFFFF 0 1 1 1 0 1"
             }
         }
     },
@@ -10431,7 +10630,8 @@ PokemonData.ALTERNATE_FORMS = {
                     {4, 8, 11, 15, 18, 23, 27, 33, 38, 44, 49, 55, 60, 66},
                     {4, 8, 11, 15, 18, 23, 27, 33, 38, 44, 49, 55, 60, 66}
                 },
-                weight = 29.0
+                weight = 29.0,
+                theme = "FFFFFF FFFFFF B6D5FF EFD0D8 FFFC81 FFFFFF 2D2F3E 4D4F69 A39EB2 8A839D 2D2F3E FFFFFF FFFFFF FFFFFF 0 1 1 1 0 1"
             }
         }
     }
