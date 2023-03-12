@@ -29,6 +29,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local SeedLogger = dofile(Paths.FOLDERS.DATA_FOLDER .. "/SeedLogger.lua")
 	local PastRun = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PastRun.lua")
 	local BattleHandler = dofile(Paths.FOLDERS.DATA_FOLDER .. "/BattleHandler.lua")
+	local PokemonThemeManager = dofile(Paths.FOLDERS.DATA_FOLDER.."/PokemonThemeManager.lua")
 
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
@@ -66,7 +67,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local frameCounters
 	local trackerUpdater = TrackerUpdater(settings)
 	local seedLogger
-	local previousBackgroundColor
+		local pokemonThemeManager = PokemonThemeManager(settings, self)
 
 	local currentScreens = {}
 
@@ -78,8 +79,26 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return memoryAddresses
 	end
 
-	function self.saveSettings()
-		INI.save("Settings.ini", settings)
+	function self.saveSettings(useDefaultTheme)
+		if useDefaultTheme == nil then
+			useDefaultTheme = true
+		end
+		local settingsCopy = MiscUtils.deepCopy(settings)
+		if useDefaultTheme then
+			local defaultColorStuff = pokemonThemeManager.getDefaults()
+			if defaultColorStuff.colorSettings ~= nil then
+				settingsCopy.colorSettings = defaultColorStuff.colorSettings
+			end
+			if defaultColorStuff.colorScheme ~= nil then
+				settingsCopy.colorScheme = defaultColorStuff.colorScheme
+			end
+		end
+		INI.save("Settings.ini", settingsCopy)
+		pokemonThemeManager.update()
+	end
+
+	function self.saveSettingsWithTheme()
+		self.saveSettings(false)
 	end
 
 	local function checkIfNeedToInitialize(screen)
@@ -133,6 +152,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			currentScreens[self.UI_SCREENS.TITLE_SCREEN].moveMainFrame(mainScreenPosition)
 			currentScreens[self.UI_SCREENS.TITLE_SCREEN].initialize(seedLogger)
 		end
+	end
+
+	function self.turnOffPokemonTheme()
+		pokemonThemeManager.turnOff()
+	end
+
+	function self.togglePokemonTheme()
+		pokemonThemeManager.toggleActive()
+		self.saveSettings(true)
+		self.drawCurrentScreens()
 	end
 
 	function self.openScreen(screen)
@@ -499,6 +528,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if beforeFirstPokemon and tracker.getFirstPokemonID() ~= nil then
 			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(false)
+		end
+		if playerPokemon ~= nil then
+			pokemonThemeManager.update(playerPokemon.pokemonID)
 		end
 		if beforeFirstPokemon or afterFirstPokemon or inThemeView then
 			self.drawCurrentScreens()
