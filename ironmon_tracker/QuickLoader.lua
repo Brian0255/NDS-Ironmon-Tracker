@@ -30,7 +30,7 @@ local function initAttemptsPaths()
 
     local settings = FormsUtils.getFileNameFromPath(quickLoadSettings.SETTINGS_PATH:sub(1,-6))
     if settings ~= nil then
-        attemptsPaths["GENERATE_ROMS"] = ((attemptsPath..settings):gsub(" ","_"))..".txt"
+        attemptsPaths["GENERATE_ROMS"] = attemptsPath..settings..".txt"
     end
 end
 
