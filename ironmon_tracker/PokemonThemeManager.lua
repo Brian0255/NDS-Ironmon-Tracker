@@ -62,6 +62,8 @@ local function PokemonThemeManager(initialSettings, initialProgram)
     local function undoPokemonTheme()
         MiscUtils.copyTableIntoAnother(defaultColorSettings, settings.colorSettings)
         MiscUtils.copyTableIntoAnother(defaultColorScheme, settings.colorScheme)
+        settings.colorScheme["Alternate positive text color"] = nil
+        settings.colorScheme["Alternate negative text color"] = nil
     end
 
     local function updateBasedOnState()
