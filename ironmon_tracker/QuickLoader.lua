@@ -22,10 +22,10 @@ local function initAttemptsPaths()
     local romname = gameinfo.getromname()
     local attemptsPath = Paths.CURRENT_DIRECTORY..Paths.SLASH.."attempts"..Paths.SLASH
 
-    local name, digits = romname:match("(.*)(%d+)")
+    local name, digits = romname:match("(.-)(%d+)")
     romNumber = digits
     if name ~= nil and digits ~= nil then
-        attemptsPaths["USE_BATCH"] = ((attemptsPath..name):gsub(" ","_"))..".txt"
+        attemptsPaths["USE_BATCH"] = attemptsPath..name..".txt"
     end
 
     local settings = FormsUtils.getFileNameFromPath(quickLoadSettings.SETTINGS_PATH:sub(1,-6))
@@ -140,7 +140,8 @@ local function getNextRomPathFromBatch()
     end
 
     local romName = gameinfo.getromname()
-    local nameWithoutNumbers, newRomNumber = romName:match("(.*)(%d+)")
+    local nameWithoutNumbers, newRomNumber = romName:match("(.-)(%d+)")
+    newRomNumber = tonumber(newRomNumber,10)
 
     if newRomNumber == nil then
         local message = "Current ROM does not have any numbers in its name, unable to load next seed."
