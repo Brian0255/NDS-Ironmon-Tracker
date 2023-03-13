@@ -86,7 +86,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 		local settingsCopy = MiscUtils.deepCopy(settings)
 		if useDefaultTheme then
-			print("yes use the default")
 			local defaultColorStuff = pokemonThemeManager.getDefaults()
 			if defaultColorStuff.colorSettings ~= nil then
 				settingsCopy.colorSettings = defaultColorStuff.colorSettings
