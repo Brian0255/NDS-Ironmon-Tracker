@@ -75,10 +75,12 @@ local function PokemonThemeManager(initialSettings, initialProgram)
     end
 
     function self.toggleActive()
+        --[[
         settings.appearance["AUTO_POKEMON_THEMES"] = not settings.appearance["AUTO_POKEMON_THEMES"]
         if settings.appearance["AUTO_POKEMON_THEMES"] then
             updateDefaults()
         end
+        --]]
     end
 
     function self.getDefaults()
@@ -100,6 +102,9 @@ local function PokemonThemeManager(initialSettings, initialProgram)
         local settingWasToggled = (active ~= settings.appearance["AUTO_POKEMON_THEMES"])
         if (newPokemonID ~= nil and newPokemonID ~= currentPokemonID) or settingWasToggled then
             currentPokemonID = newPokemonID or currentPokemonID
+            if settingWasToggled and settings.appearance["AUTO_POKEMON_THEMES"] then
+                updateDefaults()
+            end
             updateBasedOnState()
         end
         active = settings.appearance["AUTO_POKEMON_THEMES"]
