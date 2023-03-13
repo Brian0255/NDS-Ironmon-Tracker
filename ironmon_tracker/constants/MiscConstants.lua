@@ -1,14 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.0"
+MiscConstants.TRACKER_VERSION = "5.5.1"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Every Pok'..Chars.accentedE..'mon now has a custom theme that can be automatically applied! You can toggle this in the appearance settings. Pok'..Chars.accentedE..'mon that have an evolution will use the theme of the final evolution.',
-    '-- Thanks to Ninjafriend, there are now brows when you view a Pok'..Chars.accentedE..'mon\'s stat summary in the Log Viewer!',
-    '-- Thanks to BurninTheBlues, the tracker should now be more friendly with certain versions of Linux! Icons, trainers and other images should no longer be blank.',
-    '-- If you use Quickload with batch files, the tracker will now correctly increment upon loading new ROMs.'
+    '-- Fixes a very important issue where the batch quickload method could fail.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
