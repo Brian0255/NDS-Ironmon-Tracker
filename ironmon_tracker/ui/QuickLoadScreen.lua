@@ -57,7 +57,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
             if newPath ~= nil and newPath ~= "" then
                 if isFolder then
-                    newPath = newPath:sub(0, newPath:match("^.*()\\") - 1)
+                    newPath = newPath:sub(0, newPath:match("^.*()"..Paths.SLASH) - 1)
                 end
                 settings.quickLoad[settingKey] = newPath
                 pathLabel.setText(FormsUtils.shortenFolderName(newPath))
@@ -468,7 +468,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
         local soundOn = client.GetSoundOn()
         client.SetSoundOn(false)
-        local profile = forms.openfile("*.qlp", Paths.CURRENT_DIRECTORY.."\\ironmon_tracker\\quickloadProfiles\\")
+        local profile = forms.openfile("*.qlp", Paths.CURRENT_DIRECTORY..Paths.SLASH.."ironmon_tracker"..Paths.SLASH.."quickloadProfiles"..Paths.SLASH)
         client.SetSoundOn(soundOn)
         if profile == "" then return end
         local lines = MiscUtils.readLinesFromFile(profile)
@@ -581,7 +581,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 settingKey = "SETTINGS_PATH",
                 labelName = "Settings file",
                 extension = ".rnqs",
-                relativePath = "\\ironmon_tracker\\settings"
+                relativePath = Paths.SLASH.."ironmon_tracker"..Paths.SLASH.."settings"
             }
         }
         for _, settingData in pairs(settingsData) do

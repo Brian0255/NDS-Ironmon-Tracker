@@ -201,7 +201,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function saveCurrentFavorites()
-		local fileName = "savedData\\" .. program.getGameInfo().NAME .. ".faves"
+		local fileName = "savedData" .. Paths.SLASH .. program.getGameInfo().NAME .. ".faves"
 		local favoritesList = table.concat(favorites, ",")
 		MiscUtils.writeStringToFile(fileName, favoritesList)
 	end
@@ -240,7 +240,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function initFavorites()
-		local fileName = "savedData\\" .. program.getGameInfo().NAME .. ".faves"
+		local fileName = "savedData" .. Paths.SLASH .. program.getGameInfo().NAME .. ".faves"
 		local favesList = MiscUtils.readStringFromFile(fileName)
 		if favesList ~= nil and favesList ~= "" then
 			favesList = MiscUtils.split(favesList, ",", true)

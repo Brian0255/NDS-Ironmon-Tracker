@@ -42,7 +42,12 @@ local function Main()
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
-	Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
+	
+	if Paths.SLASH == '\\' then
+		Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
+	else
+		Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("pwd")
+	end
 
 	local settings
 	local program
