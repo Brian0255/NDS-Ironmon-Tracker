@@ -22,10 +22,10 @@ local function initAttemptsPaths()
     local romname = gameinfo.getromname()
     local attemptsPath = Paths.CURRENT_DIRECTORY.."\\attempts\\"
 
-    local name, digits = romname:match("(.*)(%d+)")
+    local name, digits = romname:match("(.-)(%d+)")
     romNumber = digits
     if name ~= nil and digits ~= nil then
-        attemptsPaths["USE_BATCH"] = ((attemptsPath..name):gsub(" ","_"))..".txt"
+        attemptsPaths["USE_BATCH"] = attemptsPath..name..".txt"
     end
 
     local settings = FormsUtils.getFileNameFromPath(quickLoadSettings.SETTINGS_PATH:sub(1,-6))
