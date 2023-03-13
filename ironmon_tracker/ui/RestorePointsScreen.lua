@@ -2,7 +2,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
-    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
+    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
     local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
     local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")

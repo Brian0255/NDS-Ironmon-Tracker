@@ -337,7 +337,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         height = constants.MOVE_ENTRY_HEIGHT
                     }
                 ),
-                Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 1, y = 2}),
+                Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 2, y = 2}),
                 ui.frames.moveInfoFrame
             )
             ui.frames[nameIconFrameName] =
@@ -348,7 +348,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         y = 0
                     },
                     {
-                        width = 81,
+                        width = 80,
                         height = constants.MOVE_ENTRY_HEIGHT
                     }
                 ),

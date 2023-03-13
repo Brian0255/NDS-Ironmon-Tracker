@@ -1,7 +1,7 @@
 local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
-    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
+    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
     local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
     local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
@@ -66,7 +66,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
     end
     local function updateScrollerFromCurrentIndex()
         local maxVerticalRoom = frame.getSize().height - scroller.getSize().height
-        local scrollerY = (currentIndex-1)/(maxIndex-1) * maxVerticalRoom 
+        local scrollerY = (currentIndex-1)/(maxIndex-1) * maxVerticalRoom
         scroller.move({x=scrollerX,y=scrollerY})
     end
 
@@ -93,7 +93,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         end
         return items
     end
-    
+
     local function scrollForward()
         if not dragging then
             currentIndex = math.min(currentIndex + 1,maxIndex)
@@ -103,7 +103,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
     end
 
     local function scrollBackward()
-        if not dragging then 
+        if not dragging then
             currentIndex = math.max(1, currentIndex - 1)
             updateScrollerFromCurrentIndex()
             scrollReadingFunction()
@@ -116,7 +116,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         local distanceMovedDown = scroller.getPosition().y
         local percentange = distanceMovedDown/maxVerticalRoom
         local previousIndex = currentIndex
-        currentIndex = math.floor((percentange * (maxIndex-1)) + 1.5) 
+        currentIndex = math.floor((percentange * (maxIndex-1)) + 1.5)
         if previousIndex ~= currentIndex then
             updateScrollerFromCurrentIndex()
             scrollReadingFunction()
@@ -140,7 +140,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         if scroller.isVisible() then
             for _, frameCounter in pairs(frameCounters) do
                 frameCounter.decrement()
-            end 
+            end
             for _, eventListener in pairs(eventListeners) do
                 eventListener.listen()
             end

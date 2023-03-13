@@ -1,7 +1,7 @@
 local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram)
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
-    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/cOMPONENT.lua")
+    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
     local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
     local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
     local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
@@ -53,7 +53,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
     end
 
     local function onColorEditClick(colorKey)
-        local colorPicker = ColorPicker(settings.colorScheme, colorKey, onColorPickerEnd, nil, program.saveSettings)
+        local colorPicker = ColorPicker(settings.colorScheme, colorKey, onColorPickerEnd, nil, program.saveSettingsWithTheme)
         program.setColorPicker(colorPicker)
     end
 
@@ -156,10 +156,10 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 ),
                 settings.colorSettings,
                 colorSettingsKey,
-                nil, 
+                nil,
                 false,
                 true,
-                program.saveSettings
+                program.saveSettingsWithTheme
             )
             table.insert(
                 eventListeners,
@@ -182,6 +182,10 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             )
         end
+    end
+
+    local function onImportClick()
+        ThemeFactory.createImportThemeForm(program.drawCurrentScreens)
     end
 
     local function createImportExportButtons()
@@ -249,7 +253,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
         )
         table.insert(
             eventListeners,
-            MouseClickEventListener(ui.controls.importTheme, ThemeFactory.createImportThemeForm)
+            MouseClickEventListener(ui.controls.importTheme, onImportClick)
         )
         table.insert(
             eventListeners,

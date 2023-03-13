@@ -1,24 +1,26 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.4.1"
+MiscConstants.TRACKER_VERSION = "5.5.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Log backups are now in the savedData folder to prevent confusion. You should delete the old backup if you are still seeing what looks like 2 identical logs.',
-    '-- Fixed a bug where hovering over route data with Transparent Backgrounds on would look bad.',
-    '-- Fixed a bug that was causing a slight FPS dip.'
+    '-- Every Pok'..Chars.accentedE..'mon now has a custom theme that can be automatically applied! You can toggle this by clicking the Pok'..Chars.accentedE..'mon\'s image on the main screen or through a toggle in the appearance settings. Pok'..Chars.accentedE..'mon that have an evolution will use the theme of the final evolution.',
+    '-- Thanks to Ninjafriend, there are now brows when you view a Pok'..Chars.accentedE..'mon\'s stat summary in the Log Viewer!',
+    '-- Thanks to BurninTheBlues, the tracker should now be more friendly with certain versions of Linux! Icons, trainers and other images should no longer be blank.',
+    '-- If you use Quickload with batch files, the tracker will now correctly increment upon loading new ROMs.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
     appearance = {
+        AUTO_POKEMON_THEMES = false,
         EXPERIENCE_BAR = true,
         RIGHT_JUSTIFIED_NUMBERS = true,
         SHOW_ACCURACY_AND_EVASION = true,
         RANDOM_BALL_PICKER = true,
         SHOW_POKECENTER_HEALS = false,
         ICON_SET_INDEX = 2,
-        BLIND_MODE = false
+        BLIND_MODE = false,
     },
     controls = {
         CHANGE_VIEW = "Start",

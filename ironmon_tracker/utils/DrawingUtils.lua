@@ -1,7 +1,7 @@
 DrawingUtils = {}
 
-local colorScheme
-local colorSettings
+local settings
+
 local appearanceSettings
 local blackInsteadOfTransparent
 
@@ -13,15 +13,10 @@ local TextLabel = dofile(UIClassFolder .. "TextLabel.lua")
 local TextField = dofile(UIClassFolder .. "TextField.lua")
 local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
 local Layout = dofile(UIClassFolder .. "Layout.lua")
-local ImageField = dofile(UIClassFolder .. "/ImageFIeld.lua")
+local ImageField = dofile(UIClassFolder .. "/ImageField.lua")
 
-function DrawingUtils.setColorScheme(newScheme)
-    colorScheme = newScheme
-    colorScheme["Black"] = 0xFF000000
-end
-
-function DrawingUtils.setColorSettings(newColorSettings)
-    colorSettings = newColorSettings
+function DrawingUtils.initialize(initialSettings)
+    settings = initialSettings
 end
 
 function DrawingUtils.setTransparentBackgroundOverride(newValue)
@@ -69,7 +64,7 @@ function DrawingUtils.calculateWordPixelLength(text)
 end
 
 function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, shadowColor)
-    if shadowed and colorSettings["Draw shadows"] and not colorSettings["Transparent backgrounds"] then
+    if shadowed and settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"] then
         gui.drawRectangle(x, y, width + 2, height + 2, 0x00000000, shadowColor)
     end
     gui.drawRectangle(x, y, width, height, fill, background)
@@ -239,7 +234,7 @@ function DrawingUtils.drawVerticalBarGraph(
 end
 
 function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, justifiedSpacing)
-    local drawShadow = colorSettings["Draw shadows"] and not colorSettings["Transparent backgrounds"]
+    local drawShadow = settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"]
     local color = DrawingUtils.convertColorKeyToColor(textStyle.getTextColorKey())
     local spacing = 0
     if appearanceSettings.RIGHT_JUSTIFIED_NUMBERS and justifiable then
@@ -293,14 +288,20 @@ function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
         ["Top box background color"] = true,
         ["Bottom box background color"] = true
     }
-    if colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] and not transparentOverride then
+    if settings.colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] and not transparentOverride then
         if blackInsteadOfTransparent then
             return 0xFF000000
         else
             return 0x00000000
         end
     end
-    local color = colorScheme[colorKey]
+    if not settings.colorScheme[colorKey] and colorKey == "Alternate positive text color" then
+        colorKey = "Positive text color"
+    end
+    if not settings.colorScheme[colorKey] and colorKey == "Alternate negative text color" then
+        colorKey = "Negative text color"
+    end
+    local color = settings.colorScheme[colorKey]
     if color == nil then
         color = Graphics.TYPE_COLORS[colorKey]
     end
@@ -310,7 +311,7 @@ end
 function DrawingUtils.calcShadowColor(colorKey, veryDark, colorCode)
     local color = colorCode
     if color == nil then
-        color = colorScheme[colorKey]
+        color = settings.colorScheme[colorKey]
     end
     local color_hexval = (color - 0xFF000000)
 
@@ -393,21 +394,21 @@ function DrawingUtils.drawMoveEffectiveness(position, effectiveness)
     if effectiveness ~= 1.0 then
         local x, y = position.x, position.y
         if effectiveness == 2 then
-            drawChevronUp({x = x, y = y + 2}, "Positive text color")
+            drawChevronUp({x = x, y = y + 2}, "Alternate positive text color")
         elseif effectiveness == 4 then
-            drawChevronUp({x = x, y = y + 2}, "Positive text color")
-            drawChevronUp({x = x, y = y}, "Positive text color")
+            drawChevronUp({x = x, y = y + 2}, "Alternate positive text color")
+            drawChevronUp({x = x, y = y}, "Alternate positive text color")
         elseif effectiveness == 0.5 then
-            drawChevronDown({x = x, y = y, 4}, "Negative text color")
+            drawChevronDown({x = x, y = y, 4}, "Alternate negative text color")
         elseif effectiveness == 0.25 then
-            drawChevronDown({x = x, y = y, 4}, "Negative text color")
-            drawChevronDown({x = x, y = y + 2}, "Negative text color")
+            drawChevronDown({x = x, y = y, 4}, "Alternate negative text color")
+            drawChevronDown({x = x, y = y + 2}, "Alternate negative text color")
         elseif effectiveness == 0 then
             DrawingUtils.drawText(
                 x,
                 y,
                 "X",
-                TextStyle(7, Graphics.FONT.DEFAULT_FONT_FAMILY, "Negative text color", "Bottom box background color"),
+                TextStyle(7, Graphics.FONT.DEFAULT_FONT_FAMILY, "Alternate negative text color", "Bottom box background color"),
                 DrawingUtils.convertColorKeyToColor("Bottom box background color")
             )
         end
@@ -474,7 +475,7 @@ end
 
 function DrawingUtils.drawExperienceBar(x, y, percent)
     local width = 61
-    local multiplier = math.min(1,percent)
+    local multiplier = math.min(1, percent)
     local expBarWidth = math.floor((width - 4) * multiplier)
     local outlineColor = DrawingUtils.convertColorKeyToColor("Top box border color")
     local expBarColor = DrawingUtils.convertColorKeyToColor("Positive text color")

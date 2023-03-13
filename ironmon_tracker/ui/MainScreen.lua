@@ -305,7 +305,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.mainFrame = nil
         mainScreenUIInitializer = MainScreenUIInitializer(ui, program.getGameInfo())
         mainScreenUIInitializer.initUI()
-        browsManager = BrowsManager(settings, ui, currentPokemon, frameCounters, program)
+        browsManager = BrowsManager(initialSettings, ui, frameCounters, initialProgram, initialProgram.UI_SCREENS.MAIN_SCREEN)
         browsManager.initialize()
     end
 
@@ -478,7 +478,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             moveFrame.PPLabel.setText(movePP)
             moveFrame.powLabel.setTextColorKey("Bottom box text color")
             if MoveUtils.isSTAB(moveData, currentPokemon) and program.isInBattle() then
-                moveFrame.powLabel.setTextColorKey("Positive text color")
+                moveFrame.powLabel.setTextColorKey("Alternate positive text color")
             end
             moveFrame.powLabel.setText(moveData.power)
             moveFrame.accLabel.setText(moveData.accuracy)
@@ -1046,6 +1046,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         program.drawCurrentScreens()
     end
 
+    local function togglePokemonTheme()
+        if inPastRunView or currentPokemon.fromTeamInfoView or inTrackedView then
+            return
+        end
+        if currentPokemon ~= nil and currentPokemon.owner == program.SELECTED_PLAYERS.PLAYER then
+            program.togglePokemonTheme()
+        end
+    end
+
     local function initStatListeners()
         for _, stat in pairs(stats) do
             local predictionLabel = stat .. "StatPrediction"
@@ -1136,8 +1145,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             MouseClickEventListener(ui.controls.rightHiddenPowerLabel, onChangeHiddenPower, "forward")
         )
         table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
-        eventListeners.levelHoverListener = 
+        eventListeners.levelHoverListener =
         HoverEventListener(ui.controls.pokemonLevelAndEvo, onPokemonLevelHover, nil, onPokemonLevelHoverEnd, nil, false, true)
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.pokemonImageLabel, togglePokemonTheme))
     end
 
     function self.getMainFrameSize()
@@ -1263,16 +1273,28 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         badgeFrame.resize(newSize)
     end
 
-    local function setUpBadgeParentFrames(primaryBadgeFrame, secondaryBadgeFrame, alignment, showBoth)
+    local function adjustBadgeBackgroundAndBorder(badgeFrame, insertedIndex, newOrientation)
+        local newBackground, newBorder = "Bottom box background color", "Bottom box border color"
+        if insertedIndex < 3 and newOrientation == "HORIZONTAL" then
+            newBackground, newBorder = "Top box background color", "Top box border color"
+        end
+        badgeFrame.setBackgroundColorKey(newBackground)
+        badgeFrame.setBackgroundFillColorKey(newBorder)
+    end
+
+    local function setUpBadgeParentFrames(primaryBadgeFrame, secondaryBadgeFrame, alignment, showBoth, newOrientation)
         local MAIN_FRAME_INDICES = Graphics.MAIN_FRAME_BADGE_INDICES
         if showBoth then
             local indices = MAIN_FRAME_INDICES[alignment]
             primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[1])
+            adjustBadgeBackgroundAndBorder(primaryBadgeFrame, indices[1], newOrientation)
             secondaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, indices[2])
+            adjustBadgeBackgroundAndBorder(secondaryBadgeFrame, indices[2], newOrientation)
         else
             secondaryBadgeFrame.setVisibility(false)
             local index = MAIN_FRAME_INDICES[alignment]
             primaryBadgeFrame.changeParentFrame(ui.frames.mainFrame, index)
+            adjustBadgeBackgroundAndBorder(primaryBadgeFrame, index, newOrientation)
         end
     end
 
@@ -1312,7 +1334,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             setBadgeAlignmentAndSize(badgeFrame, newOrientation, showBoth)
         end
 
-        setUpBadgeParentFrames(primaryBadgeFrame, secondaryBadgeFrame, alignment, showBoth)
+        setUpBadgeParentFrames(primaryBadgeFrame, secondaryBadgeFrame, alignment, showBoth, newOrientation)
         recalculateMainFrameSize(newOrientation)
     end
 

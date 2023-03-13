@@ -16,6 +16,7 @@ local function Main()
 
 	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/QuickLoader.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Memory.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/StatisticsOrganizer.lua")
@@ -49,131 +50,6 @@ local function Main()
 
 	local loadNextSeed = false
 
-	function self.displayError(message)
-		forms.destroyall()
-		FormsUtils.popupDialog(message, 250, 120, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
-	end
-
-	local function incrementAndSaveFile(path)
-		local attempts = 0
-		local attemptsFile = io.open(path, "r")
-		if attemptsFile ~= nil then
-			attempts = attemptsFile:read("*a")
-			if attempts ~= nil and tonumber(attempts) ~= nil then
-				attempts = tonumber(attempts, 10)
-			end
-			attemptsFile:close()
-		end
-		attempts = attempts + 1
-		attemptsFile = io.open(path, "w")
-		if attemptsFile ~= nil then
-			attemptsFile:write(attempts)
-			attemptsFile:close()
-		end
-	end
-
-	local function incrementAttempts(settingsName)
-		local folder = "savedData\\"
-		local attemptsPath = folder .. program.getGameInfo().NAME .. " Attempts.txt"
-		local settingsSpecificFolder = "attempts\\"
-		local settingsAttemptsPath = settingsSpecificFolder .. settingsName .. ".txt"
-		incrementAndSaveFile(attemptsPath)
-		incrementAndSaveFile(settingsAttemptsPath)
-	end
-
-	local function createBackupOfLog(romName)
-		local backupPath = Paths.CURRENT_DIRECTORY.."\\savedData\\"..romName.."_backup.nds.log"
-		print(romName)
-		local romPath = Paths.CURRENT_DIRECTORY.."\\"..romName
-		MiscUtils.copyFile(romPath..".nds.log", backupPath)
-	end
-
-	local function generateROM()
-		local paths = {
-			ROMPath = settings.quickLoad.ROM_PATH,
-			JARPath = settings.quickLoad.JAR_PATH,
-			RNQSPath = settings.quickLoad.SETTINGS_PATH
-		}
-		for name, path in pairs(paths) do
-			if not FormsUtils.fileExists(path) or path == "" then
-				self.displayError("Missing files have been detected for the QuickLoad feature. Please set these in the tracker's settings.")
-				return nil
-			end
-		end
-		local currentDirectory = Paths.CURRENT_DIRECTORY
-		local rnqsName = FormsUtils.getFileNameFromPath(paths.RNQSPath)
-		local settingsName = rnqsName:sub(1, -6)
-		local nextRomName = settingsName .. "_Auto_Randomized.nds"
-		nextRomName = nextRomName:gsub(" ","_")
-		local nextRomPath = currentDirectory .. "\\" .. nextRomName
-		createBackupOfLog(nextRomName:match("(.*)%.nds"))
-		local randomizerCommand =
-			string.format(
-			'java -Xmx4608M -jar "%s" cli -s "%s" -i "%s" -o "%s" -l',
-			paths.JARPath,
-			paths.RNQSPath,
-			paths.ROMPath,
-			nextRomPath
-		)
-		print("Generating next ROM...")
-		local command = randomizerCommand
-		MiscUtils.runExecuteCommand(command, "RomGenerationErrorLog.txt")
-		client.unpause()
-
-		if not FormsUtils.fileExists(nextRomPath) then
-			self.displayError('Next ROM failed to generate. Check the "RomGenerationErrorLog" file for more details.')
-			return nil
-		end
-
-		incrementAttempts(settingsName)
-
-		return {
-			name = nextRomName,
-			path = nextRomPath
-		}
-	end
-
-	local function getNextRomPathFromBatch()
-		if settings.quickLoad.ROMS_FOLDER_PATH == nil or settings.quickLoad.ROMS_FOLDER_PATH == "" then
-			local message = "ROMS_FOLDER_PATH is not set. Please set this in the tracker's settings."
-			self.displayError(message)
-			return nil
-		end
-
-		local romName = gameinfo.getromname()
-		local romNumber = romName:match("%d+")
-
-		if romNumber == nil then
-			local message = "Current ROM does not have any numbers in its name, unable to load next seed."
-			self.displayError(message)
-			return nil
-		end
-
-		local nextRomName = romName:gsub(romNumber, tostring(romNumber + 1))
-		local nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "\\" .. nextRomName .. ".nds"
-
-		local fileCheck = io.open(nextRomPath, "r")
-		if fileCheck ~= nil then
-			io.close(fileCheck)
-		else
-			nextRomName = nextRomName:gsub(" ", "_")
-			nextRomPath = settings.quickLoad.ROMS_FOLDER_PATH .. "\\" .. nextRomName .. ".nds"
-			fileCheck = io.open(nextRomPath, "r")
-			if fileCheck == nil then
-				local message = "Unable to locate next ROM file to load."
-				self.displayError(message)
-				return nil
-			else
-				io.close(fileCheck)
-			end
-		end
-
-		return {
-			name = nextRomName,
-			path = nextRomPath
-		}
-	end
-
 	local function checkForNextSeedCombo()
 		if program ~= nil and not program.isInControlsMenu() then
 			local check = MiscUtils.split(settings.controls.LOAD_NEXT_SEED, " ")
@@ -192,11 +68,7 @@ local function Main()
 		local soundOn = client.GetSoundOn()
 		client.SetSoundOn(false)
 		local nextRomInfo
-		if settings.quickLoad.LOAD_TYPE == "GENERATE_ROMS" then
-			nextRomInfo = generateROM()
-		else
-			nextRomInfo = getNextRomPathFromBatch()
-		end
+		nextRomInfo = QuickLoader.loadNextRom()
 		if nextRomInfo ~= nil then
 			local name = nextRomInfo.name
 			local path = nextRomInfo.path
@@ -262,8 +134,7 @@ local function Main()
 		readSettings()
 		PlaythroughConstants.initializeStandardMessages()
 		ThemeFactory.setSettings(settings)
-		DrawingUtils.setColorScheme(settings.colorScheme)
-		DrawingUtils.setColorSettings(settings.colorSettings)
+		DrawingUtils.initialize(settings)
 		DrawingUtils.setAppearanceSettings(settings.appearance)
 		IconDrawer.setSettings(settings)
 		local gameConfiguration = GameConfigurator.initialize()
@@ -273,8 +144,10 @@ local function Main()
 		end
 		tracker.loadData(gameConfiguration.gameInfo.NAME)
 		tracker.loadTotalPlaytime(gameConfiguration.gameInfo.NAME)
+		QuickLoader.initialize(settings.quickLoad)
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
 		ThemeFactory.setSaveFunction(program.saveSettings)
+		ThemeFactory.setPokemonThemeDisablingFunction(program.turnOffPokemonTheme)
 		event.onexit(program.onProgramExit, "onProgramExit")
 		while not loadNextSeed do
 			program.main()

@@ -2,6 +2,7 @@ ThemeFactory = {}
 
 local settings = nil
 local saveFunction = nil
+local pokemonThemeDisablingFunction = nil
 
 function ThemeFactory.setSettings(newSettings)
     settings = newSettings
@@ -9,6 +10,10 @@ end
 
 function ThemeFactory.setSaveFunction(newSaveFunction)
     saveFunction = newSaveFunction
+end
+
+function ThemeFactory.setPokemonThemeDisablingFunction(newDisablingFunction)
+    pokemonThemeDisablingFunction = newDisablingFunction
 end
 
 ThemeFactory.THEME_COLOR_KEYS_ORDERED = {
@@ -54,14 +59,15 @@ function ThemeFactory.createSaveThemeForm()
     FormsUtils.createSaveForm(Paths.CURRENT_DIRECTORY.."/ironmon_tracker/themes","theme",".colortheme",ThemeFactory.saveFile)
 end
 
+
 function ThemeFactory.onImportThemeClick(text)
-    ThemeFactory.readThemeString(text)
+    ThemeFactory.readThemeString(text, true)
 end
 
 function ThemeFactory.saveFile(filePath)
     local settingsString = ThemeFactory.getThemeString()
     MiscUtils.writeStringToFile(filePath, settingsString)
-    saveFunction()
+    saveFunction(false)
 end
 
 function ThemeFactory.createDefaultConfirmDialog()
@@ -77,7 +83,7 @@ function ThemeFactory.createLoadThemeForm()
         themeFile = io.open(themeFile, "r")
         if themeFile ~= nil then
             local themeString = themeFile:read "*a"
-            ThemeFactory.readThemeString(themeString)
+            ThemeFactory.readThemeString(themeString, true)
         else
             FormsUtils.popupDialog(
                 "Invalid file selection.",
@@ -112,6 +118,7 @@ function ThemeFactory.createImportThemeForm(drawFunction)
         "Import",
         function()
             ThemeFactory.onImportThemeClick(forms.gettext(stringBox))
+            drawFunction()
             forms.destroyall()
         end,
         constants.IMPORT_THEME_WIDTH - 84,
@@ -144,7 +151,7 @@ function ThemeFactory.createExportThemeForm()
 end
 
 function ThemeFactory.restoreDefaults()
-    ThemeFactory.readThemeString(constants.DEFAULT_THEME_STRING)
+    ThemeFactory.readThemeString(constants.DEFAULT_THEME_STRING, true)
 end
 
 function ThemeFactory.getThemeString()
@@ -156,7 +163,7 @@ function ThemeFactory.getThemeString()
     for _, key in pairs(ThemeFactory.COLOR_SETTINGS_KEYS_ORDERED) do
         completeString = completeString .. MiscUtils.boolToNumber(settings.colorSettings[key]) .. " "
     end
-    --completeString = completeString:sub(1,#completeString-1)
+    completeString = completeString:sub(1,#completeString-1)
     return completeString
 end
 
@@ -180,7 +187,36 @@ local function isGen3String(themeString)
     return (colorCounter < 11)
 end
 
-function ThemeFactory.readThemeString(themeString)
+local function addAlternatePositiveNegative(colorScheme)
+    local whiteTopText = false
+    if math.abs(0xFFFFFFFF - colorScheme["Top box text color"]) < 0x000000FF then
+        whiteTopText = true
+    end
+    colorScheme["Alternate positive text color"] = Graphics.THEME_COLORS.LIGHT_POSITIVE
+    colorScheme["Alternate negative text color"] = Graphics.THEME_COLORS.LIGHT_NEGATIVE
+    if whiteTopText then
+        colorScheme["Alternate positive text color"] = Graphics.THEME_COLORS.DARK_POSITIVE
+        colorScheme["Alternate negative text color"] = Graphics.THEME_COLORS.DARK_NEGATIVE
+    end
+end
+
+local function checkForVaryingTextColor(readData)
+    local colors = readData.colorScheme
+    colors["Alternate positive text color"] = nil
+    colors["Alternate negative text color"] = nil
+    if math.abs(colors["Top box text color"] - colors["Bottom box text color"]) == 0xFFFFFF then
+        addAlternatePositiveNegative(colors)
+    end
+end
+
+function ThemeFactory.readThemeString(themeString, readIntoSettings)
+    readIntoSettings = readIntoSettings or false
+    settings.colorScheme["Alternate positive text color"] = nil
+    settings.colorScheme["Alternate negative text color"] = nil
+    local readData = {
+        colorSettings = MiscUtils.deepCopy(settings.colorSettings),
+        colorScheme = MiscUtils.deepCopy(settings.colorScheme)
+    }
     local legacyNDSString = isLegacyNDSString(themeString)
     local gen3String = isGen3String(themeString)
     local boolCounter = 0
@@ -189,26 +225,33 @@ function ThemeFactory.readThemeString(themeString)
         if #number == 1 then
             boolCounter = boolCounter + 1
             local setting = ThemeFactory.COLOR_SETTINGS_KEYS_ORDERED[boolCounter]
-            settings.colorSettings[setting] = MiscUtils.numberToBool(tonumber(number))
+            readData.colorSettings[setting] = MiscUtils.numberToBool(tonumber(number))
         else
             local color = tonumber("0xFF" .. number)
             colorCounter = colorCounter + 1
             if (legacyNDSString or gen3String) and colorCounter == 1 then
                 local key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter]
-                settings.colorScheme[key] = color
+                readData.colorScheme[key] = color
                 key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter + 1]
-                settings.colorScheme[key] = color
+                readData.colorScheme[key] = color
                 colorCounter = colorCounter + 1
                 if gen3String then
-                    settings.colorScheme["Physical icon color"] = settings.colorScheme["Bottom box text color"]
-                    settings.colorScheme["Special icon color"] = settings.colorScheme["Bottom box text color"]
-                    settings.colorScheme["Gear icon color"] = settings.colorScheme["Top box text color"]
+                    readData.colorScheme["Physical icon color"] = readData.colorScheme["Bottom box text color"]
+                    readData.colorScheme["Special icon color"] = readData.colorScheme["Bottom box text color"]
+                    readData.colorScheme["Gear icon color"] = readData.colorScheme["Top box text color"]
                 end
             else
                 local key = ThemeFactory.THEME_COLOR_KEYS_ORDERED[colorCounter]
-                settings.colorScheme[key] = color
+                readData.colorScheme[key] = color
             end
         end
     end
-    saveFunction()
+    checkForVaryingTextColor(readData)
+    if readIntoSettings then
+        pokemonThemeDisablingFunction()
+        MiscUtils.copyTableIntoAnother(readData.colorSettings, settings.colorSettings)
+        MiscUtils.copyTableIntoAnother(readData.colorScheme, settings.colorScheme)
+        saveFunction(false)
+    end
+    return readData
 end
