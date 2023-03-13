@@ -204,7 +204,7 @@ local function checkForVaryingTextColor(readData)
     local colors = readData.colorScheme
     colors["Alternate positive text color"] = nil
     colors["Alternate negative text color"] = nil
-    if math.abs(colors["Top box text color"] - colors["Bottom box text color"]) > 0xFFFF00 then
+    if math.abs(colors["Top box text color"] - colors["Bottom box text color"]) == 0xFFFFFF then
         addAlternatePositiveNegative(colors)
     end
 end
