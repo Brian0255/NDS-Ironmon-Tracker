@@ -140,7 +140,8 @@ local function getNextRomPathFromBatch()
     end
 
     local romName = gameinfo.getromname()
-    local nameWithoutNumbers, newRomNumber = romName:match("(.*)(%d+)")
+    local nameWithoutNumbers, newRomNumber = romName:match("(.-)(%d+)")
+    newRomNumber = tonumber(newRomNumber,10)
 
     if newRomNumber == nil then
         local message = "Current ROM does not have any numbers in its name, unable to load next seed."
