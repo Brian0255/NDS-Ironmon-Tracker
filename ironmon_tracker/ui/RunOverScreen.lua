@@ -76,12 +76,12 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function onOpenLogClick()
-		local startingFolder = Paths.CURRENT_DIRECTORY.."\\"
+		local startingFolder = Paths.CURRENT_DIRECTORY..Paths.SLASH
 		if settings.quickLoad.LOAD_TYPE == "USE_BATCH" then
 			if settings.quickLoad.ROMS_FOLDER_PATH == nil or settings.quickLoad.ROMS_FOLDER_PATH == "" then
 				return
 			end
-			startingFolder = settings.quickLoad.ROMS_FOLDER_PATH .."\\"
+			startingFolder = settings.quickLoad.ROMS_FOLDER_PATH..Paths.SLASH
 		end
 
 		local romName = gameinfo.getromname()

@@ -70,7 +70,7 @@ function FormsUtils.getFileNameFromPath(path)
     if path == nil or path == "" then
         return nil
     end
-    return path:reverse():match("([^\\]*)\\"):reverse()
+    return path:reverse():match("([^"..Paths.SLASH.."]*)"..Paths.SLASH):reverse()
 end
 
 function FormsUtils.getCenter(width, height)
@@ -82,7 +82,7 @@ end
 
 function FormsUtils.shortenFolderName(path)
     if path ~= "" then
-        local shortenedPath = path:reverse():match("([^\\]*\\)"):reverse()
+        local shortenedPath = path:reverse():match("([^"..Paths.SLASH.."]*"..Paths.SLASH..")"):reverse() -- TODO: make multiplatform
         if #shortenedPath > 25 then
             shortenedPath = shortenedPath:sub(1, 25) .. "..."
         end
@@ -205,7 +205,7 @@ end
 local function onSaveClick(x, y, fileNameTextbox, folderPath, fileExtension, fileSavingOperation, fileType)
     local text = forms.gettext(fileNameTextbox)
     if text ~= "" then
-        local savePath = folderPath .. "\\" .. text .. fileExtension
+        local savePath = folderPath .. Paths.SLASH .. text .. fileExtension
         if not FormsUtils.fileExists(savePath) then
             runOperation(fileSavingOperation, savePath)
         else

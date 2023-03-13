@@ -20,7 +20,7 @@ end
 
 local function initAttemptsPaths()
     local romname = gameinfo.getromname()
-    local attemptsPath = Paths.CURRENT_DIRECTORY.."\\attempts\\"
+    local attemptsPath = Paths.CURRENT_DIRECTORY..Paths.SLASH.."attempts"..Paths.SLASH
 
     local name, digits = romname:match("(.*)(%d+)")
     romNumber = digits
@@ -75,14 +75,14 @@ end
 
 local function incrementAttempts(fileName)
     attempts[quickLoadSettings.LOAD_TYPE] = attempts[quickLoadSettings.LOAD_TYPE]  + 1
-    local attemptsFolder = "attempts\\"
+    local attemptsFolder = "attempts"..Paths.SLASH
     attemptsPaths[quickLoadSettings.LOAD_TYPE] = attemptsFolder .. fileName .. ".txt"
     saveAttempts()
 end
 
 local function createBackupOfLog(romName)
-    local backupPath = Paths.CURRENT_DIRECTORY.."\\savedData\\"..romName.."_backup.nds.log"
-    local romPath = Paths.CURRENT_DIRECTORY.."\\"..romName
+    local backupPath = Paths.CURRENT_DIRECTORY..Paths.SLASH.."savedData"..Paths.SLASH..romName.."_backup.nds.log"
+    local romPath = Paths.CURRENT_DIRECTORY..Paths.SLASH..romName
     MiscUtils.copyFile(romPath..".nds.log", backupPath)
 end
 
@@ -104,7 +104,7 @@ local function generateROM()
     local settingsName = rnqsName:sub(1, -6)
     local nextRomName = settingsName .. "_Auto_Randomized.nds"
     nextRomName = nextRomName:gsub(" ","_")
-    local nextRomPath = currentDirectory .. "\\" .. nextRomName
+    local nextRomPath = currentDirectory .. Paths.SLASH .. nextRomName
     createBackupOfLog(nextRomName:match("(.*)%.nds"))
     local randomizerCommand =
         string.format(
@@ -149,14 +149,14 @@ local function getNextRomPathFromBatch()
     end
 
     local nextRomName = romName:gsub(newRomNumber, tostring(newRomNumber + 1))
-    local nextRomPath = quickLoadSettings.ROMS_FOLDER_PATH .. "\\" .. nextRomName .. ".nds"
+    local nextRomPath = quickLoadSettings.ROMS_FOLDER_PATH .. Paths.SLASH .. nextRomName .. ".nds"
 
     local fileCheck = io.open(nextRomPath, "r")
     if fileCheck ~= nil then
         io.close(fileCheck)
     else
         nextRomName = nextRomName:gsub(" ", "_")
-        nextRomPath = quickLoadSettings.ROMS_FOLDER_PATH .. "\\" .. nextRomName .. ".nds"
+        nextRomPath = quickLoadSettings.ROMS_FOLDER_PATH .. Paths.SLASH .. nextRomName .. ".nds"
         fileCheck = io.open(nextRomPath, "r")
         if fileCheck == nil then
             local message = "Unable to locate next ROM file to load."
