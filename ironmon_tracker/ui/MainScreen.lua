@@ -1047,12 +1047,13 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function togglePokemonTheme()
+        --[[
         if inPastRunView or currentPokemon.fromTeamInfoView or inTrackedView then
             return
         end
         if currentPokemon ~= nil and currentPokemon.owner == program.SELECTED_PLAYERS.PLAYER then
             program.togglePokemonTheme()
-        end
+        end--]]
     end
 
     local function initStatListeners()
