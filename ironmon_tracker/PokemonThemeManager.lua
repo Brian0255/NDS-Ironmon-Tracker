@@ -55,6 +55,7 @@ local function PokemonThemeManager(initialSettings, initialProgram)
     end
 
     local function updateDefaults()
+        print("defaults updated")
         defaultColorScheme = MiscUtils.deepCopy(settings.colorScheme)
         defaultColorSettings = MiscUtils.deepCopy(settings.colorSettings)
     end

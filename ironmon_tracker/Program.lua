@@ -80,11 +80,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.saveSettings(useDefaultTheme)
+		pokemonThemeManager.update()
 		if useDefaultTheme == nil then
 			useDefaultTheme = true
 		end
 		local settingsCopy = MiscUtils.deepCopy(settings)
 		if useDefaultTheme then
+			print("yes use the default")
 			local defaultColorStuff = pokemonThemeManager.getDefaults()
 			if defaultColorStuff.colorSettings ~= nil then
 				settingsCopy.colorSettings = defaultColorStuff.colorSettings
@@ -94,7 +96,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			end
 		end
 		INI.save("Settings.ini", settingsCopy)
-		pokemonThemeManager.update()
 	end
 
 	function self.saveSettingsWithTheme()
