@@ -69,11 +69,10 @@ local function TrackerUpdater(initialSettings)
                 string.format('rm "%s/.gitignore"', folderName),
                 string.format('rm "%s/README.md"', folderName),
 
-                string.format('cp -r "%s/*" .', folderName),
+                string.format('cp -rf "%s/." .', folderName),
                 string.format('rm -r "%s"', folderName),
 
-                'echo && echo Version update completed successfully.',
-                'sleep 3s) || read -p "press any key to continue"', -- Pause if any of the commands fail, those grouped between ( )
+                'echo && echo Version update completed successfully.'
             }
         end
 
