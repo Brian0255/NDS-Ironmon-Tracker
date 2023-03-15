@@ -55,7 +55,7 @@ local function TrackerUpdater(initialSettings)
         else
             -- Linux version
             batchCommands = {
-                '(echo Downloading the latest NDS Ironmon Tracker version.',
+                'echo Downloading the latest NDS Ironmon Tracker version.',
                 string.format('curl -L "%s" -o "%s" --ssl-no-revoke', TAR_URL, archiveName),
 
                 'echo && echo Extracting downloaded files.',
