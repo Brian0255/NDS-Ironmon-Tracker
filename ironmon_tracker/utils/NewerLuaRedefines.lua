@@ -1,4 +1,10 @@
 local function makeInteger(value)
+    if value == nil then
+        return
+    end
+    if type(value) ~= "number" then
+        return
+    end
     return math.floor(value)
 end
 

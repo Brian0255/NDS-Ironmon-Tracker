@@ -12,7 +12,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        BATTLE_OPTIONS_HEIGHT = 124,
+        BATTLE_OPTIONS_HEIGHT = 138,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10
@@ -33,6 +33,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
     end
     local function initBattleToggleButtons()
         local orderedKeys = {
+            "AUTO_SWAP_TO_ENEMY",
             "SHOW_MOVE_EFFECTIVENESS",
             "CALCULATE_VARIABLE_DAMAGE",
             "SHOW_ACTUAL_ENEMY_PP",
