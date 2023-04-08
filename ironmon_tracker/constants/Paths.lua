@@ -1,6 +1,7 @@
 Paths = {}
 
 Paths.CURRENT_DIRECTORY = ""
+Paths.SLASH = package.config:sub(1,1)
 
 Paths.FOLDERS = {
     DATA_FOLDER = "ironmon_tracker",

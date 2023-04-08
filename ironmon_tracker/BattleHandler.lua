@@ -365,6 +365,7 @@ local function BattleHandler(
                     program.disableMoveEffectiveness()
                     program.addEffectivenessEnablingFrameCounter(delay)
                     tracker.updateCurrentLevel(pokemonData.pokemonID, pokemonData.level)
+                    program.switchToEnemy()
                     if enemyTrainerID ~= nil and enemyTrainerID == 0 then
                         tracker.updateEncounterData(pokemonData.pokemonID, pokemonData.level)
                     end

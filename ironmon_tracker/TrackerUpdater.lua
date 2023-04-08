@@ -21,45 +21,71 @@ local function TrackerUpdater(initialSettings)
     end
 
     local function runBatchCommand()
-    
+
         local archiveName = "NDS-Ironmon-Tracker-main.tar.gz"
         local folderName = "NDS-Ironmon-Tracker-main"
 
         local TAR_URL = "https://github.com/Brian0255/NDS-Ironmon-Tracker/archive/main.tar.gz"
-    
+
         -- Each individual command listed in order, to be appended together later
-        local batchCommands = {
-            '(echo Downloading the latest NDS Ironmon Tracker version.',
-            string.format('curl -L "%s" -o "%s" --ssl-no-revoke', TAR_URL, archiveName),
+        local batchCommands = {}
+        if Paths.SLASH == '\\' then
+            -- Windows version
+            batchCommands = {
+                '(echo Downloading the latest NDS Ironmon Tracker version.',
+                string.format('curl -L "%s" -o "%s" --ssl-no-revoke', TAR_URL, archiveName),
 
-            'echo; && echo Extracting downloaded files.',
-            string.format('tar -xzf "%s"', archiveName),
-            string.format('del "%s"', archiveName),
+                'echo; && echo Extracting downloaded files.',
+                string.format('tar -xzf "%s"', archiveName),
+                string.format('del "%s"', archiveName),
 
-            'echo; && echo Applying the update; copying over files.',
-            string.format('rmdir "%s\\.vscode" /s /q', folderName),
-            string.format('del "%s\\.editorconfig" /q', folderName),
-            string.format('del "%s\\.gitattributes" /q', folderName),
-            string.format('del "%s\\.gitignore" /q', folderName),
-            string.format('del "%s\\README.md" /q', folderName),
+                'echo; && echo Applying the update; copying over files.',
+                string.format('rmdir "%s\\.vscode" /s /q', folderName),
+                string.format('del "%s\\.editorconfig" /q', folderName),
+                string.format('del "%s\\.gitattributes" /q', folderName),
+                string.format('del "%s\\.gitignore" /q', folderName),
+                string.format('del "%s\\README.md" /q', folderName),
 
-            string.format('xcopy "%s" /s /y /q', folderName),
-            string.format('rmdir "%s" /s /q', folderName),
+                string.format('xcopy "%s" /s /y /q', folderName),
+                string.format('rmdir "%s" /s /q', folderName),
 
-            'echo; && echo Version update completed successfully.',
-            'timeout /t 3) || pause', -- Pause if any of the commands fail, those grouped between ( )
-        }
-    
+                'echo; && echo Version update completed successfully.',
+                'timeout /t 3) || pause', -- Pause if any of the commands fail, those grouped between ( )
+            }
+        else
+            -- Linux version
+            batchCommands = {
+                'echo Downloading the latest NDS Ironmon Tracker version.',
+                string.format('curl -L "%s" -o "%s" --ssl-no-revoke', TAR_URL, archiveName),
+
+                'echo && echo Extracting downloaded files.',
+                string.format('tar -xzf "%s"', archiveName),
+                string.format('rm "%s"', archiveName),
+
+                'echo && echo "Applying the update; copying over files."',
+                string.format('rm -r "%s/.vscode"', folderName),
+                string.format('rm "%s/.editorconfig"', folderName),
+                string.format('rm "%s/.gitattributes"', folderName),
+                string.format('rm "%s/.gitignore"', folderName),
+                string.format('rm "%s/README.md"', folderName),
+
+                string.format('cp -rf "%s/." .', folderName),
+                string.format('rm -r "%s"', folderName),
+
+                'echo && echo Version update completed successfully.'
+            }
+        end
+
         local combined_cmd = table.concat(batchCommands, ' && ')
-    
+
         print(string.format("Installing upgrade to version "..self.getNewestVersionString().."."))
-    
+
         local result = os.execute(combined_cmd)
         if not (result == true or result == 0) then
             print("Error trying to install: Unable to download, extract, or overwrite files properly.")
             return false
         end
-    
+
         print("Update completed successfully.")
         return true
     end
@@ -103,12 +129,12 @@ local function TrackerUpdater(initialSettings)
         local currentDay = os.date("%x")
         return currentDay == lastDay
     end
-    
+
     function self.downloadUpdate()
         local wasSoundOn = client.GetSoundOn()
         client.SetSoundOn(false)
 
-        gui.clearImageCache() 
+        gui.clearImageCache()
         emu.frameadvance() -- Required to allow the redraw to occur before batch commands begin
 
         local success = runBatchCommand()

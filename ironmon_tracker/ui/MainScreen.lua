@@ -90,6 +90,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     local function resetStatPredictionColor()
         if statCycleIndex ~= -1 then
             local oldStat = stats[statCycleIndex]
+            ui.controls[oldStat .. "StatPrediction"].setShadowColorKey("Top box background color")
             ui.controls[oldStat .. "StatPrediction"].setBackgroundColorKey("Top box background color")
             ui.controls[oldStat .. "StatPrediction"].setTextColorKey("Top box text color")
         end
@@ -103,6 +104,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             statCycleIndex = (statCycleIndex % 6) + 1
         end
         local newStat = stats[statCycleIndex]
+        ui.controls[newStat .. "StatPrediction"].setShadowColorKey("Top box border color")
         ui.controls[newStat .. "StatPrediction"].setBackgroundColorKey("Top box border color")
         program.drawCurrentScreens()
     end

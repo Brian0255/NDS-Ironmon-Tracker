@@ -867,8 +867,8 @@ MoveData.MOVES_MASTER_LIST = {
 		id = "71",
 		name = "Absorb",
 		type = PokemonData.POKEMON_TYPES.GRASS,
-		power = {"20", "20", "20", "25", "25"},
-		pp = "25",
+		power = 20,
+		pp = {"20", "20", "20", "25", "25"},
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
 		description = "Inflicts regular damage. Drains half the damage inflicted to heal the user."
@@ -3415,7 +3415,7 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 50% chance to badly poison the target."
+		description = "Inflicts regular damage and makes contact. Has a 30% chance to badly poison the target."
 	},
 	{
 		id = "306",

@@ -77,7 +77,7 @@ end
 function ThemeFactory.createLoadThemeForm()
     local current_dir = Paths.CURRENT_DIRECTORY
     local ending = ".colortheme"
-    local themeFile = forms.openfile("*" .. ending, current_dir .. "\\ironmon_tracker\\themes")
+    local themeFile = forms.openfile("*" .. ending, current_dir .. Paths.SLASH .. "ironmon_tracker" .. Paths.SLASH .. "themes")
     local start = #themeFile - #ending
     if #themeFile > #ending and string.sub(themeFile, start + 1) == ending then
         themeFile = io.open(themeFile, "r")

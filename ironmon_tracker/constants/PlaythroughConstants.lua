@@ -149,7 +149,7 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
 }
 
 function PlaythroughConstants.initializeStandardMessages()
-    local quotesFile = Paths.CURRENT_DIRECTORY.."\\death_quotes.txt"
+    local quotesFile = Paths.CURRENT_DIRECTORY..Paths.SLASH.."death_quotes.txt"
     PlaythroughConstants.RUN_OVER_MESSAGES[PlaythroughConstants.CAUSES.STANDARD].messages =
         MiscUtils.shallowCopy(PlaythroughConstants.DEFAULT_STANDARD_MESSAGES)
 
