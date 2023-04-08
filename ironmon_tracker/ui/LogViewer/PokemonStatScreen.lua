@@ -26,6 +26,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local currentIndex = 1
     local currentEvoIndex = 1
     local currentEvoList = {}
+    local rankingStatistics = {}
     local program = initialProgram
     local logInfo
     local browsManager
@@ -90,6 +91,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         setUpPokemonIDs()
         browsManager = BrowsManager(initialSettings, ui, frameCounters, initialProgram, initialProgram.UI_SCREENS.LOG_VIEWER_SCREEN)
         browsManager.initialize()
+        rankingStatistics = StatisticsOrganizer.createLogRankingStatistics(logPokemon, MiscUtils.shallowCopy(sortedPokemonIDs))
     end
 
     local function onPokemonImageHover(params)
@@ -123,6 +125,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 end
                 moveString = level .. " " .. MoveData.MOVES[moveInfo.move + 1].name
                 readMoveIntoListener(i, moveInfo.move)
+            else
+                moveHoverListeners[i].getOnClickParams().move = -1
             end
             ui.controls.moveLabels[i].setTextColorKey("Top box text color")
             ui.controls.moveLabels[i].setText(moveString)
@@ -154,6 +158,8 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                     moveHoverListeners[i].getOnClickParams().move = -1
                 end
                 readMoveIntoListener(i, moveID)
+            else
+                moveHoverListeners[i].getOnClickParams().move = -1
             end
             label.setText(moveString)
         end
