@@ -27,6 +27,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         LOCK_ENEMY = "Select"
     },
     battle = {
+        AUTO_SWAP_TO_ENEMY = false,
         CALCULATE_VARIABLE_DAMAGE = true,
         SHOW_MOVE_EFFECTIVENESS = true,
         SHOW_ACTUAL_ENEMY_PP = true,

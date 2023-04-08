@@ -399,15 +399,16 @@ IconDrawer.ICONS =
         ICE_FILLED = {
             iconType = IconDrawer.ICON_TYPES.MOVE_TYPE,
             imageArray = {
-                {0,0,0,2,0,0,0},
-                {0,2,0,1,0,2,0},
-                {0,0,1,0,1,0,0},
-                {2,1,0,1,0,1,2},
-                {0,0,1,0,1,0,0},
-                {0,2,0,1,0,2,0},
-                {0,0,0,2,0,0,0}
+                {0,0,0,1,1,0,0,0},
+                {0,1,1,3,3,1,1,0},
+                {0,1,3,1,1,2,1,0},
+                {1,3,1,2,2,1,4,1},
+                {1,3,1,2,2,1,4,1},
+                {0,1,2,1,1,4,1,0},
+                {0,1,1,4,4,1,1,0},
+                {0,0,0,1,1,0,0,0}
             },
-            colorKey = { 0xFF9FD9D8,0xFF9FD9D8,},
+            colorKey = { 0xFF87B7B5,0xFFE5FFFC, 0xFFF7FFFE, 0xFFD3EAE7},
             backgroundColorKey = "Bottom box background color"
         },
         PSYCHIC = {
@@ -529,16 +530,15 @@ IconDrawer.ICONS =
         STEEL_FILLED = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
-                {0,0,0,0,0,0,0,0},
-                {0,1,1,0,1,1,0,0},
-                {1,0,0,0,0,0,1,0},
-                {1,0,1,1,1,0,1,0},
-                {0,0,0,1,0,0,0,0},
-                {0,0,0,1,0,0,0,0},
-                {0,1,0,0,0,1,0,0},
+                {0,1,1,1,1,1,0,0},
+                {1,3,3,2,2,2,1,0},
+                {1,3,1,1,1,2,1,0},
+                {1,2,2,1,2,4,1,0},
+                {1,2,2,1,4,4,1,0},
+                {0,1,2,4,4,1,0,0},
                 {0,0,1,1,1,0,0,0}
             },
-            colorKey = {0xFFB8B8D0},
+            colorKey = {0xFF9A9AAD,0xFFE6E6F7,0xFFF4F4FF, 0xFFD7D7E2},
             backgroundColorKey = "Bottom box background color"
         },
         FIGHTING_2 = {

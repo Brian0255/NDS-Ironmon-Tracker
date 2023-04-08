@@ -632,6 +632,24 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return locked
 	end
 
+	local function resetMainScreenHover()
+		if self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] then
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
+			self.drawCurrentScreens()
+		end
+	end
+
+	function self.switchToEnemy()
+		if not settings.battle["AUTO_SWAP_TO_ENEMY"] then 
+			return
+		end
+		if not inTrackedPokemonView or inLockedView then
+			selectedPlayer = self.SELECTED_PLAYERS.ENEMY
+			setPokemonForMainScreen()
+			resetMainScreenHover()
+		end
+	end
+
 	local function switchPokemonView()
 		if not inTrackedPokemonView or inLockedView then
 			if battleHandler.inBattleAndFetched() or (locked and lockedPokemonCopy ~= nil) then
@@ -644,10 +662,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 						selectedPlayer = battleHandler.updateEnemySlotIndex(selectedPlayer)
 					end
 				end
-				if self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN] then
-					self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].resetHoverFrame()
-					readMemory()
-				end
+				setPokemonForMainScreen()
+				resetMainScreenHover()
 			end
 		end
 	end

@@ -1,11 +1,14 @@
 local function Main()
 	local self = {}
 
+	local newerBizhawk = true
+
 	dofile("ironmon_tracker/constants/Chars.lua")
 
 	local version = client.getversion()
 	--basically checking if older than 2.9
 	if tonumber(version:sub(1, 1)) == 2 and tonumber(version:sub(3, 3)) < 9 then
+		newerBizhawk = false
 		Chars.accentedE = "\233"
 	end
 
@@ -139,6 +142,9 @@ local function Main()
 		readSettings()
 		PlaythroughConstants.initializeStandardMessages()
 		ThemeFactory.setSettings(settings)
+		if newerBizhawk then
+			dofile(Paths.FOLDERS.UTILS_FOLDER.."/NewerLuaRedefines.lua")
+		end
 		DrawingUtils.initialize(settings)
 		DrawingUtils.setAppearanceSettings(settings.appearance)
 		IconDrawer.setSettings(settings)

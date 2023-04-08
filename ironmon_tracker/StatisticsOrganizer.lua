@@ -107,7 +107,11 @@ function StatisticsOrganizer.createCountedStatistic(dataSet, statisticName, cond
 end
 
 --attribute statistic is something like "most common types"
-function StatisticsOrganizer.createAttributeStatistic(dataSet, statisticName, attributeReturningFunction, previousSortedCounts)
+function StatisticsOrganizer.createAttributeStatistic(
+    dataSet,
+    statisticName,
+    attributeReturningFunction,
+    previousSortedCounts)
     local counts = {}
     if previousSortedCounts ~= nil then
         for _, entry in pairs(previousSortedCounts) do
@@ -187,6 +191,35 @@ function StatisticsOrganizer.createLogStatistics(logInfo)
         table.insert(data, {name, createStatBasedStatistic(ids, logPokemon, args, descending)})
     end
     return data
+end
+
+local function createStatRankMapping(sortedByStat)
+    local pokemonIDToRanking = {}
+    for ranking, pokemonID in pairs(sortedByStat) do
+        pokemonIDToRanking[pokemonID] = ranking
+    end
+    return pokemonIDToRanking
+end
+
+function StatisticsOrganizer.createLogRankingStatistics(logPokemon, pokemonKeyList)
+    local rankings = {}
+    local orderedStats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
+    for _, stat in pairs(orderedStats) do
+        local statRanking = {
+            statName = stat,
+            data = {}
+        }
+        local sortedByStat =
+            StatisticsOrganizer.createSortedStatistic(
+            pokemonKeyList,
+            function(id1, id2)
+                return logPokemon[id1].stats[stat] > logPokemon[id2].stats[stat]
+            end
+        )
+        statRanking.data = createStatRankMapping(sortedByStat)
+        table.insert(rankings, statRanking)
+    end
+    return rankings
 end
 
 local function createRunProgressStatistic(newPastRun, statisticSet)
@@ -405,16 +438,16 @@ function StatisticsOrganizer.updateStatisticsWithNewRun(newPastRun, pastRunStati
         enemyAbilities
     }
 
-    MiscUtils.saveTableToFile("savedData/"..gameName .. ".statistics", pastRunStatistics)
+    MiscUtils.saveTableToFile("savedData/" .. gameName .. ".statistics", pastRunStatistics)
 
     return pastRunStatistics
 end
 
 function StatisticsOrganizer.loadPastRunStatistics(gameName)
-    local pastRunStatistics = MiscUtils.getTableFromFile("savedData/"..gameName .. ".statistics")
+    local pastRunStatistics = MiscUtils.getTableFromFile("savedData/" .. gameName .. ".statistics")
     if pastRunStatistics == nil or pastRunStatistics == "" then
         local statistics = MiscUtils.deepCopy(PlaythroughConstants.EMPTY_PAST_RUN_STATISTICS)
-        MiscUtils.saveTableToFile("savedData/"..gameName .. ".statistics", statistics)
+        MiscUtils.saveTableToFile("savedData/" .. gameName .. ".statistics", statistics)
         return statistics
     end
     return pastRunStatistics
