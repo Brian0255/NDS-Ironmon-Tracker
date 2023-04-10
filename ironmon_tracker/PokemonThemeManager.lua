@@ -66,11 +66,13 @@ local function PokemonThemeManager(initialSettings, initialProgram)
         settings.colorScheme["Alternate negative text color"] = nil
     end
 
-    local function updateBasedOnState()
+    local function updateBasedOnState(toggled)
         if settings.appearance["AUTO_POKEMON_THEMES"] then
             readCurrentPokemonID()
         else
-            undoPokemonTheme()
+            if toggled then
+                undoPokemonTheme()
+            end
         end
     end
 
@@ -105,7 +107,7 @@ local function PokemonThemeManager(initialSettings, initialProgram)
             if settingWasToggled and settings.appearance["AUTO_POKEMON_THEMES"] then
                 updateDefaults()
             end
-            updateBasedOnState()
+            updateBasedOnState(settingWasToggled)
         end
         active = settings.appearance["AUTO_POKEMON_THEMES"]
     end
