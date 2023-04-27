@@ -42,5 +42,19 @@ IconSets.SETS = {
             y = -2
         },
         AUTHOR = {"Credit: PMD Sprite Repository", "Edited by Fellshadow"}
+    },
+    {
+        NAME = "Gen 7+",
+        FILE_EXTENSION = ".png",
+        FOLDER_NAME = "updatedSet",
+        IMAGE_OFFSET = {
+            x = 1,
+            y = -5
+        },
+        CHOOSE_IMAGE_OFFSET = {
+            x = 0,
+            y = -5
+        },
+        AUTHOR = {"Credit: PokéSprite Repository", "Edited by kittenchilly"}
     }
 }

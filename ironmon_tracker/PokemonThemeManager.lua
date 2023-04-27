@@ -96,8 +96,8 @@ local function PokemonThemeManager(initialSettings, initialProgram)
         if settings.appearance["AUTO_POKEMON_THEMES"] then
             settings.appearance["AUTO_POKEMON_THEMES"] = false
             active = false
-            updateBasedOnState()
         end
+        updateDefaults()
     end
 
     function self.update(newPokemonID)
