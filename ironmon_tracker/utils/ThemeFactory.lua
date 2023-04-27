@@ -248,9 +248,9 @@ function ThemeFactory.readThemeString(themeString, readIntoSettings)
     end
     checkForVaryingTextColor(readData)
     if readIntoSettings then
-        pokemonThemeDisablingFunction()
         MiscUtils.copyTableIntoAnother(readData.colorSettings, settings.colorSettings)
         MiscUtils.copyTableIntoAnother(readData.colorScheme, settings.colorScheme)
+        pokemonThemeDisablingFunction()
         saveFunction(false)
     end
     return readData
