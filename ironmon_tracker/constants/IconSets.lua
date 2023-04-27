@@ -15,6 +15,20 @@ IconSets.SETS = {
         },
         AUTHOR = {"Credit: Various sources"}
     },
+	{
+        NAME = "Updated",
+        FILE_EXTENSION = ".png",
+        FOLDER_NAME = "updatedSet",
+        IMAGE_OFFSET = {
+            x = 1,
+            y = -5
+        },
+        CHOOSE_IMAGE_OFFSET = {
+            x = 0,
+            y = -5
+        },
+        AUTHOR = {"Credit: PokéSprite Repository", "Edited by kittenchilly"}
+    },
     {
         NAME = "Stadium",
         FILE_EXTENSION = ".png",
