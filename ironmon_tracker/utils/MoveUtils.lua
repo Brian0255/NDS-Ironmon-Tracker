@@ -5,7 +5,7 @@ function MoveUtils.calculateLevelRangeOfMove(levelIndex, learnSet)
     local endLevel = 100
     local indexThatReplaces = levelIndex + 4
     if learnSet[indexThatReplaces] then
-        local replacementLevel = learnSet[indexThatReplaces].level 
+        local replacementLevel = learnSet[indexThatReplaces].level
         endLevel = replacementLevel - 1
     end
     if endLevel < startLevel then
@@ -42,6 +42,9 @@ function MoveUtils.netEffectiveness(move, pkmnData, isEnemy, hiddenPowerType)
         local moveType = move.type
         if move.name == "Hidden Power" and not isEnemy then
             moveType = hiddenPowerType
+        end
+        if move.name == "Judgment" and not isEnemy and PokemonData.PLATE_TO_TYPE[tonumber(pkmnData.heldItem)] ~= nil then
+            moveType = PokemonData.PLATE_TO_TYPE[tonumber(pkmnData.heldItem)]
         end
         if moveType ~= "---" then
             if MoveData.EFFECTIVE_DATA[moveType][type] ~= nil then
@@ -262,6 +265,9 @@ function MoveUtils.isSTAB(move, pokemon, isEnemy, hiddenPowerType)
         local moveType = move.type
         if move.name == "Hidden Power" and not isEnemy then
             moveType = hiddenPowerType
+        end
+        if move.name == "Judgment" and not isEnemy and PokemonData.PLATE_TO_TYPE[tonumber(pokemon.heldItem)] ~= nil then
+            moveType = PokemonData.PLATE_TO_TYPE[tonumber(pokemon.heldItem)]
         end
         if move.power ~= Graphics.TEXT.NO_POWER and moveType == type then
             return true
