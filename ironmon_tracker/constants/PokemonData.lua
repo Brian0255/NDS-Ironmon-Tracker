@@ -48,6 +48,25 @@ PokemonData.POKEMON_TYPES =
     }
 )
 
+PokemonData.PLATE_TO_TYPE = {
+    [298] = PokemonData.POKEMON_TYPES.FIRE,
+    [299] = PokemonData.POKEMON_TYPES.WATER,
+    [300] = PokemonData.POKEMON_TYPES.ELECTRIC,
+    [301] = PokemonData.POKEMON_TYPES.GRASS,
+    [302] = PokemonData.POKEMON_TYPES.ICE,
+    [303] = PokemonData.POKEMON_TYPES.FIGHTING,
+    [304] = PokemonData.POKEMON_TYPES.POISON,
+    [305] = PokemonData.POKEMON_TYPES.GROUND,
+    [306] = PokemonData.POKEMON_TYPES.FLYING,
+    [307] = PokemonData.POKEMON_TYPES.PSYCHIC,
+    [308] = PokemonData.POKEMON_TYPES.BUG,
+    [309] = PokemonData.POKEMON_TYPES.ROCK,
+    [310] = PokemonData.POKEMON_TYPES.GHOST,
+    [311] = PokemonData.POKEMON_TYPES.DRAGON,
+    [312] = PokemonData.POKEMON_TYPES.DARK,
+    [313] = PokemonData.POKEMON_TYPES.STEEL
+}
+
 -- Enumerated constants that defines various evolution possibilities
 -- This enum does NOT include levels for evolution, only stones, friendship, no evolution, etc.
 

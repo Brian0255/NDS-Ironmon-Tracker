@@ -129,7 +129,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function onPokemonLevelHover()
         local isEnemy = currentPokemon.owner == program.SELECTED_PLAYERS.ENEMY
-        if randomBallPickerActive or  isEnemy or inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then 
+        if randomBallPickerActive or  isEnemy or inTrackedView or inPastRunView or currentPokemon.fromTeamInfoView then
             onPokemonLevelHoverEnd()
             return
         end
@@ -313,7 +313,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function setUpEXPBar(isEnemy)
         extraThingsToDraw.experienceBar = nil
-        if isEnemy or not hoveringOverLevel or currentPokemon.fromTeamInfoView then 
+        if isEnemy or not hoveringOverLevel or currentPokemon.fromTeamInfoView then
             return
          end
         local type1Position = ui.controls.pokemonLevelAndEvo.getPosition()
@@ -442,6 +442,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
                 if moveData.name == "Hidden Power" and not isEnemy and not currentPokemon.fromTeamInfoView then
                     moveFrame.moveNameLabel.setTextColorKey(tracker.getCurrentHiddenPowerType())
                 end
+                if moveData.name == "Judgment" and not isEnemy and not currentPokemon.fromTeamInfoView and PokemonData.PLATE_TO_TYPE[tonumber(currentPokemon.heldItem)] ~= nil then
+                    moveFrame.moveNameLabel.setTextColorKey(PokemonData.PLATE_TO_TYPE[tonumber(currentPokemon.heldItem)])
+                end
             else
                 moveFrame.moveNameLabel.setTextColorKey("Bottom box text color")
             end
@@ -449,6 +452,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local moveType = moveData.type
             if moveData.name == "Hidden Power" and not isEnemy then
                 moveType = tracker.getCurrentHiddenPowerType()
+            end
+            if moveData.name == "Judgment" and not isEnemy and PokemonData.PLATE_TO_TYPE[tonumber(currentPokemon.heldItem)] ~= nil then
+                moveType = PokemonData.PLATE_TO_TYPE[tonumber(currentPokemon.heldItem)]
             end
 
             moveFrame.moveTypeIcon.setIconName(moveType)
