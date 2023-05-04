@@ -86,6 +86,10 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         scroller.setVisibility(limit > spaceAvailable)
     end
 
+    function self.getBaseIndex()
+        return currentIndex
+    end
+
     function self.getViewedItems()
         local items = {}
         for i = currentIndex, currentIndex + space - 1, 1 do
