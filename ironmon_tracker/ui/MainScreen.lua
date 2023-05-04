@@ -458,7 +458,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             local moveNameText = moveData.name
 
             if justChangedHiddenPower and moveData.name == "Hidden Power" and not isEnemy then
-                local hiddenPowerType = tracker:getCurrentHiddenPowerType()
+                local hiddenPowerType = tracker.getCurrentHiddenPowerType()
                 moveNameText = hiddenPowerType:sub(1, 1) .. hiddenPowerType:sub(2):lower()
             end
 
@@ -639,6 +639,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.noteIcon.setVisibility(false)
         ui.controls.mainNoteLabel.setVisibility(true)
         ui.frames.survivalHealFrame.setVisibility(false)
+        ui.frames.tourneyPointsFrame.setVisibility(false)
         ui.frames.accEvaFrame.setVisibility(false)
         ui.frames.hiddenPowerArrowsFrame.setVisibility(false)
         ui.controls.noteLabels[1].setVisibility(false)
@@ -745,6 +746,15 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.pastRunLocationIcon.setVisibility(false)
     end
 
+    function self.updateTourneyPoints(newPoints)
+        local textOffset = {x=5,y=1}
+        if newPoints >= 10 then
+            textOffset = {x=3, y = 1}
+        end
+        ui.controls.tourneyPointsLabel.setText(newPoints)
+        ui.controls.tourneyPointsLabel.setTextOffset(textOffset)
+    end
+
     local function setUpMiscInfo(isEnemy)
         local pokecenters = tracker.getPokecenterCount()
         if pokecenters < 10 then
@@ -760,9 +770,12 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             settings.appearance.SHOW_ACCURACY_AND_EVASION and program.isInBattle() and not isEnemy and not inLockedView and
             not inPastRunView
         local showPokecenterHeals =
-            not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS and not showAccEva and not inPastRunView
+            not isEnemy and settings.appearance.SHOW_POKECENTER_HEALS and not showAccEva and not inPastRunView and not settings.tourneyTracker.ENABLED
+        local showTourneyPoints = 
+            not isEnemy and settings.tourneyTracker.ENABLED and not showAccEva and not inPastRunView
         ui.frames.accEvaFrame.setVisibility(showAccEva)
         ui.frames.survivalHealFrame.setVisibility(showPokecenterHeals)
+        ui.frames.tourneyPointsFrame.setVisibility(showTourneyPoints)
         local healingTotals = program.getHealingTotals()
         local statusTotals = program.getStatusTotals()
         if healingTotals == nil then
@@ -1066,6 +1079,10 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         end
     end
 
+    local function onTourneyPointsClick()
+        program.openTourneyScoreBreakdown(program.UI_SCREENS.MAIN_SCREEN)
+    end
+
     local function initEventListeners()
         initMoveListeners()
         hoverListeners.abilityHoverListener =
@@ -1150,7 +1167,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         table.insert(eventListeners, MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick))
         eventListeners.levelHoverListener =
         HoverEventListener(ui.controls.pokemonLevelAndEvo, onPokemonLevelHover, nil, onPokemonLevelHoverEnd, nil, false, true)
-        table.insert(eventListeners, MouseClickEventListener(ui.controls.pokemonImageLabel, togglePokemonTheme))
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.tourneyPointsFrame, onTourneyPointsClick))
     end
 
     function self.getMainFrameSize()
