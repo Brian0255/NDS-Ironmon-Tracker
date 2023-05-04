@@ -79,6 +79,7 @@ Graphics.LETTER_PIXEL_LENGTHS = {
     ["("] = 2,
     [")"] = 2,
     ["+"] = 4,
+    ["/"] = 3,
     a = 4,
     A = 5,
     b = 4,
