@@ -1449,6 +1449,80 @@ IconDrawer.ICONS =
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
+        TOURNEY_POINTS_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,2,2,2,2,2,0,3,3,3,3,3,0,0},
+                {0,0,2,2,2,2,2,0,3,3,3,3,3,0,0},
+                {0,0,0,2,2,2,2,3,3,3,3,3,0,0,0},
+                {0,0,0,2,2,2,2,3,3,3,3,3,0,0,0},
+                {0,0,0,0,2,2,3,3,3,3,3,0,0,0,0},
+                {0,0,0,0,1,1,1,1,1,1,1,0,0,0,0},
+                {0,0,1,1,0,0,0,0,0,0,0,1,1,0,0},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,1,0},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,1,0},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,1,0},
+                {0,1,0,0,0,0,0,0,0,0,0,0,0,1,0},
+                {0,0,1,1,0,0,0,0,0,0,0,1,1,0,0},
+                {0,0,0,0,1,1,1,1,1,1,1,0,0,0,0},
+            },
+            colorKey = {"Top box text color","Shadowed negative text color", "Negative text color"},
+            backgroundColorKey = "Top box background color"
+        },
+        TROPHY_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0},
+                {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1},
+                {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
+                {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
+                {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
+                {0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0},
+                {0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+                {0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
+                {0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0},
+                {0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0},
+                {0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0},
+                {0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        EXTRAS_ICON = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
+                {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
         F1 = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {
@@ -1801,6 +1875,7 @@ function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride, colorKeyOverrid
         if BGColorKeyOverride ~= nil then
             shadowColor = DrawingUtils.calcShadowColor(BGColorKeyOverride)
         end
+
         local iconArray = icon.imageArray
         for rowIndex = 1,#iconArray, 1 do
             for colIndex = 1,#(iconArray[1]) do
@@ -1833,6 +1908,9 @@ function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride, colorKeyOverrid
                         else
                             color = iconColorKey
                         end
+                    end
+                    if iconColorKey == "Shadowed negative text color" then
+                        color = DrawingUtils.calcShadowColor("Negative text color",true)
                     end
                     if iconType ~= IconDrawer.ICON_TYPES.STANDARD_NO_SHADOW and settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"] then
                         gui.drawPixel(x + offsetX + 1,y + offsetY + 1,shadowColor)
