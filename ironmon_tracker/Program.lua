@@ -746,10 +746,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] and total == 1 then
 			client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
 		end
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN].show()
 		for _, screen in pairs(currentScreens) do
 			screen.show()
 		end
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN].show()
 	end
 
 	function self.isInBattle()
