@@ -18,7 +18,7 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 	local constants = {
 		ADD_BUTTON_WIDTH = 14,
 		SEED_HEADING_WIDTH = 64,
-		MAIN_HEIGHT = 300,
+		MAIN_HEIGHT = 299,
 		SEED_SCORE_HEIGHT = 250,
 		MILESTONES_BREAKDOWN_HEIGHT = 118,
 		BONUSES_BREAKDOWN_HEIGHT = 82,
