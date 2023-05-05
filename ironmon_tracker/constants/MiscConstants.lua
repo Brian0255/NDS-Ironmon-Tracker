@@ -86,7 +86,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         BROWS_FRAMES = 8,
     },
     tourneyTracker = {
-        ENABLED = true
+        ENABLED = false
     }
 }
 
