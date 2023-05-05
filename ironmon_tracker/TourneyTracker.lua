@@ -292,7 +292,9 @@ local function TourneyTracker(initialSettings, initialTourneyTrackerScreen, init
             return
         end
         local filePath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. "scores.tdata"
+        local totalScorePath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. "cumulative_score.txt"
         MiscUtils.saveTableToFile(filePath, tourneyScores)
+        MiscUtils.writeStringToFile(totalScorePath, tostring(self.getCumulativePoints()))
     end
 
     function self.loadData()
@@ -306,15 +308,16 @@ local function TourneyTracker(initialSettings, initialTourneyTrackerScreen, init
         end
         createTourneyScoreMap()
         if not tourneyScoreMap[romHash] then
-            tourneyScoreMap[romHash] = {
-                completedMilestoneIDs = {},
-                completedBonusIDs = {}
-            }
-            table.insert(tourneyScores, {
+            local entry = {
                 romHash = gameinfo.getromhash(),
                 completedMilestoneIDs = {},
                 completedBonusIDs = {}
-            })
+            }
+            table.insert(tourneyScores, entry)
+            tourneyScoreMap[romHash] = {
+                completedMilestoneIDs = entry.completedMilestoneIDs,
+                completedBonusIDs = entry.completedBonusIDs
+            }
             self.saveData()
         end
         currentData = tourneyScoreMap[romHash]
