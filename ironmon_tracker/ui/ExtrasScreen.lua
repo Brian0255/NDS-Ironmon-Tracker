@@ -14,6 +14,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 	local settings = initialSettings
 	local tracker = initialTracker
 	local program = initialProgram
+	local tourneyTracker
 
 	local self = {}
 
@@ -23,7 +24,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 		EXTRA_ENTRY_TITLE_ROW_HEIGHT = 21,
 		EXTRA_ENTRY_TEXT_ROW_HEIGHT = 10,
 		EXTRA_WIDTH = 124,
-		EXTRA_HEIGHT = 68,
+		EXTRA_HEIGHT = 90,
 		BUTTON_SIZE = 10
 	}
 	local ui = {}
@@ -43,6 +44,9 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 
 	local function onToggleClick(button)
 		button.onClick()
+		if settings.tourneyTracker.ENABLED then
+			tourneyTracker.loadData()
+		end
 		program.drawCurrentScreens()
 	end
 
@@ -52,7 +56,8 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 			Box(
 				{x = 0, y = 0},
 				{
-					width = 0, height = 0
+					width = 0,
+					height = 0
 				}
 			),
 			nil,
@@ -82,7 +87,14 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 				)
 			)
 		)
-		table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_OPTIONS_SCREEN))
+		table.insert(
+			eventListeners,
+			MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_OPTIONS_SCREEN)
+		)
+	end
+
+	local function onClearClick()
+		FormsUtils.createConfirmDialog(tourneyTracker.clearData)
 	end
 
 	local function initExtra(extra)
@@ -145,9 +157,10 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 				)
 			)
 		end
+
 		local enabledFrame =
 			Frame(
-			Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil),
+			Box({x = 0, y = 0}, {width = 0, height = 18}, nil, nil),
 			Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2, {x = 2, y = 4}),
 			extraFrame
 		)
@@ -186,6 +199,32 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 				)
 			)
 		)
+		ui.controls.clearButton =
+			TextLabel(
+			Component(
+				extraFrame,
+				Box(
+					{x = 0, y = 0},
+					{width = 116, height = 18},
+					"Top box background color",
+					"Top box border color",
+					true,
+					"Top box background color"
+				)
+			),
+			TextField(
+				"Clear Tourney Scores",
+				{x = 17, y = 3},
+				TextStyle(
+					Graphics.FONT.DEFAULT_FONT_SIZE,
+					Graphics.FONT.DEFAULT_FONT_FAMILY,
+					"Top box text color",
+					"Top box background color"
+				)
+			)
+		)
+
+		table.insert(eventListeners, MouseClickEventListener(ui.controls.clearButton, onClearClick))
 	end
 
 	local function initExtrasUI()
@@ -204,6 +243,10 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 		for _, extra in pairs(extras) do
 			initExtra(extra)
 		end
+	end
+
+	function self.injectExtraRelatedClasses(newTourneyTracker)
+		tourneyTracker = newTourneyTracker
 	end
 
 	local function initUI()
