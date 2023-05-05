@@ -99,10 +99,11 @@ local function TourneyBonus(initialName, initialPoints)
     return self
 end
 
-local function TourneyTracker(initialProgram, initialTourneyTrackerScreen, initialMainScreen)
+local function TourneyTracker(initialSettings, initialTourneyTrackerScreen, initialMainScreen)
     local self = {}
 
-    local program = initialProgram
+    local settings = initialSettings
+    local disabled = false
     local mainScreen = initialMainScreen
     local tourneyTrackerScreen = initialTourneyTrackerScreen
 
@@ -287,11 +288,17 @@ local function TourneyTracker(initialProgram, initialTourneyTrackerScreen, initi
     end
 
     function self.saveData()
+        if disabled or not settings.tourneyTracker.ENABLED then
+            return
+        end
         local filePath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. "scores.tdata"
         MiscUtils.saveTableToFile(filePath, tourneyScores)
     end
 
-    local function loadData()
+    function self.loadData()
+        if not settings.tourneyTracker.ENABLED then
+            return
+        end
         local filePath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. "scores.tdata"
         local data = MiscUtils.getTableFromFile(filePath)
         if data ~= nil then
@@ -315,6 +322,9 @@ local function TourneyTracker(initialProgram, initialTourneyTrackerScreen, initi
     end
 
     function self.updateMilestones(defeatedTrainerList, playerMapID)
+        if disabled or not settings.tourneyTracker.ENABLED then
+            return
+        end
         local completedMilestoneIDs = currentData.completedMilestoneIDs
         for id, milestone in pairs(self.MILESTONES) do
             if
@@ -352,6 +362,9 @@ local function TourneyTracker(initialProgram, initialTourneyTrackerScreen, initi
     end
 
     function self.getTotalPoints(scoreData)
+        if scoreData == nil then
+            return 0
+        end
         return (self.getTotalMilestonePoints(scoreData) + self.getTotalBonusPoints(scoreData))
     end
 
@@ -367,7 +380,16 @@ local function TourneyTracker(initialProgram, initialTourneyTrackerScreen, initi
         return tourneyScores
     end
 
-    loadData()
+    function self.clearData()
+        local filePath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. "scores.tdata"
+        tourneyScores = {}
+        tourneyScoreMap = {}
+        io.open(filePath,"w"):close()
+        disabled = true
+        self.loadData()
+    end
+
+    self.loadData()
     local points = self.getTotalPoints(currentData)
     mainScreen.updateTourneyPoints(points)
 
