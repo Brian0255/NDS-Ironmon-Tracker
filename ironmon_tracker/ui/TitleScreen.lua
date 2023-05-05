@@ -147,7 +147,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		},
 		--moves
 		{
-			title = "You moves are %data% the most.",
+			title = "Your moves are %data% the most.",
 			statKey = 8,
 			amount = 3
 		},

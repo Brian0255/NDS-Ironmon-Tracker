@@ -27,7 +27,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = Graphics.SIZES.MAIN_SCREEN_HEIGHT},
                 "Main background color",
-                nil
+                "Main background color"
             ),
             Layout(
                 Graphics.ALIGNMENT_TYPE.HORIZONTAL,
@@ -215,7 +215,21 @@ local function MainScreenUIInitializer(ui, gameInfo)
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = -1, y = 1}),
             ui.frames.miscInfoFrame
         )
-
+        ui.frames.tourneyPointsFrame =
+            Frame(
+            Box(
+                {
+                    x = 0,
+                    y = 0
+                },
+                {
+                    width = 21,
+                    height = 22
+                }
+            ),
+            nil,
+            ui.frames.miscInfoFrame
+        )
         ui.frames.statFrame =
             Frame(
             Box(
@@ -1069,6 +1083,29 @@ local function MainScreenUIInitializer(ui, gameInfo)
             "RIGHT_ARROW",
             {x = 2, y = 1}
         )
+        ui.controls.trophyImage =
+        Icon(
+            Component(ui.frames.tourneyPointsFrame, Box({x = 0, y = 2}, {width = 0, height = 0}, nil, nil)),
+            "TROPHY_ICON",
+            {x = 0, y = 0}
+        )
+        ui.controls.tourneyPointsLabel =
+        TextLabel(
+        Component(
+            ui.frames.tourneyPointsFrame,
+            Box({x = 0, y = 0}, {width = 4, height = 0}, nil, nil)
+        ),
+        TextField(
+            "89",
+            {x = 6, y = 5},
+            TextStyle(
+                Graphics.FONT.DEFAULT_FONT_SIZE,
+                Graphics.FONT.DEFAULT_FONT_FAMILY,
+                "Top box text color",
+                "Top box background color"
+            )
+        )
+    )
         ui.controls.noteIcon =
             Icon(
             Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = 11, height = 16}, nil, nil)),
@@ -1141,7 +1178,8 @@ local function MainScreenUIInitializer(ui, gameInfo)
             Icon(
             Component(ui.frames.pastRunLocationAndNote, Box({x = 0, y = 0}, {width = 7, height = 0}, nil, nil)),
             "LOCATION_ICON_SMALL_FILLED",
-            {x = 2, y = 2}, false
+            {x = 2, y = 2},
+            false
         )
         ui.controls.noteLabels[2] =
             TextLabel(
