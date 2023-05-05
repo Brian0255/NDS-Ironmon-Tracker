@@ -152,7 +152,7 @@ TrainerData.TRAINERS = {
                 }
             },
             {
-                groupName = "Elite 4 +  Red",
+                groupName = "Elite 4 / Bosses",
                 trainerType = TrainerData.TRAINER_TYPES.STANDARD,
                 battles = {
                     {name = "Will", ids = {245}, iv = 30},
@@ -160,7 +160,9 @@ TrainerData.TRAINERS = {
                     {name = "Bruno", ids = {418}, iv = 30},
                     {name = "Karen", ids = {246}, iv = 30},
                     {name = "Lance", ids = {244}, iv = 30},
-                    {name = "Red", ids = {260}, iv = 30}
+                    {name = "Red", ids = {260}, iv = 30},
+                    {name = "Petrel", ids = {487}, iv = 12},
+                    {name = "Archer", ids = {485}, iv = 24}
                 }
             }
         }
