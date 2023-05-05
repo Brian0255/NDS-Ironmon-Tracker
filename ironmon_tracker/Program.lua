@@ -239,10 +239,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	tourneyTracker =
 		TourneyTracker(
-		self,
+		settings,
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN],
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]
 	)
+
+	self.UI_SCREEN_OBJECTS[self.UI_SCREENS.EXTRAS_SCREEN].injectExtraRelatedClasses(tourneyTracker)
 
 	local function getScreenTotal()
 		local total = 0
