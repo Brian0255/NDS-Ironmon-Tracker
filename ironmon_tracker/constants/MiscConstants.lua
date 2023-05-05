@@ -1,12 +1,12 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.3"
+MiscConstants.TRACKER_VERSION = "5.5.4"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Thanks to kittenchilly, the Gen 7+ box icons are now available as a set to use!',
-    '-- Fixed a few more bugs related to auto Pok'..Chars.accentedE..'mon themes.'
+    '-- Added a HG/SS Tourney Tracker under a new "Extras" section for those that participate in Crozwords\' tournaments.',
+    '-- Thanks to kittenchilly, Judgment will now correctly change type based on what plate you\'re holding.',
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
