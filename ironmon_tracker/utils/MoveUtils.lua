@@ -339,6 +339,9 @@ end
 function MoveUtils.calculatePunishmentPower(targetMon)
     local totalIncreasedStats = 0
     local statStages = targetMon.statStages
+    if statStages == nil then
+        return 60
+    end
     for i, stat in pairs(statStages) do
         if stat > 6 then
             totalIncreasedStats = totalIncreasedStats + (stat - 6)
