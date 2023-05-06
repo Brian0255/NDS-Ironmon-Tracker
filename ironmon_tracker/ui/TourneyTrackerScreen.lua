@@ -83,7 +83,10 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 		notifPlaying = true
 		ui.frames.notificationFrame.setVisibility(true)
 		local notificationText = milestone.getName() .. "! +" .. milestone.getPoints()
-		local newScoreText = "New total: " .. newPoints .. " points"
+		local newScoreText = "New total: " .. newPoints .. " point"
+		if newPoints > 1 then
+			newScoreText = newScoreText .. "s"
+		end
 		local newTextLength =
 			math.max(DrawingUtils.calculateWordPixelLength(newScoreText), DrawingUtils.calculateWordPixelLength(notificationText))
 		local newWidth = newTextLength + 11
