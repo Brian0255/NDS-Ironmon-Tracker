@@ -346,6 +346,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if playerPokemon == nil or enemyPokemon == nil then
 			return
 		end
+		if not MiscUtils.validPokemonData(playerPokemon) or not MiscUtils.validPokemonData(enemyPokemon) then
+			return
+		end
 		local location = tracker.getCurrentAreaName()
 		self.addAdditionalDataToPokemon(playerPokemon)
 		self.addAdditionalDataToPokemon(enemyPokemon)
