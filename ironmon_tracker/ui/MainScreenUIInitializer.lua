@@ -27,7 +27,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = Graphics.SIZES.MAIN_SCREEN_HEIGHT},
                 "Main background color",
-                "Main background color"
+                nil
             ),
             Layout(
                 Graphics.ALIGNMENT_TYPE.HORIZONTAL,
