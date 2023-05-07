@@ -691,8 +691,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 						selectedPlayer = battleHandler.updateEnemySlotIndex(selectedPlayer)
 					end
 				end
-				setPokemonForMainScreen()
 				resetMainScreenHover()
+				readMemory()
 			end
 		end
 	end
