@@ -239,6 +239,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	tourneyTracker =
 		TourneyTracker(
+		tracker,
 		settings,
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN],
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]

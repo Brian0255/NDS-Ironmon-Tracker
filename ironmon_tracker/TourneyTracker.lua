@@ -99,9 +99,10 @@ local function TourneyBonus(initialName, initialPoints)
     return self
 end
 
-local function TourneyTracker(initialSettings, initialTourneyTrackerScreen, initialMainScreen)
+local function TourneyTracker(initialTracker, initialSettings, initialTourneyTrackerScreen, initialMainScreen)
     local self = {}
 
+    local tracker = initialTracker
     local settings = initialSettings
     local disabled = false
     local mainScreen = initialMainScreen
@@ -325,7 +326,7 @@ local function TourneyTracker(initialSettings, initialTourneyTrackerScreen, init
     end
 
     function self.updateMilestones(defeatedTrainerList, playerMapID)
-        if disabled or not settings.tourneyTracker.ENABLED then
+        if disabled or not settings.tourneyTracker.ENABLED or tracker.hasRunEnded() then
             return
         end
         local completedMilestoneIDs = currentData.completedMilestoneIDs
