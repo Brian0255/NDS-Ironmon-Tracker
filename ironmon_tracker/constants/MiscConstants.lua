@@ -1,12 +1,12 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.4"
+MiscConstants.TRACKER_VERSION = "5.5.5"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Added a HG/SS Tourney Tracker under a new "Extras" section for those that participate in Crozwords\' tournaments.',
-    '-- Thanks to kittenchilly, Judgment will now correctly change type based on what plate you\'re holding.',
+    "-- Fixed extra lines showing when viewing trainer Pok" .. Chars.accentedE .. "mon in the log viewer.",
+    "-- Gen 5 games will now display all 3 abilities that a Pok" .. Chars.accentedE .. "mon can have."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
@@ -18,7 +18,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         RANDOM_BALL_PICKER = true,
         SHOW_POKECENTER_HEALS = false,
         ICON_SET_INDEX = 2,
-        BLIND_MODE = false,
+        BLIND_MODE = false
     },
     controls = {
         CHANGE_VIEW = "Start",
@@ -83,7 +83,7 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     extras = {
         BROWS_ENABLED = false,
-        BROWS_FRAMES = 8,
+        BROWS_FRAMES = 8
     },
     tourneyTracker = {
         ENABLED = false
