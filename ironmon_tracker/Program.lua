@@ -22,7 +22,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local TitleScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TitleScreen.lua")
 	local RestorePointsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RestorePointsScreen.lua")
 	local TourneyTrackerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TourneyTrackerScreen.lua")
-	local ExtrasScreen = dofile(Paths.FOLDERS.UI_FOLDER.."/ExtrasScreen.lua")
+	local ExtrasScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/ExtrasScreen.lua")
 
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
@@ -234,7 +234,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.TITLE_SCREEN] = TitleScreen(settings, tracker, self),
 		[self.UI_SCREENS.RESTORE_POINTS_SCREEN] = RestorePointsScreen(settings, tracker, self),
 		[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN] = TourneyTrackerScreen(settings, tracker, self),
-		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings,tracker,self)
+		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings, tracker, self)
 	}
 
 	tourneyTracker =
