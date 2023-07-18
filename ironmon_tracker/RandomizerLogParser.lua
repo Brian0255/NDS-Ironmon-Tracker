@@ -221,7 +221,7 @@ local function RandomizerLogParser(initialProgram)
                 }
                 pokemon.pokemonID = pokemonID
                 program.addAdditionalDataToPokemon(pokemon)
-                local abilityNames = {pokemonData[10], pokemonData[11]}
+                local abilityNames = {pokemonData[10], pokemonData[11], pokemonData[12]}
                 pokemon.abilities = {}
                 for _, abilityName in pairs(abilityNames) do
                     if abilityIDMappings[abilityName] ~= nil and abilityName ~= "--" then
@@ -334,7 +334,7 @@ local function RandomizerLogParser(initialProgram)
             for _, sectionName in pairs(self.LogParserConstants.PREFERRED_PARSE_ORDER) do
                 local lineStart = sectionHeaderStarts[sectionName]
                 if lineStart ~= nil then
-                local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[sectionName]
+                    local parseFunction = self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[sectionName]
                     local success = parseFunction(lines, lineStart)
                     if success == false then
                         forms.destroyall()
