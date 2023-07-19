@@ -45,7 +45,6 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
 
     function self.setSpaceAvailable(newSpace)
         space = newSpace
-        self.setItems(itemSet)
     end
 
     local function createScroller()
@@ -94,7 +93,7 @@ local function ScrollBar(initialFrame, spaceAvailable, initialItemSet)
         currentIndex = 1
         updateScrollerSize()
         updateScrollerFromCurrentIndex()
-        scroller.setVisibility(limit > spaceAvailable)
+        scroller.setVisibility(limit > space)
     end
 
     function self.getBaseIndex()
