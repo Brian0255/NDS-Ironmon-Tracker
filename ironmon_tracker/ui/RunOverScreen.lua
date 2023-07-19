@@ -15,7 +15,7 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 		MAX_MESSAGE_WIDTH = Graphics.SIZES.MAIN_SCREEN_WIDTH - 20,
 		RUN_OVER_HEIGHT = 124,
 		RUN_OVER_TOURNEY_HEIGHT = 156,
-		BUTTON_WIDTH = 48,
+		BUTTON_WIDTH = 48
 	}
 	local ui = {}
 	local eventListeners = {}
@@ -88,12 +88,12 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function onOpenLogClick()
-		local startingFolder = Paths.CURRENT_DIRECTORY..Paths.SLASH
+		local startingFolder = Paths.CURRENT_DIRECTORY .. Paths.SLASH
 		if settings.quickLoad.LOAD_TYPE == "USE_BATCH" then
 			if settings.quickLoad.ROMS_FOLDER_PATH == nil or settings.quickLoad.ROMS_FOLDER_PATH == "" then
 				return
 			end
-			startingFolder = settings.quickLoad.ROMS_FOLDER_PATH..Paths.SLASH
+			startingFolder = settings.quickLoad.ROMS_FOLDER_PATH .. Paths.SLASH
 		end
 
 		local romName = gameinfo.getromname()
@@ -101,7 +101,8 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 
 		local fileExists = FormsUtils.fileExists(logPath)
 		if not fileExists then
-			logPath = logPath:gsub(" ", "_")
+			romName = romName:gsub(" ", "_")
+			logPath = startingFolder .. romName .. ".nds.log"
 			fileExists = FormsUtils.fileExists(logPath)
 		end
 		if not fileExists then
@@ -175,11 +176,13 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 			)
 		)
 
-		ui.frames.tourneyScoresFrame = Frame(
+		ui.frames.tourneyScoresFrame =
+			Frame(
 			Box(
 				{x = 0, y = 0},
 				{
-					width = 0, height = 0
+					width = 0,
+					height = 0
 				}
 			),
 			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 15, y = 7}),
@@ -214,7 +217,6 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 		table.insert(eventListeners, MouseClickEventListener(ui.controls.dismissButton, onDismissClick))
 		table.insert(eventListeners, MouseClickEventListener(ui.controls.openLogButton, onOpenLogClick))
 		table.insert(eventListeners, MouseClickEventListener(ui.controls.viewTourneyScoresButton, onTourneyScoresClick))
-
 	end
 
 	local function initUI()
@@ -228,7 +230,7 @@ local function RunOverScreen(initialSettings, initialTracker, initialProgram)
 				"Main background color",
 				nil
 			),
-			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL,0,{x=5,y=5}),
+			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 5, y = 5}),
 			nil
 		)
 		ui.frames.mainInnerFrame =
