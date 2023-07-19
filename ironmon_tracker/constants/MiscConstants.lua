@@ -1,12 +1,12 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.5"
+MiscConstants.TRACKER_VERSION = "5.5.6"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed extra lines showing when viewing trainer Pok" .. Chars.accentedE .. "mon in the log viewer.",
-    "-- Gen 5 games will now display all 3 abilities that a Pok" .. Chars.accentedE .. "mon can have."
+    '-- Fixed a longtime bug where "Open Log" after a run would not find your log file correctly. You should not have to manually look for it with auto generated ROMs anymore.',
+    "-- As always, I accidentally break something with an update. The last Gym TM will now show correctly for Gen 5."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
