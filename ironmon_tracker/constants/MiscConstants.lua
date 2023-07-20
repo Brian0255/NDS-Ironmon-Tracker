@@ -1,12 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.6"
+MiscConstants.TRACKER_VERSION = "5.5.7"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Fixed a longtime bug where "Open Log" after a run would not find your log file correctly. You should not have to manually look for it with auto generated ROMs anymore.',
-    "-- As always, I accidentally break something with an update. The last Gym TM will now show correctly for Gen 5."
+    "-- Fixed an important Transparent Backgrounds issue when switching to and from the enemy view."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
