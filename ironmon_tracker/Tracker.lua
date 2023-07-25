@@ -86,6 +86,19 @@ local function Tracker()
 		MiscUtils.writeStringToFile(playtimeFile, tostring(totalSeconds))
 	end
 
+	function self.loadExternalTrackerDataFile(filePath)
+		local trackerData = MiscUtils.getTableFromFile(filePath)
+		if trackerData == nil then
+			return
+		end
+		for key, value in pairs(trackedData) do
+			if not trackerData[key] then
+				trackerData[key] = value
+			end
+		end
+		trackedData = trackerData
+	end
+
 	function self.loadData(gameName)
 		local savedData = MiscUtils.getTableFromFile("savedData/" .. gameName .. ".trackerdata")
 		if savedData == nil then
