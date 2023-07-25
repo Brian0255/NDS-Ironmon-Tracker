@@ -64,7 +64,7 @@ local function SeedLogger(initialProgram, initialGameName)
             end,
             [PlaythroughConstants.CAUSES.ENEMY_LOWER_BST] = function()
                 return (tonumber(faintedPokemon.bst) - tonumber(enemyPokemon.bst)) >= 100
-            end,
+            end
         }
         local cause = PlaythroughConstants.CAUSES.STANDARD
         for reason, causeSatisfied in pairs(causeMappings) do
@@ -165,6 +165,9 @@ local function SeedLogger(initialProgram, initialGameName)
             SPE = pokemon.SPE
         }
         program.addAdditionalDataToPokemon(pokemon)
+        if not MiscUtils.validPokemonData(pokemon) then
+            return nil
+        end
         return pokemon
     end
 
@@ -210,6 +213,9 @@ local function SeedLogger(initialProgram, initialGameName)
         local location = lines[lineStart + 5]
         local faintedPokemon = decodeCSVPokemon(faintedPokemonCSV)
         local enemyPokemon = decodeCSVPokemon(enemyPokemonCSV)
+        if faintedPokemon == nil or enemyPokemon == nil then
+            return
+        end
         local badgeSet1 = decodeCSVBadgeSet(badgeSet1CSV)
         local badgeSet2 = decodeCSVBadgeSet(badgeSet2CSV)
         local badges = {
@@ -224,7 +230,7 @@ local function SeedLogger(initialProgram, initialGameName)
     local function loadPastRuns()
         pastRuns = {}
         local lines = {}
-        local fileName = "savedData/"..gameName .. ".pastlog"
+        local fileName = "savedData/" .. gameName .. ".pastlog"
         local currentRunIndex = 1
         if FormsUtils.fileExists(fileName) then
             lines = MiscUtils.readLinesFromFile(fileName, true)
@@ -235,6 +241,9 @@ local function SeedLogger(initialProgram, initialGameName)
                     if line == "log start" then
                         local pastRunHash = lines[index + 1]
                         local pastRun = parsePastRunFromLineLocation(lines, index + 2)
+                        if pastRun == nil then
+                            return
+                        end
                         pastRuns[pastRunHash] = pastRun
                         pastRunKeyList[currentRunIndex] = pastRunHash
                         currentRunIndex = currentRunIndex + 1
@@ -245,7 +254,7 @@ local function SeedLogger(initialProgram, initialGameName)
     end
 
     local function saveRunsToFile()
-        local fileName = "savedData/"..gameName .. ".pastlog"
+        local fileName = "savedData/" .. gameName .. ".pastlog"
         local completeRunString = totalRuns .. "," .. totalRunsPastLab .. "\n"
         for runHash, run in pairs(pastRuns) do
             local runCSV = runToCSV(runHash, run)
