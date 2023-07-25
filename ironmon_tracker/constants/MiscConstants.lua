@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.7"
+MiscConstants.TRACKER_VERSION = "5.5.8"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed an important Transparent Backgrounds issue when switching to and from the enemy view."
+    '-- Added a button under "Tracked Info" to load someone else\'s tracker data for sharing purposes.'
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
