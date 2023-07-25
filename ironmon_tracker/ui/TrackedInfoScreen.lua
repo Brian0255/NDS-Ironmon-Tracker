@@ -13,13 +13,13 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		TRACKED_INFO_HEIGHT = 232,
+		TRACKED_INFO_HEIGHT = 256,
 		MAIN_BUTTONS_Y_OFFSET = 5,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
 		MAIN_BUTTON_WIDTH = 110,
 		MAIN_BUTTON_HEIGHT = 19,
-		BUTTONS_FRAME_HEIGHT = 125,
+		BUTTONS_FRAME_HEIGHT = 149,
 		FAINT_DETECTION_FRAME_HEIGHT = 57,
 		FAINT_DETECTION_ROW_HEIGHT = 13,
 		BUTTON_SIZE = 10
@@ -49,6 +49,17 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 		client.SetSoundOn(soundOn)
 	end
 
+	local function onLoadTrackerDataClick()
+		local soundOn = client.GetSoundOn()
+		client.SetSoundOn(false)
+		local trackerDataPath =
+			forms.openfile("*.trackerdata", Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH)
+		if trackerDataPath ~= nil then
+			tracker.loadExternalTrackerDataFile(trackerDataPath)
+		end
+		client.SetSoundOn(soundOn)
+	end
+
 	local function initEventListeners()
 		eventListeners.goBackClickListener =
 			MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_OPTIONS_SCREEN)
@@ -65,6 +76,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			program.openScreen,
 			program.UI_SCREENS.RESTORE_POINTS_SCREEN
 		)
+		eventListeners.loadTrackerData = MouseClickEventListener(ui.frames.loadTrackerDataButtonFrame, onLoadTrackerDataClick)
 	end
 
 	local function initBottomFrameControls()
@@ -99,22 +111,25 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			pastRunsButton = "Past Runs",
 			statisticsButton = "Statistics",
 			openLogButton = "Open a Log",
-			openRestorePointsButton = "Restore Points"
+			openRestorePointsButton = "Restore Points",
+			loadTrackerDataButton = "Load Tracker Data"
 		}
-		local icons = {"PENCIL", "PAST_RUN_ICON", "STATISTICS_ICON", "OPEN_LOG_ICON", "RESTORE_POINTS_ICON"}
+		local icons = {"PENCIL", "PAST_RUN_ICON", "STATISTICS_ICON", "OPEN_LOG_ICON", "RESTORE_POINTS_ICON", "LOAD_TRACKER_DATA"}
 		local order = {
 			"trackedPokemonButton",
 			"pastRunsButton",
 			"statisticsButton",
 			"openLogButton",
-			"openRestorePointsButton"
+			"openRestorePointsButton",
+			"loadTrackerDataButton"
 		}
 		local iconOffsets = {
 			{x = 2, y = 2},
 			{x = 3, y = 2},
 			{x = 3, y = 2},
 			{x = 3, y = 2},
-			{x = 3, y = 3}
+			{x = 3, y = 3},
+			{x = 3, y = 2}
 		}
 		for i, key in pairs(order) do
 			local text = buttonNames[key]
