@@ -61,6 +61,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local healingItems = nil
 	local inTrackedPokemonView = false
 	local doneWithTitleScreen = false
+	local displayedBW2Error = false
 	local inPastRunView = false
 	local inLockedView = false
 	local statusItems = nil
@@ -802,6 +803,21 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			badges.secondSet = readBadgeByte(memoryAddresses.kantoBadges)
 		else
 			badges.firstSet = readBadgeByte(memoryAddresses.badges)
+		end
+		if gameInfo.NAME == "Pokemon Black 2" or gameInfo.NAME == "Pokemon White 2" then
+			local sum = 0
+			for _, badge in pairs(badges.firstSet) do
+				sum = sum + badge
+			end
+			--very hacky
+			if not displayedBW2Error and sum == 8 and playerPokemon.pokemonID == 0 then
+				displayedBW2Error = true
+				FormsUtils.displayError(
+					"It looks like you don't have an intro patched version of " ..
+						gameInfo.NAME ..
+							". The tracker will not work without this, and you can grab it from the official IronMON Discord. Best of luck!"
+				)
+			end
 		end
 		if not inPastRunView then
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
