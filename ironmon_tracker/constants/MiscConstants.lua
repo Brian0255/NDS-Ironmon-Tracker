@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.8"
+MiscConstants.TRACKER_VERSION = "5.5.9"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    '-- Added a button under "Tracked Info" to load someone else\'s tracker data for sharing purposes.'
+    "-- Fixed a bug where the intro patch warning message for Pokemon Black/White 2 would show up more than once."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
@@ -78,7 +78,8 @@ MiscConstants.DEFAULT_SETTINGS = {
         UPDATE_WAS_DONE = true
     },
     trackedInfo = {
-        FAINT_DETECTION = PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT
+        FAINT_DETECTION = PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT,
+        FIRST_TIME_BW2 = true
     },
     extras = {
         BROWS_ENABLED = false,
