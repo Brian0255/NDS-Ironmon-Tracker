@@ -45,8 +45,8 @@ local function Main()
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
-	
-	if Paths.SLASH == '\\' then
+
+	if Paths.SLASH == "\\" then
 		Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
 	else
 		Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("pwd")
@@ -143,7 +143,7 @@ local function Main()
 		PlaythroughConstants.initializeStandardMessages()
 		ThemeFactory.setSettings(settings)
 		if newerBizhawk then
-			dofile(Paths.FOLDERS.UTILS_FOLDER.."/NewerLuaRedefines.lua")
+			dofile(Paths.FOLDERS.UTILS_FOLDER .. "/NewerLuaRedefines.lua")
 		end
 		DrawingUtils.initialize(settings)
 		DrawingUtils.setAppearanceSettings(settings.appearance)
@@ -157,6 +157,16 @@ local function Main()
 		tracker.loadTotalPlaytime(gameConfiguration.gameInfo.NAME)
 		QuickLoader.initialize(settings.quickLoad)
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
+		local gameInfo = gameConfiguration.gameInfo
+		if settings.trackedInfo.FIRST_TIME_BW2 and (gameInfo.NAME == "Pokemon White 2" or gameInfo.NAME == "Pokemon Black 2") then
+			settings.trackedInfo.FIRST_TIME_BW2 = false
+			program.saveSettings()
+			FormsUtils.displayError(
+				"It looks like this might be your first time playing " ..
+					gameInfo.NAME ..
+						". As a friendly reminder, this tracker will not work without the intro patch. If you need it, you can find it in the official IronMON discord. Best of luck!"
+			)
+		end
 		ThemeFactory.setSaveFunction(program.saveSettings)
 		ThemeFactory.setPokemonThemeDisablingFunction(program.turnOffPokemonTheme)
 		event.onexit(program.onProgramExit, "onProgramExit")
