@@ -447,7 +447,7 @@ local function BattleHandler(
         return enemies[enemySlotIndex]
     end
 
-    function self.GEN5_checkLastSwitchin(playerPokemon, enemyPokemon)
+    function self.GEN5_checkLastSwitchin()
         --In gen 5, there is no active battler PID.
         --Instead, several memory addresses seemingly get updated when switch-ins occur.
         --So what we do is check these addresses. If the PID belongs to player or enemy, update accordingly.
