@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.5.9"
+MiscConstants.TRACKER_VERSION = "5.5.10"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed a bug where the intro patch warning message for Pokemon Black/White 2 would show up more than once."
+    "-- Illusion spoiling has been fixed for the majority of cases in Gen 5."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
