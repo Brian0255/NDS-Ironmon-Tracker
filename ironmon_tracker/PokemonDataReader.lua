@@ -55,7 +55,7 @@ local function PokemonDataReader(initialProgram)
                 {6, {"move4"}},
                 {8, {"move1PP", "move2PP"}},
                 {10, {"move3PP", "move4PP"}},
-				{18, {"isEgg"}},
+                {18, {"isEgg"}},
                 {24, {"alternateForm", "nature"}}
             },
             C = {},
@@ -73,7 +73,7 @@ local function PokemonDataReader(initialProgram)
             {14, {"SPE"}},
             {16, {"SPA"}},
             {18, {"SPD"}}
-        },
+        }
     }
 
     local function advanceRNG()
@@ -104,8 +104,8 @@ local function PokemonDataReader(initialProgram)
         byte2Data = bit.band(byte2Data, 0xFF)
 
         if dataName[1] == "isEgg" then
-			decryptedData[dataName[1]] = BitUtils.getBits(byte2Data,6,1)
-		elseif combineBytes then
+            decryptedData[dataName[1]] = BitUtils.getBits(byte2Data, 6, 1)
+        elseif combineBytes then
             local combinedBytes = bit.band(byte2Data, 0x00FF)
             combinedBytes = bit.lshift(combinedBytes, 8)
             combinedBytes = bit.bor(combinedBytes, byte1Data)
@@ -120,7 +120,7 @@ local function PokemonDataReader(initialProgram)
                 decryptedData[dataName[2]] = byte2Data
             end
             if dataName[1] == "alternateForm" then
-                decryptedData["isFemale"] = BitUtils.getBits(byte1Data,1,1)
+                decryptedData["isFemale"] = BitUtils.getBits(byte1Data, 1, 1)
             else
                 decryptedData[dataName[2]] = byte2Data
             end
@@ -168,17 +168,21 @@ local function PokemonDataReader(initialProgram)
             end
         end
         --Gen 5 does not update the current HP or moves/PP in the player's battle party memory. It's stored elsewhere as unencrypted data.
-        if program.isInBattle() and gameInfo.GEN == 5 and not checkingEnemy then
-            decryptedData.curHP = Memory.read_u16_le(addresses.curHPBattlePlayer + monIndex * 548)
-            decryptedData.HP = Memory.read_u16_le(addresses.HPBattlePlayer + monIndex * 548)
+        if program.isInBattle() and gameInfo.GEN == 5 then
+            local offset = monIndex * 548
+            if checkingEnemy then
+                offset = offset + (Memory.read_u8(addresses.totalMonsParty) * 548)
+            end
+            decryptedData.curHP = Memory.read_u16_le(addresses.curHPBattlePlayer + offset)
+            decryptedData.HP = Memory.read_u16_le(addresses.HPBattlePlayer + offset)
             if not checkingEnemy then
-                decryptedData.level = Memory.read_u16_le(addresses.curBattleLevel+ monIndex * 0x224) % 256
+                decryptedData.level = Memory.read_u16_le(addresses.curBattleLevel + monIndex * 0x224) % 256
                 --print(decryptedData.level)
                 local statStart = addresses.curBattleStats + monIndex * 0x224
-                local stats = {"ATK","DEF","SPA","SPD","SPE"}
-                for i = 0,4,1 do
-                    local stat = stats[i+1]
-                    decryptedData[stat] = Memory.read_u16_le(statStart + i*2)
+                local stats = {"ATK", "DEF", "SPA", "SPD", "SPE"}
+                for i = 0, 4, 1 do
+                    local stat = stats[i + 1]
+                    decryptedData[stat] = Memory.read_u16_le(statStart + i * 2)
                 end
             end
             local movesStart = addresses.statStagesStart + 8
@@ -186,8 +190,11 @@ local function PokemonDataReader(initialProgram)
             statusStart = statusStart + monIndex * 0x224
             if checkingEnemy then
                 local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
-                if extraOffset == nil then extraOffset = 0x00 end
-                movesStart = movesStart + totalPlayerMons * 0x224 + extraOffset-- + 0x224
+                if extraOffset == nil then
+                    extraOffset = 0x00
+                end
+                movesStart = movesStart + totalPlayerMons * 0x224 + extraOffset
+                -- + 0x224
 
                 statusStart = statusStart + (totalPlayerMons * 0x224)
             end
@@ -266,13 +273,13 @@ local function PokemonDataReader(initialProgram)
                     return {}
                 end
 
-				if not MiscUtils.validPokemonData(decryptedData) then
-					return {}
-				end
+                if not MiscUtils.validPokemonData(decryptedData) then
+                    return {}
+                end
                 if checkingParty then
                     if decryptedData.curHP ~= 0 and decryptedData.isEgg ~= 1 then
                         return decryptedData
-					end
+                    end
                 else
                     break
                 end
