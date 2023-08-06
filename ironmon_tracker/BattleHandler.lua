@@ -5,7 +5,6 @@ local function BattleHandler(
     initialTracker,
     initialProgram,
     initialSettings)
-
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
 
     local self = {}
@@ -256,7 +255,9 @@ local function BattleHandler(
     end
 
     local function GEN5_checkPlayerTransform(currentPlayerPokemon, compare)
-        if GEN5_transformed then return end
+        if GEN5_transformed then
+            return
+        end
         local previous = currentPlayerPokemon
         if compare.PID == previous.PID and compare.level == previous.level then
             for statName, value in pairs(compare.stats) do
@@ -287,7 +288,9 @@ local function BattleHandler(
             local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
             if currentPlayerPokemon ~= nil and gameInfo.GEN == 5 then
                 GEN5_checkPlayerTransform(currentPlayerPokemon, data)
-                if GEN5_transformed then return nil end
+                if GEN5_transformed then
+                    return nil
+                end
             end
             return data
         end
@@ -327,6 +330,40 @@ local function BattleHandler(
             return false
         end
         return enemyTrainerID == 0
+    end
+
+    local function GEN5_accountForIllusion(enemyBattler)
+        local pokemon = enemyBattler.lastValidPokemon
+        if next(GEN5_PIDSwitchData) == nil then
+            return
+        end
+        if AbilityData.ABILITIES[pokemon.ability + 1].name ~= "Illusion" then
+            return
+        end
+        local highestNonFaintedIndex = -1
+        local highestNonFaintedPID = -1
+        pokemonDataReader.setCurrentBase(enemyBattler.addressBase)
+        for pid, index in pairs(enemyBattler.teamPIDs) do
+            local data = pokemonDataReader.decryptPokemonInfo(false, index, true)
+            if data.curHP and data.curHP > 0 and index > highestNonFaintedIndex then
+                highestNonFaintedIndex = index
+                highestNonFaintedPID = pid
+            end
+        end
+        if highestNonFaintedIndex == -1 then
+            return
+        end
+        if highestNonFaintedPID == pokemon.pid then
+            return
+        end
+        local start = memoryAddresses.playerBattleMonPID
+        for i = 0, 5, 1 do
+            local switchAddr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
+            local switchData = Memory.read_u32_le(switchAddr)
+            if switchData == highestNonFaintedPID then
+                enemyBattler.activePIDAddress = switchAddr
+            end
+        end
     end
 
     function self.getPokemonDataEnemy(slot)
@@ -373,6 +410,11 @@ local function BattleHandler(
                     end
                 end
                 enemyBattler.lastValidPID = activePID
+                local address = enemyBattler.activePIDAddress
+                GEN5_accountForIllusion(enemyBattler)
+                if address ~= enemyBattler.activePIDAddress then
+                    return self.getPokemonDataEnemy(slot)
+                end
                 return pokemonData
             else
                 return nil
@@ -405,10 +447,11 @@ local function BattleHandler(
         return enemies[enemySlotIndex]
     end
 
-    function self.GEN5_checkLastSwitchin()
+    function self.GEN5_checkLastSwitchin(playerPokemon, enemyPokemon)
         --In gen 5, there is no active battler PID.
         --Instead, several memory addresses seemingly get updated when switch-ins occur.
         --So what we do is check these addresses. If the PID belongs to player or enemy, update accordingly.
+
         local sawAZero = false
         if next(GEN5_PIDSwitchData) ~= nil then
             local start = memoryAddresses.playerBattleMonPID
@@ -508,7 +551,7 @@ local function BattleHandler(
         if faintMonIndex == -1 then
             if settings.trackedInfo.FAINT_DETECTION == PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT then
                 faintMonIndex = calculateHighestPlayerMonIndex()
-            elseif settings.trackedInfo.FAINT_DETECTION ==PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT then
+            elseif settings.trackedInfo.FAINT_DETECTION == PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT then
                 faintMonIndex = 0
             end
         end
