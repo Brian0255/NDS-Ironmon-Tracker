@@ -164,10 +164,10 @@ local function SeedLogger(initialProgram, initialGameName)
             SPD = pokemon.SPD,
             SPE = pokemon.SPE
         }
-        program.addAdditionalDataToPokemon(pokemon)
         if not MiscUtils.validPokemonData(pokemon) then
             return nil
         end
+		program.addAdditionalDataToPokemon(pokemon)
         return pokemon
     end
 

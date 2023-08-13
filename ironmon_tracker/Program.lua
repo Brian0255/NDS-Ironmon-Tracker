@@ -257,7 +257,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.addAdditionalDataToPokemon(pokemon)
 		local constData = PokemonData.POKEMON[pokemon.pokemonID + 1]
-		for key, data in pairs(constData) do
+		for key, data in pairs(constData or {}) do
 			--when tracker makes a template it does the name because alternate forms are complex, so don't overwrite it
 			if key == "name" then
 				if not pokemon.name then
