@@ -496,8 +496,7 @@ function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
             extraThingsToDraw.experienceBar.y,
             extraThingsToDraw.experienceBar.percent
         DrawingUtils.drawExperienceBar(x, y, percent)
-    end
-    if extraThingsToDraw.friendshipBar ~= nil then
+	elseif extraThingsToDraw.friendshipBar ~= nil then
         local x, y, progress =
             extraThingsToDraw.friendshipBar.x,
             extraThingsToDraw.friendshipBar.y,
