@@ -10,7 +10,6 @@ local attemptsPaths = {
     ["GENERATE_ROMS"] = nil
 }
 
-
 local quickLoadSettings = nil
 local romNumber = nil
 
@@ -20,17 +19,17 @@ end
 
 local function initAttemptsPaths()
     local romname = gameinfo.getromname()
-    local attemptsPath = Paths.CURRENT_DIRECTORY..Paths.SLASH.."attempts"..Paths.SLASH
+    local attemptsPath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "attempts" .. Paths.SLASH
 
     local name, digits = romname:match("(.-)(%d+)")
     romNumber = digits
     if name ~= nil and digits ~= nil then
-        attemptsPaths["USE_BATCH"] = attemptsPath..name..".txt"
+        attemptsPaths["USE_BATCH"] = attemptsPath .. name .. ".txt"
     end
 
-    local settings = FormsUtils.getFileNameFromPath(quickLoadSettings.SETTINGS_PATH:sub(1,-6))
+    local settings = FormsUtils.getFileNameFromPath(quickLoadSettings.SETTINGS_PATH:sub(1, -6))
     if settings ~= nil then
-        attemptsPaths["GENERATE_ROMS"] = attemptsPath..settings..".txt"
+        attemptsPaths["GENERATE_ROMS"] = attemptsPath .. settings .. ".txt"
     end
 end
 
@@ -42,6 +41,11 @@ local function saveAttempts()
     if attemptsFile ~= nil then
         attemptsFile:write(attempts[quickLoadSettings.LOAD_TYPE])
         attemptsFile:close()
+    end
+    local extraAttemptsFile = io.open(attemptsPaths[quickLoadSettings.LOAD_TYPE]:sub(1, -5) .. "_attemptsAdded.txt", "w")
+    if extraAttemptsFile ~= nil then
+        extraAttemptsFile:write("Attempts: " .. tostring(attempts[quickLoadSettings.LOAD_TYPE]))
+        extraAttemptsFile:close()
     end
 end
 
@@ -59,7 +63,7 @@ local function readAttempts()
                 attemptsFile:close()
             else
                 if romNumber ~= nil then
-                    attempts[loadType] = tonumber(romNumber,10)
+                    attempts[loadType] = tonumber(romNumber, 10)
                 end
             end
         end
@@ -74,16 +78,16 @@ function QuickLoader.initialize(newQuickLoadSettings)
 end
 
 local function incrementAttempts(fileName)
-    attempts[quickLoadSettings.LOAD_TYPE] = attempts[quickLoadSettings.LOAD_TYPE]  + 1
-    local attemptsFolder = "attempts"..Paths.SLASH
+    attempts[quickLoadSettings.LOAD_TYPE] = attempts[quickLoadSettings.LOAD_TYPE] + 1
+    local attemptsFolder = "attempts" .. Paths.SLASH
     attemptsPaths[quickLoadSettings.LOAD_TYPE] = attemptsFolder .. fileName .. ".txt"
     saveAttempts()
 end
 
 local function createBackupOfLog(romName)
-    local backupPath = Paths.CURRENT_DIRECTORY..Paths.SLASH.."savedData"..Paths.SLASH..romName.."_backup.nds.log"
-    local romPath = Paths.CURRENT_DIRECTORY..Paths.SLASH..romName
-    MiscUtils.copyFile(romPath..".nds.log", backupPath)
+    local backupPath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. romName .. "_backup.nds.log"
+    local romPath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. romName
+    MiscUtils.copyFile(romPath .. ".nds.log", backupPath)
 end
 
 local function generateROM()
@@ -94,7 +98,9 @@ local function generateROM()
     }
     for name, path in pairs(paths) do
         if not FormsUtils.fileExists(path) or path == "" then
-             FormsUtils.displayError("Missing files have been detected for the QuickLoad feature. Please set these in the tracker's settings.")
+            FormsUtils.displayError(
+                "Missing files have been detected for the QuickLoad feature. Please set these in the tracker's settings."
+            )
             return nil
         end
     end
@@ -103,7 +109,7 @@ local function generateROM()
     --take off the .rnqs bit
     local settingsName = rnqsName:sub(1, -6)
     local nextRomName = settingsName .. "_Auto_Randomized.nds"
-    nextRomName = nextRomName:gsub(" ","_")
+    nextRomName = nextRomName:gsub(" ", "_")
     local nextRomPath = currentDirectory .. Paths.SLASH .. nextRomName
     createBackupOfLog(nextRomName:match("(.*)%.nds"))
     local randomizerCommand =
@@ -141,7 +147,7 @@ local function getNextRomPathFromBatch()
 
     local romName = gameinfo.getromname()
     local nameWithoutNumbers, newRomNumber = romName:match("(.-)(%d+)")
-    newRomNumber = tonumber(newRomNumber,10)
+    newRomNumber = tonumber(newRomNumber, 10)
 
     if newRomNumber == nil then
         local message = "Current ROM does not have any numbers in its name, unable to load next seed."
