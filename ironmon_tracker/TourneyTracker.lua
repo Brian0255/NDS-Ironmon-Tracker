@@ -211,13 +211,13 @@ local function TourneyTracker(initialTracker, initialSettings, initialTourneyTra
         TrainerMilestone("Beat Erika", {256}, 1),
         TrainerMilestone("Beat Blaine", {259}, 2),
         TrainerMilestone("Beat Blue", {261}, 2),
-        TrainerMilestone("Beat Red", {260}, 10)
+        TrainerMilestone("Beat Red", {260}, 5)
     }
 
     self.BONUSES = {
         TourneyBonus("Evo Bonus (Lv. 1 - 19)", 2),
         TourneyBonus("Evo Bonus (Lv. 20 - 29)", 3),
-        TourneyBonus("Evo Bonus (Lv. 30+)", 5),
+        TourneyBonus("Evo Bonus (Lv. 30+)", 5)
     }
 
     local tourneyScores = {}
@@ -235,22 +235,22 @@ local function TourneyTracker(initialTracker, initialSettings, initialTourneyTra
             lastMilestoneID = milestones[#milestones]
             lastMilestone = self.MILESTONES[lastMilestoneID].getName()
         end
-        local heading = "Seed #"..index.." - Last milestone: "..lastMilestone.."."
+        local heading = "Seed #" .. index .. " - Last milestone: " .. lastMilestone .. "."
         local fullClearIDs = {[8] = true, [19] = true}
         for _, id in pairs(milestones) do
             if fullClearIDs[id] and id ~= lastMilestoneID then
-                heading = heading.. " "..self.MILESTONES[id].getName().."."
+                heading = heading .. " " .. self.MILESTONES[id].getName() .. "."
             end
         end
-        table.insert(linesToFill,heading)
+        table.insert(linesToFill, heading)
         if #scoreData.completedBonusIDs > 0 then
             local bonusText = "Bonuses:"
             for _, id in pairs(scoreData.completedBonusIDs) do
-                bonusText = bonusText.." "..self.BONUSES[id].getName()..","
+                bonusText = bonusText .. " " .. self.BONUSES[id].getName() .. ","
             end
             --remove last comma
-            bonusText = bonusText:sub(1,-2)
-            table.insert(linesToFill,bonusText)
+            bonusText = bonusText:sub(1, -2)
+            table.insert(linesToFill, bonusText)
         end
     end
 
@@ -388,7 +388,7 @@ local function TourneyTracker(initialTracker, initialSettings, initialTourneyTra
         local filePath = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. "scores.tdata"
         tourneyScores = {}
         tourneyScoreMap = {}
-        io.open(filePath,"w"):close()
+        io.open(filePath, "w"):close()
         disabled = true
         self.loadData()
     end
