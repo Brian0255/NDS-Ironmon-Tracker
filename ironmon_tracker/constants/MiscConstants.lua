@@ -1,12 +1,12 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.6.1"
+MiscConstants.TRACKER_VERSION = "5.6.2"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed a critical error where the tracker could get stuck trying to load for Black/White 2 (thanks UTDZac).",
-    "-- Fixed a bug where the experience bar could overlap with the FRIEND meter."
+    "-- Fixed an important bug where the tracker could very rarely softlock itself.",
+    "-- Adjusted a point value for the tourney tracker."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
