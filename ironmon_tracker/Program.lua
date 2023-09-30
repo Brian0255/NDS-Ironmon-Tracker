@@ -23,6 +23,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local RestorePointsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/RestorePointsScreen.lua")
 	local TourneyTrackerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TourneyTrackerScreen.lua")
 	local ExtrasScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/ExtrasScreen.lua")
+	local EvoDataScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EvoDataScreen.lua")
 
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
@@ -124,10 +125,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			[self.UI_SCREENS.PAST_RUNS_SCREEN] = true,
 			[self.UI_SCREENS.TITLE_SCREEN] = true
 		}
+		local playerPokemonInitialization = {
+			[self.UI_SCREENS.EVO_DATA_SCREEN] = true
+		}
 		if blankInitialization[screen] then
 			self.UI_SCREEN_OBJECTS[screen].initialize()
 		elseif seedLoggerInitialization[screen] then
 			self.UI_SCREEN_OBJECTS[screen].initialize(seedLogger)
+		elseif playerPokemonInitialization[screen] then
+			self.UI_SCREEN_OBJECTS[screen].initialize(playerPokemon)
 		end
 	end
 
@@ -209,7 +215,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		TITLE_SCREEN = 18,
 		RESTORE_POINTS_SCREEN = 19,
 		TOURNEY_TRACKER_SCREEN = 20,
-		EXTRAS_SCREEN = 21
+		EXTRAS_SCREEN = 21,
+		EVO_DATA_SCREEN = 22
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -234,7 +241,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.TITLE_SCREEN] = TitleScreen(settings, tracker, self),
 		[self.UI_SCREENS.RESTORE_POINTS_SCREEN] = RestorePointsScreen(settings, tracker, self),
 		[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN] = TourneyTrackerScreen(settings, tracker, self),
-		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings, tracker, self)
+		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings, tracker, self),
+		[self.UI_SCREENS.EVO_DATA_SCREEN] = EvoDataScreen(settings, tracker, self)
 	}
 
 	tourneyTracker =
