@@ -1,12 +1,12 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.6.2"
+MiscConstants.TRACKER_VERSION = "5.7.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed an important bug where the tracker could very rarely softlock itself.",
-    "-- Adjusted a point value for the tourney tracker."
+    "-- Clicking on the level/evo label will now show brdy and Harkenn's evolution data if your Pok" ..
+        Chars.accentedE .. "mon evolves. Massive thank you to both of these people!"
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
