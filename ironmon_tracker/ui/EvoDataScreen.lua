@@ -126,7 +126,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		)
 		ui.controls.sortLabel =
 			TextLabel(
-			Component(ui.frames.topFrame, Box({x = 0, y = 0}, {width = 36, height = 0})),
+			Component(ui.frames.topFrame, Box({x = 0, y = 0}, {width = 35, height = 0})),
 			TextField(
 				"Sort by:",
 				{x = 0, y = 1},
@@ -141,8 +141,8 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		local sortButtonsFrame =
 			Frame(Box({x = 0, y = 0}, {width = 0, height = 0}), Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2), ui.frames.topFrame)
 		local buttonInfo = {
-			{name = "Name", width = 31, sortType = SORT_TYPES.NAME},
-			{name = "BST", width = 21, sortType = SORT_TYPES.BST},
+			{name = "Name", width = 32, sortType = SORT_TYPES.NAME},
+			{name = "BST", width = 22, sortType = SORT_TYPES.BST},
 			{name = "Percent", width = 38, sortType = SORT_TYPES.PERCENT}
 		}
 		for _, info in pairs(buttonInfo) do
