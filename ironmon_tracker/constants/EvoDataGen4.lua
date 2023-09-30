@@ -5388,6 +5388,7 @@ EvoData.EVOLUTIONS = {
     }
 }
 
+--[[
 function EvoData.parse()
     local completeString = ""
     local currentIndex = 1
@@ -5425,4 +5426,4 @@ function EvoData.parse()
     end
     MiscUtils.writeStringToFile("luaevodata.txt", completeString)
     print("done")
-end
+end--]]
