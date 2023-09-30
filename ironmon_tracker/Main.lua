@@ -33,6 +33,7 @@ local function Main()
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/IconSets.lua")
+	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Input.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/DrawingUtils.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/BitUtils.lua")
@@ -152,6 +153,11 @@ local function Main()
 		if gameConfiguration == nil then
 			print("This game is not currently not supported. Terminating Lua script...")
 			return false
+		end
+		if (gameConfiguration.gameInfo.GEN == 4) then
+			dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/EvoDataGen4.lua")
+		else
+			dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/EvoDataGen5.lua")
 		end
 		tracker.loadData(gameConfiguration.gameInfo.NAME)
 		tracker.loadTotalPlaytime(gameConfiguration.gameInfo.NAME)
