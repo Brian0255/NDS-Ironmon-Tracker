@@ -1191,10 +1191,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             true
         )
         table.insert(eventListeners, MouseClickEventListener(ui.frames.tourneyPointsFrame, onTourneyPointsClick))
-        table.insert(
-            eventListeners,
-            MouseClickEventListener(ui.controls.pokemonLevelAndEvo, program.openScreen, program.UI_SCREENS.EVO_DATA_SCREEN)
-        )
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.pokemonLevelAndEvo, program.onEvoLabelClick))
     end
 
     function self.getMainFrameSize()

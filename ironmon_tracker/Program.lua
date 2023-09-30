@@ -114,6 +114,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		self.saveSettings(false)
 	end
 
+	function self.onEvoLabelClick()
+		if inPastRunView or inTrackedPokemonView or currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] or playerPokemon == nil then
+			return
+		end
+		self.openScreen(self.UI_SCREENS.EVO_DATA_SCREEN)
+	end
+
 	local function checkIfNeedToInitialize(screen)
 		local blankInitialization = {
 			[self.UI_SCREENS.QUICK_LOAD_SCREEN] = true,
