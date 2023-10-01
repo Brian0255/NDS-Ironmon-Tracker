@@ -132,15 +132,19 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			[self.UI_SCREENS.PAST_RUNS_SCREEN] = true,
 			[self.UI_SCREENS.TITLE_SCREEN] = true
 		}
-		local playerPokemonInitialization = {
+		local currentPokemonInitialization = {
 			[self.UI_SCREENS.EVO_DATA_SCREEN] = true
 		}
 		if blankInitialization[screen] then
 			self.UI_SCREEN_OBJECTS[screen].initialize()
 		elseif seedLoggerInitialization[screen] then
 			self.UI_SCREEN_OBJECTS[screen].initialize(seedLogger)
-		elseif playerPokemonInitialization[screen] then
-			self.UI_SCREEN_OBJECTS[screen].initialize(playerPokemon)
+		elseif currentPokemonInitialization[screen] then
+			local currentPokemon = playerPokemon
+			if selectedPlayer == self.SELECTED_PLAYERS.ENEMY then
+				currentPokemon = enemyPokemon
+			end
+			self.UI_SCREEN_OBJECTS[screen].initialize(currentPokemon)
 		end
 	end
 
