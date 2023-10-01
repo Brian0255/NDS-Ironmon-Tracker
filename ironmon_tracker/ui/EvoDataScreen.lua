@@ -61,12 +61,18 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function fillRow(evoEntry, row)
+		if evoEntry == nil then
+			return
+		end
+		if not PokemonData.POKEMON[evoEntry.id + 1] then
+			return
+		end
 		local pokemonData = PokemonData.POKEMON[evoEntry.id + 1]
 		row.name.setText(pokemonData.name)
 		row.bst.setText(pokemonData.bst)
 		row.percent.setText(string.format("%.2f%%", evoEntry.percent))
 		local percentTextOffset = {
-			x = 6,
+			x = 8,
 			y = 1
 		}
 		if evoEntry.percent >= 10.00 then
