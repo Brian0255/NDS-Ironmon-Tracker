@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.7.1"
+MiscConstants.TRACKER_VERSION = "5.7.2"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixes a few important bugs related to the evo data feature.",
+    "-- Fixes important bugs related to the evo data feature.",
     "-- 5.7.0: Clicking on the level/evo label will now show brdy and Harkenn's evolution data if your Pok" ..
         Chars.accentedE .. "mon evolves. Massive thank you to both of these people!"
 }
