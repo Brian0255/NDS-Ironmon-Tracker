@@ -8489,5 +8489,30 @@ EvoData.EVOLUTIONS = {
         {id = 230, percent = 8.47},
         {id = 197, percent = 1.89},
         {id = 571, percent = 1.88}
+    },
+    [636] = {
+        {id = 617, percent = 6.12},
+        {id = 127, percent = 6.06},
+        {id = 59, percent = 5.71},
+        {id = 126, percent = 4.85},
+        {id = 589, percent = 4.79},
+        {id = 157, percent = 4.75},
+        {id = 467, percent = 4.74},
+        {id = 212, percent = 4.61},
+        {id = 469, percent = 4.56},
+        {id = 514, percent = 4.50},
+        {id = 123, percent = 4.27},
+        {id = 38, percent = 4.23},
+        {id = 136, percent = 4.17},
+        {id = 78, percent = 4.14},
+        {id = 213, percent = 4.05},
+        {id = 348, percent = 3.83},
+        {id = 257, percent = 3.75},
+        {id = 6, percent = 3.61},
+        {id = 392, percent = 3.56},
+        {id = 500, percent = 3.51},
+        {id = 609, percent = 3.27},
+        {id = 229, percent = 3.12},
+        {id = 214, percent = 3.00}
     }
 }

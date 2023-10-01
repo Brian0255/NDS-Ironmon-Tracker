@@ -5385,9 +5385,41 @@ EvoData.EVOLUTIONS = {
         {id = 80, percent = 1.16},
         {id = 199, percent = 1.14},
         {id = 62, percent = 1.10}
+    },
+    [459] = {
+        {id = 362, percent = 5.52},
+        {id = 471, percent = 5.18},
+        {id = 421, percent = 4.89},
+        {id = 465, percent = 4.88},
+        {id = 254, percent = 4.66},
+        {id = 455, percent = 4.58},
+        {id = 470, percent = 4.02},
+        {id = 154, percent = 3.95},
+        {id = 461, percent = 3.66},
+        {id = 182, percent = 3.62},
+        {id = 473, percent = 3.42},
+        {id = 189, percent = 3.34},
+        {id = 478, percent = 3.14},
+        {id = 332, percent = 2.99},
+        {id = 357, percent = 2.98},
+        {id = 221, percent = 2.94},
+        {id = 124, percent = 2.87},
+        {id = 131, percent = 2.81},
+        {id = 365, percent = 2.73},
+        {id = 275, percent = 2.73},
+        {id = 3, percent = 2.55},
+        {id = 389, percent = 2.42},
+        {id = 286, percent = 2.38},
+        {id = 407, percent = 2.33},
+        {id = 346, percent = 2.26},
+        {id = 103, percent = 2.23},
+        {id = 91, percent = 2.22},
+        {id = 45, percent = 2.16},
+        {id = 71, percent = 2.12},
+        {id = 87, percent = 2.12},
+        {id = 272, percent = 1.69}
     }
 }
-
 --[[
 function EvoData.parse()
     local completeString = ""
@@ -5424,6 +5456,9 @@ function EvoData.parse()
         end
         currentIndex = currentIndex + 1
     end
+    currentString = currentString .. "},\n"
+    completeString = completeString .. currentString
     MiscUtils.writeStringToFile("luaevodata.txt", completeString)
     print("done")
-end--]]
+end
+--]]
