@@ -45,6 +45,7 @@ local function Main()
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/FrameFactory.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/RepelDrawer.lua")
 	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
 
 	if Paths.SLASH == "\\" then
@@ -90,6 +91,7 @@ local function Main()
 				self.run()
 			end
 		else
+			client.SetSoundOn(soundOn)
 			loadNextSeed = false
 			self.run()
 		end
