@@ -18,6 +18,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         SHOW_ACCURACY_AND_EVASION = true,
         RANDOM_BALL_PICKER = true,
         SHOW_POKECENTER_HEALS = false,
+        SHOW_NICKNAME = false,
         ICON_SET_INDEX = 2,
         BLIND_MODE = false,
         REPEL_ICON = false
