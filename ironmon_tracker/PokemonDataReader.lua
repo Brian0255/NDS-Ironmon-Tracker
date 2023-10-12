@@ -58,7 +58,9 @@ local function PokemonDataReader(initialProgram)
                 {18, {"isEgg"}},
                 {24, {"alternateForm", "nature"}}
             },
-            C = {},
+            C = {
+                {0, "Nickname"}
+            },
             D = {
                 {28, {"unused", "encounterType"}}
             }
@@ -86,11 +88,14 @@ local function PokemonDataReader(initialProgram)
         end
     end
 
-    local function decryptWord(offsetData, address)
-        local offsetAmount = offsetData[1]
-        local dataName = offsetData[2]
-        local combineBytes = (#dataName == 1)
-        local encryptedWord = Memory.read_u16_le(address + offsetAmount)
+    local function combineBytes(byte1, byte2)
+        local combinedBytes = bit.band(byte2, 0x00FF)
+        combinedBytes = bit.lshift(combinedBytes, 8)
+        combinedBytes = bit.bor(combinedBytes, byte1)
+        return combinedBytes
+    end
+
+    local function bytesFromWord(encryptedWord)
         local encryptedByte1 = bit.band(encryptedWord, 0xFF)
         local encryptedByte2 = bit.band(bit.rshift(encryptedWord, 8), 0xFF)
 
@@ -102,14 +107,23 @@ local function PokemonDataReader(initialProgram)
 
         local byte2Data = bit.bxor(encryptedByte2, bit.band(shift24, 0xFF))
         byte2Data = bit.band(byte2Data, 0xFF)
+        return {
+            byte1 = byte1Data,
+            byte2 = byte2Data
+        }
+    end
 
+    local function decryptWord(offsetData, address)
+        local offsetAmount = offsetData[1]
+        local dataName = offsetData[2]
+        local shouldCombineBytes = (#dataName == 1)
+        local encryptedWord = Memory.read_u16_le(address + offsetAmount)
+        local byteData = bytesFromWord(encryptedWord)
+        local byte1Data, byte2Data = byteData.byte1, byteData.byte2
         if dataName[1] == "isEgg" then
             decryptedData[dataName[1]] = BitUtils.getBits(byte2Data, 6, 1)
-        elseif combineBytes then
-            local combinedBytes = bit.band(byte2Data, 0x00FF)
-            combinedBytes = bit.lshift(combinedBytes, 8)
-            combinedBytes = bit.bor(combinedBytes, byte1Data)
-            decryptedData[dataName[1]] = combinedBytes
+        elseif shouldCombineBytes then
+            decryptedData[dataName[1]] = combineBytes(byte1Data, byte2Data)
         else
             decryptedData[dataName[1]] = byte1Data
             if dataName[2] == "nature" then
@@ -127,6 +141,41 @@ local function PokemonDataReader(initialProgram)
         end
     end
 
+    local function GEN5_bytesToChar(bytes)
+        if CharMap.GEN5_NONSTANDARD[bytes] then
+            return CharMap.GEN5_NONSTANDARD[bytes]
+        end
+        return utf8.char(bytes)
+    end
+
+    local function decryptNickname(nicknameStart)
+        local done = false
+        local completeName = ""
+        for i = 0, 24, 2 do
+            if not done then
+                local encryptedWord = Memory.read_u16_le(nicknameStart + i)
+                local byteData = bytesFromWord(encryptedWord)
+                local combined = combineBytes(byteData.byte1, byteData.byte2)
+                if combined == 0xFFFF then
+                    done = true
+                else
+                    local char = ""
+                    if gameInfo.GEN == 5 then
+                        char = GEN5_bytesToChar(combined)
+                    else
+                        if CharMap.CHARS[combined] then
+                            char = CharMap.CHARS[combined]
+                        end
+                    end
+                    completeName = completeName .. char
+                end
+            end
+            advanceRNG()
+        end
+        decryptedData["nickname"] = completeName
+        return 26
+    end
+
     local function decryptBlocks(blockReadingStart, blockOrder)
         for i = 0, constants.BLOCK_TOTAL - 1, 1 do
             local currentBlockStart = blockReadingStart + (constants.BLOCK_SIZE * i)
@@ -142,7 +191,11 @@ local function PokemonDataReader(initialProgram)
                     local difference = offsetAmount - previousOffset
                     advanceRNGByDifference(difference)
                     totalBytesAdvanced = totalBytesAdvanced + difference
-                    decryptWord(offsetData, currentBlockStart)
+                    if offsetData[2] == "Nickname" then
+                        totalBytesAdvanced = totalBytesAdvanced + decryptNickname(currentBlockStart)
+                    else
+                        decryptWord(offsetData, currentBlockStart)
+                    end
                     previousOffset = offsetAmount
                 end
             end
