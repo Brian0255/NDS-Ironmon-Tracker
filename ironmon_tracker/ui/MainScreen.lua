@@ -858,6 +858,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             }
         end
         local name = currentPokemon.name
+        if (settings.appearance.SHOW_NICKNAME) then
+            name = currentPokemon.nickname
+        end
         ui.controls.pokemonNameLabel.setText(name)
         ui.controls.pokemonHP.setVisibility(not isEnemy)
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
