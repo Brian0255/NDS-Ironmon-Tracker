@@ -176,7 +176,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK] = {
         totalMonsParty = 0x2349B0,
         berryBagStart = 0x234844,
         berryBagStartBattle = 0x234844,
-        badges = 0x23CDB0
+        badges = 0x23CDB0,
+        repelSteps = 0x23D6DD
     }
 }
 
@@ -202,7 +203,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE] = {
         totalMonsParty = 0x2349B0 + 0x20,
         berryBagStart = 0x234844 + 0x20,
         berryBagStartBattle = 0x234844 + 0x20,
-        badges = 0x23CDB0 + 0x20
+        badges = 0x23CDB0 + 0x20,
+        repelSteps = 0x23D6DD + 0x20
     }
 }
 
@@ -227,7 +229,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK2] = {
         totalMonsParty = 0x21E428,
         berryBagStart = 0x21E2BC,
         berryBagStartBattle = 0x21E2BC,
-        badges = 0x226728
+        badges = 0x226728,
+        repelSteps = 0x226F51
     }
 }
 
@@ -252,7 +255,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE2] = {
         totalMonsParty = 0x21E428 + 0x80,
         berryBagStart = 0x21E2BC + 0x80,
         berryBagStartBattle = 0x21E2BC + 0x80,
-        badges = 0x226728 + 0x80
+        badges = 0x226728 + 0x80,
+        repelSteps = 0x226F51 + 0x80
     }
 }
 
