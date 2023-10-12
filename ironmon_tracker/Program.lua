@@ -773,6 +773,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for _, screen in pairs(currentScreens) do
 			screen.show()
 		end
+		if settings.appearance.REPEL_ICON and not currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] then
+			RepelDrawer.Update(memoryAddresses.repelSteps)
+		end
 	end
 
 	function self.isInBattle()
