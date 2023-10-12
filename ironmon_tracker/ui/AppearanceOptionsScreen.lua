@@ -13,14 +13,14 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_HEIGHT = 234,
+        MAIN_HEIGHT = 247,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
         MAIN_BUTTON_WIDTH = 106,
         MAIN_BUTTON_HEIGHT = 19,
         BADGE_COLOR_FRAME_HEIGHT = 84,
-        BUTTONS_FRAME_HEIGHT = 98
+        BUTTONS_FRAME_HEIGHT = 111
     }
     local ui = {}
     local eventListeners = {}
@@ -32,13 +32,13 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
 
     local function onBadgesAppearanceClick()
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.BADGE_COLOR_EDIT_PADDING, 0)
-        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN,program.UI_SCREENS.BADGES_APPEARANCE_SCREEN})
+        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN, program.UI_SCREENS.BADGES_APPEARANCE_SCREEN})
         program.drawCurrentScreens()
     end
 
     local function onColorEditClick()
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.BADGE_COLOR_EDIT_PADDING, 0)
-        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN,program.UI_SCREENS.COLOR_SCHEME_SCREEN})
+        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN, program.UI_SCREENS.COLOR_SCHEME_SCREEN})
         program.drawCurrentScreens()
     end
 
@@ -61,19 +61,21 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local function initAppearanceToggleButtons()
         local orderedKeys = {
             "AUTO_POKEMON_THEMES",
-            "RIGHT_JUSTIFIED_NUMBERS",
-            "SHOW_ACCURACY_AND_EVASION",
+            "BLIND_MODE",
             "EXPERIENCE_BAR",
             "RANDOM_BALL_PICKER",
-            "SHOW_POKECENTER_HEALS",
-            "BLIND_MODE"
+            "REPEL_ICON",
+            "RIGHT_JUSTIFIED_NUMBERS",
+            "SHOW_ACCURACY_AND_EVASION",
+            "SHOW_POKECENTER_HEALS"
         }
         ui.frames.buttonsFrame =
             Frame(
             Box(
                 {x = 0, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH-2*Graphics.SIZES.BORDER_MARGIN, height = constants.BUTTONS_FRAME_HEIGHT
+                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    height = constants.BUTTONS_FRAME_HEIGHT
                 },
                 "Top box background color",
                 "Top box border color"
@@ -84,12 +86,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         for _, key in pairs(orderedKeys) do
             local frame =
                 Frame(
-                Box(
-                    {x = 0, y = 0},
-                    {width = constants.TOGGLE_FRAME_WIDTH, height = constants.TOGGLE_FRAME_HEIGHT},
-                    nil,
-                    nil
-                ),
+                Box({x = 0, y = 0}, {width = constants.TOGGLE_FRAME_WIDTH, height = constants.TOGGLE_FRAME_HEIGHT}, nil, nil),
                 Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2, {x = 4, y = 0}),
                 ui.frames.buttonsFrame
             )
@@ -116,7 +113,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             local labelName
             labelName = key:gsub("_", " "):lower()
             labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
-            labelName = labelName:gsub("poke", "Pok"..Chars.accentedE)
+            labelName = labelName:gsub("poke", "Pok" .. Chars.accentedE)
             if key == "BLIND_MODE" then
                 labelName = "Blind mode (hides stats/ability)"
             end
@@ -155,9 +152,9 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         local buttons = {
             badgesAppearanceButton = {name = "Badges Appearance", iconName = program.getGameInfo().BADGE_PREFIX},
             colorThemeButton = {name = "Edit Color Theme", iconName = "PAINTBRUSH"},
-            pokemonIconsButton = {name = "Pok"..Chars.accentedE.."mon Icon Sets", iconName = "POKEBALL"}
+            pokemonIconsButton = {name = "Pok" .. Chars.accentedE .. "mon Icon Sets", iconName = "POKEBALL"}
         }
-        local order = {"pokemonIconsButton","badgesAppearanceButton", "colorThemeButton"}
+        local order = {"pokemonIconsButton", "badgesAppearanceButton", "colorThemeButton"}
         for i, key in pairs(order) do
             local button = buttons[key]
             local text = button.name
@@ -184,10 +181,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 TextLabel(
                 Component(
                     ui.frames[frameName],
-                    Box(
-                        {x = 0, y = 0},
-                        {width = constants.MAIN_BUTTON_WIDTH - 18, height = constants.MAIN_BUTTON_HEIGHT}
-                    )
+                    Box({x = 0, y = 0}, {width = constants.MAIN_BUTTON_WIDTH - 18, height = constants.MAIN_BUTTON_HEIGHT})
                 ),
                 TextField(
                     text,
@@ -276,18 +270,9 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         initBadgeColorButtons()
         initAppearanceToggleButtons()
         table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, onGoBackClick))
-        table.insert(
-            eventListeners,
-            MouseClickEventListener(ui.frames.badgesAppearanceButtonFrame, onBadgesAppearanceClick)
-        )
-        table.insert(
-            eventListeners,
-            MouseClickEventListener(ui.frames.colorThemeButtonFrame, onColorEditClick)
-        )
-        table.insert(
-            eventListeners,
-            MouseClickEventListener(ui.frames.pokemonIconsButtonFrame, onPokemonIconsClick)
-        )
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.badgesAppearanceButtonFrame, onBadgesAppearanceClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.colorThemeButtonFrame, onColorEditClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.pokemonIconsButtonFrame, onPokemonIconsClick))
     end
 
     function self.runEventListeners()

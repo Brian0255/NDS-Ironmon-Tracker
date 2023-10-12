@@ -19,7 +19,8 @@ MiscConstants.DEFAULT_SETTINGS = {
         RANDOM_BALL_PICKER = true,
         SHOW_POKECENTER_HEALS = false,
         ICON_SET_INDEX = 2,
-        BLIND_MODE = false
+        BLIND_MODE = false,
+        REPEL_ICON = false
     },
     controls = {
         CHANGE_VIEW = "Start",
