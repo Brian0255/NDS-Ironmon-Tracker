@@ -81,7 +81,8 @@ function GameConfigurator.initAlternateForms(gameInfo)
 			PokemonData.POKEMON[currentIndex] = form
 			PokemonData.POKEMON[currentIndex].baseFormData = {
 				baseFormName = baseForm,
-				alternateFormIndex = i
+                alternateFormIndex = i,
+				baseFormIndex = formTable.baseIndex
 			}
 			currentIndex = currentIndex + 1
 		end
