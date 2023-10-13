@@ -837,6 +837,11 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	local function animateUpdate()
+		AnimatedSpriteManager.update()
+		self.drawCurrentScreens()
+	end
+
 	frameCounters = {
 		restorePointUpdate = FrameCounter(30, updateRestorePoints),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
@@ -848,7 +853,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			end,
 			nil,
 			true
-		)
+		),
+		animatedSprites = FrameCounter(16, animateUpdate, nil, true)
 	}
 
 	function self.pauseEventListeners()
