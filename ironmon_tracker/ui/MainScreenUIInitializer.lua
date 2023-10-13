@@ -118,7 +118,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                     height = constants.POKEMON_INFO_HEIGHT
                 }
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 1}),
             ui.frames.mainPokemonInfoFrame
         )
         ui.frames.pokemonNameGearFrame =
@@ -130,7 +130,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 },
                 {
                     width = constants.POKEMON_INFO_X_OFFSET,
-                    height = 10
+                    height = 9
                 }
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
@@ -534,10 +534,13 @@ local function MainScreenUIInitializer(ui, gameInfo)
         )
         ui.controls.pokemonNameLabel =
             TextLabel(
-            Component(ui.frames.pokemonNameGearFrame, Box({x = 0, y = 0}, {width = 56, height = 10}, nil, nil)),
+            Component(
+                ui.frames.pokemonNameGearFrame,
+                Box({x = 0, y = 0}, {width = 56, height = 9}, "Top box background color", "Top box background color")
+            ),
             TextField(
                 "Gorebyss",
-                Graphics.SIZES.DEFAULT_TEXT_OFFSET,
+                {x = 0, y = -1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -561,7 +564,9 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         x = 0,
                         y = 0
                     },
-                    {width = 62, height = 10}
+                    {width = 50, height = 10},
+                    "Top box background color",
+                    "Top box background color"
                 )
             ),
             TextField(
@@ -584,7 +589,9 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         x = 0,
                         y = 0
                     },
-                    {width = 64, height = 10}
+                    {width = 64, height = 10},
+                    "Top box background color",
+                    "Top box background color"
                 )
             ),
             TextField(
@@ -1084,28 +1091,25 @@ local function MainScreenUIInitializer(ui, gameInfo)
             {x = 2, y = 1}
         )
         ui.controls.trophyImage =
-        Icon(
+            Icon(
             Component(ui.frames.tourneyPointsFrame, Box({x = 0, y = 2}, {width = 0, height = 0}, nil, nil)),
             "TROPHY_ICON",
             {x = 0, y = 0}
         )
         ui.controls.tourneyPointsLabel =
-        TextLabel(
-        Component(
-            ui.frames.tourneyPointsFrame,
-            Box({x = 0, y = 0}, {width = 4, height = 0}, nil, nil)
-        ),
-        TextField(
-            "89",
-            {x = 6, y = 5},
-            TextStyle(
-                Graphics.FONT.DEFAULT_FONT_SIZE,
-                Graphics.FONT.DEFAULT_FONT_FAMILY,
-                "Top box text color",
-                "Top box background color"
+            TextLabel(
+            Component(ui.frames.tourneyPointsFrame, Box({x = 0, y = 0}, {width = 4, height = 0}, nil, nil)),
+            TextField(
+                "89",
+                {x = 6, y = 5},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
             )
         )
-    )
         ui.controls.noteIcon =
             Icon(
             Component(ui.frames.enemyNoteFrame, Box({x = 0, y = 0}, {width = 11, height = 16}, nil, nil)),
