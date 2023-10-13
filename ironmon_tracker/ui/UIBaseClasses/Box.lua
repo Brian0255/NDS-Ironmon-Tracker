@@ -5,7 +5,8 @@ local function Box(
     initialBGFillColorKey,
     shouldShadow,
     initialShadowColorKey,
-    initialTransparentOverride)
+    initialTransparentOverride,
+    initialZIndex)
     local self = {}
     local relativePosition = initialPosition
     local position = relativePosition
@@ -18,12 +19,17 @@ local function Box(
     local backgroundColorKey = initialBGColorKey
     local backgroundFillColorKey = initialBGFillColorKey
     local transparentOverride = initialTransparentOverride
+    local ZIndex = initialZIndex or 0
 
     function self.move(newPosition)
         position.x = newPosition.x
         position.y = newPosition.y
         relativePosition.x = newPosition.x
         relativePosition.y = newPosition.y
+    end
+
+    function self.getZIndex()
+        return ZIndex
     end
 
     function self.calculateActualPosition(parentPosition)

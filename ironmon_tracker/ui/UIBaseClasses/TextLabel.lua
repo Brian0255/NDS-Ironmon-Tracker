@@ -1,7 +1,6 @@
 local function TextLabel(
     initialComponent,
     initialTextField,
-
     initialVisibility,
     initialRadioGroupTable,
     initialRadioGroupKey,
@@ -71,6 +70,10 @@ local function TextLabel(
 
     function self.setBackgroundFillColorKey(newColorKey)
         component.setBackgroundFillColorKey(newColorKey)
+    end
+
+    function self.getZIndex()
+        return component.getZIndex()
     end
 
     function self.show()

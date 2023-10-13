@@ -23,7 +23,11 @@ local function Component(initialFrame, initialBox)
     function self.getPosition()
         return box.getPosition()
     end
-    
+
+    function self.getZIndex()
+        return box.getZIndex()
+    end
+
     function self.setBackgroundColorKey(newColorKey)
         box.setBackgroundColorKey(newColorKey)
     end
