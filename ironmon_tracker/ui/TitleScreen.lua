@@ -49,7 +49,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				text = text .. ", "
 			end
 		end
-		return mapping.title:gsub("%%data%%",text)
+		return mapping.title:gsub("%%data%%", text)
 	end
 
 	local function hasEnoughData(statistics)
@@ -71,7 +71,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		local dataEntry = statisticData[dataEntryKey]
 		local total = tonumber(dataEntry[2])
 		local percent = string.format("%.1f", total / runAmount * 100) .. "%"
-		return mapping.title:gsub("%%percent%%",percent.."%")
+		return mapping.title:gsub("%%percent%%", percent .. "%")
 	end
 
 	local percentStatisticMappings = {
@@ -81,45 +81,45 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 			dataEntryKey = 1
 		},
 		{
-			title = "You run sub 300 BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You run sub 300 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 2,
 			dataEntryKey = 1
 		},
 		{
-			title = "You run 300 - 400 BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You run 300 - 400 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 2,
 			dataEntryKey = 2
 		},
 		{
-			title = "You run 400 - 500 BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You run 400 - 500 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 2,
 			dataEntryKey = 3
 		},
 		{
-			title = "You run 500+ BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You run 500+ BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 2,
 			dataEntryKey = 4
 		},
 		{
-			title = "You lose to sub 300 BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You lose to sub 300 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 3,
 			dataEntryKey = 1
 		},
 		{
-			title = "You lose to 300 - 400 BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You lose to 300 - 400 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 3,
 			dataEntryKey = 2
 		},
 		{
-			title = "You lose to 400 - 500 BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You lose to 400 - 500 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 3,
 			dataEntryKey = 3
 		},
 		{
-			title = "You lose to 500+ BST Pok"..Chars.accentedE.."mon %percent% of the time.",
+			title = "You lose to 500+ BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
 			statKey = 3,
 			dataEntryKey = 4
-		},
+		}
 	}
 
 	local basicStatisticMappings = {
@@ -168,7 +168,6 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 			amount = 3
 		}
 	}
-
 
 	local function getRandomStatistic()
 		local statistics = seedLogger.getPastRunStatistics()
@@ -463,7 +462,16 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 			TextLabel(
 			Component(
 				ui.frames.bottomFrame,
-				Box({x = 0, y = 0}, {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 14})
+				Box(
+					{x = 0, y = 0},
+					{width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 14},
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					1
+				)
 			),
 			TextField(
 				"Favorites",
