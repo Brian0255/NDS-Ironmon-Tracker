@@ -57,7 +57,9 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 
 	local function clearEvoRow(index)
 		local row = evoRows[index]
-		row.name, row.bst, row.percent = "", "", ""
+		row.name.setText("")
+		row.bst.setText("")
+		row.percent.setText("")
 	end
 
 	local function fillRow(evoEntry, row)
