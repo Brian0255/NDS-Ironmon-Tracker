@@ -38,6 +38,13 @@ local directionToImageRow = {
     [3] = 2
 }
 
+local directionToJoypad = {
+    [0] = "Up",
+    [1] = "Down",
+    [2] = "Left",
+    [3] = "Right"
+}
+
 local extraOffsets = {
     --offsets for {up, down, left, right} to make animations smoother on direction changes
     [1] = {{x = 1, y = -3}, {x = 1, y = -3}, {x = 0, y = -2}, {x = 2, y = -2}},
@@ -808,7 +815,16 @@ function AnimatedSpriteManager.update(forceDown)
         return
     end
     local newDirection = Memory.read_u8(memoryAddresses.facingDirection)
-    if newDirection ~= -1 and direction ~= newDirection and newDirection >= 0 and newDirection <= 3 then
+    local inBounds = newDirection >= 0 and newDirection <= 3
+    if not inBounds then
+        return
+    end
+    local directionToCheck = directionToJoypad[newDirection]
+    local prevInput = Input.getPreviousJoypad()
+    local currentInput = Input.getJoypad()
+    local validOnJoypad =
+        (currentInput ~= nil and currentInput[directionToCheck]) or (prevInput ~= nil and prevInput[directionToCheck])
+    if newDirection ~= -1 and direction ~= newDirection and validOnJoypad then
         direction = newDirection
     end
 end
