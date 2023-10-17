@@ -104,6 +104,7 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
         )
         frameInfo.label1.setText(trainerInfo.battleName)
         frameInfo.label2.setText(#rowInfo.foundPokemon .. " Pok" .. Chars.accentedE .. "mon")
+        AnimatedSpriteManager.removeImage(frameInfo.imageLabel)
         table.insert(resultEventListeners, MouseClickEventListener(frameInfo.frame, onTrainerClick, rowInfo))
     end
 
@@ -175,7 +176,7 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
     local function getAbilityText(abilities)
         local text = "Only ability"
         if #abilities > 1 then
-            text = "1 of 2 abilities"
+            text = "1 of " .. #abilities .. " abilities"
         end
         return text
     end
