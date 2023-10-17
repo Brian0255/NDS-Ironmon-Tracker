@@ -513,6 +513,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		gameInfo = info.gameInfo
 		memoryAddresses = info.memoryAddresses
 		battleHandler.setMemoryAddresses(memoryAddresses)
+		AnimatedSpriteManager.setMemoryAddresses(memoryAddresses)
 	end
 
 	local function HGSS_checkLeagueDefeated()
@@ -583,7 +584,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if playerPokemon ~= nil then
 			pokemonThemeManager.update(playerPokemon.pokemonID)
 		end
-		if beforeFirstPokemon or afterFirstPokemon or inThemeView then
+		local usingAnimated = settings.appearance.ICON_SET_INDEX == 5
+		if (beforeFirstPokemon or afterFirstPokemon or inThemeView) and not usingAnimated then
 			self.drawCurrentScreens()
 		end
 		tourneyTracker.updateMilestones(battleHandler.getDefeatedTrainers(), currentMapID)
@@ -773,7 +775,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		for _, screen in pairs(currentScreens) do
 			screen.show()
 		end
-		if settings.appearance.REPEL_ICON and not currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] then
+		if
+			settings.appearance.REPEL_ICON and not currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] and
+				not currentScreens[self.UI_SCREENS.TITLE_SCREEN]
+		 then
 			RepelDrawer.Update(memoryAddresses.repelSteps)
 		end
 	end
@@ -838,8 +843,24 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function animateUpdate()
-		AnimatedSpriteManager.update()
-		self.drawCurrentScreens()
+		if settings.appearance.ICON_SET_INDEX ~= 5 then
+			return
+		end
+		local invalid =
+			inTrackedPokemonView or inPastRunView or currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] or battleHandler.isInBattle()
+		AnimatedSpriteManager.update(invalid)
+	end
+
+	local function advanceAnimationFrame()
+		if settings.appearance.ICON_SET_INDEX ~= 5 then
+			return
+		end
+		local toWait = 10
+		if settings.animatedSprites.FASTER_ANIMATIONS then
+			toWait = 8
+		end
+		frameCounters.animatedSprites.setFrames(toWait)
+		AnimatedSpriteManager.advanceFrame()
 	end
 
 	frameCounters = {
@@ -854,7 +875,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			nil,
 			true
 		),
-		animatedSprites = FrameCounter(16, animateUpdate, nil, true)
+		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true)
 	}
 
 	function self.pauseEventListeners()
@@ -919,6 +940,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			frameCounter.decrement()
 		end
 		battleHandler.runFrameCounters()
+		animateUpdate()
 	end
 
 	function self.onProgramExit()
@@ -987,6 +1009,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
 	randomizerLogParser = RandomizerLogParser(self)
+	AnimatedSpriteManager.initialize(self.drawCurrentScreens, memoryAddresses, gameInfo, settings)
 
 	return self
 end
