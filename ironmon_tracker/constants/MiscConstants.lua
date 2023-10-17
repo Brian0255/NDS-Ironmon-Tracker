@@ -23,6 +23,10 @@ MiscConstants.DEFAULT_SETTINGS = {
         BLIND_MODE = false,
         REPEL_ICON = false
     },
+    animatedSprites = {
+        FASTER_ANIMATIONS = false,
+        CHANGE_DIRECTION = false
+    },
     controls = {
         CHANGE_VIEW = "Start",
         LOAD_NEXT_SEED = "A B Start Select",
