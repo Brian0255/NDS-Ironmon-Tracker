@@ -1,11 +1,16 @@
 AnimatedSpriteManager = {}
 
 local direction = 1
-local offset = 0
 local currentSpriteFrame = 0
 
 local pokemonImages = {}
-DrawingUtils.id = 649
+
+local drawFunction = function()
+end
+
+local memoryAddresses = {}
+local gameInfo = {}
+local settings = {}
 
 local absolutelyHugeMassiveSprites = {
     ["Arceus"] = true,
@@ -32,18 +37,18 @@ local directionToImageRow = {
     [2] = 1,
     [3] = 2
 }
---problematic: tornadus T, thundurus T
+
 local extraOffsets = {
     --offsets for {up, down, left, right} to make animations smoother on direction changes
     [1] = {{x = 1, y = -3}, {x = 1, y = -3}, {x = 0, y = -2}, {x = 2, y = -2}},
     [2] = {{x = 1, y = -4}, {x = 1, y = -2}, {x = -2, y = -3}, {x = 4, y = -3}},
-    [3] = {{x = 0, y = -1}, {x = 0, y = 0}, {x = -3, y = 0}, {x = 4, y = 0}},
+    [3] = {{x = 0, y = -1}, {x = 0, y = 0}, {x = -3, y = -1}, {x = 6, y = -1}},
     [4] = {{x = 1, y = -2}, {x = 1, y = -2}, {x = 3, y = -3}, {x = -1, y = -3}},
-    [5] = {{x = 0, y = -2}, {x = 0, y = -2}, {x = 0, y = -2}, {x = 1, y = -2}},
-    [6] = {{x = 1, y = -1}, {x = 1, y = 0}, {x = 1, y = 0}, {x = 1, y = 0}},
+    [5] = {{x = 0, y = -2}, {x = 0, y = -2}, {x = 0, y = -2}, {x = 2, y = -2}},
+    [6] = {{x = 1, y = -1}, {x = 1, y = 0}, {x = 1, y = -1}, {x = 2, y = -1}},
     [7] = {{x = 1, y = -2}, {x = 1, y = -2}, {x = -1, y = -2}, {x = 3, y = -2}},
     [8] = {{x = 1, y = -2}, {x = 1, y = -2}, {x = 0, y = -2}, {x = 2, y = -2}},
-    [9] = {{x = 0, y = 0}, {x = 0, y = 0}, {x = -1, y = -1}, {x = 2, y = -1}},
+    [9] = {{x = 0, y = 0}, {x = 0, y = 0}, {x = -2, y = -1}, {x = 3, y = -1}},
     [10] = {{x = 1, y = -2}, {x = 1, y = -2}, {x = -1, y = -2}, {x = 2, y = -2}},
     [11] = {{x = 0, y = -1}, {x = 0, y = -1}, {x = 0, y = -2}, {x = 1, y = -2}},
     [12] = {{x = 1, y = 0}, {x = 1, y = 0}, {x = -3, y = 0}, {x = 5, y = 0}},
@@ -716,16 +721,32 @@ local alternateFormOffsets = {
     ["Unfezant F"] = {{x = 0, y = 1}, {x = 0, y = -1}, {x = -1, y = 0}, {x = 2, y = 0}}
 }
 
+function AnimatedSpriteManager.initialize(newDrawFunction, newMemoryAddresses, newGameInfo, newSettings)
+    drawFunction = newDrawFunction
+    memoryAddresses = newMemoryAddresses
+    gameInfo = newGameInfo
+    settings = newSettings
+end
+
+function AnimatedSpriteManager.setMemoryAddresses(newMemoryAddresses)
+    memoryAddresses = newMemoryAddresses
+end
+
 local function updateImages()
-    for label, pokemonID in pairs(pokemonImages) do
+    for label, info in pairs(pokemonImages) do
+        local pokemonID, downOnly = info.pokemonID, info.downOnly
+        local directionToUse = direction
+        if downOnly then
+            directionToUse = 1
+        end
         local name = PokemonData.POKEMON[pokemonID + 1].name
         local width, height = 32, 32
         local extraOffset = {x = 0, y = 0}
         if extraOffsets[pokemonID] then
-            extraOffset = extraOffsets[pokemonID][direction + 1]
+            extraOffset = extraOffsets[pokemonID][directionToUse + 1]
         end
         if alternateFormOffsets[name] then
-            extraOffset = alternateFormOffsets[name][direction + 1]
+            extraOffset = alternateFormOffsets[name][directionToUse + 1]
         end
         label.setOffset({x = extraOffset.x, y = extraOffset.y - 4})
         if absolutelyHugeMassiveSprites[name] then
@@ -734,34 +755,60 @@ local function updateImages()
         end
 
         label.setImageRegionSize({["width"] = width, ["height"] = height})
-        local yOffset = directionToImageRow[direction] * height
+        local yOffset = directionToImageRow[directionToUse] * height
         label.setImageRegionOffset({x = width * currentSpriteFrame, y = yOffset})
     end
 end
-function AnimatedSpriteManager.addPokemonImage(pokemonImage, pokemonID)
-    pokemonImages[pokemonImage] = pokemonID
-    updateImages()
+
+function AnimatedSpriteManager.addPokemonImage(pokemonImage, pokemonID, shouldUpdate, downOnly)
+    if downOnly == nil then
+        downOnly = true
+    end
+    pokemonImages[pokemonImage] = {
+        ["pokemonID"] = pokemonID,
+        ["downOnly"] = downOnly
+    }
+    if shouldUpdate then
+        updateImages()
+    end
 end
 
-function AnimatedSpriteManager.update(newDirection)
-    if newDirection ~= -1 then
-    --direction = newDirection
-    end
-    local stuff = joypad.get()
-    if stuff["Left"] then
-        direction = 2
-    end
-    if stuff["Right"] then
-        direction = 3
-    end
-    if stuff["Up"] then
-        direction = 0
-    end
-    if stuff["Down"] then
-        direction = 1
-    end
-
-    --direction = direction % 4
+function AnimatedSpriteManager.advanceFrame()
     currentSpriteFrame = (currentSpriteFrame + 1) % 4
     updateImages()
+    drawFunction()
+end
+
+local function GEN5_updateDirectionAddress()
+    local start = memoryAddresses.mapNPCIDStart
+    local playerID = 0xFF
+    for i = 0, 99, 1 do
+        local check = start + 0x100 * i
+        if Memory.read_u8(check) == playerID then
+            memoryAddresses.facingDirection = check + 0x10
+            break
+        end
+    end
+end
+
+local function GEN5_checkMapChanged()
+    local playerID = Memory.read_u16_le(memoryAddresses.facingDirection - 0x10)
+    if playerID ~= 0xFF then
+        GEN5_updateDirectionAddress()
+    end
+end
+
+function AnimatedSpriteManager.update(forceDown)
+    forceDown = forceDown or not settings.animatedSprites.CHANGE_DIRECTION
+    if gameInfo.GEN == 5 then
+        GEN5_checkMapChanged()
+    end
+    if forceDown then
+        direction = 1
+        return
+    end
+    local newDirection = Memory.read_u8(memoryAddresses.facingDirection)
+    if newDirection ~= -1 and direction ~= newDirection and newDirection >= 0 and newDirection <= 3 then
+        direction = newDirection
+    end
 end
