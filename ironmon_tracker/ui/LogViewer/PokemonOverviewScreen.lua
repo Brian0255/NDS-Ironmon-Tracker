@@ -108,7 +108,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
                 matchFrame.nameLabel.setTextOffset({x = xOffset, y = 1})
                 matchFrame.nameLabel.setText(name)
                 local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
-                DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, id, matchFrame.imageLabel, {x = 1, y = 0})
+                DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, id, matchFrame.imageLabel)
                 matchClickEventListeners[index].setOnClickParams(id)
             else
                 clearMatchFrame(matchFrame, index)
@@ -267,12 +267,12 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         )
 
         ui.controls.bookmarkIcon =
-        Icon(
-        Component(ui.frames.bookmarkFrame, Box({x = 0, y = 0}, {width = 16, height = 16}, nil, nil)),
-        "BOOKMARK_EMPTY_LARGE",
-        {x = 2, y = 1}
-    )
-    eventListeners.onBookmarkClick = MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick)
+            Icon(
+            Component(ui.frames.bookmarkFrame, Box({x = 0, y = 0}, {width = 16, height = 16}, nil, nil)),
+            "BOOKMARK_EMPTY_LARGE",
+            {x = 2, y = 1}
+        )
+        eventListeners.onBookmarkClick = MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick)
     end
 
     local function initUI()

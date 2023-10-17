@@ -25,6 +25,12 @@ local function ImageLabel(initialComponent, initialImageField, initialVisibility
     function self.setOffset(newOffset)
         imageField.setOffset(newOffset)
     end
+    function self.getZIndex()
+        return component.getZIndex()
+    end
+    function self.getOffset()
+        return imageField.getOffset()
+    end
     function self.setImageRegionOffset(newOffset)
         imageField.setImageRegionOffset(newOffset)
     end

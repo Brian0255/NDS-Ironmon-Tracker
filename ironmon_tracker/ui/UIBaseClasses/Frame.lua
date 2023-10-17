@@ -75,6 +75,9 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
         visible = newVisibility
     end
     function self.isVisible()
+        if type(visible) == "function" then
+            return visible()
+        end
         return visible
     end
     function self.move(newPosition)
@@ -92,8 +95,11 @@ local function Frame(initialBox, initialLayout, initialFrame, initialVisibility)
     function self.setLayoutPadding(newPadding)
         layout.setPadding(newPadding)
     end
+    function self.getZIndex()
+        return box.getZIndex()
+    end
     function self.show()
-        if visible then
+        if self.isVisible() then
             box.show()
             self.recalculateChildPositions()
             local toDraw = {}

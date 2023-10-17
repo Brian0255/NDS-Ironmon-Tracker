@@ -46,6 +46,9 @@ local function ImageField(initialPath, initialOffset, initialSize, initialImageR
             y = newOffset.y
         }
     end
+    function self.getOffset()
+        return {x = offset.x, y = offset.y}
+    end
     function self.getPath()
         return path
     end
