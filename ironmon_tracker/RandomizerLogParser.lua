@@ -224,9 +224,7 @@ local function RandomizerLogParser(initialProgram)
                 local abilityNames = {pokemonData[10], pokemonData[11], pokemonData[12]}
                 pokemon.abilities = {}
                 for _, abilityName in pairs(abilityNames) do
-                    if abilityIDMappings[abilityName] ~= nil and abilityName ~= "--" then
-                        table.insert(pokemon.abilities, abilityIDMappings[abilityName])
-                    end
+                    table.insert(pokemon.abilities, abilityIDMappings[abilityName] or 0)
                 end
             end
             currentLineIndex = currentLineIndex + 1
