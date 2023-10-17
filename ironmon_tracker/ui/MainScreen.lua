@@ -858,8 +858,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             }
         end
         local name = currentPokemon.name
-        if (settings.appearance.SHOW_NICKNAME) then
-            name = currentPokemon.nickname
+        if settings.appearance.SHOW_NICKNAME and not isEnemy then
+            name = currentPokemon.nickname or name
         end
         ui.controls.pokemonNameLabel.setText(name)
         ui.controls.pokemonHP.setVisibility(not isEnemy)
@@ -869,12 +869,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             imageID = currentPokemon.alternateFormID
         end
         eventListeners.noteIconListener.setOnClickParams({pokemon = currentPokemon.pokemonID, ["isEnemy"] = isEnemy})
-        DrawingUtils.readPokemonIDIntoImageLabel(
-            currentIconSet,
-            imageID,
-            ui.controls.pokemonImageLabel,
-            currentIconSet.IMAGE_OFFSET
-        )
+        DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, imageID, ui.controls.pokemonImageLabel, isEnemy)
         setUpEvo(isEnemy)
         local pokemonHoverParams = hoverListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = currentPokemon
@@ -1007,7 +1002,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         self.updateBadgeLayout()
         readPokemonIntoUI()
         setUpBasedOnRandomBallPicker()
-        browsManager.show()
         ui.frames.mainFrame.show()
         if not program.isInBattle() or inPastRunView or inTrackedView then
             extraThingsToDraw.moveEffectiveness = {}
@@ -1019,6 +1013,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
+        browsManager.show()
     end
 
     local function initMoveListeners()
@@ -1099,6 +1094,11 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function onTourneyPointsClick()
         program.openTourneyScoreBreakdown(program.UI_SCREENS.MAIN_SCREEN)
+    end
+
+    local function ok()
+        DrawingUtils.id = DrawingUtils.id + 1
+        print(DrawingUtils.id)
     end
 
     local function initEventListeners()
@@ -1195,6 +1195,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         table.insert(eventListeners, MouseClickEventListener(ui.frames.tourneyPointsFrame, onTourneyPointsClick))
         table.insert(eventListeners, MouseClickEventListener(ui.controls.pokemonLevelAndEvo, program.onEvoLabelClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.pokemonImageLabel, ok))
     end
 
     function self.getMainFrameSize()
