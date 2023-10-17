@@ -101,7 +101,13 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 {
                     width = constants.POKEMON_INFO_X_OFFSET,
                     height = constants.POKEMON_INFO_HEIGHT
-                }
+                },
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                1
             ),
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
             ui.frames.mainPokemonInfoFrame
@@ -519,7 +525,10 @@ local function MainScreenUIInitializer(ui, gameInfo)
     function self.initPokemonInfoControls()
         ui.controls.pokemonImageLabel =
             ImageLabel(
-            Component(ui.frames.pokemonImageTypeFrame, Box({x = 0, y = 0}, {width = 30, height = 28}, nil, nil)),
+            Component(
+                ui.frames.pokemonImageTypeFrame,
+                Box({x = 0, y = 0}, {width = 30, height = 28}, nil, nil, nil, nil, nil, 1)
+            ),
             ImageField("ironmon_tracker/images/pokemonIcons/1.png", {x = 0, y = -5}, nil)
         )
         ui.controls.pokemonType1 =
@@ -534,10 +543,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
         )
         ui.controls.pokemonNameLabel =
             TextLabel(
-            Component(
-                ui.frames.pokemonNameGearFrame,
-                Box({x = 0, y = 0}, {width = 56, height = 9}, "Top box background color", "Top box background color")
-            ),
+            Component(ui.frames.pokemonNameGearFrame, Box({x = 0, y = 0}, {width = 56, height = 9})),
             TextField(
                 "Gorebyss",
                 {x = 0, y = -1},
@@ -565,7 +571,6 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         y = 0
                     },
                     {width = 50, height = 10},
-                    "Top box background color",
                     "Top box background color"
                 )
             ),
@@ -589,9 +594,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                         x = 0,
                         y = 0
                     },
-                    {width = 64, height = 10},
-                    "Top box background color",
-                    "Top box background color"
+                    {width = 64, height = 10}
                 )
             ),
             TextField(
