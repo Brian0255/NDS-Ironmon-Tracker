@@ -58,7 +58,7 @@ IconSets.SETS = {
         AUTHOR = {"Credit: PokéSprite Repository", "Edited by kittenchilly"}
     },
     {
-        NAME = "HGSS Walking Sprites",
+        NAME = "HGSS Follow Sprites",
         FILE_EXTENSION = ".png",
         FOLDER_NAME = "hgsssprites",
         IMAGE_OFFSET = {
@@ -69,6 +69,6 @@ IconSets.SETS = {
             x = 0,
             y = -5
         },
-        AUTHOR = {"Credit: PMD Sprite Repository"}
+        AUTHOR = {"Credit: Various Sources"}
     }
 }
