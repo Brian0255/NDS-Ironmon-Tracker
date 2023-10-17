@@ -274,8 +274,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE2] = {
         berryBagStartBattle = 0x21E2BC + 0x80,
         badges = 0x226728 + 0x80,
         repelSteps = 0x226F51 + 0x80,
-        facingDirection = 0x23E2FC + 0x80,
-        mapNPCIDStart = 0x23E2EC + 0x80
+        facingDirection = 0x23D9FC + 0x80,
+        mapNPCIDStart = 0x23D9EC + 0x80
     }
 }
 

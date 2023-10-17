@@ -1096,11 +1096,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         program.openTourneyScoreBreakdown(program.UI_SCREENS.MAIN_SCREEN)
     end
 
-    local function ok()
-        DrawingUtils.id = DrawingUtils.id + 1
-        print(DrawingUtils.id)
-    end
-
     local function initEventListeners()
         initMoveListeners()
         hoverListeners.abilityHoverListener =
@@ -1195,7 +1190,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         )
         table.insert(eventListeners, MouseClickEventListener(ui.frames.tourneyPointsFrame, onTourneyPointsClick))
         table.insert(eventListeners, MouseClickEventListener(ui.controls.pokemonLevelAndEvo, program.onEvoLabelClick))
-        table.insert(eventListeners, MouseClickEventListener(ui.controls.pokemonImageLabel, ok))
     end
 
     function self.getMainFrameSize()

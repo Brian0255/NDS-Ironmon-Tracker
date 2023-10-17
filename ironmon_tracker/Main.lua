@@ -47,6 +47,7 @@ local function Main()
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/RepelDrawer.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/AnimatedSpriteManager.lua")
 	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
 
 	if Paths.SLASH == "\\" then

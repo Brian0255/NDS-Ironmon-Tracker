@@ -777,7 +777,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 		if
 			settings.appearance.REPEL_ICON and not currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] and
-				not currentScreens[self.UI_SCREENS.TITLE_SCREEN]
+				tracker.getFirstPokemonID() ~= nil
 		 then
 			RepelDrawer.Update(memoryAddresses.repelSteps)
 		end
