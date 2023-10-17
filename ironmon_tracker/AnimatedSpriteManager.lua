@@ -780,6 +780,11 @@ function AnimatedSpriteManager.addPokemonImage(pokemonImage, pokemonID, shouldUp
     end
 end
 
+function AnimatedSpriteManager.removeImage(imageLabel)
+    imageLabel.setImageRegionOffset({x = 0, y = -0})
+    pokemonImages[imageLabel] = nil
+end
+
 function AnimatedSpriteManager.advanceFrame()
     currentSpriteFrame = (currentSpriteFrame + 1) % 4
     updateImages()
@@ -822,8 +827,9 @@ function AnimatedSpriteManager.update(forceDown)
     local directionToCheck = directionToJoypad[newDirection]
     local prevInput = Input.getPreviousJoypad()
     local currentInput = Input.getJoypad()
-    local validOnJoypad =
-        (currentInput ~= nil and currentInput[directionToCheck]) or (prevInput ~= nil and prevInput[directionToCheck])
+    local validOnJoypad = true
+    --don't really feel that this is necessary
+    --validOnJoypad = (currentInput ~= nil and currentInput[directionToCheck]) or (prevInput ~= nil and prevInput[directionToCheck])
     if newDirection ~= -1 and direction ~= newDirection and validOnJoypad then
         direction = newDirection
     end
