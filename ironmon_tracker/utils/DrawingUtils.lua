@@ -265,21 +265,42 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
     gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), bolded)
 end
 
-function DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, pokemonID, imageLabel, imageOffset)
+local function getPokemonPath(pokemonID, currentIconSet)
+    local pokemonData = PokemonData.POKEMON[pokemonID + 1]
+    local pokemonIDPath = tostring(pokemonID)
     local folderPath = Paths.FOLDERS.POKEMON_ICONS_FOLDER .. "/" .. currentIconSet.FOLDER_NAME .. "/"
     local extension = currentIconSet.FILE_EXTENSION
-    imageLabel.setOffset(currentIconSet.IMAGE_OFFSET)
-    local pokemonData = PokemonData.POKEMON[pokemonID + 1]
-    if not pokemonData.baseFormData then
-        imageLabel.setPath(folderPath .. pokemonID .. extension)
-    else
+    local usingAnimated = settings.appearance.ICON_SET_INDEX == 5
+    if usingAnimated then
+        pokemonIDPath = string.format("%03d", pokemonID)
+    end
+    if pokemonData.baseFormData then
         local baseFormData = pokemonData.baseFormData
         if PokemonData.ALTERNATE_FORMS[baseFormData.baseFormName] then
             local index = baseFormData.alternateFormIndex
-            local path = folderPath .. "alternateForms/" .. baseFormData.baseFormName .. "/" .. index .. extension
-            imageLabel.setPath(path)
+            pokemonIDPath = "alternateForms/" .. baseFormData.baseFormName .. "/" .. index
+            if usingAnimated then
+                pokemonIDPath = baseFormData.baseFormIndex .. "_" .. index
+            end
+            if not FormsUtils.fileExists(folderPath .. pokemonIDPath .. extension) then
+                pokemonID = baseFormData.baseFormIndex
+                pokemonIDPath = string.format("%03d", pokemonID)
+            end
         end
     end
+    return folderPath .. pokemonIDPath .. extension
+end
+
+function DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, pokemonID, imageLabel, shouldChangeDirection)
+    imageLabel.setOffset(currentIconSet.IMAGE_OFFSET)
+    local path = getPokemonPath(pokemonID, currentIconSet)
+    imageLabel.setPath(path)
+    local usingAnimated = settings.appearance.ICON_SET_INDEX == 5
+    if not usingAnimated then
+        imageLabel.setImageRegionOffset({x = 0, y = -0})
+        imageLabel.setOffset(currentIconSet.IMAGE_OFFSET)
+    end
+    AnimatedSpriteManager.addPokemonImage(imageLabel, pokemonID, usingAnimated, shouldChangeDirection)
 end
 
 function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
@@ -408,7 +429,12 @@ function DrawingUtils.drawMoveEffectiveness(position, effectiveness)
                 x,
                 y,
                 "X",
-                TextStyle(7, Graphics.FONT.DEFAULT_FONT_FAMILY, "Alternate negative text color", "Bottom box background color"),
+                TextStyle(
+                    7,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Alternate negative text color",
+                    "Bottom box background color"
+                ),
                 DrawingUtils.convertColorKeyToColor("Bottom box background color")
             )
         end
@@ -496,7 +522,7 @@ function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
             extraThingsToDraw.experienceBar.y,
             extraThingsToDraw.experienceBar.percent
         DrawingUtils.drawExperienceBar(x, y, percent)
-	elseif extraThingsToDraw.friendshipBar ~= nil then
+    elseif extraThingsToDraw.friendshipBar ~= nil then
         local x, y, progress =
             extraThingsToDraw.friendshipBar.x,
             extraThingsToDraw.friendshipBar.y,
