@@ -11,6 +11,9 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
     local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
     local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local SearchKeyboard = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/SearchKeyboard.lua")
+    local StatsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/StatsScreen.lua")
+    local ScreenStack = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScreenStack.lua")
+    local statsScreen
     local logViewerScreen = initialLogViewerScreen
     local settings = initialSettings
     local sortedPokemonIDs = {}
@@ -275,6 +278,56 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         eventListeners.onBookmarkClick = MouseClickEventListener(ui.controls.bookmarkIcon, onBookmarkClick)
     end
 
+    local function initStatsButton()
+        ui.frames.statsFrame =
+            Frame(
+            Box(
+                {
+                    x = 214,
+                    y = 150
+                },
+                {
+                    width = 31,
+                    height = 31
+                },
+                "Top box background color",
+                "Top box border color"
+            ),
+            nil
+        )
+        local barHeights = {13, 26, 20}
+        local barWidth = 9
+        for i, barHeight in pairs(barHeights) do
+            local xOffset = 2 + ((barWidth) * (i - 1))
+            local yOffset = 4 + (25 - barHeight)
+            TextLabel(
+                Component(
+                    ui.frames.statsFrame,
+                    Box(
+                        {x = xOffset, y = yOffset},
+                        {
+                            width = barWidth,
+                            height = barHeight
+                        },
+                        "Top box border color",
+                        nil
+                    )
+                ),
+                TextField(
+                    "",
+                    {x = 0, y = 0},
+                    TextStyle(
+                        Graphics.FONT.DEFAULT_FONT_SIZE,
+                        Graphics.FONT.DEFAULT_FONT_FAMILY,
+                        "Top box text color",
+                        "Top box background color"
+                    )
+                )
+            )
+        end
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.statsFrame, logViewerScreen.openStatsScreen))
+    end
+
     local function initUI()
         ui.controls = {}
         ui.frames = {}
@@ -358,6 +411,8 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         pokemonSearchKeyboard = SearchKeyboard(sortedPokemonIDs, ui.frames.searchFrame, createMatchSets, clearMatches)
         table.insert(eventListeners, MouseClickEventListener(ui.controls.rightButton, onForwardClick))
         table.insert(eventListeners, MouseClickEventListener(ui.controls.leftButton, onBackwardClick))
+        initStatsButton()
+        statsScreen = StatsScreen(settings, tracker, program, self)
     end
 
     function self.runEventListeners()
@@ -375,6 +430,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
         ui.controls.rightButton.setVisibility(moreThan4)
         ui.controls.leftButton.setVisibility(moreThan4)
         ui.frames.mainFrame.show()
+        ui.frames.statsFrame.show()
     end
 
     initUI()
