@@ -15,8 +15,10 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local InfoScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/InfoScreen.lua")
     local GymTMScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/GymTMScreen.lua")
     local StatsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/StatsScreen.lua")
-    local SearchScreen = dofile(Paths.FOLDERS.UI_FOLDER.."/LogViewer/SearchScreen.lua")
+    local SearchScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/SearchScreen.lua")
+    local PivotsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/PivotsScreen.lua")
     local ScreenStack = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScreenStack.lua")
+
     local tabScreenStack
     local settings = initialSettings
     local tracker = initialTracker
@@ -33,14 +35,15 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local trainerScreenStack
     local infoScreen
     local searchScreen
+    local pivotsScreen
     local sortedTrackedIDs
     local trainerGroups
     local currentIndex = 1
     local tabs = {
         "Pok" .. Chars.accentedE .. "mon",
         "Trainers",
+        "Pivots",
         "Gym TMs",
-        "Stats",
         "Info",
         "Search"
     }
@@ -94,7 +97,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
 
     local function undoOpenTrainerTeamFromTMs()
         program.setCurrentScreens({program.UI_SCREENS.LOG_VIEWER_SCREEN})
-        self.changeActiveTabIndex(3)
+        self.changeActiveTabIndex(4)
         program.drawCurrentScreens()
     end
 
@@ -113,6 +116,12 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local function pokemonLoadingFunction(id)
         self.addGoBackFunction(goBackToTeamInfo)
         self.loadPokemonStats(id)
+    end
+
+    function self.openStatsScreen()
+        self.addGoBackFunction(self.goBackToOverview)
+        pokemonScreenStack.setCurrentIndex(3)
+        program.drawCurrentScreens()
     end
 
     function self.goBackToSearchScreen()
@@ -174,6 +183,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         trainerOverviewScreen.reset()
         statsScreen.reset()
         searchScreen.reset()
+        pivotsScreen.reset()
         pokemonScreenStack.setCurrentIndex(1)
         trainerScreenStack.setCurrentIndex(1)
         program.setCanDraw(true)
@@ -188,9 +198,8 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
 
     local function createTabs()
         local xOffsets = {3, 3, 3, 3, 3, 3}
-        local widths = {46, 39, 42, 27, 22, 34}
         for index, tabName in pairs(tabs) do
-            local tabWidth = widths[index]
+            local tabWidth = DrawingUtils.calculateWordPixelLength(tabName) + 7
             local tabControl =
                 TextLabel(
                 Component(
@@ -261,11 +270,15 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         teamInfoScreen = TeamInfoScreen(settings, tracker, program, self)
         gymTMScreen = GymTMScreen(settings, tracker, program, self)
         statsScreen = StatsScreen(settings, tracker, program, self)
-        searchScreen = SearchScreen(settings,tracker,program,self)
-        pokemonScreenStack = ScreenStack({pokemonOverviewScreen, pokemonStatScreen})
+        searchScreen = SearchScreen(settings, tracker, program, self)
+        pokemonScreenStack = ScreenStack({pokemonOverviewScreen, pokemonStatScreen, statsScreen})
         trainerScreenStack = ScreenStack({trainerOverviewScreen, teamInfoScreen})
         infoScreen = InfoScreen(settings, tracker, program, self)
-        tabScreenStack = ScreenStack({pokemonScreenStack, trainerScreenStack, gymTMScreen, statsScreen, infoScreen, searchScreen})
+        pivotsScreen = PivotsScreen(settings, tracker, program, self)
+        tabScreenStack =
+            ScreenStack(
+            {pokemonScreenStack, trainerScreenStack, pivotsScreen, gymTMScreen, infoScreen, searchScreen, statsScreen}
+        )
     end
 
     function self.updatePokemonStatIDs(newIDs)
@@ -326,6 +339,7 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
         gymTMScreen.initialize(logInfo)
         infoScreen.initialize(logInfo)
         searchScreen.initialize(logInfo, trainerGroups)
+        pivotsScreen.initialize(logInfo)
         self.resetTabs()
         self.changeActiveTabIndex(1)
         program.drawCurrentScreens()
