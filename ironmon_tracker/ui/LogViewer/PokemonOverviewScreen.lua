@@ -284,18 +284,18 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
             Box(
                 {
                     x = 214,
-                    y = 150
+                    y = 148
                 },
                 {
                     width = 31,
-                    height = 31
+                    height = 33
                 },
                 "Top box background color",
                 "Top box border color"
             ),
             nil
         )
-        local barHeights = {13, 26, 20}
+        local barHeights = {15, 27, 21}
         local barWidth = 9
         for i, barHeight in pairs(barHeights) do
             local xOffset = 2 + ((barWidth) * (i - 1))
@@ -325,6 +325,31 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
                 )
             )
         end
+        local statsLabel =
+            TextLabel(
+            Component(
+                ui.frames.statsFrame,
+                Box(
+                    {x = 0, y = 21},
+                    {
+                        width = 31,
+                        height = 12
+                    },
+                    "Top box background color",
+                    "Top box border color"
+                )
+            ),
+            TextField(
+                "Stats",
+                {x = 4, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
         table.insert(eventListeners, MouseClickEventListener(ui.frames.statsFrame, logViewerScreen.openStatsScreen))
     end
 
