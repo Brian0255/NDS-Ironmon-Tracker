@@ -120,7 +120,7 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
     end
 
     local function openStatsTab()
-        logViewerScreen.changeActiveTabIndex(4)
+        logViewerScreen.changeActiveTabIndex(7)
         program.drawCurrentScreens()
     end
 
