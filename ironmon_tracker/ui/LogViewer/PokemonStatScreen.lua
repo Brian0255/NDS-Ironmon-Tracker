@@ -178,7 +178,11 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     end
 
     local function readAbilitiesIntoUI(pokemon)
-        for i = 1, 3, 1 do
+        local max = 3
+        if program.getGameInfo().GEN ~= 5 then
+            max = 2
+        end
+        for i = 1, max, 1 do
             local abilityID = pokemon.abilities[i]
             local hoverListener = abilityHoverListeners[i]
             local params = hoverListener.getOnHoverParams()
