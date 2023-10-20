@@ -4,13 +4,15 @@ local function LogInfo(
     initialTMs,
     initialStarterNumber,
     initialMiscInfo,
-    initialStarters)
+    initialStarters,
+    initialPivotData)
     local self = {}
     local pokemonList = initialPokemonList
     local trainers = initialTrainers
     local TMs = initialTMs
     local starters = initialStarters
     local miscInfo = initialMiscInfo
+    local pivotData = initialPivotData
     local starterNumber = 1
 
     function self.setStarterNumberFromPlayerPokemonID(id)
@@ -43,6 +45,10 @@ local function LogInfo(
         return miscInfo
     end
 
+    function self.getPivotData()
+        return pivotData
+    end
+
     return self
 end
 
@@ -59,6 +65,7 @@ local function RandomizerLogParser(initialProgram)
     local trainers = {}
     local TMs = {}
     local starters = {}
+    local pivotData = {}
     local totalLines
 
     local function parseRandomizedEvolutions(lines, lineStart)
@@ -264,6 +271,83 @@ local function RandomizerLogParser(initialProgram)
         end
     end
 
+    local function readStandardEncounter(lines, line, startIndex, data)
+        local slotPercents = {20, 20, 10, 10, 10, 10, 5, 5, 4, 4, 1, 1}
+        local pokemonName, level = lines[line]:match("(.*) Lv(%d+)")
+        level = tonumber(level)
+        pokemonName = pokemonName:lower()
+        local id = pokemonIDMappings[pokemonName]
+        local percent = slotPercents[line - startIndex + 1]
+        local entry = data[id]
+        if data[id] == nil then
+            data[id] = {minLevel = level, maxLevel = level, ["percent"] = percent}
+        else
+            data[id] = {
+                minLevel = math.min(entry.minLevel, level),
+                maxLevel = math.max(entry.maxLevel, level),
+                ["percent"] = entry.percent + percent
+            }
+        end
+    end
+
+    local function readFishingOrHeadbuttEncounter(lines, line, startIndex, data, encounterType)
+        local slotPercents = {60, 30, 5, 4, 1}
+        if encounterType == "Headbutt" then
+            slotPercents = {20, 20, 10, 10, 10, 10, 5, 5, 4, 4, 1, 1}
+        end
+        local pokemonName, minLevel, maxLevel = lines[line]:match("(.*) Lvs (%d+)%-(%d+)")
+        minLevel = tonumber(minLevel)
+        maxLevel = tonumber(maxLevel)
+        pokemonName = pokemonName:lower()
+        local id = pokemonIDMappings[pokemonName]
+        local percent = slotPercents[line - startIndex + 1]
+        local entry = data[id]
+        if entry == nil then
+            data[id] = {["minLevel"] = minLevel, ["maxLevel"] = maxLevel, ["percent"] = percent}
+        else
+            entry.minLevel = math.min(entry.minLevel, minLevel)
+            entry.maxLevel = math.max(entry.maxLevel, maxLevel)
+            entry.percent = entry.percent + percent
+        end
+    end
+
+    local function readEncounters(lines, lineStart, pivotType)
+        local data = {}
+        local currentLineIndex = lineStart
+        local startIndex = lineStart
+        while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
+            if pivotType == "Old Rod" or pivotType == "Headbutt" then
+                readFishingOrHeadbuttEncounter(lines, currentLineIndex, startIndex, data, pivotType)
+            else
+                readStandardEncounter(lines, currentLineIndex, startIndex, data)
+            end
+            currentLineIndex = currentLineIndex + 1
+        end
+        return data
+    end
+
+    local function parseRouteData(lines, lineStart)
+        local validRoutes = program.getGameInfo().LOCATION_DATA.encounterAreaOrder
+        local pivotTypes = program.getGameInfo().PIVOT_TYPES
+        local currentLineIndex = lineStart
+        while (lines[currentLineIndex] ~= nil and currentLineIndex <= totalLines) do
+            local routeInfo = lines[currentLineIndex]
+            for pivotType, _ in pairs(pivotTypes) do
+                if routeInfo:find(pivotType) ~= -1 then
+                    local areaName = routeInfo:match("Set #%d+ %- (.+) " .. pivotType)
+                    if MiscUtils.tableContains(validRoutes, areaName) then
+                        if not pivotData[areaName] then
+                            pivotData[areaName] = {}
+                        end
+                        pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
+                    end
+                end
+            end
+            currentLineIndex = currentLineIndex + 1
+        end
+        return pivotData
+    end
+
     self.LogParserConstants = {
         SECTION_HEADER_TO_PARSE_FUNCTION = {
             ["--Pokemon Base Stats & Types--"] = parsePokemon,
@@ -275,7 +359,8 @@ local function RandomizerLogParser(initialProgram)
             ["--Move Data--"] = parseMoveInfo,
             ["------------------------------------------------------------------"] = checkGameName,
             ["--Random Starters--"] = parseStarterInfo,
-            ["--Custom Starters--"] = parseStarterInfo
+            ["--Custom Starters--"] = parseStarterInfo,
+            ["--Wild Pokemon--"] = parseRouteData
         },
         PREFERRED_PARSE_ORDER = {
             --game name
@@ -284,6 +369,7 @@ local function RandomizerLogParser(initialProgram)
             "--Pokemon Base Stats & Types--",
             "--Pokemon Movesets--",
             "--Randomized Evolutions--",
+            "--Wild Pokemon--",
             "--TM Moves--",
             "--TM Compatibility--",
             "--Trainers Pokemon--",
@@ -316,6 +402,7 @@ local function RandomizerLogParser(initialProgram)
             resetPokemon()
             trainers = {}
             TMs = {}
+            pivotData = {}
             local lines = MiscUtils.readLinesFromFile(inputFile, true)
             totalLines = #lines
             local sectionHeaderStarts = {}
@@ -348,7 +435,7 @@ local function RandomizerLogParser(initialProgram)
                 end
             end
             local miscInfo = parseMiscInfo(lines)
-            return LogInfo(pokemonList, trainers, TMs, 1, miscInfo, starters)
+            return LogInfo(pokemonList, trainers, TMs, 1, miscInfo, starters, pivotData)
         end
     end
 
