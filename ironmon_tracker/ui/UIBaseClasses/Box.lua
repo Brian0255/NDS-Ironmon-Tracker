@@ -65,6 +65,14 @@ local function Box(
         backgroundColorKey = newColorKey
     end
 
+    function self.setOpacity(newOpacity)
+        opacity = newOpacity
+    end
+
+    function self.getOpacity()
+        return opacity
+    end
+
     function self.getBackgroundColor()
         if size ~= nil and backgroundColorKey ~= nil then
             return DrawingUtils.convertColorKeyToColor(backgroundColorKey, transparentOverride)
@@ -79,6 +87,10 @@ local function Box(
         else
             return 0x00000000
         end
+    end
+
+    function self.getBackgroundFillColorKey()
+        return backgroundFillColorKey
     end
 
     function self.setBackgroundFillColorKey(newBackgroundFillColorKey)

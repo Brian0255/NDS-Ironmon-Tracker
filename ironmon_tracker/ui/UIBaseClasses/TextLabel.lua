@@ -72,6 +72,10 @@ local function TextLabel(
         component.setBackgroundFillColorKey(newColorKey)
     end
 
+    function self.getBackgroundFillColorKey()
+        return component.getBackgroundFillColorKey()
+    end
+
     function self.getZIndex()
         return component.getZIndex()
     end
@@ -99,6 +103,14 @@ local function TextLabel(
 
     function self.setShadowColorKey(newShadowColorKey)
         textField.setShadowColorKey(newShadowColorKey)
+    end
+
+    function self.setOpacity(newOpacity)
+        component.setOpacity(newOpacity)
+    end
+
+    function self.getOpacity()
+        return component.getOpacity()
     end
 
     function self.getPosition()
