@@ -23,7 +23,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             "CYCLE_PREDICTION",
             "LOCK_ENEMY"
         },
-        MAIN_FRAME_HEIGHT = 187,
+        MAIN_FRAME_HEIGHT = 211,
         CONTROL_EDIT_FRAME_HEIGHT = 159,
         TEXT_HEADER_HEIGHT = 18,
         BIND_BUTTON_FRAME_HEIGHT = 14,
