@@ -335,6 +335,9 @@ function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
 end
 
 function DrawingUtils.calcShadowColor(colorKey, veryDark, colorCode)
+    if colorKey == nil then
+        return 0x00000000
+    end
     local color = colorCode
     if color == nil then
         color = settings.colorScheme[colorKey]
