@@ -767,6 +767,10 @@ local function updateImages()
     end
 end
 
+function AnimatedSpriteManager.clearImages()
+    pokemonImages = {}
+end
+
 function AnimatedSpriteManager.addPokemonImage(pokemonImage, pokemonID, shouldUpdate, downOnly)
     if downOnly == nil then
         downOnly = true
@@ -788,6 +792,9 @@ end
 function AnimatedSpriteManager.advanceFrame()
     currentSpriteFrame = (currentSpriteFrame + 1) % 4
     updateImages()
+    if next(pokemonImages) == nil then
+        return
+    end
     drawFunction()
 end
 
