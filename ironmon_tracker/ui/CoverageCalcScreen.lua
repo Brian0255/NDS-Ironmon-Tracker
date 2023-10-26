@@ -136,6 +136,8 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
             local name = ""
             local type1Path = ""
             local type2Path = ""
+            local type1Border = nil
+            local type2Border = nil
             if items[index] then
                 local id = items[index]
                 local data = PokemonData.POKEMON[id]
@@ -144,14 +146,19 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                 if items[index] then
                     if types[2] == PokemonData.POKEMON_TYPES.EMPTY then
                         type2Path = pathPrefix .. types[1] .. ".png"
+                        type2Border = "Top box border color"
                     else
                         type1Path = pathPrefix .. types[1] .. ".png"
+                        type1Border = "Top box border color"
                         type2Path = pathPrefix .. types[2] .. ".png"
+                        type2Border = "Top box border color"
                     end
                 end
             end
             row.nameLabel.setText(name)
             row.typeLabels[1].setPath(type1Path)
+            row.typeLabels[1].setBackgroundFillColorKey(type1Border)
+            row.typeLabels[2].setBackgroundFillColorKey(type2Border)
             row.typeLabels[2].setPath(type2Path)
         end
         program.drawCurrentScreens()
@@ -439,12 +446,12 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
         row.frame =
             Frame(
             Box({x = 0, y = 0}, {width = 0, height = 16}),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2, {x = 0, y = 0}),
             ui.frames.pokemonListFrame
         )
         row.nameLabel =
             TextLabel(
-            Component(row.frame, Box({x = 0, y = 0}, {width = 60, height = 0})),
+            Component(row.frame, Box({x = 0, y = 0}, {width = 56, height = 0})),
             TextField(
                 "a",
                 {x = 0, y = 0},
@@ -459,7 +466,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
         for i = 1, 2, 1 do
             row.typeLabels[i] =
                 ImageLabel(
-                Component(row.frame, Box({x = 0, y = 0}, {width = 31, height = 0})),
+                Component(row.frame, Box({x = 0, y = 0}, {width = 31, height = 13}, nil, "Top box border color")),
                 ImageField("", {x = 1, y = 1}, nil)
             )
         end
@@ -543,7 +550,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                     moveType = tracker.getCurrentHiddenPowerType()
                 end
                 if moveData.category ~= MoveData.MOVE_CATEGORIES.STATUS and moveData.power ~= "---" then
-                    toggleBrightness(moveTypeToSelector[moveType], false, false)
+                    toggleBrightness(moveTypeToSelector[moveType], true, false)
                 end
             end
         end
