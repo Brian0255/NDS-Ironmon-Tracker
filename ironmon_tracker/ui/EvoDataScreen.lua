@@ -124,9 +124,12 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		end
 		ui.frames.targetEvoNavFrame.setVisibility(#currentTargetIDs > 1)
 		local spacerHeight = 1
+		local mainFrameHeight = constants.MAIN_FRAME_HEIGHT
 		if #currentTargetIDs > 1 then
 			spacerHeight = 2
+			mainFrameHeight = mainFrameHeight + 21
 		end
+		ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = mainFrameHeight})
 		local size = ui.controls.spacer.getSize()
 		ui.controls.spacer.resize({width = size.width, height = spacerHeight})
 		readCurrentIndex()
