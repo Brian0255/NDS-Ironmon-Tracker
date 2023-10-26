@@ -15,7 +15,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_FRAME_HEIGHT = 350,
+        MAIN_FRAME_HEIGHT = 341,
         BUTTON_SIZE = 10
     }
     local ui = {}
@@ -253,7 +253,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
             Component(
                 spacerFrame,
                 Box(
-                    {x = 4, y = 0},
+                    {x = 1, y = 0},
                     {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 18, height = 0},
                     "Top box border color",
                     "Top box border color"
@@ -406,7 +406,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                     height = 0
                 }
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 90, y = 8}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 92, y = 7}),
             ui.frames.mainInnerFrame
         )
         ui.controls.goBackButton =

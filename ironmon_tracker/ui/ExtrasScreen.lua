@@ -19,7 +19,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 	local self = {}
 
 	local constants = {
-		MAIN_FRAME_HEIGHT = 300,
+		MAIN_FRAME_HEIGHT = 330,
 		EXTRAS_HEIGHT = 276,
 		EXTRA_ENTRY_TITLE_ROW_HEIGHT = 21,
 		EXTRA_ENTRY_TEXT_ROW_HEIGHT = 10,
