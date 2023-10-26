@@ -318,12 +318,8 @@ function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
         ["Top box background color"] = true,
         ["Bottom box background color"] = true
     }
-    if settings.colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] and not transparentOverride then
-        if blackInsteadOfTransparent then
-            return 0xFF000000
-        else
-            return 0x00000000
-        end
+    if settings.colorSettings["Transparent backgrounds"] and transparentKeys[colorKey] then
+        return 0xFF000000
     end
     if not settings.colorScheme[colorKey] and colorKey == "Alternate positive text color" then
         colorKey = "Positive text color"
