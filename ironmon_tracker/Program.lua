@@ -164,13 +164,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function checkRandomBallPicker(newScreen)
-		if currentScreens[self.UI_SCREENS.TITLE_SCREEN] then
+		if not doneWithTitleScreen then
 			return
 		end
 		if
 			newScreen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil and settings.appearance.RANDOM_BALL_PICKER
 		 then
-			self.setCurrentScreens {newScreen, self.UI_SCREENS.RANDOM_BALL_SCREEN}
+			currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RANDOM_BALL_SCREEN]
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(true)
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].show()
 			local mainScreenPosition = currentScreens[self.UI_SCREENS.MAIN_SCREEN].getInnerFramePosition()
@@ -181,15 +181,27 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function checkForTitleScreen(newScreen)
-		local tryingToOpenMain = newScreen == self.UI_SCREENS.MAIN_SCREEN and not doneWithTitleScreen
+		local tryingToOpenMain = newScreen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil
 		if newScreen == self.UI_SCREENS.TITLE_SCREEN or tryingToOpenMain then
-			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN, self.UI_SCREENS.TITLE_SCREEN})
+			currentScreens[self.UI_SCREENS.TITLE_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TITLE_SCREEN]
+			currentScreens[self.UI_SCREENS.MAIN_SCREEN] = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN]
 			--show the main screen once so the position recalculates itself
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN].show()
 			local mainScreenPosition = currentScreens[self.UI_SCREENS.MAIN_SCREEN].getInnerFramePosition()
 			currentScreens[self.UI_SCREENS.TITLE_SCREEN].moveMainFrame(mainScreenPosition)
 			currentScreens[self.UI_SCREENS.TITLE_SCREEN].initialize(seedLogger)
 		end
+	end
+
+	local function checkScreen(screen)
+		checkForTransparenBackgroundException(screen)
+		checkForTitleScreen(screen)
+		checkRandomBallPicker(screen)
+		checkIfNeedToInitialize(screen)
+	end
+
+	function self.addScreen(screen)
+		currentScreens[screen] = self.UI_SCREEN_OBJECTS[screen]
 	end
 
 	function self.turnOffPokemonTheme()
@@ -204,14 +216,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.openScreen(screen)
 		local prevScreens = MiscUtils.shallowCopy(currentScreens)
-		AnimatedSpriteManager.clearImages()
+		--AnimatedSpriteManager.clearImages()
 		self.setCurrentScreens({screen})
-		checkForTransparenBackgroundException(screen)
-		checkForTitleScreen(screen)
-		checkRandomBallPicker(screen)
-		checkIfNeedToInitialize(screen)
+		checkScreen(screen)
 		if prevScreens[self.UI_SCREENS.TRACKER_SETUP_SCREEN] and screen == self.UI_SCREENS.TITLE_SCREEN then
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TITLE_SCREEN].openedFromSetup()
+		end
+		if screen == self.UI_SCREENS.MAIN_SCREEN and tracker.getFirstPokemonID() == nil then
+			self.addScreen(self.UI_SCREENS.TITLE_SCREEN)
+			currentScreens[self.UI_SCREENS.TITLE_SCREEN].setTopVisibility(not doneWithTitleScreen)
 		end
 		self.drawCurrentScreens()
 	end
@@ -550,13 +563,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if areaName ~= nil and areaName ~= locationData[0].name then
 			currentMapID = parentMap
 			tracker.updateCurrentAreaName(areaName)
-			if currentScreens[self.UI_SCREENS.TITLE_SCREEN] then
-				if gameInfo.NAME == "Pokemon Platinum" and childMap == 104 then
-					doneWithTitleScreen = false
-				else
-					doneWithTitleScreen = true
-					self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
-				end
+			if gameInfo.NAME == "Pokemon Platinum" and childMap == 104 then
+				doneWithTitleScreen = false
+			end
+			if currentScreens[self.UI_SCREENS.TITLE_SCREEN] and not doneWithTitleScreen then
+				doneWithTitleScreen = true
+				self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
+				self.addScreen(self.UI_SCREENS.TITLE_SCREEN)
+				currentScreens[self.UI_SCREENS.TITLE_SCREEN].setTopVisibility(false)
 			end
 		end
 		currentLocation = areaName
@@ -591,6 +605,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN] and currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN]
 		local afterFirstPokemon = currentScreens[self.UI_SCREENS.MAIN_SCREEN] and getScreenTotal() == 1
 		local inThemeView = currentScreens[self.UI_SCREENS.COLOR_SCHEME_SCREEN]
+		if tracker.getFirstPokemonID() ~= nil and currentScreens[self.UI_SCREENS.TITLE_SCREEN] then
+			currentScreens[self.UI_SCREENS.TITLE_SCREEN] = nil
+		end
 		if beforeFirstPokemon and tracker.getFirstPokemonID() ~= nil then
 			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(false)
@@ -786,7 +803,19 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
 		end
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN].show()
-		for _, screen in pairs(currentScreens) do
+		local last = {
+			[self.UI_SCREENS.RANDOM_BALL_SCREEN] = true,
+			[self.UI_SCREENS.TITLE_SCREEN] = true
+		}
+		local queue = {}
+		for enum, screen in pairs(currentScreens) do
+			if not last[enum] then
+				screen.show()
+			else
+				table.insert(queue, screen)
+			end
+		end
+		for _, screen in pairs(queue) do
 			screen.show()
 		end
 		if
@@ -938,8 +967,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.main()
 		Input.updateMouse()
 		Input.updateJoypad()
-		local onTitle = currentScreens[self.UI_SCREENS.TITLE_SCREEN] ~= nil
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRunEventListeners(not onTitle)
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRunEventListeners(doneWithTitleScreen)
 		if runEvents then
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN].runEventListeners()
 			for _, eventListener in pairs(eventListeners) do

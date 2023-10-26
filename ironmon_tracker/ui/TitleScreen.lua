@@ -17,6 +17,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	local tracker = initialTracker
 	local program = initialProgram
 	local editingFavorites = false
+	local bottomOnly = false
 	local constants = {
 		FAVORITES_LABEL_FRAME_HEIGHT = 91,
 		FAVORITES_ROW_HEIGHT = 17,
@@ -31,6 +32,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	local ui = {}
 	local favoriteEditEventListeners = {}
 	local titleScreenEventListeners = {}
+	local favoritePictureListeners = {}
 	local self = {}
 	local frameCounters = {}
 
@@ -205,22 +207,39 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		MiscUtils.writeStringToFile(fileName, favoritesList)
 	end
 
-	local function toggleFavoriteEditing()
+	local function toggleFavoriteEditing(override)
+		bottomOnly = false
 		editingFavorites = not editingFavorites
+		if override then
+			editingFavorites = override
+		end
 		ui.frames.topFrame.setVisibility(not editingFavorites)
 		ui.frames.bottomFrame.setVisibility(not editingFavorites)
 		for _, favoriteImage in pairs(ui.favoriteImages) do
 			favoriteImage.setVisibility(not editingFavorites)
 		end
 		ui.frames.favoriteEditFrame.setVisibility(editingFavorites)
-		program.drawCurrentScreens()
+		if not editingFavorites and override == nil then
+			program.openScreen(program.UI_SCREENS.MAIN_SCREEN)
+		end
+	end
+
+	local function onCloseFromSetup()
+		toggleFavoriteEditing(false)
+		program.openScreen(program.UI_SCREENS.TRACKER_SETUP_SCREEN)
+		favoriteEditEventListeners.close.setOnClickFunction(toggleFavoriteEditing)
+		favoriteEditEventListeners.close.setOnClickParams()
 	end
 
 	function self.openedFromSetup()
 		editingFavorites = false
 		toggleFavoriteEditing()
-		favoriteEditEventListeners.close.setOnClickFunction(program.openScreen)
-		favoriteEditEventListeners.close.setOnClickParams(program.UI_SCREENS.TRACKER_SETUP_SCREEN)
+		favoriteEditEventListeners.close.setOnClickFunction(onCloseFromSetup)
+		favoriteEditEventListeners.close.setOnClickParams()
+	end
+
+	function self.setTopVisibility(newVisibility)
+		bottomOnly = not newVisibility
 	end
 
 	local function readFavoritesIntoUI()
@@ -283,7 +302,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		getRandomStatistic()
 		readAttemptsIntoUI()
 		favoriteEditEventListeners.close.setOnClickFunction(toggleFavoriteEditing)
-		favoriteEditEventListeners.close.setOnClickParams(false)
+		favoriteEditEventListeners.close.setOnClickParams()
 	end
 
 	function self.moveMainFrame(newPosition)
@@ -456,7 +475,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		ui.frames.bottomFrame =
 			Frame(
 			Box(
-				{x = 0, y = 0},
+				{x = 0, y = 86},
 				{
 					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = 45
@@ -507,7 +526,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				Component(ui.frames.favoritesFrame, Box({x = 0, y = 0}, {width = 30, height = 28})),
 				ImageField("ironmon_tracker/images/pokemonIconSets/stadiumset/" .. i .. ".png", {x = 0, y = 0}, nil)
 			)
-			table.insert(titleScreenEventListeners, MouseClickEventListener(ui.favoriteImages[i], toggleFavoriteEditing, true))
+			table.insert(favoritePictureListeners, MouseClickEventListener(ui.favoriteImages[i], toggleFavoriteEditing, true))
 		end
 	end
 
@@ -644,7 +663,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 					height = Graphics.SIZES.MAIN_SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
 				}
 			),
-			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 5),
+			nil,
 			ui.frames.mainFrame
 		)
 		initTopUI()
@@ -663,31 +682,35 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	function self.runEventListeners()
-		local eventListeners = titleScreenEventListeners
-		if editingFavorites then
-			eventListeners = favoriteEditEventListeners
-		end
-		for _, eventListener in pairs(eventListeners) do
-			eventListener.listen()
+		self.runBottomEvents()
+		if not bottomOnly then
+			local eventListeners = titleScreenEventListeners
+			if editingFavorites then
+				eventListeners = favoriteEditEventListeners
+			end
+			for _, eventListener in pairs(eventListeners) do
+				eventListener.listen()
+			end
 		end
 		runFrameCounters()
 	end
 
-	local function drawBlackRectangleFirst()
-		local mainFramePosition, mainFrameSize = ui.frames.mainFrame.getPosition(), ui.frames.mainFrame.getSize()
-		gui.drawRectangle(
-			mainFramePosition.x,
-			mainFramePosition.y,
-			mainFrameSize.width,
-			mainFrameSize.height,
-			0x00000000,
-			0xFF000000
-		)
+	function self.runBottomEvents()
+		for _, eventListener in pairs(favoritePictureListeners) do
+			eventListener.listen()
+		end
+	end
+
+	function self.showBottomFrame()
+		ui.frames.bottomFrame.show()
 	end
 
 	function self.show()
-		drawBlackRectangleFirst()
-		ui.frames.mainFrame.show()
+		if not bottomOnly then
+			ui.frames.mainFrame.show()
+		else
+			ui.frames.bottomFrame.show()
+		end
 	end
 
 	initUI()
