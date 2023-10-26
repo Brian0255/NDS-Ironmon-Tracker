@@ -98,6 +98,12 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     coverageCalc = {
         FULLY_EVOLVED_ONLY = false
+    },
+    timer = {
+        ENABLED = false,
+        TRANSPARENT = false,
+        XPOS = 0,
+        YPOS = 0
     }
 }
 
