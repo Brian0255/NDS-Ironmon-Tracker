@@ -63,9 +63,18 @@ function DrawingUtils.calculateWordPixelLength(text)
     return totalLength
 end
 
-function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, shadowColor)
+function DrawingUtils.drawBox(x, y, width, height, fill, background, shadowed, shadowColor, opacity)
     if shadowed and settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"] then
         gui.drawRectangle(x, y, width + 2, height + 2, 0x00000000, shadowColor)
+    end
+    local opacityStr = string.format("%X", opacity or 0xFF)
+    if fill ~= nil and opacity ~= 0xFF then
+        local fillStr = string.format("%X", fill)
+        fill = tonumber(opacityStr .. fillStr:sub(3), 16)
+    end
+    if background ~= nil and opacity ~= 0xFF then
+        local backgroundStr = string.format("%X", background)
+        background = tonumber(opacityStr .. backgroundStr:sub(3), 16)
     end
     gui.drawRectangle(x, y, width, height, fill, background)
 end
