@@ -6,7 +6,8 @@ local function Box(
     shouldShadow,
     initialShadowColorKey,
     initialTransparentOverride,
-    initialZIndex)
+    initialZIndex,
+    initialOpacity)
     local self = {}
     local relativePosition = initialPosition
     local position = relativePosition
@@ -16,6 +17,7 @@ local function Box(
     if initialSize ~= nil then
         size = initialSize
     end
+    local opacity = initialOpacity or 0xFF
     local backgroundColorKey = initialBGColorKey
     local backgroundFillColorKey = initialBGFillColorKey
     local transparentOverride = initialTransparentOverride
@@ -84,6 +86,9 @@ local function Box(
     end
 
     function self.show()
+        if size.width == 0 and size.height == 0 then
+            return
+        end
         if size ~= nil then
             local shadowColor = nil
             if shadowColorKey ~= nil then
@@ -97,7 +102,8 @@ local function Box(
                 self.getBackgroundFillColor(),
                 self.getBackgroundColor(),
                 shadowed,
-                shadowColor
+                shadowColor,
+                opacity
             )
         end
     end
