@@ -639,17 +639,17 @@ LocationData.LOCATION_DATA = {
             ["Lake Verity"] = {
                 totalPokemon = 2,
                 vanillaData = {
-                {
-                    {level = 3, percent = 20},
-                    {level = 5, percent = 20},
-                    {level = 6, percent = 10}
-                },
-                {
-                    {level = 3, percent = 20},
-                    {level = 5, percent = 20},
-                    {level = 6, percent = 10}
-                },
-            }
+                    {
+                        {level = 3, percent = 20},
+                        {level = 5, percent = 20},
+                        {level = 6, percent = 10}
+                    },
+                    {
+                        {level = 3, percent = 20},
+                        {level = 5, percent = 20},
+                        {level = 6, percent = 10}
+                    }
+                }
             },
             ["Route 203"] = {
                 totalPokemon = 5,
@@ -704,9 +704,19 @@ LocationData.LOCATION_DATA = {
                         {level = 6, percent = 20},
                         {level = 8, percent = 4},
                         {level = 9, percent = 1}
-                    },
+                    }
                 }
             }
+        },
+        encounterAreaOrder = {
+            "Lake Verity",
+            "Route 201",
+            "Route 202",
+            "Route 203",
+            "Route 204",
+            "Twinleaf Town",
+            "Route 218",
+            "Route 219"
         }
     },
     --heartgold/soulsilver
@@ -1383,6 +1393,16 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             }
+        },
+        encounterAreaOrder = {
+            "Route 29",
+            "Route 46",
+            "Route 30",
+            "Route 31",
+            "Route 32",
+            "Ruins of Alph",
+            "Sprout Tower",
+            "Dark Cave"
         }
     },
     --black/white
@@ -1657,7 +1677,8 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             }
-        }
+        },
+        encounterAreaOrder = {"Route 1", "Route 2", "Dreamyard", "Route 3"}
     },
     --black2/white2
     [0x4F455249] = {
