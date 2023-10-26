@@ -3,6 +3,7 @@ local function Tracker()
 
 	local currentAreaName = ""
 	local trackedData = {
+		currentTimerSeconds = 0,
 		encounterData = {},
 		runOver = false,
 		progress = PlaythroughConstants.PROGRESS.NOWHERE,
@@ -17,6 +18,17 @@ local function Tracker()
 	local sessionStartTime = os.time()
 	local startSeconds = 0
 	local totalSeconds = 0
+
+	function self.setTimerSeconds(newSeconds)
+		trackedData.currentTimerSeconds = newSeconds
+	end
+
+	function self.getTimerSeconds()
+		if not trackedData.currentTimerSeconds or trackedData.currentTimerSeconds == nil then
+			return 0
+		end
+		return trackedData.currentTimerSeconds
+	end
 
 	function self.setRunOver()
 		trackedData.runOver = true
