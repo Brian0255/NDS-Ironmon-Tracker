@@ -25,6 +25,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local ExtrasScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/ExtrasScreen.lua")
 	local EvoDataScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EvoDataScreen.lua")
 	local CoverageCalcScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/CoverageCalcScreen.lua")
+	local TimerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TimerScreen.lua")
 
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
@@ -253,7 +254,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		TOURNEY_TRACKER_SCREEN = 20,
 		EXTRAS_SCREEN = 21,
 		EVO_DATA_SCREEN = 22,
-		COVERAGE_CALC_SCREEN = 23
+		COVERAGE_CALC_SCREEN = 23,
+		TIMER_SCREEN = 24
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -280,7 +282,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN] = TourneyTrackerScreen(settings, tracker, self),
 		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings, tracker, self),
 		[self.UI_SCREENS.EVO_DATA_SCREEN] = EvoDataScreen(settings, tracker, self),
-		[self.UI_SCREENS.COVERAGE_CALC_SCREEN] = CoverageCalcScreen(settings, tracker, self)
+		[self.UI_SCREENS.COVERAGE_CALC_SCREEN] = CoverageCalcScreen(settings, tracker, self),
+		[self.UI_SCREENS.TIMER_SCREEN] = TimerScreen(settings, tracker, self)
 	}
 
 	tourneyTracker =
@@ -616,7 +619,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			pokemonThemeManager.update(playerPokemon.pokemonID)
 		end
 		local usingAnimated = settings.appearance.ICON_SET_INDEX == 5
-		if (beforeFirstPokemon or afterFirstPokemon or inThemeView) and not usingAnimated then
+		--if (beforeFirstPokemon or afterFirstPokemon or inThemeView) and not usingAnimated then
+		if not usingAnimated then
 			self.drawCurrentScreens()
 		end
 		tourneyTracker.updateMilestones(battleHandler.getDefeatedTrainers(), currentMapID)
@@ -824,6 +828,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		 then
 			RepelDrawer.Update(memoryAddresses.repelSteps)
 		end
+		if settings.timer.ENABLED and not currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] then
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TIMER_SCREEN].show()
+		end
 	end
 
 	function self.isInBattle()
@@ -982,6 +989,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			frameCounter.decrement()
 		end
 		battleHandler.runFrameCounters()
+		if settings.timer.ENABLED then
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TIMER_SCREEN].runEventListeners()
+		end
 		animateUpdate()
 	end
 
