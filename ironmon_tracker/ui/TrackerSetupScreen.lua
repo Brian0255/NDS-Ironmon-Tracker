@@ -1,4 +1,4 @@
-local function EditControlsScreen(initialSettings, initialTracker, initialProgram)
+local function TrackerSetupScreen(initialSettings, initialTracker, initialProgram)
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
     local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
@@ -211,41 +211,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         )
     end
 
-    local function initUI()
-        ui.controls = {}
-        ui.frames = {}
-        ui.frames.mainFrame =
-            Frame(
-            Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT},
-                "Main background color",
-                nil
-            ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}),
-            nil
-        )
-        ui.controls.mainHeading =
-            TextLabel(
-            Component(
-                ui.frames.mainFrame,
-                Box(
-                    {x = 5, y = 5},
-                    {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                        height = constants.TEXT_HEADER_HEIGHT
-                    },
-                    "Top box background color",
-                    "Top box border color",
-                    false
-                )
-            ),
-            TextField(
-                "Edit Controls",
-                {x = 34, y = 1},
-                TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
-            )
-        )
+    local function initControlEditingUI()
         ui.frames.controlEditFrame =
             Frame(
             Box(
@@ -394,6 +360,90 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             )
         )
         table.insert(eventListeners, MouseClickEventListener(clearButton, onClearNextSeedCombo))
+    end
+
+    local function initFavoritesEditingButton()
+        local favoritesFrame =
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 10, height = 24},
+                "Top box background color",
+                "Top box border color"
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 5, y = 5}),
+            ui.frames.mainFrame
+        )
+        local favoritesButton =
+            TextLabel(
+            Component(
+                favoritesFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {
+                        width = 64,
+                        height = constants.BIND_BUTTON_HEIGHT
+                    },
+                    "Top box background color",
+                    "Top box border color",
+                    true,
+                    "Top box background color"
+                )
+            ),
+            TextField(
+                "Edit Favorites",
+                {x = 5, y = 2},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        table.insert(
+            eventListeners,
+            MouseClickEventListener(favoritesButton, program.openScreen, program.UI_SCREENS.TITLE_SCREEN)
+        )
+    end
+
+    local function initUI()
+        ui.controls = {}
+        ui.frames = {}
+        ui.frames.mainFrame =
+            Frame(
+            Box(
+                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT},
+                "Main background color",
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}),
+            nil
+        )
+        ui.controls.mainHeading =
+            TextLabel(
+            Component(
+                ui.frames.mainFrame,
+                Box(
+                    {x = 5, y = 5},
+                    {
+                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        height = constants.TEXT_HEADER_HEIGHT
+                    },
+                    "Top box background color",
+                    "Top box border color",
+                    false
+                )
+            ),
+            TextField(
+                "Tracker Setup",
+                {x = 30, y = 1},
+                TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+            )
+        )
+        initFavoritesEditingButton()
+        initControlEditingUI()
         ui.frames.goBackFrame =
             Frame(
             Box(
@@ -449,4 +499,4 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
     return self
 end
 
-return EditControlsScreen
+return TrackerSetupScreen
