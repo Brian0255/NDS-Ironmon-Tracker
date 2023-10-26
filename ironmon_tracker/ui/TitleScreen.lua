@@ -216,6 +216,13 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		program.drawCurrentScreens()
 	end
 
+	function self.openedFromSetup()
+		editingFavorites = false
+		toggleFavoriteEditing()
+		favoriteEditEventListeners.close.setOnClickFunction(program.openScreen)
+		favoriteEditEventListeners.close.setOnClickParams(program.UI_SCREENS.TRACKER_SETUP_SCREEN)
+	end
+
 	local function readFavoritesIntoUI()
 		local iconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
 		for i = 1, 4, 1 do
@@ -275,6 +282,8 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		ui.controls.gameLabel.setText(name)
 		getRandomStatistic()
 		readAttemptsIntoUI()
+		favoriteEditEventListeners.close.setOnClickFunction(toggleFavoriteEditing)
+		favoriteEditEventListeners.close.setOnClickParams(false)
 	end
 
 	function self.moveMainFrame(newPosition)
@@ -387,7 +396,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				)
 			)
 		)
-		table.insert(favoriteEditEventListeners, MouseClickEventListener(closeButton, toggleFavoriteEditing, false))
+		favoriteEditEventListeners.close = MouseClickEventListener(closeButton, toggleFavoriteEditing, false)
 	end
 
 	local function initFavoriteEditsFrame()

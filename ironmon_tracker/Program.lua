@@ -9,7 +9,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local ColorSchemeScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/ColorSchemeScreen.lua")
 	local TrackedPokemonScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackedPokemonScreen.lua")
 	local QuickLoadScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/QuickLoadScreen.lua")
-	local EditControlsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EditControlsScreen.lua")
+	local TrackerSetupScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TrackerSetupScreen.lua")
 	local PokemonIconsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PokemonIconsScreen.lua")
 	local PastRunsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/PastRunsScreen.lua")
 	local StatisticsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/StatisticsScreen.lua")
@@ -203,12 +203,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.openScreen(screen)
+		local prevScreens = MiscUtils.shallowCopy(currentScreens)
 		AnimatedSpriteManager.clearImages()
 		self.setCurrentScreens({screen})
 		checkForTransparenBackgroundException(screen)
 		checkForTitleScreen(screen)
 		checkRandomBallPicker(screen)
 		checkIfNeedToInitialize(screen)
+		if prevScreens[self.UI_SCREENS.TRACKER_SETUP_SCREEN] and screen == self.UI_SCREENS.TITLE_SCREEN then
+			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TITLE_SCREEN].openedFromSetup()
+		end
 		self.drawCurrentScreens()
 	end
 
@@ -220,7 +224,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		BADGES_APPEARANCE_SCREEN = 4,
 		COLOR_SCHEME_SCREEN = 5,
 		TRACKED_POKEMON_SCREEN = 6,
-		EDIT_CONTROLS_SCREEN = 7,
+		TRACKER_SETUP_SCREEN = 7,
 		QUICK_LOAD_SCREEN = 8,
 		POKEMON_ICONS_SCREEN = 9,
 		UPDATER_SCREEN = 10,
@@ -247,7 +251,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.BADGES_APPEARANCE_SCREEN] = BadgesAppearanceScreen(settings, tracker, self),
 		[self.UI_SCREENS.COLOR_SCHEME_SCREEN] = ColorSchemeScreen(settings, tracker, self),
 		[self.UI_SCREENS.TRACKED_POKEMON_SCREEN] = TrackedPokemonScreen(settings, tracker, self),
-		[self.UI_SCREENS.EDIT_CONTROLS_SCREEN] = EditControlsScreen(settings, tracker, self),
+		[self.UI_SCREENS.TRACKER_SETUP_SCREEN] = TrackerSetupScreen(settings, tracker, self),
 		[self.UI_SCREENS.QUICK_LOAD_SCREEN] = QuickLoadScreen(settings, tracker, self),
 		[self.UI_SCREENS.POKEMON_ICONS_SCREEN] = PokemonIconsScreen(settings, tracker, self),
 		[self.UI_SCREENS.UPDATER_SCREEN] = UpdaterScreen(settings, tracker, self),
@@ -928,7 +932,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.isInControlsMenu()
-		return currentScreens[self.UI_SCREENS.EDIT_CONTROLS_SCREEN] ~= nil
+		return currentScreens[self.UI_SCREENS.TRACKER_SETUP_SCREEN] ~= nil
 	end
 
 	function self.main()
