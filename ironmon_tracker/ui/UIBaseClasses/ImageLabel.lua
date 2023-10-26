@@ -22,6 +22,9 @@ local function ImageLabel(initialComponent, initialImageField, initialVisibility
         component.calculateActualPosition(parentPosition)
         imageField.move(component.getPosition())
     end
+    function self.setBackgroundFillColorKey(newColorKey)
+        component.setBackgroundFillColorKey(newColorKey)
+    end
     function self.setOffset(newOffset)
         imageField.setOffset(newOffset)
     end

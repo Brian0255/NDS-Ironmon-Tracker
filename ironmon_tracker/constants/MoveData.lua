@@ -3485,7 +3485,8 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes major status effects except confusion from every Pok" .. Chars.accentedE .. "mon in the user's party."
+		description = "Removes major status effects except confusion from every Pok" ..
+			Chars.accentedE .. "mon in the user's party."
 	},
 	{
 		id = "313",

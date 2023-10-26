@@ -40,7 +40,9 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
     local self = {}
 
     local function onJoypadPress(params)
-        if eventListeners["currentButtonWaiter"] == nil then return end
+        if eventListeners["currentButtonWaiter"] == nil then
+            return
+        end
         local button = params.button
         local settingToChange = params.settingToChange
         local additive = params.additive
@@ -52,7 +54,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 settings.controls[settingToChange] = button
             else
                 local buttons = MiscUtils.split(combo, " ")
-                if not MiscUtils.tableContains(buttons,button) then
+                if not MiscUtils.tableContains(buttons, button) then
                     settings.controls[settingToChange] = combo .. " " .. button
                 end
             end
@@ -220,11 +222,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 "Main background color",
                 nil
             ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.VERTICAL,
-                0,
-                {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}
-            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN}),
             nil
         )
         ui.controls.mainHeading =
@@ -259,11 +257,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 "Top box background color",
                 "Top box border color"
             ),
-            Layout(
-                Graphics.ALIGNMENT_TYPE.VERTICAL,
-                Graphics.SIZES.BORDER_MARGIN,
-                {x = 0, y = Graphics.SIZES.BORDER_MARGIN}
-            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, Graphics.SIZES.BORDER_MARGIN, {x = 0, y = Graphics.SIZES.BORDER_MARGIN}),
             ui.frames.mainFrame
         )
         table.insert(eventListeners, MouseClickEventListener(ui.frames.controlEditFrame, onGeneralClick))
@@ -401,18 +395,19 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         )
         table.insert(eventListeners, MouseClickEventListener(clearButton, onClearNextSeedCombo))
         ui.frames.goBackFrame =
-        Frame(
-        Box(
-            {x = 0, y = 0},
-            {
-                width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                height = 0
-            },
-            nil, nil
-        ),
-        Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 95, y = 0}),
-        ui.frames.controlEditFrame
-    )
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {
+                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    height = 0
+                },
+                nil,
+                nil
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 95, y = 0}),
+            ui.frames.controlEditFrame
+        )
         ui.controls.goBackButton =
             TextLabel(
             Component(

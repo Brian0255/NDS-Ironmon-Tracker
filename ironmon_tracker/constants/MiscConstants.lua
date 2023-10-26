@@ -95,6 +95,9 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     tourneyTracker = {
         ENABLED = false
+    },
+    coverageCalc = {
+        FULLY_EVOLVED_ONLY = false
     }
 }
 
