@@ -328,6 +328,7 @@ local function RandomizerLogParser(initialProgram)
 
     local function parseRouteData(lines, lineStart)
         local validRoutes = program.getGameInfo().LOCATION_DATA.encounterAreaOrder
+        local timesSeenSprout = 0
         local pivotTypes = program.getGameInfo().PIVOT_TYPES
         local currentLineIndex = lineStart
         while (lines[currentLineIndex] ~= nil and currentLineIndex <= totalLines) do
@@ -335,6 +336,11 @@ local function RandomizerLogParser(initialProgram)
             for pivotType, _ in pairs(pivotTypes) do
                 if routeInfo:find(pivotType) ~= -1 then
                     local areaName = routeInfo:match("Set #%d+ %- (.+) " .. pivotType)
+                    --very dumb but idk what else to do
+                    if areaName == "Sprout Tower" then
+                        timesSeenSprout = timesSeenSprout + 1
+                        areaName = areaName .. " " .. timesSeenSprout .. "F"
+                    end
                     if MiscUtils.tableContains(validRoutes, areaName) then
                         if not pivotData[areaName] then
                             pivotData[areaName] = {}

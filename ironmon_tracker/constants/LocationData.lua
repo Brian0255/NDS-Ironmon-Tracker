@@ -877,8 +877,8 @@ LocationData.LOCATION_DATA = {
             [152] = {name = "Route 48"},
             [153] = {name = "Union Cave"},
             [154] = {name = "Union Cave"},
-            [155] = {name = "Sprout Tower"},
-            [156] = {name = "Sprout Tower"},
+            [155] = {name = "Sprout Tower 1F"},
+            [156] = {name = "Sprout Tower 2F"},
             [157] = {name = "Violet City"},
             [158] = {name = "Violet City"},
             [159] = {name = "Violet City"},
@@ -1376,7 +1376,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Sprout Tower"] = {
+            ["Sprout Tower 1F"] = {
                 totalPokemon = 2,
                 vanillaData = {
                     {
@@ -1384,7 +1384,12 @@ LocationData.LOCATION_DATA = {
                         {level = 6, percent = 30},
                         {level = 8, percent = 25},
                         {level = 9, percent = 5}
-                    },
+                    }
+                }
+            },
+            ["Sprout Tower 2F"] = {
+                totalPokemon = 2,
+                vanillaData = {
                     {
                         {level = 5, percent = 40},
                         {level = 6, percent = 30},
@@ -1401,7 +1406,8 @@ LocationData.LOCATION_DATA = {
             "Route 31",
             "Route 32",
             "Ruins of Alph",
-            "Sprout Tower",
+            "Sprout Tower 1F",
+            "Sprout Tower 2F",
             "Dark Cave"
         }
     },
