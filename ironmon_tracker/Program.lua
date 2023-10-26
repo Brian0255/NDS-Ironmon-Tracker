@@ -24,6 +24,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local TourneyTrackerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TourneyTrackerScreen.lua")
 	local ExtrasScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/ExtrasScreen.lua")
 	local EvoDataScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EvoDataScreen.lua")
+	local CoverageCalcScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/CoverageCalcScreen.lua")
 
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
@@ -135,6 +136,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local currentPokemonInitialization = {
 			[self.UI_SCREENS.EVO_DATA_SCREEN] = true
 		}
+		local currentPlayerMovesInitialization = {
+			[self.UI_SCREENS.COVERAGE_CALC_SCREEN] = true
+		}
 		if blankInitialization[screen] then
 			self.UI_SCREEN_OBJECTS[screen].initialize()
 		elseif seedLoggerInitialization[screen] then
@@ -145,6 +149,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				currentPokemon = enemyPokemon
 			end
 			self.UI_SCREEN_OBJECTS[screen].initialize(currentPokemon)
+		elseif currentPlayerMovesInitialization[screen] then
+			local pokemon = playerPokemon or {}
+			self.UI_SCREEN_OBJECTS[screen].initialize(pokemon.moveIDs)
 		end
 	end
 
@@ -196,6 +203,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	function self.openScreen(screen)
+		AnimatedSpriteManager.clearImages()
 		self.setCurrentScreens({screen})
 		checkForTransparenBackgroundException(screen)
 		checkForTitleScreen(screen)
@@ -227,7 +235,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		RESTORE_POINTS_SCREEN = 19,
 		TOURNEY_TRACKER_SCREEN = 20,
 		EXTRAS_SCREEN = 21,
-		EVO_DATA_SCREEN = 22
+		EVO_DATA_SCREEN = 22,
+		COVERAGE_CALC_SCREEN = 23
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -253,7 +262,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.RESTORE_POINTS_SCREEN] = RestorePointsScreen(settings, tracker, self),
 		[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN] = TourneyTrackerScreen(settings, tracker, self),
 		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings, tracker, self),
-		[self.UI_SCREENS.EVO_DATA_SCREEN] = EvoDataScreen(settings, tracker, self)
+		[self.UI_SCREENS.EVO_DATA_SCREEN] = EvoDataScreen(settings, tracker, self),
+		[self.UI_SCREENS.COVERAGE_CALC_SCREEN] = CoverageCalcScreen(settings, tracker, self)
 	}
 
 	tourneyTracker =
