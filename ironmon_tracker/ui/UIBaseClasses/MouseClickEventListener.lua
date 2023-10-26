@@ -19,6 +19,9 @@ local function MouseClickEventListener(
     function self.setOnClickParams(newParams)
         onClickParams = newParams
     end
+    function self.setOnClickFunction(newFunction)
+        onClick = newFunction
+    end
     function self.listen()
         local inRange = true
         if control ~= nil and control.isVisible() then
