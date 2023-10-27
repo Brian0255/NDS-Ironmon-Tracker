@@ -1377,7 +1377,7 @@ LocationData.LOCATION_DATA = {
                 }
             },
             ["Sprout Tower 1F"] = {
-                totalPokemon = 2,
+                totalPokemon = 1,
                 vanillaData = {
                     {
                         {level = 5, percent = 40},
@@ -1388,7 +1388,7 @@ LocationData.LOCATION_DATA = {
                 }
             },
             ["Sprout Tower 2F"] = {
-                totalPokemon = 2,
+                totalPokemon = 1,
                 vanillaData = {
                     {
                         {level = 5, percent = 40},
