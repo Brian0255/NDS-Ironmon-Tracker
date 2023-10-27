@@ -293,7 +293,7 @@ local function RandomizerLogParser(initialProgram)
     local function readFishingOrHeadbuttEncounter(lines, line, startIndex, data, encounterType)
         local slotPercents = {60, 30, 5, 4, 1}
         if encounterType == "Headbutt" then
-            slotPercents = {20, 20, 10, 10, 10, 10, 5, 5, 4, 4, 1, 1}
+            slotPercents = {50, 15, 15, 10, 5, 5}
         end
         local pokemonName, minLevel, maxLevel = lines[line]:match("(.*) Lvs (%d+)%-(%d+)")
         minLevel = tonumber(minLevel)
@@ -301,6 +301,9 @@ local function RandomizerLogParser(initialProgram)
         pokemonName = pokemonName:lower()
         local id = pokemonIDMappings[pokemonName]
         local percent = slotPercents[line - startIndex + 1]
+        if percent == nil then
+            return
+        end
         local entry = data[id]
         if entry == nil then
             data[id] = {["minLevel"] = minLevel, ["maxLevel"] = maxLevel, ["percent"] = percent}
@@ -345,7 +348,16 @@ local function RandomizerLogParser(initialProgram)
                         if not pivotData[areaName] then
                             pivotData[areaName] = {}
                         end
-                        pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
+                        if pivotType ~= "Headbutt" then
+                            pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
+                        else
+                            local suffixes = {"(C)", "(R)"}
+                            for index, suffix in pairs(suffixes) do
+                                local lineOffset = (index - 1) * 6
+                                pivotData[areaName]["Headbutt" .. suffix] =
+                                    readEncounters(lines, currentLineIndex + 1 + lineOffset, pivotType)
+                            end
+                        end
                     end
                 end
             end
