@@ -34,7 +34,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
     local currentIDs = {}
     local currentPokemonList = {}
     local pivotData = {}
-    local encounterTypes = {"Grass/Cave", "Shaking Spots", "Old Rod", "Headbutt(C)", "Headbutt(R)"}
+    local encounterTypes = {"Grass", "Shaking Spots", "Old Rod", "Headbutt (C)", "Headbutt (R)", "Dark Grass"}
 
     local function underlineActiveTab()
         --[[
@@ -126,6 +126,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
         if areaName == nil or areaName == "" then
             return
         end
+        print(pivotData)
         currentEncounterArea = pivotData[areaName]
         for _, encounterType in pairs(encounterTypes) do
             if currentEncounterArea[encounterType] then
@@ -383,7 +384,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
                     height = constants.ENCOUNTER_TAB_HEIGHT
                 }
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, -1, {x = -1, y = 4}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2, {x = 1, y = 4}),
             ui.frames.areaDataFrame
         )
         initEncounterTabs()

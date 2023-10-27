@@ -338,6 +338,7 @@ local function RandomizerLogParser(initialProgram)
             local routeInfo = lines[currentLineIndex]
             for pivotType, _ in pairs(pivotTypes) do
                 if routeInfo:find(pivotType) ~= -1 then
+                    pivotType = pivotType:gsub("/Cave", "")
                     local areaName = routeInfo:match("Set #%d+ %- (.+) " .. pivotType)
                     --very dumb but idk what else to do
                     if areaName == "Sprout Tower" then
@@ -348,7 +349,7 @@ local function RandomizerLogParser(initialProgram)
                         if not pivotData[areaName] then
                             pivotData[areaName] = {}
                         end
-                        if pivotType ~= "Headbutt" then
+                        if pivotType ~= "Headbutt" and not pivotData[areaName][pivotType] then
                             pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
                         else
                             local suffixes = {"(C)", "(R)"}
