@@ -1397,18 +1397,20 @@ LocationData.LOCATION_DATA = {
                         {level = 9, percent = 5}
                     }
                 }
-            }
+            },
+            ["Cherrygrove City"] = nil
         },
         encounterAreaOrder = {
             "Route 29",
             "Route 46",
+            "Cherrygrove City",
             "Route 30",
             "Route 31",
             "Route 32",
             "Ruins of Alph",
             "Sprout Tower 1F",
-            "Sprout Tower 2F",
-            "Dark Cave"
+            "Sprout Tower 2F"
+            --"Dark Cave"
         }
     },
     --black/white
