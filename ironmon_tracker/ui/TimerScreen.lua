@@ -57,37 +57,6 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 		end
 	end
 
-	local function initUI()
-		ui.controls = {}
-		ui.frames = {}
-		ui.frames.mainFrame =
-			Frame(Box({x = 0, y = 0}, {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT}))
-		ui.controls.timer =
-			TextLabel(
-			Component(
-				ui.frames.mainFrame,
-				Box(
-					{x = settings.timer.XPOS, y = settings.timer.YPOS},
-					{width = 37, height = 11},
-					"Top box background color",
-					"Top box background color"
-				)
-			),
-			TextField(
-				"00:00:00",
-				{x = 0, y = 0},
-				TextStyle(
-					Graphics.FONT.DEFAULT_FONT_SIZE,
-					Graphics.FONT.DEFAULT_FONT_FAMILY,
-					"Top box text color",
-					"Top box background color"
-				)
-			)
-		)
-		table.insert(eventListeners, MouseClickEventListener(ui.controls.timer, onTimerMiddleClick, nil, nil, nil, "Middle"))
-		table.insert(eventListeners, MouseClickEventListener(ui.controls.timer, onTimerLeftClick))
-	end
-
 	local function updateTimerColors()
 		if settings.timer.TRANSPARENT then
 			ui.controls.timer.setOpacity(0x60)
@@ -100,6 +69,38 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 			ui.controls.timer.setBackgroundColorKey("Top box background color")
 			ui.controls.timer.setShadowColorKey("Top box background color")
 		end
+	end
+
+	local function initUI()
+		ui.controls = {}
+		ui.frames = {}
+		ui.frames.mainFrame =
+			Frame(Box({x = 0, y = 0}, {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT}))
+		ui.controls.timer =
+			TextLabel(
+			Component(
+				ui.frames.mainFrame,
+				Box(
+					{x = settings.timer.XPOS, y = settings.timer.YPOS},
+					{width = 38, height = 11},
+					"Top box background color",
+					"Top box background color"
+				)
+			),
+			TextField(
+				"00:00:00",
+				{x = 1, y = 0},
+				TextStyle(
+					Graphics.FONT.DEFAULT_FONT_SIZE,
+					Graphics.FONT.DEFAULT_FONT_FAMILY,
+					"Top box text color",
+					"Top box background color"
+				)
+			)
+		)
+		table.insert(eventListeners, MouseClickEventListener(ui.controls.timer, onTimerMiddleClick, nil, nil, nil, "Middle"))
+		table.insert(eventListeners, MouseClickEventListener(ui.controls.timer, onTimerLeftClick))
+		updateTimerColors()
 	end
 
 	function self.runEventListeners()
