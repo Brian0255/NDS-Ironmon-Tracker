@@ -1792,8 +1792,8 @@ LocationData.LOCATION_DATA = {
             [427] = {name = "Aspertia City"},
             [165] = {name = "Aspertia City's gym"},
             [437] = {name = "Route 19"},
-            [439] = {name = "Flocessy Town"},
-            [444] = {name = "Flocessy Ranch"},
+            [439] = {name = "Floccesy Town"},
+            [444] = {name = "Floccesy Ranch"},
             [446] = {name = "Route 20"},
             [448] = {name = "Virbank City"},
             [176] = {name = "Virbank City's gym"},
@@ -1820,6 +1820,7 @@ LocationData.LOCATION_DATA = {
             [584] = {name = "Nature Preserve"},
             [573] = {name = "Victory Road"}
         },
+        encounterAreaOrder = {"Route 19", "Route 20", "Floccesy Ranch", "Virbank Complex"},
         encounters = {
             ["Route 19"] = {
                 totalPokemon = 2,
@@ -1860,7 +1861,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Flocessy Ranch"] = {
+            ["Floccesy Ranch"] = {
                 totalPokemon = 7,
                 vanillaData = {
                     {
@@ -1887,6 +1888,33 @@ LocationData.LOCATION_DATA = {
                     },
                     {
                         {level = 11, percent = 5}
+                    }
+                }
+            },
+            ["Virbank Complex"] = {
+                totalPokemon = 4,
+                vanillaData = {
+                    {
+                        {level = 15, percent = 20},
+                        {level = 18, percent = 5}
+                    },
+                    {
+                        {level = 15, percent = 20},
+                        {level = 18, percent = 5}
+                    },
+                    {
+                        {level = 15, percent = 10},
+                        {level = 18, percent = 4},
+                        {level = 20, percent = 1}
+                    },
+                    {
+                        {level = 15, percent = 10},
+                        {level = 18, percent = 4},
+                        {level = 20, percent = 1}
+                    },
+                    {
+                        {level = 17, percent = 10},
+                        {level = 20, percent = 10}
                     }
                 }
             }
