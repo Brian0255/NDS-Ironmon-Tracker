@@ -202,7 +202,7 @@ local function TourneyTracker(initialTracker, initialSettings, initialTourneyTra
         TrainerMilestone("Beat Bruno", {418}, 2),
         TrainerMilestone("Beat Karen", {246}, 2),
         TrainerMilestone("Beat Lance", {244}, 3),
-        TrainerMilestone("Beat Rival 6", {285, 286, 287}, 1),
+        TrainerMilestone("Beat Rival 6", {285, 286, 287}, 1, true),
         TrainerMilestone("Beat Janine", {257}, 1),
         TrainerMilestone("Beat Surge", {255}, 1),
         TrainerMilestone("Beat Misty", {254}, 1),
