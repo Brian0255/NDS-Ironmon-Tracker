@@ -36,6 +36,10 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	local self = {}
 	local frameCounters = {}
 
+	function self.isEditingFavorites()
+		return editingFavorites
+	end
+
 	local function formatStatisticMapping(mapping, pastRunStatistics)
 		local statistic = pastRunStatistics[mapping.statKey]
 		local data = statistic[2]

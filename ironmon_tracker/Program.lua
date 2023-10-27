@@ -496,6 +496,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			self.checkForAlternateForm(playerPokemon)
 			if previousID == 0 then
 				tracker.setFirstPokemon(playerPokemon)
+				if self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TITLE_SCREEN].isEditingFavorites() then
+					return
+				end
+				currentScreens[self.UI_SCREENS.TITLE_SCREEN] = nil
 			end
 		end
 	end
@@ -569,11 +573,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			if gameInfo.NAME == "Pokemon Platinum" and childMap == 104 then
 				doneWithTitleScreen = false
 			end
+			local editingFavorites = self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TITLE_SCREEN].isEditingFavorites()
 			if currentScreens[self.UI_SCREENS.TITLE_SCREEN] and not doneWithTitleScreen then
 				doneWithTitleScreen = true
-				self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
-				self.addScreen(self.UI_SCREENS.TITLE_SCREEN)
-				currentScreens[self.UI_SCREENS.TITLE_SCREEN].setTopVisibility(false)
+				if not editingFavorites then
+					self.openScreen(self.UI_SCREENS.MAIN_SCREEN)
+					self.addScreen(self.UI_SCREENS.TITLE_SCREEN)
+					currentScreens[self.UI_SCREENS.TITLE_SCREEN].setTopVisibility(false)
+				end
 			end
 		end
 		currentLocation = areaName
@@ -608,9 +615,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN] and currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN]
 		local afterFirstPokemon = currentScreens[self.UI_SCREENS.MAIN_SCREEN] and getScreenTotal() == 1
 		local inThemeView = currentScreens[self.UI_SCREENS.COLOR_SCHEME_SCREEN]
-		if tracker.getFirstPokemonID() ~= nil and currentScreens[self.UI_SCREENS.TITLE_SCREEN] then
-			currentScreens[self.UI_SCREENS.TITLE_SCREEN] = nil
-		end
 		if beforeFirstPokemon and tracker.getFirstPokemonID() ~= nil then
 			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(false)
