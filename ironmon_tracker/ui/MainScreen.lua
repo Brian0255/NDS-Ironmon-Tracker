@@ -379,6 +379,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if program.getGameInfo().GEN == 4 then
             local statusTable = {
                 [0] = "",
+				[8] = "PSN",
                 [16] = "BRN",
                 [32] = "FRZ",
                 [64] = "PAR",
