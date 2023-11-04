@@ -40,6 +40,7 @@ PokemonData.FULL_TYPE_LIST = {
 }
 
 PokemonData.LAST_INDEX_GEN_4 = 494
+PokemonData.LAST_INDEX_GEN_5 = 650
 
 -- Enumerated constants that defines the various types a Pokemon and its Moves are
 PokemonData.POKEMON_TYPES =
@@ -177,7 +178,9 @@ PokemonData.EVO_LONGER_NAMES = {
     [PokemonData.EVOLUTION_TYPES.COMBEE] = {"Level 21, F only"}
 }
 
-PokemonData.POKEMON = {
+PokemonData.POKEMON = {}
+
+PokemonData.POKEMON_MASTER_LIST = {
     {
         -- Empty entry for ID 0
         name = "---",

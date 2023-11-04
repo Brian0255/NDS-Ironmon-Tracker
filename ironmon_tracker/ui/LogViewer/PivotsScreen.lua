@@ -126,7 +126,6 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
         if areaName == nil or areaName == "" then
             return
         end
-        print(pivotData)
         currentEncounterArea = pivotData[areaName]
         for _, encounterType in pairs(encounterTypes) do
             if currentEncounterArea[encounterType] then

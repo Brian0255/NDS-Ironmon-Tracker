@@ -1,18 +1,18 @@
 local function BattleOptionsScreen(initialSettings, initialTracker, initialProgram)
-	local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
-	local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
-	local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
-	local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
-	local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
-	local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
-	local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
-	local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
+    local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
+    local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
+    local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
+    local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
+    local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
+    local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
+    local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
+    local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
     local SettingToggleButton = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/SettingToggleButton.lua")
     local settings = initialSettings
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        BATTLE_OPTIONS_HEIGHT = 138,
+        BATTLE_OPTIONS_HEIGHT = 152,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10
@@ -38,17 +38,13 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
             "CALCULATE_VARIABLE_DAMAGE",
             "SHOW_ACTUAL_ENEMY_PP",
             "SHOW_1ST_FIGHT_STATS_PLATINUM",
-            "ENABLE_ENEMY_LOCKING"
+            "ENABLE_ENEMY_LOCKING",
+            "DOUBLES_MODE"
         }
         for _, key in pairs(orderedKeys) do
             local frame =
                 Frame(
-                Box(
-                    {x = 0, y = 0},
-                    {width = constants.TOGGLE_FRAME_WIDTH, height = constants.TOGGLE_FRAME_HEIGHT},
-                    nil,
-                    nil
-                ),
+                Box({x = 0, y = 0}, {width = constants.TOGGLE_FRAME_WIDTH, height = constants.TOGGLE_FRAME_HEIGHT}, nil, nil),
                 Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2),
                 ui.frames.mainInnerFrame
             )
@@ -149,7 +145,9 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
                     {x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 49, y = constants.BATTLE_OPTIONS_HEIGHT - 23},
                     {width = 40, height = 14},
                     "Top box background color",
-                    "Top box border color", true, "Top box background color"
+                    "Top box border color",
+                    true,
+                    "Top box background color"
                 )
             ),
             TextField(
@@ -163,7 +161,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
                 )
             )
         )
-        table.insert(eventListeners,MouseClickEventListener(ui.controls.goBackButton,onGoBackClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, onGoBackClick))
         initBattleToggleButtons()
     end
     function self.runEventListeners()
