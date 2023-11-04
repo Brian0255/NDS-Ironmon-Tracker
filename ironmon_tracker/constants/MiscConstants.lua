@@ -1,13 +1,26 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "5.7.2"
+MiscConstants.TRACKER_VERSION = "6.0.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixes important bugs related to the evo data feature.",
-    "-- 5.7.0: Clicking on the level/evo label will now show brdy and Harkenn's evolution data if your Pok" ..
-        Chars.accentedE .. "mon evolves. Massive thank you to both of these people!"
+    "-- Added a toggle under Tracker Appearance to show nicknames.",
+    "-- Added a timer option under Tracker Appearance. Middle clicking will drag the timer wherever you want it, and clicking it will pause/unpause it.",
+    "-- Added an on screen Repel indicator under Tracker Appearance that works similar to Gen 3.",
+    "-- Added a simple animated icon set based on the HeartGold walking sprites.",
+    "-- Added a coverage calculator in the Extras section of the tracker settings.",
+    "-- Under Battle Settings there is now a Doubles Mode option so that you can show your second Pok" ..
+        Chars.accentedE .. "mon outside of battle.",
+    "-- Double battles are now much more functional in Gen 4. Pok" ..
+        Chars.accentedE .. "mon will update correctly and you can now view your second mon in battle.",
+    "-- In a double battle, pressing L/R while viewing your mon will show move effectivness for the left and right enemy mons, respectively.",
+    "-- Any hoverable thing on screen can be clicked to instantly show it.",
+    "-- There is a new Pivots tab in the Log Viewer to see what you could have pivoted to in a run. The Stats tab is now just in the Pok" ..
+        Chars.accentedE .. "mon tab.",
+    "-- Favorites can now be changed at any time from the Tracker Setup screen.",
+    "-- Favorites will stay on screen until you pick your mon in the lab.",
+    "-- Mons with multiple evos such as Eevee will now let you cycle through them correctly when viewing potential evos.",
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
@@ -32,7 +45,9 @@ MiscConstants.DEFAULT_SETTINGS = {
         LOAD_NEXT_SEED = "A B Start Select",
         CYCLE_STAT = "L",
         CYCLE_PREDICTION = "R",
-        LOCK_ENEMY = "Select"
+        LOCK_ENEMY = "Select",
+        LEFT_EFFECTIVENESS = "L",
+        RIGHT_EFFECTIVENESS = "R"
     },
     battle = {
         AUTO_SWAP_TO_ENEMY = false,
@@ -40,7 +55,8 @@ MiscConstants.DEFAULT_SETTINGS = {
         SHOW_MOVE_EFFECTIVENESS = true,
         SHOW_ACTUAL_ENEMY_PP = true,
         SHOW_1ST_FIGHT_STATS_PLATINUM = true,
-        ENABLE_ENEMY_LOCKING = false
+        ENABLE_ENEMY_LOCKING = false,
+        DOUBLES_MODE = false
     },
     colorScheme = {
         ["Main background color"] = 4278190080,
