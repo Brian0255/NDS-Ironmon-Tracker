@@ -419,14 +419,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		tracker.setRunOver()
 	end
 
-	local function getPokemonDataPlayer()
-		if battleHandler.isInBattle() then
-			return battleHandler.getPokemonDataPlayer(playerPokemon)
-		else
-			pokemonDataReader.setCurrentBase(memoryAddresses.playerBase)
-			local data = pokemonDataReader.decryptPokemonInfo(true, 0, false)
-			return data
+	local function getPlayerPartyData()
+		local slot = battleHandler.getPlayerSlotIndex()
+		local isEnemy = slot == 2 and battleHandler.isMultiPlayerDouble()
+		if isEnemy then
+			selectedPlayer = self.SELECTED_PLAYERS.ENEMY
 		end
+		local offset = (slot - 1) * gameInfo.ENCRYPTED_POKEMON_SIZE
+		pokemonDataReader.setCurrentBase(memoryAddresses.playerBase + offset)
+		local data = pokemonDataReader.decryptPokemonInfo(true, 0, false)
+		return data
 	end
 
 	function self.checkForAlternateForm(pokemon)
@@ -464,18 +466,26 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	function self.getSelectedPlayer()
+		return selectedPlayer
+	end
+
 	local function getPokemonData(selected)
 		if gameInfo.GEN == 5 then
 			battleHandler.GEN5_checkLastSwitchin()
 		end
-		if selected == self.SELECTED_PLAYERS.PLAYER then
-			return getPokemonDataPlayer()
+		if battleHandler.inBattleAndFetched() then
+			local pokemon = playerPokemon
+			if selected == self.SELECTED_PLAYERS.ENEMY then
+				pokemon = enemyPokemon
+			end
+			return battleHandler.getPokemonInBattle(selected, pokemon)
 		else
-			return battleHandler.getEnemyData()
+			return getPlayerPartyData()
 		end
 	end
 
-	local function updateEnemyPokemonData()
+	function self.updateEnemyPokemonData()
 		if battleHandler.inBattleAndFetched() then
 			enemyPokemon = getPokemonData(self.SELECTED_PLAYERS.ENEMY)
 			if enemyPokemon ~= nil then
@@ -524,7 +534,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return {["pokemonToDraw"] = pokemonToDraw, ["opposingPokemon"] = opposingPokemon}
 	end
 
-	local function setPokemonForMainScreen(pokemonOverride)
+	function self.setPokemonForMainScreen(pokemonOverride)
 		local pokemonForDrawing = getPokemonToDraw()
 		local pokemonToDraw = pokemonForDrawing.pokemonToDraw
 		local opposingPokemon = pokemonForDrawing.opposingPokemon
@@ -602,14 +612,14 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 		end
 		updatePlayerPokemonData()
-		updateEnemyPokemonData()
+		self.updateEnemyPokemonData()
 		battleHandler.updateStatStages(playerPokemon, enemyPokemon)
 		battleHandler.checkIfRunHasEnded()
 		HGSS_checkLeagueDefeated()
 		scanForHealingItems()
 		self.readBadgeMemory()
 		if not (inTrackedPokemonView or inLockedView) then
-			setPokemonForMainScreen()
+			self.setPokemonForMainScreen()
 		end
 		local beforeFirstPokemon =
 			currentScreens[self.UI_SCREENS.MAIN_SCREEN] and currentScreens[self.UI_SCREENS.RANDOM_BALL_SCREEN]
@@ -619,7 +629,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			self.setCurrentScreens({self.UI_SCREENS.MAIN_SCREEN})
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRandomBallPickerActive(false)
 		end
-		if playerPokemon ~= nil then
+		if playerPokemon ~= nil and battleHandler.getPlayerSlotIndex() == 1 then
 			pokemonThemeManager.update(playerPokemon.pokemonID)
 		end
 		local usingAnimated = settings.appearance.ICON_SET_INDEX == 5
@@ -663,13 +673,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.putTrackedPokemonIntoView(id)
 		selectedPlayer = self.SELECTED_PLAYERS.ENEMY
 		local template = tracker.convertTrackedIDToPokemonTemplate(id)
-		setPokemonForMainScreen(template)
+		self.setPokemonForMainScreen(template)
 	end
 
 	function self.setSpecificPokemonAsMainScreen(pokemon)
 		inLockedView = true
 		selectedPlayer = self.SELECTED_PLAYERS.PLAYER
-		setPokemonForMainScreen(pokemon)
+		self.setPokemonForMainScreen(pokemon)
 	end
 
 	function self.initializePokemonIconsScreen()
@@ -738,26 +748,31 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 		if not inTrackedPokemonView or inLockedView then
 			selectedPlayer = self.SELECTED_PLAYERS.ENEMY
-			setPokemonForMainScreen()
+			self.setPokemonForMainScreen()
 			resetMainScreenHover()
 		end
 	end
 
 	local function switchPokemonView()
-		if not inTrackedPokemonView or inLockedView then
-			if battleHandler.inBattleAndFetched() or (locked and lockedPokemonCopy ~= nil) then
-				if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
-					selectedPlayer = self.SELECTED_PLAYERS.ENEMY
-				else
-					if locked then
-						selectedPlayer = self.SELECTED_PLAYERS.PLAYER
-					else
-						selectedPlayer = battleHandler.updateEnemySlotIndex(selectedPlayer)
-					end
+		local blockingScreenActive = inTrackedPokemonView or inLockedView
+		local lockingActive = (locked and lockedPokemonCopy ~= nil)
+		if not blockingScreenActive then
+			if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
+				selectedPlayer = battleHandler.updatePlayerSlotIndex(selectedPlayer)
+				local pokemon = getPlayerPartyData()
+				if pokemon == nil or next(pokemon) == nil then
+					print("invalid")
+					battleHandler.setPlayerSlotIndex(1)
 				end
-				readMemory()
-				resetMainScreenHover()
+			else
+				if locked then
+					selectedPlayer = self.SELECTED_PLAYERS.PLAYER
+				else
+					selectedPlayer = battleHandler.updateEnemySlotIndex(selectedPlayer)
+				end
 			end
+			readMemory()
+			resetMainScreenHover()
 		end
 	end
 
@@ -828,7 +843,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 		if
 			settings.appearance.REPEL_ICON and not currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] and
-				tracker.getFirstPokemonID() ~= nil
+				tracker.getFirstPokemonID() ~= nil and
+				not battleHandler.isInBattle()
 		 then
 			RepelDrawer.Update(memoryAddresses.repelSteps)
 		end
@@ -978,7 +994,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.main()
 		Input.updateMouse()
 		Input.updateJoypad()
-		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRunEventListeners(doneWithTitleScreen)
+		local runMainScreenEvents =
+			(doneWithTitleScreen or tracker.getFirstPokemonID() ~= nil) and
+			not self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TITLE_SCREEN].isEditingFavorites()
+		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].setRunEventListeners(runMainScreenEvents)
 		if runEvents then
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.TOURNEY_TRACKER_SCREEN].runEventListeners()
 			for _, eventListener in pairs(eventListeners) do
@@ -1041,7 +1060,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	battleHandler = BattleHandler(gameInfo, memoryAddresses, pokemonDataReader, tracker, self, settings, tourneyTracker)
 	seedLogger = SeedLogger(self, gameInfo.NAME)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
-	setPokemonForMainScreen()
+	self.setPokemonForMainScreen()
 	self.checkForUpdateBeforeLoading()
 	checkIfUpdatePerformed()
 
