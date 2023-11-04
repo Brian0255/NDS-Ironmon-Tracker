@@ -208,6 +208,9 @@ local function PokemonDataReader(initialProgram)
 
     local function decryptBattleStats(battleStatStart, monIndex, checkingEnemy, extraOffset)
         local offsets = constants.BATTLE_STAT_OFFSETS
+        if extraOffset == nil then
+            extraOffset = 0
+        end
         local previousOffset = 0
         seed = pid
         advanceRNG()
@@ -243,12 +246,7 @@ local function PokemonDataReader(initialProgram)
             statusStart = statusStart + monIndex * 0x224
             if checkingEnemy then
                 local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
-                if extraOffset == nil then
-                    extraOffset = 0x00
-                end
-                movesStart = movesStart + totalPlayerMons * 0x224 + extraOffset
-                -- + 0x224
-
+                movesStart = movesStart + totalPlayerMons * 0x224
                 statusStart = statusStart + (totalPlayerMons * 0x224)
             end
             for i = 1, #MiscData.STATUS_TO_IMG_NAME + 1, 1 do
@@ -307,39 +305,33 @@ local function PokemonDataReader(initialProgram)
         for _ = 1, 6, 1 do
             pid = Memory.read_u32_le(currentBase)
             local checksum = Memory.read_u16_le(currentBase + 0x06)
-            if checksum ~= 0 then
-                decryptedData["pid"] = pid
-                decryptedData.nature = (pid % 25)
-                local blockShift = bit.rshift(bit.band(pid, 0x3E000), 0xD) % 24
-                local blockOrder = constants.BLOCK_SHUFFLE_ORDER[blockShift + 1]
-                local blockReadingStart = currentBase + 0x08
-                seed = checksum
-                decryptBlocks(blockReadingStart, blockOrder)
-                local battleStatStart = currentBase + 0x88
-                decryptBattleStats(battleStatStart, monIndex, checkingEnemy, extraOffset)
-                formatData()
-                local sum = 0
-                for _, moveID in pairs(decryptedData.moveIDs) do
-                    sum = sum + moveID
-                end
-                if sum == 0 then
-                    return {}
-                end
-
-                if not MiscUtils.validPokemonData(decryptedData) then
-                    return {}
-                end
-                if checkingParty then
-                    if decryptedData.curHP ~= 0 and decryptedData.isEgg ~= 1 then
-                        return decryptedData
-                    end
-                else
-                    break
-                end
-                currentBase = currentBase + constants.POKEMON_DATA_SIZE
-            else
+            if checksum == 0 then
                 break
             end
+            decryptedData["pid"] = pid
+            decryptedData.nature = (pid % 25)
+            local blockShift = bit.rshift(bit.band(pid, 0x3E000), 0xD) % 24
+            local blockOrder = constants.BLOCK_SHUFFLE_ORDER[blockShift + 1]
+            local blockReadingStart = currentBase + 0x08
+            seed = checksum
+            decryptBlocks(blockReadingStart, blockOrder)
+            local battleStatStart = currentBase + 0x88
+            decryptBattleStats(battleStatStart, monIndex, checkingEnemy, extraOffset)
+            formatData()
+            local sum = 0
+            for _, moveID in pairs(decryptedData.moveIDs) do
+                sum = sum + moveID
+            end
+            if sum == 0 or not MiscUtils.validPokemonData(decryptedData) then
+                return {}
+            end
+            if not checkingParty then
+                break
+            end
+            if decryptedData.curHP ~= 0 and decryptedData.isEgg ~= 1 then
+                return decryptedData
+            end
+            currentBase = currentBase + constants.POKEMON_DATA_SIZE
         end
 
         return decryptedData
