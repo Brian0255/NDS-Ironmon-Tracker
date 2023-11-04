@@ -6,6 +6,7 @@ local function BattleHandler(
     initialProgram,
     initialSettings)
     local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
+    local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
 
     local self = {}
 
@@ -19,20 +20,33 @@ local function BattleHandler(
     local defeatedTrainerList = {}
     local GEN5_activePlayerMonPIDAddr = nil
     local GEN5_PIDSwitchData = {}
+    local joypadEvents = {}
     local totalBattlesCompleted = 0
-    local playerBattleTeamPIDs = {list = {}}
-    local enemyBattlers = {}
-    local playerMonIndex = 0
+    local playerBattleData = {
+        partyBase = memoryAddresses.playerBattleBase,
+        PIDBase = memoryAddresses.playerBattleMonPID,
+        slots = {},
+        battleTeamPIDs = {},
+        slotIndex = 1,
+        monIndex = 0
+    }
+    local enemyBattleData = {
+        partyBase = memoryAddresses.enemyBase,
+        PIDBase = memoryAddresses.enemyBattleMonPID,
+        slots = {},
+        battleTeamPIDs = {},
+        slotIndex = 1,
+        mnIndex = 0
+    }
     local faintMonIndex = -1
     local firstBattleComplete = false
     local battleDataFetched = false
-    local enemyMonIndex = 0
-    local enemySlotIndex = 1
     local frameCounters = {}
-    local lastValidPlayerBattlePID = -1
     local inBattle = false
     local enemyTrainerID = nil
     local GEN5_transformed = false
+    local enemyEffectivenessSlot = 1
+    local multiPlayerDouble = false
 
     self.BATTLE_STATUS_TYPES = {
         [0x2100] = true,
@@ -50,16 +64,17 @@ local function BattleHandler(
 
     local function GEN5_initializePIDSlots()
         local start = memoryAddresses.playerBattleMonPID
+        local battleDatas = {playerBattleData, enemyBattleData}
         GEN5_PIDSwitchData = {
             initialPIDs = {},
             switchSlots = {}
         }
-        for _, battler in pairs(enemyBattlers) do
-            GEN5_PIDSwitchData.initialPIDs[Memory.read_u32_le(battler.addressBase)] = true
+        for _, battleData in pairs(battleDatas) do
+            for _, slot in pairs(battleData.slots) do
+                GEN5_PIDSwitchData.initialPIDs[Memory.read_u32_le(slot.activePIDAddress)] = true
+            end
         end
-        GEN5_activePlayerMonPIDAddr = memoryAddresses.playerBattleBase
-        GEN5_PIDSwitchData.initialPIDs[Memory.read_u32_le(memoryAddresses.playerBattleBase)] = true
-        for i = 0, 5, 1 do
+        for i = 0, 8, 1 do
             local addr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
             local initialValue = Memory.read_u32_le(addr)
             GEN5_PIDSwitchData.switchSlots[addr] = {
@@ -68,103 +83,61 @@ local function BattleHandler(
         end
     end
 
-    local function isGen5AlternateDoubleBattle()
-        if gameInfo.GEN ~= 5 then
-            return false
+    local function addBattlerSlot(battlers, slot, PIDAddress)
+        if slot == nil then
+            slot = #battlers + 1
         end
-        --Basically checking for the types of double battles with 2 friendly trainers vs. 2 enemy trainers
-        --compared to just you vs. 2 other enemy trainers
-        return Memory.read_u16_le(memoryAddresses.playerBattleMonPID) == 0 and
-            Memory.read_u16_le(memoryAddresses.enemyBattleMonPID) == 0
-    end
-
-    local function addEnemyBattler(currentBase, currentEnemyIndex, totalPlayerMons, startIndex)
-        local total = 0
-        total = total + #enemyBattlers
-        if isGen5AlternateDoubleBattle() then
-            total = total + Memory.read_u32_le(memoryAddresses.enemyBase + gameInfo.ENEMY_PARTY_OFFSET - 0x04)
-            total = total * 2
-            total = total + totalPlayerMons
-        end
-        local activePID = memoryAddresses.enemyBattleMonPID + (currentEnemyIndex - 1) * 0x180
-        if gameInfo.GEN == 5 then
-            activePID = currentBase
-        end
-        enemyBattlers[currentEnemyIndex] = {
-            teamPIDs = {},
-            addressBase = currentBase,
-            activePIDAddress = activePID,
-            ["startIndex"] = startIndex,
-            lastValidPID = nil,
-            lastValidPokemon = nil,
-            secondMon = true,
-            extraOffset = 0x224 * total
-        }
-    end
-
-    local function fetchEnemyData()
-        local currentBase = memoryAddresses.enemyBase
-        local currentEnemyIndex = 1
-        local gen5AlternateDouble = isGen5AlternateDoubleBattle()
-        local totalPlayerMons = Memory.read_u32_le(memoryAddresses.totalMonsParty)
-        local doublesOffset = 0
-        if gen5AlternateDouble then
-            doublesOffset = 0x224 * totalPlayerMons
-        end
-        enemyBattlers[currentEnemyIndex] = {
-            teamPIDs = {},
-            addressBase = currentBase,
-            activePIDAddress = currentBase,
-            startIndex = 0,
+        battlers[slot] = {
+            activePIDAddress = PIDAddress,
             lastValidPID = -1,
             lastValidPokemon = nil,
-            extraOffset = doublesOffset,
-            transformed = false
+            previousHP = -1,
+            initialPID = Memory.read_u32_le(PIDAddress)
         }
-        if gameInfo.GEN == 4 then
-            enemyBattlers[currentEnemyIndex].activePIDAddress = memoryAddresses.enemyBattleMonPID
-        end
-        local lookFor = memoryAddresses.enemyBattleMonPID + gameInfo.ACTIVE_PID_DIFFERENCE
-        if gen5AlternateDouble then
-            lookFor = lookFor + gameInfo.ACTIVE_PID_DIFFERENCE
-        end
+    end
+
+    local function readTeamPIDs(battleData)
+        local currentBase = battleData.partyBase
         for i = 0, 11, 1 do
             if i == 6 then
-                if currentEnemyIndex ~= 2 or (gameInfo.GEN == 5 and currentEnemyIndex == 2) then
-                    currentBase = memoryAddresses.enemyBase + gameInfo.ENEMY_PARTY_OFFSET
-                    if gen5AlternateDouble then
-                        currentBase = currentBase + gameInfo.ENEMY_PARTY_OFFSET
-                    end
-                else
-                    break
-                end
+                currentBase = battleData.partyBase + gameInfo.ENEMY_PARTY_OFFSET
             end
             local pid = Memory.read_u32_le(currentBase)
             if pid ~= 0 then
-                pokemonDataReader.setCurrentBase(currentBase)
-                local pokemonData = pokemonDataReader.decryptPokemonInfo(false, i, true)
-                if MiscUtils.validPokemonData(pokemonData) then
-                    if pid == Memory.read_u32_le(lookFor) then
-                        lookFor = lookFor + gameInfo.ACTIVE_PID_DIFFERENCE
-                        currentEnemyIndex = currentEnemyIndex + 1
-                        addEnemyBattler(currentBase, currentEnemyIndex, totalPlayerMons, i)
-                    end
-                    local indexToInsert = i - enemyBattlers[currentEnemyIndex].startIndex
+                battleData.battleTeamPIDs[pid] = i
+            end
+            currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
+        end
+    end
 
-                    local enemyBattler = enemyBattlers[currentEnemyIndex]
-                    if enemyBattler.teamPIDs[pid] ~= nil and gameInfo.GEN == 4 then
-                        --annoying case to handle when trainer has 2 with the same PID, no fix for gen 5 yet (battle data structures different)
-                        if type(enemyBattler.teamPIDs[pid]) == "table" then
-                            table.insert(enemyBattler.teamPIDs[pid], indexToInsert)
-                        else
-                            enemyBattler.teamPIDs[pid] = {enemyBattler.teamPIDs[pid], indexToInsert}
-                        end
-                    else
-                        enemyBattler.teamPIDs[pid] = indexToInsert
+    local function GEN4_readBattlePIDInfo(battleData)
+        for i = 0, 1, 1 do
+            local newBase = battleData.PIDBase + (i * gameInfo.ACTIVE_PID_DIFFERENCE)
+            if (Memory.read_u32_le(newBase)) ~= 0 then
+                addBattlerSlot(battleData.slots, i + 1, newBase)
+            end
+        end
+    end
+
+    local function GEN5_readBattlePIDInfo()
+        --gen 5 is super weird
+        --we basically need to scan over the pid switch slot addresses to find out how many battlers there are
+        local battleDatas = {playerBattleData, enemyBattleData}
+        local PIDStartBase = memoryAddresses.enemyBattleMonPID
+        for i = 0, 3, 1 do
+            local offset = gameInfo.ACTIVE_PID_DIFFERENCE * i
+            local pid = Memory.read_u32_le(PIDStartBase + offset)
+            for index, _ in pairs(battleDatas) do
+                local battleData = battleDatas[index]
+                if battleData.battleTeamPIDs[pid] then
+                    local slot = battleData.battleTeamPIDs[pid]
+                    local partyOffset = slot * gameInfo.ENCRYPTED_POKEMON_SIZE
+                    local monLocation = battleData.partyBase + partyOffset
+                    if battleData.battleTeamPIDs[pid] then
+                        addBattlerSlot(battleData.slots, nil, monLocation)
                     end
                 end
             end
-            currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
         end
     end
 
@@ -192,24 +165,49 @@ local function BattleHandler(
                 return false
             end
         end
-
-        local currentBase = memoryAddresses.playerBattleBase
-
-        for i = 0, 5, 1 do
-            local pid = Memory.read_u32_le(currentBase)
-            if pid ~= 0 then
-                playerBattleTeamPIDs[pid] = i
-            else
-                break
+        local battleDatas = {playerBattleData, enemyBattleData}
+        for _, battleData in pairs(battleDatas) do
+            readTeamPIDs(battleData)
+            if gameInfo.GEN == 4 then
+                GEN4_readBattlePIDInfo(battleData)
             end
-            currentBase = currentBase + gameInfo.ENCRYPTED_POKEMON_SIZE
         end
-        fetchEnemyData()
+        if gameInfo.GEN == 5 then
+            GEN5_readBattlePIDInfo()
+        end
+        if #playerBattleData.slots == 0 or #enemyBattleData.slots == 0 then
+            playerBattleData.slots = {}
+            enemyBattleData.slots = {}
+            return false
+        end
         return true
+    end
+
+    local function getBattleMonPID(battler)
+        local pidAddress = battler.activePIDAddress
+        local activePID = Memory.read_u32_le(pidAddress)
+        if activePID == 0 then
+            return Memory.read_u32_le(pidAddress)
+        else
+            return activePID
+        end
+    end
+
+    local function getMonIndex(battleData)
+        if battleData == nil then
+            return
+        end
+        local activeMonPID = getBattleMonPID(battleData.slots[battleData.slotIndex])
+        return battleData.battleTeamPIDs[activeMonPID]
     end
 
     function self.updateStatStages(playerPokemon, enemyPokemon)
         if inBattle and battleDataFetched and enemyPokemon ~= nil and playerPokemon ~= nil then
+            local playerMonIndex = getMonIndex(playerBattleData)
+            local enemyMonIndex = getMonIndex(enemyBattleData)
+            if playerMonIndex == nil or enemyMonIndex == nil then
+                return
+            end
             if gameInfo.GEN == 5 then
                 pokemonDataReader.setCurrentBase(memoryAddresses.statStagesStart)
                 playerPokemon.statStages = pokemonDataReader.readBattleStatStages(false, playerMonIndex)
@@ -223,35 +221,9 @@ local function BattleHandler(
         end
     end
 
-    local function getPlayerBattleMonPID()
-        local activePID = Memory.read_u32_le(memoryAddresses.playerBattleMonPID)
-        if gameInfo.GEN == 5 then
-            activePID = Memory.read_u32_le(GEN5_activePlayerMonPIDAddr)
-        end
-        if activePID == 0 then
-            return Memory.read_u32_le(memoryAddresses.playerBattleBase)
-        else
-            return activePID
-        end
-    end
-
-    local function getEnemyBattleMonPID(enemyBattler)
-        local activePID = Memory.read_u32_le(enemyBattler.activePIDAddress)
-        if activePID == 0 then
-            return Memory.read_u32_le(enemyBattler.addressBase)
-        else
-            return activePID
-        end
-    end
-
-    local function checkForPlayerTransform()
-        local activePID = getPlayerBattleMonPID()
-        return not playerBattleTeamPIDs[activePID]
-    end
-
-    local function checkForEnemyTransform(enemyBattler)
-        local activePID = getEnemyBattleMonPID(enemyBattler)
-        return not enemyBattler.teamPIDs[activePID]
+    local function checkForTransform(battleData, slotIndex)
+        local activePID = getBattleMonPID(battleData.slots[slotIndex])
+        return not battleData.battleTeamPIDs[activePID]
     end
 
     local function GEN5_checkPlayerTransform(currentPlayerPokemon, compare)
@@ -268,61 +240,83 @@ local function BattleHandler(
         end
     end
 
-    function self.getPokemonDataPlayer(currentPlayerPokemon)
-        if not battleDataFetched then
-            return
-        end
-        local currentBase = memoryAddresses.playerBattleBase
-        local activePID
-        local transformed = checkForPlayerTransform()
-        if transformed then
-            activePID = lastValidPlayerBattlePID
-        else
-            activePID = getPlayerBattleMonPID()
-            lastValidPlayerBattlePID = activePID
-        end
-        local monIndex = playerBattleTeamPIDs[activePID]
-        if monIndex ~= nil then
-            playerMonIndex = monIndex
-            pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
-            local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
-            if currentPlayerPokemon ~= nil and gameInfo.GEN == 5 then
-                GEN5_checkPlayerTransform(currentPlayerPokemon, data)
-                if GEN5_transformed then
-                    return nil
-                end
-            end
-            return data
-        end
-    end
-
-    local function handleIdenticalMonsInParty(slot, currentBase, monIndex)
-        local pokemonData
-        for _, indexToCheck in pairs(monIndex) do
-            pokemonDataReader.setCurrentBase(currentBase + indexToCheck * gameInfo.ENCRYPTED_POKEMON_SIZE)
-            local testForID = pokemonDataReader.decryptPokemonInfo(false, monIndex, true)
-            if MiscUtils.validPokemonData(testForID) then
-                if testForID.pokemonID == memory.read_u16_le(memoryAddresses.enemyPokemonID + 180 * (slot - 1)) then
-                    pokemonData = testForID
-                    return pokemonData
-                end
-            end
-        end
-        return pokemonData
-    end
-
-    local function setUpDelay(enemyBattler)
+    local function setUpDelay()
         local delay = 150
         if gameInfo.GEN == 5 then
             delay = 90
         end
-        if enemyBattler.lastValidPID == -1 then
+        if lastValidEnemyBattlePID == -1 then
             delay = 300
             if gameInfo.GEN == 5 and battleDataFetched then
                 delay = 0
             end
         end
         return delay
+    end
+
+    local function logNewEnemy(data)
+        local delay = setUpDelay()
+        tracker.logNewEnemyPokemonInBattle(data.pokemonID)
+        program.disableMoveEffectiveness()
+        program.addEffectivenessEnablingFrameCounter(delay)
+        tracker.updateCurrentLevel(data.pokemonID, data.level)
+        program.switchToEnemy()
+        if enemyTrainerID ~= nil and enemyTrainerID == 0 then
+            tracker.updateEncounterData(data.pokemonID, data.level)
+        end
+    end
+
+    function self.isMultiPlayerDouble()
+        return multiPlayerDouble
+    end
+
+    function self.getPokemonData(currentPokemon, battleData, slotIndex, isEnemy)
+        if not battleDataFetched then
+            return
+        end
+        local battlers = battleData.slots
+        local battler = battlers[slotIndex]
+        local currentBase = memoryAddresses.playerBattleBase
+        if isEnemy then
+            currentBase = memoryAddresses.enemyBase
+        end
+        local activePID
+        local transformed = checkForTransform(battleData, slotIndex)
+        if transformed then
+            activePID = battler.lastValidPID
+        else
+            activePID = getBattleMonPID(battler)
+        end
+        local monIndex = battleData.battleTeamPIDs[activePID]
+        if monIndex ~= nil then
+            if monIndex > 5 then
+                multiPlayerDouble = true
+                currentBase = currentBase + gameInfo.ENEMY_PARTY_OFFSET
+                monIndex = monIndex - 6
+            end
+            local base = currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE
+            pokemonDataReader.setCurrentBase(base)
+            local data = pokemonDataReader.decryptPokemonInfo(false, monIndex, isEnemy)
+            if data == nil or next(data) == nil then
+                return nil
+            end
+            program.checkForAlternateForm(data)
+            if currentPokemon ~= nil and gameInfo.GEN == 5 then
+                --GEN5_checkPlayerTransform(currentPlayerPokemon, data)
+                if GEN5_transformed then
+                    return nil
+                end
+            end
+            if activePID ~= battler.lastValidPID and isEnemy then
+                if battler.lastValidPokemon ~= nil then
+                    tracker.updateLastLevelSeen(battler.lastValidPokemon.pokemonID, battler.lastValidPokemon.level)
+                end
+                logNewEnemy(data)
+                battler.lastValidPokemon = data
+            end
+            battler.lastValidPID = activePID
+            return data
+        end
     end
 
     function self.isWildBattle()
@@ -366,62 +360,6 @@ local function BattleHandler(
         end
     end
 
-    function self.getPokemonDataEnemy(slot)
-        if inBattle and battleDataFetched then
-            local enemyBattler = enemyBattlers[slot]
-            local currentBase = enemyBattler.addressBase
-            local activePID
-            local transformed = checkForEnemyTransform(enemyBattler)
-            if transformed then
-                activePID = enemyBattler.lastValidPID
-            else
-                activePID = getEnemyBattleMonPID(enemyBattler)
-                local activePokemon = enemyBattler.activeEnemyPokemon
-                if activePID ~= enemyBattler.lastValidPID and enemyBattler.activeEnemyPokemon ~= nil then
-                    tracker.updateLastLevelSeen(activePokemon.pokemonID, activePokemon.level)
-                end
-            end
-            local pokemonData
-            local monIndex = enemyBattler.teamPIDs[activePID]
-            if type(monIndex) == "table" then
-                pokemonData = handleIdenticalMonsInParty(slot, currentBase, monIndex)
-                if pokemonData == nil then
-                    monIndex = monIndex[1]
-                end
-            end
-            if monIndex ~= nil and pokemonData == nil then
-                enemyMonIndex = monIndex
-                pokemonDataReader.setCurrentBase(currentBase + monIndex * gameInfo.ENCRYPTED_POKEMON_SIZE)
-                pokemonData = pokemonDataReader.decryptPokemonInfo(false, monIndex, true, enemyBattler.extraOffset)
-            end
-            if MiscUtils.validPokemonData(pokemonData) then
-                program.checkForAlternateForm(pokemonData)
-                enemyBattler.lastValidPokemon = pokemonData
-                enemyBattler.activeEnemyPokemon = pokemonData
-                if activePID ~= enemyBattler.lastValidPID then
-                    local delay = setUpDelay(enemyBattler)
-                    tracker.logNewEnemyPokemonInBattle(pokemonData.pokemonID)
-                    program.disableMoveEffectiveness()
-                    program.addEffectivenessEnablingFrameCounter(delay)
-                    tracker.updateCurrentLevel(pokemonData.pokemonID, pokemonData.level)
-                    program.switchToEnemy()
-                    if enemyTrainerID ~= nil and enemyTrainerID == 0 then
-                        tracker.updateEncounterData(pokemonData.pokemonID, pokemonData.level)
-                    end
-                end
-                enemyBattler.lastValidPID = activePID
-                local address = enemyBattler.activePIDAddress
-                GEN5_accountForIllusion(enemyBattler)
-                if address ~= enemyBattler.activePIDAddress then
-                    return self.getPokemonDataEnemy(slot)
-                end
-                return pokemonData
-            else
-                return nil
-            end
-        end
-    end
-
     local function checkEnemyPP(enemy)
         if inBattle and enemy ~= nil then
             for i, moveID in pairs(enemy.moveIDs) do
@@ -437,14 +375,58 @@ local function BattleHandler(
         end
     end
 
-    function self.getEnemyData()
-        local enemies = {}
-        for i = 1, #enemyBattlers, 1 do
-            local enemy = self.getPokemonDataEnemy(i)
-            checkEnemyPP(enemy)
-            enemies[i] = enemy
+    function self.getPokemonInBattle(selectedPlayer, selectedPokemon)
+        local pokemon = {}
+        local isEnemy = (selectedPlayer == program.SELECTED_PLAYERS.ENEMY)
+        local battleData = playerBattleData
+        if isEnemy then
+            battleData = enemyBattleData
         end
-        return enemies[enemySlotIndex]
+        for i = 1, #battleData.slots, 1 do
+            local data = self.getPokemonData(selectedPokemon, battleData, i, isEnemy)
+            if isEnemy then
+                checkEnemyPP(data)
+            end
+            pokemon[i] = data
+        end
+        local slotIndex = battleData.slotIndex
+        if program.getSelectedPlayer() == program.SELECTED_PLAYERS.PLAYER and isEnemy then
+            slotIndex = enemyEffectivenessSlot
+        end
+        return pokemon[slotIndex]
+    end
+
+    local function GEN5_getMatchingBattlerIndexFromSlotValue(teamPIDs, slots, currentSlotValue)
+        local slotValueIndex = teamPIDs[currentSlotValue]
+        for i = #slots, 1, -1 do
+            local battler = slots[i]
+            local activePID = Memory.read_u32_le(battler.activePIDAddress)
+            local index = teamPIDs[activePID]
+            if index == nil then
+                return nil
+            end
+            if slotValueIndex >= index then
+                return i
+            end
+        end
+        return nil
+    end
+
+    local function checkBattlerHasMatchingPID(currentSlotValue, switchAddress)
+        print(string.format("%X", switchAddress))
+        print(playerBattleData.battleTeamPIDs)
+        print(enemyBattleData.battleTeamPIDs)
+        local battleDatas = {playerBattleData, enemyBattleData}
+        for _, battleData in pairs(battleDatas) do
+            if battleData.battleTeamPIDs[currentSlotValue] then
+                local matchingIndex =
+                    GEN5_getMatchingBattlerIndexFromSlotValue(battleData.battleTeamPIDs, battleData.slots, currentSlotValue)
+                if matchingIndex ~= nil then
+                    print("MATCH!")
+                    battleData.slots[matchingIndex].activePIDAddress = switchAddress
+                end
+            end
+        end
     end
 
     function self.GEN5_checkLastSwitchin()
@@ -453,38 +435,28 @@ local function BattleHandler(
         --So what we do is check these addresses. If the PID belongs to player or enemy, update accordingly.
 
         local sawAZero = false
-        if next(GEN5_PIDSwitchData) ~= nil then
-            local start = memoryAddresses.playerBattleMonPID
-            for i = 0, 5, 1 do
-                local switchAddr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
-                local data = GEN5_PIDSwitchData.switchSlots[switchAddr]
-                local currentValue = Memory.read_u32_le(switchAddr)
-                if currentValue == 0 then
-                    sawAZero = true
-                else
-                    --checking for player pokeball being sent out (and changing the initial value if so),
-                    --as well as making sure no switch in occured yet (seeing a zero means there was no switch in)
-                    if data.initialValue == 0 and sawAZero and currentValue ~= 0 then
-                        data.initialValue = currentValue
-                    end
-                    if
-                        not data.active and currentValue ~= data.initialValue and
-                            not GEN5_PIDSwitchData.initialPIDs[currentValue]
-                     then
-                        data.active = true
-                        if
-                            playerBattleTeamPIDs[currentValue] and
-                                GEN5_activePlayerMonPIDAddr == memoryAddresses.playerBattleBase
-                         then
-                            GEN5_activePlayerMonPIDAddr = switchAddr
-                        else
-                            for _, battler in pairs(enemyBattlers) do
-                                if battler.teamPIDs[currentValue] and battler.activePIDAddress == battler.addressBase then
-                                    battler.activePIDAddress = switchAddr
-                                end
-                            end
-                        end
-                    end
+        if next(GEN5_PIDSwitchData) == nil then
+            return
+        end
+        local start = memoryAddresses.playerBattleMonPID
+        for i = 0, 8, 1 do
+            local switchAddr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
+            local switchSlot = GEN5_PIDSwitchData.switchSlots[switchAddr]
+            local currentValue = Memory.read_u32_le(switchAddr)
+            if currentValue == 0 then
+                sawAZero = true
+            else
+                --checking for player pokeball being sent out (and changing the initial value if so),
+                --as well as making sure no switch in occured yet (seeing a zero means there was no switch in)
+                if switchSlot.initialValue == 0 and sawAZero and currentValue ~= 0 then
+                    switchSlot.initialValue = currentValue
+                end
+                local slotChanged = currentValue ~= switchSlot.initialValue
+                local slotUnused = not switchSlot.active
+                local slotNotInitial = not GEN5_PIDSwitchData.initialPIDs[currentValue]
+                if slotChanged and slotUnused and slotNotInitial then
+                    switchSlot.active = true
+                    checkBattlerHasMatchingPID(currentValue, switchAddr)
                 end
             end
         end
@@ -507,7 +479,8 @@ local function BattleHandler(
             end
             totalBattlesCompleted = totalBattlesCompleted + 1
             firstBattleComplete = true
-            for _, battler in pairs(enemyBattlers) do
+
+            for _, battler in pairs(enemyBattleData.slots) do
                 if battler.lastValidPokemon ~= nil then
                     tracker.updateLastLevelSeen(battler.lastValidPokemon.pokemonID, battler.lastValidPokemon.level)
                 end
@@ -516,6 +489,7 @@ local function BattleHandler(
         faintMonIndex = -1
         inBattle = false
         GEN5_transformed = false
+        multiPlayerDouble = false
     end
 
     local function getPlayerParty()
@@ -575,14 +549,25 @@ local function BattleHandler(
     end
 
     local function setUpBattleVariables()
-        lastValidPlayerBattlePID = -1
         inBattle = true
         battleDataFetched = false
-        enemySlotIndex = 1
-        playerBattleTeamPIDs = {}
-        enemyBattlers = {}
+        playerBattleData = {
+            partyBase = memoryAddresses.playerBattleBase,
+            PIDBase = memoryAddresses.playerBattleMonPID,
+            slots = {},
+            battleTeamPIDs = {},
+            slotIndex = 1
+        }
+        enemyBattleData = {
+            partyBase = memoryAddresses.enemyBase,
+            PIDBase = memoryAddresses.enemyBattleMonPID,
+            slots = {},
+            battleTeamPIDs = {},
+            slotIndex = 1
+        }
         GEN5_PIDSwitchData = {}
         frameCounters["fetchBattleData"] = FrameCounter(60, onBattleFetchFrameCounter)
+        multiPlayerDouble = false
     end
 
     function self.isInBattle()
@@ -614,19 +599,63 @@ local function BattleHandler(
         return (inBattle and battleDataFetched)
     end
 
+    function self.setPlayerSlotIndex(newIndex)
+        playerBattleData.slotIndex = newIndex
+    end
+
     function self.updateEnemySlotIndex(selectedPlayer)
-        if enemySlotIndex == #enemyBattlers then
+        local limit = #enemyBattleData.slots
+        if enemyBattleData.slotIndex == limit then
             selectedPlayer = program.SELECTED_PLAYERS.PLAYER
-            enemySlotIndex = 1
+            enemyBattleData.slotIndex = 1
+            playerBattleData.slotIndex = 1
         else
-            enemySlotIndex = enemySlotIndex + 1
+            enemyBattleData.slotIndex = enemyBattleData.slotIndex + 1
         end
         return selectedPlayer
     end
 
+    function self.updatePlayerSlotIndex(selectedPlayer)
+        if inBattle and not battleDataFetched then
+            return selectedPlayer
+        end
+        local limit = #playerBattleData.slots
+        if settings.battle.DOUBLES_MODE and not inBattle then
+            limit = 2
+        end
+        if playerBattleData.slotIndex == limit then
+            selectedPlayer = program.SELECTED_PLAYERS.ENEMY
+            enemyBattleData.slotIndex = 1
+            playerBattleData.slotIndex = 1
+        else
+            playerBattleData.slotIndex = playerBattleData.slotIndex + 1
+        end
+        return selectedPlayer
+    end
+
+    function self.getPlayerSlotIndex()
+        return playerBattleData.slotIndex
+    end
+
+    local function onEffectivenessChange(newEnemySlot)
+        enemyEffectivenessSlot = newEnemySlot
+        if not enemyBattleData.slots[newEnemySlot] then
+            enemyEffectivenessSlot = 1
+        end
+        program.updateEnemyPokemonData()
+        program.setPokemonForMainScreen()
+        program.drawCurrentScreens()
+    end
+
+    table.insert(joypadEvents, JoypadEventListener(settings.controls, "LEFT_EFFECTIVENESS", onEffectivenessChange, 2))
+    table.insert(joypadEvents, JoypadEventListener(settings.controls, "RIGHT_EFFECTIVENESS", onEffectivenessChange, 1))
+
     function self.runFrameCounters()
         for _, frameCounter in pairs(frameCounters) do
             frameCounter.decrement()
+        end
+        for _, listener in pairs(joypadEvents) do
+            listener.listen()
         end
     end
 
