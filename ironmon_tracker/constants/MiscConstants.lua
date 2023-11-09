@@ -20,7 +20,7 @@ MiscConstants.UPDATE_NOTES = {
         Chars.accentedE .. "mon tab.",
     "-- Favorites can now be changed at any time from the Tracker Setup screen.",
     "-- Favorites will stay on screen until you pick your mon in the lab.",
-    "-- Mons with multiple evos such as Eevee will now let you cycle through them correctly when viewing potential evos.",
+    "-- Mons with multiple evos such as Eevee will now let you cycle through them correctly when viewing potential evos."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
@@ -152,6 +152,14 @@ MiscConstants.DEFAULT_POKEMON = {
         SPE = "---",
         SPA = "---",
         SPD = "---"
+    },
+    EVs = {
+        HP = 0,
+        ATK = 0,
+        DEF = 0,
+        SPE = 0,
+        SPA = 0,
+        SPD = 0
     },
     isEgg = 0,
     nature = 0,

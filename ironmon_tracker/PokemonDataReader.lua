@@ -46,7 +46,13 @@ local function PokemonDataReader(initialProgram)
                 {4, {"trainerID"}},
                 {8, {"experience1"}},
                 {10, {"experience2"}},
-                {12, {"friendship", "ability"}}
+                {12, {"friendship", "ability"}},
+                {16, {"HP_EV"}},
+                {18, {"ATK_EV"}},
+                {20, {"DEF_EV"}},
+                {22, {"SPE_EV"}},
+                {24, {"SPA_EV"}},
+                {26, {"SPD_EV"}}
             },
             B = {
                 {0, {"move1"}},
@@ -77,6 +83,9 @@ local function PokemonDataReader(initialProgram)
             {18, {"SPD"}}
         }
     }
+
+    local function readEV(decryptedData, EVKey)
+    end
 
     local function advanceRNG()
         seed = BitUtils.mult32(seed, 0x41C64E6D) + 0x00006073
@@ -289,6 +298,14 @@ local function PokemonDataReader(initialProgram)
             SPA = decryptedData.SPA,
             SPD = decryptedData.SPD,
             SPE = decryptedData.SPE
+        }
+        decryptedData.EVs = {
+            HP = decryptedData.HP_EV,
+            ATK = decryptedData.ATK_EV,
+            DEF = decryptedData.DEF_EV,
+            SPA = decryptedData.SPA_EV,
+            SPD = decryptedData.SPD_EV,
+            SPE = decryptedData.SPE_EV
         }
         local fourBytes = bit.band(decryptedData.experience2, 0x0000FFFF)
         fourBytes = bit.lshift(fourBytes, 16)
