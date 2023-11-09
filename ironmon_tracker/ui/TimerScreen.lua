@@ -5,25 +5,21 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 	local TextLabel = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextLabel.lua")
 	local TextField = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextField.lua")
 	local TextStyle = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/TextStyle.lua")
-	local Layout = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Layout.lua")
-	local Icon = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Icon.lua")
-	local ScrollBar = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScrollBar.lua")
 	local MouseClickEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MouseClickEventListener.lua")
 	local DragDropEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/DragDropEventListener.lua")
-	local HoverEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/HoverEventListener.lua")
-	local MovementAnimation = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/MovementAnimation.lua")
-	local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
+
 	local settings = initialSettings
 	local tracker = initialTracker
 	local program = initialProgram
 	local prevTransparent = nil
-	local constants = {}
+	local canDraw = true
 	local ui = {}
 	local eventListeners = {}
 	local self = {}
 	local pausedSeconds = 0
 	local startSeconds = os.time() - tracker.getTimerSeconds()
 	local timeDeduct = 0
+	local lastCheckedSeconds = startSeconds
 	local paused = false
 
 	local function pause()
@@ -74,8 +70,7 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 	local function initUI()
 		ui.controls = {}
 		ui.frames = {}
-		ui.frames.mainFrame =
-			Frame(Box({x = 0, y = 0}, {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT}))
+		ui.frames.mainFrame = Frame(Box({x = 0, y = 0}, {width = 0, height = 0}))
 		ui.controls.timer =
 			TextLabel(
 			Component(
@@ -104,6 +99,7 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	function self.runEventListeners()
+		canDraw = true
 		for _, eventListener in pairs(eventListeners) do
 			eventListener.listen()
 		end
@@ -121,19 +117,29 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function updateSeconds()
+		local currentSeconds = os.time()
 		if paused or tracker.hasRunEnded() then
 			ui.controls.timer.setText(secondsToHMS(tracker.getTimerSeconds()))
+			lastCheckedSeconds = currentSeconds
 			return
 		end
-		local currentSeconds = os.time() - startSeconds - timeDeduct
-		local toDisplay = secondsToHMS(currentSeconds)
+		if (currentSeconds - lastCheckedSeconds) > 1 then
+			timeDeduct = timeDeduct + (currentSeconds - lastCheckedSeconds)
+		end
+		local calculatedSeconds = currentSeconds - startSeconds - timeDeduct
+		local toDisplay = secondsToHMS(calculatedSeconds)
 		ui.controls.timer.setText(toDisplay)
-		tracker.setTimerSeconds(currentSeconds)
+		tracker.setTimerSeconds(calculatedSeconds)
+		lastCheckedSeconds = currentSeconds
 	end
 
 	function self.show()
 		updateSeconds()
-		ui.frames.mainFrame.show()
+		--use boolean to draw max of once per frame advance, otherwise stacked transparency draws look bad
+		if canDraw then
+			ui.frames.mainFrame.show()
+		end
+		canDraw = false
 	end
 
 	initUI()
