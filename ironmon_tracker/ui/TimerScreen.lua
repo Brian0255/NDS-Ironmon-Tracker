@@ -19,7 +19,7 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 	local pausedSeconds = 0
 	local startSeconds = os.time() - tracker.getTimerSeconds()
 	local timeDeduct = 0
-	local lastCheckedSeconds = startSeconds
+	local lastCheckedSeconds = os.time()
 	local paused = false
 
 	local function pause()
@@ -61,7 +61,7 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 			ui.controls.timer.setShadowColorKey()
 		else
 			ui.controls.timer.setOpacity(0xFF)
-			ui.controls.timer.setBackgroundFillColorKey("Top box background color")
+			ui.controls.timer.setBackgroundFillColorKey("Top box border color")
 			ui.controls.timer.setBackgroundColorKey("Top box background color")
 			ui.controls.timer.setShadowColorKey("Top box background color")
 		end
@@ -99,7 +99,6 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	function self.runEventListeners()
-		canDraw = true
 		for _, eventListener in pairs(eventListeners) do
 			eventListener.listen()
 		end
@@ -107,6 +106,7 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 			updateTimerColors()
 		end
 		prevTransparent = settings.timer.TRANSPARENT
+		canDraw = true
 	end
 
 	local function secondsToHMS(seconds)
