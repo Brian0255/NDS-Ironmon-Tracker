@@ -96,9 +96,23 @@ local function BattleHandler(
         }
     end
 
+    local function isGen5AlternateDoubleBattle()
+        if gameInfo.GEN ~= 5 then
+            return false
+        end
+        --Basically checking for the types of double battles with 2 friendly trainers vs. 2 enemy trainers
+        --compared to just you vs. 2 other enemy trainers
+        return Memory.read_u16_le(memoryAddresses.playerBattleMonPID) == 0 and
+            Memory.read_u16_le(memoryAddresses.enemyBattleMonPID) == 0
+    end
+
     local function readTeamPIDs(battleData)
         local currentBase = battleData.partyBase
-        for i = 0, 11, 1 do
+        local limit = 11
+        if not isGen5AlternateDoubleBattle() then
+            limit = 5
+        end
+        for i = 0, limit, 1 do
             if i == 6 then
                 currentBase = battleData.partyBase + gameInfo.ENEMY_PARTY_OFFSET
             end
@@ -139,6 +153,7 @@ local function BattleHandler(
                 end
             end
         end
+        print(playerBattleData.slots)
     end
 
     local function tryToFetchBattleData()
