@@ -256,7 +256,7 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
             elseif justifiedSpacing == 2 then
                 spacing = 3
             end
-        elseif text == "WT" then
+        elseif text == "WT" or text == "HP" then
             spacing = 3
         elseif text == "ITM" then
             spacing = 2
