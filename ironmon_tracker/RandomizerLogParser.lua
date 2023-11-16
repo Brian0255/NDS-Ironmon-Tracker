@@ -356,8 +356,10 @@ local function RandomizerLogParser(initialProgram)
                         if not pivotData[areaName] then
                             pivotData[areaName] = {}
                         end
-                        if pivotType ~= "Headbutt" and not pivotData[areaName][pivotType] then
-                            pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
+                        if pivotType ~= "Headbutt" then
+                            if not pivotData[areaName][pivotType] then
+                                pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
+                            end
                         else
                             local suffixes = {"(C)", "(R)"}
                             for index, suffix in pairs(suffixes) do
