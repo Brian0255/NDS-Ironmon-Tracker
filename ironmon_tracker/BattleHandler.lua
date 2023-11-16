@@ -74,7 +74,7 @@ local function BattleHandler(
                 GEN5_PIDSwitchData.initialPIDs[Memory.read_u32_le(slot.activePIDAddress)] = true
             end
         end
-        for i = 0, 8, 1 do
+        for i = 0, 5, 1 do
             local addr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
             local initialValue = Memory.read_u32_le(addr)
             GEN5_PIDSwitchData.switchSlots[addr] = {
@@ -137,8 +137,8 @@ local function BattleHandler(
         --gen 5 is super weird
         --we basically need to scan over the pid switch slot addresses to find out how many battlers there are
         local battleDatas = {playerBattleData, enemyBattleData}
-        local PIDStartBase = memoryAddresses.playerBattleMonPID
-        for i = 0, 5, 1 do
+        local PIDStartBase = memoryAddresses.enemyBattleMonPID + gameInfo.ACTIVE_PID_DIFFERENCE
+        for i = 0, 3, 1 do
             local offset = gameInfo.ACTIVE_PID_DIFFERENCE * i
             local pid = Memory.read_u32_le(PIDStartBase + offset)
             for index, _ in pairs(battleDatas) do
@@ -153,6 +153,8 @@ local function BattleHandler(
                 end
             end
         end
+        addBattlerSlot(playerBattleData.slots, nil, memoryAddresses.playerBattleBase)
+        addBattlerSlot(enemyBattleData.slots, nil, memoryAddresses.enemyBase)
     end
 
     local function tryToFetchBattleData()
@@ -433,11 +435,7 @@ local function BattleHandler(
         local battleDatas = {playerBattleData, enemyBattleData}
         for _, battleData in pairs(battleDatas) do
             if battleData.battleTeamPIDs[currentSlotValue] then
-                local matchingIndex =
-                    GEN5_getMatchingBattlerIndexFromSlotValue(battleData.battleTeamPIDs, battleData.slots, currentSlotValue)
-                if matchingIndex ~= nil then
-                    battleData.slots[matchingIndex].activePIDAddress = switchAddress
-                end
+                battleData.slots[1].activePIDAddress = switchAddress
             end
         end
     end
@@ -446,13 +444,12 @@ local function BattleHandler(
         --In gen 5, there is no active battler PID.
         --Instead, several memory addresses seemingly get updated when switch-ins occur.
         --So what we do is check these addresses. If the PID belongs to player or enemy, update accordingly.
-
         local sawAZero = false
         if next(GEN5_PIDSwitchData) == nil then
             return
         end
         local start = memoryAddresses.playerBattleMonPID
-        for i = 0, 8, 1 do
+        for i = 0, 5, 1 do
             local switchAddr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
             local switchSlot = GEN5_PIDSwitchData.switchSlots[switchAddr]
             local currentValue = Memory.read_u32_le(switchAddr)
