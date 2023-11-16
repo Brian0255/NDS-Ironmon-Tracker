@@ -262,7 +262,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "QuickLoad:",
+                "Start New Run:",
                 {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
