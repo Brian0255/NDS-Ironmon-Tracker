@@ -34,17 +34,9 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
     local currentIDs = {}
     local currentPokemonList = {}
     local pivotData = {}
-    local encounterTypes = {"Grass", "Shaking Spots", "Old Rod", "Headbutt (C)", "Headbutt (R)", "Dark Grass"}
+    local encounterTypes = {"Grass", "Shaking Spots", "Old Rod", "Headbutt(C)", "Headbutt(R)", "Dark Grass"}
 
     local function underlineActiveTab()
-        --[[
-        local activeTabControl = ui.tabControls[currentScreenIndex]
-        local position = activeTabControl.getPosition()
-        local size = activeTabControl.getSize()
-        local x1, y1 = position.x + 3, position.y + size.height - 2
-        local x2, y2 = position.x + size.width - 3, y1
-        gui.drawLine(x1, y1, x2, y2, DrawingUtils.convertColorKeyToColor("Top box text color"))
-        --]]
     end
 
     local function onPokemonClick(id)
