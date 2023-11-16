@@ -5,22 +5,22 @@ MiscConstants.TRACKER_VERSION = "6.0.0"
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Added a toggle under Tracker Appearance to show nicknames.",
-    "-- Added a timer option under Tracker Appearance. Middle clicking will drag the timer wherever you want it, and clicking it will pause/unpause it.",
-    "-- Added an on screen Repel indicator under Tracker Appearance that works similar to Gen 3.",
-    "-- Added a simple animated icon set based on the HeartGold walking sprites.",
-    "-- Added a coverage calculator in the Extras section of the tracker settings.",
-    "-- Under Battle Settings there is now a Doubles Mode option so that you can show your second Pok" ..
-        Chars.accentedE .. "mon outside of battle.",
     "-- Double battles are now much more functional in Gen 4. Pok" ..
         Chars.accentedE .. "mon will update correctly and you can now view your second mon in battle.",
+    "-- Under Battle Settings there is now a Doubles Mode option so that you can show your second Pok" ..
+        Chars.accentedE .. "mon outside of battle by pressing START.",
     "-- In a double battle, pressing L/R while viewing your mon will show move effectivness for the left and right enemy mons, respectively.",
-    "-- Any hoverable thing on screen can be clicked to instantly show it.",
     "-- There is a new Pivots tab in the Log Viewer to see what you could have pivoted to in a run. The Stats tab is now just in the Pok" ..
         Chars.accentedE .. "mon tab.",
+    "-- Added a simple animated icon set based on the HeartGold walking sprites.",
+    "-- Added a coverage calculator in the Extras section of the tracker settings.",
+    "-- Added an on-screen Repel indicator under Tracker Appearance that works similar to Gen 3.",
+    "-- Added a timer option under Tracker Appearance. Middle clicking will drag the timer wherever you want it, and clicking it will pause/unpause it.",
+    "-- Added a toggle under Tracker Appearance to show nicknames.",
     "-- Favorites can now be changed at any time from the Tracker Setup screen.",
     "-- Favorites will stay on screen until you pick your mon in the lab.",
-    "-- Mons with multiple evos such as Eevee will now let you cycle through them correctly when viewing potential evos."
+    "-- Mons with multiple evos such as Eevee will now let you cycle through them correctly when viewing potential evos.",
+    "-- Any hoverable thing on screen can be clicked to instantly show it."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
@@ -119,7 +119,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         ENABLED = false,
         TRANSPARENT = false,
         XPOS = 0,
-        YPOS = 0
+        YPOS = 180.5
     }
 }
 
