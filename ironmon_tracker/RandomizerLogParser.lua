@@ -295,7 +295,10 @@ local function RandomizerLogParser(initialProgram)
         if encounterType == "Headbutt" then
             slotPercents = {50, 15, 15, 10, 5, 5}
         end
-        local pokemonName, minLevel, maxLevel = lines[line]:match("(.*) Lvs (%d+)%-(%d+)")
+        local pokemonName, ignore, minLevel, maxLevel = lines[line]:match("(.*) Lv(.-)(%d+)%-?(%d+)")
+        if maxLevel == nil then
+            maxLevel = minLevel
+        end
         minLevel = tonumber(minLevel)
         maxLevel = tonumber(maxLevel)
         pokemonName = pokemonName:lower()
@@ -339,13 +342,17 @@ local function RandomizerLogParser(initialProgram)
             for pivotType, _ in pairs(pivotTypes) do
                 if routeInfo:find(pivotType) ~= -1 then
                     pivotType = pivotType:gsub("/Cave", "")
-                    local areaName = routeInfo:match("Set #%d+ %- (.+) " .. pivotType)
+                    local number, areaName = routeInfo:match("Set #(%d+) %- (.+) " .. pivotType)
                     --very dumb but idk what else to do
                     if areaName == "Sprout Tower" then
                         timesSeenSprout = timesSeenSprout + 1
                         areaName = areaName .. " " .. timesSeenSprout .. "F"
                     end
-                    if MiscUtils.tableContains(validRoutes, areaName) then
+                    local valid = true
+                    if areaName == "Ruins of Alph" and number ~= "68" then
+                        valid = false
+                    end
+                    if MiscUtils.tableContains(validRoutes, areaName) and valid then
                         if not pivotData[areaName] then
                             pivotData[areaName] = {}
                         end
