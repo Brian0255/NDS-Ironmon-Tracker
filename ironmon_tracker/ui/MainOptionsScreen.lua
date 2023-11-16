@@ -24,7 +24,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		battleSettingsClickListener = nil,
 		trackerAppearanceClickListener = nil,
 		trackedInfoClickListener = nil,
-		editControlsClickListener = nil,
+		trackerSetupClickListener = nil,
 		quickLoadClickListener = nil,
 		goBackClickListener = nil
 	}
@@ -47,12 +47,13 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		)
 		eventListeners.trackedInfoClickListener =
 			MouseClickEventListener(ui.frames.trackedInfoButtonFrame, program.openScreen, program.UI_SCREENS.TRACKED_INFO_SCREEN)
-		eventListeners.editControlsClickListener =
-			MouseClickEventListener(ui.frames.editControlsButtonFrame, program.openScreen, program.UI_SCREENS.EDIT_CONTROLS_SCREEN)
+		eventListeners.trackerSetupClickListener =
+			MouseClickEventListener(ui.frames.trackerSetupButtonFrame, program.openScreen, program.UI_SCREENS.TRACKER_SETUP_SCREEN)
 		eventListeners.quickLoadClickListener =
 			MouseClickEventListener(ui.frames.quickLoadButtonFrame, program.openScreen, program.UI_SCREENS.QUICK_LOAD_SCREEN)
 		eventListeners.updaterClickListener = MouseClickEventListener(ui.frames.updaterButtonFrame, onUpdateCheckerClick)
-		eventListeners.extrasClickListener = MouseClickEventListener(ui.frames.extrasButtonFrame, program.openScreen, program.UI_SCREENS.EXTRAS_SCREEN)
+		eventListeners.extrasClickListener =
+			MouseClickEventListener(ui.frames.extrasButtonFrame, program.openScreen, program.UI_SCREENS.EXTRAS_SCREEN)
 	end
 
 	local function initBottomFrameControls()
@@ -99,8 +100,8 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			battleSettingsButton = "Battle Settings",
 			trackerAppearanceButton = "Tracker Appearance",
 			trackedInfoButton = "Tracked Info",
-			editControlsButton = "Edit Controls",
-			quickLoadButton = "QuickLoad Settings",
+			trackerSetupButton = "Tracker Setup",
+			quickLoadButton = "New Run Settings",
 			updaterButton = "Check for Updates",
 			extrasButton = "Extras"
 		}
@@ -109,7 +110,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			"battleSettingsButton",
 			"trackerAppearanceButton",
 			"trackedInfoButton",
-			"editControlsButton",
+			"trackerSetupButton",
 			"quickLoadButton",
 			"updaterButton",
 			"extrasButton"
@@ -121,13 +122,14 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			{x = 2, y = 2},
 			{x = 2, y = 2},
 			{x = 2, y = 2},
-			{x=3, y = 3}
+			{x = 3, y = 3}
 		}
 		for i, key in pairs(order) do
 			local text = buttonNames[key]
 			local iconName = icons[i]
 			local frameName = key .. "Frame"
-			local frameInfo = FrameFactory.createScreenOpeningFrame(
+			local frameInfo =
+				FrameFactory.createScreenOpeningFrame(
 				ui.frames.mainButtonFrame,
 				constants.MAIN_BUTTON_WIDTH,
 				constants.MAIN_BUTTON_HEIGHT,

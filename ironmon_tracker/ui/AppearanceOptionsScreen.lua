@@ -13,14 +13,14 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local tracker = initialTracker
     local program = initialProgram
     local constants = {
-        MAIN_HEIGHT = 234,
+        MAIN_HEIGHT = 314,
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
         MAIN_BUTTON_WIDTH = 106,
         MAIN_BUTTON_HEIGHT = 19,
         BADGE_COLOR_FRAME_HEIGHT = 84,
-        BUTTONS_FRAME_HEIGHT = 98
+        BUTTONS_FRAME_HEIGHT = 124
     }
     local ui = {}
     local eventListeners = {}
@@ -32,13 +32,13 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
 
     local function onBadgesAppearanceClick()
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.BADGE_COLOR_EDIT_PADDING, 0)
-        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN,program.UI_SCREENS.BADGES_APPEARANCE_SCREEN})
+        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN, program.UI_SCREENS.BADGES_APPEARANCE_SCREEN})
         program.drawCurrentScreens()
     end
 
     local function onColorEditClick()
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.BADGE_COLOR_EDIT_PADDING, 0)
-        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN,program.UI_SCREENS.COLOR_SCHEME_SCREEN})
+        program.setCurrentScreens({program.UI_SCREENS.MAIN_SCREEN, program.UI_SCREENS.COLOR_SCHEME_SCREEN})
         program.drawCurrentScreens()
     end
 
@@ -58,22 +58,75 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
     end
 
+    local function createToggleRow(key, settingsKey, parentFrame)
+        local frame =
+            Frame(
+            Box({x = 0, y = 0}, {width = constants.TOGGLE_FRAME_WIDTH, height = constants.TOGGLE_FRAME_HEIGHT}, nil, nil),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2, {x = 4, y = 0}),
+            parentFrame
+        )
+        local toggle =
+            SettingToggleButton(
+            Component(
+                frame,
+                Box(
+                    {x = 0, y = 0},
+                    {width = constants.BUTTON_SIZE, height = constants.BUTTON_SIZE},
+                    "Top box background color",
+                    "Top box border color",
+                    true,
+                    "Top box background color"
+                )
+            ),
+            settingsKey,
+            key,
+            nil,
+            false,
+            true,
+            program.saveSettings
+        )
+        local labelName
+        labelName = key:gsub("_", " "):lower()
+        labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
+        labelName = labelName:gsub("poke", "Pok" .. Chars.accentedE)
+        if key == "BLIND_MODE" then
+            labelName = "Blind mode (hides stats/ability)"
+        end
+        TextLabel(
+            Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
+            TextField(
+                labelName,
+                {x = 0, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        table.insert(eventListeners, MouseClickEventListener(toggle, onToggleClick, toggle))
+    end
+
     local function initAppearanceToggleButtons()
         local orderedKeys = {
             "AUTO_POKEMON_THEMES",
-            "RIGHT_JUSTIFIED_NUMBERS",
-            "SHOW_ACCURACY_AND_EVASION",
+            "BLIND_MODE",
             "EXPERIENCE_BAR",
             "RANDOM_BALL_PICKER",
-            "SHOW_POKECENTER_HEALS",
-            "BLIND_MODE"
+            "REPEL_ICON",
+            "RIGHT_JUSTIFIED_NUMBERS",
+            "SHOW_ACCURACY_AND_EVASION",
+            "SHOW_NICKNAME",
+            "SHOW_POKECENTER_HEALS"
         }
         ui.frames.buttonsFrame =
             Frame(
             Box(
                 {x = 0, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH-2*Graphics.SIZES.BORDER_MARGIN, height = constants.BUTTONS_FRAME_HEIGHT
+                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    height = constants.BUTTONS_FRAME_HEIGHT
                 },
                 "Top box background color",
                 "Top box border color"
@@ -82,58 +135,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             ui.frames.mainInnerFrame
         )
         for _, key in pairs(orderedKeys) do
-            local frame =
-                Frame(
-                Box(
-                    {x = 0, y = 0},
-                    {width = constants.TOGGLE_FRAME_WIDTH, height = constants.TOGGLE_FRAME_HEIGHT},
-                    nil,
-                    nil
-                ),
-                Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2, {x = 4, y = 0}),
-                ui.frames.buttonsFrame
-            )
-            local toggle =
-                SettingToggleButton(
-                Component(
-                    frame,
-                    Box(
-                        {x = 0, y = 0},
-                        {width = constants.BUTTON_SIZE, height = constants.BUTTON_SIZE},
-                        "Top box background color",
-                        "Top box border color",
-                        true,
-                        "Top box background color"
-                    )
-                ),
-                settings.appearance,
-                key,
-                nil,
-                false,
-                true,
-                program.saveSettings
-            )
-            local labelName
-            labelName = key:gsub("_", " "):lower()
-            labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
-            labelName = labelName:gsub("poke", "Pok"..Chars.accentedE)
-            if key == "BLIND_MODE" then
-                labelName = "Blind mode (hides stats/ability)"
-            end
-            TextLabel(
-                Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
-                TextField(
-                    labelName,
-                    {x = 0, y = 0},
-                    TextStyle(
-                        Graphics.FONT.DEFAULT_FONT_SIZE,
-                        Graphics.FONT.DEFAULT_FONT_FAMILY,
-                        "Top box text color",
-                        "Top box background color"
-                    )
-                )
-            )
-            table.insert(eventListeners, MouseClickEventListener(toggle, onToggleClick, toggle))
+            createToggleRow(key, settings.appearance, ui.frames.buttonsFrame)
         end
     end
 
@@ -155,9 +157,9 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         local buttons = {
             badgesAppearanceButton = {name = "Badges Appearance", iconName = program.getGameInfo().BADGE_PREFIX},
             colorThemeButton = {name = "Edit Color Theme", iconName = "PAINTBRUSH"},
-            pokemonIconsButton = {name = "Pok"..Chars.accentedE.."mon Icon Sets", iconName = "POKEBALL"}
+            pokemonIconsButton = {name = "Pok" .. Chars.accentedE .. "mon Icon Sets", iconName = "POKEBALL"}
         }
-        local order = {"pokemonIconsButton","badgesAppearanceButton", "colorThemeButton"}
+        local order = {"pokemonIconsButton", "badgesAppearanceButton", "colorThemeButton"}
         for i, key in pairs(order) do
             local button = buttons[key]
             local text = button.name
@@ -184,10 +186,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 TextLabel(
                 Component(
                     ui.frames[frameName],
-                    Box(
-                        {x = 0, y = 0},
-                        {width = constants.MAIN_BUTTON_WIDTH - 18, height = constants.MAIN_BUTTON_HEIGHT}
-                    )
+                    Box({x = 0, y = 0}, {width = constants.MAIN_BUTTON_WIDTH - 18, height = constants.MAIN_BUTTON_HEIGHT})
                 ),
                 TextField(
                     text,
@@ -201,6 +200,107 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 )
             )
         end
+    end
+
+    local function initTimerUI()
+        ui.frames.timerFrame =
+            Frame(
+            Box(
+                {x = 0, y = Graphics.SIZES.BORDER_MARGIN},
+                {
+                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    height = 54
+                },
+                "Top box background color",
+                "Top box border color"
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = 0, y = 4}),
+            ui.frames.mainInnerFrame
+        )
+        local iconHeadingFrame =
+            Frame(
+            Box(
+                {x = 0, y = Graphics.SIZES.BORDER_MARGIN},
+                {
+                    width = 0,
+                    height = 19
+                }
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 4, y = 0}),
+            ui.frames.timerFrame
+        )
+        local timerIcon =
+            Icon(
+            Component(iconHeadingFrame, Box({x = 0, y = 0}, {width = 16, height = 16}, nil, nil)),
+            "CLOCK",
+            {x = 2, y = 2}
+        )
+        local timerHeading =
+            TextLabel(
+            Component(iconHeadingFrame, Box({x = 0, y = 0}, {width = 0, height = 0})),
+            TextField(
+                "Timer",
+                {x = 1, y = 0},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE + 2,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        local orderedKeys = {
+            "ENABLED",
+            "TRANSPARENT"
+        }
+        for _, key in pairs(orderedKeys) do
+            createToggleRow(key, settings.timer, ui.frames.timerFrame)
+        end
+    end
+
+    local function initBottomUI()
+        ui.frames.bottomFrame =
+            Frame(
+            Box(
+                {x = 0, y = 0},
+                {
+                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 10,
+                    height = 24
+                },
+                "Top box background color",
+                "Top box border color"
+            ),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 94, y = 5}),
+            ui.frames.mainInnerFrame
+        )
+        ui.controls.goBackButton =
+            TextLabel(
+            Component(
+                ui.frames.bottomFrame,
+                Box(
+                    {x = 0, y = 0},
+                    {width = 40, height = 14},
+                    "Top box background color",
+                    "Top box border color",
+                    true,
+                    "Top box background color"
+                )
+            ),
+            TextField(
+                "Go back",
+                {x = 3, y = 1},
+                TextStyle(
+                    Graphics.FONT.DEFAULT_FONT_SIZE,
+                    Graphics.FONT.DEFAULT_FONT_FAMILY,
+                    "Top box text color",
+                    "Top box background color"
+                )
+            )
+        )
+        table.insert(
+            eventListeners,
+            MouseClickEventListener(ui.controls.goBackButton, program.openScreen, program.UI_SCREENS.MAIN_OPTIONS_SCREEN)
+        )
     end
 
     local function initUI()
@@ -249,45 +349,13 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
-        ui.controls.goBackButton =
-            TextLabel(
-            Component(
-                ui.frames.mainFrame,
-                Box(
-                    {x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 50, y = constants.MAIN_HEIGHT - 24},
-                    {width = 40, height = 14},
-                    "Top box background color",
-                    "Top box border color",
-                    true,
-                    "Top box background color"
-                )
-            ),
-            TextField(
-                "Go back",
-                {x = 3, y = 1},
-                TextStyle(
-                    Graphics.FONT.DEFAULT_FONT_SIZE,
-                    Graphics.FONT.DEFAULT_FONT_FAMILY,
-                    "Top box text color",
-                    "Top box background color"
-                )
-            )
-        )
         initBadgeColorButtons()
         initAppearanceToggleButtons()
-        table.insert(eventListeners, MouseClickEventListener(ui.controls.goBackButton, onGoBackClick))
-        table.insert(
-            eventListeners,
-            MouseClickEventListener(ui.frames.badgesAppearanceButtonFrame, onBadgesAppearanceClick)
-        )
-        table.insert(
-            eventListeners,
-            MouseClickEventListener(ui.frames.colorThemeButtonFrame, onColorEditClick)
-        )
-        table.insert(
-            eventListeners,
-            MouseClickEventListener(ui.frames.pokemonIconsButtonFrame, onPokemonIconsClick)
-        )
+        initTimerUI()
+        initBottomUI()
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.badgesAppearanceButtonFrame, onBadgesAppearanceClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.colorThemeButtonFrame, onColorEditClick))
+        table.insert(eventListeners, MouseClickEventListener(ui.frames.pokemonIconsButtonFrame, onPokemonIconsClick))
     end
 
     function self.runEventListeners()

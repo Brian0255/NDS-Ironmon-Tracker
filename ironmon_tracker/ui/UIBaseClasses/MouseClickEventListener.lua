@@ -3,7 +3,8 @@ local function MouseClickEventListener(
     onClickFunction,
     initialOnClickParams,
     initialOnMouseUp,
-    initialOnMouseUpParams)
+    initialOnMouseUpParams,
+    initialClickType)
     local self = {}
     local onClick = onClickFunction
     local onClickParams = initialOnClickParams
@@ -12,12 +13,16 @@ local function MouseClickEventListener(
     local control = initialControl
     local previouslyPressed = nil
     local mouseDownActivated = false
+    local clickType = initialClickType or "Left"
 
     function self.getOnClickParams()
         return onClickParams
     end
     function self.setOnClickParams(newParams)
         onClickParams = newParams
+    end
+    function self.setOnClickFunction(newFunction)
+        onClick = newFunction
     end
     function self.listen()
         local inRange = true
@@ -30,7 +35,7 @@ local function MouseClickEventListener(
         else
             inRange = false
         end
-        local leftPress = Input.getMouse()["Left"]
+        local leftPress = Input.getMouse()[clickType]
         if previouslyPressed ~= nil then
             if leftPress and not previouslyPressed and inRange then
                 onClick(onClickParams)

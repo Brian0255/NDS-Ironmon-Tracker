@@ -56,14 +56,17 @@ function UIUtils.createAndDrawTypeResistancesFrame(params, drawFunction, frameTo
     local pokemonHoverFrame
     if params.pokemonID ~= 0 then
         pokemonHoverFrame = HoverFrameFactory.createTypeDefensesFrame(params)
-        moveAndShowHoverFrame(
-            pokemonHoverFrame,
-            Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW,
-            frameToAlignWith,
-            drawFunction
-        )
+        moveAndShowHoverFrame(pokemonHoverFrame, Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_BELOW, frameToAlignWith, drawFunction)
     end
     return pokemonHoverFrame
+end
+
+function UIUtils.underlineTextLabel(label)
+    local position = label.getPosition()
+    local size = label.getSize()
+    local x1, y1 = position.x + 3, position.y + size.height - 2
+    local x2, y2 = position.x + size.width - 3, y1
+    gui.drawLine(x1, y1, x2, y2, DrawingUtils.convertColorKeyToColor("Top box text color"))
 end
 
 function UIUtils.createAndDrawMoveHoverFrame(hoverParams, drawFunction, frameToAlignWith)
@@ -167,7 +170,7 @@ function UIUtils.createKeyboardLabelsFromMatches(matches, dataGroup, parentFrame
             )
             break
         else
-             table.insert(matchTextLabels, UIUtils.createKeyboardMatchLabel(parentFrame, name, labelHeight))
+            table.insert(matchTextLabels, UIUtils.createKeyboardMatchLabel(parentFrame, name, labelHeight))
         end
     end
     return matchTextLabels

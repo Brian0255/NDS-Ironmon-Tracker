@@ -23,6 +23,7 @@ local function Main()
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Memory.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/StatisticsOrganizer.lua")
+	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/CharMap.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/Graphics.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/PokemonData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/LocationData.lua")
@@ -45,6 +46,8 @@ local function Main()
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/FrameFactory.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/RepelDrawer.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/AnimatedSpriteManager.lua")
 	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
 
 	if Paths.SLASH == "\\" then
@@ -90,6 +93,7 @@ local function Main()
 				self.run()
 			end
 		else
+			client.SetSoundOn(soundOn)
 			loadNextSeed = false
 			self.run()
 		end

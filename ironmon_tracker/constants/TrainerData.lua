@@ -331,7 +331,7 @@ TrainerData.TRAINERS = {
                 trainerType = TrainerData.TRAINER_TYPES.RIVAL,
                 battles = {
                     {location = "Lab", ids = {161, 162, 163}, iv = 0},
-                    {location = "Flocessy Ranch", ids = {166, 167, 168}, iv = 0},
+                    {location = "Floccesy Ranch", ids = {166, 167, 168}, iv = 0},
                     {location = "Plasma Frigate", ids = {368, 369, 370}, iv = 30},
                     {location = "Undella Town", ids = {378, 379, 380}, iv = 12},
                     {location = "Victory Road", ids = {684, 685, 686}, iv = 24}

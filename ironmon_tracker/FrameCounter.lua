@@ -34,6 +34,10 @@ local function FrameCounter(frameAmount, onZeroEvent, onZeroParams, syncWithClie
             end
         end
     end
+    function self.setFrames(newFrames)
+        totalFrames = newFrames
+        reset()
+    end
     reset()
     return self
 end

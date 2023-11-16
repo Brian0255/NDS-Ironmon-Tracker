@@ -56,5 +56,19 @@ IconSets.SETS = {
             y = -5
         },
         AUTHOR = {"Credit: PokéSprite Repository", "Edited by kittenchilly"}
+    },
+    {
+        NAME = "HGSS Style Sprites",
+        FILE_EXTENSION = ".png",
+        FOLDER_NAME = "hgsssprites",
+        IMAGE_OFFSET = {
+            x = 1,
+            y = -5
+        },
+        CHOOSE_IMAGE_OFFSET = {
+            x = 0,
+            y = -5
+        },
+        AUTHOR = {"Credit: Various Sources"}
     }
 }

@@ -1,4 +1,4 @@
-local function EditControlsScreen(initialSettings, initialTracker, initialProgram)
+local function TrackerSetupScreen(initialSettings, initialTracker, initialProgram)
     local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
     local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
     local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
@@ -57,7 +57,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
             local newPath = forms.openfile("*" .. fileExtension, current_dir .. relativePath)
             if newPath ~= nil and newPath ~= "" then
                 if isFolder then
-                    newPath = newPath:sub(0, newPath:match("^.*()"..Paths.SLASH) - 1)
+                    newPath = newPath:sub(0, newPath:match("^.*()" .. Paths.SLASH) - 1)
                 end
                 settings.quickLoad[settingKey] = newPath
                 pathLabel.setText(FormsUtils.shortenFolderName(newPath))
@@ -311,7 +311,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "QuickLoad combo:",
+                "New Run Combo:",
                 {x = 0, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -380,8 +380,8 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "QuickLoad Type",
-                {x = 26, y = 0},
+                "New Run Type",
+                {x = -1, y = 0},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -440,7 +440,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
         local completeString = ""
         local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
         for _, settingName in pairs(settingsNames) do
-            completeString = completeString..settings.quickLoad[settingName].."\n"
+            completeString = completeString .. settings.quickLoad[settingName] .. "\n"
         end
         MiscUtils.writeStringToFile(filePath, completeString)
         program.saveSettings()
@@ -461,21 +461,32 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 return
             end
         end
-        FormsUtils.createSaveForm(Paths.CURRENT_DIRECTORY.."/ironmon_tracker/quickloadProfiles","profile",".qlp",saveProfile)
+        FormsUtils.createSaveForm(
+            Paths.CURRENT_DIRECTORY .. "/ironmon_tracker/quickloadProfiles",
+            "profile",
+            ".qlp",
+            saveProfile
+        )
     end
 
     local function onLoadProfileClick()
         local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
         local soundOn = client.GetSoundOn()
         client.SetSoundOn(false)
-        local profile = forms.openfile("*.qlp", Paths.CURRENT_DIRECTORY..Paths.SLASH.."ironmon_tracker"..Paths.SLASH.."quickloadProfiles"..Paths.SLASH)
+        local profile =
+            forms.openfile(
+            "*.qlp",
+            Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "ironmon_tracker" .. Paths.SLASH .. "quickloadProfiles" .. Paths.SLASH
+        )
         client.SetSoundOn(soundOn)
-        if profile == "" then return end
+        if profile == "" then
+            return
+        end
         local lines = MiscUtils.readLinesFromFile(profile)
         for i, line in pairs(lines) do
-        local settingName = settingsNames[i]
-        settings.quickLoad[settingName] = line
-        ui.controls[settingName].setText(FormsUtils.shortenFolderName(line))
+            local settingName = settingsNames[i]
+            settings.quickLoad[settingName] = line
+            ui.controls[settingName].setText(FormsUtils.shortenFolderName(line))
         end
         program.saveSettings()
         program.drawCurrentScreens()
@@ -581,7 +592,7 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 settingKey = "SETTINGS_PATH",
                 labelName = "Settings file",
                 extension = ".rnqs",
-                relativePath = Paths.SLASH.."ironmon_tracker"..Paths.SLASH.."settings"
+                relativePath = Paths.SLASH .. "ironmon_tracker" .. Paths.SLASH .. "settings"
             }
         }
         for _, settingData in pairs(settingsData) do
@@ -625,8 +636,8 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "QuickLoad Settings",
-                {x = 16, y = 1},
+                "New Run Settings",
+                {x = 22, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -693,4 +704,4 @@ local function EditControlsScreen(initialSettings, initialTracker, initialProgra
     return self
 end
 
-return EditControlsScreen
+return TrackerSetupScreen

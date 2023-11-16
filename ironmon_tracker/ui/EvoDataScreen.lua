@@ -11,6 +11,8 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 	local settings = initialSettings
 	local tracker = initialTracker
 	local program = initialProgram
+	local currentTargetIDs = {}
+	local currentIndex = 1
 	local tourneyTracker
 
 	local self = {}
@@ -57,7 +59,9 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 
 	local function clearEvoRow(index)
 		local row = evoRows[index]
-		row.name, row.bst, row.percent = "", "", ""
+		row.name.setText("")
+		row.bst.setText("")
+		row.percent.setText("")
 	end
 
 	local function fillRow(evoEntry, row)
@@ -94,6 +98,17 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		program.drawCurrentScreens()
 	end
 
+	local function readCurrentIndex()
+		local currentID = currentTargetIDs[currentIndex]
+		evoScroller.setItems(evoData[currentID])
+		local name = PokemonData.POKEMON[currentID + 1].name
+		local xOffset = -2
+		xOffset = xOffset + ((ui.controls.targetEvoLabel.getSize().width - DrawingUtils.calculateWordPixelLength(name)) / 2)
+		ui.controls.targetEvoLabel.setText(name)
+		ui.controls.targetEvoLabel.setTextOffset({x = xOffset, y = 2})
+		readScroller()
+	end
+
 	function self.initialize(playerPokemon)
 		if playerPokemon == nil or not EvoData.EVOLUTIONS[playerPokemon.pokemonID] then
 			program.openScreen(program.UI_SCREENS.MAIN_SCREEN)
@@ -102,7 +117,22 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		evoData = {}
 		evoData = EvoData.EVOLUTIONS[playerPokemon.pokemonID]
 		sortEvos()
-		evoScroller.setItems(evoData)
+		currentTargetIDs = {}
+		currentIndex = 1
+		for targetID, data in pairs(evoData) do
+			table.insert(currentTargetIDs, targetID)
+		end
+		ui.frames.targetEvoNavFrame.setVisibility(#currentTargetIDs > 1)
+		local spacerHeight = 1
+		local mainFrameHeight = constants.MAIN_FRAME_HEIGHT
+		if #currentTargetIDs > 1 then
+			spacerHeight = 2
+			mainFrameHeight = mainFrameHeight + 21
+		end
+		ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = mainFrameHeight})
+		local size = ui.controls.spacer.getSize()
+		ui.controls.spacer.resize({width = size.width, height = spacerHeight})
+		readCurrentIndex()
 		readScroller()
 	end
 
@@ -172,6 +202,66 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 			)
 			table.insert(eventListeners, MouseClickEventListener(button, onSortButtonClick, button))
 		end
+	end
+
+	local function onLeftEvoClick()
+		currentIndex = MiscUtils.decreaseTableIndex(currentIndex, #currentTargetIDs)
+		readCurrentIndex()
+	end
+
+	local function onRightEvoClick()
+		currentIndex = MiscUtils.increaseTableIndex(currentIndex, #currentTargetIDs)
+		readCurrentIndex()
+	end
+
+	local function initNavUI()
+		ui.frames.targetEvoNavFrame =
+			Frame(
+			Box(
+				{
+					x = 0,
+					y = 0
+				},
+				{
+					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 10,
+					height = 20
+				},
+				"Top box background color",
+				"Top box border color"
+			),
+			Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 16, y = 2}),
+			ui.frames.mainFrame
+		)
+		local arrowWidth = 16
+		local arrowFrameInfo = FrameFactory.createArrowFrame("LEFT_ARROW_LARGE", ui.frames.targetEvoNavFrame, arrowWidth, 1)
+		ui.frames.leftEvoArrow, ui.controls.leftEvoArrowButton = arrowFrameInfo.frame, arrowFrameInfo.button
+		ui.controls.targetEvoLabel =
+			TextLabel(
+			Component(
+				ui.frames.targetEvoNavFrame,
+				Box(
+					{x = 0, y = 0},
+					{
+						width = 76,
+						height = 0
+					}
+				)
+			),
+			TextField(
+				"",
+				{x = 11, y = 2},
+				TextStyle(
+					Graphics.FONT.DEFAULT_FONT_SIZE,
+					Graphics.FONT.DEFAULT_FONT_FAMILY,
+					"Top box text color",
+					"Top box background color"
+				)
+			)
+		)
+		arrowFrameInfo = FrameFactory.createArrowFrame("RIGHT_ARROW_LARGE", ui.frames.targetEvoNavFrame, arrowWidth, 1)
+		ui.frames.rightEvoArrow, ui.controls.rightEvoArrowButton = arrowFrameInfo.frame, arrowFrameInfo.button
+		table.insert(eventListeners, MouseClickEventListener(ui.controls.rightEvoArrowButton, onLeftEvoClick))
+		table.insert(eventListeners, MouseClickEventListener(ui.controls.leftEvoArrowButton, onRightEvoClick))
 	end
 
 	local function createEvoDataRow()
@@ -357,11 +447,11 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 			nil
 		)
 		initTopSortFrame()
-		local spacer =
+		ui.controls.spacer =
 			TextLabel(
 			Component(
 				ui.frames.mainFrame,
-				Box({x = 0, y = 0}, {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = 1}, "Main background color")
+				Box({x = 0, y = 0}, {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = 2}, "Main background color")
 			),
 			TextField(
 				"",
@@ -374,6 +464,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 				)
 			)
 		)
+		initNavUI()
 		initEvoDataFrame()
 		initCreditsUI()
 	end

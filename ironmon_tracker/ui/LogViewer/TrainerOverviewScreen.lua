@@ -59,7 +59,8 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
             local nameBoxLength = DrawingUtils.calculateWordPixelLength(tabName) + 6
             local spacerLength = 7
             totalWidth = totalWidth + nameBoxLength
-            ui.tabControls[index] = TextLabel(
+            ui.tabControls[index] =
+                TextLabel(
                 Component(
                     ui.frames.tabFrame,
                     Box(
@@ -68,19 +69,26 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
                             width = nameBoxLength,
                             height = constants.TAB_HEIGHT
                         },
-                        nil, nil
+                        nil,
+                        nil
                     )
                 ),
                 TextField(
                     tabName,
                     {x = 2, y = 1},
-                    TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
+                    TextStyle(
+                        Graphics.FONT.DEFAULT_FONT_SIZE,
+                        Graphics.FONT.DEFAULT_FONT_FAMILY,
+                        "Top box text color",
+                        "Top box background color"
+                    )
                 )
             )
             table.insert(tabListeners, MouseClickEventListener(ui.tabControls[index], self.onTabClick, index))
             -- add line inbetween (which is just a blank label)
             if index ~= #currentTrainerGroups then
-                ui.tabControls[index.."spacer"] = TextLabel(
+                ui.tabControls[index .. "spacer"] =
+                    TextLabel(
                     Component(
                         ui.frames.tabFrame,
                         Box(
@@ -89,7 +97,8 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
                                 width = spacerLength,
                                 height = 3
                             },
-                            nil, nil
+                            nil,
+                            nil
                         )
                     ),
                     TextField(
@@ -102,7 +111,7 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
             end
         end
         local centeredOffset = (ui.frames.mainFrame.getSize().width - totalWidth) / 2
-        ui.frames.tabFrame.setLayoutPadding({x=centeredOffset,y = 1})
+        ui.frames.tabFrame.setLayoutPadding({x = centeredOffset, y = 1})
     end
 
     local function underlineActiveTab()
@@ -143,8 +152,7 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
                 },
                 {
                     width = Graphics.SIZES.SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                    height = Graphics.SIZES.SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN -
-                        Graphics.LOG_VIEWER.TAB_HEIGHT -
+                    height = Graphics.SIZES.SCREEN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN - Graphics.LOG_VIEWER.TAB_HEIGHT -
                         5
                 },
                 "Top box background color",
@@ -153,16 +161,19 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL),
             nil
         )
-        ui.frames.tabFrame = Frame(
+        ui.frames.tabFrame =
+            Frame(
             Box(
                 {
-                    x = 0, y = 0
+                    x = 0,
+                    y = 0
                 },
                 {
                     width = 0,
                     height = constants.TAB_HEIGHT
                 },
-                nil, nil
+                nil,
+                nil
             ),
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL),
             ui.frames.mainFrame

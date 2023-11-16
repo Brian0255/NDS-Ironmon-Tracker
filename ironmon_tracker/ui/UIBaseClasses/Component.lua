@@ -16,6 +16,10 @@ local function Component(initialFrame, initialBox)
         return box.getSize()
     end
 
+    function self.setOpacity(newOpacity)
+        box.setOpacity(newOpacity)
+    end
+
     function self.getFrame()
         return frame
     end
@@ -23,7 +27,11 @@ local function Component(initialFrame, initialBox)
     function self.getPosition()
         return box.getPosition()
     end
-    
+
+    function self.getZIndex()
+        return box.getZIndex()
+    end
+
     function self.setBackgroundColorKey(newColorKey)
         box.setBackgroundColorKey(newColorKey)
     end
@@ -32,8 +40,16 @@ local function Component(initialFrame, initialBox)
         box.setBackgroundFillColorKey(newColorKey)
     end
 
+    function self.getBackgroundFillColorKey()
+        return box.getBackgroundFillColorKey()
+    end
+
     function self.resize(newSize)
         box.resize(newSize)
+    end
+
+    function self.getOpacity()
+        return box.getOpacity()
     end
 
     function self.move(newPosition)

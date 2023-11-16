@@ -50,4 +50,4 @@ local function Icon(initialComponent, initialIconName, initialIconOffset, initia
     return self
 end
 
-return  Icon
+return Icon

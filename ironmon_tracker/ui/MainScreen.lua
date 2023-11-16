@@ -97,6 +97,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function increaseCycleStatIndex()
+        if currentPokemon == nil or currentPokemon.owner == program.SELECTED_PLAYERS.PLAYER then
+            return
+        end
         if statCycleIndex == -1 then
             statCycleIndex = 1
         else
@@ -110,15 +113,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function increaseStatPrediction()
-        if currentPokemon ~= nil and currentPokemon.owner ~= program.SELECTED_PLAYERS.PLAYER then
-            if statCycleIndex ~= -1 then
-                local stat = stats[statCycleIndex]
-                local params = {
-                    pokemonID = currentPokemon.pokemonID,
-                    ["stat"] = stat
-                }
-                onStatPredictionClick(params)
-            end
+        if currentPokemon == nil or currentPokemon.owner == program.SELECTED_PLAYERS.PLAYER then
+            return
+        end
+        if statCycleIndex ~= -1 then
+            local stat = stats[statCycleIndex]
+            local params = {
+                pokemonID = currentPokemon.pokemonID,
+                ["stat"] = stat
+            }
+            onStatPredictionClick(params)
         end
     end
 
@@ -859,6 +863,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             }
         end
         local name = currentPokemon.name
+        if settings.appearance.SHOW_NICKNAME and not isEnemy then
+            name = currentPokemon.nickname or name
+        end
         ui.controls.pokemonNameLabel.setText(name)
         ui.controls.pokemonHP.setVisibility(not isEnemy)
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
@@ -867,12 +874,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             imageID = currentPokemon.alternateFormID
         end
         eventListeners.noteIconListener.setOnClickParams({pokemon = currentPokemon.pokemonID, ["isEnemy"] = isEnemy})
-        DrawingUtils.readPokemonIDIntoImageLabel(
-            currentIconSet,
-            imageID,
-            ui.controls.pokemonImageLabel,
-            currentIconSet.IMAGE_OFFSET
-        )
+        DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, imageID, ui.controls.pokemonImageLabel, isEnemy)
         setUpEvo(isEnemy)
         local pokemonHoverParams = hoverListeners.pokemonHoverListener.getOnHoverParams()
         pokemonHoverParams.pokemon = currentPokemon
@@ -1005,7 +1007,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         self.updateBadgeLayout()
         readPokemonIntoUI()
         setUpBasedOnRandomBallPicker()
-        browsManager.show()
         ui.frames.mainFrame.show()
         if not program.isInBattle() or inPastRunView or inTrackedView then
             extraThingsToDraw.moveEffectiveness = {}
@@ -1017,6 +1018,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if activeHoverFrame ~= nil then
             activeHoverFrame.show()
         end
+        browsManager.show()
     end
 
     local function initMoveListeners()

@@ -1544,6 +1544,26 @@ IconDrawer.ICONS =
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
         },
+        CLOCK = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                    { 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0 },
+                    { 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0 },
+                    { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+                    { 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0 },
+                    { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                    { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                    { 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1 },
+                    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                    { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+                    { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+                    { 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0 },
+                    {0,0,0,0,1,1,1,1,1,0,0,0,0},
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
         F1 = {
             iconType = IconDrawer.ICON_TYPES.STANDARD,
             imageArray = {

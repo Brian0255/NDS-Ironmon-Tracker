@@ -1,4 +1,4 @@
-local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgram)
+local function TourneyTrackerScreen(initialSettings, initialTracker, initialProgram)
 	local Frame = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Frame.lua")
 	local Box = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Box.lua")
 	local Component = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/Component.lua")
@@ -107,32 +107,27 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 	end
 
 	local function onExportScoresClick()
-        forms.destroyall()
-        local formWidth, formHeight = 560, 400
-        local buttonWidth, buttonHeight = 70, 30
-        local copyForm  =
-            forms.newform(
-            formWidth,
-            formHeight,
-            "Tourney Scores"
-        )
-        local centerPosition = FormsUtils.getCenter(formWidth, formHeight)
-        forms.setlocation(copyForm, centerPosition.xPos, centerPosition.yPos)
-        local textBoxLines = tourneyTracker.convertScoresToLines()
-        local completeLines = table.concat(textBoxLines,"\r\n")
-        forms.textbox(copyForm, completeLines, formWidth-36, formHeight-100, nil, 10, 10, true, false)
-        forms.button(
-            copyForm,
-            "Close",
-            function()
-                forms.destroyall()
-            end,
-            formWidth/2 - 45,
-            formHeight - 80,
-            buttonWidth,
-            buttonHeight
-        )
-    end
+		forms.destroyall()
+		local formWidth, formHeight = 560, 400
+		local buttonWidth, buttonHeight = 70, 30
+		local copyForm = forms.newform(formWidth, formHeight, "Tourney Scores")
+		local centerPosition = FormsUtils.getCenter(formWidth, formHeight)
+		forms.setlocation(copyForm, centerPosition.xPos, centerPosition.yPos)
+		local textBoxLines = tourneyTracker.convertScoresToLines()
+		local completeLines = table.concat(textBoxLines, "\r\n")
+		forms.textbox(copyForm, completeLines, formWidth - 36, formHeight - 100, nil, 10, 10, true, false)
+		forms.button(
+			copyForm,
+			"Close",
+			function()
+				forms.destroyall()
+			end,
+			formWidth / 2 - 45,
+			formHeight - 80,
+			buttonWidth,
+			buttonHeight
+		)
+	end
 
 	local function initNotificationFrame()
 		ui.frames.notificationFrame =
@@ -180,7 +175,6 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 		)
 	end
 
-	
 	local function readScrollerItems(scroller, goalList, frameList, totalInList)
 		local goalIDs = scroller.getViewedItems()
 		for i = 1, totalInList, 1 do
@@ -230,7 +224,7 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 		if ui.controls.addBonusButton.isVisible() or bonusesScroller.getViewedItems()[index] == nil then
 			return
 		end
-		table.remove(tourneyScores[currentIndex].completedBonusIDs,bonusesScroller.getBaseIndex() + index - 1)
+		table.remove(tourneyScores[currentIndex].completedBonusIDs, bonusesScroller.getBaseIndex() + index - 1)
 		tourneyTracker.saveData()
 		setAddRemoveBonusVisibility(true)
 		ui.controls.bonusesTitle.setText("Bonuses")
@@ -243,7 +237,7 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 			return
 		end
 		local tourneyData = tourneyScores[currentIndex]
-		table.insert(tourneyData.completedBonusIDs,items[index])
+		table.insert(tourneyData.completedBonusIDs, items[index])
 		tourneyTracker.saveData()
 		setAddRemoveBonusVisibility(true)
 		ui.controls.bonusesTitle.setText("Bonuses")
@@ -285,37 +279,32 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 
 	local function addToBonusesUI(breakdownFrameInfo)
 		local topFrame = breakdownFrameInfo.topFrame
-		ui.controls.addBonusButton = TextLabel(
+		ui.controls.addBonusButton =
+			TextLabel(
 			Component(topFrame, Box({x = 0, y = 0}, {width = constants.ADD_BUTTON_WIDTH, height = constants.ADD_BUTTON_WIDTH})),
 			TextField(
 				"+",
 				{x = 2, y = -1},
-				TextStyle(
-					13,
-					Graphics.FONT.DEFAULT_FONT_FAMILY,
-					"Top box text color",
-					"Top box background color"
-				)
+				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
 		)
-		ui.controls.removeBonusButton = TextLabel(
+		ui.controls.removeBonusButton =
+			TextLabel(
 			Component(topFrame, Box({x = 0, y = 0}, {width = constants.ADD_BUTTON_WIDTH, height = constants.ADD_BUTTON_WIDTH})),
 			TextField(
 				"--",
 				{x = 2, y = -2},
-				TextStyle(
-					13,
-					Graphics.FONT.DEFAULT_FONT_FAMILY,
-					"Top box text color",
-					"Top box background color"
-				)
+				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
 		)
 		for i = 1, #bonusesFrameList, 1 do
 			table.insert(eventListeners, MouseClickEventListener(bonusesFrameList[i].frame, onBonusRowClick, i))
 		end
 		table.insert(eventListeners, MouseClickEventListener(ui.controls.addBonusButton, onAddBonusClick, breakdownFrameInfo))
-		table.insert(eventListeners, MouseClickEventListener(ui.controls.removeBonusButton, onRemoveBonusClick, breakdownFrameInfo))
+		table.insert(
+			eventListeners,
+			MouseClickEventListener(ui.controls.removeBonusButton, onRemoveBonusClick, breakdownFrameInfo)
+		)
 	end
 
 	local function createGoalBreakdownFrame(frameHeight, titleName, frameList, totalRows)
@@ -333,7 +322,8 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 			Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
 			ui.frames.goalBreakdownsFrame
 		)
-		local topFrame = Frame(
+		local topFrame =
+			Frame(
 			Box(
 				{x = 0, y = 0},
 				{
@@ -346,10 +336,7 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 		)
 		local titleLabel =
 			TextLabel(
-			Component(
-				topFrame,
-				Box({x = 0, y = 0}, {width = constants.GOAL_HEADER_WIDTH, height = 18})
-			),
+			Component(topFrame, Box({x = 0, y = 0}, {width = constants.GOAL_HEADER_WIDTH, height = 18})),
 			TextField(
 				titleName,
 				{x = 2, y = -1},
@@ -604,7 +591,7 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 			),
 			TextField(
 				"Close",
-				{x =20, y = 2},
+				{x = 20, y = 2},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
 					Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -704,4 +691,4 @@ local function TouneyTrackerScreen(initialSettings, initialTracker, initialProgr
 	return self
 end
 
-return TouneyTrackerScreen
+return TourneyTrackerScreen

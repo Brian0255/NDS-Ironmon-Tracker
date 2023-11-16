@@ -301,8 +301,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [11] = {
         name = "Luxury Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" ..
-            Chars.accentedE .. "mon start with 200 happiness."
+        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness."
     },
     [12] = {
         name = "Premier Ball",
@@ -461,7 +460,7 @@ ItemData.GEN_4_ITEMS = {
         description = "Causes a level-up and raises happiness."
     },
     [51] = {
-        name = "Pp Up",
+        name = "PP Up",
         description = "Raises a move's max PP by 20%."
     },
     [52] = {
@@ -469,7 +468,7 @@ ItemData.GEN_4_ITEMS = {
         description = "Raises Special Defense and happiness."
     },
     [53] = {
-        name = "Pp Max",
+        name = "PP Max",
         description = "Raises a move's max PP by 60%."
     },
     [54] = {
@@ -1035,8 +1034,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [216] = {
         name = "Exp Share",
-        description = "Half the experience from a battle is split between Pok" ..
-            Chars.accentedE .. "mon holding this item."
+        description = "Half the experience from a battle is split between Pok" .. Chars.accentedE .. "mon holding this item."
     },
     [217] = {
         name = "Quick Claw",
@@ -1292,8 +1290,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [280] = {
         name = "Destiny Knot",
-        description = "Infatuates opposing Pok" ..
-            Chars.accentedE .. "mon when holder is inflicted with infatuation."
+        description = "Infatuates opposing Pok" .. Chars.accentedE .. "mon when holder is inflicted with infatuation."
     },
     [281] = {
         name = "Black Sludge",
@@ -2097,8 +2094,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [499] = {
         name = "Sport Ball",
-        description = "Tries to catch a Pok" ..
-            Chars.accentedE .. "mon in the Bug-Catching contest in National Park. "
+        description = "Tries to catch a Pok" .. Chars.accentedE .. "mon in the Bug-Catching contest in National Park. "
     },
     [485] = {
         name = "Red Apricorn",
@@ -2387,8 +2383,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [11] = {
         name = "Luxury Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" ..
-            Chars.accentedE .. "mon start with 200 happiness."
+        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness."
     },
     [12] = {
         name = "Premier Ball",
@@ -2547,7 +2542,7 @@ ItemData.GEN_5_ITEMS = {
         description = "Causes a level-up and raises happiness."
     },
     [51] = {
-        name = "Pp Up",
+        name = "PP Up",
         description = "Raises a move's max PP by 20%."
     },
     [52] = {
@@ -2555,7 +2550,7 @@ ItemData.GEN_5_ITEMS = {
         description = "Raises Special Defense and happiness."
     },
     [53] = {
-        name = "Pp Max",
+        name = "PP Max",
         description = "Raises a move's max PP by 60%."
     },
     [54] = {
@@ -3073,8 +3068,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [216] = {
         name = "Exp Share",
-        description = "Half the experience from a battle is split between Pok" ..
-            Chars.accentedE .. "mon holding this item."
+        description = "Half the experience from a battle is split between Pok" .. Chars.accentedE .. "mon holding this item."
     },
     [217] = {
         name = "Quick Claw",
@@ -3330,8 +3324,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [280] = {
         name = "Destiny Knot",
-        description = "Infatuates opposing Pok" ..
-            Chars.accentedE .. "mon when holder is inflicted with infatuation."
+        description = "Infatuates opposing Pok" .. Chars.accentedE .. "mon when holder is inflicted with infatuation."
     },
     [281] = {
         name = "Black Sludge",
@@ -4127,8 +4120,7 @@ ItemData.GEN_5_ITEMS = {
     },
     [499] = {
         name = "Sport Ball",
-        description = "Tries to catch a Pok" ..
-            Chars.accentedE .. "mon in the Bug-Catching contest in National Park."
+        description = "Tries to catch a Pok" .. Chars.accentedE .. "mon in the Bug-Catching contest in National Park."
     },
     [485] = {
         name = "Red Apricorn",

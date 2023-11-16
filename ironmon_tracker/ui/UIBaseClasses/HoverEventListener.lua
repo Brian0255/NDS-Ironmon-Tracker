@@ -15,6 +15,7 @@ local function HoverEventListener(
     local framesWaited = 0
     local hoverActive = initialHoverActive or false
     local baseWaitAmount = 30
+    local previouslyPressed = nil
     local currentWaitAmount = baseWaitAmount
     function self.reset()
         hoverActive = false
@@ -53,16 +54,26 @@ local function HoverEventListener(
     end
     resetCurrentAmount()
     function self.listen()
-        if not control.isVisible() then return end
+        if not control.isVisible() then
+            return
+        end
         local position = control.getPosition()
         local size = control.getSize()
         local mousePosition = Input.getMousePosition()
         local inRange =
             MiscUtils.mouseInRange(mousePosition.x, mousePosition.y, position.x, position.y, size.width, size.height)
+
+        local leftClicked = false
+        local leftPress = Input.getMouse()["Left"]
+        if previouslyPressed ~= nil then
+            leftClicked = leftPress and not previouslyPressed and inRange
+        end
+
+        previouslyPressed = leftPress
         if not hoverActive and onHover ~= nil then
             if inRange then
                 framesWaited = framesWaited + 1
-                if overrideWait or framesWaited == currentWaitAmount then
+                if overrideWait or framesWaited == currentWaitAmount or leftClicked then
                     onHover(onHoverParams)
                     hoverActive = true
                     resetCurrentAmount()
