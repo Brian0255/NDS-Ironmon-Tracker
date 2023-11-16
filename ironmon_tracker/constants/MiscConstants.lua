@@ -9,7 +9,7 @@ MiscConstants.UPDATE_NOTES = {
         Chars.accentedE .. "mon will update correctly and you can now view your second mon in battle.",
     "-- Under Battle Settings there is now a Doubles Mode option so that you can show your second Pok" ..
         Chars.accentedE .. "mon outside of battle by pressing START.",
-    "-- In a double battle, pressing L/R while viewing your mon will show move effectivness for the left and right enemy mons, respectively.",
+    "-- In a double battle, pressing L/R while viewing your mon will show move effectiveness for the left and right enemy mons, respectively.",
     "-- There is a new Pivots tab in the Log Viewer to see what you could have pivoted to in a run. The Stats tab is now just in the Pok" ..
         Chars.accentedE .. "mon tab.",
     "-- Added a simple animated icon set based on the HeartGold walking sprites.",
