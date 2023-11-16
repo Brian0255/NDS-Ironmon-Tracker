@@ -137,8 +137,8 @@ local function BattleHandler(
         --gen 5 is super weird
         --we basically need to scan over the pid switch slot addresses to find out how many battlers there are
         local battleDatas = {playerBattleData, enemyBattleData}
-        local PIDStartBase = memoryAddresses.enemyBattleMonPID
-        for i = 0, 3, 1 do
+        local PIDStartBase = memoryAddresses.playerBattleMonPID
+        for i = 0, 5, 1 do
             local offset = gameInfo.ACTIVE_PID_DIFFERENCE * i
             local pid = Memory.read_u32_le(PIDStartBase + offset)
             for index, _ in pairs(battleDatas) do
@@ -241,7 +241,7 @@ local function BattleHandler(
     end
 
     local function GEN5_checkPlayerTransform(currentPlayerPokemon, compare)
-        if GEN5_transformed then
+        if GEN5_transformed or compare == nil then
             return
         end
         local previous = currentPlayerPokemon
@@ -284,6 +284,40 @@ local function BattleHandler(
         return multiPlayerDouble
     end
 
+    local function GEN5_accountForIllusion(battleData, enemyBattler)
+        local pokemon = enemyBattler.lastValidPokemon
+        if next(GEN5_PIDSwitchData) == nil or pokemon == nil then
+            return
+        end
+        if AbilityData.ABILITIES[pokemon.ability + 1].name ~= "Illusion" then
+            return
+        end
+        local highestNonFaintedIndex = -1
+        local highestNonFaintedPID = -1
+        pokemonDataReader.setCurrentBase(battleData.partyBase)
+        for pid, index in pairs(battleData.battleTeamPIDs) do
+            local data = pokemonDataReader.decryptPokemonInfo(false, index, true)
+            if data.curHP and data.curHP > 0 and index > highestNonFaintedIndex then
+                highestNonFaintedIndex = index
+                highestNonFaintedPID = pid
+            end
+        end
+        if highestNonFaintedIndex == -1 then
+            return
+        end
+        if highestNonFaintedPID == pokemon.pid then
+            return
+        end
+        local start = memoryAddresses.playerBattleMonPID
+        for i = 0, 5, 1 do
+            local switchAddr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
+            local switchData = Memory.read_u32_le(switchAddr)
+            if switchData == highestNonFaintedPID then
+                enemyBattler.activePIDAddress = switchAddr
+            end
+        end
+    end
+
     function self.getPokemonData(currentPokemon, battleData, slotIndex, isEnemy)
         if not battleDataFetched then
             return
@@ -315,8 +349,8 @@ local function BattleHandler(
                 return nil
             end
             program.checkForAlternateForm(data)
-            if currentPokemon ~= nil and gameInfo.GEN == 5 then
-                --GEN5_checkPlayerTransform(currentPlayerPokemon, data)
+            if currentPokemon ~= nil and gameInfo.GEN == 5 and not isEnemy then
+                GEN5_checkPlayerTransform(currentPokemon, data)
                 if GEN5_transformed then
                     return nil
                 end
@@ -329,6 +363,9 @@ local function BattleHandler(
                 battler.lastValidPokemon = data
             end
             battler.lastValidPID = activePID
+            if isEnemy then
+                GEN5_accountForIllusion(battleData, battler)
+            end
             return data
         end
     end
@@ -338,40 +375,6 @@ local function BattleHandler(
             return false
         end
         return enemyTrainerID == 0
-    end
-
-    local function GEN5_accountForIllusion(enemyBattler)
-        local pokemon = enemyBattler.lastValidPokemon
-        if next(GEN5_PIDSwitchData) == nil then
-            return
-        end
-        if AbilityData.ABILITIES[pokemon.ability + 1].name ~= "Illusion" then
-            return
-        end
-        local highestNonFaintedIndex = -1
-        local highestNonFaintedPID = -1
-        pokemonDataReader.setCurrentBase(enemyBattler.addressBase)
-        for pid, index in pairs(enemyBattler.teamPIDs) do
-            local data = pokemonDataReader.decryptPokemonInfo(false, index, true)
-            if data.curHP and data.curHP > 0 and index > highestNonFaintedIndex then
-                highestNonFaintedIndex = index
-                highestNonFaintedPID = pid
-            end
-        end
-        if highestNonFaintedIndex == -1 then
-            return
-        end
-        if highestNonFaintedPID == pokemon.pid then
-            return
-        end
-        local start = memoryAddresses.playerBattleMonPID
-        for i = 0, 5, 1 do
-            local switchAddr = start + i * gameInfo.ACTIVE_PID_DIFFERENCE
-            local switchData = Memory.read_u32_le(switchAddr)
-            if switchData == highestNonFaintedPID then
-                enemyBattler.activePIDAddress = switchAddr
-            end
-        end
     end
 
     local function checkEnemyPP(enemy)
@@ -479,7 +482,9 @@ local function BattleHandler(
     local function onEndOfBattle()
         if inBattle then
             if not tracker.hasRunEnded() then
-                defeatedTrainerList[enemyTrainerID] = true
+                if enemyTrainerID ~= nil then
+                    defeatedTrainerList[enemyTrainerID] = true
+                end
                 if gameInfo.TRAINERS.LAB_IDS[enemyTrainerID] then
                     tracker.setProgress(PlaythroughConstants.PROGRESS.PAST_LAB)
                 elseif gameInfo.TRAINERS.FINAL_FIGHT_ID == enemyTrainerID then
