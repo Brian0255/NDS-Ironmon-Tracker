@@ -18,7 +18,7 @@ local function ImageField(initialPath, initialOffset, initialSize, initialImageR
                 return
             end
             if imageRegionOffset == nil or imageRegionSize == nil then
-                gui.drawImage(path, position.x + offset.x, position.y + offset.y, size.width, size.height)
+                gui.drawImage(path, position.x + offset.x, position.y + offset.y)
             else
                 gui.drawImageRegion(
                     path,
@@ -27,9 +27,7 @@ local function ImageField(initialPath, initialOffset, initialSize, initialImageR
                     imageRegionSize.width,
                     imageRegionSize.height,
                     position.x + offset.x,
-                    position.y + offset.y,
-                    size.width,
-                    size.height
+                    position.y + offset.y
                 )
             end
         end
