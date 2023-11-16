@@ -1,10 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.0.0"
+MiscConstants.TRACKER_VERSION = "6.0.1"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
+    "-- 6.0.1: Fixed an important Bizhawk 2.8 related error. Sorry!",
     "-- Double battles are now much more functional in Gen 4. Pok" ..
         Chars.accentedE .. "mon will update correctly and you can now view your second mon in battle.",
     "-- Under Battle Settings there is now a Doubles Mode option so that you can show your second Pok" ..
