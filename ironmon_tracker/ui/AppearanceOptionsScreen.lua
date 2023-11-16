@@ -240,7 +240,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Component(iconHeadingFrame, Box({x = 0, y = 0}, {width = 0, height = 0})),
             TextField(
                 "Timer",
-                {x = 1, y = 1},
+                {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE + 2,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
