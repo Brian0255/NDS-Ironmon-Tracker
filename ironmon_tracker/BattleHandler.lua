@@ -138,6 +138,12 @@ local function BattleHandler(
         --we basically need to scan over the pid switch slot addresses to find out how many battlers there are
         local battleDatas = {playerBattleData, enemyBattleData}
         local PIDStartBase = memoryAddresses.enemyBattleMonPID + gameInfo.ACTIVE_PID_DIFFERENCE
+        local usedAddresses = {
+            [memoryAddresses.playerBattleBase] = true,
+            [memoryAddresses.enemyBase] = true
+        }
+        addBattlerSlot(playerBattleData.slots, nil, memoryAddresses.playerBattleBase)
+        addBattlerSlot(enemyBattleData.slots, nil, memoryAddresses.enemyBase)
         for i = 0, 3, 1 do
             local offset = gameInfo.ACTIVE_PID_DIFFERENCE * i
             local pid = Memory.read_u32_le(PIDStartBase + offset)
@@ -147,14 +153,12 @@ local function BattleHandler(
                     local slot = battleData.battleTeamPIDs[pid]
                     local partyOffset = slot * gameInfo.ENCRYPTED_POKEMON_SIZE
                     local monLocation = battleData.partyBase + partyOffset
-                    if battleData.battleTeamPIDs[pid] then
+                    if battleData.battleTeamPIDs[pid] and not usedAddresses[monLocation] then
                         addBattlerSlot(battleData.slots, nil, monLocation)
                     end
                 end
             end
         end
-        addBattlerSlot(playerBattleData.slots, nil, memoryAddresses.playerBattleBase)
-        addBattlerSlot(enemyBattleData.slots, nil, memoryAddresses.enemyBase)
     end
 
     local function tryToFetchBattleData()
