@@ -97,6 +97,9 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function increaseCycleStatIndex()
+        if currentPokemon == nil or currentPokemon.owner == program.SELECTED_PLAYERS.PLAYER then
+            return
+        end
         if statCycleIndex == -1 then
             statCycleIndex = 1
         else
@@ -110,15 +113,16 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
     end
 
     local function increaseStatPrediction()
-        if currentPokemon ~= nil and currentPokemon.owner ~= program.SELECTED_PLAYERS.PLAYER then
-            if statCycleIndex ~= -1 then
-                local stat = stats[statCycleIndex]
-                local params = {
-                    pokemonID = currentPokemon.pokemonID,
-                    ["stat"] = stat
-                }
-                onStatPredictionClick(params)
-            end
+        if currentPokemon == nil or currentPokemon.owner == program.SELECTED_PLAYERS.PLAYER then
+            return
+        end
+        if statCycleIndex ~= -1 then
+            local stat = stats[statCycleIndex]
+            local params = {
+                pokemonID = currentPokemon.pokemonID,
+                ["stat"] = stat
+            }
+            onStatPredictionClick(params)
         end
     end
 
