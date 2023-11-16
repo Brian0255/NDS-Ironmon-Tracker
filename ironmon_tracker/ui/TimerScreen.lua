@@ -58,12 +58,14 @@ local function TimerScreen(initialSettings, initialTracker, initialProgram)
 			ui.controls.timer.setOpacity(0x60)
 			ui.controls.timer.setBackgroundFillColorKey("Black")
 			ui.controls.timer.setBackgroundColorKey("Black")
+			ui.controls.timer.setTextColorKey("White")
 			ui.controls.timer.setShadowColorKey()
 		else
 			ui.controls.timer.setOpacity(0xFF)
 			ui.controls.timer.setBackgroundFillColorKey("Top box border color")
 			ui.controls.timer.setBackgroundColorKey("Top box background color")
 			ui.controls.timer.setShadowColorKey("Top box background color")
+			ui.controls.timer.setTextColorKey("Top box text color")
 		end
 	end
 
