@@ -153,7 +153,6 @@ local function BattleHandler(
                 end
             end
         end
-        print(playerBattleData.slots)
     end
 
     local function tryToFetchBattleData()
@@ -428,16 +427,12 @@ local function BattleHandler(
     end
 
     local function checkBattlerHasMatchingPID(currentSlotValue, switchAddress)
-        print(string.format("%X", switchAddress))
-        print(playerBattleData.battleTeamPIDs)
-        print(enemyBattleData.battleTeamPIDs)
         local battleDatas = {playerBattleData, enemyBattleData}
         for _, battleData in pairs(battleDatas) do
             if battleData.battleTeamPIDs[currentSlotValue] then
                 local matchingIndex =
                     GEN5_getMatchingBattlerIndexFromSlotValue(battleData.battleTeamPIDs, battleData.slots, currentSlotValue)
                 if matchingIndex ~= nil then
-                    print("MATCH!")
                     battleData.slots[matchingIndex].activePIDAddress = switchAddress
                 end
             end
