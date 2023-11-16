@@ -17,22 +17,6 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram)
     local currentStatistic
     local statisticSet
 
-    --[[
-    --leaving these defines here for the old statistics layout just in case
-    local constants = {
-        MAIN_FRAME_HEIGHT = Graphics.SIZES.MAIN_SCREEN_HEIGHT + 22,
-        BOTTOM_FRAME_HEIGHT = 22,
-        TOTAL_RUN_WIDTH = 91,
-        TOP_FRAME_OFFSET = 10,
-        TOP_FRAME_WIDTH = 152,
-        MAIN_FRAME_OFFSET = 46,
-        TOP_LABEL_WIDTH = 110,
-        TOP_FRAME_HEIGHT = 15,
-        BAR_GRAPH_WIDTH = 140,
-        BAR_GRAPH_HEIGHT = 120,
-        MAIN_SCREEN_X_OFFSET = 80,
-        MAIN_SCREEN_Y_OFFSET = 20
-    } --]]
     local constants = {
         MAIN_FRAME_X = 0,
         MAIN_FRAME_Y = 0,
