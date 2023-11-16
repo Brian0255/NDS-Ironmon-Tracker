@@ -137,10 +137,10 @@ local function BattleHandler(
         --gen 5 is super weird
         --we basically need to scan over the pid switch slot addresses to find out how many battlers there are
         local battleDatas = {playerBattleData, enemyBattleData}
-        local PIDStartBase = memoryAddresses.enemyBattleMonPID + gameInfo.ACTIVE_PID_DIFFERENCE
+        local PIDStartBase = memoryAddresses.enemyBattleMonPID + 2 * gameInfo.ACTIVE_PID_DIFFERENCE
         local usedAddresses = {
-            [memoryAddresses.playerBattleBase] = true,
-            [memoryAddresses.enemyBase] = true
+            [playerBattleData.partyBase] = true,
+            [enemyBattleData.partyBase] = true
         }
         addBattlerSlot(playerBattleData.slots, nil, memoryAddresses.playerBattleBase)
         addBattlerSlot(enemyBattleData.slots, nil, memoryAddresses.enemyBase)
