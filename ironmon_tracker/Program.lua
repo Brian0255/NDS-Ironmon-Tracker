@@ -410,7 +410,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		tracker.updatePlaytime(gameInfo.NAME)
 		local runOverMessage = seedLogger.getRandomRunOverMessage(pastRun)
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RUN_OVER_SCREEN].initialize(runOverMessage)
-		self.setCurrentScreens({})
 		if gameInfo.GEN == 5 then
 			frameCounters["displayRunOver"] = FrameCounter(60, displayRunOver)
 		else
@@ -761,7 +760,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				selectedPlayer = battleHandler.updatePlayerSlotIndex(selectedPlayer)
 				local pokemon = getPlayerPartyData()
 				if pokemon == nil or next(pokemon) == nil then
-					print("invalid")
 					battleHandler.setPlayerSlotIndex(1)
 				end
 			else
