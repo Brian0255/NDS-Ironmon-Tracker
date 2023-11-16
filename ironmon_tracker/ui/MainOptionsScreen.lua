@@ -101,7 +101,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			trackerAppearanceButton = "Tracker Appearance",
 			trackedInfoButton = "Tracked Info",
 			trackerSetupButton = "Tracker Setup",
-			quickLoadButton = "QuickLoad Settings",
+			quickLoadButton = "New Run Settings",
 			updaterButton = "Check for Updates",
 			extrasButton = "Extras"
 		}

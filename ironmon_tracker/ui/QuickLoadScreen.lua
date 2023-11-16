@@ -311,7 +311,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "QuickLoad combo:",
+                "New Run Combo:",
                 {x = 0, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -380,8 +380,8 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "QuickLoad Type",
-                {x = 26, y = 0},
+                "New Run Type",
+                {x = -1, y = 0},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -636,8 +636,8 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "QuickLoad Settings",
-                {x = 16, y = 1},
+                "New Run Settings",
+                {x = 22, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
