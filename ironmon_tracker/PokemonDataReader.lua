@@ -154,7 +154,7 @@ local function PokemonDataReader(initialProgram)
         if CharMap.GEN5_NONSTANDARD[bytes] then
             return CharMap.GEN5_NONSTANDARD[bytes]
         end
-        return utf8.char(bytes)
+        return string.char(bytes)
     end
 
     local function decryptNickname(nicknameStart)
