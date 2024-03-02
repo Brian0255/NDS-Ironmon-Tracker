@@ -119,13 +119,8 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
         setUpCurrentStatisticIndex()
     end
 
-    local function openStatsTab()
-        logViewerScreen.changeActiveTabIndex(7)
-        program.drawCurrentScreens()
-    end
-
     local function onPokemonImageClick()
-        logViewerScreen.addGoBackFunction(openStatsTab)
+        logViewerScreen.addGoBackFunction(logViewerScreen.openStatsScreen)
         logViewerScreen.loadPokemonStats(currentID)
     end
 
