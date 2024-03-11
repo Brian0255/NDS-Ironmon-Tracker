@@ -1190,7 +1190,7 @@ ItemData.GEN_4_ITEMS = {
     },
     [255] = {
         name = "Lax Incense",
-        description = "Holder's evasion is increased by 5%. Breeding: Wobbuffet begets a Wynaut Egg."
+        description = "Holder's evasion is increased by 10%. Breeding: Wobbuffet begets a Wynaut Egg."
     },
     [256] = {
         name = "Lucky Punch",
