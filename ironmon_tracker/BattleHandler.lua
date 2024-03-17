@@ -534,8 +534,22 @@ local function BattleHandler(
         return highestLevelMonIndex
     end
 
+    local function hasPartyWiped()
+        local party = getPlayerParty()
+        for _, pokemon in pairs(party) do
+            if pokemon.curHP ~= 0 or pokemon.curHP == nil then
+                return false
+            end
+        end
+        return true
+    end
+
     function self.checkIfRunHasEnded()
         if not inBattle or not battleDataFetched then
+            return
+        end
+        if settings.trackedInfo.FAINT_DETECTION == PlaythroughConstants.FAINT_DETECTIONS.ON_ENTIRE_PARTY_FAINT and hasPartyWiped() then
+            program.onRunEnded()
             return
         end
         if faintMonIndex == -1 then

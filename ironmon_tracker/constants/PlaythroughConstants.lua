@@ -84,7 +84,8 @@ PlaythroughConstants.CAUSES = {
 
 PlaythroughConstants.FAINT_DETECTIONS = {
     ON_FIRST_SLOT_FAINT = 0,
-    ON_HIGHEST_LEVEL_FAINT = 1
+    ON_HIGHEST_LEVEL_FAINT = 1,
+    ON_ENTIRE_PARTY_FAINT = 2
 }
 
 --in case the death quotes file is nil or something dumb like that
