@@ -1,11 +1,12 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.0.3"
+MiscConstants.TRACKER_VERSION = "6.1.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Minor bug fixes."
+    "-- Thanks to UTDZac, the majority of important abilities are now autotracked as part of the enemy notes section for Gen 4! Gen 5 will be added at a later time, along with a few missing abilities (like Levitate).",
+    "-- Added a party faint option for when your run should be considered over, courtesy of JacksonWithHeart."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {

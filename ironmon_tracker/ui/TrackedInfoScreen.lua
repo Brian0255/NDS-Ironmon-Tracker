@@ -13,14 +13,14 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	local tracker = initialTracker
 	local program = initialProgram
 	local constants = {
-		TRACKED_INFO_HEIGHT = 256,
+		TRACKED_INFO_HEIGHT = 274,
 		MAIN_BUTTONS_Y_OFFSET = 5,
 		MAIN_BUTTONS_X_OFFSET = 15,
-		MAIN_BUTTON_SPACING = 5,
+		MAIN_BUTTON_SPACING = 3,
 		MAIN_BUTTON_WIDTH = 110,
 		MAIN_BUTTON_HEIGHT = 19,
 		BUTTONS_FRAME_HEIGHT = 149,
-		FAINT_DETECTION_FRAME_HEIGHT = 57,
+		FAINT_DETECTION_FRAME_HEIGHT = 75,
 		FAINT_DETECTION_ROW_HEIGHT = 13,
 		BUTTON_SIZE = 10
 	}
@@ -223,7 +223,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 		)
 		ui.controls.faintDetectionLabel =
 			TextLabel(
-			Component(ui.frames.faintDetectionFrame, Box({x = 0, y = 0}, {width = 0, height = 11})),
+			Component(ui.frames.faintDetectionFrame, Box({x = 0, y = 0}, {width = 0, height = 13})),
 			TextField(
 				"Run is considered over when:",
 				{x = -1, y = 0},
@@ -237,7 +237,8 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 		)
 		local settingNames = {
 			[PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT] = "Lead Pok" .. Chars.accentedE .. "mon faints",
-			[PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT] = "Highest level faints"
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT] = "Highest level faints",
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_ENTIRE_PARTY_FAINT] = "Entire party faints"
 		}
 		for settingValue, name in pairs(settingNames) do
 			createFaintDetectionChoosingRow("FAINT_DETECTION", settingValue, name)
