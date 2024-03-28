@@ -583,6 +583,10 @@ local function BattleHandler(
         }
         GEN5_PIDSwitchData = {}
         frameCounters["fetchBattleData"] = FrameCounter(60, onBattleFetchFrameCounter)
+        -- For now, just auto track notes for GEN 4
+        if gameInfo.GEN == 4 then
+            frameCounters["abilityTracking"] = FrameCounter(10, self.readAbilityMessages)
+        end
         multiPlayerDouble = false
     end
 
@@ -652,6 +656,56 @@ local function BattleHandler(
     function self.getPlayerSlotIndex()
         return playerBattleData.slotIndex
     end
+
+	function self.readAbilityMessages()
+		if not self.isInBattle() or not memoryAddresses.battleSubscriptMsgs then
+			return
+		end
+
+		-- Check current battle message to see if it's related to an ability triggering
+		local msgId = Memory.read_u16_le(memoryAddresses.battleSubscriptMsgs) or -1
+		local knownMsg = AbilityData.BATTLE_MSGS[msgId]
+		if not knownMsg then
+			return
+		end
+
+		-- Get active battling pokemon information for player and enemy
+		-- in singles battle, table order is: { player-mon, enemy-mon }
+		-- in doubles battle, table order is: { player-left, player-right, enemy-right, enemy-left }
+		local battleMons = {}
+		for i, battleData in pairs({playerBattleData, enemyBattleData}) do
+			local isEnemy = (i == 2)
+			for j = 1, #battleData.slots, 1 do
+				local data = self.getPokemonData(nil, battleData, j, isEnemy)
+				if data ~= nil and next(data) ~= nil then
+					table.insert(battleMons, data)
+				end
+			end
+		end
+
+		-- Determine what ability triggered and which pokemon triggered it (the source)
+		local sourcePokemon
+		local numPossibleSources = 0
+		for _, pokemon in pairs(battleMons) do
+			if knownMsg[pokemon.ability] then
+				numPossibleSources = numPossibleSources + 1
+				sourcePokemon = pokemon
+			end
+		end
+
+		-- Don't track the ability if more than one pokemon may have triggered it
+		-- NOTE: This is currently a necessary precaution, since there isn't a good way to determine the source of the ability
+		if not sourcePokemon or numPossibleSources ~= 1 then
+			return
+		end
+
+		tracker.trackAbilityNote(sourcePokemon.pokemonID, sourcePokemon.ability)
+
+		-- Check if Trace(id=36) triggered in a 1v1 battle and it belongs to the player, if so track enemy ability
+		if sourcePokemon.ability == 36 and #battleMons == 2 and sourcePokemon == battleMons[1] then
+			tracker.trackAbilityNote(battleMons[2].pokemonID, battleMons[2].ability)
+		end
+	end
 
     local function onEffectivenessChange(newEnemySlot)
         enemyEffectivenessSlot = newEnemySlot

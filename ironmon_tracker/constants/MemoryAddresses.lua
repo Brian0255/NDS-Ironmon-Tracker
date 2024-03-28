@@ -44,7 +44,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.HEART_GOLD] = {
         kantoBadges = 0x93,
         leagueBeaten = 0x1000,
         facingDirection = 0x25DA8,
-        repelSteps = 0x6919
+        repelSteps = 0x6919,
+        battleSubscriptMsgs = 0x47184
     },
     GLOBAL = {
         battleStatus = 0x246F48
@@ -74,7 +75,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.SOUL_SILVER] = {
         kantoBadges = 0x93,
         leagueBeaten = 0x1000,
         facingDirection = 0x25DA8,
-        repelSteps = 0x6919
+        repelSteps = 0x6919,
+        battleSubscriptMsgs = 0x47184
     },
     GLOBAL = {
         battleStatus = 0x246F48
@@ -102,7 +104,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.PLATINUM] = {
         berryBagStartBattle = 0x4435C,
         badges = 0x96,
         facingDirection = 0x238A4,
-        repelSteps = 0x8087
+        repelSteps = 0x8087,
+        battleSubscriptMsgs = 0x44928
     },
     GLOBAL = {
         battleStatus = 0x24A55A
@@ -130,7 +133,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.DIAMOND] = {
         berryBagStartBattle = 0x4550C,
         badges = 0x292,
         repelSteps = 0x764C,
-        facingDirection = 0x24A5C
+        facingDirection = 0x24A5C,
+        battleSubscriptMsgs = 0x458F0
     },
     GLOBAL = {
         battleStatus = 0x23BB38
@@ -158,7 +162,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.PEARL] = {
         berryBagStartBattle = 0x4550C,
         badges = 0x292,
         repelSteps = 0x764C,
-        facingDirection = 0x24A5C
+        facingDirection = 0x24A5C,
+        battleSubscriptMsgs = 0x458F0
     },
     GLOBAL = {
         battleStatus = 0x23BB38

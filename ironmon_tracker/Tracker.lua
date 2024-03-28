@@ -342,14 +342,9 @@ local function Tracker()
 	end
 
 	function self.trackAbility(pokemonID, abilityID)
-		local currentAbilities = trackedData.abilities[pokemonID]
-		if currentAbilities == nil then
-			trackedData.abilities[pokemonID] = {}
-			trackedData.abilities[pokemonID][abilityID] = abilityID
-		else
-			if currentAbilities[abilityID] == nil then
-				trackedData.abilities[pokemonID][abilityID] = abilityID
-			end
+		checkIfPokemonUntracked(pokemonID)
+		if abilityID then
+			trackedData.trackedPokemon[pokemonID].abilities[abilityID] = true
 		end
 	end
 
@@ -443,6 +438,38 @@ local function Tracker()
 		end
 	end
 
+	function self.trackAbilityNote(pokemonID, abilityId)
+		checkIfPokemonUntracked(pokemonID)
+		-- Only add a note if this ability hasn't been tracked yet (player might purposefully remove the note)
+		local trackedAbilities = self.getAbilities(pokemonID)
+		if trackedAbilities[abilityId or -1] then
+			return false
+		end
+
+		self.trackAbility(pokemonID, abilityId)
+
+		local abilityName
+		if abilityId and AbilityData.ABILITIES[abilityId + 1] then
+			abilityName = AbilityData.ABILITIES[abilityId + 1].name
+		end
+		-- Append the ability name to the note for this pokemon
+		if pokemonID and abilityName then
+			--  But only if that note wasn't already included
+			local note = self.getNote(pokemonID) or ""
+			local noteAlreadyTaken = string.find(note:lower(), abilityName:lower(), 1, true)
+			if not noteAlreadyTaken then
+				if #note > 0 then
+					note = string.format("%s, %s", note, abilityName)
+				else
+					note = abilityName
+				end
+				self.setNote(pokemonID, note)
+			end
+		end
+
+		return true
+	end
+
 	function self.getMoves(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
 		if next(trackedData.trackedPokemon[pokemonID].moves) == nil then
@@ -461,13 +488,7 @@ local function Tracker()
 
 	function self.getAbilities(pokemonID)
 		checkIfPokemonUntracked(pokemonID)
-		if trackedData.abilities[pokemonID] == nil then
-			return {
-				1
-			}
-		else
-			return trackedData.abilities[pokemonID]
-		end
+		return trackedData.trackedPokemon[pokemonID].abilities
 	end
 
 	function self.getStatPredictions(pokemonID)

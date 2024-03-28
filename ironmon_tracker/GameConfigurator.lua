@@ -96,7 +96,7 @@ function GameConfigurator.initAbilityData(gameInfo)
 	local versionDifferenceIndex = gameInfo.GEN - 3
 	for index, info in pairs(AbilityData.ABILITIES_MASTER_LIST) do
 		if gameInfo.GEN == 4 and index == 125 then
-			return
+			break
 		end
 		AbilityData.ABILITIES[index] = {}
 		for key, value in pairs(info) do
@@ -105,6 +105,20 @@ function GameConfigurator.initAbilityData(gameInfo)
 			else
 				AbilityData.ABILITIES[index][key] = value
 			end
+		end
+	end
+
+	AbilityData.BATTLE_MSGS = {}
+	local battleMsgsToCopy
+	if gameInfo.GEN == 4 then
+		battleMsgsToCopy = AbilityData.BATTLE_MSGS_MASTER_LIST.GEN4
+	elseif gameInfo.GEN == 5 then
+		battleMsgsToCopy = AbilityData.BATTLE_MSGS_MASTER_LIST.GEN5
+	end
+	for msgId, abilityIdList in pairs(battleMsgsToCopy or {}) do
+		AbilityData.BATTLE_MSGS[msgId] = {}
+		for _, abilityId in pairs(abilityIdList) do
+			AbilityData.BATTLE_MSGS[msgId][abilityId] = true
 		end
 	end
 end
