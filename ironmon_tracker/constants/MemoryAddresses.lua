@@ -195,7 +195,9 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK] = {
         badges = 0x23CDB0,
         repelSteps = 0x23D6DD,
         facingDirection = 0x2521FC,
-        mapNPCIDStart = 0x2521EC
+        mapNPCIDStart = 0x2521EC,
+        abilityTriggerPlayer = 0x2A6354,
+        abilityTriggerEnemy = 0x2A6358
     }
 }
 
@@ -224,7 +226,9 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE] = {
         badges = 0x23CDB0 + 0x20,
         repelSteps = 0x23D6DD + 0x20,
         facingDirection = 0x2521FC + 0x20,
-        mapNPCIDStart = 0x2521EC + 0x20
+        mapNPCIDStart = 0x2521EC + 0x20,
+        abilityTriggerPlayer = 0x2A6354 + 0x20,
+        abilityTriggerEnemy = 0x2A6358 + 0x20
     }
 }
 
@@ -252,7 +256,9 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK2] = {
         badges = 0x226728,
         repelSteps = 0x226F51,
         facingDirection = 0x23D9FC,
-        mapNPCIDStart = 0x23D9EC
+        mapNPCIDStart = 0x23D9EC,
+        abilityTriggerPlayer = 0x294E08,
+        abilityTriggerEnemy = 0x294E0C
     }
 }
 
@@ -280,7 +286,9 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE2] = {
         badges = 0x226728 + 0x80,
         repelSteps = 0x226F51 + 0x80,
         facingDirection = 0x23D9FC + 0x80,
-        mapNPCIDStart = 0x23D9EC + 0x80
+        mapNPCIDStart = 0x23D9EC + 0x80,
+        abilityTriggerPlayer = 0x294E08 + 0x80,
+        abilityTriggerEnemy = 0x294E0C + 0x80
     }
 }
 
