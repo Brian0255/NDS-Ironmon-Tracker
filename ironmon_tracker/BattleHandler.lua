@@ -734,7 +734,7 @@ local function BattleHandler(
     end
 
     function self.readAbilityMessages()
-        if not self.isInBattle() or not memoryAddresses.battleSubscriptMsgs then
+        if not self.inBattleAndFetched() or not memoryAddresses.battleSubscriptMsgs then
             return
         end
 
