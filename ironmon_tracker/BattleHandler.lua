@@ -586,6 +586,9 @@ local function BattleHandler(
     end
 
     local function GEN5_checkAbilityTrigger()
+        if not self.inBattleAndFetched() then
+            return
+        end
         local triggeredEnemyAbility = Memory.read_u16_le(memoryAddresses.abilityTriggerEnemy)
         local triggeredPlayerAbility = Memory.read_u16_le(memoryAddresses.abilityTriggerPlayer)
         local enemyTriggered = triggeredEnemyAbility ~= GEN5_previousAbilityTriggerValues["enemy"]
@@ -600,14 +603,14 @@ local function BattleHandler(
         end
         local player = battleMons[1]
         local enemy = battleMons[2]
-        if enemyTriggered then
+        if enemyTriggered and enemy.ability == triggeredEnemyAbility then
             tracker.trackAbilityNote(enemy.pokemonID, enemy.ability)
         end
         if playerTriggered then
             local traceTriggered = player.ability == 36 and player.ability ~= triggeredPlayerAbility
             if traceTriggered then
                 tracker.trackAbilityNote(enemy.pokemonID, enemy.ability)
-            else
+            elseif player.ability == triggeredPlayerAbility then
                 tracker.trackAbilityNote(player.pokemonID, player.ability)
             end
         end
@@ -640,6 +643,8 @@ local function BattleHandler(
         elseif gameInfo.GEN == 5 then
             frameCounters["abilityTracking"] = FrameCounter(10, GEN5_checkAbilityTrigger)
         end
+        GEN5_previousAbilityTriggerValues["enemy"] = 0
+        GEN5_previousAbilityTriggerValues["player"] = 0
         multiPlayerDouble = false
     end
 
