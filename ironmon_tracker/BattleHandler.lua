@@ -269,12 +269,6 @@ local function BattleHandler(
         if gameInfo.GEN == 5 then
             delay = 90
         end
-        if lastValidEnemyBattlePID == -1 then
-            delay = 300
-            if gameInfo.GEN == 5 and battleDataFetched then
-                delay = 0
-            end
-        end
         return delay
     end
 
