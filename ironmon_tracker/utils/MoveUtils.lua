@@ -11,7 +11,7 @@ function MoveUtils.calculateLevelRangeOfMove(levelIndex, learnSet)
     if endLevel < startLevel then
         endLevel = startLevel
     end
-    return "Lv. ".. startLevel .. " - "..endLevel
+    return "Lv. " .. startLevel .. " - " .. endLevel
 end
 
 function MoveUtils.netEffectiveness(move, pkmnData, isEnemy, hiddenPowerType)
@@ -206,7 +206,6 @@ function MoveUtils.calculateVariableDamage(moveName, movePPs, index, currentPoke
         end
     end
 end
-
 
 function MoveUtils.calculateEnemyMovesAtLevel(learnSet, level)
     local movesLearned = {}
