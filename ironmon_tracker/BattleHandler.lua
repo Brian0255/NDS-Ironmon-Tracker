@@ -711,6 +711,9 @@ local function BattleHandler(
     end
 
     function self.getBattleMons()
+        -- Get active battling pokemon information for player and enemy
+        -- in singles battle, table order is: { player-mon, enemy-mon }
+        -- in doubles battle, table order is: { player-left, player-right, enemy-right, enemy-left }
         local battleMons = {}
         for i, battleData in pairs({playerBattleData, enemyBattleData}) do
             local isEnemy = (i == 2)
@@ -737,9 +740,6 @@ local function BattleHandler(
             return
         end
 
-        -- Get active battling pokemon information for player and enemy
-        -- in singles battle, table order is: { player-mon, enemy-mon }
-        -- in doubles battle, table order is: { player-left, player-right, enemy-right, enemy-left }
         local battleMons = self.getBattleMons()
 
         -- Determine what ability triggered and which pokemon triggered it (the source)
