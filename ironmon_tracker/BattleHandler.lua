@@ -756,7 +756,7 @@ local function BattleHandler(
 
         -- Don't track the ability if more than one pokemon may have triggered it
         -- NOTE: This is currently a necessary precaution, since there isn't a good way to determine the source of the ability
-        if not sourcePokemon then
+        if not sourcePokemon or numPossibleSources ~= 1 then
             return
         end
 
