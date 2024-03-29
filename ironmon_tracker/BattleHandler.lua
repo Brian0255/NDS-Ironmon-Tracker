@@ -595,22 +595,20 @@ local function BattleHandler(
         end
         local battleMons = self.getBattleMons()
         --dont bother with doubles or triples yet
-        if battleMons == nil or next(battleMons) == nil or #battleMons > 2 then
+        if battleMons == nil or next(battleMons) == nil or #battleMons ~= 2 then
             return
         end
+        local player = battleMons[1]
+        local enemy = battleMons[2]
         if enemyTriggered then
-            for _, pokemon in pairs(battleMons) do
-                if pokemon.isEnemy and pokemon.ability == triggeredEnemyAbility then
-                    tracker.trackAbilityNote(pokemon.pokemonID, pokemon.ability)
-                end
-            end
+            tracker.trackAbilityNote(enemy.pokemonID, enemy.ability)
         end
         if playerTriggered then
-            local playerPokemon = battleMons[1]
-            local traceTriggered = playerPokemon.ability == 36 and playerPokemon.ability ~= triggeredPlayerAbility
-            if #battleMons == 2 and traceTriggered then
-                local enemy = battleMons[2]
+            local traceTriggered = player.ability == 36 and player.ability ~= triggeredPlayerAbility
+            if traceTriggered then
                 tracker.trackAbilityNote(enemy.pokemonID, enemy.ability)
+            else
+                tracker.trackAbilityNote(player.pokemonID, player.ability)
             end
         end
         GEN5_previousAbilityTriggerValues["enemy"] = triggeredEnemyAbility
