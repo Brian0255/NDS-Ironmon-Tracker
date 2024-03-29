@@ -47,6 +47,10 @@ local function BattleHandler(
     local GEN5_transformed = false
     local enemyEffectivenessSlot = 1
     local multiPlayerDouble = false
+    local GEN5_previousAbilityTriggerValues = {
+        enemy = 0,
+        player = 0
+    }
 
     self.BATTLE_STATUS_TYPES = {
         [0x2100] = true,
@@ -548,7 +552,10 @@ local function BattleHandler(
         if not inBattle or not battleDataFetched then
             return
         end
-        if settings.trackedInfo.FAINT_DETECTION == PlaythroughConstants.FAINT_DETECTIONS.ON_ENTIRE_PARTY_FAINT and hasPartyWiped() then
+        if
+            settings.trackedInfo.FAINT_DETECTION == PlaythroughConstants.FAINT_DETECTIONS.ON_ENTIRE_PARTY_FAINT and
+                hasPartyWiped()
+         then
             program.onRunEnded()
             return
         end
@@ -578,6 +585,38 @@ local function BattleHandler(
         end
     end
 
+    local function GEN5_checkAbilityTrigger()
+        local triggeredEnemyAbility = Memory.read_u16_le(memoryAddresses.abilityTriggerEnemy)
+        local triggeredPlayerAbility = Memory.read_u16_le(memoryAddresses.abilityTriggerPlayer)
+        local enemyTriggered = triggeredEnemyAbility ~= GEN5_previousAbilityTriggerValues["enemy"]
+        local playerTriggered = triggeredPlayerAbility ~= GEN5_previousAbilityTriggerValues["player"]
+        if not playerTriggered and not enemyTriggered then
+            return
+        end
+        local battleMons = self.getBattleMons()
+        --dont bother with doubles or triples yet
+        if battleMons == nil or next(battleMons) == nil or #battleMons > 2 then
+            return
+        end
+        if enemyTriggered then
+            for _, pokemon in pairs(battleMons) do
+                if pokemon.isEnemy and pokemon.ability == triggeredEnemyAbility then
+                    tracker.trackAbilityNote(pokemon.pokemonID, pokemon.ability)
+                end
+            end
+        end
+        if playerTriggered then
+            local playerPokemon = battleMons[1]
+            local traceTriggered = playerPokemon.ability == 36 and playerPokemon.ability ~= triggeredPlayerAbility
+            if #battleMons == 2 and traceTriggered then
+                local enemy = battleMons[2]
+                tracker.trackAbilityNote(enemy.pokemonID, enemy.ability)
+            end
+        end
+        GEN5_previousAbilityTriggerValues["enemy"] = triggeredEnemyAbility
+        GEN5_previousAbilityTriggerValues["player"] = triggeredPlayerAbility
+    end
+
     local function setUpBattleVariables()
         inBattle = true
         battleDataFetched = false
@@ -600,6 +639,8 @@ local function BattleHandler(
         -- For now, just auto track notes for GEN 4
         if gameInfo.GEN == 4 then
             frameCounters["abilityTracking"] = FrameCounter(10, self.readAbilityMessages)
+        elseif gameInfo.GEN == 5 then
+            frameCounters["abilityTracking"] = FrameCounter(10, GEN5_checkAbilityTrigger)
         end
         multiPlayerDouble = false
     end
@@ -671,55 +712,61 @@ local function BattleHandler(
         return playerBattleData.slotIndex
     end
 
-	function self.readAbilityMessages()
-		if not self.isInBattle() or not memoryAddresses.battleSubscriptMsgs then
-			return
-		end
+    function self.getBattleMons()
+        local battleMons = {}
+        for i, battleData in pairs({playerBattleData, enemyBattleData}) do
+            local isEnemy = (i == 2)
+            for j = 1, #battleData.slots, 1 do
+                local data = self.getPokemonData(nil, battleData, j, isEnemy)
+                if data ~= nil and next(data) ~= nil then
+                    data.isEnemy = isEnemy
+                    table.insert(battleMons, data)
+                end
+            end
+        end
+        return battleMons
+    end
 
-		-- Check current battle message to see if it's related to an ability triggering
-		local msgId = Memory.read_u16_le(memoryAddresses.battleSubscriptMsgs) or -1
-		local knownMsg = AbilityData.BATTLE_MSGS[msgId]
-		if not knownMsg then
-			return
-		end
+    function self.readAbilityMessages()
+        if not self.isInBattle() or not memoryAddresses.battleSubscriptMsgs then
+            return
+        end
 
-		-- Get active battling pokemon information for player and enemy
-		-- in singles battle, table order is: { player-mon, enemy-mon }
-		-- in doubles battle, table order is: { player-left, player-right, enemy-right, enemy-left }
-		local battleMons = {}
-		for i, battleData in pairs({playerBattleData, enemyBattleData}) do
-			local isEnemy = (i == 2)
-			for j = 1, #battleData.slots, 1 do
-				local data = self.getPokemonData(nil, battleData, j, isEnemy)
-				if data ~= nil and next(data) ~= nil then
-					table.insert(battleMons, data)
-				end
-			end
-		end
+        -- Check current battle message to see if it's related to an ability triggering
+        local msgId = Memory.read_u16_le(memoryAddresses.battleSubscriptMsgs) or -1
+        local knownMsg = AbilityData.BATTLE_MSGS[msgId]
+        if not knownMsg then
+            return
+        end
 
-		-- Determine what ability triggered and which pokemon triggered it (the source)
-		local sourcePokemon
-		local numPossibleSources = 0
-		for _, pokemon in pairs(battleMons) do
-			if knownMsg[pokemon.ability] then
-				numPossibleSources = numPossibleSources + 1
-				sourcePokemon = pokemon
-			end
-		end
+        -- Get active battling pokemon information for player and enemy
+        -- in singles battle, table order is: { player-mon, enemy-mon }
+        -- in doubles battle, table order is: { player-left, player-right, enemy-right, enemy-left }
+        local battleMons = self.getBattleMons()
 
-		-- Don't track the ability if more than one pokemon may have triggered it
-		-- NOTE: This is currently a necessary precaution, since there isn't a good way to determine the source of the ability
-		if not sourcePokemon or numPossibleSources ~= 1 then
-			return
-		end
+        -- Determine what ability triggered and which pokemon triggered it (the source)
+        local sourcePokemon
+        local numPossibleSources = 0
+        for _, pokemon in pairs(battleMons) do
+            if knownMsg[pokemon.ability] then
+                numPossibleSources = numPossibleSources + 1
+                sourcePokemon = pokemon
+            end
+        end
 
-		tracker.trackAbilityNote(sourcePokemon.pokemonID, sourcePokemon.ability)
+        -- Don't track the ability if more than one pokemon may have triggered it
+        -- NOTE: This is currently a necessary precaution, since there isn't a good way to determine the source of the ability
+        if not sourcePokemon then
+            return
+        end
 
-		-- Check if Trace(id=36) triggered in a 1v1 battle and it belongs to the player, if so track enemy ability
-		if sourcePokemon.ability == 36 and #battleMons == 2 and sourcePokemon == battleMons[1] then
-			tracker.trackAbilityNote(battleMons[2].pokemonID, battleMons[2].ability)
-		end
-	end
+        tracker.trackAbilityNote(sourcePokemon.pokemonID, sourcePokemon.ability)
+
+        -- Check if Trace(id=36) triggered in a 1v1 battle and it belongs to the player, if so track enemy ability
+        if sourcePokemon.ability == 36 and #battleMons == 2 and sourcePokemon == battleMons[1] then
+            tracker.trackAbilityNote(battleMons[2].pokemonID, battleMons[2].ability)
+        end
+    end
 
     local function onEffectivenessChange(newEnemySlot)
         enemyEffectivenessSlot = newEnemySlot
