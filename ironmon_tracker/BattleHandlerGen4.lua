@@ -14,9 +14,10 @@ function BattleHandlerGen4._readAbilityMessages(self)
         return
     end
 
-    --TODO: fix
-    local battleMons = {}
-    --self:getBattleMons()
+    local battleMons = self:getAllPokemonInBattle()
+    if battleMons == nil or next(battleMons) == nil then
+        return
+    end
 
     -- Determine what ability triggered and which pokemon triggered it (the source)
     local sourcePokemon
