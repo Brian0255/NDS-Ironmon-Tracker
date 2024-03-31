@@ -26,7 +26,6 @@ function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
     o = o or {}
     setmetatable(o, self)
     self.__index = self
-
     self._gameInfo = gameInfo
     self._pokemonDataReader = pokemonDataReader
     self._tracker = tracker
@@ -37,7 +36,29 @@ function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
 
     self.memoryAddresses = memoryAddresses
 
+    if self._settings ~= nil then
+        table.insert(
+            self._joypadEvents,
+            JoypadEventListener(self._settings.controls, "LEFT_EFFECTIVENESS", self._onEffectivenessChange, {self, 2})
+        )
+        table.insert(
+            self._joypadEvents,
+            JoypadEventListener(self._settings.controls, "RIGHT_EFFECTIVENESS", self._onEffectivenessChange, {self, 2})
+        )
+    end
+
     return o
+end
+
+function BattleHandlerBase._onEffectivenessChange(params)
+    local self, newEnemySlot = params[1], params[2]
+    self._enemyEffectivenessSlot = newEnemySlot
+    if not self._battleData["enemy"].slots[newEnemySlot] then
+        self._enemyEffectivenessSlot = 1
+    end
+    self._program.updateEnemyPokemonData()
+    self._program.setPokemonForMainScreen()
+    self._program.drawCurrentScreens()
 end
 
 function BattleHandlerBase:addFrameCounter(frameCounterKey, frameCounter)
@@ -50,16 +71,6 @@ end
 
 function BattleHandlerBase:getEnemyEffectivenessSlot()
     return self._enemyEffectivenessSlot
-end
-
-function BattleHandlerBase:_onEffectivenessChange(newEnemySlot)
-    self._enemyEffectivenessSlot = newEnemySlot
-    if not self._enemyBattleData.slots[newEnemySlot] then
-        self._enemyEffectivenessSlot = 1
-    end
-    self._program.updateEnemyPokemonData()
-    self._program.setPokemonForMainScreen()
-    self._program.drawCurrentScreens()
 end
 
 function BattleHandlerBase:_setUpDelay()
@@ -232,7 +243,6 @@ function BattleHandlerBase:updatePlayerSlotIndex(currentSelectedPlayer)
 end
 
 function BattleHandlerBase:updateEnemySlotIndex(currentSelectedPlayer)
-    print("called")
     local limit = #self._battleData["enemy"].slots
     return self:_updateSlotIndex(true, limit) or currentSelectedPlayer
 end
@@ -261,14 +271,16 @@ function BattleHandlerBase:_baseSetUpBattleVariables()
         PIDBase = self.memoryAddresses.playerBattleMonPID,
         slots = {},
         battleTeamPIDs = {},
-        slotIndex = 1
+        slotIndex = 1,
+        isEnemy = false
     }
     self._battleData["enemy"] = {
         partyBase = self.memoryAddresses.enemyBase,
         PIDBase = self.memoryAddresses.enemyBattleMonPID,
         slots = {},
         battleTeamPIDs = {},
-        slotIndex = 1
+        slotIndex = 1,
+        isEnemy = true
     }
     self._frameCounters["fetchBattleData"] = FrameCounter(60, self._onBattleFetchFrameCounter, self)
     self._multiPlayerDouble = false
@@ -318,22 +330,29 @@ function BattleHandlerBase:updateBattleStatus()
     end
 end
 
-function BattleHandlerBase:getPokemonInBattle(selectedPlayer)
-    local pokemon = {}
-    local isEnemy = (selectedPlayer == self._program.SELECTED_PLAYERS.ENEMY)
-    local battleData = self:_getCorrectBattleData(isEnemy)
-    for slot = 1, #battleData.slots, 1 do
-        local data = self:_getPokemonData(battleData, slot, isEnemy)
-        if isEnemy then
-            self:checkEnemyPP(data)
-        end
-        pokemon[slot] = data
+function BattleHandlerBase:updateAllPokemonInBattle()
+    if not self:inBattleAndFetched() then
+        return
     end
-    local slotIndex = battleData.slotIndex
+    for _, battlerData in pairs(self:getBattleData()) do
+        for slot = 1, #battlerData.slots, 1 do
+            local data = self:_getPokemonData(battlerData, slot, battlerData.isEnemy)
+            if battlerData.isEnemy then
+                self:checkEnemyPP(data)
+            end
+            battlerData.slots[slot].activePokemon = data
+        end
+    end
+end
+
+function BattleHandlerBase:getActivePokemonInBattle(selected)
+    local isEnemy = selected == self._program.SELECTED_PLAYERS.ENEMY
+    local battlerData = self:_getCorrectBattleData(isEnemy)
+    local slotIndex = battlerData.slotIndex
     if self._program.getSelectedPlayer() == self._program.SELECTED_PLAYERS.PLAYER and isEnemy then
         slotIndex = self:getEnemyEffectivenessSlot()
     end
-    return pokemon[slotIndex]
+    return battlerData.slots[slotIndex].activePokemon
 end
 
 function BattleHandlerBase:runEvents()
