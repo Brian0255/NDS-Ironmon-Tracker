@@ -55,6 +55,7 @@ function BattleHandlerGen4:_addBattlerSlot(battlerSlots, slot, PIDAddress)
         activePIDAddress = PIDAddress,
         lastValidPID = -1,
         lastValidPokemon = nil,
+        currentPokemon = nil,
         previousHP = -1,
         initialPID = Memory.read_u32_le(PIDAddress)
     }
@@ -150,4 +151,7 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
     end
     battler.lastValidPID = activePID
     return data
+end
+
+function BattleHandlerGen4:_updateStatStages()
 end
