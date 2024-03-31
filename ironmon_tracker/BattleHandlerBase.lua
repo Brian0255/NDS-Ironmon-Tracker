@@ -330,6 +330,18 @@ function BattleHandlerBase:updateBattleStatus()
     end
 end
 
+function BattleHandlerBase:getAllPokemonInBattle()
+    local pokemon = {}
+    local order = {"player", "enemy"}
+    for _, key in pairs(order) do
+        local battlerData = self._battleData[key]
+        for _, slot in pairs(battlerData.slots) do
+            table.insert(pokemon, slot.activePokemon)
+        end
+    end
+    return pokemon
+end
+
 function BattleHandlerBase:updateAllPokemonInBattle()
     if not self:inBattleAndFetched() then
         return
