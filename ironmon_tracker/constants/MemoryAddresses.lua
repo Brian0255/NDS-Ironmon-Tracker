@@ -257,8 +257,9 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK2] = {
         repelSteps = 0x226F51,
         facingDirection = 0x23D9FC,
         mapNPCIDStart = 0x23D9EC,
-        abilityTriggerPlayer = 0x294E08,
-        abilityTriggerEnemy = 0x294E0C
+        abilityTriggerStart = 0x294E08,
+        mainBattleDataPtr = 0x2573AC,
+        doubleTripleFlag = 0x294DA4
     }
 }
 
@@ -287,8 +288,9 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE2] = {
         repelSteps = 0x226F51 + 0x80,
         facingDirection = 0x23D9FC + 0x80,
         mapNPCIDStart = 0x23D9EC + 0x80,
-        abilityTriggerPlayer = 0x294E08 + 0x80,
-        abilityTriggerEnemy = 0x294E0C + 0x80
+        abilityTriggerStart = 0x294E08 + 0x80,
+        mainBattleDataPtr = 0x2573AC + 0x80,
+        doubleTripleFlag = 0x294DA4 + 0x80
     }
 }
 
