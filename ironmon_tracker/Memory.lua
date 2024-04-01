@@ -30,3 +30,14 @@ function Memory.read_u8(addr)
 		return 0x00
 	end
 end
+
+function Memory.read_pointer(addr)
+	local addressAtPtr = Memory.read_u32_le(addr)
+	--cut off first 2 bytes
+	addressAtPtr = bit.band(addressAtPtr, 0xFFFFFF)
+	if Memory.inRange(addressAtPtr) then
+		return addressAtPtr
+	else
+		return 0x00
+	end
+end
