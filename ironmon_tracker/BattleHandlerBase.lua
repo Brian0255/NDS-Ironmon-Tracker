@@ -57,6 +57,10 @@ function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
     return o
 end
 
+function BattleHandlerBase:_trackAbility(pokemonID, ability)
+    self._tracker.trackAbilityNote(pokemonID, ability)
+end
+
 function BattleHandlerBase._onEffectivenessChange(params)
     local self, newEnemySlot = params[1], params[2]
     if not self:inBattleAndFetched() then
@@ -270,6 +274,7 @@ function BattleHandlerBase._onBattleFetchFrameCounter(self)
     if self._battleDataFetched then
         self._enemyTrainerID = Memory.read_u16_le(self.memoryAddresses.enemyTrainerID)
         self:_calculateHighestPlayerMonIndex()
+        self:updateAllPokemonInBattle()
     end
 end
 
@@ -346,6 +351,7 @@ function BattleHandlerBase:getAllPokemonInBattle()
     for _, key in pairs(order) do
         local battlerData = self._battleData[key]
         for _, slot in pairs(battlerData.slots) do
+            slot.activePokemon.isEnemy = (key == "enemy")
             table.insert(pokemon, slot.activePokemon)
         end
     end
