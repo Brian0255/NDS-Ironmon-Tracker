@@ -11,15 +11,22 @@ BattleHandlerBase = {
     _joypadEvents = {},
     _enemyEffectivenessSlot = 1,
     _battleData = {
-        ["player"] = {},
-        ["enemy"] = {}
+        ["player"] = {
+            slots = {},
+            slotIndex = 1
+        },
+        ["enemy"] = {
+            slots = {},
+            slotIndex = 1
+        }
     },
     _inBattle = false,
     _battleDataFetched = false,
     _firstBattleComplete = false,
     _enemyTrainerID = nil,
     _faintMonIndex = -1,
-    _defeatedTrainerList = {}
+    _defeatedTrainerList = {},
+    _totalBattlesCompleted = 0
 }
 
 function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, tracker, program, settings)
@@ -27,7 +34,7 @@ function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
     setmetatable(o, self)
     self.__index = self
     self._gameInfo = gameInfo
-    self._pokemonDataReader = pokemonDataReader
+    self.pokemonDataReader = pokemonDataReader
     self._tracker = tracker
     self._program = program
     self._settings = settings
@@ -52,6 +59,9 @@ end
 
 function BattleHandlerBase._onEffectivenessChange(params)
     local self, newEnemySlot = params[1], params[2]
+    if not self:inBattleAndFetched() then
+        return
+    end
     self._enemyEffectivenessSlot = newEnemySlot
     if not self._battleData["enemy"].slots[newEnemySlot] then
         self._enemyEffectivenessSlot = 1
@@ -132,8 +142,8 @@ function BattleHandlerBase:_getPlayerParty()
     local playerParty = {}
     local currentBase = self.memoryAddresses.playerBattleBase
     for monIndex = 0, 5, 1 do
-        self._pokemonDataReader.setCurrentBase(currentBase + monIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE)
-        local data = self._pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
+        self.pokemonDataReader.setCurrentBase(currentBase + monIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE)
+        local data = self.pokemonDataReader.decryptPokemonInfo(false, monIndex, false)
         if MiscUtils.validPokemonData(data) then
             playerParty[monIndex] = data
         end
@@ -183,8 +193,8 @@ function BattleHandlerBase:checkIfRunHasEnded()
         end
     end
     local currentBase = self.memoryAddresses.playerBattleBase
-    self._pokemonDataReader.setCurrentBase(currentBase + self._faintMonIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE)
-    local data = self._pokemonDataReader.decryptPokemonInfo(false, self._faintMonIndex, false)
+    self.pokemonDataReader.setCurrentBase(currentBase + self._faintMonIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE)
+    local data = self.pokemonDataReader.decryptPokemonInfo(false, self._faintMonIndex, false)
     if MiscUtils.validPokemonData(data) then
         if data.curHP == 0 then
             self._program.onRunEnded()
@@ -252,7 +262,7 @@ function BattleHandlerBase:setPlayerSlotIndex(newIndex)
 end
 
 function BattleHandlerBase:getPlayerSlotIndex()
-    return self._battleData["player"].slotIndex
+    return self._battleData["player"].slotIndex or 1
 end
 
 function BattleHandlerBase._onBattleFetchFrameCounter(self)

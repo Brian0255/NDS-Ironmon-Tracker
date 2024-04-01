@@ -1,6 +1,5 @@
 BattleHandlerGen4 = BattleHandlerBase:new()
 local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
-local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
 
 function BattleHandlerGen4._readAbilityMessages(self)
     if not self:inBattleAndFetched() or not self.memoryAddresses.battleSubscriptMsgs then
