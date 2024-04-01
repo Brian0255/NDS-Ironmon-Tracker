@@ -326,6 +326,7 @@ function BattleHandlerBase:_onEndOfBattle()
     self._faintMonIndex = -1
     self._inBattle = false
     self._multiPlayerDouble = false
+    self._frameCounters = {}
 end
 
 function BattleHandlerBase:updateBattleStatus()

@@ -34,11 +34,11 @@ function BattleHandlerGen4._readAbilityMessages(self)
         return
     end
 
-    self._tracker.trackAbilityNote(sourcePokemon.pokemonID, sourcePokemon.ability)
+    self:_trackAbility(sourcePokemon.pokemonID, sourcePokemon.ability)
 
     -- Check if Trace(id=36) triggered in a 1v1 battle and it belongs to the player, if so track enemy ability
     if sourcePokemon.ability == 36 and #battleMons == 2 and sourcePokemon == battleMons[1] then
-        self._tracker.trackAbilityNote(battleMons[2].pokemonID, battleMons[2].ability)
+        self:_trackAbility(battleMons[2].pokemonID, battleMons[2].ability)
     end
 end
 
