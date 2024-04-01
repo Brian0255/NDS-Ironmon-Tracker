@@ -34,7 +34,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local SeedLogger = dofile(Paths.FOLDERS.DATA_FOLDER .. "/SeedLogger.lua")
 	local PastRun = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PastRun.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/BattleHandlerBase.lua")
-	dofile(Paths.FOLDERS.DATA_FOLDER .. "/BattleHandlerGen4.lua")
+	dofile(Paths.FOLDERS.DATA_FOLDER .. "/BattleHandlerGen5.lua")
 	local PokemonThemeManager = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonThemeManager.lua")
 	local TourneyTracker = dofile(Paths.FOLDERS.DATA_FOLDER .. "/TourneyTracker.lua")
 
@@ -421,10 +421,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function getPlayerPartyData()
 		local slot = battleHandler:getPlayerSlotIndex()
-		local isEnemy = slot == 2 and battleHandler:isMultiPlayerDouble()
-		if isEnemy then
-			selectedPlayer = self.SELECTED_PLAYERS.ENEMY
-		end
 		local offset = (slot - 1) * gameInfo.ENCRYPTED_POKEMON_SIZE
 		pokemonDataReader.setCurrentBase(memoryAddresses.playerBase + offset)
 		local data = pokemonDataReader.decryptPokemonInfo(true, 0, false)
@@ -471,9 +467,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function getPokemonData(selected)
-		if gameInfo.GEN == 5 then
-			battleHandler:GEN5_checkLastSwitchin()
-		end
 		if battleHandler:inBattleAndFetched() then
 			local data = battleHandler:getActivePokemonInBattle(selected)
 			return data
@@ -1054,7 +1047,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	pokemonDataReader = PokemonDataReader(self)
-	battleHandler = BattleHandlerGen4:new(nil, gameInfo, memoryAddresses, pokemonDataReader, tracker, self, settings)
+	battleHandler = BattleHandlerGen5:new(nil, gameInfo, memoryAddresses, pokemonDataReader, tracker, self, settings)
 	seedLogger = SeedLogger(self, gameInfo.NAME)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
 	self.setPokemonForMainScreen()
