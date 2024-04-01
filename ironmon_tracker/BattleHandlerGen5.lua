@@ -48,7 +48,8 @@ function BattleHandlerGen5:_addBattlerSlot(battlerSlots, slot, battleDataPtr)
         ["battleDataPtr"] = battleDataPtr,
         lastPointerValue = nil,
         lastValidPokemon = nil,
-        currentPokemon = nil
+        activePokemon = nil,
+        lastAbilityValue = -1
     }
 end
 
@@ -84,6 +85,7 @@ function BattleHandlerGen5:_tryToFetchBattleData()
     else
         return false
     end
+    self:addFrameCounter("checkAbilityTriggers", FrameCounter(30, self._checkAbilityTriggers, self))
     return true
 end
 
@@ -120,6 +122,51 @@ function BattleHandlerGen5:_readBattleStats(decryptedData, battleDataBase, isEne
     decryptedData.statStages = self.pokemonDataReader.readBattleStatStages()
 end
 
+function BattleHandlerGen5:_checkBattlerAbilityTriggered(battler, slotIndex, isEnemy)
+    local pokemonData = battler.activePokemon
+    if battler.activePokemon == nil then
+        return
+    end
+    local base = self.memoryAddresses.abilityTriggerStart
+    if isEnemy then
+        base = base + 0x04
+    end
+    local triggerAddress = base + ((slotIndex - 1) * 0x08)
+    local abilityTrigger = memory.read_u16_le(triggerAddress)
+    if abilityTrigger == battler.lastAbilityValue or abilityTrigger == 0 then
+        return
+    end
+    if abilityTrigger == pokemonData.ability then
+        self:_trackAbility(pokemonData.pokemonID, abilityTrigger)
+    end
+    local traceTriggered = pokemonData.ability == 36 and pokemonData.ability ~= abilityTrigger
+    if traceTriggered and not isEnemy then
+        local sources = 0
+        local mons = self:getAllPokemonInBattle()
+        local sourceMon = nil
+        for _, mon in pairs(mons) do
+            if mon.isEnemy and mon.ability == abilityTrigger then
+                sources = sources + 1
+                sourceMon = mon
+            end
+        end
+        if sources == 1 and sourceMon ~= nil then
+            self:_trackAbility(sourceMon.pokemonID, abilityTrigger)
+        end
+    end
+    battler.lastAbilityValue = abilityTrigger
+end
+
+function BattleHandlerGen5._checkAbilityTriggers(self)
+    local battleData = self:getBattleData()
+    for key, battlerData in pairs(battleData) do
+        for slotIndex, battler in pairs(battlerData.slots) do
+            local isEnemy = (key == "enemy")
+            self:_checkBattlerAbilityTriggered(battler, slotIndex, isEnemy)
+        end
+    end
+end
+
 function BattleHandlerGen5:_getPokemonData(battleData, slotIndex, isEnemy)
     if not self:inBattleAndFetched() then
         return
@@ -137,7 +184,7 @@ function BattleHandlerGen5:_getPokemonData(battleData, slotIndex, isEnemy)
     if data == nil or next(data) == nil then
         return
     end
-    self:_readBattleStats(data, battleDataBase, battlers.isEnemy)
+    self:_readBattleStats(data, battleDataBase, battleData.isEnemy)
     self._program.checkForAlternateForm(data)
     local different = (battler.lastPointerValue == nil) or (battleDataBase ~= battler.lastPointerValue)
     if different and isEnemy then
