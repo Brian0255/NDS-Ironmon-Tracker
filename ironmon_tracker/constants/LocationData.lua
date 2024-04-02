@@ -1409,8 +1409,9 @@ LocationData.LOCATION_DATA = {
             "Route 32",
             "Ruins of Alph",
             "Sprout Tower 1F",
-            "Sprout Tower 2F"
-            --"Dark Cave"
+            "Sprout Tower 2F",
+            "Dark Cave",
+            "Bug Catching"
         }
     },
     --black/white
