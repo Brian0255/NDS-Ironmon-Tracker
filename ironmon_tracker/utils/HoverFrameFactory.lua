@@ -665,7 +665,13 @@ local function createAreaLabel(areaName, parentFrame, size)
 end
 
 local function formatEncounterEntry(entry)
-    return "Level " .. entry.level .. " (" .. entry.percent .. "%)"
+    local prefix = ""
+    if entry.level then
+        prefix = "Level " .. entry.level
+    elseif entry.levelRange then
+        prefix = "Level " .. entry.levelRange[1] .. " - " .. entry.levelRange[2]
+    end
+    return prefix .. " (" .. entry.percent .. "%)"
 end
 
 local function createVanillaEncounterRow(index, info, parentFrame)
@@ -779,7 +785,7 @@ local function createTrackedEncounterRowFrame(parentFrame)
     return rowFrame
 end
 
-local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData)
+local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData, useRange)
     local name = "?"
     if pokemonID ~= -1 then
         name = PokemonData.POKEMON[pokemonID + 1].name
@@ -801,11 +807,15 @@ local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData)
     )
     local levelsText = "?"
     if seenData ~= nil then
-        levelsText = "Lv "
-        for _, level in pairs(seenData) do
-            levelsText = levelsText .. level .. ", "
+        if useRange then
+            levelsText = "Level " .. seenData[1] .. " - " .. seenData[#seenData]
+        else
+            levelsText = "Lv "
+            for _, level in pairs(seenData) do
+                levelsText = levelsText .. level .. ", "
+            end
+            levelsText = levelsText:sub(1, #levelsText - 2)
         end
-        levelsText = levelsText:sub(1, #levelsText - 2)
     end
     local levelsLabel =
         TextLabel(
@@ -873,10 +883,11 @@ function HoverFrameFactory.createTrackedEncountersHoverFrame(vanillaData, encoun
     local totalSeen = 0
     local totalHeight = 22
     local sortedKeys = sortTrackedEncounters(encounterData.encountersSeen)
+    local useRange = vanillaData.vanillaData[1][1].levelRange ~= nil
     for _, pokemonID in pairs(sortedKeys) do
         local seenData = encounterData.encountersSeen[pokemonID]
         local rowFrame = createTrackedEncounterRowFrame(mainFrame)
-        fillTrackedEncounterRow(rowFrame, pokemonID, seenData)
+        fillTrackedEncounterRow(rowFrame, pokemonID, seenData, useRange)
         totalSeen = totalSeen + 1
         totalHeight = totalHeight + rowFrame.getSize().height + 3
     end
