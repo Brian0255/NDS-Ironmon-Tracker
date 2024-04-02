@@ -31,7 +31,7 @@ end
 
 function BattleHandlerGen5:_readAmountOfBattlers()
     --more than 2 mean multi-player double/triple
-    local currentPointer = self.memoryAddresses.mainBattleDataPtr
+    local currentPointer = self.memoryAddresses.mainBattleDataPtr + 0x18
     local total = 0
     while (Memory.read_u32_le(currentPointer)) ~= 0 do
         currentPointer = currentPointer + 0x1C
@@ -59,7 +59,7 @@ function BattleHandlerGen5:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, am
     for addr = currentBattleDataPtr, endPoint, advanceAmount do
         self:_addBattlerSlot(battleData.slots, nil, addr)
     end
-    return endPoint
+    return endPoint + advanceAmount
 end
 
 function BattleHandlerGen5:_tryToFetchBattleData()
@@ -80,8 +80,16 @@ function BattleHandlerGen5:_tryToFetchBattleData()
     elseif self._battlerAmount > 2 and self._battlerAmount <= 6 then
         --multi-player double, read only the first block as player and the rest as enemies
         --this way, if you have an ally you don't get revealed info about them
-        currentBattleDataPtr = self:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, 1, false, 0x1C)
-        self:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, self._battlerAmount - 1, true, 0x1C)
+        self:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, 1, false, 0x1C)
+        --little awkward here because memory is laid out as follows:
+        --player (you), enemy 1, player ally 1, enemy 2, etc. with distance of 0x1C
+        --don't want to read in this order because it's awkward for swapping, so we instead read all players then enemies by skipping
+        local numEnemies = self._battlerAmount / 2
+        local numAllies = numEnemies - 1
+        local enemyStart = currentBattleDataPtr + 0x1C
+        local allyStart = currentBattleDataPtr + (2 * 0x1C)
+        self:_readAndAdvanceBattleDataPtr(allyStart, numAllies, true, 2 * 0x1C)
+        self:_readAndAdvanceBattleDataPtr(enemyStart, numEnemies, true, 2 * 0x1C)
     else
         return false
     end
