@@ -44,7 +44,6 @@ end
 
 function BattleHandlerGen4:_setUpBattleVariables()
     self:_baseSetUpBattleVariables()
-    self:addFrameCounter("abilityTracking", FrameCounter(10, self._readAbilityMessages, self))
 end
 
 function BattleHandlerGen4:_addBattlerSlot(battlerSlots, slot, PIDAddress)
@@ -102,6 +101,7 @@ function BattleHandlerGen4:_tryToFetchBattleData()
         battleData["enemy"].slots = {}
         return false
     end
+    self:addFrameCounter("abilityTracking", FrameCounter(8, self._readAbilityMessages, self))
     return true
 end
 
@@ -117,6 +117,19 @@ end
 
 function BattleHandlerGen4:_isTransformed(battleData, activePID)
     return not battleData.battleTeamPIDs[activePID]
+end
+
+function BattleHandlerGen4:_updateStatStages(data, slotIndex, isEnemy)
+    --goes player 1, enemy 1, player 2, enemy 2
+    --player 1 -> enemy 1 is a difference of C0, so we skip ahead with twice the distance to make things easier
+    local statStageDifference = 2 * 0xC0
+    local base = self.memoryAddresses.statStagesPlayer
+    if isEnemy then
+        base = self.memoryAddresses.statStagesEnemy
+    end
+    local statStagesAddress = base + (slotIndex - 1) * statStageDifference
+    self.pokemonDataReader.setCurrentBase(statStagesAddress)
+    data.statStages = self.pokemonDataReader.readBattleStatStages()
 end
 
 function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
@@ -136,11 +149,12 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
         return
     end
     local base = currentBase + monIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE
-    self._pokemonDataReader.setCurrentBase(base)
-    local data = self._pokemonDataReader.decryptPokemonInfo(false, monIndex, isEnemy)
+    self.pokemonDataReader.setCurrentBase(base)
+    local data = self.pokemonDataReader.decryptPokemonInfo(false, monIndex, isEnemy)
     if data == nil or next(data) == nil then
         return
     end
+    self:_updateStatStages(data, slotIndex, isEnemy)
     self._program.checkForAlternateForm(data)
     if activePID ~= battler.lastValidPID and isEnemy then
         self:_logNewEnemy(data)
@@ -151,8 +165,4 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
     end
     battler.lastValidPID = activePID
     return data
-end
-
-function BattleHandlerGen4:_updateStatStages()
-    --TODO: fix doubles being broken
 end
