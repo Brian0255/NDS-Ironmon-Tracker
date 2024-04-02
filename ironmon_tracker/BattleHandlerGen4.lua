@@ -154,4 +154,5 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
 end
 
 function BattleHandlerGen4:_updateStatStages()
+    --TODO: fix doubles being broken
 end
