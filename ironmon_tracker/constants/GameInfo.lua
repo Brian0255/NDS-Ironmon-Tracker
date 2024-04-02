@@ -74,7 +74,8 @@ GameInfo.GAME_INFO = {
         LOCATION_DATA = LocationData.LOCATION_DATA[GameInfo.VERSION_NUMBER.HEART_GOLD],
         PIVOT_TYPES = {
             ["Grass/Cave"] = true,
-            ["Headbutt"] = true
+            ["Headbutt"] = true,
+            ["Bug Catching"] = true
         }
     },
     [GameInfo.VERSION_NUMBER.SOUL_SILVER] = {
@@ -90,7 +91,8 @@ GameInfo.GAME_INFO = {
         LOCATION_DATA = LocationData.LOCATION_DATA[GameInfo.VERSION_NUMBER.HEART_GOLD],
         PIVOT_TYPES = {
             ["Grass/Cave"] = true,
-            ["Headbutt"] = true
+            ["Headbutt"] = true,
+            ["Bug Catching"] = true
         }
     },
     [GameInfo.VERSION_NUMBER.BLACK] = {
