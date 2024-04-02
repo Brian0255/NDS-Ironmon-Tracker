@@ -140,7 +140,7 @@ GameInfo.GAME_INFO = {
         LOCATION_DATA = LocationData.LOCATION_DATA[GameInfo.VERSION_NUMBER.BLACK2],
         PIVOT_TYPES = {
             ["Grass/Cave"] = true,
-            ["Shaking Spots"] = true
+            ["Doubles Grass"] = true
         }
     },
     [GameInfo.VERSION_NUMBER.WHITE2] = {
@@ -156,7 +156,7 @@ GameInfo.GAME_INFO = {
         LOCATION_DATA = LocationData.LOCATION_DATA[GameInfo.VERSION_NUMBER.BLACK2],
         PIVOT_TYPES = {
             ["Grass/Cave"] = true,
-            ["Shaking Spots"] = true
+            ["Doubles Grass"] = true
         }
     }
 }
