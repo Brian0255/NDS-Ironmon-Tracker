@@ -108,7 +108,7 @@ function BattleHandlerGen4:_tryToFetchBattleData()
         battleData["enemy"].slots = {}
         return false
     end
-    self:addFrameCounter("abilityTracking", FrameCounter(1, self._readAbilityMessages, self))
+    self:addFrameCounter("abilityTracking", FrameCounter(8, self._readAbilityMessages, self))
     return true
 end
 
