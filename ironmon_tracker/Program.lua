@@ -79,6 +79,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local seedLogger
 	local tourneyTracker
 	local pokemonThemeManager = PokemonThemeManager(settings, self)
+	local dayOfWeek = 2
 
 	local currentScreens = {}
 
@@ -568,6 +569,18 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		elseif locationData[parentMap] ~= nil then
 			areaName = locationData[parentMap].name
 		end
+		--HGSS bug catching patch only writes correct day of week when you're in the building with the NPC that starts the contest
+		if childMap == 102 and gameInfo.VERSION_GROUP == 3 then
+			dayOfWeek = Memory.read_u16_le(memoryAddresses.dayOfWeek)
+		end
+		if areaName == "Bug Catching" then
+			local dayToNewName = {
+				[2] = "Tues Bug Catching",
+				[4] = "Thurs Bug Catching",
+				[6] = "Sat Bug Catching"
+			}
+			areaName = dayToNewName[dayOfWeek] or "Tues Bug Catching"
+		end
 		if areaName ~= nil and areaName ~= locationData[0].name then
 			currentMapID = parentMap
 			tracker.updateCurrentAreaName(areaName)
@@ -1051,7 +1064,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	if gameInfo.GEN == 4 then
 		battleHandler = BattleHandlerGen4:new(nil, gameInfo, memoryAddresses, pokemonDataReader, tracker, self, settings)
 	else
-		battlerHandler = BattleHandlerGen5:new(nil, gameInfo, memoryAddresses, pokemonDataReader, tracker, self, settings)
+		battleHandler = BattleHandlerGen5:new(nil, gameInfo, memoryAddresses, pokemonDataReader, tracker, self, settings)
 	end
 	seedLogger = SeedLogger(self, gameInfo.NAME)
 	playerPokemon = pokemonDataReader.getDefaultPokemon()
