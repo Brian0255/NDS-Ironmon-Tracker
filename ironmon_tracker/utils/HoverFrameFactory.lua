@@ -695,21 +695,21 @@ local function createVanillaEncounterRow(index, info, parentFrame)
             {x = 0, y = 0},
             {
                 width = 100,
-                height = 12
+                height = 13
             }
         ),
-        Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+        Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = 0, y = 0}),
         rowFrame
     )
     local indexLabel =
         TextLabel(
         Component(
             numberRow,
-            Box({x = 0, y = 0}, {width = 15, height = 15}, "Top box background color", "Top box border color")
+            Box({x = 0, y = 0}, {width = 17, height = 17}, "Top box background color", "Top box border color")
         ),
         TextField(
             index,
-            {x = 4 - (3 * (#(tostring(index)) - 1)), y = 2},
+            {x = 5 - (3 * (#(tostring(index)) - 1)), y = 3},
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
                 Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -721,10 +721,10 @@ local function createVanillaEncounterRow(index, info, parentFrame)
     local firstEntry = info[1]
     local firstEntryLabel =
         TextLabel(
-        Component(numberRow, Box({x = 0, y = 0}, {width = 14, height = 14})),
+        Component(numberRow, Box({x = 0, y = 0}, {width = 14, height = 0})),
         TextField(
             formatEncounterEntry(firstEntry),
-            {x = 3, y = 2},
+            {x = 3, y = 3},
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
                 Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -743,7 +743,7 @@ local function createVanillaEncounterRow(index, info, parentFrame)
                     height = 0
                 }
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 15, y = 0}),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = 18, y = 0}),
             rowFrame
         )
         for i = 2, #info, 1 do
@@ -753,7 +753,7 @@ local function createVanillaEncounterRow(index, info, parentFrame)
                 Component(frameForTheRest, Box({x = 0, y = 0}, {width = 14, height = 12})),
                 TextField(
                     formatEncounterEntry(entry),
-                    {x = 3, y = 2},
+                    {x = 3, y = 3},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -764,7 +764,7 @@ local function createVanillaEncounterRow(index, info, parentFrame)
             )
         end
     end
-    local rowHeight = 12 * #info + 3
+    local rowHeight = 14 * #info + 3
     rowFrame.resize({width = 100, height = rowHeight})
     return rowFrame
 end
@@ -909,20 +909,20 @@ function HoverFrameFactory.createVanillaEncountersHoverFrame(areaName, encounter
                 width = 100,
                 height = 0
             },
-            "Top box background color",
+            "Top box border color",
             "Top box border color",
             false,
             nil,
             true
         ),
-        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 2, {x = 0, y = 0}),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
         nil
     )
     createAreaLabel(areaName, mainFrame, {width = 100, height = 18})
     local totalHeight = 18
     for index, pokemonData in pairs(encounterData.vanillaData) do
         local rowFrame = createVanillaEncounterRow(index, pokemonData, mainFrame)
-        totalHeight = totalHeight + rowFrame.getSize().height + 2
+        totalHeight = totalHeight + rowFrame.getSize().height
     end
     mainFrame.resize({width = 100, height = totalHeight})
     return mainFrame
