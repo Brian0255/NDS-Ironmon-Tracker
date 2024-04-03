@@ -2,6 +2,7 @@ BattleHandlerGen4 = BattleHandlerBase:new()
 local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
 
 function BattleHandlerGen4._readAbilityMessages(self)
+    [ 12]  = { 3, 88, }, -- 3:Speed Boost, 88:Download -- TODO: Speedboost requires testing (download works)
     if not self:inBattleAndFetched() or not self.memoryAddresses.battleSubscriptMsgs then
         return
     end
@@ -31,6 +32,11 @@ function BattleHandlerGen4._readAbilityMessages(self)
     -- Don't track the ability if more than one pokemon may have triggered it
     -- NOTE: This is currently a necessary precaution, since there isn't a good way to determine the source of the ability
     if not sourcePokemon or numPossibleSources ~= 1 then
+        return
+    end
+
+    --speed boost sanity check
+    if sourcePokemon.ability == 3 and sourcePokemon.statStages["SPE"] <= 6 then
         return
     end
 
