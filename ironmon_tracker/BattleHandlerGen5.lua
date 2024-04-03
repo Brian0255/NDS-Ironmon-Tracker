@@ -151,6 +151,9 @@ function BattleHandlerGen5:_checkBattlerAbilityTriggered(battler, slotIndex, isE
     if traceTriggered and not isEnemy then
         local sources = 0
         local mons = self:getAllPokemonInBattle()
+        if mons == nil or next(mons) == nil then
+            return
+        end
         local sourceMon = nil
         for _, mon in pairs(mons) do
             if mon.isEnemy and mon.ability == abilityTrigger then
