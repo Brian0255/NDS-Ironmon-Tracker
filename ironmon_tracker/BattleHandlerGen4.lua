@@ -2,7 +2,6 @@ BattleHandlerGen4 = BattleHandlerBase:new()
 local FrameCounter = dofile(Paths.FOLDERS.DATA_FOLDER .. "/FrameCounter.lua")
 
 function BattleHandlerGen4._readAbilityMessages(self)
-    [ 12]  = { 3, 88, }, -- 3:Speed Boost, 88:Download -- TODO: Speedboost requires testing (download works)
     if not self:inBattleAndFetched() or not self.memoryAddresses.battleSubscriptMsgs then
         return
     end
@@ -108,7 +107,7 @@ function BattleHandlerGen4:_tryToFetchBattleData()
         battleData["enemy"].slots = {}
         return false
     end
-    self:addFrameCounter("abilityTracking", FrameCounter(8, self._readAbilityMessages, self))
+    self:addFrameCounter("abilityTracking", FrameCounter(1, self._readAbilityMessages, self))
     return true
 end
 
