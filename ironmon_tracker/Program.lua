@@ -327,7 +327,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		healingItems = {}
 		statusItems = {}
 		local itemStart, berryStart = memoryAddresses.itemStartNoBattle, memoryAddresses.berryBagStart
-		if battleHandler:isInBattle() then
+		if battleHandler:inBattleAndFetched() then
 			itemStart, berryStart = memoryAddresses.itemStartBattle, memoryAddresses.berryBagStartBattle
 		end
 
@@ -762,6 +762,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local blockingScreenActive = inTrackedPokemonView or inLockedView
 		local lockingActive = (locked and lockedPokemonCopy ~= nil)
 		if not blockingScreenActive then
+			if not battleHandler:isAllowedToSwap() then
+				return
+			end
 			if selectedPlayer == self.SELECTED_PLAYERS.PLAYER then
 				selectedPlayer = battleHandler:updatePlayerSlotIndex(selectedPlayer)
 				local pokemon = getPlayerPartyData()
