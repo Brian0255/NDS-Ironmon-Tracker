@@ -95,13 +95,18 @@ function BattleHandlerBase:_setUpDelay()
     return delay
 end
 
+function BattleHandlerBase._onDelayFinished(self)
+    self._frameCounters["battleDelay"] = nil
+    self._program.switchToEnemy()
+end
+
 function BattleHandlerBase:_logNewEnemy(data)
     local delay = self:_setUpDelay()
     self._tracker.logNewEnemyPokemonInBattle(data.pokemonID)
     self._program.disableMoveEffectiveness()
     self._program.addEffectivenessEnablingFrameCounter(delay)
     self._tracker.updateCurrentLevel(data.pokemonID, data.level)
-    self._program.switchToEnemy()
+    self._frameCounters["battleDelay"] = FrameCounter(delay, self._onDelayFinished, self)
     if self._enemyTrainerID ~= nil and self._enemyTrainerID == 0 then
         self._tracker.updateEncounterData(data.pokemonID, data.level)
     end
@@ -270,6 +275,7 @@ function BattleHandlerBase:getPlayerSlotIndex()
 end
 
 function BattleHandlerBase._onBattleFetchFrameCounter(self)
+    self._frameCounters = {}
     self._battleDataFetched = self:_tryToFetchBattleData()
     if self._battleDataFetched then
         self._enemyTrainerID = Memory.read_u16_le(self.memoryAddresses.enemyTrainerID)
@@ -326,7 +332,6 @@ function BattleHandlerBase:_onEndOfBattle()
     self._faintMonIndex = -1
     self._inBattle = false
     self._multiPlayerDouble = false
-    self._frameCounters = {}
 end
 
 function BattleHandlerBase:updateBattleStatus()
@@ -352,6 +357,9 @@ function BattleHandlerBase:getAllPokemonInBattle()
     for _, key in pairs(order) do
         local battlerData = self._battleData[key]
         for _, slot in pairs(battlerData.slots) do
+            if not slot.activePokemon then
+                return
+            end
             slot.activePokemon.isEnemy = (key == "enemy")
             table.insert(pokemon, slot.activePokemon)
         end
