@@ -284,6 +284,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             currentIndex = 1
             readCurrentIndexIntoMainScreen()
         end
+        pokemonSearchKeyboard.clearKeyboard()
         pokemonSearchKeyboard.updateItemSet(sortedTrackedIDs)
         pokemonSearchKeyboard.setDrawFunction(program.drawCurrentScreens)
         pokemonSearchKeyboard.updateSearch()
