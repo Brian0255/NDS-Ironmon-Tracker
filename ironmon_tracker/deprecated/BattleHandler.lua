@@ -1,4 +1,3 @@
---[[Deprecated in favor of inheritance, do not use! Leaving implementation in case any of it is needed
 local function BattleHandler(
     initialGameInfo,
     initialMemoryAddresses,
@@ -792,5 +791,3 @@ local function BattleHandler(
 end
 
 return BattleHandler
-
---]]
