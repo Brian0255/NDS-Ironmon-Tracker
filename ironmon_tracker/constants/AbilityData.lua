@@ -588,8 +588,7 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 109,
         name = "Unaware",
-        description = "Ignores other Pok" ..
-            Chars.accentedE .. "mon's stat modifiers for damage and Accuracy calculation."
+        description = "Ignores other Pok" .. Chars.accentedE .. "mon's stat modifiers for damage and Accuracy calculation."
     },
     {
         id = 110,
@@ -878,42 +877,42 @@ AbilityData.ABILITIES_MASTER_LIST = {
 
 -- Map a battle message id (key) to a list of ability id's (value) that could trigger it
 AbilityData.BATTLE_MSGS_MASTER_LIST = {
-	-- List: https://github.com/pret/pokeheartgold/blob/448bea8e0692a2affab92739e73e80d9636b7aa0/include/constants/battle_subscript.h
-	GEN4 = {
-		[ 12]  = { 3, 88, }, -- 3:Speed Boost, 88:Download -- TODO: Speedboost requires testing (download works)
-		--[ 16]  = { 83 }, -- 83:Anger Point, -- TODO: technically works but might false trigger, removing for now
-		[ 22]  = { 38, 27, }, -- 38:Poison Point, 27:Effect Spore
-		[ 18]  = { 27, }, -- 27:Effect Spore
-		[ 25]  = { 49, }, -- 49:Flame Body
-		[ 31]  = { 9, 27, }, -- 9:Static, 27:Effect Spore
-		[106]  = { 56, }, -- 56:Cute Charm
-		[177]  = { 104, }, -- 104:Mold Breaker
-		[178]  = { 10, 11, 87, }, -- 10:Volt Absorb, 11:Water Absorb, 87:Dry Skin
-		[179]  = { 18, }, -- 18:Flash Fire
-		[180]  = { 31, 114, }, -- 31:Lightningrod, 114:Storm Drain
-		[181]  = { 43, }, -- 43:Soundproof
-		[182]  = { 78, }, -- 78:Motor Drive
-		[183]  = { 2, }, -- 2:Drizzle
-		[184]  = { 45, }, -- 45:Sand Stream
-		[185]  = { 70, }, -- 70:Drought
-		[186]  = { 22, }, -- 22:Intimidate
-		[187]  = { 36, }, -- 36:Trace
-		[188]  = { 16, }, -- 16:Color Change
-		[189]  = { 24, }, -- 24:Rough Skin
-		[190]  = { 61, }, -- 61:Shed Skin
-		[191]  = { 54, }, -- 54:Truant
-		[192]  = { 44, 87 }, -- 44:Rain Dish, 87:Dry Skin
-		[193]  = { 106, }, -- 106:Aftermath
-		[194]  = { 107, }, -- 107:Anticipation
-		[195]  = { 108, }, -- 108:Forewarn
-		[196]  = { 112, }, -- 112:Slow Start
-		-- 7:Limber, 12:Oblivious, 15:Insomnia, 17:Immunity, 20:Own Tempo, 40:Magma Armor, 41:Water Veil, 72:Vital Spirit,
-		[221]  = { 7, 12, 15, 17, 20, 40, 41, 72, },
-		[252]  = { 117, }, -- 117:Snow Warning
-		[253]  = { 119, }, -- 119:Frisk
-		[285]  = { 46, }, -- 46:Pressure
-	},
-	--[[ Ability master list to test for Gen 4
+    -- List: https://github.com/pret/pokeheartgold/blob/448bea8e0692a2affab92739e73e80d9636b7aa0/include/constants/battle_subscript.h
+    GEN4 = {
+        [12] = {3, 88}, -- 3:Speed Boost, 88:Download -- TODO: Speedboost requires testing (download works)
+        --[ 16]  = { 83 }, -- 83:Anger Point, -- TODO: technically works but might false trigger, removing for now
+        [22] = {38}, -- 38:Poison Point, 27:Effect Spore
+        --[18] = {27}, -- 27:Effect Spore
+        [25] = {49}, -- 49:Flame Body
+        [31] = {9}, -- 9:Static, 27:Effect Spore
+        [106] = {56}, -- 56:Cute Charm
+        [177] = {104}, -- 104:Mold Breaker
+        [178] = {10, 11, 87}, -- 10:Volt Absorb, 11:Water Absorb, 87:Dry Skin
+        [179] = {18}, -- 18:Flash Fire
+        [180] = {31, 114}, -- 31:Lightningrod, 114:Storm Drain
+        [181] = {43}, -- 43:Soundproof
+        [182] = {78}, -- 78:Motor Drive
+        [183] = {2}, -- 2:Drizzle
+        [184] = {45}, -- 45:Sand Stream
+        [185] = {70}, -- 70:Drought
+        [186] = {22}, -- 22:Intimidate
+        [187] = {36}, -- 36:Trace
+        [188] = {16}, -- 16:Color Change
+        [189] = {24}, -- 24:Rough Skin
+        [190] = {61}, -- 61:Shed Skin
+        [191] = {54}, -- 54:Truant
+        [192] = {44, 87}, -- 44:Rain Dish, 87:Dry Skin
+        [193] = {106}, -- 106:Aftermath
+        [194] = {107}, -- 107:Anticipation
+        [195] = {108}, -- 108:Forewarn
+        [196] = {112}, -- 112:Slow Start
+        -- 7:Limber, 12:Oblivious, 15:Insomnia, 17:Immunity, 20:Own Tempo, 40:Magma Armor, 41:Water Veil, 72:Vital Spirit,
+        [221] = {7, 12, 15, 17, 20, 40, 41, 72},
+        [252] = {117}, -- 117:Snow Warning
+        [253] = {119}, -- 119:Frisk
+        [285] = {46} -- 46:Pressure
+    }
+    --[[ Ability master list to test for Gen 4
 		Static, flame body, pressure, mold breaker, frisk, forewarn, anticipation, anger point,
 		poison point, effect spore, insomnia, flash fire, levitate, volt absorb, motor drive,
 		water absorb, intimidate, download, hyper cutter, clear body, speed boost, own tempo,

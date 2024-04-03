@@ -283,6 +283,9 @@ local function Tracker()
 			if data.currentLevel == "---" then
 				template.level = data.lastLevelSeen
 			end
+			if template.level == "---" then
+				template.level = 0
+			end
 			template.pokemonID = id
 			if data.baseForm ~= nil then
 				template.baseForm = {

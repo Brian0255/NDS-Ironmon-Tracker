@@ -1209,7 +1209,7 @@ LocationData.LOCATION_DATA = {
             [484] = {name = "Route 10"},
             [485] = {name = "Fuchsia City"},
             [486] = {name = "Whirl Islands"},
-            [487] = {name = "National Park"},
+            [487] = {name = "Bug Catching"},
             [488] = {name = "National Park"},
             [489] = {name = "Power Plant"},
             [490] = {name = "Ruins of Alph"},
@@ -1368,6 +1368,111 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
+            ["Tues Bug Catching"] = {
+                totalPokemon = 10,
+                vanillaData = {
+                    {
+                        {levelRange = {36, 54}, percent = 20}
+                    },
+                    {
+                        {levelRange = {36, 54}, percent = 20}
+                    },
+                    {
+                        {levelRange = {39, 54}, percent = 10}
+                    },
+                    {
+                        {levelRange = {39, 54}, percent = 10}
+                    },
+                    {
+                        {levelRange = {41, 45}, percent = 10}
+                    },
+                    {
+                        {levelRange = {41, 45}, percent = 10}
+                    },
+                    {
+                        {levelRange = {38, 48}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 51}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 42}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 42}, percent = 5}
+                    }
+                }
+            },
+            ["Thurs Bug Catching"] = {
+                totalPokemon = 10,
+                vanillaData = {
+                    {
+                        {levelRange = {36, 54}, percent = 20}
+                    },
+                    {
+                        {levelRange = {36, 54}, percent = 20}
+                    },
+                    {
+                        {levelRange = {39, 54}, percent = 10}
+                    },
+                    {
+                        {levelRange = {39, 54}, percent = 10}
+                    },
+                    {
+                        {levelRange = {41, 45}, percent = 10}
+                    },
+                    {
+                        {levelRange = {41, 45}, percent = 10}
+                    },
+                    {
+                        {levelRange = {38, 48}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 51}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 42}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 42}, percent = 5}
+                    }
+                }
+            },
+            ["Sat Bug Catching"] = {
+                totalPokemon = 10,
+                vanillaData = {
+                    {
+                        {levelRange = {36, 54}, percent = 20}
+                    },
+                    {
+                        {levelRange = {36, 54}, percent = 20}
+                    },
+                    {
+                        {levelRange = {39, 54}, percent = 10}
+                    },
+                    {
+                        {levelRange = {39, 54}, percent = 10}
+                    },
+                    {
+                        {levelRange = {41, 45}, percent = 10}
+                    },
+                    {
+                        {levelRange = {41, 45}, percent = 10}
+                    },
+                    {
+                        {levelRange = {38, 48}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 51}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 42}, percent = 5}
+                    },
+                    {
+                        {levelRange = {41, 42}, percent = 5}
+                    }
+                }
+            },
             ["Ruins of Alph"] = {
                 totalPokemon = 1,
                 vanillaData = {
@@ -1409,8 +1514,9 @@ LocationData.LOCATION_DATA = {
             "Route 32",
             "Ruins of Alph",
             "Sprout Tower 1F",
-            "Sprout Tower 2F"
-            --"Dark Cave"
+            "Sprout Tower 2F",
+            "Dark Cave",
+            "Bug Catching"
         }
     },
     --black/white

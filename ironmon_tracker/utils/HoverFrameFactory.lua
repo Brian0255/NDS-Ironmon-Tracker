@@ -665,7 +665,13 @@ local function createAreaLabel(areaName, parentFrame, size)
 end
 
 local function formatEncounterEntry(entry)
-    return "Level " .. entry.level .. " (" .. entry.percent .. "%)"
+    local prefix = ""
+    if entry.level then
+        prefix = "Level " .. entry.level
+    elseif entry.levelRange then
+        prefix = "Level " .. entry.levelRange[1] .. " - " .. entry.levelRange[2]
+    end
+    return prefix .. " (" .. entry.percent .. "%)"
 end
 
 local function createVanillaEncounterRow(index, info, parentFrame)
@@ -689,21 +695,21 @@ local function createVanillaEncounterRow(index, info, parentFrame)
             {x = 0, y = 0},
             {
                 width = 100,
-                height = 12
+                height = 13
             }
         ),
-        Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 0, y = 0}),
+        Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 1, {x = 0, y = 0}),
         rowFrame
     )
     local indexLabel =
         TextLabel(
         Component(
             numberRow,
-            Box({x = 0, y = 0}, {width = 15, height = 15}, "Top box background color", "Top box border color")
+            Box({x = 0, y = 0}, {width = 17, height = 17}, "Top box background color", "Top box border color")
         ),
         TextField(
             index,
-            {x = 4 - (3 * (#(tostring(index)) - 1)), y = 2},
+            {x = 5 - (3 * (#(tostring(index)) - 1)), y = 3},
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
                 Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -715,10 +721,10 @@ local function createVanillaEncounterRow(index, info, parentFrame)
     local firstEntry = info[1]
     local firstEntryLabel =
         TextLabel(
-        Component(numberRow, Box({x = 0, y = 0}, {width = 14, height = 14})),
+        Component(numberRow, Box({x = 0, y = 0}, {width = 14, height = 0})),
         TextField(
             formatEncounterEntry(firstEntry),
-            {x = 3, y = 2},
+            {x = 3, y = 3},
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
                 Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -737,7 +743,7 @@ local function createVanillaEncounterRow(index, info, parentFrame)
                     height = 0
                 }
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 15, y = 0}),
+            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 1, {x = 18, y = 0}),
             rowFrame
         )
         for i = 2, #info, 1 do
@@ -747,7 +753,7 @@ local function createVanillaEncounterRow(index, info, parentFrame)
                 Component(frameForTheRest, Box({x = 0, y = 0}, {width = 14, height = 12})),
                 TextField(
                     formatEncounterEntry(entry),
-                    {x = 3, y = 2},
+                    {x = 3, y = 3},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
                         Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -758,7 +764,7 @@ local function createVanillaEncounterRow(index, info, parentFrame)
             )
         end
     end
-    local rowHeight = 12 * #info + 3
+    local rowHeight = 14 * #info + 3
     rowFrame.resize({width = 100, height = rowHeight})
     return rowFrame
 end
@@ -779,7 +785,7 @@ local function createTrackedEncounterRowFrame(parentFrame)
     return rowFrame
 end
 
-local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData)
+local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData, useRange)
     local name = "?"
     if pokemonID ~= -1 then
         name = PokemonData.POKEMON[pokemonID + 1].name
@@ -801,11 +807,15 @@ local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData)
     )
     local levelsText = "?"
     if seenData ~= nil then
-        levelsText = "Lv "
-        for _, level in pairs(seenData) do
-            levelsText = levelsText .. level .. ", "
+        if useRange then
+            levelsText = "Level " .. seenData[1] .. " - " .. seenData[#seenData]
+        else
+            levelsText = "Lv "
+            for _, level in pairs(seenData) do
+                levelsText = levelsText .. level .. ", "
+            end
+            levelsText = levelsText:sub(1, #levelsText - 2)
         end
-        levelsText = levelsText:sub(1, #levelsText - 2)
     end
     local levelsLabel =
         TextLabel(
@@ -873,10 +883,11 @@ function HoverFrameFactory.createTrackedEncountersHoverFrame(vanillaData, encoun
     local totalSeen = 0
     local totalHeight = 22
     local sortedKeys = sortTrackedEncounters(encounterData.encountersSeen)
+    local useRange = vanillaData.vanillaData[1][1].levelRange ~= nil
     for _, pokemonID in pairs(sortedKeys) do
         local seenData = encounterData.encountersSeen[pokemonID]
         local rowFrame = createTrackedEncounterRowFrame(mainFrame)
-        fillTrackedEncounterRow(rowFrame, pokemonID, seenData)
+        fillTrackedEncounterRow(rowFrame, pokemonID, seenData, useRange)
         totalSeen = totalSeen + 1
         totalHeight = totalHeight + rowFrame.getSize().height + 3
     end
@@ -898,20 +909,20 @@ function HoverFrameFactory.createVanillaEncountersHoverFrame(areaName, encounter
                 width = 100,
                 height = 0
             },
-            "Top box background color",
+            "Top box border color",
             "Top box border color",
             false,
             nil,
             true
         ),
-        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 2, {x = 0, y = 0}),
+        Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
         nil
     )
     createAreaLabel(areaName, mainFrame, {width = 100, height = 18})
     local totalHeight = 18
     for index, pokemonData in pairs(encounterData.vanillaData) do
         local rowFrame = createVanillaEncounterRow(index, pokemonData, mainFrame)
-        totalHeight = totalHeight + rowFrame.getSize().height + 2
+        totalHeight = totalHeight + rowFrame.getSize().height
     end
     mainFrame.resize({width = 100, height = totalHeight})
     return mainFrame

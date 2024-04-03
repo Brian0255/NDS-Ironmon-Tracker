@@ -174,9 +174,15 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
     end
 
     local function getAbilityText(abilities)
+        local total = 0
+        for _, ability in pairs(abilities) do
+            if ability ~= 0 then
+                total = total + 1
+            end
+        end
         local text = "Only ability"
-        if #abilities > 1 then
-            text = "1 of " .. #abilities .. " abilities"
+        if total > 1 then
+            text = "1 of " .. total .. " abilities"
         end
         return text
     end
