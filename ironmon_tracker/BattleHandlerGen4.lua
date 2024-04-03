@@ -62,13 +62,14 @@ end
 
 function BattleHandlerGen4:_readTeamPIDs(battleData)
     local currentBase = battleData.partyBase
-    local limit = 11
+    local limit = 5
     for i = 0, limit, 1 do
         if i == 6 then
             currentBase = battleData.partyBase + self._gameInfo.ENEMY_PARTY_OFFSET
         end
         local pid = Memory.read_u32_le(currentBase)
-        if pid ~= 0 then
+        local checksum = Memory.read_u16_le(currentBase + 0x06)
+        if checksum ~= 0 then
             battleData.battleTeamPIDs[pid] = i
         end
         currentBase = currentBase + self._gameInfo.ENCRYPTED_POKEMON_SIZE
@@ -101,7 +102,7 @@ function BattleHandlerGen4:_tryToFetchBattleData()
         battleData["enemy"].slots = {}
         return false
     end
-    self:addFrameCounter("abilityTracking", FrameCounter(8, self._readAbilityMessages, self))
+    self:addFrameCounter("abilityTracking", FrameCounter(1, self._readAbilityMessages, self))
     return true
 end
 
@@ -152,7 +153,7 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
     self.pokemonDataReader.setCurrentBase(base)
     local data = self.pokemonDataReader.decryptPokemonInfo(false, monIndex, isEnemy)
     if data == nil or next(data) == nil then
-        return
+        return battler.lastValidPokemon
     end
     self:_updateStatStages(data, slotIndex, isEnemy)
     self._program.checkForAlternateForm(data)
