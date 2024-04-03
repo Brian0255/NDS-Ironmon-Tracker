@@ -40,7 +40,7 @@ function BattleHandlerGen5:_readAmountOfBattlers()
     self._battlerAmount = total
 end
 
-function BattleHandlerGen5:_addBattlerSlot(battlerSlots, slot, battleDataPtr)
+function BattleHandlerGen5:_addBattlerSlot(battlerSlots, slot, battleDataPtr, abilityTriggerAddr)
     if slot == nil then
         slot = #battlerSlots + 1
     end
@@ -49,17 +49,19 @@ function BattleHandlerGen5:_addBattlerSlot(battlerSlots, slot, battleDataPtr)
         lastPointerValue = nil,
         lastValidPokemon = nil,
         activePokemon = nil,
-        lastAbilityValue = -1
+        lastAbilityValue = -1,
+        ["abilityTriggerAddress"] = abilityTriggerAddr
     }
 end
 
-function BattleHandlerGen5:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, amount, isEnemy, advanceAmount)
+function BattleHandlerGen5:_readBattleDataPtr(currentBattleDataPtr, amount, isEnemy, advanceAmount, abilityTriggerStart)
     local battleData = self:_getCorrectBattleData(isEnemy)
     local endPoint = currentBattleDataPtr + ((amount - 1) * advanceAmount)
     for addr = currentBattleDataPtr, endPoint, advanceAmount do
-        self:_addBattlerSlot(battleData.slots, nil, addr)
+        local index = (addr - currentBattleDataPtr) / advanceAmount
+        local abilityTriggerAddr = abilityTriggerStart + (0x08 * index)
+        self:_addBattlerSlot(battleData.slots, nil, addr, abilityTriggerAddr)
     end
-    return endPoint + advanceAmount
 end
 
 function BattleHandlerGen5:_tryToFetchBattleData()
@@ -74,13 +76,13 @@ function BattleHandlerGen5:_tryToFetchBattleData()
     if self._battlerAmount == 2 then
         local doubleTriple = Memory.read_u8(self.memoryAddresses.doubleTripleFlag)
         local activeSlots = self.DOUBLE_TRIPLE_FLAG_TO_BATTLER_AMOUNT[doubleTriple] or 1
-        self:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, activeSlots, false, 0x04)
+        self:_readBattleDataPtr(currentBattleDataPtr, activeSlots, false, 4, self.memoryAddresses.abilityTriggerStart)
         currentBattleDataPtr = self.memoryAddresses.mainBattleDataPtr + 0x1C
-        self:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, activeSlots, true, 0x04)
+        self:_readBattleDataPtr(currentBattleDataPtr, activeSlots, true, 4, self.memoryAddresses.abilityTriggerStart + 4)
     elseif self._battlerAmount > 2 and self._battlerAmount <= 6 then
         --multi-player double, read only the first block as player and the rest as enemies
         --this way, if you have an ally you don't get revealed info about them
-        self:_readAndAdvanceBattleDataPtr(currentBattleDataPtr, 1, false, 0x1C)
+        self:_readBattleDataPtr(currentBattleDataPtr, 1, false, 0x1C, self.memoryAddresses.abilityTriggerStart)
         --little awkward here because memory is laid out as follows:
         --player (you), enemy 1, player ally 1, enemy 2, etc. with distance of 0x1C
         --don't want to read in this order because it's awkward for swapping, so we instead read all players then enemies by skipping
@@ -88,8 +90,8 @@ function BattleHandlerGen5:_tryToFetchBattleData()
         local numAllies = numEnemies - 1
         local enemyStart = currentBattleDataPtr + 0x1C
         local allyStart = currentBattleDataPtr + (2 * 0x1C)
-        self:_readAndAdvanceBattleDataPtr(allyStart, numAllies, true, 2 * 0x1C)
-        self:_readAndAdvanceBattleDataPtr(enemyStart, numEnemies, true, 2 * 0x1C)
+        self:_readBattleDataPtr(allyStart, numAllies, true, 2 * 0x1C, self.memoryAddresses.abilityTriggerStart + 0x08)
+        self:_readBattleDataPtr(enemyStart, numEnemies, true, 2 * 0x1C, self.memoryAddresses.abilityTriggerStart + 0x04)
     else
         return false
     end
@@ -135,11 +137,7 @@ function BattleHandlerGen5:_checkBattlerAbilityTriggered(battler, slotIndex, isE
     if battler.activePokemon == nil then
         return
     end
-    local base = self.memoryAddresses.abilityTriggerStart
-    if isEnemy then
-        base = base + 0x04
-    end
-    local triggerAddress = base + ((slotIndex - 1) * 0x08)
+    local triggerAddress = battler.abilityTriggerAddress
     local abilityTrigger = memory.read_u16_le(triggerAddress)
     if abilityTrigger == battler.lastAbilityValue or abilityTrigger == 0 then
         return
