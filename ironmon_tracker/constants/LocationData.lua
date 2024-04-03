@@ -1368,7 +1368,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Tuesday Bug Catching"] = {
+            ["Tues Bug Catching"] = {
                 totalPokemon = 10,
                 vanillaData = {
                     {
@@ -1403,7 +1403,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Thursday Bug Catching"] = {
+            ["Thurs Bug Catching"] = {
                 totalPokemon = 10,
                 vanillaData = {
                     {
@@ -1438,7 +1438,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Saturday Bug Catching"] = {
+            ["Sat Bug Catching"] = {
                 totalPokemon = 10,
                 vanillaData = {
                     {
