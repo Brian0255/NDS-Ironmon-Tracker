@@ -45,7 +45,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.HEART_GOLD] = {
         leagueBeaten = 0x1000,
         facingDirection = 0x25DA8,
         repelSteps = 0x6919,
-        battleSubscriptMsgs = 0x47184
+        battleSubscriptMsgs = 0x47184,
+        dayOfWeek = 0xDF4
     },
     GLOBAL = {
         battleStatus = 0x246F48
@@ -76,7 +77,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.SOUL_SILVER] = {
         leagueBeaten = 0x1000,
         facingDirection = 0x25DA8,
         repelSteps = 0x6919,
-        battleSubscriptMsgs = 0x47184
+        battleSubscriptMsgs = 0x47184,
+        dayOfWeek = 0xDF4
     },
     GLOBAL = {
         battleStatus = 0x246F48
