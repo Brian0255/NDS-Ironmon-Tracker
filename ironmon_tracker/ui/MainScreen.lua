@@ -175,7 +175,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
 
     local function onEncounterHoverEnd()
         activeHoverFrame = nil
-        eventListeners.encounterFrameClick.setOnClickParams(true)
+        eventListeners["encounterFrameClick"] = nil
         program.drawCurrentScreens()
     end
 
@@ -219,6 +219,8 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             program.drawCurrentScreens,
             ui.frames.mainFrame
         )
+        eventListeners["encounterFrameClick"] =
+            MouseClickEventListener(ui.frames.encounterDataFrame, onEncounterFrameClick, true)
     end
 
     local function onMoveHeaderHover(params)
@@ -383,7 +385,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if program.getGameInfo().GEN == 4 then
             local statusTable = {
                 [0] = "",
-				[8] = "PSN",
+                [8] = "PSN",
                 [16] = "BRN",
                 [32] = "FRZ",
                 [64] = "PAR",
@@ -955,7 +957,7 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if not runEvents then
             return
         end
-        local listenerGroups = {eventListeners, hoverListeners, statPredictionEventListeners, moveEventListeners}
+        local listenerGroups = {hoverListeners, statPredictionEventListeners, moveEventListeners, eventListeners}
         for _, listenerGroup in pairs(listenerGroups) do
             for _, eventListener in pairs(listenerGroup) do
                 eventListener.listen()
@@ -1171,8 +1173,6 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
             eventListeners,
             HoverEventListener(ui.frames.encounterDataFrame, onEncounterDataHover, nil, onEncounterHoverEnd)
         )
-        eventListeners.encounterFrameClick =
-            MouseClickEventListener(ui.frames.encounterDataFrame, onEncounterFrameClick, true)
         initStatListeners()
         table.insert(
             eventListeners,

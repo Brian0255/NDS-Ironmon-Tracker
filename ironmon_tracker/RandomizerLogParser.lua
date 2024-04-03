@@ -53,7 +53,13 @@ local function LogInfo(
 end
 
 local function RandomizerLogParser(initialProgram)
-    local self = {}
+    local self = {
+        ENCOUNTER_TYPE_TO_PERCENTS = {
+            ["Old Rod"] = {60, 30, 5, 4, 1},
+            ["Headbutt"] = {50, 15, 15, 10, 5, 5},
+            ["Bug Catching"] = {20, 20, 10, 10, 10, 10, 5, 5, 5, 5}
+        }
+    }
 
     local moveIDMappings = {}
     local pokemonIDMappings = {}
@@ -290,11 +296,8 @@ local function RandomizerLogParser(initialProgram)
         end
     end
 
-    local function readFishingOrHeadbuttEncounter(lines, line, startIndex, data, encounterType)
-        local slotPercents = {60, 30, 5, 4, 1}
-        if encounterType == "Headbutt" then
-            slotPercents = {50, 15, 15, 10, 5, 5}
-        end
+    local function readNonstandardEncounter(lines, line, startIndex, data, encounterType)
+        local slotPercents = self.ENCOUNTER_TYPE_TO_PERCENTS[encounterType]
         local pokemonName, ignore, minLevel, maxLevel = lines[line]:match("(.*) Lv(.-)(%d+)%-?(%d+)")
         if maxLevel == nil then
             maxLevel = minLevel
@@ -323,13 +326,41 @@ local function RandomizerLogParser(initialProgram)
         local startIndex = lineStart
         while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "") do
             if pivotType == "Old Rod" or pivotType == "Headbutt" then
-                readFishingOrHeadbuttEncounter(lines, currentLineIndex, startIndex, data, pivotType)
+                readNonstandardEncounter(lines, currentLineIndex, startIndex, data, pivotType)
             else
                 readStandardEncounter(lines, currentLineIndex, startIndex, data)
             end
             currentLineIndex = currentLineIndex + 1
         end
         return data
+    end
+
+    local function readBugCatchingEntry(lines, line, pivotData)
+        local routeInfo = lines[line]
+        --ignore pre nat dex, patch makes it post nat dex
+        if lines[line]:find("Pre-National") then
+            return
+        end
+        local days = {
+            "Tuesday",
+            "Thursday",
+            "Saturday"
+        }
+        if not pivotData["Bug Catching"] then
+            pivotData["Bug Catching"] = {}
+        end
+        line = line + 1
+        local startIndex = line
+        for _, day in pairs(days) do
+            if routeInfo:find(day) then
+                local data = {}
+                while (lines[line] ~= nil and lines[line] ~= "") do
+                    readNonstandardEncounter(lines, line, startIndex, data, "Bug Catching")
+                    line = line + 1
+                end
+                pivotData["Bug Catching"][day] = data
+            end
+        end
     end
 
     local function parseRouteData(lines, lineStart)
@@ -340,32 +371,35 @@ local function RandomizerLogParser(initialProgram)
         while (lines[currentLineIndex] ~= nil and currentLineIndex <= totalLines) do
             local routeInfo = lines[currentLineIndex]
             for pivotType, _ in pairs(pivotTypes) do
-                if routeInfo:find(pivotType) ~= -1 then
-                    pivotType = pivotType:gsub("/Cave", "")
-                    local number, areaName = routeInfo:match("Set #(%d+) %- (.+) " .. pivotType)
-                    --very dumb but idk what else to do
-                    if areaName == "Sprout Tower" then
-                        timesSeenSprout = timesSeenSprout + 1
-                        areaName = areaName .. " " .. timesSeenSprout .. "F"
-                    end
-                    local valid = true
-                    if areaName == "Ruins of Alph" and number ~= "68" then
-                        valid = false
-                    end
-                    if MiscUtils.tableContains(validRoutes, areaName) and valid then
-                        if not pivotData[areaName] then
-                            pivotData[areaName] = {}
+                if routeInfo:find(pivotType) then
+                    if pivotType == "Bug Catching" then
+                        readBugCatchingEntry(lines, currentLineIndex, pivotData)
+                    else
+                        pivotType = pivotType:gsub("/Cave", "")
+                        local number, areaName = routeInfo:match("Set #(%d+) %- (.+) " .. pivotType)
+                        --very dumb but idk what else to do
+                        if areaName == "Sprout Tower" then
+                            timesSeenSprout = timesSeenSprout + 1
+                            areaName = areaName .. " " .. timesSeenSprout .. "F"
                         end
-                        if pivotType ~= "Headbutt" then
-                            if not pivotData[areaName][pivotType] then
-                                pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
+                        local valid = true
+                        if areaName == "Ruins of Alph" and number ~= "68" then
+                            valid = false
+                        end
+                        if MiscUtils.tableContains(validRoutes, areaName) and valid then
+                            if not pivotData[areaName] then
+                                pivotData[areaName] = {}
                             end
-                        else
-                            local suffixes = {"(C)", "(R)"}
-                            for index, suffix in pairs(suffixes) do
-                                local lineOffset = (index - 1) * 6
-                                pivotData[areaName]["Headbutt" .. suffix] =
-                                    readEncounters(lines, currentLineIndex + 1 + lineOffset, pivotType)
+                            if pivotType ~= "Headbutt" then
+                                pivotType = pivotType:gsub("Doubles Grass", "Dark Grass")
+                                pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
+                            else
+                                local suffixes = {"(C)", "(R)"}
+                                for index, suffix in pairs(suffixes) do
+                                    local lineOffset = (index - 1) * 6
+                                    pivotData[areaName]["Headbutt" .. suffix] =
+                                        readEncounters(lines, currentLineIndex + 1 + lineOffset, pivotType)
+                                end
                             end
                         end
                     end

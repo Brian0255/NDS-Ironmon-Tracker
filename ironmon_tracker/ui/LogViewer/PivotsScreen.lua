@@ -17,7 +17,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
     local constants = {
         SELECTOR_FRAME_WIDTH = 80,
         AREAS_TITLE_HEIGHT = 16,
-        AREA_NAME_HEIGHT = 13,
+        AREA_NAME_HEIGHT = 12,
         ENCOUNTER_TAB_HEIGHT = 21,
         POKEMON_LIST_HEIGHT = 133
     }
@@ -34,7 +34,17 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
     local currentIDs = {}
     local currentPokemonList = {}
     local pivotData = {}
-    local encounterTypes = {"Grass", "Shaking Spots", "Old Rod", "Headbutt(C)", "Headbutt(R)", "Dark Grass"}
+    local encounterTypes = {
+        "Grass",
+        "Shaking Spots",
+        "Old Rod",
+        "Headbutt(C)",
+        "Headbutt(R)",
+        "Dark Grass",
+        "Tuesday",
+        "Thursday",
+        "Saturday"
+    }
 
     local function underlineActiveTab()
     end
@@ -58,14 +68,18 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
             function(id1, id2)
                 local data1 = pokemonList[id1]
                 local data2 = pokemonList[id2]
-                if data1.minLevel == data2.minLevel then
-                    if data1.maxLevel == data2.maxLevel then
-                        return data1.percent > data2.percent
+                if data1.percent == data2.percent then
+                    if data1.minLevel == data2.minLevel then
+                        if data1.maxLevel == data2.maxLevel then
+                            return data1.percent > data2.percent
+                        else
+                            return data1.maxLevel < data2.maxLevel
+                        end
                     else
-                        return data1.maxLevel < data2.maxLevel
+                        return data1.minLevel < data2.minLevel
                     end
                 else
-                    return data1.minLevel < data2.minLevel
+                    return data1.percent > data2.percent
                 end
             end
         )
@@ -234,7 +248,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 3, y = 4}),
             ui.frames.mainSelectorFrame
         )
-        for i = 1, 10, 1 do
+        for i = 1, 11, 1 do
             createAreaLabel()
         end
     end

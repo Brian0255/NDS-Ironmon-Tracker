@@ -1,12 +1,16 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.1.0"
+MiscConstants.TRACKER_VERSION = "6.2.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Thanks to UTDZac, the majority of important abilities are now autotracked as part of the enemy notes section for Gen 4! Gen 5 will be added at a later time, along with a few missing abilities (like Levitate).",
-    "-- Added a party faint option for when your run should be considered over, courtesy of JacksonWithHeart."
+    "-- Added Bug Catching Contest pivots to the log viewer for HGSS, as well as automatic encounter tracking for it like early routes.",
+    "-- Added automatic ability tracking in Gen 5. If any ability reveals when it shouldn't, let me know!",
+    "-- Overhauled Gen 5's battle code completely. Double and triple battles should now work without any issues.",
+    "-- Fixed stat stages not updating properly in Gen 4 double battles.",
+    "-- Added Super Kaizo tracker presets for Platinum and HGSS.",
+    "-- Rearranged the BW2 Virbank pivots in the log viewer so they refer to the more important interior sets of grass."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {

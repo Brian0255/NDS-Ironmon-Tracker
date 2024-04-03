@@ -46,7 +46,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             id = 0
         end
         local indexString = tostring(currentIndex)
-        local text = indexString .."/".. #sortedTrackedIDs
+        local text = indexString .. "/" .. #sortedTrackedIDs
         local xOffset = 7
         xOffset = xOffset + ((2 - #indexString) * 6)
         ui.controls.currentIndexLabel.setText(text)
@@ -73,7 +73,14 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
 
     local function createLabelsFromMatches(matches)
         matchEventListeners = {}
-        matchTextLabels = UIUtils.createKeyboardLabelsFromMatches(matches, PokemonData.POKEMON, ui.frames.resultFrame, maxSearchResultWidth,constants.POKEMON_BUTTON_HEIGHT)
+        matchTextLabels =
+            UIUtils.createKeyboardLabelsFromMatches(
+            matches,
+            PokemonData.POKEMON,
+            ui.frames.resultFrame,
+            maxSearchResultWidth,
+            constants.POKEMON_BUTTON_HEIGHT
+        )
         for index, label in pairs(matchTextLabels) do
             table.insert(matchEventListeners, MouseClickEventListener(label, setIndexFromID, matches[index]))
         end
@@ -81,13 +88,17 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
     end
 
     local function onForwardClick()
-        if currentIndex == 0 then return end
+        if currentIndex == 0 then
+            return
+        end
         currentIndex = MiscUtils.increaseTableIndex(currentIndex, #sortedTrackedIDs)
         program.drawCurrentScreens()
     end
 
     local function onBackwardClick()
-        if currentIndex == 0 then return end
+        if currentIndex == 0 then
+            return
+        end
         currentIndex = MiscUtils.decreaseTableIndex(currentIndex, #sortedTrackedIDs)
         program.drawCurrentScreens()
     end
@@ -273,6 +284,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
             currentIndex = 1
             readCurrentIndexIntoMainScreen()
         end
+        pokemonSearchKeyboard.clearKeyboard()
         pokemonSearchKeyboard.updateItemSet(sortedTrackedIDs)
         pokemonSearchKeyboard.setDrawFunction(program.drawCurrentScreens)
         pokemonSearchKeyboard.updateSearch()

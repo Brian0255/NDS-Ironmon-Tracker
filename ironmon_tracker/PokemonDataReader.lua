@@ -235,50 +235,6 @@ local function PokemonDataReader(initialProgram)
                 previousOffset = offsetAmount
             end
         end
-        --Gen 5 does not update the current HP or moves/PP in the player's battle party memory. It's stored elsewhere as unencrypted data.
-        if program.isInBattle() and gameInfo.GEN == 5 then
-            local offset = monIndex * 548
-            if checkingEnemy then
-                offset = offset + (Memory.read_u8(addresses.totalMonsParty) * 548)
-            end
-            decryptedData.curHP = Memory.read_u16_le(addresses.curHPBattlePlayer + offset)
-            decryptedData.HP = Memory.read_u16_le(addresses.HPBattlePlayer + offset)
-            if not checkingEnemy then
-                decryptedData.level = Memory.read_u16_le(addresses.curBattleLevel + monIndex * 0x224) % 256
-                --print(decryptedData.level)
-                local statStart = addresses.curBattleStats + monIndex * 0x224
-                local stats = {"ATK", "DEF", "SPA", "SPD", "SPE"}
-                for i = 0, 4, 1 do
-                    local stat = stats[i + 1]
-                    decryptedData[stat] = Memory.read_u16_le(statStart + i * 2)
-                end
-            end
-            local movesStart = addresses.statStagesStart + 8
-            local statusStart = addresses.curHPBattlePlayer + 0x10
-            statusStart = statusStart + monIndex * 0x224
-            if checkingEnemy then
-                local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
-                movesStart = movesStart + totalPlayerMons * 0x224
-                statusStart = statusStart + (totalPlayerMons * 0x224)
-            end
-            for i = 1, #MiscData.STATUS_TO_IMG_NAME + 1, 1 do
-                local status = Memory.read_u32_le(statusStart)
-                if status ~= 0 then
-                    decryptedData.status = i
-                end
-                statusStart = statusStart + 0x4
-            end
-            movesStart = movesStart + monIndex * 0x224
-            local moveIDs = {"move1", "move2", "move3", "move4"}
-            local movePPs = {"move1PP", "move2PP", "move3PP", "move4PP"}
-            for i = 0, 3, 1 do
-                local currentMove = movesStart + i * 14
-                local moveID = Memory.read_u16_le(currentMove)
-                local movePP = Memory.read_u8(currentMove + 2)
-                decryptedData[moveIDs[i + 1]] = moveID
-                decryptedData[movePPs[i + 1]] = movePP
-            end
-        end
     end
 
     local function formatData()
@@ -363,13 +319,6 @@ local function PokemonDataReader(initialProgram)
 
     function self.readBattleStatStages(isEnemy, index)
         local base = currentBase
-        if gameInfo.GEN == 5 then
-            base = base + (0x224 * index)
-            if isEnemy then
-                local totalPlayerMons = Memory.read_u8(addresses.totalMonsParty)
-                base = base + totalPlayerMons * 0x224
-            end
-        end
         local first4Bytes = Memory.read_u32_le(base)
         local last4Bytes = Memory.read_u32_le(base + 4)
         local HP = 6

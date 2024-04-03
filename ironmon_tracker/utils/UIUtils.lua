@@ -65,7 +65,7 @@ function UIUtils.underlineTextLabel(label)
     local position = label.getPosition()
     local size = label.getSize()
     local x1, y1 = position.x + 3, position.y + size.height - 2
-    local x2, y2 = position.x + size.width - 3, y1
+    local x2, y2 = position.x + size.width - 2, y1
     gui.drawLine(x1, y1, x2, y2, DrawingUtils.convertColorKeyToColor("Top box text color"))
 end
 
