@@ -20,13 +20,13 @@ BattleHandlerBase = {
             slotIndex = 1
         }
     },
-    _inBattle = false,
-    _battleDataFetched = false,
     _firstBattleComplete = false,
     _enemyTrainerID = nil,
     _faintMonIndex = -1,
     _defeatedTrainerList = {},
-    _totalBattlesCompleted = 0
+    _totalBattlesCompleted = 0,
+    _allowedToSwap = true,
+    _firstPoke = true
 }
 
 function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, tracker, program, settings)
@@ -39,6 +39,9 @@ function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
     self._program = program
     self._settings = settings
 
+    self._inBattle = false
+    self._battleDataFetched = false
+
     self._joypadEvents = {}
 
     self.memoryAddresses = memoryAddresses
@@ -46,11 +49,11 @@ function BattleHandlerBase:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
     if self._settings ~= nil then
         table.insert(
             self._joypadEvents,
-            JoypadEventListener(self._settings.controls, "LEFT_EFFECTIVENESS", self._onEffectivenessChange, {self, 2})
+            JoypadEventListener(self._settings.controls, "LEFT_EFFECTIVENESS", self._leftEffectivenessChange, o)
         )
         table.insert(
             self._joypadEvents,
-            JoypadEventListener(self._settings.controls, "RIGHT_EFFECTIVENESS", self._onEffectivenessChange, {self, 2})
+            JoypadEventListener(self._settings.controls, "RIGHT_EFFECTIVENESS", self._rightEffectivenessChange, o)
         )
     end
 
@@ -61,13 +64,23 @@ function BattleHandlerBase:_trackAbility(pokemonID, ability)
     self._tracker.trackAbilityNote(pokemonID, ability)
 end
 
-function BattleHandlerBase._onEffectivenessChange(params)
-    local self, newEnemySlot = params[1], params[2]
+function BattleHandlerBase:_leftEffectivenessChange()
+    self:_changeEffectivenessSlot(1)
+end
+
+function BattleHandlerBase:_rightEffectivenessChange()
+    self:_changeEffectivenessSlot(-1)
+end
+
+function BattleHandlerBase:_changeEffectivenessSlot(add)
     if not self:inBattleAndFetched() then
         return
     end
-    self._enemyEffectivenessSlot = newEnemySlot
-    if not self._battleData["enemy"].slots[newEnemySlot] then
+    self._enemyEffectivenessSlot = self._enemyEffectivenessSlot + add
+    local max = #self._battleData["enemy"].slots
+    if self._enemyEffectivenessSlot > max then
+        self._enemyEffectivenessSlot = max
+    elseif self._enemyEffectivenessSlot < 1 then
         self._enemyEffectivenessSlot = 1
     end
     self._program.updateEnemyPokemonData()
@@ -90,18 +103,29 @@ end
 function BattleHandlerBase:_setUpDelay()
     local delay = 150
     if self._gameInfo.GEN == 5 then
-        delay = 90
+        if self._firstPoke then
+            delay = 240
+        else
+            delay = 90
+        end
     end
     return delay
 end
 
+function BattleHandlerBase:isAllowedToSwap()
+    return self._allowedToSwap
+end
+
 function BattleHandlerBase._onDelayFinished(self)
+    self._allowedToSwap = true
     self._frameCounters["battleDelay"] = nil
+    self._firstPoke = false
     self._program.switchToEnemy()
 end
 
 function BattleHandlerBase:_logNewEnemy(data)
     local delay = self:_setUpDelay()
+    self._allowedToSwap = false
     self._tracker.logNewEnemyPokemonInBattle(data.pokemonID)
     self._program.disableMoveEffectiveness()
     self._program.addEffectivenessEnablingFrameCounter(delay)
@@ -285,7 +309,10 @@ function BattleHandlerBase._onBattleFetchFrameCounter(self)
 end
 
 function BattleHandlerBase:_baseSetUpBattleVariables()
+    self._enemyEffectivenessSlot = 1
     self._inBattle = true
+    self._firstPoke = true
+    self._allowedToSwap = false
     self._battleDataFetched = false
     self._battleData["player"] = {
         partyBase = self.memoryAddresses.playerBattleBase,
