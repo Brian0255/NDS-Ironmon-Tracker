@@ -388,7 +388,7 @@ local function RandomizerLogParser(initialProgram)
                         end
                         local valid = true
                         local wrongDarkCave = (areaName == "Dark Cave" and number == "375")
-                        if areaName == "Ruins of Alph" and number ~= "68" or wrongDarkCave then
+                        if areaName == ("Ruins of Alph" and number ~= "68") or wrongDarkCave then
                             valid = false
                         end
                         if MiscUtils.tableContains(validRoutes, areaName) and valid then
