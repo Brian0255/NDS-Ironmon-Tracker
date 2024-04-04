@@ -210,6 +210,15 @@ function BattleHandlerBase:_calculateHighestPlayerMonIndex()
     return highestLevelMonIndex
 end
 
+function BattleHandlerBase:_playerSlotHasFainted(slotIndex)
+    local currentBase = self.memoryAddresses.playerBattleBase
+    self.pokemonDataReader.setCurrentBase(currentBase + slotIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE)
+    local data = self.pokemonDataReader.decryptPokemonInfo(false, slotIndex, false)
+    if MiscUtils.validPokemonData(data) then
+        return data.curHP == 0
+    end
+end
+
 function BattleHandlerBase:checkIfRunHasEnded()
     if not self:inBattleAndFetched() then
         return
@@ -228,13 +237,8 @@ function BattleHandlerBase:checkIfRunHasEnded()
             self._faintMonIndex = 0
         end
     end
-    local currentBase = self.memoryAddresses.playerBattleBase
-    self.pokemonDataReader.setCurrentBase(currentBase + self._faintMonIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE)
-    local data = self.pokemonDataReader.decryptPokemonInfo(false, self._faintMonIndex, false)
-    if MiscUtils.validPokemonData(data) then
-        if data.curHP == 0 then
-            self._program.onRunEnded()
-        end
+    if self:_playerSlotHasFainted(self._faintMonIndex) then
+        self._program.onRunEnded()
     end
 end
 
