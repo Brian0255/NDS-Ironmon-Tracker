@@ -186,8 +186,11 @@ end
 
 function BattleHandlerBase:_hasPartyWiped()
     local party = self:_getPlayerParty()
+    if next(party) == nil then
+        return false
+    end
     for _, pokemon in pairs(party) do
-        if pokemon.curHP ~= 0 or pokemon.curHP == nil then
+        if pokemon.curHP > 0 or pokemon.curHP == nil then
             return false
         end
     end
