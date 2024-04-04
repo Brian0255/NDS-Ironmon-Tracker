@@ -509,8 +509,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local function getPokemonToDraw()
 		local pokemonToDraw = playerPokemon
 		local cantUpdate =
-			not settings.battle.SHOW_1ST_FIGHT_STATS_PLATINUM and not battleHandler:firstBattleComplete() and
-			gameInfo.NAME == "Pokemon Platinum"
+			not settings.battle.SHOW_1ST_FIGHT_STATS_PLATINUM and gameInfo.NAME == "Pokemon Platinum" and
+			not battleHandler:isFirstBattleComplete()
 		if cantUpdate then
 			pokemonToDraw = MiscUtils.shallowCopy(MiscConstants.DEFAULT_POKEMON)
 		end
