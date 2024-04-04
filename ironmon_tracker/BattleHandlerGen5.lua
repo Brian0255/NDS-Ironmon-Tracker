@@ -26,6 +26,7 @@ function BattleHandlerGen5:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
         ["moves"] = 0x104
     }
     self._battlerAmount = 0
+    self._playerPartyPointers = {}
     return self
 end
 
@@ -64,10 +65,28 @@ function BattleHandlerGen5:_readBattleDataPtr(currentBattleDataPtr, amount, isEn
     end
 end
 
+function BattleHandlerGen5:_readPlayerPartyPointers()
+    local base = self.memoryAddresses.mainBattleDataPtr
+    for i = 0, 5, 1 do
+        local data = Memory.read_pointer(base + (i * 0x04))
+        if data ~= 0 then
+            table.insert(self._playerPartyPointers, data)
+        end
+    end
+    table.sort(
+        self._playerPartyPointers,
+        function(pointer1, pointer2)
+            return pointer1 < pointer2
+        end
+    )
+    print(self._playerPartyPointers)
+end
+
 function BattleHandlerGen5:_tryToFetchBattleData()
     local firstPlayerPartyPID = Memory.read_u32_le(self.memoryAddresses.playerBase)
     local firstPlayerPID = Memory.read_u32_le(self.memoryAddresses.playerBattleBase)
     local firstEnemyPID = Memory.read_u32_le(self.memoryAddresses.enemyBase)
+    self._playerPartyPointers = {}
     if firstPlayerPID == 0 or firstEnemyPID == 0 or firstPlayerPID ~= firstPlayerPartyPID then
         return false
     end
@@ -96,6 +115,7 @@ function BattleHandlerGen5:_tryToFetchBattleData()
         return false
     end
     self:addFrameCounter("checkAbilityTriggers", FrameCounter(30, self._checkAbilityTriggers, self))
+    self:_readPlayerPartyPointers()
     return true
 end
 
@@ -174,6 +194,35 @@ function BattleHandlerGen5._checkAbilityTriggers(self)
             self:_checkBattlerAbilityTriggered(battler, slotIndex, isEnemy)
         end
     end
+end
+
+--overriding base class function
+function BattleHandlerGen5:_hasPartyWiped()
+    for _, pointer in pairs(self._playerPartyPointers) do
+        local pokemonData = {}
+        self:_readBattleStats(pokemonData, pointer, false)
+        if #pokemonData == 0 then
+            return false
+        end
+        if pokemonData["curHP"] > 0 then
+            return false
+        end
+    end
+    return true
+end
+
+--overriding base class function
+function BattleHandlerGen5:_playerSlotHasFainted(slotIndex)
+    if self._playerPartyPointers == nil or next(self._playerPartyPointers) == nil then
+        return false
+    end
+    local battlePointer = self._playerPartyPointers[slotIndex + 1]
+    if battlePointer == nil then
+        return false
+    end
+    local pokemonData = {}
+    self:_readBattleStats(pokemonData, battlePointer, false)
+    return pokemonData["curHP"] == 0
 end
 
 function BattleHandlerGen5:_getPokemonData(battleData, slotIndex, isEnemy)
