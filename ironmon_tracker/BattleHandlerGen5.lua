@@ -79,7 +79,6 @@ function BattleHandlerGen5:_readPlayerPartyPointers()
             return pointer1 < pointer2
         end
     )
-    print(self._playerPartyPointers)
 end
 
 function BattleHandlerGen5:_tryToFetchBattleData()
@@ -201,7 +200,7 @@ function BattleHandlerGen5:_hasPartyWiped()
     for _, pointer in pairs(self._playerPartyPointers) do
         local pokemonData = {}
         self:_readBattleStats(pokemonData, pointer, false)
-        if #pokemonData == 0 then
+        if not pokemonData["curHP"] then
             return false
         end
         if pokemonData["curHP"] > 0 then
@@ -222,6 +221,9 @@ function BattleHandlerGen5:_playerSlotHasFainted(slotIndex)
     end
     local pokemonData = {}
     self:_readBattleStats(pokemonData, battlePointer, false)
+    if not pokemonData["curHP"] then
+        return false
+    end
     return pokemonData["curHP"] == 0
 end
 
