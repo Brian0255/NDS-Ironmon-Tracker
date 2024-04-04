@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.2.2"
+MiscConstants.TRACKER_VERSION = "6.2.3"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- 6.2.2: Fixed several bugs.",
+    "-- 6.2.3: Fixed a log parsing bug with v4.4.0",
     "-- Added Bug Catching Contest pivots to the log viewer for HGSS, as well as automatic encounter tracking for it like early routes.",
     "-- Added automatic ability tracking in Gen 5. If any ability reveals when it shouldn't, let me know!",
     "-- Overhauled Gen 5's battle code completely. Double and triple battles should now work without any issues.",
