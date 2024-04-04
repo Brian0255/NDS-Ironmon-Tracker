@@ -375,15 +375,20 @@ local function RandomizerLogParser(initialProgram)
                     if pivotType == "Bug Catching" then
                         readBugCatchingEntry(lines, currentLineIndex, pivotData)
                     else
-                        pivotType = pivotType:gsub("/Cave", "")
                         local number, areaName = routeInfo:match("Set #(%d+) %- (.+) " .. pivotType)
+                        if not areaName:find("Cave") then
+                            pivotType = pivotType:gsub("/Cave", "")
+                        else
+                            pivotType = pivotType:gsub("Grass/", "")
+                        end
                         --very dumb but idk what else to do
                         if areaName == "Sprout Tower" then
                             timesSeenSprout = timesSeenSprout + 1
                             areaName = areaName .. " " .. timesSeenSprout .. "F"
                         end
                         local valid = true
-                        if areaName == "Ruins of Alph" and number ~= "68" then
+                        local wrongDarkCave = (areaName == "Dark Cave" and number == "375")
+                        if areaName == ("Ruins of Alph" and number ~= "68") or wrongDarkCave then
                             valid = false
                         end
                         if MiscUtils.tableContains(validRoutes, areaName) and valid then

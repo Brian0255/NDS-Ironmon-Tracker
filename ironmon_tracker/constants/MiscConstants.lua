@@ -1,10 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.2.0"
+MiscConstants.TRACKER_VERSION = "6.2.1"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
+    "-- 6.2.1: Fixed HGSS Dark Cave log viewer pivots and faulty Run Over detection in Gen 5.",
     "-- Added Bug Catching Contest pivots to the log viewer for HGSS, as well as automatic encounter tracking for it like early routes.",
     "-- Added automatic ability tracking in Gen 5. If any ability reveals when it shouldn't, let me know!",
     "-- Overhauled Gen 5's battle code completely. Double and triple battles should now work without any issues.",
