@@ -368,7 +368,8 @@ local function RandomizerLogParser(initialProgram)
         local timesSeenSprout = 0
         local pivotTypes = program.getGameInfo().PIVOT_TYPES
         local currentLineIndex = lineStart
-        while (lines[currentLineIndex] ~= nil and currentLineIndex <= totalLines) do
+        while (lines[currentLineIndex] ~= nil and lines[currentLineIndex]:sub(1, 2) ~= "--" and
+            currentLineIndex <= totalLines) do
             local routeInfo = lines[currentLineIndex]
             for pivotType, _ in pairs(pivotTypes) do
                 if routeInfo:find(pivotType) then

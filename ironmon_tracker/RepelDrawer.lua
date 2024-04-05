@@ -23,6 +23,9 @@ local function onRepelUsage()
 end
 
 local function drawRepel()
+    if not DrawingUtils.canDrawImages then
+        return
+    end
     local thresholds = {
         {color = DrawingUtils.convertColorKeyToColor("Negative text color"), value = 0.25},
         {color = DrawingUtils.convertColorKeyToColor("Intermediate text color"), value = 0.50}
