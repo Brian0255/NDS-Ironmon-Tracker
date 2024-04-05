@@ -569,8 +569,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		elseif locationData[parentMap] ~= nil then
 			areaName = locationData[parentMap].name
 		end
-		--HGSS bug catching patch only writes correct day of week when you're in the building with the NPC that starts the contest
-		if childMap == 102 and gameInfo.VERSION_GROUP == 3 then
+		--HGSS bug catching patch only writes correct day of week when you're in either building with the NPC that starts the contest
+		if (childMap == 102 or childMap == 104) and gameInfo.VERSION_GROUP == 3 then
 			dayOfWeek = Memory.read_u16_le(memoryAddresses.dayOfWeek)
 		end
 		if areaName == "Bug Catching" then
