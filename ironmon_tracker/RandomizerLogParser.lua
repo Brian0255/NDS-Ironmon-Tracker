@@ -466,8 +466,6 @@ local function RandomizerLogParser(initialProgram)
     end
 
     function self.parse(inputFile)
-        local test = "t"
-        print(test:sub(1, 2))
         if FormsUtils.fileExists(inputFile) then
             resetPokemon()
             trainers = {}
