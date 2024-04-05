@@ -13,7 +13,7 @@ local function ImageField(initialPath, initialOffset, initialSize, initialImageR
         }
     end
     function self.show()
-        if FormsUtils.fileExists(path) then
+        if DrawingUtils.canDrawImages and FormsUtils.fileExists(path) then
             if position == nil then
                 return
             end

@@ -670,9 +670,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		frameCounters["disableMoveEffectiveness"] = FrameCounter(delay, onBattleDelayFinished)
 	end
 
-	function self.tryToInstallUpdate()
+	function self.prepareForUpdate()
+		trackerUpdater.prepareForUpdate()
+	end
+
+	function self.tryToInstallUpdate(callbackFunc)
 		tracker.save(gameInfo.NAME)
-		return trackerUpdater.downloadUpdate()
+		local success = trackerUpdater.downloadUpdate()
+		if type(callbackFunc) == "function" then
+			callbackFunc(success)
+		end
 	end
 
 	function self.putTrackedPokemonIntoView(id)

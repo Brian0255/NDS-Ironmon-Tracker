@@ -120,12 +120,22 @@ local function TrackerUpdater(initialSettings)
         return currentDay == lastDay
     end
 
-    function self.downloadUpdate()
-        local wasSoundOn = client.GetSoundOn()
-        client.SetSoundOn(false)
+    function self.prepareForUpdate()
+        DrawingUtils.canDrawImages = false
         emu.frameadvance()
         gui.clearImageCache()
         emu.frameadvance()
+    end
+
+    function self.downloadUpdate()
+        local wasSoundOn = client.GetSoundOn()
+        client.SetSoundOn(false)
+
+        -- Additional safety check to help reduce chance of cached image locks
+        self.prepareForUpdate()
+
+        -- Finally, allow images again and perform the update (this order is intentional)
+        DrawingUtils.canDrawImages = true
         local success = runBatchCommand()
 
         if client.GetSoundOn() ~= wasSoundOn then

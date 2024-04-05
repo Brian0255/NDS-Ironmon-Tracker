@@ -15,8 +15,12 @@ local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
 local Layout = dofile(UIClassFolder .. "Layout.lua")
 local ImageField = dofile(UIClassFolder .. "/ImageField.lua")
 
+-- Use this to prevent image files from being drawn onto the Tracker; helps solves caching issues and image locks
+DrawingUtils.canDrawImages = true
+
 function DrawingUtils.initialize(initialSettings)
     settings = initialSettings
+    DrawingUtils.canDrawImages = true
 end
 
 function DrawingUtils.setTransparentBackgroundOverride(newValue)
