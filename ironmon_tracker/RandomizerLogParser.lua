@@ -58,6 +58,20 @@ local function RandomizerLogParser(initialProgram)
             ["Old Rod"] = {60, 30, 5, 4, 1},
             ["Headbutt"] = {50, 15, 15, 10, 5, 5},
             ["Bug Catching"] = {20, 20, 10, 10, 10, 10, 5, 5, 5, 5}
+        },
+        ROUTE_NAME_TO_CORRECT_SET = {
+            ["Route 204"] = {
+                ["Grass/Cave"] = "383"
+            },
+            ["Ruins of Alph"] = {
+                ["Grass/Cave"] = "68"
+            },
+            ["Dark Cave"] = {
+                ["Grass/Cave"] = "365"
+            },
+            ["Virbank Complex"] = {
+                ["Grass/Cave"] = "148"
+            }
         }
     }
 
@@ -363,6 +377,27 @@ local function RandomizerLogParser(initialProgram)
         end
     end
 
+    --returns true if the route is valid, i.e. not an unwanted duplicate
+    local function checkRouteDuplicate(areaName, setNumber, pivotType)
+        if not self.ROUTE_NAME_TO_CORRECT_SET[areaName] then
+            return true
+        end
+        local encounterToCorrectSet = self.ROUTE_NAME_TO_CORRECT_SET[areaName]
+        if not encounterToCorrectSet[pivotType] then
+            return true
+        end
+        return encounterToCorrectSet[pivotType] == setNumber
+    end
+
+    local function formatPivotType(areaName, pivotType)
+        pivotType = pivotType:gsub("Doubles Grass", "Dark Grass")
+        if not areaName:find("Cave") then
+            return pivotType:gsub("/Cave", "")
+        else
+            return pivotType:gsub("Grass/", "")
+        end
+    end
+
     local function parseRouteData(lines, lineStart)
         local validRoutes = program.getGameInfo().LOCATION_DATA.encounterAreaOrder
         local timesSeenSprout = 0
@@ -377,27 +412,18 @@ local function RandomizerLogParser(initialProgram)
                         readBugCatchingEntry(lines, currentLineIndex, pivotData)
                     else
                         local number, areaName = routeInfo:match("Set #(%d+) %- (.+) " .. pivotType)
-                        if not areaName:find("Cave") then
-                            pivotType = pivotType:gsub("/Cave", "")
-                        else
-                            pivotType = pivotType:gsub("Grass/", "")
-                        end
                         --very dumb but idk what else to do
                         if areaName == "Sprout Tower" then
                             timesSeenSprout = timesSeenSprout + 1
                             areaName = areaName .. " " .. timesSeenSprout .. "F"
                         end
-                        local valid = true
-                        local wrongDarkCave = (areaName == "Dark Cave" and number == "375")
-                        if areaName == ("Ruins of Alph" and number ~= "68") or wrongDarkCave then
-                            valid = false
-                        end
+                        local valid = checkRouteDuplicate(areaName, number, pivotType)
+                        pivotType = formatPivotType(areaName, pivotType)
                         if MiscUtils.tableContains(validRoutes, areaName) and valid then
                             if not pivotData[areaName] then
                                 pivotData[areaName] = {}
                             end
                             if pivotType ~= "Headbutt" then
-                                pivotType = pivotType:gsub("Doubles Grass", "Dark Grass")
                                 pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
                             else
                                 local suffixes = {"(C)", "(R)"}
