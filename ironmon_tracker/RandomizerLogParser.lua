@@ -119,6 +119,7 @@ local function RandomizerLogParser(initialProgram)
         local heldItem = nil
         if nameItemSplit[2] ~= nil then
             local heldItemName = nameItemSplit[2]
+            heldItemName = heldItemName:gsub("’", "'")
             if itemIDMappings[heldItemName] then
                 heldItem = itemIDMappings[heldItemName]
             end
