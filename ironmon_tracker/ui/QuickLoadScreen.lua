@@ -129,7 +129,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = 70,
+                        width = 80,
                         height = 0
                     },
                     nil,
@@ -577,7 +577,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         local settingsData = {
             {
                 settingKey = "ROM_PATH",
-                labelName = "ROM to patch",
+                labelName = "ROM to randomize",
                 extension = ".nds",
                 relativePath = ""
             },
