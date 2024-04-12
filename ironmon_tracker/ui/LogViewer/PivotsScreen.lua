@@ -36,6 +36,8 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
     local pivotData = {}
     local encounterTypes = {
         "Grass",
+        "Ext. Grass",
+        "Int. Grass",
         "Cave",
         "Shaking Spots",
         "Old Rod",

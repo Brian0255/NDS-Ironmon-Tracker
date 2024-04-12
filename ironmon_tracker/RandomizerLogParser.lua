@@ -68,10 +68,11 @@ local function RandomizerLogParser(initialProgram)
             },
             ["Dark Cave"] = {
                 ["Grass/Cave"] = "365"
-            },
-            ["Virbank Complex"] = {
-                ["Grass/Cave"] = "148"
             }
+        },
+        DUPLICATE_ROUTE_TO_NEW_PIVOT_TYPE = {
+            ["142"] = "Ext. Grass",
+            ["148"] = "Int. Grass"
         }
     }
 
@@ -390,7 +391,10 @@ local function RandomizerLogParser(initialProgram)
         return encounterToCorrectSet[pivotType] == setNumber
     end
 
-    local function formatPivotType(areaName, pivotType)
+    local function formatPivotType(areaName, setNumber, pivotType)
+        if self.DUPLICATE_ROUTE_TO_NEW_PIVOT_TYPE[setNumber] then
+            return self.DUPLICATE_ROUTE_TO_NEW_PIVOT_TYPE[setNumber]
+        end
         pivotType = pivotType:gsub("Doubles Grass", "Dark Grass")
         if not areaName:find("Cave") then
             return pivotType:gsub("/Cave", "")
@@ -419,7 +423,7 @@ local function RandomizerLogParser(initialProgram)
                             areaName = areaName .. " " .. timesSeenSprout .. "F"
                         end
                         local valid = checkRouteDuplicate(areaName, number, pivotType)
-                        pivotType = formatPivotType(areaName, pivotType)
+                        pivotType = formatPivotType(areaName, number, pivotType)
                         if MiscUtils.tableContains(validRoutes, areaName) and valid then
                             if not pivotData[areaName] then
                                 pivotData[areaName] = {}
