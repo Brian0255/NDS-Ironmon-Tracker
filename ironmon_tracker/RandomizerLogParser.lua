@@ -60,6 +60,9 @@ local function RandomizerLogParser(initialProgram)
             ["Bug Catching"] = {20, 20, 10, 10, 10, 10, 5, 5, 5, 5}
         },
         ROUTE_NAME_TO_CORRECT_SET = {
+            ["Lake Verity"] = {
+                ["Grass/Cave"] = "345"
+            },
             ["Route 204"] = {
                 ["Grass/Cave"] = "383"
             },
