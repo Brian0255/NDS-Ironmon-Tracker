@@ -47,6 +47,11 @@ local function TextField(initialText, initialTextOffset, initialTextStyle, isJus
         }
         DrawingUtils.drawText(newPosition.x, newPosition.y, text, textStyle, shadowColor, justifiable, justifiedSpacing)
     end
+
+    function self.setUseStrikethrough(newValue)
+        textStyle.setUseStrikethrough(newValue)
+    end
+
     return self
 end
 
