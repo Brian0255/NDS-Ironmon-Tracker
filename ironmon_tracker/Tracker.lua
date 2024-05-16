@@ -109,6 +109,7 @@ local function Tracker()
 				trackerData[key] = value
 			end
 		end
+		trackerData["romHash"] = trackedData["romHash"]
 		trackedData = trackerData
 	end
 
