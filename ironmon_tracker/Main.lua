@@ -118,6 +118,7 @@ local function Main()
 					end
 				end
 			end
+			settings.appearance.BLIND_MODE = false
 			io.close(file)
 			if settings.colorScheme["Default text color"] then
 				settings.colorScheme["Top box text color"] = settings.colorScheme["Default text color"]

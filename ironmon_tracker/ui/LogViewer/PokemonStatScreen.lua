@@ -28,6 +28,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
     local currentEvoList = {}
     local rankingStatistics = {}
     local program = initialProgram
+    local pokemon = -1
     local logInfo
     local browsManager
     local constants = {
@@ -122,23 +123,35 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         activeHoverFrame = nil
     end
 
+    local function getMoveTMTextColor(moveID)
+        local moveData = MoveData.MOVES[moveID + 1]
+        if MoveUtils.isSTAB(moveData, pokemon, false) then
+            return "Positive text color"
+        end
+        return "Top box text color"
+    end
+
     local function readScrollMovesIntoUI()
         local items = movesScrollBar.getViewedItems()
         for i = 1, 8, 1 do
             local moveString = ""
             local moveInfo = items[i]
+            local textColor = "Top box text color"
             if moveInfo ~= nil then
+                local moveData = MoveData.MOVES[moveInfo.move + 1]
+                textColor = getMoveTMTextColor(moveInfo.move)
                 local level = tostring(moveInfo.level)
                 if #level == 1 then
                     level = "  " .. level
                 end
-                moveString = level .. " " .. MoveData.MOVES[moveInfo.move + 1].name
+                moveString = level .. " " .. moveData.name
                 readMoveIntoListener(i, moveInfo.move)
             else
                 moveHoverListeners[i].getOnClickParams().move = -1
             end
-            ui.controls.moveLabels[i].setTextColorKey("Top box text color")
+            ui.controls.moveLabels[i].setTextColorKey(textColor)
             ui.controls.moveLabels[i].setText(moveString)
+            ui.controls.moveLabels[i].setUseStrikethrough(false)
         end
         ui.controls.movesLabel.setText("Moves")
         ui.controls.movesLabel.setTextOffset({x = 16, y = -1})
@@ -158,9 +171,10 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                     moveID = logInfo.getTMs()[TM]
                     local moveName = MoveData.MOVES[moveID + 1].name
                     moveString = string.format("TM %02d " .. moveName, TM)
-                    local textColorKey = "Top box text color"
-                    if canLearn then
-                        textColorKey = "Positive text color"
+                    local textColorKey = getMoveTMTextColor(moveID)
+                    label.setUseStrikethrough(not canLearn)
+                    if not canLearn then
+                        textColorKey = "Top box text color"
                     end
                     label.setTextColorKey(textColorKey)
                 else
@@ -250,7 +264,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         ui.controls.pokemonNameLabel.setText(name)
         local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
         DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, currentID, ui.controls.pokemonImage)
-        local pokemon = logPokemon[currentID]
+        pokemon = logPokemon[currentID]
         movesScrollBar.setItems(pokemon.moves)
         local dataSet = logViewerScreen.readStats(pokemon)
         readGymTMs(pokemon)

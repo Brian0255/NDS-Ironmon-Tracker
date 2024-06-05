@@ -139,6 +139,8 @@ GameInfo.GAME_INFO = {
         TRAINERS = TrainerData.TRAINERS[GameInfo.VERSION_NUMBER.BLACK2],
         LOCATION_DATA = LocationData.LOCATION_DATA[GameInfo.VERSION_NUMBER.BLACK2],
         PIVOT_TYPES = {
+            ["Ext. Grass"] = true,
+            ["Int. Grass"] = true,
             ["Grass/Cave"] = true,
             ["Doubles Grass"] = true
         }

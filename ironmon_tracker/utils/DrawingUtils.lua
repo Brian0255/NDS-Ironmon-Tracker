@@ -15,8 +15,12 @@ local TextStyle = dofile(UIClassFolder .. "TextStyle.lua")
 local Layout = dofile(UIClassFolder .. "Layout.lua")
 local ImageField = dofile(UIClassFolder .. "/ImageField.lua")
 
+-- Use this to prevent image files from being drawn onto the Tracker; helps solves caching issues and image locks
+DrawingUtils.canDrawImages = true
+
 function DrawingUtils.initialize(initialSettings)
     settings = initialSettings
+    DrawingUtils.canDrawImages = true
 end
 
 function DrawingUtils.setTransparentBackgroundOverride(newValue)
@@ -242,6 +246,9 @@ function DrawingUtils.drawVerticalBarGraph(
     end
 end
 
+local function drawStrikethrough()
+end
+
 function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, justifiedSpacing)
     local drawShadow = settings.colorSettings["Draw shadows"] and not settings.colorSettings["Transparent backgrounds"]
     local color = DrawingUtils.convertColorKeyToColor(textStyle.getTextColorKey())
@@ -269,6 +276,12 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
     end
     if drawShadow then
         gui.drawText(x + spacing + 1, y + 1, text, shadowColor, nil, textStyle.getFontSize(), textStyle.getFontFamily())
+    end
+    if textStyle.isStrikethrough() then
+        local moveWidth = DrawingUtils.calculateWordPixelLength(text)
+        local opacity = settings.colorScheme["Negative text color"] - 0x80000000
+        gui.drawLine(x + 1, y + 6, x + moveWidth + 2, y + 6, opacity)
+        color = settings.colorScheme["Negative text color"]
     end
     local bolded = textStyle.isBolded()
     gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), bolded)

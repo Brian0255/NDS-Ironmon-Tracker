@@ -383,7 +383,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				totals.numHeals = totals.numHeals + quantity
 			end
 		end
+		if settings.appearance.BAG_HEALS_SHOW_HP_INSTEAD then
+			totals.healing = (totals.healing / 100) * maxHP
+		end
 		totals.healing = math.floor(totals.healing + 0.5)
+		if not settings.appearance.BAG_HEALS_SHOW_HP_INSTEAD then
+			totals.healing = totals.healing .. "%"
+		else
+			totals.healing = totals.healing .. " HP"
+		end
 		return totals
 	end
 
@@ -670,9 +678,16 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		frameCounters["disableMoveEffectiveness"] = FrameCounter(delay, onBattleDelayFinished)
 	end
 
-	function self.tryToInstallUpdate()
+	function self.prepareForUpdate()
+		trackerUpdater.prepareForUpdate()
+	end
+
+	function self.tryToInstallUpdate(callbackFunc)
 		tracker.save(gameInfo.NAME)
-		return trackerUpdater.downloadUpdate()
+		local success = trackerUpdater.downloadUpdate()
+		if type(callbackFunc) == "function" then
+			callbackFunc(success)
+		end
 	end
 
 	function self.putTrackedPokemonIntoView(id)

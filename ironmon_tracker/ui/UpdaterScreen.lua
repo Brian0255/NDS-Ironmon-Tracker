@@ -59,21 +59,18 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
         os.execute(string.format('start "" "%s"', releaseNotesURL))
     end
 
-    local function onInstallClick()
-        ui.controls.ignoreButton.setVisibility(false)
-        ui.controls.installButton.setVisibility(false)
-        ui.controls.releaseNotesButton.setVisibility(false)
-        ui.frames.updateInfoFrame.setLayoutPadding({x=4,y=3})
-        ui.controls.topTextLabel1.setText("Installing update, please wait...")
-        ui.controls.topTextLabel2.setText("Do not close the tracker.")
-        program.drawCurrentScreens()
-        local success = program.tryToInstallUpdate()
+    local function finalizeUpdate(success)
+        -- Remove the frame counters so they won't trigger again
+        frameCounters["trackerUpdatePrepare"] = nil
+        frameCounters["trackerUpdateTryInstall"] = nil
+
+        -- Then display a success or fail message on screen
         if success then
             settings.automaticUpdates.UPDATE_WAS_DONE = true
             program.saveSettings()
             ui.controls.topTextLabel1.setText("Update successful! The Tracker")
-            ui.controls.topTextLabel2.setText("will now restart in 5 seconds.")
-            frameCounters["trackerRestart"] = FrameCounter(300, restartTracker, nil, true)
+            ui.controls.topTextLabel2.setText("will now restart in 3 seconds.")
+            frameCounters["trackerRestart"] = FrameCounter(200, restartTracker, nil, true)
         else
             ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_HEIGHT_NO_UPDATE})
             ui.frames.updateInfoFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH-2*Graphics.SIZES.BORDER_MARGIN, height = constants.UPDATE_INFO_HEIGHT_NO_UPDATE})
@@ -83,6 +80,20 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
             errored = true
         end
         program.drawCurrentScreens()
+    end
+
+    local function onInstallClick()
+        ui.controls.ignoreButton.setVisibility(false)
+        ui.controls.installButton.setVisibility(false)
+        ui.controls.releaseNotesButton.setVisibility(false)
+        ui.frames.updateInfoFrame.setLayoutPadding({x=4,y=3})
+        ui.controls.topTextLabel1.setText("Installing update, please wait...")
+        ui.controls.topTextLabel2.setText("Do not close the tracker.")
+        program.drawCurrentScreens()
+
+        -- Setup delayed function calls to properly clear image caches, then update later when safe
+        frameCounters["trackerUpdatePrepare"] = FrameCounter(50, program.prepareForUpdate, nil, true)
+        frameCounters["trackerUpdateTryInstall"] = FrameCounter(120, program.tryToInstallUpdate, finalizeUpdate, true)
     end
 
     local function onIgnoreClick()

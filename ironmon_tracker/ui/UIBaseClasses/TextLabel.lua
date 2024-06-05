@@ -121,6 +121,10 @@ local function TextLabel(
         return component.getSize()
     end
 
+    function self.setUseStrikethrough(newValue)
+        textField.setUseStrikethrough(newValue)
+    end
+
     component.getFrame().addControl(self)
 
     return self

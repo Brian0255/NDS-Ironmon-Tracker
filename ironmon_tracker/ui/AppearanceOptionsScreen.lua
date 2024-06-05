@@ -89,6 +89,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         labelName = key:gsub("_", " "):lower()
         labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
         labelName = labelName:gsub("poke", "Pok" .. Chars.accentedE)
+        labelName = labelName:gsub("hp", "HP")
         if key == "BLIND_MODE" then
             labelName = "Blind mode (hides stats/ability)"
         end
@@ -111,14 +112,14 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
     local function initAppearanceToggleButtons()
         local orderedKeys = {
             "AUTO_POKEMON_THEMES",
-            "BLIND_MODE",
             "EXPERIENCE_BAR",
             "RANDOM_BALL_PICKER",
             "REPEL_ICON",
             "RIGHT_JUSTIFIED_NUMBERS",
+            "SHOW_POKECENTER_HEALS",
             "SHOW_ACCURACY_AND_EVASION",
             "SHOW_NICKNAME",
-            "SHOW_POKECENTER_HEALS"
+            "BAG_HEALS_SHOW_HP_INSTEAD"
         }
         ui.frames.buttonsFrame =
             Frame(
