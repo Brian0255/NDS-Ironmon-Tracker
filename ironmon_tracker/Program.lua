@@ -383,7 +383,15 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 				totals.numHeals = totals.numHeals + quantity
 			end
 		end
+		if settings.appearance.HEALS_SHOW_HP_INSTEAD then
+			totals.healing = (totals.healing / 100) * maxHP
+		end
 		totals.healing = math.floor(totals.healing + 0.5)
+		if not settings.appearance.HEALS_SHOW_HP_INSTEAD then
+			totals.healing = totals.healing .. "%"
+		else
+			totals.healing = totals.healing .. " HP"
+		end
 		return totals
 	end
 
