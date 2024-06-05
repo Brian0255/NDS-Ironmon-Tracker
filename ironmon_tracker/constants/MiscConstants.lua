@@ -1,17 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.2.4"
+MiscConstants.TRACKER_VERSION = "6.2.5"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- 6.2.4: Fixed an oversight related to bug catching tracking in HGSS.",
-    "-- Added Bug Catching Contest pivots to the log viewer for HGSS, as well as automatic encounter tracking for it like early routes.",
-    "-- Added automatic ability tracking in Gen 5. If any ability reveals when it shouldn't, let me know!",
-    "-- Overhauled Gen 5's battle code completely. Double and triple battles should now work without any issues.",
-    "-- Fixed stat stages not updating properly in Gen 4 double battles.",
-    "-- Added Super Kaizo tracker presets for Platinum and HGSS.",
-    "-- Rearranged the BW2 Virbank pivots in the log viewer so they refer to the more important interior sets of grass."
+    "-- Several bug fixes."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
@@ -25,7 +19,8 @@ MiscConstants.DEFAULT_SETTINGS = {
         SHOW_NICKNAME = false,
         ICON_SET_INDEX = 2,
         BLIND_MODE = false,
-        REPEL_ICON = false
+        REPEL_ICON = false,
+        HEALS_SHOW_HP_INSTEAD = false
     },
     animatedSprites = {
         FASTER_ANIMATIONS = false,
