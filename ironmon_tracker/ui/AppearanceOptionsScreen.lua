@@ -116,10 +116,10 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             "RANDOM_BALL_PICKER",
             "REPEL_ICON",
             "RIGHT_JUSTIFIED_NUMBERS",
+            "SHOW_POKECENTER_HEALS",
             "SHOW_ACCURACY_AND_EVASION",
             "SHOW_NICKNAME",
-            "SHOW_POKECENTER_HEALS",
-            "HEALS_SHOW_HP_INSTEAD"
+            "BAG_HEALS_SHOW_HP_INSTEAD"
         }
         ui.frames.buttonsFrame =
             Frame(

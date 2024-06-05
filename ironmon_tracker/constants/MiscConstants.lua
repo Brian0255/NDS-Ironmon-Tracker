@@ -20,7 +20,7 @@ MiscConstants.DEFAULT_SETTINGS = {
         ICON_SET_INDEX = 2,
         BLIND_MODE = false,
         REPEL_ICON = false,
-        HEALS_SHOW_HP_INSTEAD = false
+        BAG_HEALS_SHOW_HP_INSTEAD = false
     },
     animatedSprites = {
         FASTER_ANIMATIONS = false,
