@@ -1,13 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.2.5"
+MiscConstants.TRACKER_VERSION = "6.2.6"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- STAB moves in the Log Viewer will now be highlighted.",
-    "-- Non-learnable Gym TMs will now be negatively colored and slight strikethrough to be in line with the Gen 3 tracker.",
-    "-- Several bug fixes."
+    "-- Minor bug fixes."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
