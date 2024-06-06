@@ -365,6 +365,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	end
 
 	local function calculateHealPercent(totals, maxHP)
+		local showHP = settings.appearance.BAG_HEALS_SHOW_HP_INSTEAD
 		for id, quantity in pairs(healingItems) do
 			local item = ItemData.HEALING_ITEMS[id]
 			if item ~= nil then
@@ -375,19 +376,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 						percentage = 100
 					end
 					healing = percentage * quantity
+					if showHP then
+						healing = item.amount * quantity
+					end
 				elseif item.type == ItemData.HEALING_TYPE.PERCENTAGE then
 					healing = item.amount * quantity
+					if showHP then
+						healing = (item.amount / 100) * quantity * maxHP
+					end
 				end
 				-- Healing is in a percentage compared to the mon's max HP
 				totals.healing = totals.healing + healing
 				totals.numHeals = totals.numHeals + quantity
 			end
 		end
-		if settings.appearance.BAG_HEALS_SHOW_HP_INSTEAD then
-			totals.healing = (totals.healing / 100) * maxHP
-		end
 		totals.healing = math.floor(totals.healing + 0.5)
-		if not settings.appearance.BAG_HEALS_SHOW_HP_INSTEAD then
+		if not showHP then
 			totals.healing = totals.healing .. "%"
 		else
 			totals.healing = totals.healing .. " HP"
