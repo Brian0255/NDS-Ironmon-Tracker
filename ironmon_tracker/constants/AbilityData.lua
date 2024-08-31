@@ -907,7 +907,8 @@ AbilityData.BATTLE_MSGS_MASTER_LIST = {
         [195] = {108}, -- 108:Forewarn
         [196] = {112}, -- 112:Slow Start
         -- 7:Limber, 12:Oblivious, 15:Insomnia, 17:Immunity, 20:Own Tempo, 40:Magma Armor, 41:Water Veil, 72:Vital Spirit,
-        [221] = {7, 12, 15, 17, 20, 40, 41, 72},
+        --Disabled for being buggy
+        --[221] = {7, 12, 15, 17, 20, 40, 41, 72},
         [252] = {117}, -- 117:Snow Warning
         [253] = {119}, -- 119:Frisk
         [285] = {46} -- 46:Pressure
