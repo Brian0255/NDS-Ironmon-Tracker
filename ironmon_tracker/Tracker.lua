@@ -176,8 +176,8 @@ local function Tracker()
 		return currentAreaName
 	end
 
-	function self.getEncounterData()
-		return trackedData.encounterData[currentAreaName]
+	function self.getEncounterData(areaName)
+		return trackedData.encounterData[areaName or currentAreaName]
 	end
 
 	function self.updateCurrentAreaName(newAreaName)

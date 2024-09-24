@@ -333,11 +333,14 @@ function EventHandler.addDefaultEvents()
 
 	-- Make a copy of each default event, such that they can still be referenced without being changed.
 	for key, event in pairs(EventHandler.DefaultEvents) do
-		event.IsEnabled = true
-		event.Key = key
-		local eventCopy = MiscUtils.deepCopy(event)
-		if eventCopy then
-			EventHandler.addNewEvent(eventCopy)
+		-- TODO: Reward events can't be used yet, as they require implementation and user configuration
+		if event.Type ~= EventHandler.EventTypes.Reward then
+			event.IsEnabled = true
+			event.Key = key
+			local eventCopy = MiscUtils.deepCopy(event)
+			if eventCopy then
+				EventHandler.addNewEvent(eventCopy)
+			end
 		end
 	end
 end
@@ -545,13 +548,13 @@ EventHandler.DefaultEvents = {
 		Help = "[hp pp status berries] > Displays all healing items in the bag, or only those for a specified [category].",
 		Fulfill = function(self, request) return EventData.getHeals(request.SanitizedInput) end,
 	},
-	CMD_TMs = {
-		Type = EventHandler.EventTypes.Command,
-		Command = "!tms",
-		Name = "TM Lookup",
-		Help = "[gym hm #] > Displays all TMs in the bag, or only those for a specified [category] or TM #.",
-		Fulfill = function(self, request) return EventData.getTMsHMs(request.SanitizedInput) end,
-	},
+	-- CMD_TMs = {
+	-- 	Type = EventHandler.EventTypes.Command,
+	-- 	Command = "!tms",
+	-- 	Name = "TM Lookup",
+	-- 	Help = "[gym hm #] > Displays all TMs in the bag, or only those for a specified [category] or TM #.",
+	-- 	Fulfill = function(self, request) return EventData.getTMsHMs(request.SanitizedInput) end,
+	-- },
 	CMD_Search = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!search",
@@ -601,6 +604,7 @@ EventHandler.DefaultEvents = {
 		Help = "> If the log has been opened, displays shareable randomizer settings from the log for current game.",
 		Fulfill = function(self, request) return EventData.getLog(request.SanitizedInput) end,
 	},
+	-- NOTE: Enable this command only if rewards and pick ball queues are enabled
 	-- CMD_BallQueue = {
 	-- 	Type = EventHandler.EventTypes.Command,
 	-- 	Command = "!ballqueue",
@@ -790,24 +794,7 @@ EventHandler.DefaultEvents = {
 				return response
 			end
 			-- Not implemented
-			return ""
-		end,
-	},
-	CR_ChangeLanguage = {
-		Type = EventHandler.EventTypes.Reward,
-		Name = "Change Tracker Language",
-		RewardId = "",
-		Options = { "O_SendMessage", "O_AutoComplete", },
-		O_SendMessage = true,
-		O_AutoComplete = true,
-		-- O_Duration = tostring(10 * 60), -- # of seconds
-		Fulfill = function(self, request)
-			local response = { AdditionalInfo = { AutoComplete = false } }
-			if (request.SanitizedInput or "") == "" then
-				response.Message = string.format("> Unable to change Tracker language, please enter a valid language name.")
-				return response
-			end
-			-- Not implemented
+			-- ThemeFactory.readThemeString(request.SanitizedInput, true)
 			return ""
 		end,
 	},

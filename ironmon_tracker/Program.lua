@@ -65,6 +65,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local lockedPokemonCopy = nil
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
+	local ppItems = nil
 	local inTrackedPokemonView = false
 	local doneWithTitleScreen = false
 	local inPastRunView = false
@@ -326,6 +327,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function scanForHealingItems()
 		healingItems = {}
+		ppItems = {}
 		statusItems = {}
 		local itemStart, berryStart = memoryAddresses.itemStartNoBattle, memoryAddresses.berryBagStart
 		if battleHandler:inBattleAndFetched() then
@@ -352,6 +354,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					quantity = bit.band(bit.rshift(idAndQuantity, 16), 0xFFFF)
 					if ItemData.HEALING_ITEMS[id] ~= nil then
 						healingItems[id] = quantity
+					end
+					if ItemData.PP_ITEMS[id] ~= nil then
+						ppItems[id] = quantity
 					end
 					if ItemData.STATUS_ITEMS[id] ~= nil then
 						statusItems[id] = quantity
@@ -730,6 +735,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return healingItems
 	end
 
+	function self.getPPItems()
+		return ppItems
+	end
+
 	function self.getStatusTotals()
 		local total = 0
 		if statusItems ~= nil then
@@ -939,6 +948,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if not inPastRunView then
 			self.UI_SCREEN_OBJECTS[self.UI_SCREENS.MAIN_SCREEN].updateBadges(badges)
 		end
+	end
+
+	function self.getBadges()
+		return badges
 	end
 
 	local function updateRestorePoints()

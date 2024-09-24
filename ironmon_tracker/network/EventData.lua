@@ -319,179 +319,126 @@ end
 ---@param params string?
 ---@return string response
 function EventData.getRoute(params)
-	-- TODO: Implement this function
-	if true then return buildDefaultResponse(params) end
 	-- Check for optional parameters
 	local paramsLower = (params or ""):lower()
-	local option
-	for key, val in pairs(RouteData.EncounterArea or {}) do
-		if NetworkUtils.containsText(paramsLower, val) then
-			paramsLower = Utils.replaceText(paramsLower, val:lower(), "", true)
-			option = key
-			break
-		end
-	end
+	-- local routeFilter
+	-- Types of route encounter data, allowing 'option' param to isolate those results:
+	-- Walking, Old Rod, Good Rod, Super Rod, Surfing, Rock Smash, Underwater(?)
+	-- for key, val in pairs({}) do
+	-- 	if NetworkUtils.containsText(paramsLower, val) then
+	-- 		-- Only check whole words
+	-- 		local replaceWholeWords = "%f[%a]" .. val:lower() .. "%f[%A]"
+	-- 		paramsLower = (paramsLower:gsub(replaceWholeWords, ""))
+	-- 		routeFilter = key
+	-- 		break
+	-- 	end
+	-- end
 	-- If option keywords were removed, trim any whitespace
-	if option then
-		-- Removes duplicate, consecutive whitespaces, and leading/trailer whitespaces
-		paramsLower = ((paramsLower:gsub("(%s)%s+", "%1")):gsub("^%s*(.-)%s*$", "%1"))
-	end
+	-- if routeFilter then
+	-- 	-- Removes duplicate, consecutive whitespaces, and leading/trailer whitespaces
+	-- 	paramsLower = ((paramsLower:gsub("(%s)%s+", "%1")):gsub("^%s*(.-)%s*$", "%1"))
+	-- end
 
 	local routeId = getRouteIdOrDefault(paramsLower)
-	local route = RouteData.Info[routeId or -1]
+	local route = Network.Data.gameInfo.LOCATION_DATA.locations[routeId or -1]
 	if not route then
 		return buildDefaultResponse(params)
 	end
 
 	local info = {}
 	-- Check for trainers in the route, but only if a specific encounter area wasnt requested
-	if not option and route.trainers and #route.trainers > 0 then
-		local defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByLocation(routeId)
-		table.insert(info, string.format("%s: %s/%s", "Trainers defeated", #defeatedTrainers, totalTrainers))
-	end
+	-- if not routeFilter and route.trainers and #route.trainers > 0 then
+	-- 	local defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByLocation(routeId)
+	-- 	table.insert(info, string.format("%s: %s/%s", "Trainers defeated", #defeatedTrainers, totalTrainers))
+	-- end
 	-- Check for wilds in the route
-	local encounterArea
-	if option then
-		encounterArea = RouteData.EncounterArea[option] or RouteData.EncounterArea.LAND
-	else
-		-- Default to the first area type (usually Walking)
-		encounterArea = RouteData.getNextAvailableEncounterArea(routeId, RouteData.EncounterArea.TRAINER)
-	end
-	local wildIds = RouteData.getEncounterAreaPokemon(routeId, encounterArea)
-	if #wildIds > 0 then
-		local seenIds = Tracker.getRouteEncounters(routeId, encounterArea or RouteData.EncounterArea.LAND)
-		local pokemonNames = {}
-		for _, pokemonId in ipairs(seenIds) do
-			if PokemonData.isValid(pokemonId) then
-				table.insert(pokemonNames, PokemonData.Pokemon[pokemonId].name)
+	local encounterArea = Network.Data.gameInfo.LOCATION_DATA.encounters[route.name or false]
+	local trackedArea = Network.Data.tracker.getEncounterData(route.name)
+	-- if routeFilter then
+	-- 	encounterArea = RouteData.EncounterArea[routeFilter] or RouteData.EncounterArea.LAND
+	-- else
+	-- 	-- Default to the first area type (usually Walking)
+	-- 	encounterArea = RouteData.getNextAvailableEncounterArea(routeId, RouteData.EncounterArea.TRAINER)
+	-- end
+	if encounterArea and encounterArea.vanillaData and trackedArea then
+		local wildMonsAndLevels = {}
+		for pokemonID, levelList in pairs(trackedArea.encountersSeen or {}) do
+			if PokemonData.POKEMON[pokemonID + 1] then
+				local monName = PokemonData.POKEMON[pokemonID + 1].name or "---"
+				local monWithLevel
+				if #levelList == 1 then
+					monWithLevel = string.format("%s (Lv.%s)", monName, levelList[1])
+				else
+					monWithLevel = string.format("%s (Lv.%s-%s)", monName, levelList[1], levelList[#levelList])
+				end
+				table.insert(wildMonsAndLevels, monWithLevel)
 			end
 		end
-		local wildsText = string.format("%s: %s/%s", "Wild Pok" .. Chars.accentedE .. "mon seen", #seenIds, #wildIds)
-		if #seenIds > 0 then
-			wildsText = wildsText .. string.format(" (%s)", table.concat(pokemonNames, ", "))
+		local wildsText = string.format(
+			"Wild Pok" .. Chars.accentedE .. "mon seen: %s/%s",
+			#wildMonsAndLevels,
+			encounterArea.totalPokemon
+		)
+		if #wildMonsAndLevels > 0 then
+			wildsText = wildsText .. string.format(", %s", table.concat(wildMonsAndLevels, ", "))
 		end
 		table.insert(info, wildsText)
 	end
 
-	local prefix
-	if option then
-		prefix = string.format("%s: %s %s", route.name, NetworkUtils.firstToUpperEachWord(encounterArea), OUTPUT_CHAR)
-	else
-		prefix = string.format("%s %s", route.name, OUTPUT_CHAR)
-	end
+	local prefix = string.format("%s %s", route.name, OUTPUT_CHAR)
+	-- if routeFilter then
+	-- 	prefix = string.format("%s: %s %s", route.name, NetworkUtils.firstToUpperEachWord(encounterArea), OUTPUT_CHAR)
+	-- else
+	-- 	prefix = string.format("%s %s", route.name, OUTPUT_CHAR)
+	-- end
 	return buildResponse(prefix, info)
 end
 
+--- Function not yet implemented
 ---@param params string?
 ---@return string response
 function EventData.getDungeon(params)
 	-- TODO: Implement this function
 	if true then return buildDefaultResponse(params) end
 	local routeId = getRouteIdOrDefault(params)
-	local route = RouteData.Info[routeId or -1]
+	local route = Network.Data.gameInfo.LOCATION_DATA.locations[routeId or -1]
 	if not route then
 		return buildDefaultResponse(params)
 	end
 
 	local info = {}
 	-- Check for trainers in the area/route
-	local defeatedTrainers, totalTrainers
-	if route.area ~= nil then
-		defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByCombinedArea(route.area)
-	elseif route.trainers and #route.trainers > 0 then
-		defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByLocation(routeId)
-	end
-	if defeatedTrainers and totalTrainers then
-		local trainersText = string.format("%s: %s/%s", "Trainers defeated", #defeatedTrainers, totalTrainers)
-		table.insert(info, trainersText)
-	end
+	-- local defeatedTrainers, totalTrainers
+	-- if route.area ~= nil then
+	-- 	defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByCombinedArea(route.area)
+	-- elseif route.trainers and #route.trainers > 0 then
+	-- 	defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByLocation(routeId)
+	-- end
+	-- if defeatedTrainers and totalTrainers then
+	-- 	local trainersText = string.format("%s: %s/%s", "Trainers defeated", #defeatedTrainers, totalTrainers)
+	-- 	table.insert(info, trainersText)
+	-- end
 	local routeName = route.area and route.area.name or route.name
 	local prefix = string.format("%s %s", routeName, OUTPUT_CHAR)
 	return buildResponse(prefix, info)
 end
 
+--- Function not yet implemented
 ---@param params string?
 ---@return string response
 function EventData.getUnfoughtTrainers(params)
 	-- TODO: Implement this function
 	if true then return buildDefaultResponse(params) end
 	local allowPartialDungeons = NetworkUtils.containsText(params, "dungeon")
-	local includeSevii
-	if GameSettings.game == 3 then
-		includeSevii = NetworkUtils.containsText(params, "sevii")
-	else
-		includeSevii = true -- to allow routes above the sevii route id for RSE
-	end
-
 	local MAX_AREAS_TO_CHECK = 7
-	local saveBlock1Addr = Utils.getSaveBlock1Addr()
-	local trainersToExclude = TrainerData.getExcludedTrainers()
-	local currentRouteId = TrackerAPI.getMapId()
 
-	-- For a given unfought trainer, this function returns unfought trainer counts for its route/area
-	local checkedIds = {}
+	-- Not implemented
 	local function getUnfinishedRouteInfo(trainerId)
-		local trainer = TrainerData.Trainers[trainerId] or {}
-		local routeId = trainer.routeId or -1
-		local route = RouteData.Info[routeId] or {}
-
-		-- If sevii is excluded (default option), skip those routes and non-existent routes
-		if routeId == -1 or (routeId >= 230 and not includeSevii) then
-			return nil
-		end
-		-- Skip certain trainers, only checking unfought trainers
-		if checkedIds[trainerId] or trainersToExclude[trainerId] or not TrainerData.shouldUseTrainer(trainerId) then
-			return nil
-		end
-		if Program.hasDefeatedTrainer(trainerId, saveBlock1Addr) then
-			return nil
-		end
-
-		-- Check area for defeated trainers and mark each trainer as checked
-		local defeatedTrainers = {}
-		local totalTrainers = 0
-		local ifDungeonAndIncluded = true -- true for non-dungeons, otherwise gets excluded if partially completed
-		if route.area and #route.area > 0 then
-			defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByCombinedArea(route.area, saveBlock1Addr)
-			-- Don't include dungeons that are partially completed unless the player is currently there
-			if route.area.dungeon and #defeatedTrainers > 0 then
-				local isThere = false
-				for _, id in ipairs(route.area or {}) do
-					if id == currentRouteId then
-						isThere = true
-						break
-					end
-				end
-				ifDungeonAndIncluded = isThere or allowPartialDungeons
-			end
-			for _, areaRouteId in ipairs(route.area) do
-				local areaRoute = RouteData.Info[areaRouteId] or {}
-				for _, id in ipairs(areaRoute.trainers or {}) do
-					checkedIds[id] = true
-				end
-			end
-		elseif route.trainers and #route.trainers > 0 then
-			defeatedTrainers, totalTrainers = Program.getDefeatedTrainersByLocation(routeId, saveBlock1Addr)
-			-- Don't include dungeons that are partially completed unless the player is currently there
-			if route.dungeon and #defeatedTrainers > 0 and currentRouteId ~= routeId then
-				ifDungeonAndIncluded = allowPartialDungeons
-			end
-			for _, id in ipairs(route.trainers) do
-				checkedIds[id] = true
-			end
-		else
-			return nil
-		end
-
-		-- Add to info if route/area has unfought trainers (not all defeated)
-		if #defeatedTrainers < totalTrainers and ifDungeonAndIncluded then
-			local routeName = route.area and route.area.name or route.name
-			return string.format("%s (%s/%s)", routeName, #defeatedTrainers, totalTrainers)
-		end
+		return nil
 	end
 
 	local info = {}
-	for _, trainerId in ipairs(TrainerData.OrderedIds or {}) do
+	for _, trainerId in ipairs({}) do
 		local routeText = getUnfinishedRouteInfo(trainerId)
 		if routeText ~= nil then
 			table.insert(info, routeText)
@@ -503,44 +450,36 @@ function EventData.getUnfoughtTrainers(params)
 	end
 	if #info == 0 then
 		local reminderText = ""
-		if not allowPartialDungeons or not includeSevii then
-			reminderText = ' (Use param "dungeon" and/or "sevii" to check partially completed dungeons or Sevii Islands.)'
+		if not allowPartialDungeons then
+			reminderText = ' (Use param "dungeon" to check partially completed dungeons.)'
 		end
-		table.insert(info, string.format("%s %s", "All available trainers have been defeated!", reminderText))
+		table.insert(info, "All available trainers have been defeated!%s" .. reminderText)
 	end
 
-	local prefix = string.format("%s %s", "Unfought Trainers", OUTPUT_CHAR)
+	local prefix = string.format("Unfought Trainers %s", OUTPUT_CHAR)
 	return buildResponse(prefix, info, ", ")
 end
 
 ---@param params string?
 ---@return string response
 function EventData.getPivots(params)
-	-- TODO: Implement this function
-	if true then return buildDefaultResponse(params) end
 	local info = {}
-	local mapIds
-	if GameSettings.game == 3 then -- FRLG
-		mapIds = { 89, 90, 110, 117 } -- Route 1, 2, 22, Viridian Forest
-	else -- RSE
-		local offset = GameSettings.versioncolor == "Emerald" and 0 or 1 -- offset all "mapId > 107" by +1
-		mapIds = { 17, 18, 19, 20, 32, 135 + offset } -- Route 101, 102, 103, 104, 116, Petalburg Forest
-	end
-	for _, mapId in ipairs(mapIds) do
+	for _, routeName in ipairs(Network.Data.gameInfo.LOCATION_DATA.encounterAreaOrder or {}) do
 		-- Check for tracked wild encounters in the route
-		local seenIds = Tracker.getRouteEncounters(mapId, RouteData.EncounterArea.LAND)
-		local pokemonNames = {}
-		for _, pokemonId in ipairs(seenIds) do
-			if PokemonData.isValid(pokemonId) then
-				table.insert(pokemonNames, PokemonData.Pokemon[pokemonId].name)
+		local trackedArea = Network.Data.tracker.getEncounterData(routeName)
+		if trackedArea then
+			local pokemonNames = {}
+			for pokemonID, _ in pairs(trackedArea.encountersSeen or {}) do
+				if PokemonData.POKEMON[pokemonID + 1] then
+					table.insert(pokemonNames, PokemonData.POKEMON[pokemonID + 1].name or "---")
+				end
+			end
+			if #pokemonNames > 0 then
+				table.insert(info, string.format("%s: %s", routeName, table.concat(pokemonNames, ", ")))
 			end
 		end
-		if #seenIds > 0 then
-			local route = RouteData.Info[mapId or -1] or {}
-			table.insert(info, string.format("%s: %s", route.name or "Unknown Route", table.concat(pokemonNames, ", ")))
-		end
 	end
-	local prefix = string.format("%s %s", "Pivots", OUTPUT_CHAR)
+	local prefix = string.format("Pivots %s", OUTPUT_CHAR)
 	return buildResponse(prefix, info)
 end
 
@@ -737,10 +676,6 @@ end
 ---@param params string?
 ---@return string response
 function EventData.getHeals(params)
-	-- TODO: Implement this function
-	if true then return buildDefaultResponse(params) end
-	local info = {}
-
 	local displayHP, displayStatus, displayPP, displayBerries
 	if (params or "") ~= "" then
 		displayHP = NetworkUtils.containsText(params, "hp")
@@ -754,20 +689,22 @@ function EventData.getHeals(params)
 		displayPP = true
 		displayStatus = true
 	end
+
+	local info = {}
 	local function sortFunc(a,b) return a.value > b.value or (a.value == b.value and a.id < b.id) end
 	local function getSortableItem(id, quantity)
-		if not MiscData.Items[id or 0] or (quantity or 0) <= 0 then return nil end
-		local item = MiscData.HealingItems[id] or MiscData.PPItems[id] or MiscData.StatusItems[id] or {}
-		local text = MiscData.Items[item.id]
+		if not ItemData.ITEMS[id or -1] or (quantity or 0) <= 0 then return nil end
+		local item = ItemData.HEALING_ITEMS[id] or ItemData.PP_ITEMS[id] or ItemData.STATUS_ITEMS[id] or {}
+		local text = ItemData.ITEMS[id].name
 		if quantity > 1 then
 			text = string.format("%s (%s)", text, quantity)
 		end
 		local value = item.amount or 0
-		if item.type == MiscData.HealingType.Percentage then
+		if item.type == ItemData.HEALING_TYPE.PERCENTAGE then
 			value = value + 1000
-		elseif item.type == MiscData.StatusType.All then -- The really good status items
+		elseif item.type == MiscData.STATUS_TYPE.ALL then -- The really good status items
 			value = value + 2
-		elseif MiscData.StatusItems[id] then -- All other status items
+		elseif ItemData.STATUS_ITEMS[id] then -- All other status items
 			value = value + 1
 		end
 		return { id = id, text = text, value = value }
@@ -779,29 +716,32 @@ function EventData.getHeals(params)
 		table.insert(info, string.format("[%s] %s", label, table.concat(t, ", ")))
 	end
 	local healingItems, ppItems, statusItems, berryItems = {}, {}, {}, {}
-	for id, quantity in pairs(Program.GameData.Items.HPHeals) do
+	for id, quantity in pairs(Network.Data.program.getHealingItems() or {}) do
 		local itemInfo = getSortableItem(id, quantity)
 		if itemInfo then
 			table.insert(healingItems, itemInfo)
-			if displayBerries and MiscData.HealingItems[id].pocket == MiscData.BagPocket.Berries then
+			local itemData = ItemData.HEALING_ITEMS[id]
+			if displayBerries and itemData and NetworkUtils.containsText(itemData.name, "Berry") then
 				table.insert(berryItems, itemInfo)
 			end
 		end
 	end
-	for id, quantity in pairs(Program.GameData.Items.PPHeals) do
+	for id, quantity in pairs(Network.Data.program.getPPItems() or {}) do
 		local itemInfo = getSortableItem(id, quantity)
 		if itemInfo then
 			table.insert(ppItems, itemInfo)
-			if displayBerries and MiscData.PPItems[id].pocket == MiscData.BagPocket.Berries then
+			local itemData = ItemData.PP_ITEMS[id]
+			if displayBerries and itemData and NetworkUtils.containsText(itemData.name, "Berry") then
 				table.insert(berryItems, itemInfo)
 			end
 		end
 	end
-	for id, quantity in pairs(Program.GameData.Items.StatusHeals) do
+	for id, quantity in pairs(Network.Data.program.getStatusItems() or {}) do
 		local itemInfo = getSortableItem(id, quantity)
 		if itemInfo then
 			table.insert(statusItems, itemInfo)
-			if displayBerries and MiscData.StatusItems[id].pocket == MiscData.BagPocket.Berries then
+			local itemData = ItemData.STATUS_ITEMS[id]
+			if displayBerries and itemData and NetworkUtils.containsText(itemData.name, "Berry") then
 				table.insert(berryItems, itemInfo)
 			end
 		end
@@ -822,14 +762,14 @@ function EventData.getHeals(params)
 	return buildResponse(prefix, info)
 end
 
+--- Function not yet implemented
 ---@param params string?
 ---@return string response
 function EventData.getTMsHMs(params)
 	-- TODO: Implement this function
 	if true then return buildDefaultResponse(params) end
 	local info = {}
-	local prefix = string.format("%s %s", "TMs", OUTPUT_CHAR)
-	local canSeeTM = Options["Open Book Play Mode"]
+	local prefix = string.format("TMs %s", OUTPUT_CHAR)
 
 	local singleTmLookup
 	local displayGym, displayNonGym, displayHM
@@ -843,85 +783,8 @@ function EventData.getTMsHMs(params)
 		displayGym = true
 		displayNonGym = true
 	end
-	local tms, hms = Program.getTMsHMsBagItems()
-	if singleTmLookup then
-		if not canSeeTM then
-			for _, item in ipairs(tms or {}) do
-				local tmInBag = item.id - 289 + 1 -- 289 is the item ID of the first TM
-				if singleTmLookup == tmInBag then
-					canSeeTM = true
-					break
-				end
-			end
-		end
-		local moveId = Program.getMoveIdFromTMHMNumber(singleTmLookup)
-		local textToAdd
-		if canSeeTM and MoveData.isValid(moveId) then
-			textToAdd = MoveData.Moves[moveId].name
-		else
-			textToAdd = string.format("%s %s", "---", "(not acquired yet)")
-		end
-		return buildResponse(prefix, string.format("%s %02d: %s", "TM", singleTmLookup, textToAdd))
-	end
-	if displayGym or displayNonGym then
-		local isGymTm = {}
-		for _, gymInfo in ipairs(TrainerData.GymTMs) do
-			if gymInfo.number then
-				isGymTm[gymInfo.number] = true
-			end
-		end
-		local tmsObtained = {}
-		local otherTMs, gymTMs = {}, {}
-		for _, item in ipairs(tms or {}) do
-			local tmNumber = item.id - 289 + 1 -- 289 is the item ID of the first TM
-			local moveId = Program.getMoveIdFromTMHMNumber(tmNumber)
-			if MoveData.isValid(moveId) then
-				tmsObtained[tmNumber] = string.format("#%02d %s", tmNumber, MoveData.Moves[moveId].name)
-				if not isGymTm[tmNumber] then
-					table.insert(otherTMs, tmsObtained[tmNumber])
-				end
-			end
-		end
-		if displayGym then
-			-- Get them sorted in Gym ordered
-			for _, gymInfo in ipairs(TrainerData.GymTMs) do
-				if tmsObtained[gymInfo.number] then
-					table.insert(gymTMs, tmsObtained[gymInfo.number])
-				elseif canSeeTM then
-					local moveId = Program.getMoveIdFromTMHMNumber(gymInfo.number)
-					table.insert(gymTMs, string.format("#%02d %s", gymInfo.number, MoveData.Moves[moveId].name))
-				end
-			end
-			local textToAdd = #gymTMs > 0 and table.concat(gymTMs, ", ") or "None"
-			table.insert(info, string.format("[%s] %s", "Gym", textToAdd))
-		end
-		if displayNonGym then
-			local textToAdd
-			if #otherTMs > 0 then
-				local otherMax = math.min(#otherTMs, MAX_ITEMS - #gymTMs)
-				textToAdd = table.concat(otherTMs, ", ", 1, otherMax)
-				if #otherTMs > otherMax then
-					textToAdd = string.format("%s, (+%s more TMs)", textToAdd, #otherTMs - otherMax)
-				end
-			else
-				textToAdd = "None"
-			end
-			table.insert(info, string.format("[%s] %s", "Other", textToAdd))
-		end
-	end
-	if displayHM then
-		local hmTexts = {}
-		for _, item in ipairs(hms or {}) do
-			local hmNumber = item.id - 339 + 1 -- 339 is the item ID of the first HM
-			local moveId = Program.getMoveIdFromTMHMNumber(hmNumber, true)
-			if MoveData.isValid(moveId) then
-				local hmText = string.format("%s (HM%02d)", MoveData.Moves[moveId].name, hmNumber)
-				table.insert(hmTexts, hmText)
-			end
-		end
-		local textToAdd = #hmTexts > 0 and table.concat(hmTexts, ", ") or "None"
-		table.insert(info, string.format("%s: %s", "HMs", textToAdd))
-	end
+	-- local tms, hms = Network.Data.program.getTMsHMsBagItems()
+
 	return buildResponse(prefix, info)
 end
 
@@ -1173,21 +1036,18 @@ function EventData.getTheme(params)
 	return buildResponse(prefix, info)
 end
 
+--- Function not yet implemented
 ---@param params string?
 ---@return string response
 function EventData.getGameStats(params)
-	-- TODO: Implement this function
+	-- NOTE: This datapoint is not implemented
 	if true then return buildDefaultResponse(params) end
 	local info = {}
-	for _, statPair in ipairs(StatsScreen.StatTables or {}) do
-		if type(statPair.getText) == "function" and type(statPair.getValue) == "function" then
-			local statValue = statPair.getValue() or 0
-			if type(statValue) == "number" then
-				statValue = Utils.formatNumberWithCommas(statValue)
-			end
-			table.insert(info, string.format("%s: %s", statPair:getText(), statValue))
-		end
-	end
+
+	-- Can populate list with some fun statistics. GBA Tracker uses:
+	-- PlayTime, TotalAttempts, PCHealCount, NumTrainerBattles, NumWildEncounters
+	-- NumPokemonCaught, NumShopPurchases, NumGameSaves, TotalSteps, NumStrugglesUsed
+
 	local prefix = string.format("Game Stats %s", OUTPUT_CHAR)
 	return buildResponse(prefix, info)
 end
@@ -1195,53 +1055,57 @@ end
 ---@param params string?
 ---@return string response
 function EventData.getProgress(params)
-	-- TODO: Implement this function
-	if true then return buildDefaultResponse(params) end
-	local includeSevii = NetworkUtils.containsText(params, "sevii")
 	local info = {}
-	local badgesObtained, maxBadges = 0, 8
-	for i = 1, maxBadges, 1 do
-		local badgeButton = TrackerScreen.Buttons["badge" .. i] or {}
-		if (badgeButton.badgeState or 0) ~= 0 then
-			badgesObtained = badgesObtained + 1
-		end
+
+	-- Gym Badges
+	local badges = Network.Data.program.getBadges()
+	local setsToCheck = { badges.firstSet }
+	if Network.Data.gameInfo.NAME == "Pokemon HeartGold" or Network.Data.gameInfo.NAME == "Pokemon SoulSilver" then
+		table.insert(setsToCheck, badges.secondSet)
 	end
-	table.insert(info, string.format("%s: %s/%s", "Gym badges", badgesObtained, maxBadges))
-	local saveBlock1Addr = Utils.getSaveBlock1Addr()
-	local totalDefeated, totalTrainers = 0, 0
-	for mapId, route in pairs(RouteData.Info) do
-		-- Don't check sevii islands (id = 230+) by default
-		if mapId < 230 or includeSevii then
-			if route.trainers and #route.trainers > 0 then
-				local defeatedTrainers, totalInRoute = Program.getDefeatedTrainersByLocation(mapId, saveBlock1Addr)
-				totalDefeated = totalDefeated + #defeatedTrainers
-				totalTrainers = totalTrainers + totalInRoute
+	local badgesObtained, maxBadges = 0, 0
+	for _, badgeSet in ipairs(setsToCheck) do
+		for _, val in ipairs(badgeSet) do
+			if val > 0 then
+				badgesObtained = badgesObtained + 1
 			end
+			maxBadges = maxBadges + 1
 		end
 	end
-	table.insert(info, string.format("%s%s: %s/%s (%0.1f%%)",
-		"Trainers defeated",
-		includeSevii and ", including Sevii" or "",
-		totalDefeated,
-		totalTrainers,
-		totalDefeated / totalTrainers * 100))
+	table.insert(info, string.format("Gym badges: %s/%s", badgesObtained, maxBadges))
+
+	-- Trainers Defeated
+	-- local totalDefeated, totalTrainers = 0, 0
+	-- for mapId, route in pairs(RouteData.Info) do
+	-- 	if route.trainers and #route.trainers > 0 then
+	-- 		local defeatedTrainers, totalInRoute = Program.getDefeatedTrainersByLocation(mapId, saveBlock1Addr)
+	-- 		totalDefeated = totalDefeated + #defeatedTrainers
+	-- 		totalTrainers = totalTrainers + totalInRoute
+	-- 	end
+	-- end
+	-- table.insert(info, string.format("Trainers defeated: %s/%s (%0.1f%%)",
+	-- 	totalDefeated,
+	-- 	totalTrainers,
+	-- 	totalDefeated / totalTrainers * 100))
+
+	-- Pokemon seen fully evolved
+	local trackedIDs = Network.Data.tracker.getTrackedIDs()
 	local fullyEvolvedSeen, fullyEvolvedTotal = 0, 0
-	-- local legendarySeen, legendaryTotal = 0, 0
-	for pokemonID, pokemon in ipairs(PokemonData.Pokemon) do
-		if pokemon.evolution == PokemonData.Evolutions.NONE then
+	-- local legendarySeen, legendaryTotal = 0, 0  --, Legendary: %s/%s (%0.1f%%)",
+	for pokemonID, pokemon in ipairs(PokemonData.POKEMON) do
+		if pokemon.evolution == PokemonData.EVOLUTION_TYPES.NONE then
 			fullyEvolvedTotal = fullyEvolvedTotal + 1
-			local trackedPokemon = Tracker.Data.allPokemon[pokemonID] or {}
-			if (trackedPokemon.eT or 0) > 0 then
+			if MiscUtils.tableContains(trackedIDs, pokemonID) then -- could be inefficient
 				fullyEvolvedSeen = fullyEvolvedSeen + 1
 			end
 		end
 	end
-	table.insert(info, string.format("%s: %s/%s (%0.1f%%)", --, Legendary: %s/%s (%0.1f%%)",
-		"Pok" .. Chars.accentedE .. "mon seen fully evolved",
+	table.insert(info, string.format("Pok" .. Chars.accentedE .. "mon seen fully evolved: %s/%s (%0.1f%%)",
 		fullyEvolvedSeen,
 		fullyEvolvedTotal,
 		fullyEvolvedSeen / fullyEvolvedTotal * 100))
-	local prefix = string.format("%s %s", "Progress", OUTPUT_CHAR)
+
+	local prefix = string.format("Progress %s", OUTPUT_CHAR)
 	return buildResponse(prefix, info)
 end
 
@@ -1268,7 +1132,7 @@ end
 ---@param params string?
 ---@return string response
 function EventData.getBallQueue(params)
-	local prefix = string.format("%s %s", "BallQueue", OUTPUT_CHAR)
+	local prefix = string.format("BallQueue %s", OUTPUT_CHAR)
 
 	local info = {}
 
@@ -1279,11 +1143,11 @@ function EventData.getBallQueue(params)
 	if queueSize == 0 then
 		return buildResponse(prefix, "The pick ball queue is empty.")
 	end
-	table.insert(info, string.format("%s: %s", "Size", queueSize))
+	table.insert(info, string.format("Size: %s", queueSize))
 
 	local request = EventHandler.Queues.BallRedeems.ActiveRequest
 	if request and request.Username then
-		table.insert(info, string.format("%s: %s - %s", "Current pick", request.Username, request.SanitizedInput or "N/A"))
+		table.insert(info, string.format("Current pick: %s - %s", request.Username, request.SanitizedInput or "N/A"))
 	end
 
 	return buildResponse(prefix, info)
