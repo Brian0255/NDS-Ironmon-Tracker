@@ -404,7 +404,7 @@ EventHandler.CoreEvents = {
 			Network.checkVersion(request.Args and request.Args.Version or "")
 			RequestHandler.removedExcludedRequests()
 			-- NOTE: If any screen is displaying connection status info, add code here to refresh it
-			print("[Stream Connect] Connected to Streamer.bot")
+			print("Stream Connect: Connected to Streamer.bot")
 			return RequestHandler.REQUEST_COMPLETE
 		end,
 	},
@@ -464,22 +464,22 @@ EventHandler.DefaultEvents = {
 	CMD_Pokemon = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!pokemon",
-		Name = "Pokémon Info",
-		Help = "name > Displays useful game info for a Pokémon.",
+		Name = "Pok" .. Chars.accentedE .. "mon Info",
+		Help = "name > Displays useful game info for a Pok" .. Chars.accentedE .. "mon.",
 		Fulfill = function(self, request) return EventData.getPokemon(request.SanitizedInput) end,
 	},
 	CMD_BST = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!bst",
-		Name = "Pokémon BST",
-		Help = "name > Displays the base stat total (BST) for a Pokémon.",
+		Name = "Pok" .. Chars.accentedE .. "mon BST",
+		Help = "name > Displays the base stat total (BST) for a Pok" .. Chars.accentedE .. "mon.",
 		Fulfill = function(self, request) return EventData.getBST(request.SanitizedInput) end,
 	},
 	CMD_Weak = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!weak",
-		Name = "Pokémon Weaknesses",
-		Help = "name > Displays the weaknesses for a Pokémon.",
+		Name = "Pok" .. Chars.accentedE .. "mon Weaknesses",
+		Help = "name > Displays the weaknesses for a Pok" .. Chars.accentedE .. "mon.",
 		Fulfill = function(self, request) return EventData.getWeak(request.SanitizedInput) end,
 	},
 	CMD_Move = {
@@ -493,7 +493,7 @@ EventHandler.DefaultEvents = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!ability",
 		Name = "Ability Info",
-		Help = "name > Displays game info for a Pokémon's ability.",
+		Help = "name > Displays game info for a Pok" .. Chars.accentedE .. "mon's ability.",
 		Fulfill = function(self, request) return EventData.getAbility(request.SanitizedInput) end,
 	},
 	CMD_Route = {
@@ -527,15 +527,15 @@ EventHandler.DefaultEvents = {
 	CMD_Revo = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!revo",
-		Name = "Pokémon Random Evolutions",
-		Help = "name [target-evo] > Displays randomized evolution possibilities for a Pokémon, and it's [target-evo] if more than one available.",
+		Name = "Pok" .. Chars.accentedE .. "mon Random Evolutions",
+		Help = "name [target-evo] > Displays randomized evolution possibilities for a Pok" .. Chars.accentedE .. "mon, and it's [target-evo] if more than one available.",
 		Fulfill = function(self, request) return EventData.getRevo(request.SanitizedInput) end,
 	},
 	CMD_Coverage = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!coverage",
 		Name = "Move Coverage Effectiveness",
-		Help = "types [fully evolved] > For a list of move types, checks all Pokémon matchups (or only [fully evolved]) for effectiveness.",
+		Help = "types [fully evolved] > For a list of move types, checks all Pok" .. Chars.accentedE .. "mon matchups (or only [fully evolved]) for effectiveness.",
 		Fulfill = function(self, request) return EventData.getCoverage(request.SanitizedInput) end,
 	},
 	CMD_Heals = {
@@ -556,14 +556,14 @@ EventHandler.DefaultEvents = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!search",
 		Name = "Search Tracked Info",
-		Help = "searchterms > Search tracked info for a Pokémon, move, or ability.",
+		Help = "searchterms > Search tracked info for a Pok" .. Chars.accentedE .. "mon, move, or ability.",
 		Fulfill = function(self, request) return EventData.getSearch(request.SanitizedInput) end,
 	},
 	CMD_SearchNotes = {
 		Type = EventHandler.EventTypes.Command,
 		Command = "!searchnotes",
-		Name = "Search Notes on Pokémon",
-		Help = "notes > Displays a list of Pokémon with any matching notes.",
+		Name = "Search Notes on Pok" .. Chars.accentedE .. "mon",
+		Help = "notes > Displays a list of Pok" .. Chars.accentedE .. "mon with any matching notes.",
 		Fulfill = function(self, request) return EventData.getSearchNotes(request.SanitizedInput) end,
 	},
 	CMD_Favorites = {
@@ -684,13 +684,13 @@ EventHandler.DefaultEvents = {
 		Fulfill = function(self, request)
 			local response = { AdditionalInfo = { AutoComplete = false } }
 			if (request.SanitizedInput or "") == "" then
-				response.Message = string.format("> Unable to change a favorite, please enter a number (1, 2, or 3) followed by a Pokémon name.")
+				response.Message = string.format("> Unable to change a favorite, please enter a number (1, 2, or 3) followed by a Pok" .. Chars.accentedE .. "mon name.")
 				return response
 			end
 			local slotNumber, pokemonName = request.SanitizedInput:match("^#?(%d*)%s*(%D.+)")
 			local successMsg = changeStarterFavorite(pokemonName, slotNumber)
 			if not successMsg then
-				response.Message = string.format("%s > Unable to change a favorite, please enter a number (1, 2, or 3) followed by a Pokémon name.", request.SanitizedInput)
+				response.Message = string.format("%s > Unable to change a favorite, please enter a number (1, 2, or 3) followed by a Pok" .. Chars.accentedE .. "mon name.", request.SanitizedInput)
 				return response
 			end
 			if self.O_SendMessage then
@@ -710,12 +710,12 @@ EventHandler.DefaultEvents = {
 		Fulfill = function(self, request)
 			local response = { AdditionalInfo = { AutoComplete = false } }
 			if (request.SanitizedInput or "") == "" then
-				response.Message = string.format("> Unable to change favorite #1, please enter a valid Pokémon name.")
+				response.Message = string.format("> Unable to change favorite #1, please enter a valid Pok" .. Chars.accentedE .. "mon name.")
 				return response
 			end
 			local successMsg = changeStarterFavorite(request.SanitizedInput, 1)
 			if not successMsg then
-				response.Message = string.format("%s > Unable to change favorite #1, please enter a valid Pokémon name.", request.SanitizedInput)
+				response.Message = string.format("%s > Unable to change favorite #1, please enter a valid Pok" .. Chars.accentedE .. "mon name.", request.SanitizedInput)
 				return response
 			end
 			if self.O_SendMessage then
@@ -735,12 +735,12 @@ EventHandler.DefaultEvents = {
 		Fulfill = function(self, request)
 			local response = { AdditionalInfo = { AutoComplete = false } }
 			if (request.SanitizedInput or "") == "" then
-				response.Message = string.format("> Unable to change favorite #2, please enter a valid Pokémon name.")
+				response.Message = string.format("> Unable to change favorite #2, please enter a valid Pok" .. Chars.accentedE .. "mon name.")
 				return response
 			end
 			local successMsg = changeStarterFavorite(request.SanitizedInput, 2)
 			if not successMsg then
-				response.Message = string.format("%s > Unable to change favorite #2, please enter a valid Pokémon name.", request.SanitizedInput)
+				response.Message = string.format("%s > Unable to change favorite #2, please enter a valid Pok" .. Chars.accentedE .. "mon name.", request.SanitizedInput)
 				return response
 			end
 			if self.O_SendMessage then
@@ -760,12 +760,12 @@ EventHandler.DefaultEvents = {
 		Fulfill = function(self, request)
 			local response = { AdditionalInfo = { AutoComplete = false } }
 			if (request.SanitizedInput or "") == "" then
-				response.Message = string.format("> Unable to change favorite #3, please enter a valid Pokémon name.")
+				response.Message = string.format("> Unable to change favorite #3, please enter a valid Pok" .. Chars.accentedE .. "mon name.")
 				return response
 			end
 			local successMsg = changeStarterFavorite(request.SanitizedInput, 3)
 			if not successMsg then
-				response.Message = string.format("%s > Unable to change favorite #3, please enter a valid Pokémon name.", request.SanitizedInput)
+				response.Message = string.format("%s > Unable to change favorite #3, please enter a valid Pok" .. Chars.accentedE .. "mon name.", request.SanitizedInput)
 				return response
 			end
 			if self.O_SendMessage then

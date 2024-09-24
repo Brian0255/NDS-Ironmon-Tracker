@@ -229,12 +229,16 @@ function RequestHandler.processAllRequests()
 	for _, request in ipairs(toProcess) do
 		for _, eventKey in pairs(MiscUtils.split(request.EventKey, ",", true) or {}) do
 			local event = EventHandler.Events[eventKey]
-			local response = RequestHandler.processAndBuildResponse(request, event)
+			local response
+			-- Wrap request processing in error catch call. If fail, no response is returned (remove request)
+			-- pcall(function() -- TODO: Re-enable this for final commit
+				response = RequestHandler.processAndBuildResponse(request, event)
+			-- end)
 			if not request.SentResponse then
 				RequestHandler.addUpdateResponse(response)
 				request.SentResponse = true
 			end
-			if response.StatusCode ~= RequestHandler.StatusCodes.PROCESSING then
+			if not response or response.StatusCode ~= RequestHandler.StatusCodes.PROCESSING then
 				RequestHandler.removeRequest(request.GUID)
 			end
 		end
@@ -343,7 +347,7 @@ end
 ---@return boolean success
 function RequestHandler.saveRequestsData()
 	RequestHandler.removedExcludedRequests()
-	local folderpath = Paths.FOLDERS.NETWORK_FOLDER .. "/"
+	local folderpath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH
 	local success = NetworkUtils.encodeToJsonFile(folderpath .. RequestHandler.SAVED_REQUESTS, RequestHandler.Requests)
 	RequestHandler.lastSaveTime = os.time()
 	return (success == true)
@@ -352,7 +356,7 @@ end
 --- Imports a list of IRequests from a data file; returns true if successful
 ---@return boolean success
 function RequestHandler.loadRequestsData()
-	local folderpath = Paths.FOLDERS.NETWORK_FOLDER .. "/"
+	local folderpath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH
 	local requests = NetworkUtils.decodeJsonFile(folderpath .. RequestHandler.SAVED_REQUESTS)
 	if requests then
 		RequestHandler.Requests = requests

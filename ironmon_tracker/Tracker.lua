@@ -208,6 +208,16 @@ local function Tracker()
 		return trackedData.pokecenterCount
 	end
 
+	function self.getTrackedIDs()
+		local ids = {}
+		for id, _ in pairs(trackedData.trackedPokemon or {}) do
+			if id > 0 and PokemonData.POKEMON[id + 1] then
+				table.insert(ids, id)
+			end
+		end
+		return ids
+	end
+
 	function self.getSortedTrackedIDs()
 		local ids = {}
 		local pokemon = trackedData.trackedPokemon

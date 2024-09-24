@@ -481,6 +481,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return selectedPlayer
 	end
 
+	function self.getPlayerPokemon()
+		return playerPokemon
+	end
+
 	local function getPokemonData(selected)
 		if battleHandler:inBattleAndFetched() then
 			local data = battleHandler:getActivePokemonInBattle(selected)
@@ -611,6 +615,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			end
 		end
 		currentLocation = areaName
+	end
+
+	function self.getCurrentMapID()
+		return currentMapID
 	end
 
 	function self.getCurrentLocation()
@@ -961,8 +969,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		AnimatedSpriteManager.advanceFrame()
 	end
 
-	Network.initialize(self)
-
 	frameCounters = {
 		restorePointUpdate = FrameCounter(30, updateRestorePoints),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
@@ -1106,6 +1112,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		client.SetSoundOn(false)
 		local logInfo = randomizerLogParser.parse(logPath)
 		if logInfo ~= nil then
+			Network.Data.logInfo = logInfo
 			local firstPokemonID = tracker.getFirstPokemonID()
 			logInfo.setStarterNumberFromPlayerPokemonID(firstPokemonID)
 			self.openScreen(self.UI_SCREENS.LOG_VIEWER_SCREEN)
@@ -1122,6 +1129,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
 	randomizerLogParser = RandomizerLogParser(self)
 	AnimatedSpriteManager.initialize(self.drawCurrentScreens, memoryAddresses, gameInfo, settings)
+
+	Network.initialize()
+	Network.linkData(self, tracker, battleHandler)
 
 	return self
 end

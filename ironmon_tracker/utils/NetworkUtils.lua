@@ -1,5 +1,7 @@
 NetworkUtils = {}
 
+local JSON_FILENAME = "Json.lua"
+
 ---@return string guid
 function NetworkUtils.newGUID()
 	local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -15,7 +17,7 @@ end
 function NetworkUtils.folderExists(folderpath)
 	if (folderpath or "") == "" then return false end
 	if not folderpath:find("[/\\]$") then
-		folderpath = folderpath .. "/"
+		folderpath = folderpath .. Paths.SLASH
 	end
 
 	-- Hacky but simply way to check if a folder exists: try to rename it
@@ -23,6 +25,23 @@ function NetworkUtils.folderExists(folderpath)
 	local exists, err, code = os.rename(folderpath, folderpath)
 	-- Code 13 = Permission denied, but it exists
 	return exists or (not exists and code == 13)
+end
+
+---Checks if some text contains some other text; ignores case by default
+---@param text? string
+---@param searchString? string
+---@param matchCase? boolean
+---@return boolean
+function NetworkUtils.containsText(text, searchString, matchCase)
+	if text == nil or text == "" or searchString == nil then
+		return false
+	end
+	if not matchCase then
+		text = text:lower()
+		searchString = searchString:lower()
+	end
+	-- Check whole word for matches, not just the start
+	return text:find(searchString, 1, true) ~= nil
 end
 
 -- Searches `wordlist` for the closest matching `word` based on Levenshtein distance. Returns: key, result
@@ -70,6 +89,15 @@ function NetworkUtils.getClosestWord(word, wordlist, threshold)
 	end
 end
 
+--- Alters the string by changing the first character of each word to uppercase
+---@param str string?
+---@return string?
+function NetworkUtils.firstToUpperEachWord(str)
+	if str == nil or str == "" then return str end
+	str = string.gsub(" " .. str, "[%s%.%-]%l", string.upper):sub(2)
+	return str
+end
+
 --- Loads the external Json library into NetworkUtils.JsonLibrary
 ---@param forceLoad? boolean Optional, if true, forces the file to get reloaded even if already loaded
 function NetworkUtils.setupJsonLibrary(forceLoad)
@@ -77,7 +105,7 @@ function NetworkUtils.setupJsonLibrary(forceLoad)
 	if type(NetworkUtils.JsonLibrary) == "table" and not forceLoad then
 		return
 	end
-	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. "/Json.lua"
+	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. JSON_FILENAME
 	if FormsUtils.fileExists(filepath) then
 		NetworkUtils.JsonLibrary = dofile(filepath)
 		if type(NetworkUtils.JsonLibrary) ~= "table" then

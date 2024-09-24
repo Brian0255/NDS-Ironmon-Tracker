@@ -78,14 +78,14 @@ function Network.IConnection:new(o)
 	return o
 end
 
-function Network.initialize(initialProgram)
-	Network.program = initialProgram
-	Network.iniParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
+function Network.initialize()
+	Network.Data = {}
+	Network.iniParser = dofile(Paths.FOLDERS.DATA_FOLDER .. Paths.SLASH .. "Inifile.lua")
 
-	dofile(Paths.FOLDERS.NETWORK_FOLDER .. "/Json.lua")
-	dofile(Paths.FOLDERS.NETWORK_FOLDER .. "/EventData.lua")
-	dofile(Paths.FOLDERS.NETWORK_FOLDER .. "/EventHandler.lua")
-	dofile(Paths.FOLDERS.NETWORK_FOLDER .. "/RequestHandler.lua")
+	dofile(Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. "Json.lua")
+	dofile(Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. "EventData.lua")
+	dofile(Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. "EventHandler.lua")
+	dofile(Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. "RequestHandler.lua")
 	NetworkUtils.setupJsonLibrary()
 	Network.loadSettings()
 
@@ -107,9 +107,25 @@ end
 function Network.startup()
 	EventHandler.onStartup()
 	-- Remove the delayed start frame counter; should not repeat
-	if Network.program and Network.program.frameCounters then
-		Network.program.frameCounters.networkStartup = nil
+	if Network.Data.program and Network.Data.program.frameCounters then
+		Network.Data.program.frameCounters.networkStartup = nil
 	end
+end
+
+--- Allow Network access to various data objects used throughout the software
+function Network.linkData(program, tracker, battleHandler, randomizerLogParser)
+	if program == nil then
+		return
+	end
+	Network.Data = {
+		program = program,
+		gameInfo = program.getGameInfo(),
+		memoryAddresses = program.getAddresses(),
+		tracker = tracker,
+		battleHandler = battleHandler,
+		seedLogger = program.getSeedLogger(),
+		randomizerLogParser = randomizerLogParser,
+	}
 end
 
 ---Checks current version of the Tracker's Network code against the Streamerbot code version
@@ -202,7 +218,7 @@ function Network.tryConnect()
 			serverInfo = comm.socketServerGetInfo() or Network.SOCKET_SERVER_NOT_FOUND
 			-- Might also test/try 'bool comm.socketServerIsConnected()'
 		end
-		local ableToConnect = serverInfo and serverInfo:lower():find(Network.SOCKET_SERVER_NOT_FOUND, 1, true) ~= nil
+		local ableToConnect = NetworkUtils.containsText(serverInfo, Network.SOCKET_SERVER_NOT_FOUND)
 		if ableToConnect then
 			C.State = Network.ConnectionState.Listen
 			comm.socketServerSetTimeout(500) -- # of milliseconds
@@ -226,7 +242,7 @@ function Network.tryConnect()
 			-- See HTTP WARNING at the top of this file
 			pcall(function() result = comm.httpTest() or "N/A" end)
 		end
-		local ableToConnect = result and result:lower():find("done testing", 1, true) ~= nil
+		local ableToConnect = NetworkUtils.containsText(result, "done testing")
 		if ableToConnect then
 			C.State = Network.ConnectionState.Listen
 			comm.httpSetTimeout(500) -- # of milliseconds
@@ -235,8 +251,8 @@ function Network.tryConnect()
 		C.UpdateFrequency = Network.TEXT_UPDATE_FREQUENCY
 		C.SendReceive = Network.updateByText
 		local folder = Network.Options["DataFolder"] or ""
-		C.InboundFile = folder .. "/" .. Network.TEXT_INBOUND_FILE
-		C.OutboundFile = folder .. "/" .. Network.TEXT_OUTBOUND_FILE
+		C.InboundFile = folder .. Paths.SLASH .. Network.TEXT_INBOUND_FILE
+		C.OutboundFile = folder .. Paths.SLASH .. Network.TEXT_OUTBOUND_FILE
 		local ableToConnect = (folder or "") ~= "" and NetworkUtils.folderExists(folder)
 		if ableToConnect then
 			C.State = Network.ConnectionState.Listen
@@ -349,7 +365,7 @@ function Network.updateByHttp()
 end
 
 function Network.getStreamerbotCode()
-	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. "/" .. Network.FILE_IMPORT_CODE
+	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. Network.FILE_IMPORT_CODE
 	local lines = MiscUtils.readLinesFromFile(filepath) or {}
 	return lines[1] or ""
 end
@@ -378,7 +394,7 @@ end
 
 function Network.loadSettings()
 	Network.MetaSettings = {}
-	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. "/" .. Network.FILE_SETTINGS
+	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. Network.FILE_SETTINGS
 	if not FormsUtils.fileExists(filepath) then
 		return
 	end
@@ -408,7 +424,7 @@ function Network.saveSettings()
 		settings.network[encodedKey] = val
 	end
 
-	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. "/" .. Network.FILE_SETTINGS
+	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. Network.FILE_SETTINGS
 	Network.iniParser.save(filepath, settings)
 end
 
