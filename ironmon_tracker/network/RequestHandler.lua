@@ -230,10 +230,10 @@ function RequestHandler.processAllRequests()
 		for _, eventKey in pairs(MiscUtils.split(request.EventKey, ",", true) or {}) do
 			local event = EventHandler.Events[eventKey]
 			local response
-			-- Wrap request processing in error catch call. If fail, no response is returned (remove request)
-			-- pcall(function() -- TODO: Re-enable this for final commit
+			-- Wrap request processing in error catch call. If fail, no response is returned and request is removed
+			pcall(function()
 				response = RequestHandler.processAndBuildResponse(request, event)
-			-- end)
+			end)
 			if not request.SentResponse then
 				RequestHandler.addUpdateResponse(response)
 				request.SentResponse = true

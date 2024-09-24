@@ -1,6 +1,7 @@
 Network = {
 	CurrentConnection = {},
 	lastUpdateTime = 0,
+	printSuccessfulConnectMsg = true,
 	STREAMERBOT_VERSION = "1.0.1", -- Known streamerbot version. Update this value to inform user to update streamerbot code
 	TEXT_UPDATE_FREQUENCY = 2, -- # of seconds
 	SOCKET_UPDATE_FREQUENCY = 2, -- # of seconds
@@ -32,6 +33,7 @@ Network.ConnectionState = {
 	Established = 9, -- Both the server (Tracker) and client are connected; communication is open
 }
 
+-- Options related to Network (most unused); gets saved in NetworkSettings.ini
 Network.Options = {
 	["AutoConnectStartup"] = true,
 	["ConnectionType"] = Network.ConnectionTypes.Text,
@@ -104,15 +106,11 @@ function Network.initialize()
 	end
 end
 
-function Network.startup()
+function Network.delayedStartupActions() -- DEBUG
 	EventHandler.onStartup()
-	-- Remove the delayed start frame counter; should not repeat
-	if Network.Data.program and Network.Data.program.frameCounters then
-		Network.Data.program.frameCounters.networkStartup = nil
-	end
 end
 
---- Allow Network access to various data objects used throughout the software
+--- Allow Network access references to various data objects used throughout the software
 function Network.linkData(program, tracker, battleHandler, randomizerLogParser)
 	if program == nil then
 		return
@@ -126,6 +124,18 @@ function Network.linkData(program, tracker, battleHandler, randomizerLogParser)
 		seedLogger = program.getSeedLogger(),
 		randomizerLogParser = randomizerLogParser,
 	}
+end
+
+---Returns a message regarding the status of the connection
+---@return string
+function Network.getConnectionStatusMsg()
+	if Network.CurrentConnection.State == Network.ConnectionState.Established then
+		return "Online: Connection established."
+	elseif Network.CurrentConnection.State == Network.ConnectionState.Listen then
+		return "Online: Waiting for connection..."
+	else
+		return "Offline."
+	end
 end
 
 ---Checks current version of the Tracker's Network code against the Streamerbot code version
@@ -364,34 +374,6 @@ function Network.updateByHttp()
 	end
 end
 
-function Network.getStreamerbotCode()
-	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. Network.FILE_IMPORT_CODE
-	local lines = MiscUtils.readLinesFromFile(filepath) or {}
-	return lines[1] or ""
-end
-
-function Network.openUpdateRequiredPrompt()
-	local form = FormsUtils.popupDialog("Streamerbot Update Required", 350, 150, FormsUtils.POPUP_DIALOG_TYPES.WARNING, true)
-	-- TODO: Fix
-	-- local x, y, lineHeight = 20, 20, 20
-	-- form:createLabel(Resources.StreamConnect.PromptUpdateDesc1, x, y)
-	-- y = y + lineHeight
-	-- form:createLabel(Resources.StreamConnect.PromptUpdateDesc2, x, y)
-	-- y = y + lineHeight
-	-- -- Bottom row buttons
-	-- y = y + 10
-	-- form:createButton(Resources.StreamConnect.PromptNetworkShowMe, 40, y, function()
-	-- 	form:destroy()
-	-- 	StreamConnectOverlay.openGetCodeWindow()
-	-- end)
-	-- form:createButton(Resources.StreamConnect.PromptNetworkTurnOff, 150, y, function()
-	-- 	Network.Options["AutoConnectStartup"] = false
-	-- 	Main.SaveSettings(true)
-	-- 	Network.closeConnections()
-	-- 	form:destroy()
-	-- end)
-end
-
 function Network.loadSettings()
 	Network.MetaSettings = {}
 	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. Network.FILE_SETTINGS
@@ -426,6 +408,180 @@ function Network.saveSettings()
 
 	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. Network.FILE_SETTINGS
 	Network.iniParser.save(filepath, settings)
+end
+
+function Network.getStreamerbotCode()
+	local filepath = Paths.FOLDERS.NETWORK_FOLDER .. Paths.SLASH .. Network.FILE_IMPORT_CODE
+	return MiscUtils.readStringFromFile(filepath) or ""
+end
+
+---Required update check if an update needs total change Streamerbot Code (tracker can only change its own tracker code)
+---This requires the user to re-import the StreamerbotCodeImport.txt (which the tracker dev needs to regenerate)
+function Network.openUpdateRequiredPrompt()
+	local form = forms.newform(350, 150, "Streamerbot Update Required", function()
+		client.unpause()
+	end)
+	local x, y, lineHeight = 20, 20, 20
+	local lb1 = forms.label(form, "Streamerbot Tracker Integration code requires an update.", x, y)
+	y = y + lineHeight
+	local lb2 = forms.label(form, "You must re-import the code to continue using Stream Connect.", x, y)
+	y = y + lineHeight
+	-- Bottom row buttons
+	y = y + 10
+	local btn1 = forms.button(form, "Show Me", function()
+		forms.destroy(form)
+		client.unpause()
+		Network.openGetCodeWindow()
+	end, 40, y)
+	local btn2 = forms.button(form, "Turn Off Stream Connect", function()
+		Network.Options["AutoConnectStartup"] = false
+		Network.saveSettings()
+		Network.closeConnections()
+		forms.destroy(form)
+		client.unpause()
+	end, 150, y)
+
+	-- Autosize form control elements
+	forms.setproperty(lb1, "AutoSize", true)
+	forms.setproperty(lb2, "AutoSize", true)
+	forms.setproperty(btn1, "AutoSize", true)
+	forms.setproperty(btn2, "AutoSize", true)
+end
+
+---Displays the full import code required to add actions/command triggers to Streamerbot.
+---If the external Streamerbot code ever changes, this import code *must* be regenerated via export
+function Network.openGetCodeWindow()
+	local form = forms.newform(800, 600, "Import to Streamerbot", function()
+		client.unpause()
+	end)
+	local x, y, lineHeight = 20, 15, 20
+	local lb1 = forms.label(form, '1. On Streamerbot, click the IMPORT button at the top.', x, y)
+	y = y + lineHeight
+	local lb2 = forms.label(form, '2. Copy/paste the below code into the top textbox. Click "Import" then "OK".', x, y)
+	y = y + lineHeight
+	local lb3 = forms.label(form, '3. Restart Streamerbot (this is required).', x, y)
+	y = y + lineHeight
+
+	local codeText = Network.getStreamerbotCode()
+	local txtbox1 = forms.textbox(form, codeText, 763, 442, "", x - 1, y, true, true, "Vertical")
+
+	local lb4 = forms.label(form, string.format("Streamerbot Code Version: %s", Network.STREAMERBOT_VERSION), x, 530)
+	local btn1 = forms.button(form, "Close", function()
+		forms.destroy(form)
+		client.unpause()
+	end, 350, 530)
+
+	-- Autosize form control elements
+	forms.setproperty(lb1, "AutoSize", true)
+	forms.setproperty(lb2, "AutoSize", true)
+	forms.setproperty(lb3, "AutoSize", true)
+	forms.setproperty(lb4, "AutoSize", true)
+	forms.setproperty(btn1, "AutoSize", true)
+end
+
+---Opens an dialog prompt popup to configure Role Permissions used for commands. Several checkboxes
+function Network.openCommandRolePermissionsPrompt()
+	local form = forms.newform(320, 255, "Edit Command Roles", function()
+		client.unpause()
+	end)
+
+	local x, y = 20, 15
+	local lineHeight = 21
+	local commandLabel = string.format("Select user roles that can use Tracker chat commands:")
+	local lb1 = forms.label(form, commandLabel, x - 1, y - 1)
+	forms.setproperty(lb1, "AutoSize", true)
+	y = y + lineHeight
+
+	-- Current role options, from the user settings
+	local currentRoles = {}
+	for _, roleKey in pairs(MiscUtils.split(Network.Options["CommandRoles"], ",", true) or {}) do
+		currentRoles[roleKey] = true
+	end
+	-- All available role options, in a predefined order
+	local orderedRoles = { "Broadcaster", "Moderator", "Vip", "Subscriber", --[["Custom",]] "Everyone" }
+	local roleCheckboxes = {}
+	local customRoleTextbox
+
+	-- Enable or Disable all non-Everyone roles based on the state of Everyone role being allowed
+	local function enableDisableAll()
+		local allowEveryone = forms.ischecked(roleCheckboxes["Everyone"])
+		for _, roleKey in ipairs(orderedRoles) do
+			if roleKey ~= "Everyone" and roleKey ~= "Broadcaster" then
+				forms.setproperty(roleCheckboxes[roleKey], "Enabled", not allowEveryone)
+			end
+		end
+		if customRoleTextbox then
+			forms.setproperty(customRoleTextbox, "Enabled", not allowEveryone)
+		end
+	end
+
+	for i, roleKey in ipairs(orderedRoles) do
+		local roleLabel = roleKey
+		if roleKey == "Custom" then
+			roleLabel = "Custom Role:"
+			customRoleTextbox = forms.textbox(form, Network.Options["CustomCommandRole"], 120, 19, "", x + 143, y + lineHeight * (i - 1))
+		end
+		local clickFunc = (roleKey == "Everyone" and enableDisableAll) or nil
+		roleCheckboxes[roleKey] = forms.checkbox(form, roleLabel, x, y + lineHeight * (i - 1))
+		forms.setproperty(roleCheckboxes[roleKey], "AutoSize", true)
+		if clickFunc then
+			forms.addclick(roleCheckboxes[roleKey], clickFunc)
+		end
+		local roleAllowed = currentRoles["Everyone"] ~= nil or currentRoles[roleKey] ~= nil
+		forms.setproperty(roleCheckboxes[roleKey], "Checked", roleAllowed)
+	end
+	forms.setproperty(roleCheckboxes["Broadcaster"], "Checked", true)
+	forms.setproperty(roleCheckboxes["Broadcaster"], "Enabled", false)
+
+	enableDisableAll()
+
+	local buttonRowY = y + lineHeight * #orderedRoles + 15
+	local btn1 = forms.button(form, "Save", function()
+		if forms.ischecked(roleCheckboxes["Everyone"]) then
+			Network.Options["CommandRoles"] = EventHandler.CommandRoles.Everyone
+		else
+			if forms.ischecked(roleCheckboxes["Custom"]) and customRoleTextbox then
+				Network.Options["CustomCommandRole"] = forms.gettext(customRoleTextbox) or ""
+			else
+				Network.Options["CustomCommandRole"] = ""
+			end
+			local allowedRoles = {}
+			for _, roleKey in ipairs(orderedRoles) do
+				if forms.ischecked(roleCheckboxes[roleKey]) then
+					if roleKey == "Custom" then
+						if (Network.Options["CustomCommandRole"] or "") ~= "" then
+							table.insert(allowedRoles, Network.Options["CustomCommandRole"])
+						end
+					else
+						table.insert(allowedRoles, EventHandler.CommandRoles[roleKey])
+					end
+				end
+			end
+			Network.Options["CommandRoles"] = table.concat(allowedRoles, ",")
+		end
+		Network.saveSettings()
+		RequestHandler.addUpdateRequest(RequestHandler.IRequest:new({
+			EventKey = EventHandler.CoreEventKeys.UpdateEvents,
+		}))
+		forms.destroy(form)
+		client.unpause()
+	end, 30, buttonRowY)
+	local btn2 = forms.button(form, "(Default)", function()
+		for _, roleKey in ipairs(orderedRoles) do
+			forms.setproperty(roleCheckboxes[roleKey], "Checked", true)
+		end
+		forms.settext(customRoleTextbox, "")
+		enableDisableAll()
+	end, 120, buttonRowY)
+	local btn3 = forms.button(form, "Cancel", function()
+		forms.destroy(form)
+		client.unpause()
+	end, 210, buttonRowY)
+
+	-- Autosize form control elements
+	forms.setproperty(btn1, "AutoSize", true)
+	forms.setproperty(btn2, "AutoSize", true)
+	forms.setproperty(btn3, "AutoSize", true)
 end
 
 -- Not supported

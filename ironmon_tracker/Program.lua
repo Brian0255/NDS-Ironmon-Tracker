@@ -982,6 +982,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		AnimatedSpriteManager.advanceFrame()
 	end
 
+	local function delayedNetworkStartup()
+		Network.delayedStartupActions()
+		-- Remove the delayed start frame counter; only need to run startup once
+		frameCounters.networkStartup = nil
+	end
+
 	frameCounters = {
 		restorePointUpdate = FrameCounter(30, updateRestorePoints),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
@@ -995,7 +1001,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			true
 		),
 		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true),
-		networkStartup = FrameCounter(30, Network.startup, nil, true),
+		networkStartup = FrameCounter(30, delayedNetworkStartup, nil, true),
 		networkUpdate = FrameCounter(10, Network.update, nil, true),
 	}
 

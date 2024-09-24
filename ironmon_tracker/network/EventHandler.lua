@@ -407,7 +407,9 @@ EventHandler.CoreEvents = {
 			Network.checkVersion(request.Args and request.Args.Version or "")
 			RequestHandler.removedExcludedRequests()
 			-- NOTE: If any screen is displaying connection status info, add code here to refresh it
-			print("Stream Connect: Connected to Streamer.bot")
+			if Network.printSuccessfulConnectMsg then
+				print("Stream Connect: Connected to Streamer.bot")
+			end
 			return RequestHandler.REQUEST_COMPLETE
 		end,
 	},
@@ -604,7 +606,7 @@ EventHandler.DefaultEvents = {
 		Help = "> If the log has been opened, displays shareable randomizer settings from the log for current game.",
 		Fulfill = function(self, request) return EventData.getLog(request.SanitizedInput) end,
 	},
-	-- NOTE: Enable this command only if rewards and pick ball queues are enabled
+	-- NOTE: Enable this command only if rewards get enabled and pick ball reward(s) gets implemented
 	-- CMD_BallQueue = {
 	-- 	Type = EventHandler.EventTypes.Command,
 	-- 	Command = "!ballqueue",
@@ -629,6 +631,8 @@ EventHandler.DefaultEvents = {
 		Fulfill = function(self, request) return EventData.getHelp(request.SanitizedInput) end,
 	},
 
+	-- NOTE: These are currently not used, as it requires UI for user configuration.
+	-- To add these back in, edit the codeline that exempts them from: EventHandler.addDefaultEvents()
 	-- CR_: Channel Rewards (Point Redeems)
 	CR_PickBallOnce = {
 		Type = EventHandler.EventTypes.Reward,
