@@ -38,6 +38,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/BattleHandlerGen5.lua")
 	local PokemonThemeManager = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonThemeManager.lua")
 	local TourneyTracker = dofile(Paths.FOLDERS.DATA_FOLDER .. "/TourneyTracker.lua")
+	dofile(Paths.FOLDERS.NETWORK_FOLDER .. "/Network.lua")
 
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
@@ -688,6 +689,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.tryToInstallUpdate(callbackFunc)
 		tracker.save(gameInfo.NAME)
+		Network.closeConnections()
 		local success = trackerUpdater.downloadUpdate()
 		if type(callbackFunc) == "function" then
 			callbackFunc(success)
@@ -959,6 +961,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		AnimatedSpriteManager.advanceFrame()
 	end
 
+	Network.initialize(self)
+
 	frameCounters = {
 		restorePointUpdate = FrameCounter(30, updateRestorePoints),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
@@ -971,7 +975,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			nil,
 			true
 		),
-		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true)
+		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true),
+		networkStartup = FrameCounter(30, Network.startup, nil, true),
+		networkUpdate = FrameCounter(10, Network.update, nil, true),
 	}
 
 	function self.pauseEventListeners()
@@ -1049,6 +1055,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		tracker.updatePlaytime(gameInfo.NAME)
 		client.saveram()
 		forms.destroyall()
+		Network.closeConnections()
 	end
 
 	function self.getSeedLogger()

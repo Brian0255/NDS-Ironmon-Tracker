@@ -1,4 +1,6 @@
 Settings.ini
+NetworkSettings.ini
+Requests.json
 *.trackerdata
 *.nds
 *.log
@@ -8,6 +10,7 @@ Settings.ini
 *.colortheme
 *.qlp
 !death_quotes.txt
+!StreamerbotCodeImport.txt
 *.pt
 *.faves
 *.tdata
