@@ -22,7 +22,7 @@ local function StreamerbotConfigScreen(initialSettings, initialTracker, initialP
         TEXT_HEADER_HEIGHT = 18,
         FOLDER_LABEL_WIDTH = 96,
         BUTTON_SIZE = 10,
-        SMALL_BUTTON_WIDTH = 36,
+        SMALL_BUTTON_WIDTH = 34,
         SMALL_BUTTON_HEIGHT = 14,
         STATUS_FOLDER_FRAME_HEIGHT = 104,
         CODE_PERMISSIONS_FRAME_HEIGHT = 56,
