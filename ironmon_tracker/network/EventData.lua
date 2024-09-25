@@ -6,9 +6,6 @@ EventData = {
 }
 
 function EventData.initializeLookupTables()
-	if #EventData.pokemonNames > 0 then
-		return
-	end
 	for id, pokemon in ipairs(PokemonData.POKEMON) do
 		if (pokemon.name ~= "---") then
 			EventData.pokemonNames[id - 1] = pokemon.name:lower()
@@ -359,14 +356,14 @@ function EventData.getRoute(params)
 	-- end
 	-- Check for wilds in the route
 	local encounterArea = Network.Data.gameInfo.LOCATION_DATA.encounters[route.name or false]
-	local trackedArea = Network.Data.tracker.getEncounterData(route.name)
+	local trackedArea = Network.Data.tracker.getEncounterData(route.name) or {}
 	-- if routeFilter then
 	-- 	encounterArea = RouteData.EncounterArea[routeFilter] or RouteData.EncounterArea.LAND
 	-- else
 	-- 	-- Default to the first area type (usually Walking)
 	-- 	encounterArea = RouteData.getNextAvailableEncounterArea(routeId, RouteData.EncounterArea.TRAINER)
 	-- end
-	if encounterArea and encounterArea.vanillaData and trackedArea then
+	if encounterArea and encounterArea.vanillaData then
 		local wildMonsAndLevels = {}
 		for pokemonID, levelList in pairs(trackedArea.encountersSeen or {}) do
 			if PokemonData.POKEMON[pokemonID + 1] then
@@ -663,7 +660,7 @@ function EventData.getCoverage(params)
 			local format = "[%0dx] %s"
 			if mult == 0.5 then
 				format = "[%0.1fx] %s"
-			elseif mult == 0.025 then
+			elseif mult == 0.25 then
 				format = "[%0.2fx] %s"
 			end
 			table.insert(info, string.format(format, mult, effectiveList.total))
