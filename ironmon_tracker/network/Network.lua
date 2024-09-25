@@ -101,9 +101,10 @@ function Network.initialize()
 	Network.requiresUpdating = false
 	Network.lastUpdateTime = 0
 	Network.loadConnectionSettings()
-	if Network.Options["AutoConnectStartup"] then
-		Network.tryConnect()
-	end
+    if Network.Options["AutoConnectStartup"] then
+        Network.tryConnect()
+    end
+
 end
 
 function Network.delayedStartupActions() -- DEBUG
@@ -124,6 +125,7 @@ function Network.linkData(program, tracker, battleHandler, randomizerLogParser)
 		seedLogger = program.getSeedLogger(),
 		randomizerLogParser = randomizerLogParser,
 	}
+	EventData.initializeLookupTables()
 end
 
 ---Returns a message regarding the status of the connection
@@ -135,6 +137,18 @@ function Network.getConnectionStatusMsg()
 		return "Online: Waiting for connection..."
 	else
 		return "Offline."
+	end
+end
+
+--Returns the text color key for the current connection status
+---@return string
+function Network.getConnectionStatusColor()
+	if Network.CurrentConnection.State == Network.ConnectionState.Established then
+		return "Positive text color"
+	elseif Network.CurrentConnection.State == Network.ConnectionState.Listen then
+		return "Intermediate text color"
+	else
+		return "Negative text color"
 	end
 end
 
