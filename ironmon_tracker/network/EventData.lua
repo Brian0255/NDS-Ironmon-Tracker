@@ -1,4 +1,34 @@
-EventData = {}
+EventData = {
+    pokemonNames = {},
+    moveNames = {},
+    abilityNames = {},
+	routeNames = {}
+}
+
+function EventData.initializeLookupTables()
+	if #EventData.pokemonNames > 0 then
+		return
+	end
+	for id, pokemon in ipairs(PokemonData.POKEMON) do
+		if (pokemon.name ~= "---") then
+			EventData.pokemonNames[id - 1] = pokemon.name:lower()
+		end
+	end
+	for id, move in ipairs(MoveData.MOVES) do
+		if (move.name ~= "---") then
+			EventData.moveNames[id - 1] = move.name:lower()
+		end
+	end
+	for id, ability in ipairs(AbilityData.ABILITIES) do
+		if (ability.name ~= "---") then
+			EventData.abilityNames[id - 1] = ability.name:lower()
+		end
+	end
+	local routes = Network.Data.gameInfo.LOCATION_DATA.locations or {}
+	for id, route in pairs(routes) do
+		EventData.routeNames[id] = (route.name or "Unnamed Route"):lower()
+	end
+end
 
 -- Helper Functions and Variables
 
@@ -10,16 +40,10 @@ local function findPokemonId(name, threshold)
 	if name == nil or name == "" then
 		return 0
 	end
-	threshold = threshold or 3
-	-- Format list of Pokemon as id, name pairs
-	local pokemonNames = {}
-	for id, pokemon in ipairs(PokemonData.POKEMON) do
-		if (pokemon.name ~= "---") then
-			pokemonNames[id - 1] = pokemon.name:lower()
-		end
-	end
+    threshold = threshold or 3
+
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), pokemonNames, threshold)
+	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.pokemonNames, threshold)
 	return id or 0
 end
 
@@ -32,15 +56,9 @@ local function findMoveId(name, threshold)
 		return 0
 	end
 	threshold = threshold or 3
-	-- Format list of Moves as id, name pairs
-	local moveNames = {}
-	for id, move in ipairs(MoveData.MOVES) do
-		if (move.name ~= "---") then
-			moveNames[id - 1] = move.name:lower()
-		end
-	end
+
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), moveNames, threshold)
+	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.moveNames, threshold)
 	return id or 0
 end
 
@@ -53,15 +71,9 @@ local function findAbilityId(name, threshold)
 		return 0
 	end
 	threshold = threshold or 3
-	-- Format list of Abilities as id, name pairs
-	local abilityNames = {}
-	for id, ability in ipairs(AbilityData.ABILITIES) do
-		if (ability.name ~= "---") then
-			abilityNames[id - 1] = ability.name:lower()
-		end
-	end
+
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), abilityNames, threshold)
+	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.abilityNames, threshold)
 	return id or 0
 end
 
@@ -78,14 +90,8 @@ local function findRouteId(name, threshold)
 	if tonumber(name) ~= nil then
 		name = string.format("route %s", name)
 	end
-	local routes = Network.Data.gameInfo.LOCATION_DATA.locations or {}
-	-- Format list of Routes as id, name pairs
-	local routeNames = {}
-	for id, route in pairs(routes) do
-		routeNames[id] = (route.name or "Unnamed Route"):lower()
-	end
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), routeNames, threshold)
+	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.routeNames, threshold)
 	return id or 0
 end
 
