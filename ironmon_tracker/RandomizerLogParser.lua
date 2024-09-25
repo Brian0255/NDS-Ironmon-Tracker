@@ -262,6 +262,9 @@ local function RandomizerLogParser(initialProgram)
             end
             currentLineIndex = currentLineIndex + 1
         end
+        if pokemonList[647] ~= nil then
+            pokemonIDMappings["keldeo-r"] = 647
+        end
         return true
     end
 
@@ -514,7 +517,7 @@ local function RandomizerLogParser(initialProgram)
                 if self.LogParserConstants.SECTION_HEADER_TO_PARSE_FUNCTION[line] and not sectionHeaderStarts[line] then
                     sectionHeaderStarts[line] = index + 1
                     totalFound = totalFound + 1
-                    if totalFound == #self.LogParserConstants.PREFERRED_PARSE_ORDER then
+                    if totalFound == #self.LogParserConstants.PREFERRED_PARSE_ORDER - 1 then
                         break
                     end
                 end
