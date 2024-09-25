@@ -2,6 +2,7 @@ RequestHandler = {
 	Requests = {}, -- A list of all known requests that still need to be processed
 	Responses = {}, -- A list of all responses ready to be sent
 	lastSaveTime = 0,
+	printEventErrors = true,
 	SAVE_FREQUENCY = 60, -- Number of seconds to wait before saving Requests data to file
 	REQUIRES_MESSAGE_CAP = false, -- Will shorten outgoing responses to message cap (not needed anymore, done on Streamerbot side)
 	TWITCH_MESSAGE_CAP = 499, -- Maximum # of characters to allow for a given response message
@@ -229,11 +230,7 @@ function RequestHandler.processAllRequests()
 	for _, request in ipairs(toProcess) do
 		for _, eventKey in pairs(MiscUtils.split(request.EventKey, ",", true) or {}) do
 			local event = EventHandler.Events[eventKey]
-			local response
-			-- Wrap request processing in error catch call. If fail, no response is returned and request is removed
-			pcall(function()
-				response = RequestHandler.processAndBuildResponse(request, event)
-			end)
+			local response = RequestHandler.processAndBuildResponse(request, event)
 			if not request.SentResponse then
 				RequestHandler.addUpdateResponse(response)
 				request.SentResponse = true
@@ -288,32 +285,59 @@ function RequestHandler.processAndBuildResponse(request, event)
 		return response
 	end
 
-	-- Process the request and see if it's ready to be fulfilled
-	local readyToFulfill = not event.Process or event:Process(request)
-	if not readyToFulfill then
-		response.StatusCode = RequestHandler.StatusCodes.PROCESSING
+	local function onError(err)
+		-- not really success, but allows sending a response message
+		response.StatusCode = RequestHandler.StatusCodes.SUCCESS
+		response.Message = string.format("%s > Internal error executing '%s' event.",
+			response.EventKey,
+			event.Type
+		)
+		request.SentResponse = false
+		if RequestHandler.printEventErrors then
+			print(string.format("[ERROR] %s\nParams: %s\nError: %s",
+				response.Message,
+				request.SanitizedInput,
+				tostring(err)
+			))
+		end
+	end
+
+	local readyToFulfill = false
+	-- Safely process and fulfill request. If any error occurs, report back the request failed
+	xpcall(function()
+		-- Process the request and see if it's ready to be fulfilled
+		readyToFulfill = not event.Process or event:Process(request)
+		if not readyToFulfill then
+			response.StatusCode = RequestHandler.StatusCodes.PROCESSING
+			return response
+		end
+	end, onError)
+
+	if not readyToFulfill or response.StatusCode == RequestHandler.StatusCodes.SUCCESS then
 		return response
 	end
 
-	-- Complete the request and determine the output information to send back
-	local result = event.Fulfill and event:Fulfill(request) or ""
-	if type(result) == "string" then
-		response.Message = RequestHandler.validateMessage(result, request.Platform)
-	elseif type(result) == "table" then
-		response.Message = RequestHandler.validateMessage(result.Message, request.Platform)
-		if type(result.AdditionalInfo) == "table" then
-			response.AdditionalInfo = response.AdditionalInfo or {}
-			for k, v in pairs(result.AdditionalInfo) do
-				response.AdditionalInfo[k] = v
+	xpcall(function()
+		-- Complete the request and determine the output information to send back
+		local result = event.Fulfill and event:Fulfill(request) or ""
+		if type(result) == "string" then
+			response.Message = RequestHandler.validateMessage(result, request.Platform)
+		elseif type(result) == "table" then
+			response.Message = RequestHandler.validateMessage(result.Message, request.Platform)
+			if type(result.AdditionalInfo) == "table" then
+				response.AdditionalInfo = response.AdditionalInfo or {}
+				for k, v in pairs(result.AdditionalInfo) do
+					response.AdditionalInfo[k] = v
+				end
+			end
+			if type(result.GlobalVars) == "table" then
+				response.GlobalVars = response.GlobalVars or {}
+				for k, v in pairs(result.GlobalVars) do
+					response.GlobalVars[k] = v
+				end
 			end
 		end
-		if type(result.GlobalVars) == "table" then
-			response.GlobalVars = response.GlobalVars or {}
-			for k, v in pairs(result.GlobalVars) do
-				response.GlobalVars[k] = v
-			end
-		end
-	end
+	end, onError)
 
 	response.StatusCode = RequestHandler.StatusCodes.SUCCESS
 	request.SentResponse = false
