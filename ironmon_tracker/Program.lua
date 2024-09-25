@@ -25,7 +25,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local ExtrasScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/ExtrasScreen.lua")
 	local EvoDataScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EvoDataScreen.lua")
 	local CoverageCalcScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/CoverageCalcScreen.lua")
-	local TimerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TimerScreen.lua")
+    local TimerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TimerScreen.lua")
+	local StreamerbotConfigScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/StreamerbotConfigScreen.lua")
 
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
@@ -132,7 +133,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local blankInitialization = {
 			[self.UI_SCREENS.QUICK_LOAD_SCREEN] = true,
 			[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = true,
-			[self.UI_SCREENS.RESTORE_POINTS_SCREEN] = true
+            [self.UI_SCREENS.RESTORE_POINTS_SCREEN] = true,
+			[self.UI_SCREENS.STREAMERBOT_CONFIG_SCREEN] = true
 		}
 		local seedLoggerInitialization = {
 			[self.UI_SCREENS.STATISTICS_SCREEN] = true,
@@ -260,7 +262,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		EXTRAS_SCREEN = 21,
 		EVO_DATA_SCREEN = 22,
 		COVERAGE_CALC_SCREEN = 23,
-		TIMER_SCREEN = 24
+        TIMER_SCREEN = 24,
+		STREAMERBOT_CONFIG_SCREEN = 25
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -288,7 +291,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings, tracker, self),
 		[self.UI_SCREENS.EVO_DATA_SCREEN] = EvoDataScreen(settings, tracker, self),
 		[self.UI_SCREENS.COVERAGE_CALC_SCREEN] = CoverageCalcScreen(settings, tracker, self),
-		[self.UI_SCREENS.TIMER_SCREEN] = TimerScreen(settings, tracker, self)
+        [self.UI_SCREENS.TIMER_SCREEN] = TimerScreen(settings, tracker, self),
+		[self.UI_SCREENS.STREAMERBOT_CONFIG_SCREEN] = StreamerbotConfigScreen(settings,tracker,self)
 	}
 
 	tourneyTracker =
