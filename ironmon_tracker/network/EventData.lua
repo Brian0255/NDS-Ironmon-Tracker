@@ -33,54 +33,58 @@ end
 ---@param name string?
 ---@param threshold number? Default threshold distance of 3
 ---@return number pokemonId
+---@return number distance The Levenshtein distance between search word and matched word
 local function findPokemonId(name, threshold)
 	if name == nil or name == "" then
-		return 0
+		return 0, -1
 	end
     threshold = threshold or 3
 
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.pokemonNames, threshold)
-	return id or 0
+	local id, _, distance = NetworkUtils.getClosestWord(name:lower(), EventData.pokemonNames, threshold)
+	return id or 0, distance
 end
 
 ---Searches for a Move by name, finds the best match; returns 0 if no good match
 ---@param name string?
 ---@param threshold number? Default threshold distance of 3
 ---@return number moveId
+---@return number distance The Levenshtein distance between search word and matched word
 local function findMoveId(name, threshold)
 	if name == nil or name == "" then
-		return 0
+		return 0, -1
 	end
 	threshold = threshold or 3
 
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.moveNames, threshold)
-	return id or 0
+	local id, _, distance = NetworkUtils.getClosestWord(name:lower(), EventData.moveNames, threshold)
+	return id or 0, distance
 end
 
 ---Searches for an Ability by name, finds the best match; returns 0 if no good match
 ---@param name string?
 ---@param threshold number? Default threshold distance of 3
 ---@return number abilityId
+---@return number distance The Levenshtein distance between search word and matched word
 local function findAbilityId(name, threshold)
 	if name == nil or name == "" then
-		return 0
+		return 0, -1
 	end
 	threshold = threshold or 3
 
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.abilityNames, threshold)
-	return id or 0
+	local id, _, distance = NetworkUtils.getClosestWord(name:lower(), EventData.abilityNames, threshold)
+	return id or 0, distance
 end
 
 ---Searches for a Route by name, finds the best match; returns 0 if no good match
 ---@param name string?
 ---@param threshold number? Default threshold distance of 5!
 ---@return number mapId
+---@return number distance The Levenshtein distance between search word and matched word
 local function findRouteId(name, threshold)
 	if name == nil or name == "" then
-		return 0
+		return 0, -1
 	end
 	threshold = threshold or 5
 	-- If the lookup is just a route number, allow it to be searchable
@@ -88,21 +92,22 @@ local function findRouteId(name, threshold)
 		name = string.format("route %s", name)
 	end
 	-- Try and find a name match
-	local id, _ = NetworkUtils.getClosestWord(name:lower(), EventData.routeNames, threshold)
-	return id or 0
+	local id, _, distance = NetworkUtils.getClosestWord(name:lower(), EventData.routeNames, threshold)
+	return id or 0, distance
 end
 
 ---Searches for a Pokémon Type by name, finds the best match; returns nil if no match found
 ---@param name string?
 ---@param threshold number? Default threshold distance of 3
 ---@return string? type PokemonData.Type
+---@return number distance The Levenshtein distance between search word and matched word
 local function findPokemonType(name, threshold)
 	if name == nil or name == "" then
-		return nil
+		return nil, -1
 	end
 	threshold = threshold or 3
-	local _, type = NetworkUtils.getClosestWord(name:upper(), PokemonData.TYPE_LIST, threshold)
-	return type
+	local _, type, distance = NetworkUtils.getClosestWord(name:upper(), PokemonData.TYPE_LIST, threshold)
+	return type, distance
 end
 
 -- The max # of items to show for any commands that output a list of items (try keep chat message output short)
@@ -798,22 +803,41 @@ function EventData.getSearch(params)
 	if (params or "") == "" then
 		return buildResponse(params, helpResponse)
 	end
-	local function getModeAndId(input, threshold)
-		local id = findPokemonId(input, threshold)
-		if id ~= 0 then return "pokemon", id end
-		id = findMoveId(input, threshold)
-		if id ~= 0 then return "move", id end
-		id = findAbilityId(input, threshold)
-		if id ~= 0 then return "ability", id end
-		return nil, 0
-	end
-	local searchMode, searchId
-	for i=1, 4, 1 do
-		searchMode, searchId = getModeAndId(params, i)
-		if searchMode then
-			break
+
+	-- Determine if the search is for an ability, move, or pokemon
+	local function determineSearchMode(input)
+		local searchMode, searchId, closestDistance = nil, -1, 9999
+		local tempId, tempDist = findAbilityId(input, 4)
+		if tempId ~= nil and tempDist < closestDistance then
+			searchMode = "ability"
+			searchId = tempId
+			closestDistance = tempDist
+			if closestDistance == 0 then -- exact match
+				return searchMode, searchId
+			end
 		end
+		tempId, tempDist = findMoveId(input, 4)
+		if tempId ~= nil and tempDist < closestDistance then
+			searchMode = "move"
+			searchId = tempId
+			closestDistance = tempDist
+			if closestDistance == 0 then -- exact match
+				return searchMode, searchId
+			end
+		end
+		tempId, tempDist = findPokemonId(input, 4)
+		if tempId ~= nil and tempDist < closestDistance then
+			searchMode = "pokemon"
+			searchId = tempId
+			closestDistance = tempDist
+			if closestDistance == 0 then -- exact match
+				return searchMode, searchId
+			end
+		end
+		return searchMode, searchId
 	end
+
+	local searchMode, searchId = determineSearchMode(params)
 	if not searchMode then
 		local prefix = string.format("%s %s", params, OUTPUT_CHAR)
 		return buildResponse(prefix, "Can't find a Pok" .. Chars.accentedE .. "mon, move, or ability with that name.")
