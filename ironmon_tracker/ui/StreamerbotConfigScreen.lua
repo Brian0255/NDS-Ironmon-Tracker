@@ -17,7 +17,7 @@ local function StreamerbotConfigScreen(initialSettings, initialTracker, initialP
         previousText = ""
     }
     local constants = {
-        MAIN_FRAME_HEIGHT = 192,
+        MAIN_FRAME_HEIGHT = 212,
         BOTTOM_FRAME_HEIGHT = 24,
         TEXT_HEADER_HEIGHT = 18,
         FOLDER_LABEL_WIDTH = 96,
@@ -394,21 +394,6 @@ local function StreamerbotConfigScreen(initialSettings, initialTracker, initialP
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
-        --[[
-        ui.frames.mainInnerFrame =
-            Frame(
-            Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
-                    height = 140
-                },
-                "Top box background color",
-                "Top box border color"
-            ),
-            Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 0, y = 0}),
-            ui.frames.mainFrame
-        )--]]
         createStatusFolderFrame()
         createCodePermissionsFrame()
         ui.frames.goBackFrame =
