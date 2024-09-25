@@ -38,7 +38,7 @@ local function StreamerbotConfigScreen(initialSettings, initialTracker, initialP
     end
 
     local function onHelpClick()
-        local helpURL = "https://github.com/besteon/Ironmon-Tracker/wiki/Stream-Connect-Guide"
+        local helpURL = "https://github.com/Brian0255/NDS-Ironmon-Tracker/wiki/Stream-Connect-Guide"
         os.execute(string.format('start "" "%s"', helpURL))
     end
 
