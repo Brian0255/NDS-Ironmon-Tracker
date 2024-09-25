@@ -584,7 +584,9 @@ function Network.openCommandRolePermissionsPrompt()
 		for _, roleKey in ipairs(orderedRoles) do
 			forms.setproperty(roleCheckboxes[roleKey], "Checked", true)
 		end
-		forms.settext(customRoleTextbox, "")
+		if customRoleTextbox then
+			forms.settext(customRoleTextbox, "")
+		end
 		enableDisableAll()
 	end, 120, buttonRowY)
 	local btn3 = forms.button(form, "Cancel", function()
