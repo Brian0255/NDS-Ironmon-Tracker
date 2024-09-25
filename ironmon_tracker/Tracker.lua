@@ -176,8 +176,8 @@ local function Tracker()
 		return currentAreaName
 	end
 
-	function self.getEncounterData()
-		return trackedData.encounterData[currentAreaName]
+	function self.getEncounterData(areaName)
+		return trackedData.encounterData[areaName or currentAreaName]
 	end
 
 	function self.updateCurrentAreaName(newAreaName)
@@ -206,6 +206,16 @@ local function Tracker()
 
 	function self.getPokecenterCount()
 		return trackedData.pokecenterCount
+	end
+
+	function self.getTrackedIDs()
+		local ids = {}
+		for id, _ in pairs(trackedData.trackedPokemon or {}) do
+			if id > 0 and PokemonData.POKEMON[id + 1] then
+				table.insert(ids, id)
+			end
+		end
+		return ids
 	end
 
 	function self.getSortedTrackedIDs()
