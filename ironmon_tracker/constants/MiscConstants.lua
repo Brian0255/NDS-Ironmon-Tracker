@@ -1,13 +1,14 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.2.7"
+MiscConstants.TRACKER_VERSION = "6.3.0"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed incorrect Route 204 Old Rod data in the Log Viewer.",
-    "-- Since the following abilities in Gen 4 were often revealing when they shouldn't be, they will not autotrack for the time being: Limber, Oblivious, Insomnia, Own Tempo, Magma Armor, Water Veil, and Vital Spirit.",
-    "-- If you see this happen for any other abilities not listed above, please let me know!"
+    "-- UTDZac has ported over a lightweight version of the GBA tracker's Stream Connect! You can set this up in the Extras menu.",
+    "-- The ominous freezing from the tracker saving large amounts of data should now be much less.",
+    "-- For Gen 5, the tracker should now only give you the Death Lag when your HP actually reaches 0.",
+    "-- Fixed a rare log viewer bug for Black/White 2."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
