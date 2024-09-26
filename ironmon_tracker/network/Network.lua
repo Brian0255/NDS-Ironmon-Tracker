@@ -435,6 +435,9 @@ function Network.openUpdateRequiredPrompt()
 	local form = forms.newform(350, 150, "Streamerbot Update Required", function()
 		client.unpause()
 	end)
+	local clientCenter = FormsUtils.getCenter(350, 150)
+	forms.setlocation(form, clientCenter.xPos, clientCenter.yPos)
+
 	local x, y, lineHeight = 20, 20, 20
 	local lb1 = forms.label(form, "Streamerbot Tracker Integration code requires an update.", x, y)
 	y = y + lineHeight
@@ -468,6 +471,9 @@ function Network.openGetCodeWindow()
 	local form = forms.newform(800, 600, "Import to Streamerbot", function()
 		client.unpause()
 	end)
+	local clientCenter = FormsUtils.getCenter(800, 600)
+	forms.setlocation(form, clientCenter.xPos, clientCenter.yPos)
+
 	local x, y, lineHeight = 20, 15, 20
 	local lb1 = forms.label(form, '1. On Streamerbot, click the IMPORT button at the top.', x, y)
 	y = y + lineHeight
@@ -498,6 +504,8 @@ function Network.openCommandRolePermissionsPrompt()
 	local form = forms.newform(320, 255, "Edit Command Roles", function()
 		client.unpause()
 	end)
+	local clientCenter = FormsUtils.getCenter(320, 255)
+	forms.setlocation(form, clientCenter.xPos, clientCenter.yPos)
 
 	local x, y = 20, 15
 	local lineHeight = 21
