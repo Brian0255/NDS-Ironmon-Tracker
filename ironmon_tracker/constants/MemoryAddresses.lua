@@ -201,7 +201,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK] = {
         mapNPCIDStart = 0x2521EC,
         abilityTriggerStart = 0x2A6354,
         mainBattleDataPtr = 0x269838,
-        doubleTripleFlag = 0x2A62F8
+        doubleTripleFlag = 0x2A62F8,
+        someBattleUIPtr = 0x294854
     }
 }
 
@@ -233,7 +234,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE] = {
         mapNPCIDStart = 0x2521EC + 0x20,
         abilityTriggerStart = 0x2A6354 + 0x20,
         mainBattleDataPtr = 0x269838 + 0x20,
-        doubleTripleFlag = 0x2A62F8 + 0x20
+        doubleTripleFlag = 0x2A62F8 + 0x20,
+        someBattleUIPtr = 0x294854 + 0x20
     }
 }
 
@@ -264,7 +266,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK2] = {
         mapNPCIDStart = 0x23D9EC,
         abilityTriggerStart = 0x294E08,
         mainBattleDataPtr = 0x2573AC,
-        doubleTripleFlag = 0x294DA4
+        doubleTripleFlag = 0x294DA4,
+        someBattleUIPtr = 0x294D8C
     }
 }
 
@@ -295,7 +298,8 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE2] = {
         mapNPCIDStart = 0x23D9EC + 0x80,
         abilityTriggerStart = 0x294E08 + 0x80,
         mainBattleDataPtr = 0x2573AC + 0x80,
-        doubleTripleFlag = 0x294DA4 + 0x80
+        doubleTripleFlag = 0x294DA4 + 0x80,
+        someBattleUIPtr = 0x294D8C + 0x80
     }
 }
 

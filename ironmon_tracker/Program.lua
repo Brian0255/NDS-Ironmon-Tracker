@@ -409,9 +409,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return totals
 	end
 
-	local function displayRunOver()
-		self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
-		frameCounters["displayRunOver"] = nil
+    local function displayRunOver()
+        self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
+        frameCounters["displayRunOver"] = nil
+    end
+
+	function self.hasRunEnded()
+		return tracker.hasRunEnded()
 	end
 
 	function self.onRunEnded()
@@ -435,11 +439,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		tracker.updatePlaytime(gameInfo.NAME)
 		local runOverMessage = seedLogger.getRandomRunOverMessage(pastRun)
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RUN_OVER_SCREEN].initialize(runOverMessage)
-		if gameInfo.GEN == 5 then
-			frameCounters["displayRunOver"] = FrameCounter(60, displayRunOver)
-		else
-			self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
-		end
+		self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
 		tracker.setRunOver()
 	end
 
