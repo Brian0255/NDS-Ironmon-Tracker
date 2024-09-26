@@ -25,7 +25,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local ExtrasScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/ExtrasScreen.lua")
 	local EvoDataScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/EvoDataScreen.lua")
 	local CoverageCalcScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/CoverageCalcScreen.lua")
-	local TimerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TimerScreen.lua")
+    local TimerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TimerScreen.lua")
+	local StreamerbotConfigScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/StreamerbotConfigScreen.lua")
 
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
@@ -38,6 +39,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/BattleHandlerGen5.lua")
 	local PokemonThemeManager = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonThemeManager.lua")
 	local TourneyTracker = dofile(Paths.FOLDERS.DATA_FOLDER .. "/TourneyTracker.lua")
+	dofile(Paths.FOLDERS.NETWORK_FOLDER .. "/Network.lua")
 
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
@@ -64,6 +66,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local lockedPokemonCopy = nil
 	local selectedPlayer = self.SELECTED_PLAYERS.PLAYER
 	local healingItems = nil
+	local ppItems = nil
 	local inTrackedPokemonView = false
 	local doneWithTitleScreen = false
 	local inPastRunView = false
@@ -130,7 +133,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		local blankInitialization = {
 			[self.UI_SCREENS.QUICK_LOAD_SCREEN] = true,
 			[self.UI_SCREENS.UPDATE_NOTES_SCREEN] = true,
-			[self.UI_SCREENS.RESTORE_POINTS_SCREEN] = true
+            [self.UI_SCREENS.RESTORE_POINTS_SCREEN] = true,
+			[self.UI_SCREENS.STREAMERBOT_CONFIG_SCREEN] = true
 		}
 		local seedLoggerInitialization = {
 			[self.UI_SCREENS.STATISTICS_SCREEN] = true,
@@ -258,7 +262,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		EXTRAS_SCREEN = 21,
 		EVO_DATA_SCREEN = 22,
 		COVERAGE_CALC_SCREEN = 23,
-		TIMER_SCREEN = 24
+        TIMER_SCREEN = 24,
+		STREAMERBOT_CONFIG_SCREEN = 25
 	}
 
 	self.UI_SCREEN_OBJECTS = {
@@ -286,7 +291,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		[self.UI_SCREENS.EXTRAS_SCREEN] = ExtrasScreen(settings, tracker, self),
 		[self.UI_SCREENS.EVO_DATA_SCREEN] = EvoDataScreen(settings, tracker, self),
 		[self.UI_SCREENS.COVERAGE_CALC_SCREEN] = CoverageCalcScreen(settings, tracker, self),
-		[self.UI_SCREENS.TIMER_SCREEN] = TimerScreen(settings, tracker, self)
+        [self.UI_SCREENS.TIMER_SCREEN] = TimerScreen(settings, tracker, self),
+		[self.UI_SCREENS.STREAMERBOT_CONFIG_SCREEN] = StreamerbotConfigScreen(settings,tracker,self)
 	}
 
 	tourneyTracker =
@@ -325,6 +331,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	local function scanForHealingItems()
 		healingItems = {}
+		ppItems = {}
 		statusItems = {}
 		local itemStart, berryStart = memoryAddresses.itemStartNoBattle, memoryAddresses.berryBagStart
 		if battleHandler:inBattleAndFetched() then
@@ -351,6 +358,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					quantity = bit.band(bit.rshift(idAndQuantity, 16), 0xFFFF)
 					if ItemData.HEALING_ITEMS[id] ~= nil then
 						healingItems[id] = quantity
+					end
+					if ItemData.PP_ITEMS[id] ~= nil then
+						ppItems[id] = quantity
 					end
 					if ItemData.STATUS_ITEMS[id] ~= nil then
 						statusItems[id] = quantity
@@ -399,9 +409,13 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		return totals
 	end
 
-	local function displayRunOver()
-		self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
-		frameCounters["displayRunOver"] = nil
+    local function displayRunOver()
+        self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
+        frameCounters["displayRunOver"] = nil
+    end
+
+	function self.hasRunEnded()
+		return tracker.hasRunEnded()
 	end
 
 	function self.onRunEnded()
@@ -425,11 +439,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		tracker.updatePlaytime(gameInfo.NAME)
 		local runOverMessage = seedLogger.getRandomRunOverMessage(pastRun)
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RUN_OVER_SCREEN].initialize(runOverMessage)
-		if gameInfo.GEN == 5 then
-			frameCounters["displayRunOver"] = FrameCounter(60, displayRunOver)
-		else
-			self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
-		end
+		self.openScreen(self.UI_SCREENS.RUN_OVER_SCREEN)
 		tracker.setRunOver()
 	end
 
@@ -478,6 +488,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.getSelectedPlayer()
 		return selectedPlayer
+	end
+
+	function self.getPlayerPokemon()
+		return playerPokemon
 	end
 
 	local function getPokemonData(selected)
@@ -612,6 +626,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		currentLocation = areaName
 	end
 
+	function self.getCurrentMapID()
+		return currentMapID
+	end
+
 	function self.getCurrentLocation()
 		return currentLocation
 	end
@@ -688,6 +706,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.tryToInstallUpdate(callbackFunc)
 		tracker.save(gameInfo.NAME)
+		Network.closeConnections()
 		local success = trackerUpdater.downloadUpdate()
 		if type(callbackFunc) == "function" then
 			callbackFunc(success)
@@ -718,6 +737,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.getHealingItems()
 		return healingItems
+	end
+
+	function self.getPPItems()
+		return ppItems
 	end
 
 	function self.getStatusTotals()
@@ -931,6 +954,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		end
 	end
 
+	function self.getBadges()
+		return badges
+	end
+
 	local function updateRestorePoints()
 		self.UI_SCREEN_OBJECTS[self.UI_SCREENS.RESTORE_POINTS_SCREEN].update()
 		if currentScreens[self.UI_SCREENS.RESTORE_POINTS_SCREEN] then
@@ -959,6 +986,12 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		AnimatedSpriteManager.advanceFrame()
 	end
 
+	local function delayedNetworkStartup()
+		Network.delayedStartupActions()
+		-- Remove the delayed start frame counter; only need to run startup once
+		frameCounters.networkStartup = nil
+	end
+
 	frameCounters = {
 		restorePointUpdate = FrameCounter(30, updateRestorePoints),
 		memoryReading = FrameCounter(30, readMemory, nil, true),
@@ -971,7 +1004,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 			nil,
 			true
 		),
-		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true)
+		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true),
+		networkStartup = FrameCounter(30, delayedNetworkStartup, nil, true),
+		networkUpdate = FrameCounter(10, Network.update, nil, true),
 	}
 
 	function self.pauseEventListeners()
@@ -1049,6 +1084,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		tracker.updatePlaytime(gameInfo.NAME)
 		client.saveram()
 		forms.destroyall()
+		Network.closeConnections()
 	end
 
 	function self.getSeedLogger()
@@ -1099,6 +1135,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		client.SetSoundOn(false)
 		local logInfo = randomizerLogParser.parse(logPath)
 		if logInfo ~= nil then
+			Network.Data.logInfo = logInfo
 			local firstPokemonID = tracker.getFirstPokemonID()
 			logInfo.setStarterNumberFromPlayerPokemonID(firstPokemonID)
 			self.openScreen(self.UI_SCREENS.LOG_VIEWER_SCREEN)
@@ -1115,6 +1152,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local RandomizerLogParser = dofile(Paths.FOLDERS.DATA_FOLDER .. "/RandomizerLogParser.lua")
 	randomizerLogParser = RandomizerLogParser(self)
 	AnimatedSpriteManager.initialize(self.drawCurrentScreens, memoryAddresses, gameInfo, settings)
+
+	Network.initialize()
+	Network.linkData(self, tracker, battleHandler)
 
 	return self
 end

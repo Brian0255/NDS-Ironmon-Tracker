@@ -12,12 +12,12 @@ local function Main()
 		Chars.accentedE = "\233"
 	end
 
+	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile("ironmon_tracker/utils/FormsUtils.lua")
 	dofile("ironmon_tracker/utils/MiscUtils.lua")
 	dofile("ironmon_tracker/constants/PlaythroughConstants.lua")
 	dofile("ironmon_tracker/constants/MiscConstants.lua")
 
-	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/QuickLoader.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
@@ -44,6 +44,7 @@ local function Main()
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/ThemeFactory.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/HoverFrameFactory.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/FrameFactory.lua")
+	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/NetworkUtils.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/GameConfigurator.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/RepelDrawer.lua")

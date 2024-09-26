@@ -1,5 +1,7 @@
 MiscUtils = {}
 
+Serpent = dofile(Paths.FOLDERS.DATA_FOLDER.."/Serpent.lua")
+
 function MiscUtils.inlineIf(condition, T, F)
     if condition then
         return T
@@ -274,7 +276,7 @@ function MiscUtils.validPokemonData(pokemonData)
     end
     local id = tonumber(pokemonData.pokemonID)
     local heldItem = tonumber(pokemonData.heldItem)
-    if id == nil or pokemonData.level > 100 or not AbilityData.ABILITIES[pokemonData.ability+1] then
+    if id == nil or pokemonData.level > 100 or not AbilityData.ABILITIES[pokemonData.ability + 1] then
         return false
     end
     if not PokemonData.POKEMON[id + 1] or heldItem > 650 then
@@ -395,13 +397,31 @@ end
 function MiscUtils.saveTableToFile(fileName, tableData)
     local file = io.open(fileName, "w")
     if file ~= nil then
-        local data = Pickle.pickle(tableData)
+        local data = Serpent.dump(tableData)
         file:write(data)
         file:close()
     end
 end
 
 function MiscUtils.getTableFromFile(fileName)
+    local file = io.open(fileName, "r")
+    if file ~= nil then
+        local fileContents = file:read("*a")
+        file:close()
+        if fileContents ~= nil and fileContents ~= "" then
+            if fileContents:sub(1, 8) ~= "do local" then
+                return MiscUtils.getPickledTableFromFile(fileName)
+            end
+            local ok, res = Serpent.load(fileContents)
+            if not ok then
+                error("Error deserializing table: " .. res)
+            end
+            return res
+        end
+    end
+end
+
+function MiscUtils.getPickledTableFromFile(fileName)
     local file = io.open(fileName, "r")
     if file ~= nil then
         local fileContents = file:read("*a")

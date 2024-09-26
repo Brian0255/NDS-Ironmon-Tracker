@@ -3,13 +3,11 @@ local function TextStyle(
     initialFontFamily,
     initialTextColorKey,
     initialShadowColorKey,
-    shouldBeBolded,
+    initialFontStyle,
     useStrikethrough)
     local self = {}
     local bold = nil
-    if shouldBeBolded then
-        bold = "bold"
-    end
+    local fontStyle = initialFontStyle
     local strikethrough = useStrikethrough or false
     local fontSize = initialFontSize
     local fontFamily = initialFontFamily
@@ -20,9 +18,6 @@ local function TextStyle(
     end
     function self.setUseStrikethrough(newValue)
         strikethrough = newValue
-    end
-    function self.isBolded()
-        return bold
     end
     function self.getFontSize()
         return fontSize
@@ -41,6 +36,9 @@ local function TextStyle(
     end
     function self.getShadowColorKey()
         return shadowColorKey
+    end
+    function self.getFontStyle()
+        return fontStyle
     end
     return self
 end

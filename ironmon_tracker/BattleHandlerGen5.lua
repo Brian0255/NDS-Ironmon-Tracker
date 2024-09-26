@@ -5,6 +5,8 @@ function BattleHandlerGen5:_setUpBattleVariables()
     self:_baseSetUpBattleVariables()
     local battleData = self:getBattleData()
     self._battlerAmount = 0
+    self._waitedForUIHP = false
+    self._framesWaitedForUI = 0
 end
 
 function BattleHandlerGen5:new(o, gameInfo, memoryAddresses, pokemonDataReader, tracker, program, settings)
@@ -27,7 +29,32 @@ function BattleHandlerGen5:new(o, gameInfo, memoryAddresses, pokemonDataReader, 
     }
     self._battlerAmount = 0
     self._playerPartyPointers = {}
+    self._framesWaitedForUI = 0
     return self
+end
+
+function BattleHandlerGen5._checkUIHPZero(self)
+    self._framesWaitedForUI = self._framesWaitedForUI + 1
+    local addressStart = Memory.read_pointer(self.memoryAddresses.someBattleUIPtr)
+    local UIHPAddress = addressStart + self._gameInfo.UI_HP_OFFSET
+    local HPValue = Memory.read_u8(UIHPAddress)
+    if HPValue == 0 or self._framesWaitedForUI >= 480 then
+        self._program.onRunEnded()
+        self:removeFrameCounter("checkUIHPZero")
+    end
+end
+
+function BattleHandlerGen5._onBattleUIHPTick(self)
+    self:removeFrameCounter("battleUIHPTickStart")
+    self:addFrameCounter("checkUIHPZero", FrameCounter(1, self._checkUIHPZero, self))
+end
+
+function BattleHandlerGen5:_onPlayerSlotFainted()
+    --here is how it works:
+    --internal pokemon HP is set to 0, then the UI slowly updates to match it
+    --it takes a few frames for the UI to initially start ticking (it is 0 otherwise)
+    --so we wait a few frames then start checking the UI every frame until it's 0 (or too many frames have passed)
+    self:addFrameCounter("battleUIHPTickStart",FrameCounter(3, self._onBattleUIHPTick, self))
 end
 
 function BattleHandlerGen5:_readAmountOfBattlers()

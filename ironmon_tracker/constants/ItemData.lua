@@ -257,6 +257,38 @@ ItemData.HEALING_ITEMS =
     }
 )
 
+ItemData.PP_ID_SORT_ORDER = { 41, 40, 39, 38, 154 }
+ItemData.PP_ITEMS =
+    MiscUtils.readOnly(
+    {
+        [38] = {
+			name = "Ether",
+			amount = 10,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[39] = {
+			name = "Max Ether",
+			amount = 100,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[40] = {
+			name = "Elixir",
+			amount = 10,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+		[41] = {
+			name = "Max Elixir",
+			amount = 100,
+			type = ItemData.HEALING_TYPE.PERCENTAGE
+		},
+		[154] = {
+			name = "Leppa Berry",
+			amount = 10,
+			type = ItemData.HEALING_TYPE.CONSTANT
+		},
+    }
+)
+
 ItemData.GEN_4_ITEMS = {
     [1] = {
         name = "Master Ball",

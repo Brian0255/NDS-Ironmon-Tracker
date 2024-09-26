@@ -41,7 +41,7 @@ local function TrackerUpdater(initialSettings)
                 string.format('del "%s\\.gitattributes" /q', folderName),
                 string.format('del "%s\\.gitignore" /q', folderName),
                 string.format('del "%s\\README.md" /q', folderName),
-                string.format('xcopy "%s" /s /y /q', folderName),
+                string.format('xcopy "%s" /s /y /q /c', folderName),
                 string.format('rmdir "%s" /s /q', folderName),
                 "echo; && echo Version update completed successfully.",
                 "timeout /t 3) || pause" -- Pause if any of the commands fail, those grouped between ( )
