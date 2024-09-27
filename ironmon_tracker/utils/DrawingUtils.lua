@@ -275,7 +275,7 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
         end
     end
     if drawShadow then
-        gui.drawText(x + spacing + 1, y + 1, text, shadowColor, nil, textStyle.getFontSize(), textStyle.getFontFamily(), textStyle.getFontStyle())
+        gui.drawText(x + spacing + 1, y + 1, text, shadowColor, nil, textStyle.getFontSize(), textStyle.getFontFamily())
     end
     if textStyle.isStrikethrough() then
         local moveWidth = DrawingUtils.calculateWordPixelLength(text)
@@ -283,7 +283,7 @@ function DrawingUtils.drawText(x, y, text, textStyle, shadowColor, justifiable, 
         gui.drawLine(x + 1, y + 6, x + moveWidth + 2, y + 6, opacity)
         color = settings.colorScheme["Negative text color"]
     end
-    gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily(), textStyle.getFontStyle())
+    gui.drawText(x + spacing, y, text, color, nil, textStyle.getFontSize(), textStyle.getFontFamily())
 end
 
 local function getPokemonPath(pokemonID, currentIconSet)
