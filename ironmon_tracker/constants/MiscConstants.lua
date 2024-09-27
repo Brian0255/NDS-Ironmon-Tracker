@@ -1,10 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.3.0"
+MiscConstants.TRACKER_VERSION = "6.3.1"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
+    "-- 6.3.1: Fixed an important crash related to the Log Viewer.",
     "-- UTDZac has ported over a lightweight version of the GBA tracker's Stream Connect! You can set this up in the Extras menu.",
     "-- The ominous freezing from the tracker saving large amounts of data should now be much less.",
     "-- For Gen 5, the tracker should now only give you the Death Lag when your HP actually reaches 0.",
