@@ -107,6 +107,9 @@ local function findPokemonType(name, threshold)
 	end
 	threshold = threshold or 3
 	local _, type, distance = NetworkUtils.getClosestWord(name:upper(), PokemonData.TYPE_LIST, threshold)
+	if not PokemonData.POKEMON_TYPES[type or false] then
+		return nil, -1
+	end
 	return type, distance
 end
 
@@ -572,9 +575,9 @@ function EventData.getCoverage(params)
 				onlyFullyEvolved = true
 			else
 				local moveType = findPokemonType(word)
-				if moveType and moveType ~= "EMPTY" then
+				if moveType and PokemonData.POKEMON_TYPES[moveType] and moveType ~= "EMPTY" then
 					calcFromLead = false
-					table.insert(moveTypes, PokemonData.POKEMON_TYPES[moveType] or moveType)
+					table.insert(moveTypes, PokemonData.POKEMON_TYPES[moveType])
 				end
 			end
 		end
