@@ -811,7 +811,7 @@ function EventData.getSearch(params)
 	local function determineSearchMode(input)
 		local searchMode, searchId, closestDistance = nil, -1, 9999
 		local tempId, tempDist = findAbilityId(input, 4)
-		if tempId ~= nil and tempDist < closestDistance then
+		if (tempId or 0) > 0 and tempDist < closestDistance then
 			searchMode = "ability"
 			searchId = tempId
 			closestDistance = tempDist
@@ -820,7 +820,7 @@ function EventData.getSearch(params)
 			end
 		end
 		tempId, tempDist = findMoveId(input, 4)
-		if tempId ~= nil and tempDist < closestDistance then
+		if (tempId or 0) > 0 and tempDist < closestDistance then
 			searchMode = "move"
 			searchId = tempId
 			closestDistance = tempDist
@@ -829,7 +829,7 @@ function EventData.getSearch(params)
 			end
 		end
 		tempId, tempDist = findPokemonId(input, 4)
-		if tempId ~= nil and tempDist < closestDistance then
+		if (tempId or 0) > 0 and tempDist < closestDistance then
 			searchMode = "pokemon"
 			searchId = tempId
 			closestDistance = tempDist
