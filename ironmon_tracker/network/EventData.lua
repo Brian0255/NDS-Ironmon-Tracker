@@ -702,7 +702,7 @@ function EventData.getHeals(params)
 	end
 
 	local info = {}
-	local function sortFunc(a,b) return a.value > b.value or (a.value == b.value and a.id < b.id) end
+	-- This helps custom sort items based on their effectiveness; better ones display first
 	local function getSortableItem(id, quantity)
 		if not ItemData.ITEMS[id or -1] or (quantity or 0) <= 0 then return nil end
 		local item = ItemData.HEALING_ITEMS[id] or ItemData.PP_ITEMS[id] or ItemData.STATUS_ITEMS[id] or {}
@@ -720,42 +720,41 @@ function EventData.getHeals(params)
 		end
 		return { id = id, text = text, value = value }
 	end
+
+	-- Filter all healing related items into different categories
+	local addedIds = {} -- prevent duplicate items from appearing in the output
+	local healingItems, ppItems, statusItems, berryItems = {}, {}, {}, {}
+	local function addItemIntoCategories(id, quantity, categoryTable)
+		if (id or 0) == 0 or (quantity or 0) == 0 or addedIds[id] then
+			return
+		end
+		local itemInfo = getSortableItem(id, quantity)
+		if not itemInfo then
+			return
+		end
+		addedIds[id] = true
+		table.insert(categoryTable, itemInfo)
+		if displayBerries and NetworkUtils.containsText(itemInfo.text, "Berry") then
+			table.insert(berryItems, itemInfo)
+		end
+	end
+	for id, quantity in pairs(Network.Data.program.getHealingItems() or {}) do
+		addItemIntoCategories(id, quantity, healingItems)
+	end
+	for id, quantity in pairs(Network.Data.program.getPPItems() or {}) do
+		addItemIntoCategories(id, quantity, ppItems)
+	end
+	for id, quantity in pairs(Network.Data.program.getStatusItems() or {}) do
+		addItemIntoCategories(id, quantity, statusItems)
+	end
+
+	-- Sort the items in their respective categories
+	local function sortFunc(a,b) return a.value > b.value or (a.value == b.value and a.id < b.id) end
 	local function sortAndCombine(label, items)
 		table.sort(items, sortFunc)
 		local t = {}
 		for _, item in ipairs(items) do table.insert(t, item.text) end
 		table.insert(info, string.format("[%s] %s", label, table.concat(t, ", ")))
-	end
-	local healingItems, ppItems, statusItems, berryItems = {}, {}, {}, {}
-	for id, quantity in pairs(Network.Data.program.getHealingItems() or {}) do
-		local itemInfo = getSortableItem(id, quantity)
-		if itemInfo then
-			table.insert(healingItems, itemInfo)
-			local itemData = ItemData.HEALING_ITEMS[id]
-			if displayBerries and itemData and NetworkUtils.containsText(itemData.name, "Berry") then
-				table.insert(berryItems, itemInfo)
-			end
-		end
-	end
-	for id, quantity in pairs(Network.Data.program.getPPItems() or {}) do
-		local itemInfo = getSortableItem(id, quantity)
-		if itemInfo then
-			table.insert(ppItems, itemInfo)
-			local itemData = ItemData.PP_ITEMS[id]
-			if displayBerries and itemData and NetworkUtils.containsText(itemData.name, "Berry") then
-				table.insert(berryItems, itemInfo)
-			end
-		end
-	end
-	for id, quantity in pairs(Network.Data.program.getStatusItems() or {}) do
-		local itemInfo = getSortableItem(id, quantity)
-		if itemInfo then
-			table.insert(statusItems, itemInfo)
-			local itemData = ItemData.STATUS_ITEMS[id]
-			if displayBerries and itemData and NetworkUtils.containsText(itemData.name, "Berry") then
-				table.insert(berryItems, itemInfo)
-			end
-		end
 	end
 	if displayHP and #healingItems > 0 then
 		sortAndCombine("HP", healingItems)
@@ -769,6 +768,7 @@ function EventData.getHeals(params)
 	if displayBerries and #berryItems > 0 then
 		sortAndCombine("Berries", berryItems)
 	end
+
 	local prefix = string.format("Heals %s", OUTPUT_CHAR)
 	return buildResponse(prefix, info)
 end
