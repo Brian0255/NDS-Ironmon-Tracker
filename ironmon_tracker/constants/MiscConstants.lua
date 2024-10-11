@@ -93,11 +93,12 @@ MiscConstants.DEFAULT_SETTINGS = {
     },
     trackedInfo = {
         FAINT_DETECTION = PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT,
-        FIRST_TIME_BW2 = true
+        FIRST_TIME_BW2 = true,
+        CRASH_RECOVERY = true,
     },
     extras = {
         BROWS_ENABLED = false,
-        BROWS_FRAMES = 8
+        BROWS_FRAMES = 8,
     },
     tourneyTracker = {
         ENABLED = false
