@@ -6,8 +6,6 @@ local function CrashRecovery(settings)
 	local _crashReportPattern = "crashedOccurred:([^|]*)|gameName:([^|]*)|romHash:([^|]*)"
 	local _crashReportFile = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "ironmon_tracker" .. Paths.SLASH .. "crashreport.txt"
 	local _backupFolder = Paths.CURRENT_DIRECTORY .. Paths.SLASH .. "savedData" .. Paths.SLASH .. "crashRecovery" .. Paths.SLASH
-	local _backupFrequency = 300 -- number of seconds to wait between backing up a save-state (once every 5 minutes)
-	local _lastBackupTime = 0 -- record the time the last backup was made
 	local _hasStarted = false -- Started later, only after the player begins the game
 	local _undoTempSaveState = nil -- Once a save is recovered, this holds a save state at the point in time right before that
 	local _crashReport = {}
@@ -59,7 +57,6 @@ local function CrashRecovery(settings)
 			createFolder(_backupFolder)
 		end
 		_hasStarted = false
-		_lastBackupTime = os.time()
 		_undoTempSaveState = nil
 		_crashReport = {}
 	end
@@ -83,14 +80,9 @@ local function CrashRecovery(settings)
 		end
 	end
 
-	function self.getBackupFrequency()
-		return _backupFrequency
-	end
-
 	function self.startSavingBackups()
 		if not self.isEnabled() then return end
 		_hasStarted = true
-		_lastBackupTime = os.time()
 	end
 
 	function self.stopSavingBackups()
@@ -137,17 +129,12 @@ local function CrashRecovery(settings)
 
 	function self.createBackupSaveState()
 		if not _hasStarted then return end
-		local timeElapsed = os.time() - _lastBackupTime
-		if timeElapsed < _backupFrequency then
-			return
-		end
 		local filepath = getSaveStateFile()
-		if not folderExists(_backupFolder) then
+        if not folderExists(_backupFolder) then
 			return
 		end
 		---@diagnostic disable-next-line: undefined-global
 		savestate.save(filepath, true) -- true: suppresses the on-screen display message
-		_lastBackupTime = os.time()
 	end
 
 	function self.recoverSave()

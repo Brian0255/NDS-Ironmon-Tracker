@@ -1002,9 +1002,10 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		memoryReading = FrameCounter(30, readMemory, nil, true),
 		trackerSaving = FrameCounter(
 			18000,
-			function()
+            function()
 				tracker.save(gameInfo.NAME)
-				client.saveram()
+                client.saveram()
+				crashRecovery.createBackupSaveState()
 			end,
 			nil,
 			true
@@ -1012,7 +1013,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true),
 		networkStartup = FrameCounter(30, delayedNetworkStartup, nil, true),
 		networkUpdate = FrameCounter(10, Network.update, nil, true),
-		crashRecovery = FrameCounter(crashRecovery.getBackupFrequency(), crashRecovery.createBackupSaveState, nil, true)
 	}
 
 	function self.pauseEventListeners()
