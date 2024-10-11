@@ -40,6 +40,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local PokemonThemeManager = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonThemeManager.lua")
 	local TourneyTracker = dofile(Paths.FOLDERS.DATA_FOLDER .. "/TourneyTracker.lua")
 	dofile(Paths.FOLDERS.NETWORK_FOLDER .. "/Network.lua")
+	local CrashRecovery = dofile(Paths.FOLDERS.EXTRAS_FOLDER .. "/CrashRecovery.lua")
 
 	self.SELECTED_PLAYERS = {
 		PLAYER = 0,
@@ -83,6 +84,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local tourneyTracker
 	local pokemonThemeManager = PokemonThemeManager(settings, self)
 	local dayOfWeek = 2
+	local crashRecovery = CrashRecovery(settings)
 
 	local currentScreens = {}
 
@@ -621,6 +623,8 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 					self.addScreen(self.UI_SCREENS.TITLE_SCREEN)
 					currentScreens[self.UI_SCREENS.TITLE_SCREEN].setTopVisibility(false)
 				end
+				-- Once the game begins and the player is playing, starting automatically saving crash recovery backups
+				crashRecovery.startSavingBackups()
 			end
 		end
 		currentLocation = areaName
@@ -707,6 +711,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	function self.tryToInstallUpdate(callbackFunc)
 		tracker.save(gameInfo.NAME)
 		Network.closeConnections()
+		crashRecovery.writeCrashReport()
 		local success = trackerUpdater.downloadUpdate()
 		if type(callbackFunc) == "function" then
 			callbackFunc(success)
@@ -1007,6 +1012,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		animatedSprites = FrameCounter(8, advanceAnimationFrame, nil, true),
 		networkStartup = FrameCounter(30, delayedNetworkStartup, nil, true),
 		networkUpdate = FrameCounter(10, Network.update, nil, true),
+		crashRecovery = FrameCounter(crashRecovery.getBackupFrequency(), crashRecovery.createBackupSaveState, nil, true)
 	}
 
 	function self.pauseEventListeners()
@@ -1079,12 +1085,20 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		animateUpdate()
 	end
 
+	-- Closes down the Tracker, saves data, and shuts down any additional processes
 	function self.onProgramExit()
 		tracker.save(gameInfo.NAME)
 		tracker.updatePlaytime(gameInfo.NAME)
 		client.saveram()
 		forms.destroyall()
+		self.onExitAndCloseRequiredProcesses()
+	end
+	-- Only closes the most important, required processes
+	function self.onExitAndCloseRequiredProcesses()
+		-- Safely close any open connections
 		Network.closeConnections()
+		-- Write to the crash report file that a crash did *not* occur
+		crashRecovery.writeCrashReport()
 	end
 
 	function self.getSeedLogger()
@@ -1155,6 +1169,9 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	Network.initialize()
 	Network.linkData(self, tracker, battleHandler)
+
+	crashRecovery.initialize()
+	crashRecovery.checkCrashStatus()
 
 	return self
 end
