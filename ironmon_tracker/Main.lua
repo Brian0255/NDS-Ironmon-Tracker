@@ -182,6 +182,7 @@ local function Main()
 		ThemeFactory.setSaveFunction(program.saveSettings)
 		ThemeFactory.setPokemonThemeDisablingFunction(program.turnOffPokemonTheme)
 		event.onexit(program.onProgramExit, "onProgramExit")
+		event.onconsoleclose(program.onExitAndCloseRequiredProcesses, "onExitAndCloseRequiredProcesses")
 		while not loadNextSeed do
 			program.main()
 			loadNextSeed = checkForNextSeedCombo()

@@ -1085,12 +1085,19 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		animateUpdate()
 	end
 
+	-- Closes down the Tracker, saves data, and shuts down any additional processes
 	function self.onProgramExit()
 		tracker.save(gameInfo.NAME)
 		tracker.updatePlaytime(gameInfo.NAME)
 		client.saveram()
 		forms.destroyall()
+		self.onExitAndCloseRequiredProcesses()
+	end
+	-- Only closes the most important, required processes
+	function self.onExitAndCloseRequiredProcesses()
+		-- Safely close any open connections
 		Network.closeConnections()
+		-- Write to the crash report file that a crash did *not* occur
 		crashRecovery.writeCrashReport()
 	end
 
