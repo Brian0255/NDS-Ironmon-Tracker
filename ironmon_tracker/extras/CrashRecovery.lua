@@ -160,14 +160,10 @@ local function CrashRecovery(settings)
 		_undoTempSaveState = {
 			id = memorysavestate.savecorestate(),
 			timestamp = os.time(),
-			-- playtime = Tracker.Data.playtime
 		}
 		-- Then restore the game to the last known crash recovery save state
 		---@diagnostic disable-next-line: undefined-global
 		savestate.load(filepath, false) -- false: will show the on-screen display message
-
-		-- Once loaded, store a second copy of the backed up save in the Time Machine
-		-- TimeMachineScreen.createRestorePoint()
 	end
 
 	function self.undoRecoverSave()
@@ -175,7 +171,6 @@ local function CrashRecovery(settings)
 			return
 		end
 		memorysavestate.loadcorestate(_undoTempSaveState.id)
-		-- Tracker.Data.playtime = restorePoint.playtime
 		_undoTempSaveState = nil
 	end
 
