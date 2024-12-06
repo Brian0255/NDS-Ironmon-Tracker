@@ -61,7 +61,6 @@ local function CrashRecovery(settings)
 		_crashReport = {}
 	end
 
-	-- Crash Recovery will always record crash status, but if disabled it won't do anything with it
 	function self.isEnabled()
 		return settings.extras.RECOVERY_ENABLED ~= false -- Enabled if setting absent or set to true
 	end
@@ -69,10 +68,8 @@ local function CrashRecovery(settings)
 	function self.checkCrashStatus()
 		_crashReport = self.readCrashReport()
 
-		-- If no previous crash occurred, establish a new crash report; treat status as "crashed" until emulator safely exits
-		if not _crashReport.crashedOccurred then
-			self.writeCrashReport(true)
-		end
+		-- Always establish a new crash report; treat status as "crashed" until emulator safely exits
+		self.writeCrashReport(true)
 
 		-- If a crash did occur for this same rom, inform the player and see if they want to recover
 		if self.isEnabled() and _crashReport.crashedOccurred and _crashReport.romHash == gameinfo.getromhash() then
