@@ -72,11 +72,26 @@ local function RandomizerLogParser(initialProgram)
             },
             ["Dark Cave"] = {
                 ["Grass/Cave"] = "365"
+            },
+            ["Wellspring Cave"] = {
+                ["Grass/Cave"] = "181",
+                ["Shaking Spots"] = "182"
             }
         },
         DUPLICATE_ROUTE_TO_NEW_PIVOT_TYPE = {
             ["142"] = "Ext. Grass",
             ["148"] = "Int. Grass"
+        },
+        --indexed by game's version group. 4 is black/white
+        ROUTE_NUMBER_TO_CORRECT_NAME = {
+            [4] = {
+                ["18"] = "Pinwheel Exterior",
+                ["19"] = "Pinwheel Exterior",
+                ["20"] = "Pinwheel Exterior",
+                ["21"] = "Pinwheel Interior",
+                ["22"] = "Pinwheel Interior",
+                ["23"] = "Pinwheel Interior",
+            }
         }
     }
 
@@ -410,6 +425,10 @@ local function RandomizerLogParser(initialProgram)
         end
     end
 
+    local function doAdditionalNameChecks(areaName, areaNumber)
+         return self.ROUTE_NUMBER_TO_CORRECT_NAME[program.getGameInfo().VERSION_GROUP][areaNumber] or areaName
+    end
+
     local function parseRouteData(lines, lineStart)
         local validRoutes = program.getGameInfo().LOCATION_DATA.encounterAreaOrder
         local timesSeenSprout = 0
@@ -431,6 +450,7 @@ local function RandomizerLogParser(initialProgram)
                         end
                         local valid = checkRouteDuplicate(areaName, number, pivotType)
                         pivotType = formatPivotType(areaName, number, pivotType)
+                        areaName = doAdditionalNameChecks(areaName, number)
                         if MiscUtils.tableContains(validRoutes, areaName) and valid then
                             if not pivotData[areaName] then
                                 pivotData[areaName] = {}
@@ -438,7 +458,7 @@ local function RandomizerLogParser(initialProgram)
                             if pivotType ~= "Headbutt" then
                                 pivotData[areaName][pivotType] = readEncounters(lines, currentLineIndex + 1, pivotType)
                             else
-                                local suffixes = {"(C)", "(R)"}
+                                local suffixes = { "(C)", "(R)" }
                                 for index, suffix in pairs(suffixes) do
                                     local lineOffset = (index - 1) * 6
                                     pivotData[areaName]["Headbutt" .. suffix] =
