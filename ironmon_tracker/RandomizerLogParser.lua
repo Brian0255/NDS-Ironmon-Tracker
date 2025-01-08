@@ -426,6 +426,9 @@ local function RandomizerLogParser(initialProgram)
     end
 
     local function doAdditionalNameChecks(areaName, areaNumber)
+        if self.ROUTE_NUMBER_TO_CORRECT_NAME[program.getGameInfo().VERSION_GROUP] == nil then
+            return areaName
+        end
          return self.ROUTE_NUMBER_TO_CORRECT_NAME[program.getGameInfo().VERSION_GROUP][areaNumber] or areaName
     end
 
