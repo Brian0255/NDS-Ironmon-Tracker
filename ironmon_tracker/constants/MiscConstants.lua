@@ -1,15 +1,14 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.3.1"
+MiscConstants.TRACKER_VERSION = "6.3.2"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- 6.3.1: Fixed an important crash related to the Log Viewer.",
-    "-- UTDZac has ported over a lightweight version of the GBA tracker's Stream Connect! You can set this up in the Extras menu.",
-    "-- The ominous freezing from the tracker saving large amounts of data should now be much less.",
-    "-- For Gen 5, the tracker should now only give you the Death Lag when your HP actually reaches 0.",
-    "-- Fixed a rare log viewer bug for Black/White 2."
+    "-- Fixed an error with the new release of Bizhawk 2.10.",
+    "-- Added Wellspring Cave and Pinwheel Forest Exterior/Interior to the Black/White 1 pivots, as well as Shaking Grass.",
+    "-- Fixed a bug where occasionally Gen 4 games would show the wrong enemy Pokemon.",
+    "-- Added a Crash Recovery feature similar to the GBA tracker, thanks to UTDZac."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
