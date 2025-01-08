@@ -3,18 +3,18 @@ local function Main()
 
 	local newerBizhawk = true
 
-	dofile("ironmon_tracker/constants/Chars.lua")
-
-	local version = client.getversion()
-	--basically checking if older than 2.9
-	if tonumber(version:sub(1, 1)) == 2 and tonumber(version:sub(3, 3)) < 9 then
-		newerBizhawk = false
-		Chars.accentedE = "\233"
-	end
+    dofile("ironmon_tracker/constants/Chars.lua")
 
 	dofile("ironmon_tracker/constants/Paths.lua")
 	dofile("ironmon_tracker/utils/FormsUtils.lua")
-	dofile("ironmon_tracker/utils/MiscUtils.lua")
+    dofile("ironmon_tracker/utils/MiscUtils.lua")
+
+	local version = client.getversion()
+	local versionSplit = MiscUtils.split(version,".",true)
+	if tonumber(versionSplit[1]) == 2 and tonumber(versionSplit[2]) < 9 then
+		newerBizhawk = false
+		Chars.accentedE = "\233"
+	end
 	dofile("ironmon_tracker/constants/PlaythroughConstants.lua")
 	dofile("ironmon_tracker/constants/MiscConstants.lua")
 
@@ -130,6 +130,20 @@ local function Main()
 		INI.save("Settings.ini", settings)
 	end
 
+	local function isUpscaled()
+		if client.bufferwidth() > 256 then
+			FormsUtils.popupDialog(
+				"The tracker will not work with a graphics scaling factor greater than 1. Set this to 1 and reboot Bizhawk or disable the tracker.",
+				250,
+				100,
+				FormsUtils.POPUP_DIALOG_TYPES.WARNING,
+				false
+			)
+			return true
+		end
+		return false
+	end
+
 	function self.run()
 		local loaded = false
 		while not loaded do
@@ -138,8 +152,10 @@ local function Main()
 			end
 			emu.frameadvance()
 		end
-
-		console.clear()
+        console.clear()
+		if isUpscaled() then
+			return false
+		end
 		print("\nNDS-Ironmon-Tracker v" .. MiscConstants.TRACKER_VERSION)
 		print("NDS ROM detected. Loading...")
 		client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
@@ -182,6 +198,7 @@ local function Main()
 		ThemeFactory.setSaveFunction(program.saveSettings)
 		ThemeFactory.setPokemonThemeDisablingFunction(program.turnOffPokemonTheme)
 		event.onexit(program.onProgramExit, "onProgramExit")
+        event.onconsoleclose(program.onExitAndCloseRequiredProcesses, "onExitAndCloseRequiredProcesses")
 		while not loadNextSeed do
 			program.main()
 			loadNextSeed = checkForNextSeedCombo()

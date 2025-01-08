@@ -75,7 +75,7 @@ function BattleHandlerGen4:_readTeamPIDs(battleData)
         local pid = Memory.read_u32_le(currentBase)
         local checksum = Memory.read_u16_le(currentBase + 0x06)
         if checksum ~= 0 then
-            battleData.battleTeamPIDs[pid] = i
+            battleData.battleTeamPIDs[i] = pid
         end
         currentBase = currentBase + self._gameInfo.ENCRYPTED_POKEMON_SIZE
     end
@@ -122,7 +122,12 @@ function BattleHandlerGen4:_getBattleMonPID(battler)
 end
 
 function BattleHandlerGen4:_isTransformed(battleData, activePID)
-    return not battleData.battleTeamPIDs[activePID]
+    for _, pid in pairs(battleData.battleTeamPIDs) do
+        if pid == activePID then
+            return false
+        end
+    end
+    return true
 end
 
 function BattleHandlerGen4:_updateStatStages(data, slotIndex, isEnemy)
@@ -138,6 +143,16 @@ function BattleHandlerGen4:_updateStatStages(data, slotIndex, isEnemy)
     data.statStages = self.pokemonDataReader.readBattleStatStages()
 end
 
+function BattleHandlerGen4:_getMonIndexes(battleData, pidToMatch)
+    local indexes = {}
+    for index, pid in pairs(battleData.battleTeamPIDs) do
+        if pid == pidToMatch then
+            table.insert(indexes, index)
+        end
+    end
+    return indexes
+end
+
 function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
     if not self:inBattleAndFetched() then
         return
@@ -150,14 +165,22 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
     if transformed then
         activePID = battler.lastValidPID
     end
-    local monIndex = battleData.battleTeamPIDs[activePID]
-    if monIndex == nil then
+    local monIndexes = self:_getMonIndexes(battleData, activePID)
+    if next(monIndexes) == nil then
         return
     end
-    local base = currentBase + monIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE
-    self.pokemonDataReader.setCurrentBase(base)
-    local data = self.pokemonDataReader.decryptPokemonInfo(false, monIndex, isEnemy)
-    if data == nil or next(data) == nil then
+    local data
+    for _, monIndex in pairs(monIndexes) do
+        local base = currentBase + monIndex * self._gameInfo.ENCRYPTED_POKEMON_SIZE
+        self.pokemonDataReader.setCurrentBase(base)
+        local check = self.pokemonDataReader.decryptPokemonInfo(false, monIndex, isEnemy)
+        if check ~= nil and next(check) ~= nil then
+            if check.pokemonID and check.pokemonID == Memory.read_u16_le(self.memoryAddresses.enemyPokemonID) then
+                data = check
+            end
+        end
+    end
+    if data == nil then
         return battler.lastValidPokemon
     end
     self:_updateStatStages(data, slotIndex, isEnemy)

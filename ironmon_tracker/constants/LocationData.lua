@@ -1544,7 +1544,7 @@ LocationData.LOCATION_DATA = {
             [147] = {name = "Unity Tower"},
             [152] = {name = "Dreamyard"},
             [154] = {name = "Pinwheel Exterior"},
-            [155] = {name = "Pinwheel Forest"},
+            [155] = {name = "Pinwheel Interior"},
             [157] = {name = "Desert Resort"},
             [160] = {name = "Relic Castle"},
             [191] = {name = "Cold Storage"},
@@ -1790,9 +1790,132 @@ LocationData.LOCATION_DATA = {
                         {level = 17, percent = 1}
                     }
                 }
-            }
+            },
+            ["Wellspring Cave"] = {
+                totalPokemon = 12,
+                vanillaData = {
+                    {
+                        {level = 15, percent = 20}
+                    },
+                    {
+                        {level = 15, percent = 20}
+                    },
+                    {
+                        {level = 17, percent = 10}
+                    },
+                    {
+                        {level = 17, percent = 10}
+                    },
+                    {
+                        {level = 17, percent = 10}
+                    },
+                    {
+                        {level = 17, percent = 10}
+                    },
+                    {
+                        {level = 18, percent = 5}
+                    },
+                    {
+                        {level = 18, percent = 5}
+                    },
+                    {
+                        {level = 20, percent = 4}
+                    },
+                    {
+                        {level = 20, percent = 4}
+                    },
+                    {
+                        {level = 20, percent = 1}
+                    },
+                    {
+                        {level = 20, percent = 1}
+                    }
+                }
+            },
+            ["Pinwheel Exterior"] = {
+                totalPokemon = 12,
+                vanillaData = {
+                    {
+                        {level = 18, percent = 20}
+                    },
+                    {
+                        {level = 18, percent = 20}
+                    },
+                    {
+                        {level = 20, percent = 10}
+                    },
+                    {
+                        {level = 20, percent = 10}
+                    },
+                    {
+                        {level = 20, percent = 10}
+                    },
+                    {
+                        {level = 21, percent = 10}
+                    },
+                    {
+                        {level = 18, percent = 5}
+                    },
+                    {
+                        {level = 21, percent = 5}
+                    },
+                    {
+                        {level = 23, percent = 4}
+                    },
+                    {
+                        {level = 23, percent = 4}
+                    },
+                    {
+                        {level = 23, percent = 1}
+                    },
+                    {
+                        {level = 23, percent = 1}
+                    }
+                }
+            },
+            ["Pinwheel Interior"] = {
+                totalPokemon = 12,
+                vanillaData = {
+                    {
+                        {level = 21, percent = 20}
+                    },
+                    {
+                        {level = 21, percent = 20}
+                    },
+                    {
+                        {level = 23, percent = 10}
+                    },
+                    {
+                        {level = 23, percent = 10}
+                    },
+                    {
+                        {level = 23, percent = 10}
+                    },
+                    {
+                        {level = 23, percent = 10}
+                    },
+                    {
+                        {level = 24, percent = 5}
+                    },
+                    {
+                        {level = 24, percent = 5}
+                    },
+                    {
+                        {level = 24, percent = 4}
+                    },
+                    {
+                        {level = 24, percent = 4}
+                    },
+                    {
+                        {level = 26, percent = 1}
+                    },
+                    {
+                        {level = 26, percent = 1}
+                    }
+                }
+            },
         },
-        encounterAreaOrder = {"Route 1", "Route 2", "Dreamyard", "Route 3"}
+        encounterAreaOrder = {"Route 1", "Route 2", "Dreamyard", "Route 3", "Wellspring Cave","Pinwheel Exterior","Pinwheel Interior"}
     },
     --black2/white2
     [0x4F455249] = {
