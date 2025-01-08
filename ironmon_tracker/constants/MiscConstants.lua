@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.3.4"
+MiscConstants.TRACKER_VERSION = "6.3.5"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- 6.3.4: Fixed a Gen 4 bug where the player Pokemon would not update in battle.",
+    "-- 6.3.5: Fixed an error with Bizhawk 2.8.",
     "-- Fixed an error with the new release of Bizhawk 2.10.",
     "-- Added Wellspring Cave and Pinwheel Forest Exterior/Interior to the Black/White 1 pivots, as well as Shaking Grass.",
     "-- Fixed a bug where occasionally Gen 4 games would show the wrong enemy Pokemon.",
