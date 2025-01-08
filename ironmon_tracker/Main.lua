@@ -9,9 +9,12 @@ local function Main()
 	dofile("ironmon_tracker/utils/FormsUtils.lua")
     dofile("ironmon_tracker/utils/MiscUtils.lua")
 
-	local version = client.getversion()
-	local versionSplit = MiscUtils.split(version,".",true)
-	if tonumber(versionSplit[1]) == 2 and tonumber(versionSplit[2]) < 9 then
+    local version = client.getversion()
+	local versionSplit = {}
+    for number in version:gmatch("%d+") do
+        table.insert(versionSplit, tonumber(number))
+    end
+    if versionSplit[1] == 2 and versionSplit[2] < 9 then
 		newerBizhawk = false
 		Chars.accentedE = "\233"
 	end
