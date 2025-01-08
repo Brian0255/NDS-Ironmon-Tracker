@@ -175,7 +175,9 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
         self.pokemonDataReader.setCurrentBase(base)
         local check = self.pokemonDataReader.decryptPokemonInfo(false, monIndex, isEnemy)
         if check ~= nil and next(check) ~= nil then
-            if check.pokemonID and check.pokemonID == Memory.read_u16_le(self.memoryAddresses.enemyPokemonID) then
+            if not isEnemy then
+                data = check
+            elseif check.pokemonID and check.pokemonID == Memory.read_u16_le(self.memoryAddresses.enemyPokemonID) then
                 data = check
             end
         end
