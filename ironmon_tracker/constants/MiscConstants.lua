@@ -1,15 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.3.5"
+MiscConstants.TRACKER_VERSION = "6.3.6"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- 6.3.5: Fixed an error with Bizhawk 2.8.",
-    "-- Fixed an error with the new release of Bizhawk 2.10.",
-    "-- Added Wellspring Cave and Pinwheel Forest Exterior/Interior to the Black/White 1 pivots, as well as Shaking Grass.",
-    "-- Fixed a bug where occasionally Gen 4 games would show the wrong enemy Pokemon.",
-    "-- Added a Crash Recovery feature similar to the GBA tracker, thanks to UTDZac."
+    "-- 6.3.6: Fixed the second enemy Pokemon in Doubles Mode not being viewable."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
