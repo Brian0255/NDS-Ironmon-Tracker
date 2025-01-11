@@ -177,7 +177,7 @@ function BattleHandlerGen4:_getPokemonData(battleData, slotIndex, isEnemy)
         if check ~= nil and next(check) ~= nil then
             if not isEnemy then
                 data = check
-            elseif check.pokemonID and check.pokemonID == Memory.read_u16_le(self.memoryAddresses.enemyPokemonID) then
+            elseif (#battlers > 1) or (check.pokemonID and check.pokemonID == Memory.read_u16_le(self.memoryAddresses.enemyPokemonID)) then
                 data = check
             end
         end
