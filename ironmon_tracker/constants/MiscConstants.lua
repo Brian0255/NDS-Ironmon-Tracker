@@ -1,11 +1,11 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.3.6"
+MiscConstants.TRACKER_VERSION = "6.3.7"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed the second enemy Pokemon in Gen 4 Doubles Mode not being viewable."
+    "-- Removed some Bizhawk 2.10 specific code due to bugginess."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
