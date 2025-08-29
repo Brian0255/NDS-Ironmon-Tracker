@@ -137,7 +137,7 @@ local function RivalOverviewScreen(initialSettings, initialTracker, initialProgr
                 )
             ),
             TextField(
-                battle.location,
+                battle.locationLocalized or battle.location,
                 {x = 0, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

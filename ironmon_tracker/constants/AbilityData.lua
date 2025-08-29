@@ -7,872 +7,664 @@ AbilityData.ABILITIES_MASTER_LIST = {
     {
         id = 0,
         name = "---",
-        description = ""
+        description = "",
     },
     {
         id = 1,
-        name = "Stench",
-        description = {
-            "Helps repel wild Pok" .. Chars.accentedE .. "mon.",
-            "Has a 10% chance of making target Pok" .. Chars.accentedE .. "mon flinch with each hit."
-        }
-    },
+        name = Localizations.AbilitiesName.stench,
+        description = Localizations.AbilitiesDescription.stench},
     {
         id = 2,
-        name = "Drizzle",
-        description = "Summons rain that lasts indefinitely upon entering battle."
-    },
+        name = Localizations.AbilitiesName.drizzle,
+        description = Localizations.AbilitiesDescription.drizzle},
     {
         id = 3,
-        name = "Speed Boost",
-        description = "Raises Speed one stage after each turn."
-    },
+        name = Localizations.AbilitiesName.speedBoost,
+        description = Localizations.AbilitiesDescription.speedBoost},
     {
         id = 4,
-        name = "Battle Armor",
-        description = "Protects against critical hits."
-    },
+        name = Localizations.AbilitiesName.battleArmor,
+        description = Localizations.AbilitiesDescription.battleArmor},
     {
         id = 5,
-        name = "Sturdy",
-        description = {
-            "Prevents OHKO moves like Guillotine from working.",
-            "Prevents being KOed from full HP, and this includes moves such as Guillotine and Sheer Cold."
-        }
-    },
+        name = Localizations.AbilitiesName.sturdy,
+        description = Localizations.AbilitiesDescription.sturdy},
     {
         id = 6,
-        name = "Damp",
-        description = "Prevents Selfdestruct, Explosion, and Aftermath from working while the Pok" ..
-            Chars.accentedE .. "mon is in battle."
-    },
+        name = Localizations.AbilitiesName.damp,
+        description = Localizations.AbilitiesDescription.damp},
     {
         id = 7,
-        name = "Limber",
-        description = "Prevents paralysis."
-    },
+        name = Localizations.AbilitiesName.limber,
+        description = Localizations.AbilitiesDescription.limber},
     {
         id = 8,
-        name = "Sand Veil",
-        description = "Increases evasion to 1.25x during a sandstorm. Protects against sandstorm damage."
-    },
+        name = Localizations.AbilitiesName.sandVeil,
+        description = Localizations.AbilitiesDescription.sandVeil},
     {
         id = 9,
-        name = "Static",
-        description = "Has a 30% chance of paralyzing attacking Pok" .. Chars.accentedE .. "mon on contact."
-    },
+        name = Localizations.AbilitiesName.static,
+        description = Localizations.AbilitiesDescription.static},
     {
         id = 10,
-        name = "Volt Absorb",
-        description = "Absorbs electric moves, healing for 1/4 max HP."
-    },
+        name = Localizations.AbilitiesName.voltAbsorb,
+        description = Localizations.AbilitiesDescription.voltAbsorb},
     {
         id = 11,
-        name = "Water Absorb",
-        description = "Absorbs water moves, healing for 1/4 max HP."
-    },
+        name = Localizations.AbilitiesName.waterAbsorb,
+        description = Localizations.AbilitiesDescription.waterAbsorb},
     {
         id = 12,
-        name = "Oblivious",
-        description = "Prevents infatuation and protects against Captivate."
-    },
+        name = Localizations.AbilitiesName.oblivious,
+        description = Localizations.AbilitiesDescription.oblivious},
     {
         id = 13,
-        name = "Cloud Nine",
-        description = "Negates all effects of weather, but does not prevent the weather itself."
-    },
+        name = Localizations.AbilitiesName.cloudNine,
+        description = Localizations.AbilitiesDescription.cloudNine},
     {
         id = 14,
-        name = "Compoundeyes",
-        description = "Increases moves' accuracy to 1.3x."
-    },
+        name = Localizations.AbilitiesName.compoundeyes,
+        description = Localizations.AbilitiesDescription.compoundeyes},
     {
         id = 15,
-        name = "Insomnia",
-        description = "Prevents sleep."
-    },
+        name = Localizations.AbilitiesName.insomnia,
+        description = Localizations.AbilitiesDescription.insomnia},
     {
         id = 16,
-        name = "Color Change",
-        description = "Changes type to match when hit by a damaging move."
-    },
+        name = Localizations.AbilitiesName.colorChange,
+        description = Localizations.AbilitiesDescription.colorChange},
     {
         id = 17,
-        name = "Immunity",
-        description = "Prevents poison."
-    },
+        name = Localizations.AbilitiesName.immunity,
+        description = Localizations.AbilitiesDescription.immunity},
     {
         id = 18,
-        name = "Flash Fire",
-        description = "Protects against fire moves. Once one has been blocked, the Pok" ..
-            Chars.accentedE .. "mon's own fire moves inflict 1.5x damage until it leaves battle."
-    },
+        name = Localizations.AbilitiesName.flashFire,
+        description = Localizations.AbilitiesDescription.flashFire},
     {
         id = 19,
-        name = "Shield Dust",
-        description = "Protects against incoming moves' extra effects."
-    },
+        name = Localizations.AbilitiesName.shieldDust,
+        description = Localizations.AbilitiesDescription.shieldDust},
     {
         id = 20,
-        name = "Own Tempo",
-        description = "Prevents confusion."
-    },
+        name = Localizations.AbilitiesName.ownTempo,
+        description = Localizations.AbilitiesDescription.ownTempo},
     {
         id = 21,
-        name = "Suction Cups",
-        description = {
-            "Prevents being forced out of battle by other Pok" .. Chars.accentedE .. "mon's moves.",
-            "Prevents being forced out of battle by other Pok" .. Chars.accentedE .. "mon's moves or items."
-        }
-    },
+        name = Localizations.AbilitiesName.suctionCups,
+        description = Localizations.AbilitiesDescription.suctionCups},
     {
         id = 22,
-        name = "Intimidate",
-        description = "Lowers opponents' Attack one stage upon entering battle."
-    },
+        name = Localizations.AbilitiesName.intimidate,
+        description = Localizations.AbilitiesDescription.intimidate},
     {
         id = 23,
-        name = "Shadow Tag",
-        description = "Prevents opponents from fleeing or switching out."
-    },
+        name = Localizations.AbilitiesName.shadowTag,
+        description = Localizations.AbilitiesDescription.shadowTag},
     {
         id = 24,
-        name = "Rough Skin",
-        description = "Damages attacking Pok" .. Chars.accentedE .. "mon for 1/8 their max HP on contact."
-    },
+        name = Localizations.AbilitiesName.roughSkin,
+        description = Localizations.AbilitiesDescription.roughSkin},
     {
         id = 25,
-        name = "Wonder Guard",
-        description = "Protects against damaging moves that are not super effective."
-    },
+        name = Localizations.AbilitiesName.wonderGuard,
+        description = Localizations.AbilitiesDescription.wonderGuard},
     {
         id = 26,
-        name = "Levitate",
-        description = "Evades ground moves."
-    },
+        name = Localizations.AbilitiesName.levitate,
+        description = Localizations.AbilitiesDescription.levitate},
     {
         id = 27,
-        name = "Effect Spore",
-        description = "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pok" ..
-            Chars.accentedE .. "mon on contact."
-    },
+        name = Localizations.AbilitiesName.effectSpore,
+        description = Localizations.AbilitiesDescription.effectSpore},
     {
         id = 28,
-        name = "Synchronize",
-        description = "Copies burns, paralysis, and poison received onto the Pok" ..
-            Chars.accentedE .. "mon that inflicted them."
-    },
+        name = Localizations.AbilitiesName.synchronize,
+        description = Localizations.AbilitiesDescription.synchronize},
     {
         id = 29,
-        name = "Clear Body",
-        description = "Prevents stats from being lowered by other Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.clearBody,
+        description = Localizations.AbilitiesDescription.clearBody},
     {
         id = 30,
-        name = "Natural Cure",
-        description = "Cures any major status ailment upon switching out or completing a battle."
-    },
+        name = Localizations.AbilitiesName.naturalCure,
+        description = Localizations.AbilitiesDescription.naturalCure},
     {
         id = 31,
-        name = "Lightningrod",
-        description = {
-            "Redirects single-target electric moves to this Pok" .. Chars.accentedE .. "mon where possible.",
-            "Redirects electric moves to this Pok" ..
-                Chars.accentedE .. "mon and absorbs them, raising Special Attack one stage."
-        }
-    },
+        name = Localizations.AbilitiesName.lightningrod,
+        description = Localizations.AbilitiesDescription.lightningrod},
     {
         id = 32,
-        name = "Serene Grace",
-        description = "Doubles the chance of moves' extra effects occurring."
-    },
+        name = Localizations.AbilitiesName.sereneGrace,
+        description = Localizations.AbilitiesDescription.sereneGrace},
     {
         id = 33,
-        name = "Swift Swim",
-        description = "Doubles Speed during rain."
-    },
+        name = Localizations.AbilitiesName.swiftSwim,
+        description = Localizations.AbilitiesDescription.swiftSwim},
     {
         id = 34,
-        name = "Chlorophyll",
-        description = "Doubles Speed during strong sunlight."
-    },
+        name = Localizations.AbilitiesName.chlorophyll,
+        description = Localizations.AbilitiesDescription.chlorophyll},
     {
         id = 35,
-        name = "Illuminate",
-        description = "Doubles the wild encounter rate."
-    },
+        name = Localizations.AbilitiesName.illuminate,
+        description = Localizations.AbilitiesDescription.illuminate},
     {
         id = 36,
-        name = "Trace",
-        description = "Copies an opponent's ability upon entering battle."
-    },
+        name = Localizations.AbilitiesName.trace,
+        description = Localizations.AbilitiesDescription.trace},
     {
         id = 37,
-        name = "Huge Power",
-        description = "Doubles Attack in battle."
-    },
+        name = Localizations.AbilitiesName.hugePower,
+        description = Localizations.AbilitiesDescription.hugePower},
     {
         id = 38,
-        name = "Poison Point",
-        description = "Has a 30% chance of poisoning attacking Pok" .. Chars.accentedE .. "mon on contact."
-    },
+        name = Localizations.AbilitiesName.poisonPoint,
+        description = Localizations.AbilitiesDescription.poisonPoint},
     {
         id = 39,
-        name = "Inner Focus",
-        description = "Prevents flinching."
-    },
+        name = Localizations.AbilitiesName.innerFocus,
+        description = Localizations.AbilitiesDescription.innerFocus},
     {
         id = 40,
-        name = "Magma Armor",
-        description = "Prevents freezing."
-    },
+        name = Localizations.AbilitiesName.magmaArmor,
+        description = Localizations.AbilitiesDescription.magmaArmor},
     {
         id = 41,
-        name = "Water Veil",
-        description = "Prevents burns."
-    },
+        name = Localizations.AbilitiesName.waterVeil,
+        description = Localizations.AbilitiesDescription.waterVeil},
     {
         id = 42,
-        name = "Magnet Pull",
-        description = "Prevents steel opponents from fleeing or switching out."
-    },
+        name = Localizations.AbilitiesName.magnetPull,
+        description = Localizations.AbilitiesDescription.magnetPull},
     {
         id = 43,
-        name = "Soundproof",
-        description = "Protects against sound-based moves."
-    },
+        name = Localizations.AbilitiesName.soundproof,
+        description = Localizations.AbilitiesDescription.soundproof},
     {
         id = 44,
-        name = "Rain Dish",
-        description = "Heals for 1/16 max HP after each turn during rain."
-    },
+        name = Localizations.AbilitiesName.rainDish,
+        description = Localizations.AbilitiesDescription.rainDish},
     {
         id = 45,
-        name = "Sand Stream",
-        description = "Summons a sandstorm that lasts indefinitely upon entering battle."
-    },
+        name = Localizations.AbilitiesName.sandStream,
+        description = Localizations.AbilitiesDescription.sandStream},
     {
         id = 46,
-        name = "Pressure",
-        description = "Increases the PP cost of moves targeting the Pok" .. Chars.accentedE .. "mon by one."
-    },
+        name = Localizations.AbilitiesName.pressure,
+        description = Localizations.AbilitiesDescription.pressure},
     {
         id = 47,
-        name = "Thick Fat",
-        description = "Halves damage from fire and ice moves."
-    },
+        name = Localizations.AbilitiesName.thickFat,
+        description = Localizations.AbilitiesDescription.thickFat},
     {
         id = 48,
-        name = "Early Bird",
-        description = "Makes sleep pass twice as quickly."
-    },
+        name = Localizations.AbilitiesName.earlyBird,
+        description = Localizations.AbilitiesDescription.earlyBird},
     {
         id = 49,
-        name = "Flame Body",
-        description = "Has a 30% chance of burning attacking Pok" .. Chars.accentedE .. "mon on contact."
-    },
+        name = Localizations.AbilitiesName.flameBody,
+        description = Localizations.AbilitiesDescription.flameBody},
     {
         id = 50,
-        name = "Run Away",
-        description = "Ensures success fleeing from wild battles."
-    },
+        name = Localizations.AbilitiesName.runAway,
+        description = Localizations.AbilitiesDescription.runAway},
     {
         id = 51,
-        name = "Keen Eye",
-        description = "Prevents Accuracy from being lowered."
-    },
+        name = Localizations.AbilitiesName.keenEye,
+        description = Localizations.AbilitiesDescription.keenEye},
     {
         id = 52,
-        name = "Hyper Cutter",
-        description = "Prevents Attack from being lowered by other Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.hyperCutter,
+        description = Localizations.AbilitiesDescription.hyperCutter},
     {
         id = 53,
-        name = "Pickup",
-        description = {
-            "10% chance to pick up an item after battle.",
-            "Picks up other Pok" ..
-                Chars.accentedE .. "mon's used and Flung held items. May also pick up an item after battle."
-        }
-    },
+        name = Localizations.AbilitiesName.pickup,
+        description = Localizations.AbilitiesDescription.pickup},
     {
         id = 54,
-        name = "Truant",
-        description = "Skips every second turn."
-    },
+        name = Localizations.AbilitiesName.truant,
+        description = Localizations.AbilitiesDescription.truant},
     {
         id = 55,
-        name = "Hustle",
-        description = "Strengthens physical moves to inflict 1.5x damage, but decreases their Accuracy to 0.8x."
-    },
+        name = Localizations.AbilitiesName.hustle,
+        description = Localizations.AbilitiesDescription.hustle},
     {
         id = 56,
-        name = "Cute Charm",
-        description = "Has a 30% chance of infatuating attacking Pok" .. Chars.accentedE .. "mon on contact."
-    },
+        name = Localizations.AbilitiesName.cuteCharm,
+        description = Localizations.AbilitiesDescription.cuteCharm},
     {
         id = 57,
-        name = "Plus",
-        description = {
-            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Minus.",
-            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Plus or Minus."
-        }
-    },
+        name = Localizations.AbilitiesName.plus,
+        description = Localizations.AbilitiesDescription.plus},
     {
         id = 58,
-        name = "Minus",
-        description = {
-            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Plus.",
-            "Increases Special Attack to 1.5x when a friendly Pok" .. Chars.accentedE .. "mon has Plus or Minus."
-        }
-    },
+        name = Localizations.AbilitiesName.minus,
+        description = Localizations.AbilitiesDescription.minus},
     {
         id = 59,
-        name = "Forecast",
-        description = "Changes Castform's type and form to match the weather."
-    },
+        name = Localizations.AbilitiesName.forecast,
+        description = Localizations.AbilitiesDescription.forecast},
     {
         id = 60,
-        name = "Sticky Hold",
-        description = "Prevents a held item from being removed by other Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.stickyHold,
+        description = Localizations.AbilitiesDescription.stickyHold},
     {
         id = 61,
-        name = "Shed Skin",
-        description = "Has a 33% chance of curing any major status ailment after each turn."
-    },
+        name = Localizations.AbilitiesName.shedSkin,
+        description = Localizations.AbilitiesDescription.shedSkin},
     {
         id = 62,
-        name = "Guts",
-        description = "Increases Attack to 1.5x with a major status ailment."
-    },
+        name = Localizations.AbilitiesName.guts,
+        description = Localizations.AbilitiesDescription.guts},
     {
         id = 63,
-        name = "Marvel Scale",
-        description = "Increases Defense to 1.5x with a major status ailment."
-    },
+        name = Localizations.AbilitiesName.marvelScale,
+        description = Localizations.AbilitiesDescription.marvelScale},
     {
         id = 64,
-        name = "Liquid Ooze",
-        description = "Damages opponents using leeching moves for as much as they would heal."
-    },
+        name = Localizations.AbilitiesName.liquidOoze,
+        description = Localizations.AbilitiesDescription.liquidOoze},
     {
         id = 65,
-        name = "Overgrow",
-        description = "Strengthens grass moves to inflict 1.5x damage at 1/3 max HP or less."
-    },
+        name = Localizations.AbilitiesName.overgrow,
+        description = Localizations.AbilitiesDescription.overgrow},
     {
         id = 66,
-        name = "Blaze",
-        description = "Strengthens fire moves to inflict 1.5x damage at 1/3 max HP or less."
-    },
+        name = Localizations.AbilitiesName.blaze,
+        description = Localizations.AbilitiesDescription.blaze},
     {
         id = 67,
-        name = "Torrent",
-        description = "Strengthens water moves to inflict 1.5x damage at 1/3 max HP or less."
-    },
+        name = Localizations.AbilitiesName.torrent,
+        description = Localizations.AbilitiesDescription.torrent},
     {
         id = 68,
-        name = "Swarm",
-        description = "Strengthens bug moves to inflict 1.5x damage at 1/3 max HP or less."
-    },
+        name = Localizations.AbilitiesName.swarm,
+        description = Localizations.AbilitiesDescription.swarm},
     {
         id = 69,
-        name = "Rock Head",
-        description = "Protects against recoil damage."
-    },
+        name = Localizations.AbilitiesName.rockHead,
+        description = Localizations.AbilitiesDescription.rockHead},
     {
         id = 70,
-        name = "Drought",
-        description = "Summons strong sunlight that lasts indefinitely upon entering battle."
-    },
+        name = Localizations.AbilitiesName.drought,
+        description = Localizations.AbilitiesDescription.drought},
     {
         id = 71,
-        name = "Arena Trap",
-        description = "Prevents opponents from fleeing or switching out. Eluded by flying-types and Pok" ..
-            Chars.accentedE .. "mon in the air."
-    },
+        name = Localizations.AbilitiesName.arenaTrap,
+        description = Localizations.AbilitiesDescription.arenaTrap},
     {
         id = 72,
-        name = "Vital Spirit",
-        description = "Prevents sleep."
-    },
+        name = Localizations.AbilitiesName.vitalSpirit,
+        description = Localizations.AbilitiesDescription.vitalSpirit},
     {
         id = 73,
-        name = "White Smoke",
-        description = "Prevents stats from being lowered by other Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.whiteSmoke,
+        description = Localizations.AbilitiesDescription.whiteSmoke},
     {
         id = 74,
-        name = "Pure Power",
-        description = "Doubles Attack in battle."
-    },
+        name = Localizations.AbilitiesName.purePower,
+        description = Localizations.AbilitiesDescription.purePower},
     {
         id = 75,
-        name = "Shell Armor",
-        description = "Protects against critical hits."
-    },
+        name = Localizations.AbilitiesName.shellArmor,
+        description = Localizations.AbilitiesDescription.shellArmor},
     {
         id = 76,
-        name = "Air Lock",
-        description = "Negates all effects of weather, but does not prevent the weather itself."
-    },
+        name = Localizations.AbilitiesName.airLock,
+        description = Localizations.AbilitiesDescription.airLock},
     {
         id = 77,
-        name = "Tangled Feet",
-        description = "Doubles evasion when confused."
-    },
+        name = Localizations.AbilitiesName.tangledFeet,
+        description = Localizations.AbilitiesDescription.tangledFeet},
     {
         id = 78,
-        name = "Motor Drive",
-        description = "Absorbs electric moves, raising Speed one stage."
-    },
+        name = Localizations.AbilitiesName.motorDrive,
+        description = Localizations.AbilitiesDescription.motorDrive},
     {
         id = 79,
-        name = "Rivalry",
-        description = "Increases damage inflicted to 1.25x against Pok" ..
-            Chars.accentedE .. "mon of the same gender, but decreases damage to 0.75x against the opposite gender."
-    },
+        name = Localizations.AbilitiesName.rivalry,
+        description = Localizations.AbilitiesDescription.rivalry},
     {
         id = 80,
-        name = "Steadfast",
-        description = "Raises Speed one stage upon flinching."
-    },
+        name = Localizations.AbilitiesName.steadfast,
+        description = Localizations.AbilitiesDescription.steadfast},
     {
         id = 81,
-        name = "Snow Cloak",
-        description = "Increases Evasion to 1.25x during hail. Protects against hail damage."
-    },
+        name = Localizations.AbilitiesName.snowCloak,
+        description = Localizations.AbilitiesDescription.snowCloak},
     {
         id = 82,
-        name = "Gluttony",
-        description = "Makes the Pok" ..
-            Chars.accentedE .. "mon eat any held Berry triggered by low HP below 1/2 its max HP."
-    },
+        name = Localizations.AbilitiesName.gluttony,
+        description = Localizations.AbilitiesDescription.gluttony},
     {
         id = 83,
-        name = "Anger Point",
-        description = "Raises Attack to the maximum of six stages upon receiving a critical hit."
-    },
+        name = Localizations.AbilitiesName.angerPoint,
+        description = Localizations.AbilitiesDescription.angerPoint},
     {
         id = 84,
-        name = "Unburden",
-        description = "Doubles Speed upon using or losing a held item."
-    },
+        name = Localizations.AbilitiesName.unburden,
+        description = Localizations.AbilitiesDescription.unburden},
     {
         id = 85,
-        name = "Heatproof",
-        description = "Halves damage from fire moves and burns."
-    },
+        name = Localizations.AbilitiesName.heatproof,
+        description = Localizations.AbilitiesDescription.heatproof},
     {
         id = 86,
-        name = "Simple",
-        description = {
-            "Doubles the effectivness of stat modifiers, but not the stat modifiers themselves.",
-            "Doubles all stat modifiers, whether positive or negative."
-        }
-    },
+        name = Localizations.AbilitiesName.simple,
+        description = Localizations.AbilitiesDescription.simple},
     {
         id = 87,
-        name = "Dry Skin",
-        description = "Causes 1/8 max HP in damage each turn during strong sunlight, but heals for 1/8 max HP during rain. Increases damage from fire moves to 1.25x, but absorbs water moves, healing for 1/4 max HP."
-    },
+        name = Localizations.AbilitiesName.drySkin,
+        description = Localizations.AbilitiesDescription.drySkin},
     {
         id = 88,
-        name = "Download",
-        description = "Raises the Attack stat corresponding to the opponents' weaker Defense one stage upon entering battle."
-    },
+        name = Localizations.AbilitiesName.download,
+        description = Localizations.AbilitiesDescription.download},
     {
         id = 89,
-        name = "Iron Fist",
-        description = "Strengthens punch-based moves to 1.2x their power."
-    },
+        name = Localizations.AbilitiesName.ironFist,
+        description = Localizations.AbilitiesDescription.ironFist},
     {
         id = 90,
-        name = "Poison Heal",
-        description = "Heals for 1/8 max HP after each turn when poisoned in place of damage."
-    },
+        name = Localizations.AbilitiesName.poisonHeal,
+        description = Localizations.AbilitiesDescription.poisonHeal},
     {
         id = 91,
-        name = "Adaptability",
-        description = "Increases the same-type attack bonus from 1.5x to 2x."
-    },
+        name = Localizations.AbilitiesName.adaptability,
+        description = Localizations.AbilitiesDescription.adaptability},
     {
         id = 92,
-        name = "Skill Link",
-        description = {
-            "Extends two-to-five-hit moves to their full length every time.",
-            "Extends two-to-five-hit moves and triple kick to their full length every time."
-        }
-    },
+        name = Localizations.AbilitiesName.skillLink,
+        description = Localizations.AbilitiesDescription.skillLink},
     {
         id = 93,
-        name = "Hydration",
-        description = "Cures any major status ailment after each turn during rain."
-    },
+        name = Localizations.AbilitiesName.hydration,
+        description = Localizations.AbilitiesDescription.hydration},
     {
         id = 94,
-        name = "Solar Power",
-        description = "Increases Special Attack to 1.5x but costs 1/8 max HP after each turn during strong sunlight."
-    },
+        name = Localizations.AbilitiesName.solarPower,
+        description = Localizations.AbilitiesDescription.solarPower},
     {
         id = 95,
-        name = "Quick Feet",
-        description = "Increases Speed to 1.5x with a major status ailment."
-    },
+        name = Localizations.AbilitiesName.quickFeet,
+        description = Localizations.AbilitiesDescription.quickFeet},
     {
         id = 96,
-        name = "Normalize",
-        description = "Makes the Pok" .. Chars.accentedE .. "mon's moves all act normal-type."
-    },
+        name = Localizations.AbilitiesName.normalize,
+        description = Localizations.AbilitiesDescription.normalize},
     {
         id = 97,
-        name = "Sniper",
-        description = "Strengthens critical hits to inflict 3x damage rather than 2x."
-    },
+        name = Localizations.AbilitiesName.sniper,
+        description = Localizations.AbilitiesDescription.sniper},
     {
         id = 98,
-        name = "Magic Guard",
-        description = "Protects against damage not directly caused by a move."
-    },
+        name = Localizations.AbilitiesName.magicGuard,
+        description = Localizations.AbilitiesDescription.magicGuard},
     {
         id = 99,
-        name = "No Guard",
-        description = "Ensures all moves used by and against the Pok" .. Chars.accentedE .. "mon hit."
-    },
+        name = Localizations.AbilitiesName.noGuard,
+        description = Localizations.AbilitiesDescription.noGuard},
     {
         id = 100,
-        name = "Stall",
-        description = "Makes the Pok" .. Chars.accentedE .. "mon move last within its move's priority bracket."
-    },
+        name = Localizations.AbilitiesName.stall,
+        description = Localizations.AbilitiesDescription.stall},
     {
         id = 101,
-        name = "Technician",
-        description = "Strengthens moves of 60 base power or less to 1.5x their power."
-    },
+        name = Localizations.AbilitiesName.technician,
+        description = Localizations.AbilitiesDescription.technician},
     {
         id = 102,
-        name = "Leaf Guard",
-        description = "Protects against major status ailments during strong sunlight."
-    },
+        name = Localizations.AbilitiesName.leafGuard,
+        description = Localizations.AbilitiesDescription.leafGuard},
     {
         id = 103,
-        name = "Klutz",
-        description = "Prevents the effects of held items."
-    },
+        name = Localizations.AbilitiesName.klutz,
+        description = Localizations.AbilitiesDescription.klutz},
     {
         id = 104,
-        name = "Mold Breaker",
-        description = "Bypasses targets' abilities if they could hinder or prevent a move."
-    },
+        name = Localizations.AbilitiesName.moldBreaker,
+        description = Localizations.AbilitiesDescription.moldBreaker},
     {
         id = 105,
-        name = "Super Luck",
-        description = "Raises moves' critical hit rates one stage."
-    },
+        name = Localizations.AbilitiesName.superLuck,
+        description = Localizations.AbilitiesDescription.superLuck},
     {
         id = 106,
-        name = "Aftermath",
-        description = "Damages the attacker for 1/4 its max HP when knocked out by a contact move."
-    },
+        name = Localizations.AbilitiesName.aftermath,
+        description = Localizations.AbilitiesDescription.aftermath},
     {
         id = 107,
-        name = "Anticipation",
-        description = "Notifies all trainers upon entering battle if an opponent has a super-effective move, self destruct, explosion, or a one-hit KO move."
-    },
+        name = Localizations.AbilitiesName.anticipation,
+        description = Localizations.AbilitiesDescription.anticipation},
     {
         id = 108,
-        name = "Forewarn",
-        description = "Reveals the opponents' strongest move upon entering battle."
-    },
+        name = Localizations.AbilitiesName.forewarn,
+        description = Localizations.AbilitiesDescription.forewarn},
     {
         id = 109,
-        name = "Unaware",
-        description = "Ignores other Pok" .. Chars.accentedE .. "mon's stat modifiers for damage and Accuracy calculation."
-    },
+        name = Localizations.AbilitiesName.unaware,
+        description = Localizations.AbilitiesDescription.unaware},
     {
         id = 110,
-        name = "Tinted Lens",
-        description = "Doubles damage inflicted with not-very-effective moves."
-    },
+        name = Localizations.AbilitiesName.tintedLens,
+        description = Localizations.AbilitiesDescription.tintedLens},
     {
         id = 111,
-        name = "Filter",
-        description = "Decreases damage taken from super-effective moves by 1/4."
-    },
+        name = Localizations.AbilitiesName.filter,
+        description = Localizations.AbilitiesDescription.filter},
     {
         id = 112,
-        name = "Slow Start",
-        description = "Halves Attack and Speed for five turns upon entering battle."
-    },
+        name = Localizations.AbilitiesName.slowStart,
+        description = Localizations.AbilitiesDescription.slowStart},
     {
         id = 113,
-        name = "Scrappy",
-        description = "Lets the Pok" ..
-            Chars.accentedE .. "mon's normal and fighting moves hit ghost Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.scrappy,
+        description = Localizations.AbilitiesDescription.scrappy},
     {
         id = 114,
-        name = "Storm Drain",
-        description = {
-            "Redirects single-target water moves to this Pok" .. Chars.accentedE .. "mon.",
-            "Redirects single-target water moves to this Pok" ..
-                Chars.accentedE .. "mon and absorbs them, raising Special Attack one stage."
-        }
-    },
+        name = Localizations.AbilitiesName.stormDrain,
+        description = Localizations.AbilitiesDescription.stormDrain},
     {
         id = 115,
-        name = "Ice Body",
-        description = "Heals for 1/16 max HP after each turn during hail. Protects against hail damage."
-    },
+        name = Localizations.AbilitiesName.iceBody,
+        description = Localizations.AbilitiesDescription.iceBody},
     {
         id = 116,
-        name = "Solid Rock",
-        description = "Decreases damage taken from super-effective moves by 1/4."
-    },
+        name = Localizations.AbilitiesName.solidRock,
+        description = Localizations.AbilitiesDescription.solidRock},
     {
         id = 117,
-        name = "Snow Warning",
-        description = "Summons hail that lasts indefinitely upon entering battle."
-    },
+        name = Localizations.AbilitiesName.snowWarning,
+        description = Localizations.AbilitiesDescription.snowWarning},
     {
         id = 118,
-        name = "Honey Gather",
-        description = "The Pok" .. Chars.accentedE .. "mon may pick up honey after battle."
-    },
+        name = Localizations.AbilitiesName.honeyGather,
+        description = Localizations.AbilitiesDescription.honeyGather},
     {
         id = 119,
-        name = "Frisk",
-        description = "Reveals the opponent's held item upon entering battle."
-    },
+        name = Localizations.AbilitiesName.frisk,
+        description = Localizations.AbilitiesDescription.frisk},
     {
         id = 120,
-        name = "Reckless",
-        description = "Strengthens recoil moves to 1.2x their power."
-    },
+        name = Localizations.AbilitiesName.reckless,
+        description = Localizations.AbilitiesDescription.reckless},
     {
         id = 121,
-        name = "Multitype",
-        description = "Changes Arceus's type and form to match its held Plate."
-    },
+        name = Localizations.AbilitiesName.multitype,
+        description = Localizations.AbilitiesDescription.multitype},
     {
         id = 122,
-        name = "Flower Gift",
-        description = "Increases friendly Pok" ..
-            Chars.accentedE .. "mon's Attack and Special Defense to 1.5x during strong sunlight."
-    },
+        name = Localizations.AbilitiesName.flowerGift,
+        description = Localizations.AbilitiesDescription.flowerGift},
     {
         id = 123,
-        name = "Bad Dreams",
-        description = "Damages sleeping opponents for 1/8 their max HP after each turn."
-    },
+        name = Localizations.AbilitiesName.badDreams,
+        description = Localizations.AbilitiesDescription.badDreams},
     {
         id = 124,
-        name = "Pickpocket",
-        description = "Steals attacking Pok" .. Chars.accentedE .. "mon's held items on contact."
-    },
+        name = Localizations.AbilitiesName.pickpocket,
+        description = Localizations.AbilitiesDescription.pickpocket},
     {
         id = 125,
-        name = "Sheer Force",
-        description = "Strengthens moves with extra effects to 1.3x their power, but prevents their extra effects."
-    },
+        name = Localizations.AbilitiesName.sheerForce,
+        description = Localizations.AbilitiesDescription.sheerForce},
     {
         id = 126,
-        name = "Contrary",
-        description = "Inverts stat changes."
-    },
+        name = Localizations.AbilitiesName.contrary,
+        description = Localizations.AbilitiesDescription.contrary},
     {
         id = 127,
-        name = "Unnerve",
-        description = "Prevents opposing Pok" .. Chars.accentedE .. "mon from eating held Berries."
-    },
+        name = Localizations.AbilitiesName.unnerve,
+        description = Localizations.AbilitiesDescription.unnerve},
     {
         id = 128,
-        name = "Defiant",
-        description = "Raises Attack two stages upon having any stat lowered."
-    },
+        name = Localizations.AbilitiesName.defiant,
+        description = Localizations.AbilitiesDescription.defiant},
     {
         id = 129,
-        name = "Defeatist",
-        description = "Halves Attack and Special Attack at 50% max HP or less."
-    },
+        name = Localizations.AbilitiesName.defeatist,
+        description = Localizations.AbilitiesDescription.defeatist},
     {
         id = 130,
-        name = "Cursed Body",
-        description = "Has a 30% chance of Disabling any move that hits the Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.cursedBody,
+        description = Localizations.AbilitiesDescription.cursedBody},
     {
         id = 131,
-        name = "Healer",
-        description = "Has a 30% chance of curing each adjacent ally of any major status ailment after each turn."
-    },
+        name = Localizations.AbilitiesName.healer,
+        description = Localizations.AbilitiesDescription.healer},
     {
         id = 132,
-        name = "Friend Guard",
-        description = "Decreases all direct damage taken by friendly Pok" .. Chars.accentedE .. "mon to 0.75x."
-    },
+        name = Localizations.AbilitiesName.friendGuard,
+        description = Localizations.AbilitiesDescription.friendGuard},
     {
         id = 133,
-        name = "Weak Armor",
-        description = "Raises Speed and lowers Defense by one stage each upon being hit by a physical move."
-    },
+        name = Localizations.AbilitiesName.weakArmor,
+        description = Localizations.AbilitiesDescription.weakArmor},
     {
         id = 134,
-        name = "Heavy Metal",
-        description = "Doubles the Pok" .. Chars.accentedE .. "mon's weight."
-    },
+        name = Localizations.AbilitiesName.heavyMetal,
+        description = Localizations.AbilitiesDescription.heavyMetal},
     {
         id = 135,
-        name = "Light Metal",
-        description = "Halves the Pok" .. Chars.accentedE .. "mon's weight."
-    },
+        name = Localizations.AbilitiesName.lightMetal,
+        description = Localizations.AbilitiesDescription.lightMetal},
     {
         id = 136,
-        name = "Multiscale",
-        description = "Halves damage taken from full HP."
-    },
+        name = Localizations.AbilitiesName.multiscale,
+        description = Localizations.AbilitiesDescription.multiscale},
     {
         id = 137,
-        name = "Toxic Boost",
-        description = "Increases Attack to 1.5x when poisoned."
-    },
+        name = Localizations.AbilitiesName.toxicBoost,
+        description = Localizations.AbilitiesDescription.toxicBoost},
     {
         id = 138,
-        name = "Flare Boost",
-        description = "Increases Special Attack to 1.5x when burned."
-    },
+        name = Localizations.AbilitiesName.flareBoost,
+        description = Localizations.AbilitiesDescription.flareBoost},
     {
         id = 139,
-        name = "Harvest",
-        description = "Has a 50% chance of restoring a used Berry after each turn if the Pok" ..
-            Chars.accentedE .. "mon has held no items in the meantime."
-    },
+        name = Localizations.AbilitiesName.harvest,
+        description = Localizations.AbilitiesDescription.harvest},
     {
         id = 140,
-        name = "Telepathy",
-        description = "Protects against friendly Pok" .. Chars.accentedE .. "mon's damaging moves."
-    },
+        name = Localizations.AbilitiesName.telepathy,
+        description = Localizations.AbilitiesDescription.telepathy},
     {
         id = 141,
-        name = "Moody",
-        description = "Raises a random stat two stages and lowers another one stage after each turn."
-    },
+        name = Localizations.AbilitiesName.moody,
+        description = Localizations.AbilitiesDescription.moody},
     {
         id = 142,
-        name = "Overcoat",
-        description = "Protects against damage from weather."
-    },
+        name = Localizations.AbilitiesName.overcoat,
+        description = Localizations.AbilitiesDescription.overcoat},
     {
         id = 143,
-        name = "Poison Touch",
-        description = "Has a 30% chance of poisoning target Pok" .. Chars.accentedE .. "mon upon contact."
-    },
+        name = Localizations.AbilitiesName.poisonTouch,
+        description = Localizations.AbilitiesDescription.poisonTouch},
     {
         id = 144,
-        name = "Regenerator",
-        description = "Heals for 1/3 max HP upon switching out."
-    },
+        name = Localizations.AbilitiesName.regenerator,
+        description = Localizations.AbilitiesDescription.regenerator},
     {
         id = 145,
-        name = "Big Pecks",
-        description = "Prevents Defense from being lowered."
-    },
+        name = Localizations.AbilitiesName.bigPecks,
+        description = Localizations.AbilitiesDescription.bigPecks},
     {
         id = 146,
-        name = "Sand Rush",
-        description = "Doubles Speed during a sandstorm. Protects against sandstorm damage."
-    },
+        name = Localizations.AbilitiesName.sandRush,
+        description = Localizations.AbilitiesDescription.sandRush},
     {
         id = 147,
-        name = "Wonder Skin",
-        description = "Lowers incoming non-damaging moves' base accuracy to exactly 50%."
-    },
+        name = Localizations.AbilitiesName.wonderSkin,
+        description = Localizations.AbilitiesDescription.wonderSkin},
     {
         id = 148,
-        name = "Analytic",
-        description = "Strengthens moves to 1.3x their power when moving last."
-    },
+        name = Localizations.AbilitiesName.analytic,
+        description = Localizations.AbilitiesDescription.analytic},
     {
         id = 149,
-        name = "Illusion",
-        description = "Takes the appearance of the last conscious party Pok" ..
-            Chars.accentedE .. "mon upon being sent out until hit by a damaging move."
-    },
+        name = Localizations.AbilitiesName.illusion,
+        description = Localizations.AbilitiesDescription.illusion},
     {
         id = 150,
-        name = "Imposter",
-        description = "Transforms upon entering battle."
-    },
+        name = Localizations.AbilitiesName.imposter,
+        description = Localizations.AbilitiesDescription.imposter},
     {
         id = 151,
-        name = "Infiltrator",
-        description = "Bypasses Light Screen, Reflect, and Safeguard."
-    },
+        name = Localizations.AbilitiesName.infiltrator,
+        description = Localizations.AbilitiesDescription.infiltrator},
     {
         id = 152,
-        name = "Mummy",
-        description = "Changes attacking Pok" .. Chars.accentedE .. "mon's abilities to Mummy on contact."
-    },
+        name = Localizations.AbilitiesName.mummy,
+        description = Localizations.AbilitiesDescription.mummy},
     {
         id = 153,
-        name = "Moxie",
-        description = "Raises Attack one stage upon KOing a Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.moxie,
+        description = Localizations.AbilitiesDescription.moxie},
     {
         id = 154,
-        name = "Justified",
-        description = "Raises Attack one stage upon taking damage from a dark move."
-    },
+        name = Localizations.AbilitiesName.justified,
+        description = Localizations.AbilitiesDescription.justified},
     {
         id = 155,
-        name = "Rattled",
-        description = "Raises Speed one stage upon being hit by a dark, ghost, or bug move."
-    },
+        name = Localizations.AbilitiesName.rattled,
+        description = Localizations.AbilitiesDescription.rattled},
     {
         id = 156,
-        name = "Magic Bounce",
-        description = "Reflects most non-damaging moves back at their user."
-    },
+        name = Localizations.AbilitiesName.magicBounce,
+        description = Localizations.AbilitiesDescription.magicBounce},
     {
         id = 157,
-        name = "Sap Sipper",
-        description = "Absorbs grass moves, raising Attack one stage."
-    },
+        name = Localizations.AbilitiesName.sapSipper,
+        description = Localizations.AbilitiesDescription.sapSipper},
     {
         id = 158,
-        name = "Prankster",
-        description = "Raises non-damaging moves' priority by one stage."
-    },
+        name = Localizations.AbilitiesName.prankster,
+        description = Localizations.AbilitiesDescription.prankster},
     {
         id = 159,
-        name = "Sand Force",
-        description = "Strengthens rock, ground, and steel moves to 1.3x their power during a sandstorm. Protects against sandstorm damage."
-    },
+        name = Localizations.AbilitiesName.sandForce,
+        description = Localizations.AbilitiesDescription.sandForce},
     {
         id = 160,
-        name = "Iron Barbs",
-        description = "Damages attacking Pok" .. Chars.accentedE .. "mon for 1/8 their max HP on contact."
-    },
+        name = Localizations.AbilitiesName.ironBarbs,
+        description = Localizations.AbilitiesDescription.ironBarbs},
     {
         id = 161,
-        name = "Zen Mode",
-        description = "Changes Darmanitan's form after each turn depending on its HP: Zen Mode below 50% max HP, and Standard Mode otherwise."
-    },
+        name = Localizations.AbilitiesName.zenMode,
+        description = Localizations.AbilitiesDescription.zenMode},
     {
         id = 162,
-        name = "Victory Star",
-        description = "Increases moves' accuracy to 1.1x for friendly Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.AbilitiesName.victoryStar,
+        description = Localizations.AbilitiesDescription.victoryStar},
     {
         id = 163,
-        name = "Turboblaze",
-        description = "Bypasses targets' abilities if they could hinder or prevent moves."
-    },
+        name = Localizations.AbilitiesName.turboblaze,
+        description = Localizations.AbilitiesDescription.turboblaze},
     {
         id = 164,
-        name = "Teravolt",
-        description = "Bypasses targets' abilities if they could hinder or prevent moves."
-    }
+        name = Localizations.AbilitiesName.teravolt,
+        description = Localizations.AbilitiesDescription.teravolt}
 }
 
 -- Map a battle message id (key) to a list of ability id's (value) that could trigger it

@@ -164,7 +164,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 			TextLabel(
 			Component(ui.frames.topFrame, Box({x = 0, y = 0}, {width = 35, height = 0})),
 			TextField(
-				"Sort by:",
+				Localizations.Misc.sortBy,
 				{x = 0, y = 1},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -177,9 +177,9 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		local sortButtonsFrame =
 			Frame(Box({x = 0, y = 0}, {width = 0, height = 0}), Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 2), ui.frames.topFrame)
 		local buttonInfo = {
-			{name = "Name", width = 32, sortType = SORT_TYPES.NAME},
-			{name = "BST", width = 22, sortType = SORT_TYPES.BST},
-			{name = "Percent", width = 38, sortType = SORT_TYPES.PERCENT}
+			{name = Localizations.Misc.name, width = 32, sortType = SORT_TYPES.NAME},
+			{name = Localizations.PokemonStats.bst, width = 22, sortType = SORT_TYPES.BST},
+			{name = Localizations.Misc.percent, width = 38, sortType = SORT_TYPES.PERCENT}
 		}
 		for _, info in pairs(buttonInfo) do
 			local button =
@@ -356,7 +356,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"Data from brdy and Harkenn",
+				Localizations.EvoDataScreen.dataFrom,
 				{x = 3, y = 1},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -391,7 +391,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"View Site",
+				Localizations.EvoDataScreen.viewSite,
 				{x = 9, y = 2},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -415,7 +415,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"Close",
+				Localizations.Misc.close,
 				{x = 17, y = 2},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,

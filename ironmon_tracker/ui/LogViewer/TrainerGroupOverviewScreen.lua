@@ -101,6 +101,7 @@ local function TrainerGroupOverviewScreen(initialSettings, initialTracker, initi
                 )
             )
         end
+		local textName = battle.nameLocalized or battle.name
         local name =
             TextLabel(
             Component(
@@ -116,7 +117,7 @@ local function TrainerGroupOverviewScreen(initialSettings, initialTracker, initi
                 )
             ),
             TextField(
-                battle.name,
+                textName,
                 {x = 0, y = 4},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

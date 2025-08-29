@@ -17,7 +17,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 		MAIN_BUTTONS_Y_OFFSET = 5,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 3,
-		MAIN_BUTTON_WIDTH = 110,
+		MAIN_BUTTON_WIDTH = Localizations.TrackedInfoScreen.MainButtonWidth,
 		MAIN_BUTTON_HEIGHT = 19,
 		BUTTONS_FRAME_HEIGHT = 149,
 		FAINT_DETECTION_FRAME_HEIGHT = 75,
@@ -94,8 +94,8 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 				)
 			),
 			TextField(
-				"Go back",
-				{x = 3, y = 1},
+				Localizations.Misc.goBack,
+				{x = Localizations.Misc.goBackTextPosX, y = 1},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
 					Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -107,12 +107,12 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 	end
 	local function initMainButtons()
 		local buttonNames = {
-			trackedPokemonButton = "Tracked Pok" .. Chars.accentedE .. "mon",
-			pastRunsButton = "Past Runs",
-			statisticsButton = "Statistics",
-			openLogButton = "Open a Log",
-			openRestorePointsButton = "Restore Points",
-			loadTrackerDataButton = "Load Tracker Data"
+			trackedPokemonButton = Localizations.TrackedInfoScreen.trackedPokemonButton,
+			pastRunsButton = Localizations.TrackedInfoScreen.pastRunsButton,
+			statisticsButton = Localizations.TrackedInfoScreen.statisticsButton,
+			openLogButton = Localizations.TrackedInfoScreen.openLogButton,
+			openRestorePointsButton = Localizations.TrackedInfoScreen.openRestorePointsButton,
+			loadTrackerDataButton = Localizations.TrackedInfoScreen.loadTrackerDataButton
 		}
 		local icons = {"PENCIL", "PAST_RUN_ICON", "STATISTICS_ICON", "OPEN_LOG_ICON", "RESTORE_POINTS_ICON", "LOAD_TRACKER_DATA"}
 		local order = {
@@ -160,7 +160,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			Box(
 				{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
 				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = constants.FAINT_DETECTION_ROW_HEIGHT
 				},
 				nil,
@@ -212,7 +212,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			Box(
 				{x = 0, y = 0},
 				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = constants.FAINT_DETECTION_FRAME_HEIGHT
 				},
 				"Top box background color",
@@ -225,7 +225,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			TextLabel(
 			Component(ui.frames.faintDetectionFrame, Box({x = 0, y = 0}, {width = 0, height = 13})),
 			TextField(
-				"Run is considered over when:",
+				Localizations.TrackedInfoScreen.faintDetectionLabel,
 				{x = -1, y = 0},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -236,9 +236,9 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			)
 		)
 		local settingNames = {
-			[PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT] = "Lead Pok" .. Chars.accentedE .. "mon faints",
-			[PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT] = "Highest level faints",
-			[PlaythroughConstants.FAINT_DETECTIONS.ON_ENTIRE_PARTY_FAINT] = "Entire party faints"
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_FIRST_SLOT_FAINT] = Localizations.TrackedInfoScreen.onFirstSlotFaint,
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_HIGHEST_LEVEL_FAINT] = Localizations.TrackedInfoScreen.onHighestLevelFaint,
+			[PlaythroughConstants.FAINT_DETECTIONS.ON_ENTIRE_PARTY_FAINT] = Localizations.TrackedInfoScreen.onEntirePartyFaint
 		}
 		for settingValue, name in pairs(settingNames) do
 			createFaintDetectionChoosingRow("FAINT_DETECTION", settingValue, name)
@@ -252,7 +252,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			Frame(
 			Box(
 				{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.TRACKED_INFO_HEIGHT},
+				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.TRACKED_INFO_HEIGHT},
 				"Main background color",
 				nil
 			),
@@ -264,7 +264,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			Box(
 				{x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN},
 				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = constants.TRACKED_INFO_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
 				},
 				"Top box background color",
@@ -279,14 +279,14 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 				ui.frames.mainInnerFrame,
 				Box(
 					{x = 0, y = 0},
-					{width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
+					{width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
 					"Top box background color",
 					"Top box border color",
 					false
 				)
 			),
 			TextField(
-				"Tracked Info",
+				Localizations.TrackedInfoScreen.trackedInfo,
 				{x = 36, y = 1},
 				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
@@ -295,7 +295,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			Frame(
 			Box(
 				{x = 0, y = 0},
-				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = constants.BUTTONS_FRAME_HEIGHT},
+				{width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, height = constants.BUTTONS_FRAME_HEIGHT},
 				"Top box background color",
 				"Top box border color"
 			),
@@ -312,7 +312,7 @@ local function TrackedInfoScreen(initialSettings, initialTracker, initialProgram
 			Box(
 				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 104},
 				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = 22
 				},
 				"Top box background color",

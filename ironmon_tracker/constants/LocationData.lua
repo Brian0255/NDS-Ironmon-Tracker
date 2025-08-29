@@ -599,7 +599,7 @@ LocationData.LOCATION_DATA = {
             [592] = {name = "Rpck Peak Ruins"}
         },
         encounters = {
-            ["Route 202"] = {
+            [Localizations.LocationDataDPPt.route202] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
@@ -620,7 +620,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 201"] = {
+            [Localizations.LocationDataDPPt.route201] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -636,7 +636,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Lake Verity"] = {
+            [Localizations.LocationDataDPPt.lakeVerity] = {
                 totalPokemon = 2,
                 vanillaData = {
                     {
@@ -651,7 +651,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 203"] = {
+            [Localizations.LocationDataDPPt.route203] = {
                 totalPokemon = 5,
                 vanillaData = {
                     {
@@ -678,7 +678,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 204"] = {
+            [Localizations.LocationDataDPPt.route204] = {
                 totalPokemon = 6,
                 vanillaData = {
                     {
@@ -709,14 +709,14 @@ LocationData.LOCATION_DATA = {
             }
         },
         encounterAreaOrder = {
-            "Lake Verity",
-            "Route 201",
-            "Route 202",
-            "Route 203",
-            "Route 204",
-            "Twinleaf Town",
-            "Route 218",
-            "Route 219"
+            Localizations.LocationDataDPPt.lakeVerity,
+            Localizations.LocationDataDPPt.route201,
+            Localizations.LocationDataDPPt.route202,
+            Localizations.LocationDataDPPt.route203,
+            Localizations.LocationDataDPPt.route204,
+            Localizations.LocationDataDPPt.twinleafTown,
+            Localizations.LocationDataDPPt.route218,
+            Localizations.LocationDataDPPt.route219
         }
     },
     --heartgold/soulsilver
@@ -1264,7 +1264,7 @@ LocationData.LOCATION_DATA = {
             [539] = {name = "Pok" .. Chars.accentedE .. "mon League"}
         },
         encounters = {
-            ["Route 29"] = {
+            [Localizations.LocationDataHGSS.route29] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1281,7 +1281,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 46"] = {
+            [Localizations.LocationDataHGSS.route46] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1298,7 +1298,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 30"] = {
+            [Localizations.LocationDataHGSS.route30] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1314,7 +1314,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 31"] = {
+            [Localizations.LocationDataHGSS.route31] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
@@ -1332,7 +1332,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 32"] = {
+            [Localizations.LocationDataHGSS.route32] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
@@ -1350,7 +1350,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Dark Cave"] = {
+            [Localizations.LocationDataHGSS.darkCave] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1473,7 +1473,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Ruins of Alph"] = {
+            [Localizations.LocationDataHGSS.ruinsOfAlph] = {
                 totalPokemon = 1,
                 vanillaData = {
                     {
@@ -1481,7 +1481,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Sprout Tower 1F"] = {
+            [Localizations.LocationDataHGSS.sproutTower1F] = {
                 totalPokemon = 1,
                 vanillaData = {
                     {
@@ -1492,7 +1492,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Sprout Tower 2F"] = {
+            [Localizations.LocationDataHGSS.sproutTower2F] = {
                 totalPokemon = 1,
                 vanillaData = {
                     {
@@ -1503,20 +1503,20 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Cherrygrove City"] = nil
+            [Localizations.LocationDataHGSS.cherrygroveCity] = nil
         },
         encounterAreaOrder = {
-            "Route 29",
-            "Route 46",
-            "Cherrygrove City",
-            "Route 30",
-            "Route 31",
-            "Route 32",
-            "Ruins of Alph",
-            "Sprout Tower 1F",
-            "Sprout Tower 2F",
-            "Dark Cave",
-            "Bug Catching"
+            Localizations.LocationDataHGSS.route29,
+            Localizations.LocationDataHGSS.route46,
+            Localizations.LocationDataHGSS.cherrygroveCity,
+            Localizations.LocationDataHGSS.route30,
+            Localizations.LocationDataHGSS.route31,
+            Localizations.LocationDataHGSS.route32,
+            Localizations.LocationDataHGSS.ruinsOfAlph,
+            Localizations.LocationDataHGSS.sproutTower1F,
+            Localizations.LocationDataHGSS.sproutTower2F,
+            Localizations.LocationDataHGSS.darkCave,
+            Localizations.LocationDataHGSS.bugCatching,
         }
     },
     --black/white
@@ -1627,7 +1627,7 @@ LocationData.LOCATION_DATA = {
             [424] = {name = "White Forest"}
         },
         encounters = {
-            ["Route 1"] = {
+            [Localizations.LocationDataBW.route1] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1668,7 +1668,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 2"] = {
+            [Localizations.LocationDataBW.route2] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1709,7 +1709,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Dreamyard"] = {
+            [Localizations.LocationDataBW.dreamyard] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1750,7 +1750,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 3"] = {
+            [Localizations.LocationDataBW.route3] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1791,7 +1791,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Wellspring Cave"] = {
+            [Localizations.LocationDataBW.wellspringCave] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1832,7 +1832,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Pinwheel Exterior"] = {
+            [Localizations.LocationDataBW.pinwheelExterior] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1873,7 +1873,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Pinwheel Interior"] = {
+            [Localizations.LocationDataBW.pinwheelInterior] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1915,7 +1915,7 @@ LocationData.LOCATION_DATA = {
                 }
             },
         },
-        encounterAreaOrder = {"Route 1", "Route 2", "Dreamyard", "Route 3", "Wellspring Cave","Pinwheel Exterior","Pinwheel Interior"}
+        encounterAreaOrder = {Localizations.LocationDataBW.route1, Localizations.LocationDataBW.route2, Localizations.LocationDataBW.dreamyard, Localizations.LocationDataBW.route3, Localizations.LocationDataBW.wellspringCave, Localizations.LocationDataBW.pinwheelExterior, Localizations.LocationDataBW.pinwheelInterior}
     },
     --black2/white2
     [0x4F455249] = {
@@ -2049,9 +2049,9 @@ LocationData.LOCATION_DATA = {
             [584] = {name = "Nature Preserve"},
             [573] = {name = "Victory Road"}
         },
-        encounterAreaOrder = {"Route 19", "Route 20", "Floccesy Ranch", "Virbank Complex"},
+        encounterAreaOrder = {Localizations.LocationDataBW2.route19, Localizations.LocationDataBW2.route20, Localizations.LocationDataBW2.floccesyRanch, Localizations.LocationDataBW2.virbankComplex},
         encounters = {
-            ["Route 19"] = {
+            [Localizations.LocationDataBW2.route19] = {
                 totalPokemon = 2,
                 vanillaData = {
                     {
@@ -2066,7 +2066,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 20"] = {
+            [Localizations.LocationDataBW2.route20] = {
                 totalPokemon = 5,
                 vanillaData = {
                     {
@@ -2090,7 +2090,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Floccesy Ranch"] = {
+            [Localizations.LocationDataBW2.floccesyRanch] = {
                 totalPokemon = 7,
                 vanillaData = {
                     {
@@ -2120,7 +2120,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Virbank Complex"] = {
+            [Localizations.LocationDataBW2.virbankComplex] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {

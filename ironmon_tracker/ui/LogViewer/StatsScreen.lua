@@ -50,7 +50,7 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
         DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, currentID, ui.controls.pokemonImage)
         ui.controls.statBarGraph.setDataSet(logViewerScreen.readStats(logPokemon[currentID]))
         local name = data.name
-        ui.controls.statBarGraph.setHeadingText("Base Stats (" .. data.bst .. " total)")
+        ui.controls.statBarGraph.setHeadingText(Localizations.PokemonStats.baseStats .. " (" .. data.bst .. " " .. Localizations.Misc.total .. ")")
         ui.controls.currentPokemonLabel.setText("#" .. currentIDIndex .. ". " .. name)
         program.drawCurrentScreens()
     end
@@ -63,12 +63,12 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
         ui.controls.topLabel.setTextOffset({x = offsetX, y = 0})
         ui.controls.topLabel.setText(name)
         local nameToDescription = {
-            ["Best Special Attackers"] = "The highest amount of Special Attack and Speed.",
-            ["Best Physical Attackers"] = "The highest amount of Attack and Speed.",
-            ["Biggest Special Walls"] = "The highest amount of HP and Special Defense.",
-            ["Best Defensive Tanks"] = "The highest amount of HP and Defense.",
-            ["Bulkiest Overall"] = "The highest amount of HP, Defense, and Special Defense.",
-            ["Most Frail"] = "The worst amount of HP, Defense and Special Defense."
+            [Localizations.StatsScreen.bestSpecialAttackers] = Localizations.StatsScreen.bestSpecialAttackersDescription,
+            [Localizations.StatsScreen.bestPhysicalAttackers] = Localizations.StatsScreen.bestPhysicalAttackersDescription,
+            [Localizations.StatsScreen.biggestSpecialWalls] = Localizations.StatsScreen.biggestSpecialWallsDescription,
+            [Localizations.StatsScreen.bestDefensiveTanks] = Localizations.StatsScreen.bestDefensiveTanksDescription,
+            [Localizations.StatsScreen.bulkiestOverall] = Localizations.StatsScreen.bulkiestOverallDescription,
+            [Localizations.StatsScreen.mostFrail] = Localizations.StatsScreen.mostFrailDescription
         }
         local description = nameToDescription[name]
         local totalWidth = ui.frames.mainFrame.getSize().width - 10
@@ -157,7 +157,7 @@ local function StatsScreen(initialSettings, initialTracker, initialProgram, init
                 )
             ),
             TextField(
-                "The highest amount of special attack and speed.",
+                Localizations.StatsScreen.bestSpecialAttackersDescription,
                 {x = -30, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

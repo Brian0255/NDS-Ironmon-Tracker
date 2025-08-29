@@ -35,18 +35,18 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
     local currentPokemonList = {}
     local pivotData = {}
     local encounterTypes = {
-        "Grass",
-        "Ext. Grass",
-        "Int. Grass",
-        "Cave",
-        "Shaking Spots",
-        "Old Rod",
-        "Headbutt(C)",
-        "Headbutt(R)",
-        "Dark Grass",
-        "Tuesday",
-        "Thursday",
-        "Saturday"
+        {key = "Grass", text = Localizations.PivotsScreen.grass},
+        {key = "Ext. Grass", text = Localizations.PivotsScreen.extGrass},
+        {key = "Int. Grass", text = Localizations.PivotsScreen.intGrass},
+        {key = "Cave", text = Localizations.PivotsScreen.cave},
+        {key = "ShakingSpots", text = Localizations.PivotsScreen.shakingSpots},
+        {key = "OldRod", text = Localizations.PivotsScreen.oldRod},
+        {key = "Headbutt(C)", text = Localizations.PivotsScreen.headbuttC},
+        {key = "Headbutt(R)", text = Localizations.PivotsScreen.headbuttR},
+        {key = "Dark Grass", text = Localizations.PivotsScreen.darkGrass},
+        {key = "Tuesday", text = Localizations.PivotsScreen.tuesday},
+        {key = "Thursday", text = Localizations.PivotsScreen.thursday},
+        {key = "Saturday", text = Localizations.PivotsScreen.saturday}
     }
 
     local function underlineActiveTab()
@@ -101,7 +101,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
             local data = currentPokemonList[pokemonID]
             if pokemonID ~= nil then
                 name = PokemonData.POKEMON[pokemonID + 1].name
-                levels = "Lv. " .. data.minLevel
+                levels = Localizations.Misc.lv .. ". " .. data.minLevel
                 if data.minLevel ~= data.maxLevel then
                     levels = levels .. " - " .. data.maxLevel
                 end
@@ -137,8 +137,8 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
         end
         currentEncounterArea = pivotData[areaName]
         for _, encounterType in pairs(encounterTypes) do
-            if currentEncounterArea[encounterType] then
-                currentEncounterType = encounterType
+            if currentEncounterArea[encounterType.key] then
+                currentEncounterType = encounterType.key
                 break
             end
         end
@@ -234,7 +234,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
                 )
             ),
             TextField(
-                "Areas",
+                Localizations.PivotsScreen.areas,
                 {x = 24, y = 0},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -265,13 +265,13 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
                     Box(
                         {x = 0, y = 0},
                         {
-                            ["width"] = DrawingUtils.calculateWordPixelLength(encounterType) + 5,
+                            ["width"] = DrawingUtils.calculateWordPixelLength(encounterType.text) + 5,
                             height = 12
                         }
                     )
                 ),
                 TextField(
-                    encounterType,
+                    encounterType.text,
                     {x = 2, y = -1},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -281,8 +281,8 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
                     )
                 )
             )
-            encounterTabs[encounterType] = tab
-            table.insert(eventListeners, MouseClickEventListener(tab, onEncounterTypeClick, encounterType))
+            encounterTabs[encounterType.key] = tab
+            table.insert(eventListeners, MouseClickEventListener(tab, onEncounterTypeClick, encounterType.key))
         end
     end
 

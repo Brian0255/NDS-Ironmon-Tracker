@@ -14,4 +14,5 @@ Paths.FOLDERS = {
     BROWS_IMAGES_FOLDER = "ironmon_tracker/images/brows",
     EXTRAS_FOLDER = "ironmon_tracker/extras",
     NETWORK_FOLDER = "ironmon_tracker/network",
+    LOCALIZATIONS_FOLDER = "ironmon_tracker/localizations"
 }

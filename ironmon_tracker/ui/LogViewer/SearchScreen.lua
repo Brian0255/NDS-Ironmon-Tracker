@@ -45,8 +45,8 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
     }
 
     local searchOptions = {
-        ["Look for:"] = constants.LOOK_FOR.POKEMON,
-        ["With:"] = constants.WITH.MOVE
+        [Localizations.SearchScreen.lookFor] = constants.LOOK_FOR.POKEMON,
+        [Localizations.SearchScreen.with] = constants.WITH.MOVE
     }
 
     local ui = {}
@@ -123,13 +123,13 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
 
     function self.reset()
         clearMatches()
-        searchOptions["Look for:"] = constants.LOOK_FOR.POKEMON
-        searchOptions["With:"] = constants.WITH.MOVE
+        searchOptions[Localizations.SearchScreen.lookFor] = constants.LOOK_FOR.POKEMON
+        searchOptions[Localizations.SearchScreen.with] = constants.WITH.MOVE
         currentDataGroup = MoveData.MOVES
         ui.searchKeyboard.updateDataGroup(currentDataGroup)
         ui.searchKeyboard.updateItemSet(MiscUtils.getSortedKeysByName(currentDataGroup))
         ui.searchKeyboard.clearKeyboard()
-        ui.controls.totalFound.setText("None found")
+        ui.controls.totalFound.setText(Localizations.Misc.noneFound)
         ui.controls.totalFound.setTextOffset({x = 20, y = 1})
         resultsScroller.setItems({})
         clearResults()
@@ -143,7 +143,7 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
             local frameInfo = resultFrames[index]
             local rowInfo = rowInfos[index]
             if rowInfo ~= nil then
-                if searchOptions["Look for:"] == constants.LOOK_FOR.POKEMON then
+                if searchOptions[Localizations.SearchScreen.lookFor] == constants.LOOK_FOR.POKEMON then
                     readPokemonIntoRow(rowInfo, frameInfo)
                 else
                     readTrainerIntoRow(frameInfo, rowInfo)
@@ -180,9 +180,9 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
                 total = total + 1
             end
         end
-        local text = "Only ability"
+        local text = Localizations.SearchScreen.onlyAbility
         if total > 1 then
-            text = "1 of " .. total .. " abilities"
+            text = Localizations.SearchScreen.oneOf .. total .. " " .. Localizations.SearchScreen.abilities
         end
         return text
     end
@@ -241,13 +241,13 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
     end
 
     local function getTrainerResults(matchedID)
-        local checkingMove = searchOptions["With:"] == constants.WITH.MOVE
+        local checkingMove = searchOptions[Localizations.SearchScreen.with] == constants.WITH.MOVE
         return findTrainersWithMatch(matchedID, checkingMove)
     end
 
     local function getPokemonResults(matchedID)
         local matchingResults = {}
-        if searchOptions["With:"] == constants.WITH.MOVE then
+        if searchOptions[Localizations.SearchScreen.with] == constants.WITH.MOVE then
             matchingResults = findPokemonWithMove(matchedID)
         else
             matchingResults = findPokemonWithAbility(matchedID)
@@ -257,15 +257,15 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
 
     local function updateSearch()
         local matchingResults = {}
-        if searchOptions["Look for:"] == constants.LOOK_FOR.POKEMON then
+        if searchOptions[Localizations.SearchScreen.lookFor] == constants.LOOK_FOR.POKEMON then
             matchingResults = getPokemonResults(currentMatchID)
         else
             matchingResults = getTrainerResults(currentMatchID)
         end
         resultsScroller.setItems(matchingResults)
-        local newText = "Total: " .. #matchingResults
+        local newText = Localizations.Misc.Total .. Localizations.Misc.colon .. " " .. #matchingResults
         if #matchingResults == 0 then
-            newText = "None found"
+            newText = Localizations.Misc.noneFound
         end
         local newLength = DrawingUtils.calculateWordPixelLength(newText) + #newText + 2
         local centerX = (constants.RESULT_FRAME_WIDTH - newLength) / 2
@@ -279,7 +279,7 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
             [constants.WITH.MOVE] = MoveData.MOVES,
             [constants.WITH.ABILITY] = AbilityData.ABILITIES
         }
-        currentDataGroup = dataGroups[searchOptions["With:"]]
+        currentDataGroup = dataGroups[searchOptions[Localizations.SearchScreen.with]]
         ui.searchKeyboard.updateItemSet(MiscUtils.getSortedKeysByName(currentDataGroup))
         ui.searchKeyboard.updateDataGroup(currentDataGroup)
         ui.searchKeyboard.updateSearch()
@@ -349,7 +349,7 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
                 TextLabel(
                 Component(labelFrame, Box({x = 0, y = 0}, {width = 0, height = 12})),
                 TextField(
-                    "Lv. 30 - 100",
+                    Localizations.Misc.lv .. ". 30 - 100",
                     {x = 2, y = 2},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -447,7 +447,7 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
             )
             local params = {
                 radioButton = searchOptionLabel,
-                isLookForButton = radioGroupKey == "Look for:"
+                isLookForButton = radioGroupKey == Localizations.SearchScreen.lookFor
             }
             table.insert(eventListeners, MouseClickEventListener(searchOptionLabel, onSearchTypeRadioClick, params))
         end
@@ -640,7 +640,7 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
             TextLabel(
             Component(ui.frames.mainResultFrame, Box({x = 0, y = 0}, {width = 0, height = 17})),
             TextField(
-                "Total: 18",
+                Localizations.Misc.total .. Localizations.Misc.colon .. " 18",
                 {x = 22, y = 1},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -686,10 +686,10 @@ local function SearchScreen(initialSettings, initialTracker, initialProgram, ini
             ui.frames.searchFrame
         )
         local optionSets = {
-            ["Look for:"] = {constants.LOOK_FOR.POKEMON, constants.LOOK_FOR.TRAINERS},
-            ["With:"] = {constants.WITH.MOVE, constants.WITH.ABILITY}
+            [Localizations.SearchScreen.lookFor] = {constants.LOOK_FOR.POKEMON, constants.LOOK_FOR.TRAINERS},
+            [Localizations.SearchScreen.with] = {constants.WITH.MOVE, constants.WITH.ABILITY}
         }
-        local order = {"Look for:", "With:"}
+        local order = {Localizations.SearchScreen.lookFor, Localizations.SearchScreen.with}
         for _, optionType in pairs(order) do
             local optionSet = optionSets[optionType]
             createSearchOptionRow(ui.frames.searchOptionsFrame, optionType, optionSet, optionType)

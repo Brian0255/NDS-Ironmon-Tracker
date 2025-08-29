@@ -214,7 +214,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
             true,
             program.saveSettings
         )
-        local labelName = "Enable Brows"
+        local labelName = Localizations.PokemonIconsScreen.enableBrows
         ui.controls.browsToggleLabel =
             TextLabel(
             Component(ui.frames.browsToggleFrame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
@@ -262,7 +262,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             settings.animatedSprites,
-            option,
+            option.key,
             nil,
             false,
             true,
@@ -272,7 +272,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
             TextLabel(
             Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0})),
             TextField(
-                option:sub(1, 1) .. option:sub(2):lower():gsub("_", " "),
+                option.labelName,
                 {x = 2, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -306,7 +306,10 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
             isVisible
         )
 
-        local options = {"FASTER_ANIMATIONS", "CHANGE_DIRECTION"}
+        local options = {
+            {key ="FASTER_ANIMATIONS", labelName = Localizations.PokemonIconsScreen.fasterAnimations},
+            {key ="CHANGE_DIRECTION", labelName = Localizations.PokemonIconsScreen.changeDirection}
+        }
         for _, option in pairs(options) do
             createAnimatedToggleRow(option)
         end
@@ -406,7 +409,7 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Pok" .. Chars.accentedE .. "mon Icon Sets",
+                Localizations.AppearanceOptionsScreen.pokemonIconSets,
                 {x = 16, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -472,8 +475,8 @@ local function PokemonIconsScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,

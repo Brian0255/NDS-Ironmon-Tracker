@@ -37,14 +37,9 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
         frame.locationLabel.setText(restorePoint.location)
         local secondsAgo = os.time() - restorePoint.seconds
         local minutesAgo = math.floor(secondsAgo / 60)
-        local text = "Just now"
+        local text = Localizations.RestorePointsScreen.justNow
         if minutesAgo ~= 0 then
-            text = minutesAgo .. " minute"
-            if minutesAgo == 1 then
-                text = text .. " ago"
-            else
-                text = text .. "s ago"
-            end
+            text = Localizations.RestorePointsScreen.minuteAgo(minutesAgo)
         end
         frame.timeLabel.setText(text)
     end
@@ -124,12 +119,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
             Layout(Graphics.ALIGNMENT_TYPE.VERTICAL, 0, {x = 3, y = 3}),
             ui.frames.mainInnerFrame
         )
-        local lines = {
-            "Savestates are created as you",
-            "play in case of softlocks or other",
-            "major issues. You can load these",
-            "to return to an earlier state."
-        }
+        local lines = Localizations.RestorePointsScreen.descriptionRows
         for _, line in pairs(lines) do
             TextLabel(
                 Component(ui.frames.descriptionFrame, Box({x = 0, y = 0}, {width = 0, height = 12})),
@@ -172,8 +162,8 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
                 )
             ),
             TextField(
-                "Back to present",
-                {x = 9, y = 2},
+                Localizations.RestorePointsScreen.backToPresent,
+                {x = Localizations.RestorePointsScreen.backToPresentPosX, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -213,7 +203,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
                 )
             ),
             TextField(
-                "Load restore point",
+                Localizations.RestorePointsScreen.loadRestorePoint,
                 {x = 8, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -291,7 +281,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
                     )
                 ),
                 TextField(
-                    "10 minutes ago",
+                    Localizations.RestorePointsScreen.tenMinutesAgo,
                     {x = 0, y = 2},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -325,7 +315,7 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
             TextLabel(
             Component(ui.frames.mainButtonsFrame, Box({x = 0, y = 0}, {width = 0, height = 12})),
             TextField(
-                "No restore points available.",
+                Localizations.RestorePointsScreen.noRestorePoints,
                 {x = -2, y = -2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -368,8 +358,8 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -425,8 +415,8 @@ local function RestorePointsScreen(initialSettings, initialTracker, initialProgr
                 )
             ),
             TextField(
-                "Restore Points",
-                {x = 29, y = 1},
+                Localizations.RestorePointsScreen.restorePoints,
+                {x = Localizations.RestorePointsScreen.RestorePointsScreenTextPosX, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )

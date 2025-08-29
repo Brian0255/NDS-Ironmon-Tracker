@@ -1,46 +1,47 @@
 MoveData = {}
 
+
 -- Move categories identify the type of attack a move is: physical, special, or status
 MoveData.MOVE_CATEGORIES =
 	MiscUtils.readOnly(
-	{
-		NONE = "NONE",
-		PHYSICAL = "PHYSICAL",
-		SPECIAL = "SPECIAL",
-		STATUS = "STATUS"
-	}
-)
+		{
+			NONE = "NONE",
+			PHYSICAL = "PHYSICAL",
+			SPECIAL = "SPECIAL",
+			STATUS = "STATUS"
+		}
+	)
 
 MoveData.MOVES = {}
 
 --Mapping of move types to move categories for gens 1-3
 MoveData.TYPE_CATEGORIES =
 	MiscUtils.readOnly(
-	{
-		[PokemonData.POKEMON_TYPES.NORMAL] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.FIGHTING] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.FLYING] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.POISON] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.GROUND] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.ROCK] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.BUG] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.GHOST] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.STEEL] = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		[PokemonData.POKEMON_TYPES.FIRE] = MoveData.MOVE_CATEGORIES.SPECIAL,
-		[PokemonData.POKEMON_TYPES.WATER] = MoveData.MOVE_CATEGORIES.SPECIAL,
-		[PokemonData.POKEMON_TYPES.GRASS] = MoveData.MOVE_CATEGORIES.SPECIAL,
-		[PokemonData.POKEMON_TYPES.ELECTRIC] = MoveData.MOVE_CATEGORIES.SPECIAL,
-		[PokemonData.POKEMON_TYPES.PSYCHIC] = MoveData.MOVE_CATEGORIES.SPECIAL,
-		[PokemonData.POKEMON_TYPES.ICE] = MoveData.MOVE_CATEGORIES.SPECIAL,
-		[PokemonData.POKEMON_TYPES.DRAGON] = MoveData.MOVE_CATEGORIES.SPECIAL,
-		[PokemonData.POKEMON_TYPES.DARK] = MoveData.MOVE_CATEGORIES.SPECIAL
-	}
-)
+		{
+			[PokemonData.POKEMON_TYPES.NORMAL] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.FIGHTING] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.FLYING] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.POISON] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.GROUND] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.ROCK] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.BUG] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.GHOST] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.STEEL] = MoveData.MOVE_CATEGORIES.PHYSICAL,
+			[PokemonData.POKEMON_TYPES.FIRE] = MoveData.MOVE_CATEGORIES.SPECIAL,
+			[PokemonData.POKEMON_TYPES.WATER] = MoveData.MOVE_CATEGORIES.SPECIAL,
+			[PokemonData.POKEMON_TYPES.GRASS] = MoveData.MOVE_CATEGORIES.SPECIAL,
+			[PokemonData.POKEMON_TYPES.ELECTRIC] = MoveData.MOVE_CATEGORIES.SPECIAL,
+			[PokemonData.POKEMON_TYPES.PSYCHIC] = MoveData.MOVE_CATEGORIES.SPECIAL,
+			[PokemonData.POKEMON_TYPES.ICE] = MoveData.MOVE_CATEGORIES.SPECIAL,
+			[PokemonData.POKEMON_TYPES.DRAGON] = MoveData.MOVE_CATEGORIES.SPECIAL,
+			[PokemonData.POKEMON_TYPES.DARK] = MoveData.MOVE_CATEGORIES.SPECIAL
+		}
+	)
 
 MoveData.EFFECTIVE_DATA = {
-	NORMAL = {ROCK = 0.5, GHOST = 0, STEEL = 0.5},
-	FIRE = {FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 2, BUG = 2, ROCK = 0.5, DRAGON = 0.5, STEEL = 2},
-	WATER = {FIRE = 2, WATER = 0.5, GRASS = 0.5, GROUND = 2, ROCK = 2, DRAGON = 0.5},
+	NORMAL = { ROCK = 0.5, GHOST = 0, STEEL = 0.5 },
+	FIRE = { FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 2, BUG = 2, ROCK = 0.5, DRAGON = 0.5, STEEL = 2 },
+	WATER = { FIRE = 2, WATER = 0.5, GRASS = 0.5, GROUND = 2, ROCK = 2, DRAGON = 0.5 },
 	GRASS = {
 		FIRE = 0.5,
 		WATER = 2,
@@ -53,8 +54,8 @@ MoveData.EFFECTIVE_DATA = {
 		DRAGON = 0.5,
 		STEEL = 0.5
 	},
-	ELECTRIC = {WATER = 2, GRASS = 0.5, ELECTRIC = 0.5, GROUND = 0, FLYING = 2, DRAGON = 0.5},
-	ICE = {FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 0.5, GROUND = 2, FLYING = 2, DRAGON = 2, STEEL = 0.5},
+	ELECTRIC = { WATER = 2, GRASS = 0.5, ELECTRIC = 0.5, GROUND = 0, FLYING = 2, DRAGON = 0.5 },
+	ICE = { FIRE = 0.5, WATER = 0.5, GRASS = 2, ICE = 0.5, GROUND = 2, FLYING = 2, DRAGON = 2, STEEL = 0.5 },
 	FIGHTING = {
 		NORMAL = 2,
 		ICE = 2,
@@ -67,10 +68,10 @@ MoveData.EFFECTIVE_DATA = {
 		DARK = 2,
 		STEEL = 2
 	},
-	POISON = {GRASS = 2, POISON = 0.5, GROUND = 0.5, ROCK = 0.5, GHOST = 0.5, STEEL = 0},
-	GROUND = {FIRE = 2, GRASS = 0.5, ELECTRIC = 2, POISON = 2, FLYING = 0, BUG = 0.5, ROCK = 2, STEEL = 2},
-	FLYING = {GRASS = 2, ELECTRIC = 0.5, FIGHTING = 2, BUG = 2, ROCK = 0.5, STEEL = 0.5},
-	PSYCHIC = {FIGHTING = 2, POISON = 2, PSYCHIC = 0.5, DARK = 0, STEEL = 0.5},
+	POISON = { GRASS = 2, POISON = 0.5, GROUND = 0.5, ROCK = 0.5, GHOST = 0.5, STEEL = 0 },
+	GROUND = { FIRE = 2, GRASS = 0.5, ELECTRIC = 2, POISON = 2, FLYING = 0, BUG = 0.5, ROCK = 2, STEEL = 2 },
+	FLYING = { GRASS = 2, ELECTRIC = 0.5, FIGHTING = 2, BUG = 2, ROCK = 0.5, STEEL = 0.5 },
+	PSYCHIC = { FIGHTING = 2, POISON = 2, PSYCHIC = 0.5, DARK = 0, STEEL = 0.5 },
 	BUG = {
 		FIRE = 0.5,
 		GRASS = 2,
@@ -82,11 +83,11 @@ MoveData.EFFECTIVE_DATA = {
 		DARK = 2,
 		STEEL = 0.5
 	},
-	ROCK = {FIRE = 2, ICE = 2, FIGHTING = 0.5, GROUND = 0.5, FLYING = 2, BUG = 2, STEEL = 0.5},
-	GHOST = {NORMAL = 0, PSYCHIC = 2, GHOST = 2, DARK = 0.5, STEEL = 0.5},
-	DRAGON = {DRAGON = 2, STEEL = 0.5},
-	DARK = {FIGHTING = 0.5, PSYCHIC = 2, GHOST = 2, DARK = 0.5, STEEL = 0.5},
-	STEEL = {FIRE = 0.5, WATER = 0.5, ICE = 2, ROCK = 2, STEEL = 0.5, ELECTRIC = 0.5}
+	ROCK = { FIRE = 2, ICE = 2, FIGHTING = 0.5, GROUND = 0.5, FLYING = 2, BUG = 2, STEEL = 0.5 },
+	GHOST = { NORMAL = 0, PSYCHIC = 2, GHOST = 2, DARK = 0.5, STEEL = 0.5 },
+	DRAGON = { DRAGON = 2, STEEL = 0.5 },
+	DARK = { FIGHTING = 0.5, PSYCHIC = 2, GHOST = 2, DARK = 0.5, STEEL = 0.5 },
+	STEEL = { FIRE = 0.5, WATER = 0.5, ICE = 2, ROCK = 2, STEEL = 0.5, ELECTRIC = 0.5 }
 }
 
 MoveData.MOVES_MASTER_LIST = {
@@ -104,17 +105,16 @@ MoveData.MOVES_MASTER_LIST = {
 	{
 		-- Begin Gen 1 Moves
 		id = "1",
-		name = "Pound",
+		name = Localizations.MoveNames.pound,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.pound
+		}, {
 		id = "2",
-		name = "Karate Chop",
+		name = Localizations.MoveNames.karateChop,
 		type = {
 			PokemonData.POKEMON_TYPES.NORMAL,
 			PokemonData.POKEMON_TYPES.FIGHTING,
@@ -126,141 +126,127 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.karateChop
+	}, {
 		id = "3",
-		name = "DoubleSlap",
+		name = Localizations.MoveNames.doubleslap,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "15",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn. Averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.doubleslap
+	}, {
 		id = "4",
-		name = "Comet Punch",
+		name = Localizations.MoveNames.cometPunch,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "18",
 		pp = "15",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.cometPunch
+	}, {
 		id = "5",
-		name = "Mega Punch",
+		name = Localizations.MoveNames.megaPunch,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "80",
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.megaPunch
+	}, {
 		id = "6",
-		name = "Pay Day",
+		name = Localizations.MoveNames.payDay,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. After the battle ends, the winner receives five times the user's level in extra money for each time this move was used."
-	},
-	{
+		description = Localizations.MoveDescriptions.payDay
+	}, {
 		id = "7",
-		name = "Fire Punch",
+		name = Localizations.MoveNames.firePunch,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "75",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.firePunch
+	}, {
 		id = "8",
-		name = "Ice Punch",
+		name = Localizations.MoveNames.icePunch,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "75",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to freeze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.icePunch
+	}, {
 		id = "9",
-		name = "ThunderPunch",
+		name = Localizations.MoveNames.thunderpunch,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "75",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.thunderpunch
+	}, {
 		id = "10",
-		name = "Scratch",
+		name = Localizations.MoveNames.scratch,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.scratch
+	}, {
 		id = "11",
-		name = "ViceGrip",
+		name = Localizations.MoveNames.vicegrip,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "55",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.vicegrip
+	}, {
 		id = "12",
-		name = "Guillotine",
+		name = Localizations.MoveNames.guillotine,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = "30",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Instantly KOs the target and makes contact. This move's accuracy is 30% plus 1% for each level the user is higher than the target. If the user is a lower level than the target, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.guillotine
+	}, {
 		id = "13",
-		name = "Razor Wind",
+		name = Localizations.MoveNames.razorWind,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "80",
 		pp = "10",
-		accuracy = {"75", "75", "100", "100", "100"},
+		accuracy = { "75", "75", "100", "100", "100" },
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move. User charges for one turn before attacking."
-	},
-	{
+		description = Localizations.MoveDescriptions.razorWind
+	}, {
 		id = "14",
-		name = "Swords Dance",
+		name = Localizations.MoveNames.swordsDance,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.swordsDance
+	}, {
 		id = "15",
-		name = "Cut",
+		name = Localizations.MoveNames.cut,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "50",
 		pp = "30",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.cut
+	}, {
 		id = "16",
-		name = "Gust",
+		name = Localizations.MoveNames.gust,
 		type = {
 			PokemonData.POKEMON_TYPES.NORMAL,
 			PokemonData.POKEMON_TYPES.FLYING,
@@ -272,143 +258,109 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts regular damage. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. If the target is under the effect of Bounce, Fly, or Sky Drop, this move will hit with double power."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.gust
+	}, {
 		id = "17",
-		name = "Wing Attack",
+		name = Localizations.MoveNames.wingAttack,
 		type = PokemonData.POKEMON_TYPES.FLYING,
-		power = {"35", "60", "60", "60", "60"},
+		power = { "35", "60", "60", "60", "60" },
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.wingAttack
+	}, {
 		id = "18",
-		name = "Whirlwind",
+		name = Localizations.MoveNames.whirlwind,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
-		accuracy = {"85", "100", "100", "100", "100"},
+		accuracy = { "85", "100", "100", "100", "100" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. Switches the target out for another of its trainer's Pok" ..
-			Chars.accentedE ..
-				"mon selected at random. Doesn't affect Pok" ..
-					Chars.accentedE .. "mon with suction cups or under the effect of ingrain."
-	},
-	{
+		description = Localizations.MoveDescriptions.whirlwind
+	}, {
 		id = "19",
-		name = "Fly",
+		name = Localizations.MoveNames.fly,
 		type = PokemonData.POKEMON_TYPES.FLYING,
-		power = {"70", "70", "70", "90", "90"},
+		power = { "70", "70", "70", "90", "90" },
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User flies high into the air for one turn, becoming immune to attack, and hits on the second turn. This move cannot be used while gravity is in effect."
-	},
-	{
+		description = Localizations.MoveDescriptions.fly
+	}, {
 		id = "20",
-		name = "Bind",
+		name = Localizations.MoveNames.bind,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "15",
 		pp = "20",
-		accuracy = {"75", "75", "75", "75", "85"},
+		accuracy = { "75", "75", "75", "75", "85" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.bind
+	}, {
 		id = "21",
-		name = "Slam",
+		name = Localizations.MoveNames.slam,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "80",
 		pp = "20",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.slam
+	}, {
 		id = "22",
-		name = "Vine Whip",
+		name = Localizations.MoveNames.vineWhip,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "35",
-		pp = {"10", "10", "10", "15", "15"},
+		pp = { "10", "10", "10", "15", "15" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.vineWhip
+	}, {
 		id = "23",
-		name = "Stomp",
+		name = Localizations.MoveNames.stomp,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "65",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch. Power is doubled against Pok" ..
-			Chars.accentedE .. "mon that are minimized."
-	},
-	{
+		description = Localizations.MoveDescriptions.stomp
+	}, {
 		id = "24",
-		name = "Double Kick",
+		name = Localizations.MoveNames.doubleKick,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "30",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.doubleKick
+	}, {
 		id = "25",
-		name = "Mega Kick",
+		name = Localizations.MoveNames.megaKick,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "120",
 		pp = "5",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.megaKick
+	}, {
 		id = "26",
-		name = "Jump Kick",
+		name = Localizations.MoveNames.jumpKick,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
-		power = {"70", "70", "70", "85", "100"},
-		pp = {"25", "25", "25", "25", "10"},
+		power = { "70", "70", "70", "85", "100" },
+		pp = { "25", "25", "25", "25", "10" },
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
-			"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
-			"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
-			"Inflicts regular damage and makes contact. If this move misses, the user takes half the damage it would have dealt. If the move would have no effect, the user takes damage equal to half the target's max HP.",
-			"Inflicts regular damage and makes contact. If this move misses, the user takes half its max HP in damage."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.jumpKick
+	}, {
 		id = "27",
-		name = "Rolling Kick",
+		name = Localizations.MoveNames.rollingKick,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "60",
 		pp = "15",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.rollingKick
+	}, {
 		id = "28",
-		name = "Sand-Attack",
+		name = Localizations.MoveNames.sandattack,
 		type = {
 			PokemonData.POKEMON_TYPES.NORMAL,
 			PokemonData.POKEMON_TYPES.GROUND,
@@ -420,167 +372,145 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.sandattack
+	}, {
 		id = "29",
-		name = "Headbutt",
+		name = Localizations.MoveNames.headbutt,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "70",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.headbutt
+	}, {
 		id = "30",
-		name = "Horn Attack",
+		name = Localizations.MoveNames.hornAttack,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "65",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.hornAttack
+	}, {
 		id = "31",
-		name = "Fury Attack",
+		name = Localizations.MoveNames.furyAttack,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "15",
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.furyAttack
+	}, {
 		id = "32",
-		name = "Horn Drill",
+		name = Localizations.MoveNames.hornDrill,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = "30",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Instantly KOs the target and makes contact. This move's accuracy is 30% plus 1% for each level the user is higher than the target. If the user is a lower level than the target, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.hornDrill
+	}, {
 		id = "33",
-		name = "Tackle",
+		name = Localizations.MoveNames.tackle,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"35", "35", "35", "35", "50"},
+		power = { "35", "35", "35", "35", "50" },
 		pp = "35",
-		accuracy = {"95", "95", "95", "95", "100"},
+		accuracy = { "95", "95", "95", "95", "100" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.tackle
+	}, {
 		id = "34",
-		name = "Body Slam",
+		name = Localizations.MoveNames.bodySlam,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "85",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.bodySlam
+	}, {
 		id = "35",
-		name = "Wrap",
+		name = Localizations.MoveNames.wrap,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "15",
 		pp = "20",
-		accuracy = {"85", "85", "85", "85", "90"},
+		accuracy = { "85", "85", "85", "85", "90" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.wrap
+	}, {
 		id = "36",
-		name = "Take Down",
+		name = Localizations.MoveNames.takeDown,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "90",
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.takeDown
+	}, {
 		id = "37",
-		name = "Thrash",
+		name = Localizations.MoveNames.thrash,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"90", "90", "90", "90", "120"},
-		pp = {"20", "20", "20", "20", "10"},
+		power = { "90", "90", "90", "90", "120" },
+		pp = { "20", "20", "20", "20", "10" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
-	},
-	{
+		description = Localizations.MoveDescriptions.thrash
+	}, {
 		id = "38",
-		name = "Double-Edge",
+		name = Localizations.MoveNames.doubleedge,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"100", "120", "120", "120", "120"},
+		power = { "100", "120", "120", "120", "120" },
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.doubleedge
+	}, {
 		id = "39",
-		name = "Tail Whip",
+		name = Localizations.MoveNames.tailWhip,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.tailWhip
+	}, {
 		id = "40",
-		name = "Poison Sting",
+		name = Localizations.MoveNames.poisonSting,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "15",
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.poisonSting
+	}, {
 		id = "41",
-		name = "Twineedle",
+		name = Localizations.MoveNames.twineedle,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "25",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits twice in the same turn. Has a 20% chance on each hit to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.twineedle
+	}, {
 		id = "42",
-		name = "Pin Missile",
+		name = Localizations.MoveNames.pinMissile,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "14",
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.pinMissile
+	}, {
 		id = "43",
-		name = "Leer",
+		name = Localizations.MoveNames.leer,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.leer
+	}, {
 		id = "44",
-		name = "Bite",
+		name = Localizations.MoveNames.bite,
 		type = {
 			PokemonData.POKEMON_TYPES.NORMAL,
 			PokemonData.POKEMON_TYPES.DARK,
@@ -592,1382 +522,1172 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.bite
+	}, {
 		id = "45",
-		name = "Growl",
+		name = Localizations.MoveNames.growl,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.growl
+	}, {
 		id = "46",
-		name = "Roar",
+		name = Localizations.MoveNames.roar,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. Switches the target out for another of its trainer's Pok" ..
-			Chars.accentedE .. "mon selected at random. Wild battles end immediately."
-	},
-	{
+		description = Localizations.MoveDescriptions.roar
+	}, {
 		id = "47",
-		name = "Sing",
+		name = Localizations.MoveNames.sing,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "55",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.sing
+	}, {
 		id = "48",
-		name = "Supersonic",
+		name = Localizations.MoveNames.supersonic,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "55",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Confuses the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.supersonic
+	}, {
 		id = "49",
-		name = "SonicBoom",
+		name = Localizations.MoveNames.sonicboom,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "---",
 		pp = "20",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts exactly 20 damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.sonicboom
+	}, {
 		id = "50",
-		name = "Disable",
+		name = Localizations.MoveNames.disable,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
-		accuracy = {"55", "55", "55", "80", "100"},
+		accuracy = { "55", "55", "55", "80", "100" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.",
-			"Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.",
-			"Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.",
-			"Disables the target's last used move, preventing its use for 4-7 turns, selected at random, or until the target leaves the field. Using an item counts as a turn.",
-			"Disables the target's last used move, preventing its use for 4 turns, or until the target leaves the field. Using an item counts as a turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.disable
+	}, {
 		id = "51",
-		name = "Acid",
+		name = Localizations.MoveNames.acid,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.acid
+	}, {
 		id = "52",
-		name = "Ember",
+		name = Localizations.MoveNames.ember,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "40",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.ember
+	}, {
 		id = "53",
-		name = "Flamethrower",
+		name = Localizations.MoveNames.flamethrower,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "95",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.flamethrower
+	}, {
 		id = "54",
-		name = "Mist",
+		name = Localizations.MoveNames.mist,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Pok" ..
-			Chars.accentedE ..
-				"mon on the user's side of the field are immune to stat-lowering effects for five turns. Guard Swap, Heart Swap, and Power Swap may still be used."
-	},
-	{
+		description = Localizations.MoveDescriptions.mist
+	}, {
 		id = "55",
-		name = "Water Gun",
+		name = Localizations.MoveNames.waterGun,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "40",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.waterGun
+	}, {
 		id = "56",
-		name = "Hydro Pump",
+		name = Localizations.MoveNames.hydroPump,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "120",
 		pp = "5",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.hydroPump
+	}, {
 		id = "57",
-		name = "Surf",
+		name = Localizations.MoveNames.surf,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "95",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the target is in the first turn of dive, this move will hit with double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.surf
+	}, {
 		id = "58",
-		name = "Ice Beam",
+		name = Localizations.MoveNames.iceBeam,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "95",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to freeze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.iceBeam
+	}, {
 		id = "59",
-		name = "Blizzard",
+		name = Localizations.MoveNames.blizzard,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "120",
 		pp = "5",
-		accuracy = {"90", "70", "70", "70", "70"},
+		accuracy = { "90", "70", "70", "70", "70" },
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to freeze the target. During hail, this move has perfect accuracy."
-	},
-	{
+		description = Localizations.MoveDescriptions.blizzard
+	}, {
 		id = "60",
-		name = "Psybeam",
+		name = Localizations.MoveNames.psybeam,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "65",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to confuse the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.psybeam
+	}, {
 		id = "61",
-		name = "BubbleBeam",
+		name = Localizations.MoveNames.bubblebeam,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "65",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.bubblebeam
+	}, {
 		id = "62",
-		name = "Aurora Beam",
+		name = Localizations.MoveNames.auroraBeam,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "65",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.auroraBeam
+	}, {
 		id = "63",
-		name = "Hyper Beam",
+		name = Localizations.MoveNames.hyperBeam,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "150",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User loses its next turn to recharge, and cannot attack or switch out during that turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.hyperBeam
+	}, {
 		id = "64",
-		name = "Peck",
+		name = Localizations.MoveNames.peck,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "35",
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.peck
+	}, {
 		id = "65",
-		name = "Drill Peck",
+		name = Localizations.MoveNames.drillPeck,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "80",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.drillPeck
+	}, {
 		id = "66",
-		name = "Submission",
+		name = Localizations.MoveNames.submission,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "80",
 		pp = "25",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.submission
+	}, {
 		id = "67",
-		name = "Low Kick",
+		name = Localizations.MoveNames.lowKick,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
-		power = {"50", "50", "WT", "WT", "WT"},
+		power = { "50", "50", "WT", "WT", "WT" },
 		pp = "20",
-		accuracy = {"90", "90", "100", "100", "100"},
+		accuracy = { "90", "90", "100", "100", "100" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power increases with the target's weight in kilograms, to a maximum of 120."
-	},
-	{
+		description = Localizations.MoveDescriptions.lowKick
+	}, {
 		id = "68",
-		name = "Counter",
+		name = Localizations.MoveNames.counter,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority and makes contact. Inflicts twice the damage that move did to the user. If there is no eligible target, this move will fail. Type immunity applies, but other type effects are ignored."
-	},
-	{
+		description = Localizations.MoveDescriptions.counter
+	}, {
 		id = "69",
-		name = "Seismic Toss",
+		name = Localizations.MoveNames.seismicToss,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Makes contact and inflicts damage equal to the user's level. Type immunity applies, but other type effects are ignored."
-	},
-	{
+		description = Localizations.MoveDescriptions.seismicToss
+	}, {
 		id = "70",
-		name = "Strength",
+		name = Localizations.MoveNames.strength,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.strength
+	}, {
 		id = "71",
-		name = "Absorb",
+		name = Localizations.MoveNames.absorb,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = 20,
-		pp = {"20", "20", "20", "25", "25"},
+		pp = { "20", "20", "20", "25", "25" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Drains half the damage inflicted to heal the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.absorb
+	}, {
 		id = "72",
-		name = "Mega Drain",
+		name = Localizations.MoveNames.megaDrain,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "40",
-		pp = {"10", "10", "10", "15", "15"},
+		pp = { "10", "10", "10", "15", "15" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Drains half the damage inflicted to heal the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.megaDrain
+	}, {
 		id = "73",
-		name = "Leech Seed",
+		name = Localizations.MoveNames.leechSeed,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Plants a seed on the target that drains 1/8 of its max HP at the end of every turn. Has no effect on grass Pok" ..
-			Chars.accentedE .. "mon, and Liquid Ooze will cause the user to take damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.leechSeed
+	}, {
 		id = "74",
-		name = "Growth",
+		name = Localizations.MoveNames.growth,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Raises the user's Special Attack by one stage.",
-			"Raises the user's Special Attack by one stage.",
-			"Raises the user's Special Attack by one stage.",
-			"Raises the user's Special Attack by one stage.",
-			"Raises the user's Attack and Special Attack by one stage each. During sunny day, raises both stats by two stages."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.growth
+	}, {
 		id = "75",
-		name = "Razor Leaf",
+		name = Localizations.MoveNames.razorLeaf,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "55",
 		pp = "25",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.razorLeaf
+	}, {
 		id = "76",
-		name = "SolarBeam",
+		name = Localizations.MoveNames.solarbeam,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "120",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User charges for one turn before attacking. During sunny day, the charge turn is skipped."
-	},
-	{
+		description = Localizations.MoveDescriptions.solarbeam
+	}, {
 		id = "77",
-		name = "PoisonPowder",
+		name = Localizations.MoveNames.poisonpowder,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "35",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Poisons the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.poisonpowder
+	}, {
 		id = "78",
-		name = "Stun Spore",
+		name = Localizations.MoveNames.stunSpore,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Paralyzes the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.stunSpore
+	}, {
 		id = "79",
-		name = "Sleep Powder",
+		name = Localizations.MoveNames.sleepPowder,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.sleepPowder
+	}, {
 		id = "80",
-		name = "Petal Dance",
+		name = Localizations.MoveNames.petalDance,
 		type = PokemonData.POKEMON_TYPES.GRASS,
-		power = {"70", "70", "70", "90", "120"},
-		pp = {"20", "20", "20", "20", "10"},
+		power = { "70", "70", "70", "90", "120" },
+		pp = { "20", "20", "20", "20", "10" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage and makes contact. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
-	},
-	{
+		description = Localizations.MoveDescriptions.petalDance
+	}, {
 		id = "81",
-		name = "String Shot",
+		name = Localizations.MoveNames.stringShot,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Speed by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.stringShot
+	}, {
 		id = "82",
-		name = "Dragon Rage",
+		name = Localizations.MoveNames.dragonRage,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "---",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts exactly 40 damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.dragonRage
+	}, {
 		id = "83",
-		name = "Fire Spin",
+		name = Localizations.MoveNames.fireSpin,
 		type = PokemonData.POKEMON_TYPES.FIRE,
-		power = {"15", "15", "15", "15", "35"},
+		power = { "15", "15", "15", "15", "35" },
 		pp = "15",
-		accuracy = {"70", "70", "70", "70", "85"},
+		accuracy = { "70", "70", "70", "70", "85" },
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.fireSpin
+	}, {
 		id = "84",
-		name = "ThunderShock",
+		name = Localizations.MoveNames.thundershock,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.thundershock
+	}, {
 		id = "85",
-		name = "Thunderbolt",
+		name = Localizations.MoveNames.thunderbolt,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "95",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.thunderbolt
+	}, {
 		id = "86",
-		name = "Thunder Wave",
+		name = Localizations.MoveNames.thunderWave,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Paralyzes the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.thunderWave
+	}, {
 		id = "87",
-		name = "Thunder",
+		name = Localizations.MoveNames.thunder,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "120",
 		pp = "10",
 		accuracy = "70",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target. Has perfect accuracy in the rain, but only 50% accuracy in harsh sunlight."
-	},
-	{
+		description = Localizations.MoveDescriptions.thunder
+	}, {
 		id = "88",
-		name = "Rock Throw",
+		name = Localizations.MoveNames.rockThrow,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "50",
 		pp = "15",
-		accuracy = {"65", "90", "90", "90", "90"},
+		accuracy = { "65", "90", "90", "90", "90" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockThrow
+	}, {
 		id = "89",
-		name = "Earthquake",
+		name = Localizations.MoveNames.earthquake,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "100",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If the target is in the first turn of dig, this move will hit with double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.earthquake
+	}, {
 		id = "90",
-		name = "Fissure",
+		name = Localizations.MoveNames.fissure,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = "30",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Instantly KOs the target. This move's accuracy is 30% plus 1% for each level the user is higher than the target. If the user is a lower level than the target, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.fissure
+	}, {
 		id = "91",
-		name = "Dig",
+		name = Localizations.MoveNames.dig,
 		type = PokemonData.POKEMON_TYPES.GROUND,
-		power = {"100", "60", "60", "80", "80"},
+		power = { "100", "60", "60", "80", "80" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Makes contact. User digs underground for one turn, becoming immune to all attacks except for earthquake and magnitude, which hit for double power. User inflicts regular damage next turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.dig
+	}, {
 		id = "92",
-		name = "Toxic",
+		name = Localizations.MoveNames.toxic,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
-		accuracy = {"85", "85", "85", "85", "90"},
+		accuracy = { "85", "85", "85", "85", "90" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Badly poisons the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.toxic
+	}, {
 		id = "93",
-		name = "Confusion",
+		name = Localizations.MoveNames.confusion,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "50",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to confuse the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.confusion
+	}, {
 		id = "94",
-		name = "Psychic",
+		name = Localizations.MoveNames.psychic,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "90",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.psychic
+	}, {
 		id = "95",
-		name = "Hypnosis",
+		name = Localizations.MoveNames.hypnosis,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "60",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.hypnosis
+	}, {
 		id = "96",
-		name = "Meditate",
+		name = Localizations.MoveNames.meditate,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.meditate
+	}, {
 		id = "97",
-		name = "Agility",
+		name = Localizations.MoveNames.agility,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Speed by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.agility
+	}, {
 		id = "98",
-		name = "Quick Attack",
+		name = Localizations.MoveNames.quickAttack,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.quickAttack
+	}, {
 		id = "99",
-		name = "Rage",
+		name = Localizations.MoveNames.rage,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "20",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Every time the user is hit after it uses this move but before its next action, its Attack raises by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.rage
+	}, {
 		id = "100",
-		name = "Teleport",
+		name = Localizations.MoveNames.teleport,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Does nothing. Wild battles end immediately."
-	},
-	{
+		description = Localizations.MoveDescriptions.teleport
+	}, {
 		id = "101",
-		name = "Night Shade",
+		name = Localizations.MoveNames.nightShade,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts damage equal to the user's level. Type immunity applies, but other type effects are ignored."
-	},
-	{
+		description = Localizations.MoveDescriptions.nightShade
+	}, {
 		id = "102",
-		name = "Mimic",
+		name = Localizations.MoveNames.mimic,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
-		accuracy = {"100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		accuracy = { "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.",
-			"This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.",
-			"This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.",
-			"This move is replaced by the target's last successfully used move, and its PP changes to 5. If Chatter, Metronome, Mimic, Sketch, or Struggle is selected, this move will fail.",
-			"This move is replaced by the target's last successfully used move, with full PP. If Chatter, Metronome, Mimic, Sketch, Struggle, or Transform is selected, this move will fail."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.mimic
+	}, {
 		id = "103",
-		name = "Screech",
+		name = Localizations.MoveNames.screech,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.screech
+	}, {
 		id = "104",
-		name = "Double Team",
+		name = Localizations.MoveNames.doubleTeam,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Evasion by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.doubleTeam
+	}, {
 		id = "105",
-		name = "Recover",
+		name = Localizations.MoveNames.recover,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
-		pp = {"20", "20", "20", "10", "10"},
+		pp = { "20", "20", "20", "10", "10" },
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.recover
+	}, {
 		id = "106",
-		name = "Harden",
+		name = Localizations.MoveNames.harden,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.harden
+	}, {
 		id = "107",
-		name = "Minimize",
+		name = Localizations.MoveNames.minimize,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Raises the user's Evasion by one stage. Stomp has double power against Pok" ..
-				Chars.accentedE .. "mon that have used this move since entering the field.",
-			"Raises the user's Evasion by one stage. Stomp has double power against Pok" ..
-				Chars.accentedE .. "mon that have used this move since entering the field.",
-			"Raises the user's Evasion by one stage. Stomp has double power against Pok" ..
-				Chars.accentedE .. "mon that have used this move since entering the field.",
-			"Raises the user's Evasion by one stage. Stomp has double power against Pok" ..
-				Chars.accentedE .. "mon that have used this move since entering the field.",
-			"Raises the user's Evasion by two stages. Stomp and Steamroller have double power against Pok" ..
-				Chars.accentedE .. "mon that have used this move since entering the field."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.minimize
+	}, {
 		id = "108",
-		name = "SmokeScreen",
+		name = Localizations.MoveNames.smokescreen,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.smokescreen
+	}, {
 		id = "109",
-		name = "Confuse Ray",
+		name = Localizations.MoveNames.confuseRay,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Confuses the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.confuseRay
+	}, {
 		id = "110",
-		name = "Withdraw",
+		name = Localizations.MoveNames.withdraw,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.withdraw
+	}, {
 		id = "111",
-		name = "Defense Curl",
+		name = Localizations.MoveNames.defenseCurl,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises user's Defense by one stage. After this move is used, the power of Ice Ball and Rollout are doubled until the user leaves the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.defenseCurl
+	}, {
 		id = "112",
-		name = "Barrier",
+		name = Localizations.MoveNames.barrier,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.barrier
+	}, {
 		id = "113",
-		name = "Light Screen",
+		name = Localizations.MoveNames.lightScreen,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Erects a barrier around the user's side of the field that reduces damage from special attacks by half for five turns. Brick Break or Defog will destroy the barrier."
-	},
-	{
+		description = Localizations.MoveDescriptions.lightScreen
+	}, {
 		id = "114",
-		name = "Haze",
+		name = Localizations.MoveNames.haze,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes stat, Accuracy, and Evasion modifiers from every Pok" .. Chars.accentedE .. "mon on the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.haze
+	}, {
 		id = "115",
-		name = "Reflect",
+		name = Localizations.MoveNames.reflect,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Erects a barrier around the user's side of the field that reduces damage from physical attacks by half for five turns. Brick Break or Defog will destroy the barrier."
-	},
-	{
+		description = Localizations.MoveDescriptions.reflect
+	}, {
 		id = "116",
-		name = "Focus Energy",
+		name = Localizations.MoveNames.focusEnergy,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User's critical hit rate is two levels higher until it leaves the field. If the user has already used focus energy since entering the field, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.focusEnergy
+	}, {
 		id = "117",
-		name = "Bide",
+		name = Localizations.MoveNames.bide,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
-		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		accuracy = { "100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority and makes contact. User waits for two turns. On the second turn, the user inflicts twice the damage it accumulated on the last Pok" ..
-			Chars.accentedE .. "mon to hit it. Damage inflicted is typeless."
-	},
-	{
+		description = Localizations.MoveDescriptions.bide
+	}, {
 		id = "118",
-		name = "Metronome",
+		name = Localizations.MoveNames.metronome,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.",
-			"Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.",
-			"Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.",
-			"Selects any move at random and uses it. Moves the user already knows are not eligible. Assist, meta, protection, and reflection moves are also not eligible.",
-			"Selects any move at random and uses it. Assist, meta, protection, and reflection moves are not eligible."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.metronome
+	}, {
 		id = "119",
-		name = "Mirror Move",
+		name = Localizations.MoveNames.mirrorMove,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Uses the last move targeted at the user by a Pok" .. Chars.accentedE .. "mon still on the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.mirrorMove
+	}, {
 		id = "120",
-		name = "Selfdestruct",
+		name = Localizations.MoveNames.selfdestruct,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"130", "200", "200", "200", "200"},
+		power = { "130", "200", "200", "200", "200" },
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.selfdestruct
+	}, {
 		id = "121",
-		name = "Egg Bomb",
+		name = Localizations.MoveNames.eggBomb,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "100",
 		pp = "10",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.eggBomb
+	}, {
 		id = "122",
-		name = "Lick",
+		name = Localizations.MoveNames.lick,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "20",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.lick
+	}, {
 		id = "123",
-		name = "Smog",
+		name = Localizations.MoveNames.smog,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "20",
 		pp = "20",
 		accuracy = "70",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 40% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.smog
+	}, {
 		id = "124",
-		name = "Sludge",
+		name = Localizations.MoveNames.sludge,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "65",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.sludge
+	}, {
 		id = "125",
-		name = "Bone Club",
+		name = Localizations.MoveNames.boneClub,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "65",
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 10% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.boneClub
+	}, {
 		id = "126",
-		name = "Fire Blast",
+		name = Localizations.MoveNames.fireBlast,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "120",
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.fireBlast
+	}, {
 		id = "127",
-		name = "Waterfall",
+		name = Localizations.MoveNames.waterfall,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.waterfall
+	}, {
 		id = "128",
-		name = "Clamp",
+		name = Localizations.MoveNames.clamp,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "35",
-		pp = {"10", "10", "10", "10", "15"},
-		accuracy = {"75", "75", "75", "75", "85"},
+		pp = { "10", "10", "10", "10", "15" },
+		accuracy = { "75", "75", "75", "75", "85" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Makes contact. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.clamp
+	}, {
 		id = "129",
-		name = "Swift",
+		name = Localizations.MoveNames.swift,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "60",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.swift
+	}, {
 		id = "130",
-		name = "Skull Bash",
+		name = Localizations.MoveNames.skullBash,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "100",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Raises the user's Defense by one stage. User then charges for one turn before attacking."
-	},
-	{
+		description = Localizations.MoveDescriptions.skullBash
+	}, {
 		id = "131",
-		name = "Spike Cannon",
+		name = Localizations.MoveNames.spikeCannon,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "20",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.spikeCannon
+	}, {
 		id = "132",
-		name = "Constrict",
+		name = Localizations.MoveNames.constrict,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "10",
 		pp = "35",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to lower the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.constrict
+	}, {
 		id = "133",
-		name = "Amnesia",
+		name = Localizations.MoveNames.amnesia,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Special Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.amnesia
+	}, {
 		id = "134",
-		name = "Kinesis",
+		name = Localizations.MoveNames.kinesis,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.kinesis
+	}, {
 		id = "135",
-		name = "Softboiled",
+		name = Localizations.MoveNames.softboiled,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.softboiled
+	}, {
 		id = "136",
-		name = "Hi Jump Kick",
+		name = Localizations.MoveNames.hiJumpKick,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
-		power = {"85", "85", "85", "100", "130"},
-		pp = {"20", "20", "20", "20", "10"},
+		power = { "85", "85", "85", "100", "130" },
+		pp = { "20", "20", "20", "20", "10" },
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If this move does not hit the target, the user takes damage equal to half of its max HP rounded down. Gravity disables this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.hiJumpKick
+	}, {
 		id = "137",
-		name = "Glare",
+		name = Localizations.MoveNames.glare,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
-		accuracy = {"75", "75", "75", "75", "90"},
+		accuracy = { "75", "75", "75", "75", "90" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Paralyzes the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.glare
+	}, {
 		id = "138",
-		name = "Dream Eater",
+		name = Localizations.MoveNames.dreamEater,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "100",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Fails if not used on a sleeping Pok" ..
-			Chars.accentedE .. "mon. Inflicts regular damage. Drains half the damage inflicted to heal the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.dreamEater
+	}, {
 		id = "139",
-		name = "Poison Gas",
+		name = Localizations.MoveNames.poisonGas,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
-		accuracy = {"55", "55", "55", "55", "80"},
+		accuracy = { "55", "55", "55", "55", "80" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Poisons the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.poisonGas
+	}, {
 		id = "140",
-		name = "Barrage",
+		name = Localizations.MoveNames.barrage,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "15",
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn. Averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.barrage
+	}, {
 		id = "141",
-		name = "Leech Life",
+		name = Localizations.MoveNames.leechLife,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "20",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Drains half the damage inflicted to heal the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.leechLife
+	}, {
 		id = "142",
-		name = "Lovely Kiss",
+		name = Localizations.MoveNames.lovelyKiss,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.lovelyKiss
+	}, {
 		id = "143",
-		name = "Sky Attack",
+		name = Localizations.MoveNames.skyAttack,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User charges for one turn before attacking, and critical hit chance is one level higher than normal. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.skyAttack
+	}, {
 		id = "144",
-		name = "Transform",
+		name = Localizations.MoveNames.transform,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User copies the target's species, weight, type, ability, calculated stats (except HP), and moves. Copied moves will all have 5 PP remaining."
-	},
-	{
+		description = Localizations.MoveDescriptions.transform
+	}, {
 		id = "145",
-		name = "Bubble",
+		name = Localizations.MoveNames.bubble,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "20",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.bubble
+	}, {
 		id = "146",
-		name = "Dizzy Punch",
+		name = Localizations.MoveNames.dizzyPunch,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "70",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to confuse the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.dizzyPunch
+	}, {
 		id = "147",
-		name = "Spore",
+		name = Localizations.MoveNames.spore,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.spore
+	}, {
 		id = "148",
-		name = "Flash",
+		name = Localizations.MoveNames.flash,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
-		accuracy = {"70", "70", "70", "100", "100"},
+		accuracy = { "70", "70", "70", "100", "100" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.flash
+	}, {
 		id = "149",
-		name = "Psywave",
+		name = Localizations.MoveNames.psywave,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.",
-			"Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.",
-			"Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.",
-			"Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 10%.",
-			"Inflicts typeless damage between 50% and 150% of the user's level, selected at random in increments of 1%."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.psywave
+	}, {
 		id = "150",
-		name = "Splash",
+		name = Localizations.MoveNames.splash,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Makes the user absolutely useless for one turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.splash
+	}, {
 		id = "151",
-		name = "Acid Armor",
+		name = Localizations.MoveNames.acidArmor,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.acidArmor
+	}, {
 		id = "152",
-		name = "Crabhammer",
+		name = Localizations.MoveNames.crabhammer,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "90",
 		pp = "10",
-		accuracy = {"85", "85", "85", "85", "90"},
+		accuracy = { "85", "85", "85", "85", "90" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.crabhammer
+	}, {
 		id = "153",
-		name = "Explosion",
+		name = Localizations.MoveNames.explosion,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"170", "250", "250", "250", "250"},
+		power = { "170", "250", "250", "250", "250" },
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage. Halves the target's Defense for damage calculation.",
-			"User faints, even if the attack fails or misses. Inflicts regular damage."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.explosion
+	}, {
 		id = "154",
-		name = "Fury Swipes",
+		name = Localizations.MoveNames.furySwipes,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "18",
 		pp = "15",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.furySwipes
+	}, {
 		id = "155",
-		name = "Bonemerang",
+		name = Localizations.MoveNames.bonemerang,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "50",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits twice in one turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.bonemerang
+	}, {
 		id = "156",
-		name = "Rest",
+		name = Localizations.MoveNames.rest,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User falls to sleep and immediately regains all its HP. The user will always wake up after two turns, or one turn with early bird."
-	},
-	{
+		description = Localizations.MoveDescriptions.rest
+	}, {
 		id = "157",
-		name = "Rock Slide",
+		name = Localizations.MoveNames.rockSlide,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "75",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockSlide
+	}, {
 		id = "158",
-		name = "Hyper Fang",
+		name = Localizations.MoveNames.hyperFang,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "80",
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.hyperFang
+	}, {
 		id = "159",
-		name = "Sharpen",
+		name = Localizations.MoveNames.sharpen,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.sharpen
+	}, {
 		id = "160",
-		name = "Conversion",
+		name = Localizations.MoveNames.conversion,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.",
-			"User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.",
-			"User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.",
-			"User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible, and Curse is never eligible.",
-			"User's type changes to the type of one of its moves, selected at random. Only moves with a different type are eligible."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.conversion
+	}, {
 		id = "161",
-		name = "Tri Attack",
+		name = Localizations.MoveNames.triAttack,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "80",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 20% for an effect to occur, which can then be burn, freeze, or paralysis."
-	},
-	{
+		description = Localizations.MoveDescriptions.triAttack
+	}, {
 		id = "162",
-		name = "Super Fang",
+		name = Localizations.MoveNames.superFang,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Makes contact. Inflicts typeless damage equal to half the target's remaining HP. Although typeless, this is ineffective against Wonder Guard."
-	},
-	{
+		description = Localizations.MoveDescriptions.superFang
+	}, {
 		id = "163",
-		name = "Slash",
+		name = Localizations.MoveNames.slash,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.slash
+	}, {
 		id = "164",
-		name = "Substitute",
+		name = Localizations.MoveNames.substitute,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Transfers 1/4 the user's max HP into a doll that absorbs damage and causes most negative move effects to fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.substitute
+	}, {
 		id = "165",
-		name = "Struggle",
+		name = Localizations.MoveNames.struggle,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "50",
-		pp = {"10", "1", "1", "1", "1"},
-		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		pp = { "10", "1", "1", "1", "1" },
+		accuracy = { "100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts typeless regular damage and makes contact. User takes 1/4 its max HP in recoil. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.struggle
+	}, {
 		-- Begin Gen 2 Moves
 		id = "166",
-		name = "Sketch",
+		name = Localizations.MoveNames.sketch,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "1",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Permanently replaces itself with the target's last used move. If that move is chatter or struggle, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.sketch
+	}, {
 		id = "167",
-		name = "Triple Kick",
+		name = Localizations.MoveNames.tripleKick,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "10",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Makes contact. Inflicts regular damage up to 3 times in the same turn. The second hit has 20 power, and the third hit has 30, for a total of 60. Move stops if any hits miss."
-	},
-	{
+		description = Localizations.MoveDescriptions.tripleKick
+	}, {
 		id = "168",
-		name = "Thief",
+		name = Localizations.MoveNames.thief,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "40",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is holding an item and the user is not, the user will permanently take the item. Damage is still inflicted if an item cannot be taken."
-	},
-	{
+		description = Localizations.MoveDescriptions.thief
+	}, {
 		id = "169",
-		name = "Spider Web",
+		name = Localizations.MoveNames.spiderWeb,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "The target cannot switch out normally. Ignores Accuracy and Evasion modifiers. This effect ends when the user leaves the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.spiderWeb
+	}, {
 		id = "170",
-		name = "Mind Reader",
+		name = Localizations.MoveNames.mindReader,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
-		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		accuracy = { "100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the user targets the same target again before the end of the next turn, the move it uses is guaranteed to hit. This move itself also ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.mindReader
+	}, {
 		id = "171",
-		name = "Nightmare",
+		name = Localizations.MoveNames.nightmare,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Only works on sleeping Pok" ..
-			Chars.accentedE ..
-				"mon. Gives the target a nightmare, damaging it for 1/4 its max HP every turn. If the target wakes up or leaves the field, this effect ends."
-	},
-	{
+		description = Localizations.MoveDescriptions.nightmare
+	}, {
 		id = "172",
-		name = "Flame Wheel",
+		name = Localizations.MoveNames.flameWheel,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "60",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target. Frozen Pok" ..
-			Chars.accentedE .. "mon may use this move, in which case they will thaw."
-	},
-	{
+		description = Localizations.MoveDescriptions.flameWheel
+	}, {
 		id = "173",
-		name = "Snore",
+		name = Localizations.MoveNames.snore,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Only usable if the user is sleeping. Inflicts regular damage. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.snore
+	}, {
 		id = "174",
-		name = "Curse",
+		name = Localizations.MoveNames.curse,
 		type = {
 			PokemonData.POKEMON_TYPES.UNKNOWN,
 			PokemonData.POKEMON_TYPES.UNKNOWN,
@@ -1979,4106 +1699,3473 @@ MoveData.MOVES_MASTER_LIST = {
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the user is a ghost: user pays half its max HP to place a curse on the target, damaging it for 1/4 its max HP every turn. Otherwise, it lowers the user's Speed by one stage, and raises its Attack and Defense by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.curse
+	}, {
 		id = "175",
-		name = "Flail",
+		name = Localizations.MoveNames.flail,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "<HP",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power varies inversely with the user's proportional remaining HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.flail
+	}, {
 		id = "176",
-		name = "Conversion 2",
+		name = Localizations.MoveNames.conversion2,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the user's type to a type either resistant or immune to the last damaging move that hit it. The new type is selected at random and cannot be a type the user already is."
-	},
-	{
+		description = Localizations.MoveDescriptions.conversion2
+	}, {
 		id = "177",
-		name = "Aeroblast",
+		name = Localizations.MoveNames.aeroblast,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "100",
 		pp = "5",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.aeroblast
+	}, {
 		id = "178",
-		name = "Cotton Spore",
+		name = Localizations.MoveNames.cottonSpore,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
-		accuracy = {"85", "85", "85", "85", "100"},
+		accuracy = { "85", "85", "85", "85", "100" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Speed by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.cottonSpore
+	}, {
 		id = "179",
-		name = "Reversal",
+		name = Localizations.MoveNames.reversal,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "<HP",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power varies inversely with the user's proportional remaining HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.reversal
+	}, {
 		id = "180",
-		name = "Spite",
+		name = Localizations.MoveNames.spite,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the PP of the target's last used move by 4."
-	},
-	{
+		description = Localizations.MoveDescriptions.spite
+	}, {
 		id = "181",
-		name = "Powder Snow",
+		name = Localizations.MoveNames.powderSnow,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "40",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to freeze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.powderSnow
+	}, {
 		id = "182",
-		name = "Protect",
+		name = Localizations.MoveNames.protect,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.protect
+	}, {
 		id = "183",
-		name = "Mach Punch",
+		name = Localizations.MoveNames.machPunch,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.machPunch
+	}, {
 		id = "184",
-		name = "Scary Face",
+		name = Localizations.MoveNames.scaryFace,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
-		accuracy = {"90", "90", "90", "90", "100"},
+		accuracy = { "90", "90", "90", "90", "100" },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Speed by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.scaryFace
+	}, {
 		id = "185",
-		name = "Faint Attack",
+		name = Localizations.MoveNames.faintAttack,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "60",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.faintAttack
+	}, {
 		id = "186",
-		name = "Sweet Kiss",
+		name = Localizations.MoveNames.sweetKiss,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Confuses the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.sweetKiss
+	}, {
 		id = "187",
-		name = "Belly Drum",
+		name = Localizations.MoveNames.bellyDrum,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User pays half its max HP to raise its Attack to +6 stages. If the user cannot pay the HP cost, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.bellyDrum
+	}, {
 		id = "188",
-		name = "Sludge Bomb",
+		name = Localizations.MoveNames.sludgeBomb,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "90",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.sludgeBomb
+	}, {
 		id = "189",
-		name = "Mud-Slap",
+		name = Localizations.MoveNames.mudslap,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "20",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 100% chance to lower the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.mudslap
+	}, {
 		id = "190",
-		name = "Octazooka",
+		name = Localizations.MoveNames.octazooka,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "65",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 50% chance to lower the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.octazooka
+	}, {
 		id = "191",
-		name = "Spikes",
+		name = Localizations.MoveNames.spikes,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Scatters spikes around the opposing field, which damage opposing Pok" ..
-			Chars.accentedE ..
-				"mon that enter the field for 1/8 of their max HP. Up to three layers of spikes may be laid down, adding 1/16 more damage for each layer."
-	},
-	{
+		description = Localizations.MoveDescriptions.spikes
+	}, {
 		id = "192",
-		name = "Zap Cannon",
+		name = Localizations.MoveNames.zapCannon,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
-		power = {"100", "100", "100", "120", "120"},
+		power = { "100", "100", "100", "120", "120" },
 		pp = "5",
 		accuracy = "50",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 100% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.zapCannon
+	}, {
 		id = "193",
-		name = "Foresight",
+		name = Localizations.MoveNames.foresight,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
-		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		accuracy = { "100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Ignores the target's boosted Evasion stages until the target leaves the field. A ghost under this effect takes normal damage from normal and fighting moves."
-	},
-	{
+		description = Localizations.MoveDescriptions.foresight
+	}, {
 		id = "194",
-		name = "Destiny Bond",
+		name = Localizations.MoveNames.destinyBond,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the user faints before its next move, the Pok" ..
-			Chars.accentedE .. "mon that fainted it will automatically faint. End-of-turn damage is ignored."
-	},
-	{
+		description = Localizations.MoveDescriptions.destinyBond
+	}, {
 		id = "195",
-		name = "Perish Song",
+		name = Localizations.MoveNames.perishSong,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Every Pok" ..
-			Chars.accentedE ..
-				"mon is given a counter that starts at 3 and decreases by 1 at the end of every turn. When a Pok" ..
-					Chars.accentedE .. "mon's counter reaches zero, that Pok" .. Chars.accentedE .. "mon faints."
-	},
-	{
+		description = Localizations.MoveDescriptions.perishSong
+	}, {
 		id = "196",
-		name = "Icy Wind",
+		name = Localizations.MoveNames.icyWind,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "55",
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 100% chance to lower the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.icyWind
+	}, {
 		id = "197",
-		name = "Detect",
+		name = Localizations.MoveNames.detect,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. No moves will hit the user for the remainder of this turn. If the user is last to act this turn, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.detect
+	}, {
 		id = "198",
-		name = "Bone Rush",
+		name = Localizations.MoveNames.boneRush,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "25",
 		pp = "10",
-		accuracy = {"80", "80", "80", "80", "90"},
+		accuracy = { "80", "80", "80", "80", "90" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn. Averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.boneRush
+	}, {
 		id = "199",
-		name = "Lock-On",
+		name = Localizations.MoveNames.lockon,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
-		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		accuracy = { "100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the user targets the same target again before the end of the next turn, the move it uses is guaranteed to hit. This move itself also ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.lockon
+	}, {
 		id = "200",
-		name = "Outrage",
+		name = Localizations.MoveNames.outrage,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
-		power = {"90", "90", "90", "120", "120"},
-		pp = {"15", "15", "15", "15", "10"},
+		power = { "90", "90", "90", "120", "120" },
+		pp = { "15", "15", "15", "15", "10" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User is forced to attack with this move for 2-3 turns, selected at random. After the last hit, the user becomes confused."
-	},
-	{
+		description = Localizations.MoveDescriptions.outrage
+	}, {
 		id = "201",
-		name = "Sandstorm",
+		name = Localizations.MoveNames.sandstorm,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Summons a to a sandstorm for five turns. Pok" ..
-			Chars.accentedE ..
-				"mon that are not ground, rock, or steel take 1/16 their max HP at the end of every turn. Every rock Pok" ..
-					Chars.accentedE .. "mon's Special Defense is raised by 50% for the duration of this effect."
-	},
-	{
+		description = Localizations.MoveDescriptions.sandstorm
+	}, {
 		id = "202",
-		name = "Giga Drain",
+		name = Localizations.MoveNames.gigaDrain,
 		type = PokemonData.POKEMON_TYPES.GRASS,
-		power = {"60", "60", "60", "60", "75"},
-		pp = {"5", "5", "5", "10", "10"},
+		power = { "60", "60", "60", "60", "75" },
+		pp = { "5", "5", "5", "10", "10" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Drains half the damage inflicted to heal the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.gigaDrain
+	}, {
 		id = "203",
-		name = "Endure",
+		name = Localizations.MoveNames.endure,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. The user's HP cannot be lowered below 1 by any means for the remainder of this turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.endure
+	}, {
 		id = "204",
-		name = "Charm",
+		name = Localizations.MoveNames.charm,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.charm
+	}, {
 		id = "205",
-		name = "Rollout",
+		name = Localizations.MoveNames.rollout,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "30",
 		pp = "20",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User is forced to use this move for five turns. Power doubles every time this move is used in succession to a maximum of 16x. If this move misses, the lock-in ends."
-	},
-	{
+		description = Localizations.MoveDescriptions.rollout
+	}, {
 		id = "206",
-		name = "False Swipe",
+		name = Localizations.MoveNames.falseSwipe,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "40",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Will not reduce the target's HP below 1."
-	},
-	{
+		description = Localizations.MoveDescriptions.falseSwipe
+	}, {
 		id = "207",
-		name = "Swagger",
+		name = Localizations.MoveNames.swagger,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the target's Attack by two stages, then confuses it."
-	},
-	{
+		description = Localizations.MoveDescriptions.swagger
+	}, {
 		id = "208",
-		name = "Milk Drink",
+		name = Localizations.MoveNames.milkDrink,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.milkDrink
+	}, {
 		id = "209",
-		name = "Spark",
+		name = Localizations.MoveNames.spark,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "65",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.spark
+	}, {
 		id = "210",
-		name = "Fury Cutter",
+		name = Localizations.MoveNames.furyCutter,
 		type = PokemonData.POKEMON_TYPES.BUG,
-		power = {"10", "10", "10", "10", "20"},
+		power = { "10", "10", "10", "10", "20" },
 		pp = "20",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.",
-			"Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.",
-			"Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.",
-			"Inflicts regular damage and makes contact. Power doubles after every time this move is used, whether consecutively or not, maxing out at 16x. If this move misses, power resets.",
-			"Inflicts regular damage and makes contact. Power doubles after every time this move is used consecutively, maxing out at 16x. If this move misses, power resets."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.furyCutter
+	}, {
 		id = "211",
-		name = "Steel Wing",
+		name = Localizations.MoveNames.steelWing,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "70",
 		pp = "25",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to raise the user's Defense one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.steelWing
+	}, {
 		id = "212",
-		name = "Mean Look",
+		name = Localizations.MoveNames.meanLook,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "The target cannot switch out normally. Ignores Accuracy and Evasion modifiers. This effect ends when the user leaves the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.meanLook
+	}, {
 		id = "213",
-		name = "Attract",
+		name = Localizations.MoveNames.attract,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Causes the target to fall in love with the user, giving it a 50% chance to do nothing each turn. If the user and target are the same gender, or either is genderless, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.attract
+	}, {
 		id = "214",
-		name = "Sleep Talk",
+		name = Localizations.MoveNames.sleepTalk,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Only usable if the user is sleeping. Randomly selects and uses one of the user's other three moves, with some exceptions. Use of the selected move costs 0 PP."
-	},
-	{
+		description = Localizations.MoveDescriptions.sleepTalk
+	}, {
 		id = "215",
-		name = "Heal Bell",
+		name = Localizations.MoveNames.healBell,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes major status effects and confusion from every Pok" .. Chars.accentedE .. "mon in the user's party."
-	},
-	{
+		description = Localizations.MoveDescriptions.healBell
+	}, {
 		id = "216",
-		name = "Return",
+		name = Localizations.MoveNames.returnMove,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = ">FR",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power increases with happiness to a maximum of 102. Power bottoms out at 1."
-	},
-	{
+		description = Localizations.MoveDescriptions.returnMove
+	}, {
 		id = "217",
-		name = "Present",
+		name = Localizations.MoveNames.present,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "RNG",
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Has a 40% chance to deal 40 damage, 30% chance to deal 80 damage, 10% chance to deal 120 damage, and a 20% chance to heal the target for 1/4 of its max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.present
+	}, {
 		id = "218",
-		name = "Frustration",
+		name = Localizations.MoveNames.frustration,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "<FR",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power increases inversely with happiness, to a maximum of 102. Power bottoms out at 1."
-	},
-	{
+		description = Localizations.MoveDescriptions.frustration
+	}, {
 		id = "219",
-		name = "Safeguard",
+		name = Localizations.MoveNames.safeguard,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "25",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Protects Pok" ..
-			Chars.accentedE ..
-				"mon on the user's side of the field from major status effects and confusion for five turns. This effect remains even if the user leaves the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.safeguard
+	}, {
 		id = "220",
-		name = "Pain Split",
+		name = Localizations.MoveNames.painSplit,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
-		accuracy = {"100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		accuracy = { "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the user's and target's remaining HP to the average of their current remaining HP. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.painSplit
+	}, {
 		id = "221",
-		name = "Sacred Fire",
+		name = Localizations.MoveNames.sacredFire,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "100",
 		pp = "5",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 50% chance to burn the target. Frozen Pok" ..
-			Chars.accentedE .. "mon may use this move, in which case they will thaw."
-	},
-	{
+		description = Localizations.MoveDescriptions.sacredFire
+	}, {
 		id = "222",
-		name = "Magnitude",
+		name = Localizations.MoveNames.magnitude,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "RNG",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts random damage of 10, 30, 50, 70, 90, 110, or 150 power, with an average of 71. Deals double damage to targets underground."
-	},
-	{
+		description = Localizations.MoveDescriptions.magnitude
+	}, {
 		id = "223",
-		name = "DynamicPunch",
+		name = Localizations.MoveNames.dynamicpunch,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "100",
 		pp = "5",
 		accuracy = "50",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 100% chance to confuse the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.dynamicpunch
+	}, {
 		id = "224",
-		name = "Megahorn",
+		name = Localizations.MoveNames.megahorn,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "120",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.megahorn
+	}, {
 		id = "225",
-		name = "DragonBreath",
+		name = Localizations.MoveNames.dragonbreath,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "60",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.dragonbreath
+	}, {
 		id = "226",
-		name = "Baton Pass",
+		name = Localizations.MoveNames.batonPass,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User switches out, and the trainer selects a replacement Pok" ..
-			Chars.accentedE ..
-				"mon from the party. Stat changes, confusion, and persistent move effects are passed along to the replacement Pok" ..
-					Chars.accentedE .. "mon."
-	},
-	{
+		description = Localizations.MoveDescriptions.batonPass
+	}, {
 		id = "227",
-		name = "Encore",
+		name = Localizations.MoveNames.encore,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"The next 3-7 (DP) /2-6 (Pt) /4-8 (HGSS) times the target attempts to move, it is forced to repeat its last used move.",
-			"The next 3-7 (DP) /2-6 (Pt) /4-8 (HGSS) times the target attempts to move, it is forced to repeat its last used move.",
-			"The next 3-7 (DP) /2-6 (Pt) /4-8 (HGSS) times the target attempts to move, it is forced to repeat its last used move.",
-			"The next 3-7 (DP) /2-6 (Pt) /4-8 (HGSS) times the target attempts to move, it is forced to repeat its last used move.",
-			"The next 3 times the target attempts to move, it is forced to repeat its last used move."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.encore
+	}, {
 		id = "228",
-		name = "Pursuit",
+		name = Localizations.MoveNames.pursuit,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "40",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target attempts to switch out this turn before the user acts, this move hits the target before it leaves and has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.pursuit
+	}, {
 		id = "229",
-		name = "Rapid Spin",
+		name = Localizations.MoveNames.rapidSpin,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "20",
 		pp = "40",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Removes the effects of leech seed, bind, clamp, fire spin, magma storm, sand tomb, whirlpool, wrap, spikes, toxic spikes, and stealth rock."
-	},
-	{
+		description = Localizations.MoveDescriptions.rapidSpin
+	}, {
 		id = "230",
-		name = "Sweet Scent",
+		name = Localizations.MoveNames.sweetScent,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Evasion by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.sweetScent
+	}, {
 		id = "231",
-		name = "Iron Tail",
+		name = Localizations.MoveNames.ironTail,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "100",
 		pp = "15",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to lower the target's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.ironTail
+	}, {
 		id = "232",
-		name = "Metal Claw",
+		name = Localizations.MoveNames.metalClaw,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "50",
 		pp = "35",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to raise the user's Attack one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.metalClaw
+	}, {
 		id = "233",
-		name = "Vital Throw",
+		name = Localizations.MoveNames.vitalThrow,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "70",
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.vitalThrow
+	}, {
 		id = "234",
-		name = "Morning Sun",
+		name = Localizations.MoveNames.morningSun,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP. In sunny weather, healing is 2/3 max HP, and 1/4 max HP during hail, rain, or sandstorm."
-	},
-	{
+		description = Localizations.MoveDescriptions.morningSun
+	}, {
 		id = "235",
-		name = "Synthesis",
+		name = Localizations.MoveNames.synthesis,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP. In sunny weather, healing is 2/3 max HP, and 1/4 max HP during hail, rain, or sandstorm."
-	},
-	{
+		description = Localizations.MoveDescriptions.synthesis
+	}, {
 		id = "236",
-		name = "Moonlight",
+		name = Localizations.MoveNames.moonlight,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP. In sunny weather, healing is 2/3 max HP, and 1/4 max HP during hail, rain, or sandstorm."
-	},
-	{
+		description = Localizations.MoveDescriptions.moonlight
+	}, {
 		id = "237",
-		name = "Hidden Power",
+		name = Localizations.MoveNames.hiddenPower,
 		type = PokemonData.POKEMON_TYPES.UNKNOWN,
 		power = "VAR",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power and type are determined by the user's IVs. Power is always between 30 and 70, with an average of 49.5. Type cannot be normal."
-	},
-	{
+		description = Localizations.MoveDescriptions.hiddenPower
+	}, {
 		id = "238",
-		name = "Cross Chop",
+		name = Localizations.MoveNames.crossChop,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "100",
 		pp = "5",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.crossChop
+	}, {
 		id = "239",
-		name = "Twister",
+		name = Localizations.MoveNames.twister,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "40",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of Bounce or Fly, this move will hit with double power.",
-			"Inflicts regular damage. Has a 20% chance to make each target flinch. If the target is under the effect of Bounce, Fly, or Sky Drop, this move will hit with double power."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.twister
+	}, {
 		id = "240",
-		name = "Rain Dance",
+		name = Localizations.MoveNames.rainDance,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the weather to rain for five turns, during which water moves inflict 50% extra damage, and fire moves inflict half damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.rainDance
+	}, {
 		id = "241",
-		name = "Sunny Day",
+		name = Localizations.MoveNames.sunnyDay,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the weather to sunshine for five turns, during which fire moves inflict 50% extra damage, and water moves inflict half damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.sunnyDay
+	}, {
 		id = "242",
-		name = "Crunch",
+		name = Localizations.MoveNames.crunch,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to lower the target's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.crunch
+	}, {
 		id = "243",
-		name = "Mirror Coat",
+		name = Localizations.MoveNames.mirrorCoat,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Decreased priority. If the user was damaged by a special move, inflicts twice the damage the move did. Type immunity applies, but other type effects are ignored."
-	},
-	{
+		description = Localizations.MoveDescriptions.mirrorCoat
+	}, {
 		id = "244",
-		name = "Psych Up",
+		name = Localizations.MoveNames.psychUp,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Discards the user's stat changes and copies the target's."
-	},
-	{
+		description = Localizations.MoveDescriptions.psychUp
+	}, {
 		id = "245",
-		name = "ExtremeSpeed",
+		name = Localizations.MoveNames.extremespeed,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "80",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.extremespeed
+	}, {
 		id = "246",
-		name = "AncientPower",
+		name = Localizations.MoveNames.ancientpower,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "60",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to raise all of the user's stats one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.ancientpower
+	}, {
 		id = "247",
-		name = "Shadow Ball",
+		name = Localizations.MoveNames.shadowBall,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 20% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.shadowBall
+	}, {
 		id = "248",
-		name = "Future Sight",
+		name = Localizations.MoveNames.futureSight,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
-		power = {"80", "80", "80", "80", "100"},
-		pp = {"15", "15", "15", "15", "10"},
-		accuracy = {"90", "90", "90", "90", "100"},
+		power = { "80", "80", "80", "80", "100" },
+		pp = { "15", "15", "15", "15", "10" },
+		accuracy = { "90", "90", "90", "90", "100" },
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit, and damage is calculated at the time this move is used.",
-			"Inflicts regular damage at the end of the third turn. Damage is calculated at the time damage is dealt."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.futureSight
+	}, {
 		id = "249",
-		name = "Rock Smash",
+		name = Localizations.MoveNames.rockSmash,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
-		power = {"20", "20", "20", "40", "40"},
+		power = { "20", "20", "20", "40", "40" },
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 50% chance to lower the target's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockSmash
+	}, {
 		id = "250",
-		name = "Whirlpool",
+		name = Localizations.MoveNames.whirlpool,
 		type = PokemonData.POKEMON_TYPES.WATER,
-		power = {"15", "15", "15", "15", "35"},
+		power = { "15", "15", "15", "15", "35" },
 		pp = "15",
-		accuracy = {"70", "70", "70", "70", "85"},
+		accuracy = { "70", "70", "70", "70", "85" },
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.whirlpool
+	}, {
 		id = "251",
-		name = "Beat Up",
+		name = Localizations.MoveNames.beatUp,
 		type = PokemonData.POKEMON_TYPES.DARK,
-		power = {"10", "10", "10", "10", "VAR"},
+		power = { "10", "10", "10", "10", "VAR" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Inflicts typeless regular damage. Every Pok" ..
-				Chars.accentedE ..
-					"mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.",
-			"Inflicts typeless regular damage. Every Pok" ..
-				Chars.accentedE ..
-					"mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.",
-			"Inflicts typeless regular damage. Every Pok" ..
-				Chars.accentedE ..
-					"mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.",
-			"Inflicts typeless regular damage. Every Pok" ..
-				Chars.accentedE ..
-					"mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target.",
-			"Inflicts regular damage. Every Pok" ..
-				Chars.accentedE ..
-					"mon in the user's party, excepting those that have fainted or have a major status effect, attacks the target."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.beatUp
+	}, {
 		-- Begin Gen 3 Moves
 		id = "252",
-		name = "Fake Out",
+		name = Localizations.MoveNames.fakeOut,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact. Causes the target to flinch, and can only be used on the user's first turn after entering the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.fakeOut
+	}, {
 		id = "253",
-		name = "Uproar",
+		name = Localizations.MoveNames.uproar,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"50", "50", "50", "50", "90"},
+		power = { "50", "50", "50", "50", "90" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok" ..
-				Chars.accentedE .. "mon on the field wake up, and none can fall to sleep until the lock-in ends.",
-			"Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok" ..
-				Chars.accentedE .. "mon on the field wake up, and none can fall to sleep until the lock-in ends.",
-			"Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok" ..
-				Chars.accentedE .. "mon on the field wake up, and none can fall to sleep until the lock-in ends.",
-			"Inflicts regular damage. User is forced to use this move for 2-5 turns, selected at random. All Pok" ..
-				Chars.accentedE .. "mon on the field wake up, and none can fall to sleep until the lock-in ends.",
-			"Inflicts regular damage. User is forced to use this move for 3 turns. All Pok" ..
-				Chars.accentedE .. "mon on the field wake up, and none can fall to sleep until the lock-in ends."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.uproar
+	}, {
 		id = "254",
-		name = "Stockpile",
+		name = Localizations.MoveNames.stockpile,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
-		pp = {"10", "10", "10", "20", "20"},
+		pp = { "10", "10", "10", "20", "20" },
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense and Special Defense by one stage each. Stores energy for use with spit up and swallow. Up to three levels of energy can be stored, and all are lost if the user leaves the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.stockpile
+	}, {
 		id = "255",
-		name = "Spit Up",
+		name = Localizations.MoveNames.spitUp,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power is equal to 100 times the amount of energy stored by stockpile. Stored energy is consumed, and the user's Defense and Special Defense are reset."
-	},
-	{
+		description = Localizations.MoveDescriptions.spitUp
+	}, {
 		id = "256",
-		name = "Swallow",
+		name = Localizations.MoveNames.swallow,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user depending on the amount of energy stored by stockpile: 1/4 its max HP after one use, 1/2 its max HP after two uses, or fully after three uses. Stored energy is consumed, and the user's Defense and Special Defense are reset."
-	},
-	{
+		description = Localizations.MoveDescriptions.swallow
+	}, {
 		id = "257",
-		name = "Heat Wave",
+		name = Localizations.MoveNames.heatWave,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "100",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.heatWave
+	}, {
 		id = "258",
-		name = "Hail",
+		name = Localizations.MoveNames.hail,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the weather to hail for five turns, during which non-ice Pok" ..
-			Chars.accentedE .. "mon are damaged for 1/16 their max HP at the end of every turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.hail
+	}, {
 		id = "259",
-		name = "Torment",
+		name = Localizations.MoveNames.torment,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Prevents the target from attempting to use the same move twice in a row. When the target leaves the field, this effect ends."
-	},
-	{
+		description = Localizations.MoveDescriptions.torment
+	}, {
 		id = "260",
-		name = "Flatter",
+		name = Localizations.MoveNames.flatter,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the target's Special Attack by one stage, then confuses it."
-	},
-	{
+		description = Localizations.MoveDescriptions.flatter
+	}, {
 		id = "261",
-		name = "Will-O-Wisp",
+		name = Localizations.MoveNames.willowisp,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Burns the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.willowisp
+	}, {
 		id = "262",
-		name = "Memento",
+		name = Localizations.MoveNames.memento,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Attack and Special Attack by two stages. User faints."
-	},
-	{
+		description = Localizations.MoveDescriptions.memento
+	}, {
 		id = "263",
-		name = "Facade",
+		name = Localizations.MoveNames.facade,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the user is burned, paralyzed, or poisoned, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.facade
+	}, {
 		id = "264",
-		name = "Focus Punch",
+		name = Localizations.MoveNames.focusPunch,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "150",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. If the user takes damage this turn before hitting, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.focusPunch
+	}, {
 		id = "265",
-		name = "SmellingSalt",
+		name = Localizations.MoveNames.smellingsalt,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "60",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is paralyzed, this move has double power, and the target is cured of its paralysis."
-	},
-	{
+		description = Localizations.MoveDescriptions.smellingsalt
+	}, {
 		id = "266",
-		name = "Follow Me",
+		name = Localizations.MoveNames.followMe,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Until the end of this turn, any moves that opposing Pok" ..
-			Chars.accentedE .. "mon target solely at the user's ally will instead target the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.followMe
+	}, {
 		id = "267",
-		name = "Nature Power",
+		name = Localizations.MoveNames.naturePower,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam",
-			"Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam",
-			"Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam",
-			"Move depends on the terrain. Building = Tri Attack; Cave/Mountain = Rock Slide; Water = Hydro Pump; Sand/Dirt = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam",
-			"Move depends on the terrain. Building = Tri Attack; Cave = Rock Slide; Water = Hydro Pump; Sand/Dirt/Rock = Earthquake; Grass = Seed Bomb; Snow = Blizzard; Ice = Ice Beam; Puddle = Mud Bomb"
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.naturePower
+	}, {
 		id = "268",
-		name = "Charge",
+		name = Localizations.MoveNames.charge,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Special Defense by one stage. If the user uses an electric move next turn, its power will be doubled."
-	},
-	{
+		description = Localizations.MoveDescriptions.charge
+	}, {
 		id = "269",
-		name = "Taunt",
+		name = Localizations.MoveNames.taunt,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.",
-			"Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.",
-			"Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.",
-			"Target is forced to only use damaging moves for the next 3-5 turns, selected at random. Moves that select other moves not known in advance do not count as damaging.",
-			"Target is forced to only use damaging moves for the next 3 turns. Moves that select other moves not known in advance do not count as damaging."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.taunt
+	}, {
 		id = "270",
-		name = "Helping Hand",
+		name = Localizations.MoveNames.helpingHand,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increase priority. Boosts the power of the target's moves by 50% until the end of this turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.helpingHand
+	}, {
 		id = "271",
-		name = "Trick",
+		name = Localizations.MoveNames.trick,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User and target permanently swap held items. Works even if one of the Pok" ..
-			Chars.accentedE .. "mon isn't holding anything."
-	},
-	{
+		description = Localizations.MoveDescriptions.trick
+	}, {
 		id = "272",
-		name = "Role Play",
+		name = Localizations.MoveNames.rolePlay,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User's ability is replaced with the target's until the user leaves the field. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.rolePlay
+	}, {
 		id = "273",
-		name = "Wish",
+		name = Localizations.MoveNames.wish,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "At the end of the next turn, user will be healed for half its max HP. If the user is switched out, its replacement will be healed instead for half of the user's max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.wish
+	}, {
 		id = "274",
-		name = "Assist",
+		name = Localizations.MoveNames.assist,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Uses a move from another Pok" ..
-			Chars.accentedE ..
-				"mon in the user's party, both selected at random. Moves from fainted Pok" .. Chars.accentedE .. "mon can be used."
-	},
-	{
+		description = Localizations.MoveDescriptions.assist
+	}, {
 		id = "275",
-		name = "Ingrain",
+		name = Localizations.MoveNames.ingrain,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Prevents the user from switching out. User regains 1/16 of its max HP at the end of every turn. If the user was immune to ground attacks, it will now take normal damage from them."
-	},
-	{
+		description = Localizations.MoveDescriptions.ingrain
+	}, {
 		id = "276",
-		name = "Superpower",
+		name = Localizations.MoveNames.superpower,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "120",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Lowers the user's Attack and Defense by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.superpower
+	}, {
 		id = "277",
-		name = "Magic Coat",
+		name = Localizations.MoveNames.magicCoat,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. The first non-damaging move targeting the user this turn that inflicts major status effects, stat changes, or trapping effects will be reflected at its user."
-	},
-	{
+		description = Localizations.MoveDescriptions.magicCoat
+	}, {
 		id = "278",
-		name = "Recycle",
+		name = Localizations.MoveNames.recycle,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"User recovers the last item consumed by the user or a Pok" ..
-				Chars.accentedE ..
-					"mon in its position on the field. The item must be used again before it can be recovered by this move again.",
-			"User recovers the last item consumed by the user or a Pok" ..
-				Chars.accentedE ..
-					"mon in its position on the field. The item must be used again before it can be recovered by this move again.",
-			"User recovers the last item consumed by the user or a Pok" ..
-				Chars.accentedE ..
-					"mon in its position on the field. The item must be used again before it can be recovered by this move again.",
-			"User recovers the last item consumed by the user or a Pok" ..
-				Chars.accentedE ..
-					"mon in its position on the field. The item must be used again before it can be recovered by this move again.",
-			"User recovers the last item it consumed. The item must be used again before it can be recovered by this move again."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.recycle
+	}, {
 		id = "279",
-		name = "Revenge",
+		name = Localizations.MoveNames.revenge,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "60",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. If the target damaged the user this turn and was the last to do so, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.revenge
+	}, {
 		id = "280",
-		name = "Brick Break",
+		name = Localizations.MoveNames.brickBreak,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "75",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Makes contact. Destroys any light screen or reflect on the target's side of the field, then inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.brickBreak
+	}, {
 		id = "281",
-		name = "Yawn",
+		name = Localizations.MoveNames.yawn,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep at the end of the next turn. Ignores Accuracy and Evasion modifiers. If the target leaves the field, this effect is canceled."
-	},
-	{
+		description = Localizations.MoveDescriptions.yawn
+	}, {
 		id = "282",
-		name = "Knock Off",
+		name = Localizations.MoveNames.knockOff,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "20",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Target loses its held item."
-	},
-	{
+		description = Localizations.MoveDescriptions.knockOff
+	}, {
 		id = "283",
-		name = "Endeavor",
+		name = Localizations.MoveNames.endeavor,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Makes contact. Inflicts exactly enough damage to lower the target's HP to equal the user's. Type immunity applies, but other type effects are ignored."
-	},
-	{
+		description = Localizations.MoveDescriptions.endeavor
+	}, {
 		id = "284",
-		name = "Eruption",
+		name = Localizations.MoveNames.eruption,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = ">HP",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power increases with the user's remaining HP up to a maximum of 150 when the user has full HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.eruption
+	}, {
 		id = "285",
-		name = "Skill Swap",
+		name = Localizations.MoveNames.skillSwap,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User and target switch abilities. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.skillSwap
+	}, {
 		id = "286",
-		name = "Imprison",
+		name = Localizations.MoveNames.imprison,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Prevents any Pok" ..
-			Chars.accentedE ..
-				"mon on the opposing side of the field from using any move the user knows until the user leaves the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.imprison
+	}, {
 		id = "287",
-		name = "Refresh",
+		name = Localizations.MoveNames.refresh,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes a burn, paralysis, or poison from the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.refresh
+	}, {
 		id = "288",
-		name = "Grudge",
+		name = Localizations.MoveNames.grudge,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the user faints before its next turn, the move that fainted it will have its PP dropped to 0. End-of-turn damage does not trigger this effect."
-	},
-	{
+		description = Localizations.MoveDescriptions.grudge
+	}, {
 		id = "289",
-		name = "Snatch",
+		name = Localizations.MoveNames.snatch,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. The next time a Pok" ..
-			Chars.accentedE ..
-				"mon uses a beneficial move on itself or itself and its ally this turn, the user of this move will steal the move and use it itself."
-	},
-	{
+		description = Localizations.MoveDescriptions.snatch
+	}, {
 		id = "290",
-		name = "Secret Power",
+		name = Localizations.MoveNames.secretPower,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze",
-			"Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze",
-			"Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze",
-			"Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Snow/Ice = freeze",
-			"Inflicts regular damage. Has a 30% chance to cause an effect from terrain. Building = paralysis; Desert = -ACC; Cave = flinch; Grass = sleep; Water = -ATK; Puddle = -SPE; Snow/Ice = freeze"
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.secretPower
+	}, {
 		id = "291",
-		name = "Dive",
+		name = Localizations.MoveNames.dive,
 		type = PokemonData.POKEMON_TYPES.WATER,
-		power = {"60", "60", "60", "80", "80"},
+		power = { "60", "60", "60", "80", "80" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User dives underwater for one turn, becoming immune to attack, and hits on the second turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.dive
+	}, {
 		id = "292",
-		name = "Arm Thrust",
+		name = Localizations.MoveNames.armThrust,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "15",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.armThrust
+	}, {
 		id = "293",
-		name = "Camouflage",
+		name = Localizations.MoveNames.camouflage,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User's type changes according to the terrain. Building = normal; Cave = rock; Desert = ground; Grass = grass; Ocean = water; Snow = ice"
-	},
-	{
+		description = Localizations.MoveDescriptions.camouflage
+	}, {
 		id = "294",
-		name = "Tail Glow",
+		name = Localizations.MoveNames.tailGlow,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Raises the user's Special Attack by two stages.",
-			"Raises the user's Special Attack by two stages.",
-			"Raises the user's Special Attack by two stages.",
-			"Raises the user's Special Attack by two stages.",
-			"Raises the user's Special Attack by three stages."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.tailGlow
+	}, {
 		id = "295",
-		name = "Luster Purge",
+		name = Localizations.MoveNames.lusterPurge,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "70",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 50% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.lusterPurge
+	}, {
 		id = "296",
-		name = "Mist Ball",
+		name = Localizations.MoveNames.mistBall,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "70",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 50% chance to lower the target's Special Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.mistBall
+	}, {
 		id = "297",
-		name = "FeatherDance",
+		name = Localizations.MoveNames.featherdance,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.featherdance
+	}, {
 		id = "298",
-		name = "Teeter Dance",
+		name = Localizations.MoveNames.teeterDance,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Confuses all targets."
-	},
-	{
+		description = Localizations.MoveDescriptions.teeterDance
+	}, {
 		id = "299",
-		name = "Blaze Kick",
+		name = Localizations.MoveNames.blazeKick,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "85",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move. Has a 10% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.blazeKick
+	}, {
 		id = "300",
-		name = "Mud Sport",
+		name = Localizations.MoveNames.mudSport,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Electric moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Electric moves inflict one-third damage, regardless of target. If the user leaves the field, this effect ends."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.mudSport
+	}, {
 		id = "301",
-		name = "Ice Ball",
+		name = Localizations.MoveNames.iceBall,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "30",
 		pp = "20",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User is forced to use this move for five turns. Power doubles every time this move is used in succession to a maximum of 16x. If this move misses, the lock-in ends."
-	},
-	{
+		description = Localizations.MoveDescriptions.iceBall
+	}, {
 		id = "302",
-		name = "Needle Arm",
+		name = Localizations.MoveNames.needleArm,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "60",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.needleArm
+	}, {
 		id = "303",
-		name = "Slack Off",
+		name = Localizations.MoveNames.slackOff,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.slackOff
+	}, {
 		id = "304",
-		name = "Hyper Voice",
+		name = Localizations.MoveNames.hyperVoice,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "90",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.hyperVoice
+	}, {
 		id = "305",
-		name = "Poison Fang",
+		name = Localizations.MoveNames.poisonFang,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "50",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to badly poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.poisonFang
+	}, {
 		id = "306",
-		name = "Crush Claw",
+		name = Localizations.MoveNames.crushClaw,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "75",
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 50% chance to lower the target's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.crushClaw
+	}, {
 		id = "307",
-		name = "Blast Burn",
+		name = Localizations.MoveNames.blastBurn,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "150",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User loses its next turn to recharge, and cannot attack or switch out during that turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.blastBurn
+	}, {
 		id = "308",
-		name = "Hydro Cannon",
+		name = Localizations.MoveNames.hydroCannon,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "150",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User loses its next turn to recharge, and cannot attack or switch out during that turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.hydroCannon
+	}, {
 		id = "309",
-		name = "Meteor Mash",
+		name = Localizations.MoveNames.meteorMash,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "100",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to raise the user's Attack one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.meteorMash
+	}, {
 		id = "310",
-		name = "Astonish",
+		name = Localizations.MoveNames.astonish,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "30",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.astonish
+	}, {
 		id = "311",
-		name = "Weather Ball",
+		name = Localizations.MoveNames.weatherBall,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "50",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a weather move is active, this move has double power, and its type becomes the weather counterpart."
-	},
-	{
+		description = Localizations.MoveDescriptions.weatherBall
+	}, {
 		id = "312",
-		name = "Aromatherapy",
+		name = Localizations.MoveNames.aromatherapy,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Removes major status effects except confusion from every Pok" ..
-			Chars.accentedE .. "mon in the user's party."
-	},
-	{
+		description = Localizations.MoveDescriptions.aromatherapy
+	}, {
 		id = "313",
-		name = "Fake Tears",
+		name = Localizations.MoveNames.fakeTears,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Special Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.fakeTears
+	}, {
 		id = "314",
-		name = "Air Cutter",
+		name = Localizations.MoveNames.airCutter,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "55",
 		pp = "25",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.airCutter
+	}, {
 		id = "315",
-		name = "Overheat",
+		name = Localizations.MoveNames.overheat,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage, then lowers the user's Special Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.overheat
+	}, {
 		id = "316",
-		name = "Odor Sleuth",
+		name = Localizations.MoveNames.odorSleuth,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
-		accuracy = {"100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS},
+		accuracy = { "100", "100", "100", Graphics.TEXT.ALWAYS_HITS, Graphics.TEXT.ALWAYS_HITS },
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Ignores the target's boosted Evasion stages until the target leaves the field. A ghost under this effect takes damage from normal and fighting moves."
-	},
-	{
+		description = Localizations.MoveDescriptions.odorSleuth
+	}, {
 		id = "317",
-		name = "Rock Tomb",
+		name = Localizations.MoveNames.rockTomb,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "50",
 		pp = "10",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 100% chance to lower the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockTomb
+	}, {
 		id = "318",
-		name = "Silver Wind",
+		name = Localizations.MoveNames.silverWind,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "60",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to raise all of the user's stats one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.silverWind
+	}, {
 		id = "319",
-		name = "Metal Sound",
+		name = Localizations.MoveNames.metalSound,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Special Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.metalSound
+	}, {
 		id = "320",
-		name = "GrassWhistle",
+		name = Localizations.MoveNames.grasswhistle,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "55",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts the target to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.grasswhistle
+	}, {
 		id = "321",
-		name = "Tickle",
+		name = Localizations.MoveNames.tickle,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Attack and Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.tickle
+	}, {
 		id = "322",
-		name = "Cosmic Power",
+		name = Localizations.MoveNames.cosmicPower,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense and Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.cosmicPower
+	}, {
 		id = "323",
-		name = "Water Spout",
+		name = Localizations.MoveNames.waterSpout,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = ">HP",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power increases with the user's remaining HP, up to a maximum of 150 when the user has full HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.waterSpout
+	}, {
 		id = "324",
-		name = "Signal Beam",
+		name = Localizations.MoveNames.signalBeam,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "75",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to confuse the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.signalBeam
+	}, {
 		id = "325",
-		name = "Shadow Punch",
+		name = Localizations.MoveNames.shadowPunch,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "60",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.shadowPunch
+	}, {
 		id = "326",
-		name = "Extrasensory",
+		name = Localizations.MoveNames.extrasensory,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "80",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.extrasensory
+	}, {
 		id = "327",
-		name = "Sky Uppercut",
+		name = Localizations.MoveNames.skyUppercut,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "85",
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Inflicts regular damage and makes contact. This move can hit Pok" ..
-				Chars.accentedE .. "mon under the effect of Bounce or Fly.",
-			"Inflicts regular damage and makes contact. This move can hit Pok" ..
-				Chars.accentedE .. "mon under the effect of Bounce or Fly.",
-			"Inflicts regular damage and makes contact. This move can hit Pok" ..
-				Chars.accentedE .. "mon under the effect of Bounce or Fly.",
-			"Inflicts regular damage and makes contact. This move can hit Pok" ..
-				Chars.accentedE .. "mon under the effect of Bounce or Fly.",
-			"Inflicts regular damage and makes contact. This move can hit Pok" ..
-				Chars.accentedE .. "mon under the effect of Bounce, Fly, or Sky Drop."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.skyUppercut
+	}, {
 		id = "328",
-		name = "Sand Tomb",
+		name = Localizations.MoveNames.sandTomb,
 		type = PokemonData.POKEMON_TYPES.GROUND,
-		power = {"15", "15", "15", "15", "35"},
+		power = { "15", "15", "15", "15", "35" },
 		pp = "15",
-		accuracy = {"70", "70", "70", "70", "85"},
+		accuracy = { "70", "70", "70", "70", "85" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.sandTomb
+	}, {
 		id = "329",
-		name = "Sheer Cold",
+		name = Localizations.MoveNames.sheerCold,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = "30",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Instantly KOs the target. This move's accuracy is 30% plus 1% for each level the user is higher than the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.sheerCold
+	}, {
 		id = "330",
-		name = "Muddy Water",
+		name = Localizations.MoveNames.muddyWater,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "95",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to lower the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.muddyWater
+	}, {
 		id = "331",
-		name = "Bullet Seed",
+		name = Localizations.MoveNames.bulletSeed,
 		type = PokemonData.POKEMON_TYPES.GRASS,
-		power = {"10", "10", "10", "10", "25"},
+		power = { "10", "10", "10", "10", "25" },
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.bulletSeed
+	}, {
 		id = "332",
-		name = "Aerial Ace",
+		name = Localizations.MoveNames.aerialAce,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "60",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.aerialAce
+	}, {
 		id = "333",
-		name = "Icicle Spear",
+		name = Localizations.MoveNames.icicleSpear,
 		type = PokemonData.POKEMON_TYPES.ICE,
-		power = {"10", "10", "10", "10", "25"},
+		power = { "10", "10", "10", "10", "25" },
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn, abd averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.icicleSpear
+	}, {
 		id = "334",
-		name = "Iron Defense",
+		name = Localizations.MoveNames.ironDefense,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.ironDefense
+	}, {
 		id = "335",
-		name = "Block",
+		name = Localizations.MoveNames.block,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "The target cannot switch out normally. Ignores Accuracy and Evasion modifiers. This effect ends when the user leaves the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.block
+	}, {
 		id = "336",
-		name = "Howl",
+		name = Localizations.MoveNames.howl,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.howl
+	}, {
 		id = "337",
-		name = "Dragon Claw",
+		name = Localizations.MoveNames.dragonClaw,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.dragonClaw
+	}, {
 		id = "338",
-		name = "Frenzy Plant",
+		name = Localizations.MoveNames.frenzyPlant,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "150",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User loses its next turn to recharge, and cannot attack or switch out during that turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.frenzyPlant
+	}, {
 		id = "339",
-		name = "Bulk Up",
+		name = Localizations.MoveNames.bulkUp,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack and Defense by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.bulkUp
+	}, {
 		id = "340",
-		name = "Bounce",
+		name = Localizations.MoveNames.bounce,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "85",
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User bounces high into the air for one turn, becoming immune to attack, and hits on the second turn. Has a 30% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.bounce
+	}, {
 		id = "341",
-		name = "Mud Shot",
+		name = Localizations.MoveNames.mudShot,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "55",
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 100% chance to lower the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.mudShot
+	}, {
 		id = "342",
-		name = "Poison Tail",
+		name = Localizations.MoveNames.poisonTail,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "50",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move. Has a 10% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.poisonTail
+	}, {
 		id = "343",
-		name = "Covet",
+		name = Localizations.MoveNames.covet,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"40", "40", "40", "40", "60"},
+		power = { "40", "40", "40", "40", "60" },
 		pp = "40",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is holding an item and the user is not, the user will permanently take the item. Damage is still inflicted if an item cannot be taken."
-	},
-	{
+		description = Localizations.MoveDescriptions.covet
+	}, {
 		id = "344",
-		name = "Volt Tackle",
+		name = Localizations.MoveNames.voltTackle,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "120",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.voltTackle
+	}, {
 		id = "345",
-		name = "Magical Leaf",
+		name = Localizations.MoveNames.magicalLeaf,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "60",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.magicalLeaf
+	}, {
 		id = "346",
-		name = "Water Sport",
+		name = Localizations.MoveNames.waterSport,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Fire moves inflict half damage, regardless of target. If the user leaves the field, this effect ends.",
-			"Fire moves inflict one-third damage, regardless of target. If the user leaves the field, this effect ends."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.waterSport
+	}, {
 		id = "347",
-		name = "Calm Mind",
+		name = Localizations.MoveNames.calmMind,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Special Attack and Special Defense by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.calmMind
+	}, {
 		id = "348",
-		name = "Leaf Blade",
+		name = Localizations.MoveNames.leafBlade,
 		type = PokemonData.POKEMON_TYPES.GRASS,
-		power = {"70", "70", "70", "90", "90"},
+		power = { "70", "70", "70", "90", "90" },
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.leafBlade
+	}, {
 		id = "349",
-		name = "Dragon Dance",
+		name = Localizations.MoveNames.dragonDance,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack and Speed by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.dragonDance
+	}, {
 		id = "350",
-		name = "Rock Blast",
+		name = Localizations.MoveNames.rockBlast,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "25",
 		pp = "10",
-		accuracy = {"80", "80", "80", "80", "90"},
+		accuracy = { "80", "80", "80", "80", "90" },
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Hits 2-5 times in one turn. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockBlast
+	}, {
 		id = "351",
-		name = "Shock Wave",
+		name = Localizations.MoveNames.shockWave,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "60",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.shockWave
+	}, {
 		id = "352",
-		name = "Water Pulse",
+		name = Localizations.MoveNames.waterPulse,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "60",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 20% chance to confuse the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.waterPulse
+	}, {
 		id = "353",
-		name = "Doom Desire",
+		name = Localizations.MoveNames.doomDesire,
 		type = PokemonData.POKEMON_TYPES.STEEL,
-		power = {"120", "120", "120", "120", "140"},
+		power = { "120", "120", "120", "120", "140" },
 		pp = "5",
-		accuracy = {"85", "85", "85", "85", "100"},
+		accuracy = { "85", "85", "85", "85", "100" },
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
-			"Inflicts typeless regular damage at the end of the third turn. This move cannot score a critical hit. Damage is calculated at the time this move is used.",
-			"Inflicts regular damage at the end of the third turn. Damage is calculated at the time damage is dealt."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.doomDesire
+	}, {
 		id = "354",
-		name = "Psycho Boost",
+		name = Localizations.MoveNames.psychoBoost,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage, then lowers the user's Special Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.psychoBoost
+	}, {
 		id = "355",
-		name = "Roost",
+		name = Localizations.MoveNames.roost,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = Graphics.TEXT.ALWAYS_HITS,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP. If the user is flying, its flying type is ignored until the end of this turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.roost
+	}, {
 		id = "356",
-		name = "Gravity",
+		name = Localizations.MoveNames.gravity,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok" ..
-				Chars.accentedE .. "mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.",
-			"For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok" ..
-				Chars.accentedE .. "mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.",
-			"For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok" ..
-				Chars.accentedE .. "mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.",
-			"For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok" ..
-				Chars.accentedE .. "mon on the field is multiplied by 5/3. Cancels the effects of Bounce and Fly.",
-			"For five turns, all immunities to ground moves are disabled. For the duration of this effect, the Accuracy of every Pok" ..
-				Chars.accentedE .. "mon on the field is multiplied by 5/3. Cancels the effects of Bounce, Fly, and Sky Drop."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.gravity
+	}, {
 		id = "357",
-		name = "Miracle Eye",
+		name = Localizations.MoveNames.miracleEye,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "40",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Ignores the target's boosted Evasion stages until the target leaves the field. A dark Pok" ..
-			Chars.accentedE .. "mon under this effect takes normal damage from psychic moves."
-	},
-	{
+		description = Localizations.MoveDescriptions.miracleEye
+	}, {
 		id = "358",
-		name = "Wake-Up Slap",
+		name = Localizations.MoveNames.wakeupSlap,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "60",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is sleeping, this move has double power, and the target wakes up."
-	},
-	{
+		description = Localizations.MoveDescriptions.wakeupSlap
+	}, {
 		id = "359",
-		name = "Hammer Arm",
+		name = Localizations.MoveNames.hammerArm,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "100",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Lowers the user's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.hammerArm
+	}, {
 		id = "360",
-		name = "Gyro Ball",
+		name = Localizations.MoveNames.gyroBall,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "<SP",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power increases with the target's current Speed compared to the user, capped at 150."
-	},
-	{
+		description = Localizations.MoveDescriptions.gyroBall
+	}, {
 		id = "361",
-		name = "Healing Wish",
+		name = Localizations.MoveNames.healingWish,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User faints. Its replacement's HP is fully restored, and any major status effect is removed. If the replacement Pok" ..
-			Chars.accentedE ..
-				"mon is immediately fainted by a switch-in effect, the next replacement is healed by this move instead."
-	},
-	{
+		description = Localizations.MoveDescriptions.healingWish
+	}, {
 		id = "362",
-		name = "Brine",
+		name = Localizations.MoveNames.brine,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "65",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the target has less than half its max HP remaining, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.brine
+	}, {
 		id = "363",
-		name = "Natural Gift",
+		name = Localizations.MoveNames.naturalGift,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "BRY",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power and type are determined by the user's held berry. The berry is consumed. If the user is not holding a berry, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.naturalGift
+	}, {
 		id = "364",
-		name = "Feint",
+		name = Localizations.MoveNames.feint,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"50", "50", "50", "50", "30"},
+		power = { "50", "50", "50", "50", "30" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = {
-			"Increased priority. Inflicts regular damage. Removes the effects of Detect or Protect from the target before hitting. Fails if the target did not use Detect or Protect.",
-			"Increased priority. Inflicts regular damage. Removes the effects of Detect or Protect from the target before hitting. Fails if the target did not use Detect or Protect.",
-			"Increased priority. Inflicts regular damage. Removes the effects of Detect or Protect from the target before hitting. Fails if the target did not use Detect or Protect.",
-			"Increased priority. Inflicts regular damage. Removes the effects of Detect or Protect from the target before hitting. Fails if the target did not use Detect or Protect.",
-			"Increased priority. Inflicts regular damage. Removes the effects of Detect or Protect from the target before hitting."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.feint
+	}, {
 		id = "365",
-		name = "Pluck",
+		name = Localizations.MoveNames.pluck,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "60",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is holding a berry, the user takes the berry and uses it immediately."
-	},
-	{
+		description = Localizations.MoveDescriptions.pluck
+	}, {
 		id = "366",
-		name = "Tailwind",
+		name = Localizations.MoveNames.tailwind,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"For the next three turns, all Pok" ..
-				Chars.accentedE ..
-					"mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.",
-			"For the next three turns, all Pok" ..
-				Chars.accentedE ..
-					"mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.",
-			"For the next three turns, all Pok" ..
-				Chars.accentedE ..
-					"mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.",
-			"For the next three turns, all Pok" ..
-				Chars.accentedE ..
-					"mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field.",
-			"For the next four turns, all Pok" ..
-				Chars.accentedE ..
-					"mon on the user's side of the field have their original Speed doubled. This effect remains if the user leaves the field."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.tailwind
+	}, {
 		id = "367",
-		name = "Acupressure",
+		name = Localizations.MoveNames.acupressure,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises one of the target's stats by two stages. The raised stat is chosen at random from any stats that can be raised."
-	},
-	{
+		description = Localizations.MoveDescriptions.acupressure
+	}, {
 		id = "368",
-		name = "Metal Burst",
+		name = Localizations.MoveNames.metalBurst,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Targets the last opposing Pok" ..
-			Chars.accentedE ..
-				"mon to hit the user with a damaging move this turn. Inflicts 1.5x the damage that move did to the user. Type immunity applies, but other type effects are ignored."
-	},
-	{
+		description = Localizations.MoveDescriptions.metalBurst
+	}, {
 		id = "369",
-		name = "U-turn",
+		name = Localizations.MoveNames.uturn,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User immediately switches out, and the trainer selects a replacement Pok" ..
-			Chars.accentedE .. "mon from the party."
-	},
-	{
+		description = Localizations.MoveDescriptions.uturn
+	}, {
 		id = "370",
-		name = "Close Combat",
+		name = Localizations.MoveNames.closeCombat,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "120",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Lowers the user's Defense and Special Defense by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.closeCombat
+	}, {
 		id = "371",
-		name = "Payback",
+		name = Localizations.MoveNames.payback,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "50",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target uses a move, switches out, or the trainer uses an item this turn before this move is used, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.payback
+	}, {
 		id = "372",
-		name = "Assurance",
+		name = Localizations.MoveNames.assurance,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "50",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target takes damage this turn for any reason before this move is used, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.assurance
+	}, {
 		id = "373",
-		name = "Embargo",
+		name = Localizations.MoveNames.embargo,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Target cannot use its held item and its trainer cannot use items from the bag on it for five turns. If the target leaves the field, this effect ends."
-	},
-	{
+		description = Localizations.MoveDescriptions.embargo
+	}, {
 		id = "374",
-		name = "Fling",
+		name = Localizations.MoveNames.fling,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "ITM",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Power is determined by the user's held item. The item is consumed. If the user is not holding an item, or its item has no set power, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.fling
+	}, {
 		id = "375",
-		name = "Psycho Shift",
+		name = Localizations.MoveNames.psychoShift,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the user has a major status effect and the target does not, the user's status is transferred to the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.psychoShift
+	}, {
 		id = "376",
-		name = "Trump Card",
+		name = Localizations.MoveNames.trumpCard,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "<PP",
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage and makes contact. Power is determined by the PP remaining for this move, after its PP cost is deducted. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.trumpCard
+	}, {
 		id = "377",
-		name = "Heal Block",
+		name = Localizations.MoveNames.healBlock,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = {
-			"For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.",
-			"For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.",
-			"For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.",
-			"For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target.",
-			"For the next five turns, the target may not use any moves that only restore HP. Moves that steal HP may still be used, but will only inflict damage and not heal the target. The target will also not be healed by held items or abilities."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.healBlock
+	}, {
 		id = "378",
-		name = "Wring Out",
+		name = Localizations.MoveNames.wringOut,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = ">HP",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage and makes contact. Power directly relates to the target's relative remaining HP, up to a maximum of 121."
-	},
-	{
+		description = Localizations.MoveDescriptions.wringOut
+	}, {
 		id = "379",
-		name = "Power Trick",
+		name = Localizations.MoveNames.powerTrick,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "The user's original Attack and Defense are swapped."
-	},
-	{
+		description = Localizations.MoveDescriptions.powerTrick
+	}, {
 		id = "380",
-		name = "Gastro Acid",
+		name = Localizations.MoveNames.gastroAcid,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "The target's ability is disabled as long as it remains on the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.gastroAcid
+	}, {
 		id = "381",
-		name = "Lucky Chant",
+		name = Localizations.MoveNames.luckyChant,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "For five turns, opposing Pok" .. Chars.accentedE .. "mon cannot score critical hits."
-	},
-	{
+		description = Localizations.MoveDescriptions.luckyChant
+	}, {
 		id = "382",
-		name = "Me First",
+		name = Localizations.MoveNames.meFirst,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "If the target has selected a damaging move this turn, the user will copy that move and use it against the target, with a 50% increase in power."
-	},
-	{
+		description = Localizations.MoveDescriptions.meFirst
+	}, {
 		id = "383",
-		name = "Copycat",
+		name = Localizations.MoveNames.copycat,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Uses the last move that was used successfully by any Pok" .. Chars.accentedE .. "mon, including the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.copycat
+	}, {
 		id = "384",
-		name = "Power Swap",
+		name = Localizations.MoveNames.powerSwap,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User swaps its Attack and Special Attack stat modifiers with the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.powerSwap
+	}, {
 		id = "385",
-		name = "Guard Swap",
+		name = Localizations.MoveNames.guardSwap,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User swaps its Defense and Special Defense stat modifiers with the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.guardSwap
+	}, {
 		id = "386",
-		name = "Punishment",
+		name = Localizations.MoveNames.punishment,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "STA",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power starts at 60 and is increased by 20 for every stage any of the target's stats has been raised, capping at 200. Accuracy and Evasion modifiers do not increase this move's power."
-	},
-	{
+		description = Localizations.MoveDescriptions.punishment
+	}, {
 		id = "387",
-		name = "Last Resort",
+		name = Localizations.MoveNames.lastResort,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
-		power = {"130", "130", "130", "130", "140"},
+		power = { "130", "130", "130", "130", "140" },
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. This move can only be used if each of the user's other moves has been used at least once since the user entered the field. If this is the user's only move, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.lastResort
+	}, {
 		id = "388",
-		name = "Worry Seed",
+		name = Localizations.MoveNames.worrySeed,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the target's ability to Insomnia for as long as it remains on the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.worrySeed
+	}, {
 		id = "389",
-		name = "Sucker Punch",
+		name = Localizations.MoveNames.suckerPunch,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "80",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact. If the target has not selected a damaging move this turn, or if the target has already acted this turn, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.suckerPunch
+	}, {
 		id = "390",
-		name = "Toxic Spikes",
+		name = Localizations.MoveNames.toxicSpikes,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Scatters poisoned spikes around the opposing field, which poison opposing Pok" ..
-			Chars.accentedE ..
-				"mon that enter the field. A second layer of these spikes may be laid down, in which case Pok" ..
-					Chars.accentedE .. "mon will be badly poisoned instead."
-	},
-	{
+		description = Localizations.MoveDescriptions.toxicSpikes
+	}, {
 		id = "391",
-		name = "Heart Swap",
+		name = Localizations.MoveNames.heartSwap,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User swaps its stat modifiers with the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.heartSwap
+	}, {
 		id = "392",
-		name = "Aqua Ring",
+		name = Localizations.MoveNames.aquaRing,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Restores 1/16 of the user's max HP at the end of each turn. If the user leaves the field, this effect ends."
-	},
-	{
+		description = Localizations.MoveDescriptions.aquaRing
+	}, {
 		id = "393",
-		name = "Magnet Rise",
+		name = Localizations.MoveNames.magnetRise,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "For five turns, the user is immune to ground moves."
-	},
-	{
+		description = Localizations.MoveDescriptions.magnetRise
+	}, {
 		id = "394",
-		name = "Flare Blitz",
+		name = Localizations.MoveNames.flareBlitz,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "120",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil. Has a 10% chance to burn the target. Frozen Pok" ..
-			Chars.accentedE .. "mon will thaw if they use this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.flareBlitz
+	}, {
 		id = "395",
-		name = "Force Palm",
+		name = Localizations.MoveNames.forcePalm,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "60",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.forcePalm
+	}, {
 		id = "396",
-		name = "Aura Sphere",
+		name = Localizations.MoveNames.auraSphere,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "90",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.auraSphere
+	}, {
 		id = "397",
-		name = "Rock Polish",
+		name = Localizations.MoveNames.rockPolish,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Speed by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockPolish
+	}, {
 		id = "398",
-		name = "Poison Jab",
+		name = Localizations.MoveNames.poisonJab,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "80",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.poisonJab
+	}, {
 		id = "399",
-		name = "Dark Pulse",
+		name = Localizations.MoveNames.darkPulse,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 20% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.darkPulse
+	}, {
 		id = "400",
-		name = "Night Slash",
+		name = Localizations.MoveNames.nightSlash,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "70",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.nightSlash
+	}, {
 		id = "401",
-		name = "Aqua Tail",
+		name = Localizations.MoveNames.aquaTail,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "90",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.aquaTail
+	}, {
 		id = "402",
-		name = "Seed Bomb",
+		name = Localizations.MoveNames.seedBomb,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.seedBomb
+	}, {
 		id = "403",
-		name = "Air Slash",
+		name = Localizations.MoveNames.airSlash,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "75",
 		pp = "20",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.airSlash
+	}, {
 		id = "404",
-		name = "X-Scissor",
+		name = Localizations.MoveNames.xscissor,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.xscissor
+	}, {
 		id = "405",
-		name = "Bug Buzz",
+		name = Localizations.MoveNames.bugBuzz,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "90",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.bugBuzz
+	}, {
 		id = "406",
-		name = "Dragon Pulse",
+		name = Localizations.MoveNames.dragonPulse,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "90",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.dragonPulse
+	}, {
 		id = "407",
-		name = "Dragon Rush",
+		name = Localizations.MoveNames.dragonRush,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "100",
 		pp = "10",
 		accuracy = "75",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.dragonRush
+	}, {
 		id = "408",
-		name = "Power Gem",
+		name = Localizations.MoveNames.powerGem,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.powerGem
+	}, {
 		id = "409",
-		name = "Drain Punch",
+		name = Localizations.MoveNames.drainPunch,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
-		power = {"60", "60", "60", "60", "75"},
-		pp = {"5", "5", "5", "5", "10"},
+		power = { "60", "60", "60", "60", "75" },
+		pp = { "5", "5", "5", "5", "10" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Drains half the damage inflicted to heal the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.drainPunch
+	}, {
 		id = "410",
-		name = "Vacuum Wave",
+		name = Localizations.MoveNames.vacuumWave,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Increased priority. Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.vacuumWave
+	}, {
 		id = "411",
-		name = "Focus Blast",
+		name = Localizations.MoveNames.focusBlast,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "120",
 		pp = "5",
 		accuracy = "70",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.focusBlast
+	}, {
 		id = "412",
-		name = "Energy Ball",
+		name = Localizations.MoveNames.energyBall,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "80",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.energyBall
+	}, {
 		id = "413",
-		name = "Brave Bird",
+		name = Localizations.MoveNames.braveBird,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "120",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.braveBird
+	}, {
 		id = "414",
-		name = "Earth Power",
+		name = Localizations.MoveNames.earthPower,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "90",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.earthPower
+	}, {
 		id = "415",
-		name = "Switcheroo",
+		name = Localizations.MoveNames.switcheroo,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User and target permanently swap held items. Works even if one of the Pok" ..
-			Chars.accentedE .. "mon isn't holding anything."
-	},
-	{
+		description = Localizations.MoveDescriptions.switcheroo
+	}, {
 		id = "416",
-		name = "Giga Impact",
+		name = Localizations.MoveNames.gigaImpact,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "150",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User loses its next turn to recharge, and cannot attack or switch out during that turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.gigaImpact
+	}, {
 		id = "417",
-		name = "Nasty Plot",
+		name = Localizations.MoveNames.nastyPlot,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Special Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.nastyPlot
+	}, {
 		id = "418",
-		name = "Bullet Punch",
+		name = Localizations.MoveNames.bulletPunch,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.bulletPunch
+	}, {
 		id = "419",
-		name = "Avalanche",
+		name = Localizations.MoveNames.avalanche,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "60",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. If the target damaged the user this turn, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.avalanche
+	}, {
 		id = "420",
-		name = "Ice Shard",
+		name = Localizations.MoveNames.iceShard,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.iceShard
+	}, {
 		id = "421",
-		name = "Shadow Claw",
+		name = Localizations.MoveNames.shadowClaw,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "70",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.shadowClaw
+	}, {
 		id = "422",
-		name = "Thunder Fang",
+		name = Localizations.MoveNames.thunderFang,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "65",
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to paralyze the target and a separate 10% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.thunderFang
+	}, {
 		id = "423",
-		name = "Ice Fang",
+		name = Localizations.MoveNames.iceFang,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "65",
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to freeze the target and a separate 10% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.iceFang
+	}, {
 		id = "424",
-		name = "Fire Fang",
+		name = Localizations.MoveNames.fireFang,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "65",
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 10% chance to burn the target and a separate 10% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.fireFang
+	}, {
 		id = "425",
-		name = "Shadow Sneak",
+		name = Localizations.MoveNames.shadowSneak,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "40",
 		pp = "30",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.shadowSneak
+	}, {
 		id = "426",
-		name = "Mud Bomb",
+		name = Localizations.MoveNames.mudBomb,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "65",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to lower the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.mudBomb
+	}, {
 		id = "427",
-		name = "Psycho Cut",
+		name = Localizations.MoveNames.psychoCut,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.psychoCut
+	}, {
 		id = "428",
-		name = "Zen Headbutt",
+		name = Localizations.MoveNames.zenHeadbutt,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "80",
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.zenHeadbutt
+	}, {
 		id = "429",
-		name = "Mirror Shot",
+		name = Localizations.MoveNames.mirrorShot,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "65",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to lower the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.mirrorShot
+	}, {
 		id = "430",
-		name = "Flash Cannon",
+		name = Localizations.MoveNames.flashCannon,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "80",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to lower the target's Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.flashCannon
+	}, {
 		id = "431",
-		name = "Rock Climb",
+		name = Localizations.MoveNames.rockClimb,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "90",
 		pp = "20",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to confuse the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockClimb
+	}, {
 		id = "432",
-		name = "Defog",
+		name = Localizations.MoveNames.defog,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Evasion by one stage. Removes the effects of mist, light screen, reflect, safeguard, spikes, stealth rock, and toxic spikes from the target's side of the field."
-	},
-	{
+		description = Localizations.MoveDescriptions.defog
+	}, {
 		id = "433",
-		name = "Trick Room",
+		name = Localizations.MoveNames.trickRoom,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "5",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. For five turns, slower Pok" ..
-			Chars.accentedE .. "mon will act before faster Pok" .. Chars.accentedE .. "mon. Move priority is not affected."
-	},
-	{
+		description = Localizations.MoveDescriptions.trickRoom
+	}, {
 		id = "434",
-		name = "Draco Meteor",
+		name = Localizations.MoveNames.dracoMeteor,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage, then lowers the user's Special Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.dracoMeteor
+	}, {
 		id = "435",
-		name = "Discharge",
+		name = Localizations.MoveNames.discharge,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.discharge
+	}, {
 		id = "436",
-		name = "Lava Plume",
+		name = Localizations.MoveNames.lavaPlume,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.lavaPlume
+	}, {
 		id = "437",
-		name = "Leaf Storm",
+		name = Localizations.MoveNames.leafStorm,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage, then lowers the user's Special Attack by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.leafStorm
+	}, {
 		id = "438",
-		name = "Power Whip",
+		name = Localizations.MoveNames.powerWhip,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "120",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.powerWhip
+	}, {
 		id = "439",
-		name = "Rock Wrecker",
+		name = Localizations.MoveNames.rockWrecker,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "150",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User loses its next turn to recharge, and cannot attack or switch out during that turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.rockWrecker
+	}, {
 		id = "440",
-		name = "Cross Poison",
+		name = Localizations.MoveNames.crossPoison,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move. Has a 10% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.crossPoison
+	}, {
 		id = "441",
-		name = "Gunk Shot",
+		name = Localizations.MoveNames.gunkShot,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "120",
 		pp = "5",
 		accuracy = "70",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to poison the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.gunkShot
+	}, {
 		id = "442",
-		name = "Iron Head",
+		name = Localizations.MoveNames.ironHead,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.ironHead
+	}, {
 		id = "443",
-		name = "Magnet Bomb",
+		name = Localizations.MoveNames.magnetBomb,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "60",
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Ignores Accuracy and Evasion modifiers."
-	},
-	{
+		description = Localizations.MoveDescriptions.magnetBomb
+	}, {
 		id = "444",
-		name = "Stone Edge",
+		name = Localizations.MoveNames.stoneEdge,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "100",
 		pp = "5",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.stoneEdge
+	}, {
 		id = "445",
-		name = "Captivate",
+		name = Localizations.MoveNames.captivate,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Lowers the target's Special Attack by two stages. If the user and target are the same gender, or either is genderless, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.captivate
+	}, {
 		id = "446",
-		name = "Stealth Rock",
+		name = Localizations.MoveNames.stealthRock,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Spreads sharp rocks around the opposing field, damaging any Pok" ..
-			Chars.accentedE ..
-				"mon that enters the field for 1/8 its max HP. This damage is affected by the entering Pok" ..
-					Chars.accentedE .. "mon's susceptibility to rock moves."
-	},
-	{
+		description = Localizations.MoveDescriptions.stealthRock
+	}, {
 		id = "447",
-		name = "Grass Knot",
+		name = Localizations.MoveNames.grassKnot,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "WT",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage and makes contact. Power increases with the target's weight in kilograms, to a maximum of 120."
-	},
-	{
+		description = Localizations.MoveDescriptions.grassKnot
+	}, {
 		id = "448",
-		name = "Chatter",
+		name = Localizations.MoveNames.chatter,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "60",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts regular damage. Has either a 1%, 11%, or 31% chance to confuse the target, based on the volume of the recording made for this move.",
-			"Inflicts regular damage. Has either a 1%, 11%, or 31% chance to confuse the target, based on the volume of the recording made for this move.",
-			"Inflicts regular damage. Has either a 1%, 11%, or 31% chance to confuse the target, based on the volume of the recording made for this move.",
-			"Inflicts regular damage. Has either a 1%, 11%, or 31% chance to confuse the target, based on the volume of the recording made for this move.",
-			"Inflicts regular damage. Has either a 0% or 10% chance to confuse the target, based on the volume of the recording made for this move."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.chatter
+	}, {
 		id = "449",
-		name = "Judgment",
+		name = Localizations.MoveNames.judgment,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "100",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the user is holding a plate, this move's type is the type corresponding to that item."
-	},
-	{
+		description = Localizations.MoveDescriptions.judgment
+	}, {
 		id = "450",
-		name = "Bug Bite",
+		name = Localizations.MoveNames.bugBite,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "60",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the target is holding a berry, the user takes the berry and uses it immediately."
-	},
-	{
+		description = Localizations.MoveDescriptions.bugBite
+	}, {
 		id = "451",
-		name = "Charge Beam",
+		name = Localizations.MoveNames.chargeBeam,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "50",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 70% chance to raise the user's Special Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.chargeBeam
+	}, {
 		id = "452",
-		name = "Wood Hammer",
+		name = Localizations.MoveNames.woodHammer,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "120",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/3 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.woodHammer
+	}, {
 		id = "453",
-		name = "Aqua Jet",
+		name = Localizations.MoveNames.aquaJet,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "40",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Increased priority. Inflicts regular damage and makes contact."
-	},
-	{
+		description = Localizations.MoveDescriptions.aquaJet
+	}, {
 		id = "454",
-		name = "Attack Order",
+		name = Localizations.MoveNames.attackOrder,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "90",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.attackOrder
+	}, {
 		id = "455",
-		name = "Defend Order",
+		name = Localizations.MoveNames.defendOrder,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense and Special Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.defendOrder
+	}, {
 		id = "456",
-		name = "Heal Order",
+		name = Localizations.MoveNames.healOrder,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the user for half its max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.healOrder
+	}, {
 		id = "457",
-		name = "Head Smash",
+		name = Localizations.MoveNames.headSmash,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "150",
 		pp = "5",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/2 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.headSmash
+	}, {
 		id = "458",
-		name = "Double Hit",
+		name = Localizations.MoveNames.doubleHit,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "35",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.doubleHit
+	}, {
 		id = "459",
-		name = "Roar of Time",
+		name = Localizations.MoveNames.roarOfTime,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "150",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User loses its next turn to recharge, and cannot attack or switch out during that turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.roarOfTime
+	}, {
 		id = "460",
-		name = "Spacial Rend",
+		name = Localizations.MoveNames.spacialRend,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "100",
 		pp = "5",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.spacialRend
+	}, {
 		id = "461",
-		name = "Lunar Dance",
+		name = Localizations.MoveNames.lunarDance,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User faints. Its replacement's HP and PP are fully restored, and any major status effect is removed."
-	},
-	{
+		description = Localizations.MoveDescriptions.lunarDance
+	}, {
 		id = "462",
-		name = "Crush Grip",
+		name = Localizations.MoveNames.crushGrip,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = ">HP",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Power directly relates to the target's relative remaining HP, up to a maximum of 121."
-	},
-	{
+		description = Localizations.MoveDescriptions.crushGrip
+	}, {
 		id = "463",
-		name = "Magma Storm",
+		name = Localizations.MoveNames.magmaStorm,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "120",
 		pp = "5",
-		accuracy = {"70", "70", "70", "70", "75"},
+		accuracy = { "70", "70", "70", "70", "75" },
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = {
-			"Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Inflicts regular damage. For the next 2-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.",
-			"Inflicts regular damage. For the next 4-5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn."
-		}
-	},
-	{
+		description = Localizations.MoveDescriptions.magmaStorm
+	}, {
 		id = "464",
-		name = "Dark Void",
+		name = Localizations.MoveNames.darkVoid,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = "80",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Puts all adjacent foes to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.darkVoid
+	}, {
 		id = "465",
-		name = "Seed Flare",
+		name = Localizations.MoveNames.seedFlare,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "120",
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 40% chance to lower the target's Special Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.seedFlare
+	}, {
 		id = "466",
-		name = "Ominous Wind",
+		name = Localizations.MoveNames.ominousWind,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "60",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to raise all of the user's stats one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.ominousWind
+	}, {
 		id = "467",
-		name = "Shadow Force",
+		name = Localizations.MoveNames.shadowForce,
 		type = PokemonData.POKEMON_TYPES.GHOST,
 		power = "120",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User vanishes for one turn, becoming immune to attack, and hits on the second turn. Hits the target through Protect and Detect, and removes their effects."
-	},
-	{
+		description = Localizations.MoveDescriptions.shadowForce
+	}, {
 		id = "468",
-		name = "Hone Claws",
+		name = Localizations.MoveNames.honeClaws,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack and Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.honeClaws
+	}, {
 		id = "469",
-		name = "Wide Guard",
+		name = Localizations.MoveNames.wideGuard,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Moves with multiple targets will not hit friendly Pok" ..
-			Chars.accentedE .. "mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.wideGuard
+	}, {
 		id = "470",
-		name = "Guard Split",
+		name = Localizations.MoveNames.guardSplit,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Averages the user's unmodified Defense with the target's unmodified Defense; the value becomes the unmodified Defense for both Pok" ..
-			Chars.accentedE .. "mon. Unmodified Special Defense is averaged the same way."
-	},
-	{
+		description = Localizations.MoveDescriptions.guardSplit
+	}, {
 		id = "471",
-		name = "Power Split",
+		name = Localizations.MoveNames.powerSplit,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Averages the user's unmodified Attack with the target's unmodified Attack; the value becomes the unmodified Attack for both Pok" ..
-			Chars.accentedE .. "mon. Unmodified Special Attack is averaged the same way."
-	},
-	{
+		description = Localizations.MoveDescriptions.powerSplit
+	}, {
 		id = "472",
-		name = "Wonder Room",
+		name = Localizations.MoveNames.wonderRoom,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. For five turns, every Pok" ..
-			Chars.accentedE .. "mon's Defense and Special Defense are swapped."
-	},
-	{
+		description = Localizations.MoveDescriptions.wonderRoom
+	}, {
 		id = "473",
-		name = "Psyshock",
+		name = Localizations.MoveNames.psyshock,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "80",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Damage calculation always uses the target's Defense, regardless of this move's damage class."
-	},
-	{
+		description = Localizations.MoveDescriptions.psyshock
+	}, {
 		id = "474",
-		name = "Venoshock",
+		name = Localizations.MoveNames.venoshock,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "65",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the target is poisoned, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.venoshock
+	}, {
 		id = "475",
-		name = "Autotomize",
+		name = Localizations.MoveNames.autotomize,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Speed by two stages. If successful, reduces the user's weight by 100 kg (minimum 0.1 kg)."
-	},
-	{
+		description = Localizations.MoveDescriptions.autotomize
+	}, {
 		id = "476",
-		name = "Rage Powder",
+		name = Localizations.MoveNames.ragePowder,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Until the end of this turn, any moves that opposing Pok" ..
-			Chars.accentedE .. "mon target solely at the user's ally will instead target the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.ragePowder
+	}, {
 		id = "477",
-		name = "Telekinesis",
+		name = Localizations.MoveNames.telekinesis,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "For three turns, moves used against the target have perfect accuracy, but the target is immune to ground damage. Accuracy of one-hit KO moves is exempt from this effect."
-	},
-	{
+		description = Localizations.MoveDescriptions.telekinesis
+	}, {
 		id = "478",
-		name = "Magic Room",
+		name = Localizations.MoveNames.magicRoom,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Decreased priority. For five turns, passive effects of held items are ignored, and Pok" ..
-			Chars.accentedE .. "mon will not use their held items."
-	},
-	{
+		description = Localizations.MoveDescriptions.magicRoom
+	}, {
 		id = "479",
-		name = "Smack Down",
+		name = Localizations.MoveNames.smackDown,
 		type = PokemonData.POKEMON_TYPES.ROCK,
 		power = "50",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Removes the target's immunity to ground-type damage. This move will hit targets under the effect of Bounce, Fly, or Sky Drop."
-	},
-	{
+		description = Localizations.MoveDescriptions.smackDown
+	}, {
 		id = "480",
-		name = "Storm Throw",
+		name = Localizations.MoveNames.stormThrow,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
-		power = {"60", "60", "60", "60", "40"},
+		power = { "60", "60", "60", "60", "40" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Always scores a critical hit."
-	},
-	{
+		description = Localizations.MoveDescriptions.stormThrow
+	}, {
 		id = "481",
-		name = "Flame Burst",
+		name = Localizations.MoveNames.flameBurst,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "70",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If this move successfully hits the target, any Pok" ..
-			Chars.accentedE .. "mon adjacent to the target are damaged for 1/16 their max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.flameBurst
+	}, {
 		id = "482",
-		name = "Sludge Wave",
+		name = Localizations.MoveNames.sludgeWave,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "95",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage and hits all adjacent Pok" ..
-			Chars.accentedE .. "mon. Has 10% chance to poison each target."
-	},
-	{
+		description = Localizations.MoveDescriptions.sludgeWave
+	}, {
 		id = "483",
-		name = "Quiver Dance",
+		name = Localizations.MoveNames.quiverDance,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Special Attack, Special Defense, and Speed by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.quiverDance
+	}, {
 		id = "484",
-		name = "Heavy Slam",
+		name = Localizations.MoveNames.heavySlam,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = ">WT",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. The greater the user's weight compared to the target's, the higher power this move has, to a maximum of 120."
-	},
-	{
+		description = Localizations.MoveDescriptions.heavySlam
+	}, {
 		id = "485",
-		name = "Synchronoise",
+		name = Localizations.MoveNames.synchronoise,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
-		power = {"120", "120", "120", "120", "70"},
-		pp = {"10", "10", "10", "10", "15"},
+		power = { "120", "120", "120", "120", "70" },
+		pp = { "10", "10", "10", "10", "15" },
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Only Pok" ..
-			Chars.accentedE .. "mon that share a type with the user will take damage from this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.synchronoise
+	}, {
 		id = "486",
-		name = "Electro Ball",
+		name = Localizations.MoveNames.electroBall,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = ">SP",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. The greater the user's Speed compared to the target's, the higher power this move has, to a maximum of 150."
-	},
-	{
+		description = Localizations.MoveDescriptions.electroBall
+	}, {
 		id = "487",
-		name = "Soak",
+		name = Localizations.MoveNames.soak,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the target to pure water-type until it leaves the field. If the target has multitype, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.soak
+	}, {
 		id = "488",
-		name = "Flame Charge",
+		name = Localizations.MoveNames.flameCharge,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "50",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Raises the user's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.flameCharge
+	}, {
 		id = "489",
-		name = "Coil",
+		name = Localizations.MoveNames.coil,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "20",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack, Defense, and Accuracy by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.coil
+	}, {
 		id = "490",
-		name = "Low Sweep",
+		name = Localizations.MoveNames.lowSweep,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
-		power = {"65", "65", "65", "65", "60"},
+		power = { "65", "65", "65", "65", "60" },
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Lowers the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.lowSweep
+	}, {
 		id = "491",
-		name = "Acid Spray",
+		name = Localizations.MoveNames.acidSpray,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "40",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Lowers the target's Special Defense by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.acidSpray
+	}, {
 		id = "492",
-		name = "Foul Play",
+		name = Localizations.MoveNames.foulPlay,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "95",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Damage is calculated using the target's attacking stat rather than the user's."
-	},
-	{
+		description = Localizations.MoveDescriptions.foulPlay
+	}, {
 		id = "493",
-		name = "Simple Beam",
+		name = Localizations.MoveNames.simpleBeam,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the target's ability to Simple. This effect ends when the target leaves battle."
-	},
-	{
+		description = Localizations.MoveDescriptions.simpleBeam
+	}, {
 		id = "494",
-		name = "Entrainment",
+		name = Localizations.MoveNames.entrainment,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Changes the target's ability to match the user's. This effect ends when the target leaves battle."
-	},
-	{
+		description = Localizations.MoveDescriptions.entrainment
+	}, {
 		id = "495",
-		name = "After You",
+		name = Localizations.MoveNames.afterYou,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "The target will act next this turn, regardless of Speed or move priority."
-	},
-	{
+		description = Localizations.MoveDescriptions.afterYou
+	}, {
 		id = "496",
-		name = "Round",
+		name = Localizations.MoveNames.round,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "60",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If round has already been used this turn, this move's power is doubled."
-	},
-	{
+		description = Localizations.MoveDescriptions.round
+	}, {
 		id = "497",
-		name = "Echoed Voice",
+		name = Localizations.MoveNames.echoedVoice,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "40",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power increases by 40 for each subsequent use, up to a maximum of 200 damage."
-	},
-	{
+		description = Localizations.MoveDescriptions.echoedVoice
+	}, {
 		id = "498",
-		name = "Chip Away",
+		name = Localizations.MoveNames.chipAway,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Damage calculation ignores the target's stat modifiers, including Evasion."
-	},
-	{
+		description = Localizations.MoveDescriptions.chipAway
+	}, {
 		id = "499",
-		name = "Clear Smog",
+		name = Localizations.MoveNames.clearSmog,
 		type = PokemonData.POKEMON_TYPES.POISON,
 		power = "50",
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. All of the target's stat modifiers are reset to zero."
-	},
-	{
+		description = Localizations.MoveDescriptions.clearSmog
+	}, {
 		id = "500",
-		name = "Stored Power",
+		name = Localizations.MoveNames.storedPower,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "20",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Power increases by 20 for every stage any of the user's stats have been raised."
-	},
-	{
+		description = Localizations.MoveDescriptions.storedPower
+	}, {
 		id = "501",
-		name = "Quick Guard",
+		name = Localizations.MoveNames.quickGuard,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. Moves with priority greater than 0 will not hit friendly Pok" ..
-			Chars.accentedE .. "mon for the remainder of this turn. If the user is last to act this turn, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.quickGuard
+	}, {
 		id = "502",
-		name = "Ally Switch",
+		name = Localizations.MoveNames.allySwitch,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Increased priority. User switches position on the field with the friendly Pok" ..
-			Chars.accentedE ..
-				"mon opposite it. If the user is in the middle position in a triple battle, or there are no other friendly Pok" ..
-					Chars.accentedE .. "mon, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.allySwitch
+	}, {
 		id = "503",
-		name = "Scald",
+		name = Localizations.MoveNames.scald,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "80",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.scald
+	}, {
 		id = "504",
-		name = "Shell Smash",
+		name = Localizations.MoveNames.shellSmash,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack, Special Attack, and Speed by two stages each. Lowers the user's Defense and Special Defense by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.shellSmash
+	}, {
 		id = "505",
-		name = "Heal Pulse",
+		name = Localizations.MoveNames.healPulse,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Heals the target for half its max HP."
-	},
-	{
+		description = Localizations.MoveDescriptions.healPulse
+	}, {
 		id = "506",
-		name = "Hex",
+		name = Localizations.MoveNames.hex,
 		type = PokemonData.POKEMON_TYPES.GHOST,
-		power = {"65", "65", "65", "65", "50"},
+		power = { "65", "65", "65", "65", "50" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the target has a major status ailment, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.hex
+	}, {
 		id = "507",
-		name = "Sky Drop",
+		name = Localizations.MoveNames.skyDrop,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "60",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User carries the target high into the air for one turn, and on the following turn, the user drops the target to inflict damage. Ineffective on flying types."
-	},
-	{
+		description = Localizations.MoveDescriptions.skyDrop
+	}, {
 		id = "508",
-		name = "Shift Gear",
+		name = Localizations.MoveNames.shiftGear,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack by one stage and its Speed by two stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.shiftGear
+	}, {
 		id = "509",
-		name = "Circle Throw",
+		name = Localizations.MoveNames.circleThrow,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "60",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok" ..
-			Chars.accentedE .. "mon, selected at random."
-	},
-	{
+		description = Localizations.MoveDescriptions.circleThrow
+	}, {
 		id = "510",
-		name = "Incinerate",
+		name = Localizations.MoveNames.incinerate,
 		type = PokemonData.POKEMON_TYPES.FIRE,
-		power = {"60", "60", "60", "60", "30"},
+		power = { "60", "60", "60", "60", "30" },
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the target is holding a berry, it's destroyed and cannot be used in response to this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.incinerate
+	}, {
 		id = "511",
-		name = "Quash",
+		name = Localizations.MoveNames.quash,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Forces the target to act last this turn, regardless of Speed or move priority. If the target has already acted this turn, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.quash
+	}, {
 		id = "512",
-		name = "Acrobatics",
+		name = Localizations.MoveNames.acrobatics,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "55",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If the user has no held item, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.acrobatics
+	}, {
 		id = "513",
-		name = "Reflect Type",
+		name = Localizations.MoveNames.reflectType,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "User's type changes to match the target's."
-	},
-	{
+		description = Localizations.MoveDescriptions.reflectType
+	}, {
 		id = "514",
-		name = "Retaliate",
+		name = Localizations.MoveNames.retaliate,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "70",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. If a friendly Pok" ..
-			Chars.accentedE .. "mon fainted on the previous turn, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.retaliate
+	}, {
 		id = "515",
-		name = "Final Gambit",
+		name = Localizations.MoveNames.finalGambit,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "HP",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts damage equal to the user's remaining HP. User faints."
-	},
-	{
+		description = Localizations.MoveDescriptions.finalGambit
+	}, {
 		id = "516",
-		name = "Bestow",
+		name = Localizations.MoveNames.bestow,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "15",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Transfers the user's held item to the target. If the user has no held item, or the target already has a held item, this move will fail."
-	},
-	{
+		description = Localizations.MoveDescriptions.bestow
+	}, {
 		id = "517",
-		name = "Inferno",
+		name = Localizations.MoveNames.inferno,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "100",
 		pp = "5",
 		accuracy = "50",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 100% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.inferno
+	}, {
 		id = "518",
-		name = "Water Pledge",
+		name = Localizations.MoveNames.waterPledge,
 		type = PokemonData.POKEMON_TYPES.WATER,
-		power = {"80", "80", "80", "80", "50"},
+		power = { "80", "80", "80", "80", "50" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a friendly Pok" ..
-			Chars.accentedE ..
-				"mon used grass pledge earlier this turn, all opposing Pok" .. Chars.accentedE .. "mon have halved Speed for four turns."
-	},
-	{
+		description = Localizations.MoveDescriptions.waterPledge
+	}, {
 		id = "519",
-		name = "Fire Pledge",
+		name = Localizations.MoveNames.firePledge,
 		type = PokemonData.POKEMON_TYPES.FIRE,
-		power = {"80", "80", "80", "80", "50"},
+		power = { "80", "80", "80", "80", "50" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a friendly Pok" ..
-			Chars.accentedE ..
-				"mon used water pledge earlier this turn, moves used by any friendly Pok" ..
-					Chars.accentedE .. "mon have doubled effect chance for four turns."
-	},
-	{
+		description = Localizations.MoveDescriptions.firePledge
+	}, {
 		id = "520",
-		name = "Grass Pledge",
+		name = Localizations.MoveNames.grassPledge,
 		type = PokemonData.POKEMON_TYPES.GRASS,
-		power = {"80", "80", "80", "80", "50"},
+		power = { "80", "80", "80", "80", "50" },
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If a friendly Pok" ..
-			Chars.accentedE ..
-				"mon used fire pledge earlier this turn, all opposing Pok" ..
-					Chars.accentedE .. "mon will take 1/8 their max HP in damage at the end of every turn for four turns."
-	},
-	{
+		description = Localizations.MoveDescriptions.grassPledge
+	}, {
 		id = "521",
-		name = "Volt Switch",
+		name = Localizations.MoveNames.voltSwitch,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "70",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage, then the user immediately switches out, and the trainer selects a replacement Pok" ..
-			Chars.accentedE .. "mon from the party."
-	},
-	{
+		description = Localizations.MoveDescriptions.voltSwitch
+	}, {
 		id = "522",
-		name = "Struggle Bug",
+		name = Localizations.MoveNames.struggleBug,
 		type = PokemonData.POKEMON_TYPES.BUG,
-		power = {"50", "50", "50", "50", "30"},
+		power = { "50", "50", "50", "50", "30" },
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 100% chance to lower the target's Special Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.struggleBug
+	}, {
 		id = "523",
-		name = "Bulldoze",
+		name = Localizations.MoveNames.bulldoze,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "60",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 100% chance to lower the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.bulldoze
+	}, {
 		id = "524",
-		name = "Frost Breath",
+		name = Localizations.MoveNames.frostBreath,
 		type = PokemonData.POKEMON_TYPES.ICE,
-		power = {"60", "60", "60", "60", "40"},
+		power = { "60", "60", "60", "60", "40" },
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Always scores a critical hit."
-	},
-	{
+		description = Localizations.MoveDescriptions.frostBreath
+	}, {
 		id = "525",
-		name = "Dragon Tail",
+		name = Localizations.MoveNames.dragonTail,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "60",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Decreased priority. Inflicts regular damage and makes contact. Switches the target out for another of its trainer's Pok" ..
-			Chars.accentedE .. "mon, selected at random."
-	},
-	{
+		description = Localizations.MoveDescriptions.dragonTail
+	}, {
 		id = "526",
-		name = "Work Up",
+		name = Localizations.MoveNames.workUp,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "30",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Attack and Special Attack by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.workUp
+	}, {
 		id = "527",
-		name = "Electroweb",
+		name = Localizations.MoveNames.electroweb,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "55",
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Lowers the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.electroweb
+	}, {
 		id = "528",
-		name = "Wild Charge",
+		name = Localizations.MoveNames.wildCharge,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "90",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.wildCharge
+	}, {
 		id = "529",
-		name = "Drill Run",
+		name = Localizations.MoveNames.drillRun,
 		type = PokemonData.POKEMON_TYPES.GROUND,
 		power = "80",
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User's critical hit rate is one level higher when using this move."
-	},
-	{
+		description = Localizations.MoveDescriptions.drillRun
+	}, {
 		id = "530",
-		name = "Dual Chop",
+		name = Localizations.MoveNames.dualChop,
 		type = PokemonData.POKEMON_TYPES.DRAGON,
 		power = "40",
 		pp = "15",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.dualChop
+	}, {
 		id = "531",
-		name = "Heart Stamp",
+		name = Localizations.MoveNames.heartStamp,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "60",
 		pp = "25",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.heartStamp
+	}, {
 		id = "532",
-		name = "Horn Leech",
+		name = Localizations.MoveNames.hornLeech,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "75",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Drains half the damage inflicted to heal the user."
-	},
-	{
+		description = Localizations.MoveDescriptions.hornLeech
+	}, {
 		id = "533",
-		name = "Sacred Sword",
+		name = Localizations.MoveNames.sacredSword,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "90",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Damage calculation ignores the target's stat modifiers, including Evasion."
-	},
-	{
+		description = Localizations.MoveDescriptions.sacredSword
+	}, {
 		id = "534",
-		name = "Razor Shell",
+		name = Localizations.MoveNames.razorShell,
 		type = PokemonData.POKEMON_TYPES.WATER,
 		power = "75",
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 50% chance to lower the target's Defense by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.razorShell
+	}, {
 		id = "535",
-		name = "Heat Crash",
+		name = Localizations.MoveNames.heatCrash,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = ">WT",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. The greater the user's weight compared to the target's, the higher power this move has, to a maximum of 120."
-	},
-	{
+		description = Localizations.MoveDescriptions.heatCrash
+	}, {
 		id = "536",
-		name = "Leaf Tornado",
+		name = Localizations.MoveNames.leafTornado,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = "65",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 50% chance to lower the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.leafTornado
+	}, {
 		id = "537",
-		name = "Steamroller",
+		name = Localizations.MoveNames.steamroller,
 		type = PokemonData.POKEMON_TYPES.BUG,
 		power = "65",
 		pp = "20",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.steamroller
+	}, {
 		id = "538",
-		name = "Cotton Guard",
+		name = Localizations.MoveNames.cottonGuard,
 		type = PokemonData.POKEMON_TYPES.GRASS,
 		power = Graphics.TEXT.NO_POWER,
 		pp = "10",
 		accuracy = Graphics.TEXT.ALWAYS_HITS,
 		category = MoveData.MOVE_CATEGORIES.STATUS,
-		description = "Raises the user's Defense by three stages."
-	},
-	{
+		description = Localizations.MoveDescriptions.cottonGuard
+	}, {
 		id = "539",
-		name = "Night Daze",
+		name = Localizations.MoveNames.nightDaze,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "85",
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 40% chance to lower the target's Accuracy by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.nightDaze
+	}, {
 		id = "540",
-		name = "Psystrike",
+		name = Localizations.MoveNames.psystrike,
 		type = PokemonData.POKEMON_TYPES.PSYCHIC,
 		power = "100",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Damage calculation always uses the target's Defense, regardless of this move's damage class."
-	},
-	{
+		description = Localizations.MoveDescriptions.psystrike
+	}, {
 		id = "541",
-		name = "Tail Slap",
+		name = Localizations.MoveNames.tailSlap,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "25",
 		pp = "10",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits 2-5 times in one turn, and averages to 3 hits per use."
-	},
-	{
+		description = Localizations.MoveDescriptions.tailSlap
+	}, {
 		id = "542",
-		name = "Hurricane",
+		name = Localizations.MoveNames.hurricane,
 		type = PokemonData.POKEMON_TYPES.FLYING,
 		power = "120",
 		pp = "10",
 		accuracy = "70",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to confuse the target. Has perfect accuracy in the rain, but only 50% accuracy in harsh sunlight."
-	},
-	{
+		description = Localizations.MoveDescriptions.hurricane
+	}, {
 		id = "543",
-		name = "Head Charge",
+		name = Localizations.MoveNames.headCharge,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "120",
 		pp = "15",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. User takes 1/4 the damage it inflicts in recoil."
-	},
-	{
+		description = Localizations.MoveDescriptions.headCharge
+	}, {
 		id = "544",
-		name = "Gear Grind",
+		name = Localizations.MoveNames.gearGrind,
 		type = PokemonData.POKEMON_TYPES.STEEL,
 		power = "50",
 		pp = "15",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Hits twice in one turn."
-	},
-	{
+		description = Localizations.MoveDescriptions.gearGrind
+	}, {
 		id = "545",
-		name = "Searing Shot",
+		name = Localizations.MoveNames.searingShot,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "100",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.searingShot
+	}, {
 		id = "546",
-		name = "Techno Blast",
+		name = Localizations.MoveNames.technoBlast,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "85",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If the user is holding a drive, this move's type is the type corresponding to that item."
-	},
-	{
+		description = Localizations.MoveDescriptions.technoBlast
+	}, {
 		id = "547",
-		name = "Relic Song",
+		name = Localizations.MoveNames.relicSong,
 		type = PokemonData.POKEMON_TYPES.NORMAL,
 		power = "75",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 10% chance to put the target to sleep."
-	},
-	{
+		description = Localizations.MoveDescriptions.relicSong
+	}, {
 		id = "548",
-		name = "Secret Sword",
+		name = Localizations.MoveNames.secretSword,
 		type = PokemonData.POKEMON_TYPES.FIGHTING,
 		power = "85",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Damage calculation uses the target's Defense."
-	},
-	{
+		description = Localizations.MoveDescriptions.secretSword
+	}, {
 		id = "549",
-		name = "Glaciate",
+		name = Localizations.MoveNames.glaciate,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "65",
 		pp = "10",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Lowers the target's Speed by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.glaciate
+	}, {
 		id = "550",
-		name = "Bolt Strike",
+		name = Localizations.MoveNames.boltStrike,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "130",
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Has a 20% chance to paralyze the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.boltStrike
+	}, {
 		id = "551",
-		name = "Blue Flare",
+		name = Localizations.MoveNames.blueFlare,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "130",
 		pp = "5",
 		accuracy = "85",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 20% chance to burn the target."
-	},
-	{
+		description = Localizations.MoveDescriptions.blueFlare
+	}, {
 		id = "552",
-		name = "Fiery Dance",
+		name = Localizations.MoveNames.fieryDance,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "80",
 		pp = "10",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 50% chance to raise the user's Special Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.fieryDance
+	}, {
 		id = "553",
-		name = "Freeze Shock",
+		name = Localizations.MoveNames.freezeShock,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to paralyze the target. User charges for one turn before attacking."
-	},
-	{
+		description = Localizations.MoveDescriptions.freezeShock
+	}, {
 		id = "554",
-		name = "Ice Burn",
+		name = Localizations.MoveNames.iceBurn,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "140",
 		pp = "5",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 30% chance to burn the target. User charges for one turn before attacking."
-	},
-	{
+		description = Localizations.MoveDescriptions.iceBurn
+	}, {
 		id = "555",
-		name = "Snarl",
+		name = Localizations.MoveNames.snarl,
 		type = PokemonData.POKEMON_TYPES.DARK,
 		power = "55",
 		pp = "15",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. Has a 100% chance to lower the target's Special Attack by one stage."
-	},
-	{
+		description = Localizations.MoveDescriptions.snarl
+	}, {
 		id = "556",
-		name = "Icicle Crash",
+		name = Localizations.MoveNames.icicleCrash,
 		type = PokemonData.POKEMON_TYPES.ICE,
 		power = "85",
 		pp = "10",
 		accuracy = "90",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. Has a 30% chance to make the target flinch."
-	},
-	{
+		description = Localizations.MoveDescriptions.icicleCrash
+	}, {
 		id = "557",
-		name = "V-create",
+		name = Localizations.MoveNames.vcreate,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "180",
 		pp = "5",
 		accuracy = "95",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage and makes contact. Lowers the user's Defense, Special Defense, and Speed by one stage each."
-	},
-	{
+		description = Localizations.MoveDescriptions.vcreate
+	}, {
 		id = "558",
-		name = "Fusion Flare",
+		name = Localizations.MoveNames.fusionFlare,
 		type = PokemonData.POKEMON_TYPES.FIRE,
 		power = "100",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.SPECIAL,
-		description = "Inflicts regular damage. If any Pok" ..
-			Chars.accentedE .. "mon used Fusion Bolt earlier this turn, this move has double power."
-	},
-	{
+		description = Localizations.MoveDescriptions.fusionFlare
+	}, {
 		id = "559",
-		name = "Fusion Bolt",
+		name = Localizations.MoveNames.fusionBolt,
 		type = PokemonData.POKEMON_TYPES.ELECTRIC,
 		power = "100",
 		pp = "5",
 		accuracy = "100",
 		category = MoveData.MOVE_CATEGORIES.PHYSICAL,
-		description = "Inflicts regular damage. If any Pok" ..
-			Chars.accentedE .. "mon used Fusion Flare earlier this turn, this move has double power."
+		description = Localizations.MoveDescriptions.fusionBolt
 	}
 }
 

@@ -17,8 +17,8 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
         MAIN_TEXT_LABEL_HEIGHT = 14,
         GO_BACK_FRAME_HEIGHT = 24,
         BUTTON_HEIGHT = 16,
-        RELEASE_NOTES_BUTTON_WIDTH = 86,
-        INSTALL_IGNORE_BUTTON_WIDTH = 38,
+        RELEASE_NOTES_BUTTON_WIDTH = Localizations.UpdaterScreen.releaseNotesButtonWidth,
+        INSTALL_IGNORE_BUTTON_WIDTH = Localizations.UpdaterScreen.installIgnoreButtonWidth,
         INSTALL_IGNORE_BUTTON_HEIGHT = 16,
         MAIN_BUTTONS_FRAME_HEIGHT = 26,
         UPDATE_INFO_HEIGHT_NO_UPDATE = 60,
@@ -68,13 +68,13 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
         if success then
             settings.automaticUpdates.UPDATE_WAS_DONE = true
             program.saveSettings()
-            ui.controls.topTextLabel1.setText("Update successful! The Tracker")
-            ui.controls.topTextLabel2.setText("will now restart in 3 seconds.")
+            ui.controls.topTextLabel1.setText(Localizations.UpdaterScreen.updateSuccessful1)
+            ui.controls.topTextLabel2.setText(Localizations.UpdaterScreen.updateSuccessful2)
             frameCounters["trackerRestart"] = FrameCounter(200, restartTracker, nil, true)
         else
-            ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_HEIGHT_NO_UPDATE})
-            ui.frames.updateInfoFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH-2*Graphics.SIZES.BORDER_MARGIN, height = constants.UPDATE_INFO_HEIGHT_NO_UPDATE})
-            ui.controls.topTextLabel1.setText("Error updating, please try again.")
+            ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.MAIN_HEIGHT_NO_UPDATE})
+            ui.frames.updateInfoFrame.resize({width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, height = constants.UPDATE_INFO_HEIGHT_NO_UPDATE})
+            ui.controls.topTextLabel1.setText(Localizations.UpdaterScreen.errorUpdating)
             ui.controls.topTextLabel2.setText("")
             ui.frames.goBackFrame.setVisibility(true)
             errored = true
@@ -87,8 +87,8 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
         ui.controls.installButton.setVisibility(false)
         ui.controls.releaseNotesButton.setVisibility(false)
         ui.frames.updateInfoFrame.setLayoutPadding({x=4,y=3})
-        ui.controls.topTextLabel1.setText("Installing update, please wait...")
-        ui.controls.topTextLabel2.setText("Do not close the tracker.")
+        ui.controls.topTextLabel1.setText(Localizations.UpdaterScreen.installingUpdate)
+        ui.controls.topTextLabel2.setText(Localizations.UpdaterScreen.doNotCloseTracker)
         program.drawCurrentScreens()
 
         -- Setup delayed function calls to properly clear image caches, then update later when safe
@@ -109,7 +109,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
                 Box({x = 0, y = 0}, {width = 40, height = constants.MAIN_TEXT_LABEL_HEIGHT})
             ),
             TextField(
-                "No update available.",
+                Localizations.UpdaterScreen.noUpdateAvailable,
                 {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -126,7 +126,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
                 Box({x = 0, y = 0}, {width = 40, height = constants.MAIN_TEXT_LABEL_HEIGHT + 2})
             ),
             TextField(
-                "Current version: " .. MiscConstants.TRACKER_VERSION,
+                Localizations.UpdaterScreen.currentVersion .. " " .. MiscConstants.TRACKER_VERSION,
                 {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -167,7 +167,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "View Release Notes",
+                Localizations.UpdaterScreen.viewReleaseNotes,
                 {x = 3, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -191,7 +191,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Ignore",
+                Localizations.Misc.ignore,
                 {x = 5, y = 3},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -215,7 +215,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Install",
+                Localizations.Misc.install,
                 {x = 6, y = 3},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -234,7 +234,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
             Frame(
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_HEIGHT},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.MAIN_HEIGHT},
                 "Main background color",
                 nil
             ),
@@ -251,14 +251,14 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
                 ui.frames.mainFrame,
                 Box(
                     {x = 5, y = 5},
-                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
+                    {width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
                     "Top box background color",
                     "Top box border color",
                     false
                 )
             ),
             TextField(
-                "Tracker Updates",
+                Localizations.UpdaterScreen.trackerUpdates,
                 {x = 25, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -268,7 +268,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
             Box(
                 {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.UPDATE_INFO_HEIGHT_UPDATE
                 },
                 "Top box background color",
@@ -284,7 +284,7 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
             Box(
                 {x = 0, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.GO_BACK_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -307,8 +307,8 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -325,14 +325,14 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
 
     function self.setAsNoUpdate()
         errored = false
-        ui.controls.topTextLabel1.setText("No update available.")
-        ui.controls.topTextLabel2.setText("Current version: " .. MiscConstants.TRACKER_VERSION)
+        ui.controls.topTextLabel1.setText(Localizations.UpdaterScreen.noUpdateAvailable)
+        ui.controls.topTextLabel2.setText(Localizations.UpdaterScreen.currentVersion .. " " .. MiscConstants.TRACKER_VERSION)
         ui.frames.installIgnoreFrame.setVisibility(false)
         ui.frames.goBackFrame.setVisibility(true)
-        ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_HEIGHT_NO_UPDATE})
+        ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.MAIN_HEIGHT_NO_UPDATE})
         ui.frames.updateInfoFrame.resize(
             {
-                width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                 height = constants.UPDATE_INFO_HEIGHT_NO_UPDATE
             }
         )
@@ -341,16 +341,16 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
     function self.setAsUpdateAvailable(newVersion)
         newestVersionString = newVersion
         errored = false
-        ui.controls.topTextLabel1.setText("New update available!")
-        ui.controls.topTextLabel2.setText("Latest version: " .. newVersion)
+        ui.controls.topTextLabel1.setText(Localizations.UpdaterScreen.newUpdateAvailable)
+        ui.controls.topTextLabel2.setText(Localizations.UpdaterScreen.latestVersion .. " " .. newVersion)
         ui.frames.installIgnoreFrame.setVisibility(true)
         ui.frames.goBackFrame.setVisibility(false)
         ui.frames.mainFrame.resize(
-            {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_HEIGHT_UPDATE_AVAILABLE}
+            {width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.mainFrameOffset, height = constants.MAIN_HEIGHT_UPDATE_AVAILABLE}
         )
         ui.frames.updateInfoFrame.resize(
             {
-                width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                 height = constants.UPDATE_INFO_HEIGHT_UPDATE
             }
         )

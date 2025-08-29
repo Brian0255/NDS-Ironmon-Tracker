@@ -126,7 +126,7 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 )
             ),
             TextField(
-                "Search",
+                Localizations.Misc.search,
                 {x = 50, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -252,8 +252,8 @@ local function TrackedPokemonScreen(initialSettings, initialTracker, initialProg
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,

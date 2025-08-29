@@ -1,6 +1,5 @@
 local function SeedLogger(initialProgram, initialGameName)
     local PastRun = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PastRun.lua")
-
     local pastRuns = {}
     local self = {}
 
@@ -57,7 +56,7 @@ local function SeedLogger(initialProgram, initialGameName)
                 return pastRun.getProgress() == 2
             end,
             [PlaythroughConstants.CAUSES.SHEDINJA] = function()
-                return enemyPokemon.name == "Shedinja"
+                return enemyPokemon.name == Localizations.PokemonStats.shedinja
             end,
             [PlaythroughConstants.CAUSES.IMPOSTER] = function()
                 return abilityName == "Imposter"

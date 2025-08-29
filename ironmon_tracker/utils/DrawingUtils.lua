@@ -341,7 +341,7 @@ function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
     end
     local color = settings.colorScheme[colorKey]
     if color == nil then
-        color = Graphics.TYPE_COLORS[colorKey]
+        color = Graphics.TYPE_COLORS[PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[colorKey]]
     end
     return color
 end

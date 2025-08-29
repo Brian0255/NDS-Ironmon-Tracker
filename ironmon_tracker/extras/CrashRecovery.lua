@@ -159,36 +159,36 @@ local function CrashRecovery(settings)
 	end
 
 	function self.openPromptCrashOccurred()
-		local form = forms.newform(350, 190, "Crash Detected!", function()
+		local form = forms.newform(350, 190, Localizations.CrashRecovery.crashDetectedTitle, function()
 			client.unpause()
 		end)
 		local clientCenter = FormsUtils.getCenter(350, 190)
 		forms.setlocation(form, clientCenter.xPos, clientCenter.yPos)
 
 		local x, y, lineHeight = 20, 20, 20
-		local lb1 = forms.label(form, "An emulator or game crash has been detected.", x, y)
+		local lb1 = forms.label(form, Localizations.CrashRecovery.crashDetected, x, y)
 		y = y + lineHeight
-		local lb2 = forms.label(form, "The Tracker has a recovery save available prior to the crash.", x, y)
+		local lb2 = forms.label(form, Localizations.CrashRecovery.recoverySaveAvailable, x, y)
 		y = y + lineHeight
-		local lb3 = forms.label(form, "Load the recovery save?", x, y)
+		local lb3 = forms.label(form, Localizations.CrashRecovery.loadRecoverySave, x, y)
 		y = y + lineHeight
 		-- Bottom row buttons
 		y = y + 10
 		local btn1, btn2, btn3, btn4
-		btn1 = forms.button(form, "Yes (Recover)", function()
+		btn1 = forms.button(form, Localizations.CrashRecovery.yes, function()
 			self.recoverSave()
 			forms.setproperty(btn3, "Enabled", true)
 		end, 21, y)
-		btn2 = forms.button(form, "No (Dismiss)", function()
+		btn2 = forms.button(form, Localizations.CrashRecovery.no, function()
 			forms.destroy(form)
 			client.unpause()
 		end, 130, y)
-		btn3 = forms.button(form, "Undo Recovery", function()
+		btn3 = forms.button(form, Localizations.CrashRecovery.undoRecovery, function()
 			self.undoRecoverSave()
 			forms.setproperty(btn3, "Enabled", false)
 		end, 230, y)
 		y = y + lineHeight + 15
-		btn4 = forms.button(form, "Close / Cancel", function()
+		btn4 = forms.button(form, Localizations.CrashRecovery.closeCancel, function()
 			forms.destroy(form)
 			client.unpause()
 		end, 130, y)

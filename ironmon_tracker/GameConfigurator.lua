@@ -1,11 +1,11 @@
 GameConfigurator = {}
 
 GameConfigurator.ALTERNATE_FORM_ORDER_GEN4 = {
-	"Deoxys",
-	"Wormadam P",
-	"Giratina A",
-	"Shaymin L",
-	"Rotom"
+	Localizations.PokemonNames.deoxys,
+	Localizations.PokemonNames.wormadam,
+	Localizations.PokemonNames.giratina,
+	Localizations.PokemonNames.shaymin,
+	Localizations.PokemonNames.rotom,
 	--[[
 	"Castform",
 	"Basculin R",
@@ -29,29 +29,29 @@ GameConfigurator.ALTERNATE_FORM_ORDER_GEN4 = {
 }
 
 GameConfigurator.ALTERNATE_FORM_ORDER_GEN5 = {
-	"Deoxys",
-	"Wormadam P",
-	"Shaymin L",
-	"Giratina A",
-	"Rotom",
-	"Castform",
-	"Basculin R",
-	"Darmanitan",
-	"Meloetta A",
-	"Kyurem",
-	"Landorus",
-	"Thundurus",
-	"Tornadus",
-	"Burmy P",
-	"Cherrim O",
-	"Deerling",
-	"Frillish M",
-	"Gastrodon W",
-	"Jellicent M",
-	"Keldeo",
-	"Sawsbuck",
-	"Shellos W",
-	"Unfezant M"
+	Localizations.PokemonNames.deoxys,
+	Localizations.PokemonNames.wormadam,
+	Localizations.PokemonNames.shaymin,
+	Localizations.PokemonNames.giratina,
+	Localizations.PokemonNames.rotom,
+	Localizations.PokemonNames.castform,
+	Localizations.PokemonNames.basculin,
+	Localizations.PokemonNames.darmanitan,
+	Localizations.PokemonNames.meloetta,
+	Localizations.PokemonNames.kyurem,
+	Localizations.PokemonNames.landorus,
+	Localizations.PokemonNames.thundurus,
+	Localizations.PokemonNames.tornadus,
+	Localizations.PokemonNames.burmy,
+	Localizations.PokemonNames.cherrim,
+	Localizations.PokemonNames.deerling,
+	Localizations.PokemonNames.frillish,
+	Localizations.PokemonNames.gastrodon,
+	Localizations.PokemonNames.jellicent,
+	Localizations.PokemonNames.keldeo,
+	Localizations.PokemonNames.sawsbuck,
+	Localizations.PokemonNames.shellos,
+	Localizations.PokemonNames.unfezant,
 }
 
 function GameConfigurator.initPokemon(gameInfo)
@@ -69,6 +69,7 @@ end
 
 function GameConfigurator.initMoveData(gameInfo)
 	MoveData.MOVES = {}
+	local versionDifferenceIndex = gameInfo.GEN - 3
 	for index, move in pairs(MoveData.MOVES_MASTER_LIST) do
 		if gameInfo.GEN == 4 and index == 469 then
 			return
@@ -84,7 +85,7 @@ function GameConfigurator.initMoveData(gameInfo)
 		}
 		for name, moveAttribute in pairs(move) do
 			if type(moveAttribute) == "table" then
-				moveToInsert[name] = moveAttribute[gameInfo.GEN]
+				moveToInsert[name] = moveAttribute[versionDifferenceIndex]
 			else
 				moveToInsert[name] = moveAttribute
 			end
@@ -155,7 +156,7 @@ function GameConfigurator.initialize()
 	local gameCode = Memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
 	if not GameInfo.GAME_INFO[gameCode] then
 		FormsUtils.popupDialog(
-			"Your ROM is not currently supported by the tracker. Only English NDS ROMs are supported.",
+			Localizations.GameConfiguratorScreen.notSupported,
 			250,
 			100,
 			FormsUtils.POPUP_DIALOG_TYPES.WARNING,

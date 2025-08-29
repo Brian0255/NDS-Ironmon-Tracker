@@ -4,31 +4,31 @@ ItemData.ITEMS = {}
 
 ItemData.HEALING_TYPE = MiscUtils.readOnly({CONSTANT = 0, PERCENTAGE = 1})
 ItemData.NATURE_SPECIFIC_BERRIES = {
-    ["Figy Berry"] = {
+    [Localizations.ItemNames.figyBerry] = {
         Modest = true,
         Timid = true,
         Calm = true,
         Bold = true
     },
-    ["Iapapa Berry"] = {
+    [Localizations.ItemNames.iapapaBerry] = {
         Lonely = true,
         Mild = true,
         Gentle = true,
         Hasty = true
     },
-    ["Wiki Berry"] = {
+    [Localizations.ItemNames.wikiBerry] = {
         Adamant = true,
         Jolly = true,
         Careful = true,
         Impish = true
     },
-    ["Aguav Berry"] = {
+    [Localizations.ItemNames.aguavBerry] = {
         Naughty = true,
         Rash = true,
         Naive = true,
         Lax = true
     },
-    ["Mago Berry"] = {
+    [Localizations.ItemNames.magoBerry] = {
         Brave = true,
         Quiet = true,
         Sassy = true,
@@ -40,79 +40,79 @@ ItemData.STATUS_ITEMS =
     MiscUtils.readOnly(
     {
         [23] = {
-            name = "Full Restore",
+                name = Localizations.ItemNames.fullRestore,
             status = MiscData.STATUS_TYPE.ALL
         },
         [591] = {
-            name = "Casteliacone",
+                name = Localizations.ItemNames.casteliacone,
             status = MiscData.STATUS_TYPE.ALL
         },
         [27] = {
-            name = "Full Heal",
+                name = Localizations.ItemNames.fullHeal,
             status = MiscData.STATUS_TYPE.ALL
         },
         [36] = {
-            name = "Heal Powder",
+                name = Localizations.ItemNames.healPowder,
             status = MiscData.STATUS_TYPE.ALL
         },
         [42] = {
-            name = "Lava Cookie",
+                name = Localizations.ItemNames.lavaCookie,
             status = MiscData.STATUS_TYPE.ALL
         },
         [157] = {
-            name = "Lum Berry",
+                name = Localizations.ItemNames.lumBerry,
             status = MiscData.STATUS_TYPE.ALL
         },
         [54] = {
-            name = "Old Gateau",
+                name = Localizations.ItemNames.oldGateau,
             status = MiscData.STATUS_TYPE.ALL
         },
         [19] = {
-            name = "Burn Heal",
+                name = Localizations.ItemNames.burnHeal,
             status = MiscData.STATUS_TYPE.BURN
         },
         [152] = {
-            name = "Rawst Berry",
+                name = Localizations.ItemNames.rawstBerry,
             status = MiscData.STATUS_TYPE.BURN
         },
         [156] = {
-            name = "Persim Berry",
+                name = Localizations.ItemNames.persimBerry,
             status = MiscData.STATUS_TYPE.CONFUSE
         },
         [153] = {
-            name = "Aspear Berry",
+                name = Localizations.ItemNames.aspearBerry,
             status = MiscData.STATUS_TYPE.FREEZE
         },
         [20] = {
-            name = "Ice Heal",
+                name = Localizations.ItemNames.iceHeal,
             status = MiscData.STATUS_TYPE.FREEZE
         },
         [219] = {
-            name = "Mental Herb",
+                name = Localizations.ItemNames.mentalHerb,
             status = MiscData.STATUS_TYPE.INFATUATION
         },
         [149] = {
-            name = "Cheri Berry",
+                name = Localizations.ItemNames.cheriBerry,
             status = MiscData.STATUS_TYPE.PARALYZE
         },
         [22] = {
-            name = "Paralyze Heal",
+                name = Localizations.ItemNames.paralyzeHeal,
             status = MiscData.STATUS_TYPE.PARALYZE
         },
         [18] = {
-            name = "Antidote",
+                name = Localizations.ItemNames.antidote,
             status = MiscData.STATUS_TYPE.POISON
         },
         [151] = {
-            name = "Pecha Berry",
+                name = Localizations.ItemNames.pechaBerry,
             status = MiscData.STATUS_TYPE.POISON
         },
         [21] = {
-            name = "Awakening",
+                name = Localizations.ItemNames.awakening,
             status = MiscData.STATUS_TYPE.SLEEP
         },
         [150] = {
-            name = "Chesto Berry",
+                name = Localizations.ItemNames.chestoBerry,
             status = MiscData.STATUS_TYPE.SLEEP
         }
     }
@@ -145,112 +145,112 @@ ItemData.HEALING_ITEMS =
     MiscUtils.readOnly(
     {
         [23] = {
-            name = "Full Restore",
+            name = Localizations.ItemNames.fullRestore,
             amount = 100,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [24] = {
-            name = "Max Potion",
+            name = Localizations.ItemNames.maxPotion,
             amount = 100,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [158] = {
-            name = "Sitrus Berry",
+            name = Localizations.ItemNames.sitrusBerry,
             amount = 25,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [162] = {
-            name = "Aguav Berry",
+            name = Localizations.ItemNames.aguavBerry,
             amount = 12.5,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [208] = {
-            name = "Enigma Berry",
+            name = Localizations.ItemNames.enigmaBerry,
             amount = 12.5,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [159] = {
-            name = "Figy Berry",
+            name = Localizations.ItemNames.figyBerry,
             amount = 12.5,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [163] = {
-            name = "Iapapa Berry",
+            name = Localizations.ItemNames.iapapaBerry,
             amount = 12.5,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [161] = {
-            name = "Mago Berry",
+            name = Localizations.ItemNames.magoBerry,
             amount = 12.5,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [160] = {
-            name = "Wiki Berry",
+            name = Localizations.ItemNames.wikiBerry,
             amount = 12.5,
             type = ItemData.HEALING_TYPE.PERCENTAGE
         },
         [35] = {
-            name = "Energy Root",
+            name = Localizations.ItemNames.energyRoot,
             amount = 200,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [25] = {
-            name = "Hyper Potion",
+            name = Localizations.ItemNames.hyperPotion,
             amount = 200,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [33] = {
-            name = "Moomoo Milk",
+            name = Localizations.ItemNames.moomooMilk,
             amount = 100,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [32] = {
-            name = "Lemonade",
+            name = Localizations.ItemNames.lemonade,
             amount = 80,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [31] = {
-            name = "Soda Pop",
+            name = Localizations.ItemNames.sodaPop,
             amount = 60,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [26] = {
-            name = "Super Potion",
+            name = Localizations.ItemNames.superPotion,
             amount = 50,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [34] = {
-            name = "EnergyPowder",
+            name = Localizations.ItemNames.energyPowder,
             amount = 50,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [30] = {
-            name = "Fresh Water",
+            name = Localizations.ItemNames.freshWater,
             amount = 50,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [43] = {
-            name = "Berry Juice",
+            name = Localizations.ItemNames.berryJuice,
             amount = 20,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [17] = {
-            name = "Potion",
+            name = Localizations.ItemNames.potion,
             amount = 20,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [504] = {
-            name = "RageCandyBar",
+            name = Localizations.ItemNames.rageCandyBar,
             amount = 20,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [134] = {
-            name = "Sweet Heart",
+            name = Localizations.ItemNames.sweetHeart,
             amount = 20,
             type = ItemData.HEALING_TYPE.CONSTANT
         },
         [155] = {
-            name = "Oran Berry",
+            name = Localizations.ItemNames.oranBerry,
             amount = 10,
             type = ItemData.HEALING_TYPE.CONSTANT
         }
@@ -262,27 +262,27 @@ ItemData.PP_ITEMS =
     MiscUtils.readOnly(
     {
         [38] = {
-			name = "Ether",
+			name = Localizations.ItemNames.ether,
 			amount = 10,
 			type = ItemData.HEALING_TYPE.CONSTANT
 		},
 		[39] = {
-			name = "Max Ether",
+			name = Localizations.ItemNames.maxEther,
 			amount = 100,
 			type = ItemData.HEALING_TYPE.PERCENTAGE
 		},
 		[40] = {
-			name = "Elixir",
+			name = Localizations.ItemNames.elixir,
 			amount = 10,
 			type = ItemData.HEALING_TYPE.CONSTANT
 		},
 		[41] = {
-			name = "Max Elixir",
+			name = Localizations.ItemNames.maxElixir,
 			amount = 100,
 			type = ItemData.HEALING_TYPE.PERCENTAGE
 		},
 		[154] = {
-			name = "Leppa Berry",
+			name = Localizations.ItemNames.leppaBerry,
 			amount = 10,
 			type = ItemData.HEALING_TYPE.CONSTANT
 		},
@@ -291,4533 +291,3373 @@ ItemData.PP_ITEMS =
 
 ItemData.GEN_4_ITEMS = {
     [1] = {
-        name = "Master Ball",
-        description = "Catches a wild Pok" .. Chars.accentedE .. "mon every time."
-    },
+        name = Localizations.ItemGen4Names.masterBall,
+        description = Localizations.ItemGen4Descriptions.masterBall},
     [2] = {
-        name = "Ultra Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 2x."
-    },
+        name = Localizations.ItemGen4Names.ultraBall,
+        description = Localizations.ItemGen4Descriptions.ultraBall},
     [3] = {
-        name = "Great Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 1.5x."
-    },
+        name = Localizations.ItemGen4Names.greatBall,
+        description = Localizations.ItemGen4Descriptions.greatBall},
     [4] = {
-        name = "Poke Ball",
-        description = "Tries to catch a wild Pokemon."
-    },
+        name = Localizations.ItemGen4Names.pokeBall,
+        description = Localizations.ItemGen4Descriptions.pokeBall},
     [5] = {
-        name = "Safari Ball",
-        description = "Tries to catch a wild Pok" ..
-            Chars.accentedE .. "mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
-    },
+        name = Localizations.ItemGen4Names.safariBall,
+        description = Localizations.ItemGen4Descriptions.safariBall},
     [6] = {
-        name = "Net Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3x for water and bug Pokemon."
-    },
+        name = Localizations.ItemGen4Names.netBall,
+        description = Localizations.ItemGen4Descriptions.netBall},
     [7] = {
-        name = "Dive Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3.5x when underwater, fishing, or surfing."
-    },
+        name = Localizations.ItemGen4Names.diveBall,
+        description = Localizations.ItemGen4Descriptions.diveBall},
     [8] = {
-        name = "Nest Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3.9x for level 1 Pokemon, and drops steadily to 1x at level 30."
-    },
+        name = Localizations.ItemGen4Names.nestBall,
+        description = Localizations.ItemGen4Descriptions.nestBall},
     [9] = {
-        name = "Repeat Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3x for previously-caught Pokemon."
-    },
+        name = Localizations.ItemGen4Names.repeatBall,
+        description = Localizations.ItemGen4Descriptions.repeatBall},
     [10] = {
-        name = "Timer Ball",
-        description = "Tries to catch a wild Pokemon. Success rate increases by 0.1x (Gen V: 0.3x) every turn, to a max of 4x."
-    },
+        name = Localizations.ItemGen4Names.timerBall,
+        description = Localizations.ItemGen4Descriptions.timerBall},
     [11] = {
-        name = "Luxury Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness."
-    },
+        name = Localizations.ItemGen4Names.luxuryBall,
+        description = Localizations.ItemGen4Descriptions.luxuryBall},
     [12] = {
-        name = "Premier Ball",
-        description = "Tries to catch a wild Pokemon."
-    },
+        name = Localizations.ItemGen4Names.premierBall,
+        description = Localizations.ItemGen4Descriptions.premierBall},
     [13] = {
-        name = "Dusk Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3.5x at night and in caves."
-    },
+        name = Localizations.ItemGen4Names.duskBall,
+        description = Localizations.ItemGen4Descriptions.duskBall},
     [14] = {
-        name = "Heal Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon are immediately healed."
-    },
+        name = Localizations.ItemGen4Names.healBall,
+        description = Localizations.ItemGen4Descriptions.healBall},
     [15] = {
-        name = "Quick Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 4x (Gen V: 5x), but only on the first turn."
-    },
+        name = Localizations.ItemGen4Names.quickBall,
+        description = Localizations.ItemGen4Descriptions.quickBall},
     [16] = {
-        name = "Cherish Ball",
-        description = "Tries to catch a wild Pokemon."
-    },
+        name = Localizations.ItemGen4Names.cherishBall,
+        description = Localizations.ItemGen4Descriptions.cherishBall},
     [17] = {
-        name = "Potion",
-        description = "Restores 20 HP."
-    },
+        name = Localizations.ItemGen4Names.potion,
+        description = Localizations.ItemGen4Descriptions.potion},
     [18] = {
-        name = "Antidote",
-        description = "Cures poison."
-    },
+        name = Localizations.ItemGen4Names.antidote,
+        description = Localizations.ItemGen4Descriptions.antidote},
     [19] = {
-        name = "Burn Heal",
-        description = "Cures a burn."
-    },
+        name = Localizations.ItemGen4Names.burnHeal,
+        description = Localizations.ItemGen4Descriptions.burnHeal},
     [20] = {
-        name = "Ice Heal",
-        description = "Cures freezing."
-    },
+        name = Localizations.ItemGen4Names.iceHeal,
+        description = Localizations.ItemGen4Descriptions.iceHeal},
     [21] = {
-        name = "Awakening",
-        description = "Cures sleep."
-    },
+        name = Localizations.ItemGen4Names.awakening,
+        description = Localizations.ItemGen4Descriptions.awakening},
     [22] = {
-        name = "Paralyze Heal",
-        description = "Cures paralysis."
-    },
+        name = Localizations.ItemGen4Names.paralyzeHeal,
+        description = Localizations.ItemGen4Descriptions.paralyzeHeal},
     [23] = {
-        name = "Full Restore",
-        description = "Restores HP to full and cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen4Names.fullRestore,
+        description = Localizations.ItemGen4Descriptions.fullRestore},
     [24] = {
-        name = "Max Potion",
-        description = "Restores HP to full."
-    },
+        name = Localizations.ItemGen4Names.maxPotion,
+        description = Localizations.ItemGen4Descriptions.maxPotion},
     [25] = {
-        name = "Hyper Potion",
-        description = "Restores 200 HP."
-    },
+        name = Localizations.ItemGen4Names.hyperPotion,
+        description = Localizations.ItemGen4Descriptions.hyperPotion},
     [26] = {
-        name = "Super Potion",
-        description = "Restores 50 HP."
-    },
+        name = Localizations.ItemGen4Names.superPotion,
+        description = Localizations.ItemGen4Descriptions.superPotion},
     [27] = {
-        name = "Full Heal",
-        description = "Cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen4Names.fullHeal,
+        description = Localizations.ItemGen4Descriptions.fullHeal},
     [28] = {
-        name = "Revive",
-        description = "Revives with half HP."
-    },
+        name = Localizations.ItemGen4Names.revive,
+        description = Localizations.ItemGen4Descriptions.revive},
     [29] = {
-        name = "Max Revive",
-        description = "Revives with full HP."
-    },
+        name = Localizations.ItemGen4Names.maxRevive,
+        description = Localizations.ItemGen4Descriptions.maxRevive},
     [30] = {
-        name = "Fresh Water",
-        description = "Restores 50 HP."
-    },
+        name = Localizations.ItemGen4Names.freshWater,
+        description = Localizations.ItemGen4Descriptions.freshWater},
     [31] = {
-        name = "Soda Pop",
-        description = "Restores 60 HP."
-    },
+        name = Localizations.ItemGen4Names.sodaPop,
+        description = Localizations.ItemGen4Descriptions.sodaPop},
     [32] = {
-        name = "Lemonade",
-        description = "Restores 80 HP."
-    },
+        name = Localizations.ItemGen4Names.lemonade,
+        description = Localizations.ItemGen4Descriptions.lemonade},
     [33] = {
-        name = "Moomoo Milk",
-        description = "Restores 100 HP."
-    },
+        name = Localizations.ItemGen4Names.moomooMilk,
+        description = Localizations.ItemGen4Descriptions.moomooMilk},
     [34] = {
-        name = "Energy Powder",
-        description = "Restores 50 HP, but lowers happiness."
-    },
+        name = Localizations.ItemGen4Names.energyPowder,
+        description = Localizations.ItemGen4Descriptions.energyPowder},
     [35] = {
-        name = "Energy Root",
-        description = "Restores 200 HP, but lowers happiness."
-    },
+        name = Localizations.ItemGen4Names.energyRoot,
+        description = Localizations.ItemGen4Descriptions.energyRoot},
     [36] = {
-        name = "Heal Powder",
-        description = "Cures any status ailment, but lowers happiness."
-    },
+        name = Localizations.ItemGen4Names.healPowder,
+        description = Localizations.ItemGen4Descriptions.healPowder},
     [37] = {
-        name = "Revival Herb",
-        description = "Revives with full HP, but lowers happiness."
-    },
+        name = Localizations.ItemGen4Names.revivalHerb,
+        description = Localizations.ItemGen4Descriptions.revivalHerb},
     [38] = {
-        name = "Ether",
-        description = "Restores 10 PP for one move."
-    },
+        name = Localizations.ItemGen4Names.ether,
+        description = Localizations.ItemGen4Descriptions.ether},
     [39] = {
-        name = "Max Ether",
-        description = "Restores PP to full for one move."
-    },
+        name = Localizations.ItemGen4Names.maxEther,
+        description = Localizations.ItemGen4Descriptions.maxEther},
     [40] = {
-        name = "Elixir",
-        description = "Restores 10 PP for each move."
-    },
+        name = Localizations.ItemGen4Names.elixir,
+        description = Localizations.ItemGen4Descriptions.elixir},
     [41] = {
-        name = "Max Elixir",
-        description = "Restores PP to full for each move."
-    },
+        name = Localizations.ItemGen4Names.maxElixir,
+        description = Localizations.ItemGen4Descriptions.maxElixir},
     [42] = {
-        name = "Lava Cookie",
-        description = "Cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen4Names.lavaCookie,
+        description = Localizations.ItemGen4Descriptions.lavaCookie},
     [43] = {
-        name = "Berry Juice",
-        description = "Restores 20 HP."
-    },
+        name = Localizations.ItemGen4Names.berryJuice,
+        description = Localizations.ItemGen4Descriptions.berryJuice},
     [44] = {
-        name = "Sacred Ash",
-        description = "Revives all fainted Pok" .. Chars.accentedE .. "mon with full HP."
-    },
+        name = Localizations.ItemGen4Names.sacredAsh,
+        description = Localizations.ItemGen4Descriptions.sacredAsh},
     [45] = {
-        name = "Hp Up",
-        description = "Raises HP effort and happiness."
-    },
+        name = Localizations.ItemGen4Names.hpUp,
+        description = Localizations.ItemGen4Descriptions.hpUp},
     [46] = {
-        name = "Protein",
-        description = "Raises Attack effort and happiness."
-    },
+        name = Localizations.ItemGen4Names.protein,
+        description = Localizations.ItemGen4Descriptions.protein},
     [47] = {
-        name = "Iron",
-        description = "Raises Defense effort and happiness."
-    },
+        name = Localizations.ItemGen4Names.iron,
+        description = Localizations.ItemGen4Descriptions.iron},
     [48] = {
-        name = "Carbos",
-        description = "Raises Speed effort and happiness."
-    },
+        name = Localizations.ItemGen4Names.carbos,
+        description = Localizations.ItemGen4Descriptions.carbos},
     [49] = {
-        name = "Calcium",
-        description = "Raises Special Attack effort and happiness."
-    },
+        name = Localizations.ItemGen4Names.calcium,
+        description = Localizations.ItemGen4Descriptions.calcium},
     [50] = {
-        name = "Rare Candy",
-        description = "Causes a level-up and raises happiness."
-    },
+        name = Localizations.ItemGen4Names.rareCandy,
+        description = Localizations.ItemGen4Descriptions.rareCandy},
     [51] = {
-        name = "PP Up",
-        description = "Raises a move's max PP by 20%."
-    },
+        name = Localizations.ItemGen4Names.pPUp,
+        description = Localizations.ItemGen4Descriptions.pPUp},
     [52] = {
-        name = "Zinc",
-        description = "Raises Special Defense and happiness."
-    },
+        name = Localizations.ItemGen4Names.zinc,
+        description = Localizations.ItemGen4Descriptions.zinc},
     [53] = {
-        name = "PP Max",
-        description = "Raises a move's max PP by 60%."
-    },
+        name = Localizations.ItemGen4Names.pPMax,
+        description = Localizations.ItemGen4Descriptions.pPMax},
     [54] = {
-        name = "Old Gateau",
-        description = "Cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen4Names.oldGateau,
+        description = Localizations.ItemGen4Descriptions.oldGateau},
     [55] = {
-        name = "Guard Spec",
-        description = "Prevents stat changes in battle for five turns in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.guardSpec,
+        description = Localizations.ItemGen4Descriptions.guardSpec},
     [56] = {
-        name = "Dire Hit",
-        description = "Increases the chance of a critical hit in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.direHit,
+        description = Localizations.ItemGen4Descriptions.direHit},
     [57] = {
-        name = "X Attack",
-        description = "Raises Attack by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.xAttack,
+        description = Localizations.ItemGen4Descriptions.xAttack},
     [58] = {
-        name = "X Defense",
-        description = "Raises Defense by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.xDefense,
+        description = Localizations.ItemGen4Descriptions.xDefense},
     [59] = {
-        name = "X Speed",
-        description = "Raises Speed by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.xSpeed,
+        description = Localizations.ItemGen4Descriptions.xSpeed},
     [60] = {
-        name = "X Accuracy",
-        description = "Raises accuracy by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.xAccuracy,
+        description = Localizations.ItemGen4Descriptions.xAccuracy},
     [61] = {
-        name = "X Sp-atk",
-        description = "Raises Special Attack by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.xSpAtk,
+        description = Localizations.ItemGen4Descriptions.xSpAtk},
     [62] = {
-        name = "X Sp-def",
-        description = "Raises Special Defense by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen4Names.xSpDef,
+        description = Localizations.ItemGen4Descriptions.xSpDef},
     [63] = {
-        name = "Poke Doll",
-        description = "Ends a wild battle."
-    },
+        name = Localizations.ItemGen4Names.pokeDoll,
+        description = Localizations.ItemGen4Descriptions.pokeDoll},
     [64] = {
-        name = "Fluffy Tail",
-        description = "Ends a wild battle."
-    },
+        name = Localizations.ItemGen4Names.fluffyTail,
+        description = Localizations.ItemGen4Descriptions.fluffyTail},
     [65] = {
-        name = "Blue Flute",
-        description = "Cures sleep."
-    },
+        name = Localizations.ItemGen4Names.blueFlute,
+        description = Localizations.ItemGen4Descriptions.blueFlute},
     [66] = {
-        name = "Yellow Flute",
-        description = "Cures confusion."
-    },
+        name = Localizations.ItemGen4Names.yellowFlute,
+        description = Localizations.ItemGen4Descriptions.yellowFlute},
     [67] = {
-        name = "Red Flute",
-        description = "Cures attraction."
-    },
+        name = Localizations.ItemGen4Names.redFlute,
+        description = Localizations.ItemGen4Descriptions.redFlute},
     [68] = {
-        name = "Black Flute",
-        description = "Halves the wild Pok" .. Chars.accentedE .. "mon encounter rate."
-    },
+        name = Localizations.ItemGen4Names.blackFlute,
+        description = Localizations.ItemGen4Descriptions.blackFlute},
     [69] = {
-        name = "White Flute",
-        description = "Doubles the wild Pok" .. Chars.accentedE .. "mon encounter rate."
-    },
+        name = Localizations.ItemGen4Names.whiteFlute,
+        description = Localizations.ItemGen4Descriptions.whiteFlute},
     [70] = {
-        name = "Shoal Salt",
-        description = "No effect. "
-    },
+        name = Localizations.ItemGen4Names.shoalSalt,
+        description = Localizations.ItemGen4Descriptions.shoalSalt},
     [71] = {
-        name = "Shoal Shell",
-        description = "No effect. "
-    },
+        name = Localizations.ItemGen4Names.shoalShell,
+        description = Localizations.ItemGen4Descriptions.shoalShell},
     [72] = {
-        name = "Red Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen4Names.redShard,
+        description = Localizations.ItemGen4Descriptions.redShard},
     [73] = {
-        name = "Blue Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen4Names.blueShard,
+        description = Localizations.ItemGen4Descriptions.blueShard},
     [74] = {
-        name = "Yellow Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen4Names.yellowShard,
+        description = Localizations.ItemGen4Descriptions.yellowShard},
     [75] = {
-        name = "Green Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen4Names.greenShard,
+        description = Localizations.ItemGen4Descriptions.greenShard},
     [76] = {
-        name = "Super Repel",
-        description = "For 200 steps, prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen4Names.superRepel,
+        description = Localizations.ItemGen4Descriptions.superRepel},
     [77] = {
-        name = "Max Repel",
-        description = "For 250 steps, prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen4Names.maxRepel,
+        description = Localizations.ItemGen4Descriptions.maxRepel},
     [78] = {
-        name = "Escape Rope",
-        description = "Transports user to the outside entrance of a cave."
-    },
+        name = Localizations.ItemGen4Names.escapeRope,
+        description = Localizations.ItemGen4Descriptions.escapeRope},
     [79] = {
-        name = "Repel",
-        description = "For 100 steps, prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen4Names.repel,
+        description = Localizations.ItemGen4Descriptions.repel},
     [80] = {
-        name = "Sun Stone",
-        description = "Evolves a Cottonee into Whimsicott, a Gloom into Bellossom, a Petilil into Lilligant, or a Sunkern into Sunflora."
-    },
+        name = Localizations.ItemGen4Names.sunStone,
+        description = Localizations.ItemGen4Descriptions.sunStone},
     [81] = {
-        name = "Moon Stone",
-        description = "Evolves a Clefairy into Clefable, a Jigglypuff into Wigglytuff, a Munna into Musharna, a Nidorina into Nidoqueen, a Nidorino into Nidoking, or a Skitty into Delcatty."
-    },
+        name = Localizations.ItemGen4Names.moonStone,
+        description = Localizations.ItemGen4Descriptions.moonStone},
     [82] = {
-        name = "Fire Stone",
-        description = "Evolves an Eevee into Flareon, a Growlithe into Arcanine, a Pansear into Simisear, or a Vulpix into Ninetales."
-    },
+        name = Localizations.ItemGen4Names.fireStone,
+        description = Localizations.ItemGen4Descriptions.fireStone},
     [83] = {
-        name = "Thunder Stone",
-        description = "Evolves an Eelektrik into Eelektross, an Eevee into Jolteon, or a Pikachu into Raichu."
-    },
+        name = Localizations.ItemGen4Names.thunderStone,
+        description = Localizations.ItemGen4Descriptions.thunderStone},
     [84] = {
-        name = "Water Stone",
-        description = "Evolves an Eevee into Vaporeon, a Lombre into Ludicolo, a Panpour into Simipour, a Poliwhirl into Poliwrath, a Shellder into Cloyster, or a Staryu into Starmie."
-    },
+        name = Localizations.ItemGen4Names.waterStone,
+        description = Localizations.ItemGen4Descriptions.waterStone},
     [85] = {
-        name = "Leaf Stone",
-        description = "Evolves an Exeggcute into Exeggutor, a Gloom into Vileplume, a Nuzleaf into Shiftry, a Pansage into Simisage, or a Weepinbell into Victreebel."
-    },
+        name = Localizations.ItemGen4Names.leafStone,
+        description = Localizations.ItemGen4Descriptions.leafStone},
     [86] = {
-        name = "Tiny Mushroom",
-        description = "Fire Red and Leaf Green: Trade two for prior Level-up moves. Sell for 250 Pokedollars, or to Hungry Maid for 500 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.tinyMushroom,
+        description = Localizations.ItemGen4Descriptions.tinyMushroom},
     [87] = {
-        name = "Big Mushroom",
-        description = "Fire Red and Leaf Green: Trade for prior Level-up moves. Sell for 2500 Pokedollars, or to Hungry Maid for 5000 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.bigMushroom,
+        description = Localizations.ItemGen4Descriptions.bigMushroom},
     [88] = {
-        name = "Pearl",
-        description = "Sell for 700 Pokedollars, or to Ore Collector for 1400 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.pearl,
+        description = Localizations.ItemGen4Descriptions.pearl},
     [89] = {
-        name = "Big Pearl",
-        description = "Sell for 3750 Pokedollars, or to Ore Collector for 7500 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.bigPearl,
+        description = Localizations.ItemGen4Descriptions.bigPearl},
     [90] = {
-        name = "Stardust",
-        description = "Sell for 1000 Pokedollars, or to Ore Collector for 2000 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.stardust,
+        description = Localizations.ItemGen4Descriptions.stardust},
     [91] = {
-        name = "Star Piece",
-        description = "Platinum: Trade for one of each color Shard. Black and White: Trade for PP Up. Sell for 4900 Pokedollars, or to Ore Collector for 9800 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.starPiece,
+        description = Localizations.ItemGen4Descriptions.starPiece},
     [92] = {
-        name = "Nugget",
-        description = "Sell for 5000 Pokedollars, or to Ore Collector for 10000 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.nugget,
+        description = Localizations.ItemGen4Descriptions.nugget},
     [93] = {
-        name = "Heart Scale",
-        description = "No effect. Can be traded for prior Level-up moves."
-    },
+        name = Localizations.ItemGen4Names.heartScale,
+        description = Localizations.ItemGen4Descriptions.heartScale},
     [94] = {
-        name = "Honey",
-        description = "Used to attract wild Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.ItemGen4Names.honey,
+        description = Localizations.ItemGen4Descriptions.honey},
     [95] = {
-        name = "Growth Mulch",
-        description = "Growing time of berries is reduced, but the soil dries out faster."
-    },
+        name = Localizations.ItemGen4Names.growthMulch,
+        description = Localizations.ItemGen4Descriptions.growthMulch},
     [96] = {
-        name = "Damp Mulch",
-        description = "Growing time of berries is increased, but the soil dries out slower."
-    },
+        name = Localizations.ItemGen4Names.dampMulch,
+        description = Localizations.ItemGen4Descriptions.dampMulch},
     [97] = {
-        name = "Stable Mulch",
-        description = "Berries stay on the plant for longer than their usual time."
-    },
+        name = Localizations.ItemGen4Names.stableMulch,
+        description = Localizations.ItemGen4Descriptions.stableMulch},
     [98] = {
-        name = "Gooey Mulch",
-        description = "Berries regrow from dead plants an increased number of times."
-    },
+        name = Localizations.ItemGen4Names.gooeyMulch,
+        description = Localizations.ItemGen4Descriptions.gooeyMulch},
     [99] = {
-        name = "Root Fossil",
-        description = "Can be revived into a Lileep."
-    },
+        name = Localizations.ItemGen4Names.rootFossil,
+        description = Localizations.ItemGen4Descriptions.rootFossil},
     [100] = {
-        name = "Claw Fossil",
-        description = "Can be revived into an Anorith."
-    },
+        name = Localizations.ItemGen4Names.clawFossil,
+        description = Localizations.ItemGen4Descriptions.clawFossil},
     [101] = {
-        name = "Helix Fossil",
-        description = "Can be revived into an Omanyte."
-    },
+        name = Localizations.ItemGen4Names.helixFossil,
+        description = Localizations.ItemGen4Descriptions.helixFossil},
     [102] = {
-        name = "Dome Fossil",
-        description = "Can be revived into a Kabuto."
-    },
+        name = Localizations.ItemGen4Names.domeFossil,
+        description = Localizations.ItemGen4Descriptions.domeFossil},
     [103] = {
-        name = "Old Amber",
-        description = "Can be revived into an Aerodactyl."
-    },
+        name = Localizations.ItemGen4Names.oldAmber,
+        description = Localizations.ItemGen4Descriptions.oldAmber},
     [104] = {
-        name = "Armor Fossil",
-        description = "Can be revived into a Shieldon."
-    },
+        name = Localizations.ItemGen4Names.armorFossil,
+        description = Localizations.ItemGen4Descriptions.armorFossil},
     [105] = {
-        name = "Skull Fossil",
-        description = "Can be revived into a Cranidos."
-    },
+        name = Localizations.ItemGen4Names.skullFossil,
+        description = Localizations.ItemGen4Descriptions.skullFossil},
     [106] = {
-        name = "Rare Bone",
-        description = "Sell for 5000 Pokedollars, or to Bone Man for 10000 Pokedollars."
-    },
+        name = Localizations.ItemGen4Names.rareBone,
+        description = Localizations.ItemGen4Descriptions.rareBone},
     [107] = {
-        name = "Shiny Stone",
-        description = "Evolves a Minccino into Cinccino, a Roselia into Roserade, or a Togetic into Togekiss."
-    },
+        name = Localizations.ItemGen4Names.shinyStone,
+        description = Localizations.ItemGen4Descriptions.shinyStone},
     [108] = {
-        name = "Dusk Stone",
-        description = "Evolves a Lampent into Chandelure, a Misdreavus into Mismagius, or a Murkrow into Honchkrow."
-    },
+        name = Localizations.ItemGen4Names.duskStone,
+        description = Localizations.ItemGen4Descriptions.duskStone},
     [109] = {
-        name = "Dawn Stone",
-        description = "Evolves a male Kirlia into Gallade or a female Snorunt into Froslass."
-    },
+        name = Localizations.ItemGen4Names.dawnStone,
+        description = Localizations.ItemGen4Descriptions.dawnStone},
     [110] = {
-        name = "Oval Stone",
-        description = "Level-up during Day on a Happiny: Holder evolves into Chansey."
-    },
+        name = Localizations.ItemGen4Names.ovalStone,
+        description = Localizations.ItemGen4Descriptions.ovalStone},
     [111] = {
-        name = "Odd Keystone",
-        description = "Use on the tower on Route 209 to encounter Spiritomb if you have at least 32 Underground greetings."
-    },
+        name = Localizations.ItemGen4Names.oddKeystone,
+        description = Localizations.ItemGen4Descriptions.oddKeystone},
     [135] = {
-        name = "Adamant Orb",
-        description = "Boosts the damage from Dialga's Dragon-type and Steel-type moves by 20%."
-    },
+        name = Localizations.ItemGen4Names.adamantOrb,
+        description = Localizations.ItemGen4Descriptions.adamantOrb},
     [136] = {
-        name = "Lustrous Orb",
-        description = "Boosts the damage from Palkia's Dragon-type and Water-type moves by 20%."
-    },
+        name = Localizations.ItemGen4Names.lustrousOrb,
+        description = Localizations.ItemGen4Descriptions.lustrousOrb},
     [137] = {
-        name = "Grass Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.grassMail,
+        description = Localizations.ItemGen4Descriptions.grassMail},
     [138] = {
-        name = "Flame Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.flameMail,
+        description = Localizations.ItemGen4Descriptions.flameMail},
     [139] = {
-        name = "Bubble Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.bubbleMail,
+        description = Localizations.ItemGen4Descriptions.bubbleMail},
     [140] = {
-        name = "Bloom Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.bloomMail,
+        description = Localizations.ItemGen4Descriptions.bloomMail},
     [141] = {
-        name = "Tunnel Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.tunnelMail,
+        description = Localizations.ItemGen4Descriptions.tunnelMail},
     [142] = {
-        name = "Steel Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.steelMail,
+        description = Localizations.ItemGen4Descriptions.steelMail},
     [143] = {
-        name = "Heart Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.heartMail,
+        description = Localizations.ItemGen4Descriptions.heartMail},
     [144] = {
-        name = "Snow Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.snowMail,
+        description = Localizations.ItemGen4Descriptions.snowMail},
     [145] = {
-        name = "Space Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.spaceMail,
+        description = Localizations.ItemGen4Descriptions.spaceMail},
     [146] = {
-        name = "Air Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.airMail,
+        description = Localizations.ItemGen4Descriptions.airMail},
     [147] = {
-        name = "Mosaic Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.mosaicMail,
+        description = Localizations.ItemGen4Descriptions.mosaicMail},
     [148] = {
-        name = "Brick Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen4Names.brickMail,
+        description = Localizations.ItemGen4Descriptions.brickMail},
     [149] = {
-        name = "Cheri Berry",
-        description = "Consumed when paralyzed to cure paralysis."
-    },
+        name = Localizations.ItemGen4Names.cheriBerry,
+        description = Localizations.ItemGen4Descriptions.cheriBerry},
     [150] = {
-        name = "Chesto Berry",
-        description = "Consumed when asleep to cure sleep."
-    },
+        name = Localizations.ItemGen4Names.chestoBerry,
+        description = Localizations.ItemGen4Descriptions.chestoBerry},
     [151] = {
-        name = "Pecha Berry",
-        description = "Consumed when poisoned to cure poison."
-    },
+        name = Localizations.ItemGen4Names.pechaBerry,
+        description = Localizations.ItemGen4Descriptions.pechaBerry},
     [152] = {
-        name = "Rawst Berry",
-        description = "Consumed when burned to cure a burn."
-    },
+        name = Localizations.ItemGen4Names.rawstBerry,
+        description = Localizations.ItemGen4Descriptions.rawstBerry},
     [153] = {
-        name = "Aspear Berry",
-        description = "Consumed when frozen to cure frozen."
-    },
+        name = Localizations.ItemGen4Names.aspearBerry,
+        description = Localizations.ItemGen4Descriptions.aspearBerry},
     [154] = {
-        name = "Leppa Berry",
-        description = "Consumed when a move runs out of PP to restore its PP by 10."
-    },
+        name = Localizations.ItemGen4Names.leppaBerry,
+        description = Localizations.ItemGen4Descriptions.leppaBerry},
     [155] = {
-        name = "Oran Berry",
-        description = "Consumed at 1/2 max HP to recover 10 HP."
-    },
+        name = Localizations.ItemGen4Names.oranBerry,
+        description = Localizations.ItemGen4Descriptions.oranBerry},
     [156] = {
-        name = "Persim Berry",
-        description = "Consumed when confused to cure confusion."
-    },
+        name = Localizations.ItemGen4Names.persimBerry,
+        description = Localizations.ItemGen4Descriptions.persimBerry},
     [157] = {
-        name = "Lum Berry",
-        description = "Consumed to cure any status condition or confusion."
-    },
+        name = Localizations.ItemGen4Names.lumBerry,
+        description = Localizations.ItemGen4Descriptions.lumBerry},
     [158] = {
-        name = "Sitrus Berry",
-        description = "Consumed at 1/2 max HP to recover 1/4 max HP."
-    },
+        name = Localizations.ItemGen4Names.sitrusBerry,
+        description = Localizations.ItemGen4Descriptions.sitrusBerry},
     [159] = {
-        name = "Figy Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike spicy flavor."
-    },
+        name = Localizations.ItemGen4Names.figyBerry,
+        description = Localizations.ItemGen4Descriptions.figyBerry},
     [160] = {
-        name = "Wiki Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike dry flavor."
-    },
+        name = Localizations.ItemGen4Names.wikiBerry,
+        description = Localizations.ItemGen4Descriptions.wikiBerry},
     [161] = {
-        name = "Mago Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike sweet flavor."
-    },
+        name = Localizations.ItemGen4Names.magoBerry,
+        description = Localizations.ItemGen4Descriptions.magoBerry},
     [162] = {
-        name = "Aguav Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike bitter flavor."
-    },
+        name = Localizations.ItemGen4Names.aguavBerry,
+        description = Localizations.ItemGen4Descriptions.aguavBerry},
     [163] = {
-        name = "Iapapa Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike sour flavor."
-    },
+        name = Localizations.ItemGen4Names.iapapaBerry,
+        description = Localizations.ItemGen4Descriptions.iapapaBerry},
     [164] = {
-        name = "Razz Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.razzBerry,
+        description = Localizations.ItemGen4Descriptions.razzBerry},
     [165] = {
-        name = "Bluk Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.blukBerry,
+        description = Localizations.ItemGen4Descriptions.blukBerry},
     [166] = {
-        name = "Nanab Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.nanabBerry,
+        description = Localizations.ItemGen4Descriptions.nanabBerry},
     [167] = {
-        name = "Wepear Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.wepearBerry,
+        description = Localizations.ItemGen4Descriptions.wepearBerry},
     [168] = {
-        name = "Pinap Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.pinapBerry,
+        description = Localizations.ItemGen4Descriptions.pinapBerry},
     [169] = {
-        name = "Pomeg Berry",
-        description = "Drops HP Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen4Names.pomegBerry,
+        description = Localizations.ItemGen4Descriptions.pomegBerry},
     [170] = {
-        name = "Kelpsy Berry",
-        description = "Drops Attack Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen4Names.kelpsyBerry,
+        description = Localizations.ItemGen4Descriptions.kelpsyBerry},
     [171] = {
-        name = "Qualot Berry",
-        description = "Drops Defense Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen4Names.qualotBerry,
+        description = Localizations.ItemGen4Descriptions.qualotBerry},
     [172] = {
-        name = "Hondew Berry",
-        description = "Drops Special Attack Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen4Names.hondewBerry,
+        description = Localizations.ItemGen4Descriptions.hondewBerry},
     [173] = {
-        name = "Grepa Berry",
-        description = "Drops Special Defense Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen4Names.grepaBerry,
+        description = Localizations.ItemGen4Descriptions.grepaBerry},
     [174] = {
-        name = "Tamato Berry",
-        description = "Drops Speed Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen4Names.tamatoBerry,
+        description = Localizations.ItemGen4Descriptions.tamatoBerry},
     [175] = {
-        name = "Cornn Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.cornnBerry,
+        description = Localizations.ItemGen4Descriptions.cornnBerry},
     [176] = {
-        name = "Magost Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.magostBerry,
+        description = Localizations.ItemGen4Descriptions.magostBerry},
     [177] = {
-        name = "Rabuta Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.rabutaBerry,
+        description = Localizations.ItemGen4Descriptions.rabutaBerry},
     [178] = {
-        name = "Nomel Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.nomelBerry,
+        description = Localizations.ItemGen4Descriptions.nomelBerry},
     [179] = {
-        name = "Spelon Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.spelonBerry,
+        description = Localizations.ItemGen4Descriptions.spelonBerry},
     [180] = {
-        name = "Pamtre Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.pamtreBerry,
+        description = Localizations.ItemGen4Descriptions.pamtreBerry},
     [181] = {
-        name = "Watmel Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.watmelBerry,
+        description = Localizations.ItemGen4Descriptions.watmelBerry},
     [182] = {
-        name = "Durin Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.durinBerry,
+        description = Localizations.ItemGen4Descriptions.durinBerry},
     [183] = {
-        name = "Belue Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen4Names.belueBerry,
+        description = Localizations.ItemGen4Descriptions.belueBerry},
     [184] = {
-        name = "Occa Berry",
-        description = "Consumed when struck by a super-effective Fire-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.occaBerry,
+        description = Localizations.ItemGen4Descriptions.occaBerry},
     [185] = {
-        name = "Passho Berry",
-        description = "Consumed when struck by a super-effective Water-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.passhoBerry,
+        description = Localizations.ItemGen4Descriptions.passhoBerry},
     [186] = {
-        name = "Wacan Berry",
-        description = "Consumed when struck by a super-effective Electric-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.wacanBerry,
+        description = Localizations.ItemGen4Descriptions.wacanBerry},
     [187] = {
-        name = "Rindo Berry",
-        description = "Consumed when struck by a super-effective Grass-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.rindoBerry,
+        description = Localizations.ItemGen4Descriptions.rindoBerry},
     [188] = {
-        name = "Yache Berry",
-        description = "Consumed when struck by a super-effective Ice-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.yacheBerry,
+        description = Localizations.ItemGen4Descriptions.yacheBerry},
     [189] = {
-        name = "Chople Berry",
-        description = "Consumed when struck by a super-effective Fighting-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.chopleBerry,
+        description = Localizations.ItemGen4Descriptions.chopleBerry},
     [190] = {
-        name = "Kebia Berry",
-        description = "Consumed when struck by a super-effective Poison-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.kebiaBerry,
+        description = Localizations.ItemGen4Descriptions.kebiaBerry},
     [191] = {
-        name = "Shuca Berry",
-        description = "Consumed when struck by a super-effective Ground-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.shucaBerry,
+        description = Localizations.ItemGen4Descriptions.shucaBerry},
     [192] = {
-        name = "Coba Berry",
-        description = "Consumed when struck by a super-effective Flying-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.cobaBerry,
+        description = Localizations.ItemGen4Descriptions.cobaBerry},
     [193] = {
-        name = "Payapa Berry",
-        description = "Consumed when struck by a super-effective Psychic-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.payapaBerry,
+        description = Localizations.ItemGen4Descriptions.payapaBerry},
     [194] = {
-        name = "Tanga Berry",
-        description = "Consumed when struck by a super-effective Bug-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.tangaBerry,
+        description = Localizations.ItemGen4Descriptions.tangaBerry},
     [195] = {
-        name = "Charti Berry",
-        description = "Consumed when struck by a super-effective Rock-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.chartiBerry,
+        description = Localizations.ItemGen4Descriptions.chartiBerry},
     [196] = {
-        name = "Kasib Berry",
-        description = "Consumed when struck by a super-effective Ghost-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.kasibBerry,
+        description = Localizations.ItemGen4Descriptions.kasibBerry},
     [197] = {
-        name = "Haban Berry",
-        description = "Consumed when struck by a super-effective Dragon-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.habanBerry,
+        description = Localizations.ItemGen4Descriptions.habanBerry},
     [198] = {
-        name = "Colbur Berry",
-        description = "Consumed when struck by a super-effective Dark-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.colburBerry,
+        description = Localizations.ItemGen4Descriptions.colburBerry},
     [199] = {
-        name = "Babiri Berry",
-        description = "Consumed when struck by a super-effective Steel-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.babiriBerry,
+        description = Localizations.ItemGen4Descriptions.babiriBerry},
     [200] = {
-        name = "Chilan Berry",
-        description = "Consumed when struck by a Normal-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen4Names.chilanBerry,
+        description = Localizations.ItemGen4Descriptions.chilanBerry},
     [201] = {
-        name = "Liechi Berry",
-        description = "Consumed at 1/4 max HP to boost Attack."
-    },
+        name = Localizations.ItemGen4Names.liechiBerry,
+        description = Localizations.ItemGen4Descriptions.liechiBerry},
     [202] = {
-        name = "Ganlon Berry",
-        description = "Consumed at 1/4 max HP to boost Defense."
-    },
+        name = Localizations.ItemGen4Names.ganlonBerry,
+        description = Localizations.ItemGen4Descriptions.ganlonBerry},
     [203] = {
-        name = "Salac Berry",
-        description = "Consumed at 1/4 max HP to boost Speed."
-    },
+        name = Localizations.ItemGen4Names.salacBerry,
+        description = Localizations.ItemGen4Descriptions.salacBerry},
     [204] = {
-        name = "Petaya Berry",
-        description = "Consumed at 1/4 max HP to boost Special Attack."
-    },
+        name = Localizations.ItemGen4Names.petayaBerry,
+        description = Localizations.ItemGen4Descriptions.petayaBerry},
     [205] = {
-        name = "Apicot Berry",
-        description = "Consumed at 1/4 max HP to boost Special Defense."
-    },
+        name = Localizations.ItemGen4Names.apicotBerry,
+        description = Localizations.ItemGen4Descriptions.apicotBerry},
     [206] = {
-        name = "Lansat Berry",
-        description = "Consumed at 1/4 max HP to boost critical hit ratio by two stages."
-    },
+        name = Localizations.ItemGen4Names.lansatBerry,
+        description = Localizations.ItemGen4Descriptions.lansatBerry},
     [207] = {
-        name = "Starf Berry",
-        description = "Consumed at 1/4 max HP to boost a random stat by two stages."
-    },
+        name = Localizations.ItemGen4Names.starfBerry,
+        description = Localizations.ItemGen4Descriptions.starfBerry},
     [208] = {
-        name = "Enigma Berry",
-        description = "Consumed when struck by a super-effective attack to restore 1/4 max HP."
-    },
+        name = Localizations.ItemGen4Names.enigmaBerry,
+        description = Localizations.ItemGen4Descriptions.enigmaBerry},
     [209] = {
-        name = "Micle Berry",
-        description = "Consumed at 1/4 max HP to give the next move perfect accuracy."
-    },
+        name = Localizations.ItemGen4Names.micleBerry,
+        description = Localizations.ItemGen4Descriptions.micleBerry},
     [210] = {
-        name = "Custap Berry",
-        description = "Consumed at 1/4 max HP when using a move to go first."
-    },
+        name = Localizations.ItemGen4Names.custapBerry,
+        description = Localizations.ItemGen4Descriptions.custapBerry},
     [211] = {
-        name = "Jaboca Berry",
-        description = "Consumed to deal 1/8 attacker's max HP when holder is struck by a physical attack."
-    },
+        name = Localizations.ItemGen4Names.jabocaBerry,
+        description = Localizations.ItemGen4Descriptions.jabocaBerry},
     [212] = {
-        name = "Rowap Berry",
-        description = "Consumed to deal 1/8 attacker's max HP when holder is struck by a special attack."
-    },
+        name = Localizations.ItemGen4Names.rowapBerry,
+        description = Localizations.ItemGen4Descriptions.rowapBerry},
     [213] = {
-        name = "BrightPowder",
-        description = "Increases the holder's evasion by 1/9 (11 1/9%)."
-    },
+        name = Localizations.ItemGen4Names.brightPowder,
+        description = Localizations.ItemGen4Descriptions.brightPowder},
     [214] = {
-        name = "White Herb",
-        description = "Resets all lowered stats to normal at end of turn. Consumed after use."
-    },
+        name = Localizations.ItemGen4Names.whiteHerb,
+        description = Localizations.ItemGen4Descriptions.whiteHerb},
     [215] = {
-        name = "Macho Brace",
-        description = "Holder gains double effort values from battles, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen4Names.machoBrace,
+        description = Localizations.ItemGen4Descriptions.machoBrace},
     [216] = {
-        name = "Exp Share",
-        description = "Half the experience from a battle is split between Pok" .. Chars.accentedE .. "mon holding this item."
-    },
+        name = Localizations.ItemGen4Names.expShare,
+        description = Localizations.ItemGen4Descriptions.expShare},
     [217] = {
-        name = "Quick Claw",
-        description = "Holder has a 3/16 (18.75%) chance to move first."
-    },
+        name = Localizations.ItemGen4Names.quickClaw,
+        description = Localizations.ItemGen4Descriptions.quickClaw},
     [218] = {
-        name = "Soothe Bell",
-        description = "Doubles the happiness earned by the holder."
-    },
+        name = Localizations.ItemGen4Names.sootheBell,
+        description = Localizations.ItemGen4Descriptions.sootheBell},
     [219] = {
-        name = "Mental Herb",
-        description = "Consumed to cure infatuation. Gen V: Also removes Taunt, Encore, Torment, Disable, and Cursed Body."
-    },
+        name = Localizations.ItemGen4Names.mentalHerb,
+        description = Localizations.ItemGen4Descriptions.mentalHerb},
     [220] = {
-        name = "Choice Band",
-        description = "Increases Attack by 50%, but restricts the holder to only one move."
-    },
+        name = Localizations.ItemGen4Names.choiceBand,
+        description = Localizations.ItemGen4Descriptions.choiceBand},
     [221] = {
-        name = "King's Rock",
-        description = "Damaging moves gain a 10% chance to make their target flinch. Traded on a Poliwhirl: Holder evolves into Politoed. Traded on a Slowpoke: Holder evolves into Slowking."
-    },
+        name = Localizations.ItemGen4Names.kingSRock,
+        description = Localizations.ItemGen4Descriptions.kingSRock},
     [222] = {
-        name = "Silver Powder",
-        description = "Bug-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.silverPowder,
+        description = Localizations.ItemGen4Descriptions.silverPowder},
     [223] = {
-        name = "Amulet Coin",
-        description = "Doubles the money earned from a battle. Does not stack with Luck Incense."
-    },
+        name = Localizations.ItemGen4Names.amuletCoin,
+        description = Localizations.ItemGen4Descriptions.amuletCoin},
     [224] = {
-        name = "Cleanse Tag",
-        description = "Prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen4Names.cleanseTag,
+        description = Localizations.ItemGen4Descriptions.cleanseTag},
     [225] = {
-        name = "Soul Dew",
-        description = "Raises Latias and Latios's Special Attack and Special Defense by 50%."
-    },
+        name = Localizations.ItemGen4Names.soulDew,
+        description = Localizations.ItemGen4Descriptions.soulDew},
     [226] = {
-        name = "DeepSeaTooth",
-        displayName = "Deep Sea Tooth",
-        description = "Doubles Clamperl's Special Attack. Traded on a Clamperl: Holder evolves into Huntail."
-    },
+        name = Localizations.ItemGen4Names.deepSeaTooth,
+        displayName = Localizations.ItemGen4Names.deepSeaToothDisplay,
+        description = Localizations.ItemGen4Descriptions.deepSeaTooth},
     [227] = {
-        name = "DeepSeaScale",
-        displayName = "Deep Sea Scale",
-        description = "Doubles Clamperl's Special Defense. Traded on a Clamperl: Holder evolves into Gorebyss."
-    },
+        name = Localizations.ItemGen4Names.deepSeaScale,
+        displayName = Localizations.ItemGen4Names.deepSeaScaleDisplay,
+        description = Localizations.ItemGen4Descriptions.deepSeaScale},
     [228] = {
-        name = "Smoke Ball",
-        description = "Allows the Holder to escape from any wild battle."
-    },
+        name = Localizations.ItemGen4Names.smokeBall,
+        description = Localizations.ItemGen4Descriptions.smokeBall},
     [229] = {
-        name = "Everstone",
-        description = "Prevents level-based evolution from occuring."
-    },
+        name = Localizations.ItemGen4Names.everstone,
+        description = Localizations.ItemGen4Descriptions.everstone},
     [230] = {
-        name = "Focus Band",
-        description = "Holder has 10% chance to survive attacks or self-inflicted damage at 1 HP."
-    },
+        name = Localizations.ItemGen4Names.focusBand,
+        description = Localizations.ItemGen4Descriptions.focusBand},
     [231] = {
-        name = "Lucky Egg",
-        description = "Increases EXP earned in battle by 50%."
-    },
+        name = Localizations.ItemGen4Names.luckyEgg,
+        description = Localizations.ItemGen4Descriptions.luckyEgg},
     [232] = {
-        name = "Scope Lens",
-        description = "Raises the holder's critical hit ratio by one stage."
-    },
+        name = Localizations.ItemGen4Names.scopeLens,
+        description = Localizations.ItemGen4Descriptions.scopeLens},
     [233] = {
-        name = "Metal Coat",
-        description = "Steel-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.metalCoat,
+        description = Localizations.ItemGen4Descriptions.metalCoat},
     [234] = {
-        name = "Leftovers",
-        description = "Restores 1/16 (6.25%) holder's max HP at the end of each turn."
-    },
+        name = Localizations.ItemGen4Names.leftovers,
+        description = Localizations.ItemGen4Descriptions.leftovers},
     [235] = {
-        name = "Dragon Scale",
-        description = "Traded on a Seadra: Holder evolves into Kingdra."
-    },
+        name = Localizations.ItemGen4Names.dragonScale,
+        description = Localizations.ItemGen4Descriptions.dragonScale},
     [236] = {
-        name = "Light Ball",
-        description = "Doubles Pikachu's Attack and Special Attack. Breed on Pikachu or Raichu: Pichu Egg will have Volt Tackle."
-    },
+        name = Localizations.ItemGen4Names.lightBall,
+        description = Localizations.ItemGen4Descriptions.lightBall},
     [237] = {
-        name = "Soft Sand",
-        description = "Ground-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.softSand,
+        description = Localizations.ItemGen4Descriptions.softSand},
     [238] = {
-        name = "Hard Stone",
-        description = "Rock-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.hardStone,
+        description = Localizations.ItemGen4Descriptions.hardStone},
     [239] = {
-        name = "Miracle Seed",
-        description = "Grass-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.miracleSeed,
+        description = Localizations.ItemGen4Descriptions.miracleSeed},
     [240] = {
-        name = "BlackGlasses",
-        description = "Dark-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.blackGlasses,
+        description = Localizations.ItemGen4Descriptions.blackGlasses},
     [241] = {
-        name = "Black Belt",
-        description = "Fighting-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.blackBelt,
+        description = Localizations.ItemGen4Descriptions.blackBelt},
     [242] = {
-        name = "Magnet",
-        description = "Electric-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.magnet,
+        description = Localizations.ItemGen4Descriptions.magnet},
     [243] = {
-        name = "Mystic Water",
-        description = "Water-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.mysticWater,
+        description = Localizations.ItemGen4Descriptions.mysticWater},
     [244] = {
-        name = "Sharp Beak",
-        description = "Flying-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.sharpBeak,
+        description = Localizations.ItemGen4Descriptions.sharpBeak},
     [245] = {
-        name = "Poison Barb",
-        description = "Poison-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.poisonBarb,
+        description = Localizations.ItemGen4Descriptions.poisonBarb},
     [246] = {
-        name = "Never Melt-ice",
-        description = "Ice-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.neverMeltIce,
+        description = Localizations.ItemGen4Descriptions.neverMeltIce},
     [247] = {
-        name = "Spell Tag",
-        description = "Ghost-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.spellTag,
+        description = Localizations.ItemGen4Descriptions.spellTag},
     [248] = {
-        name = "TwistedSpoon",
-        displayName = "Twisted Spoon",
-        description = "Psychic-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.twistedSpoon,
+        displayName = Localizations.ItemGen4Names.twistedSpoonDisplay,
+        description = Localizations.ItemGen4Descriptions.twistedSpoon},
     [249] = {
-        name = "Charcoal",
-        description = "Fire-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.charcoal,
+        description = Localizations.ItemGen4Descriptions.charcoal},
     [250] = {
-        name = "Dragon Fang",
-        description = "Dragon-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.dragonFang,
+        description = Localizations.ItemGen4Descriptions.dragonFang},
     [251] = {
-        name = "Silk Scarf",
-        description = "Normal-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen4Names.silkScarf,
+        description = Localizations.ItemGen4Descriptions.silkScarf},
     [252] = {
-        name = "Up Grade",
-        description = "Traded on a Porygon: Holder evolves into Porygon2."
-    },
+        name = Localizations.ItemGen4Names.upGrade,
+        description = Localizations.ItemGen4Descriptions.upGrade},
     [253] = {
-        name = "Shell Bell",
-        description = "Holder receives 1/8 of the damage it deals when attacking."
-    },
+        name = Localizations.ItemGen4Names.shellBell,
+        description = Localizations.ItemGen4Descriptions.shellBell},
     [254] = {
-        name = "Sea Incense",
-        description = "Water-Type moves from holder do 20% more damage. Breeding: Marill or Azumarill beget an Azurill Egg."
-    },
+        name = Localizations.ItemGen4Names.seaIncense,
+        description = Localizations.ItemGen4Descriptions.seaIncense},
     [255] = {
-        name = "Lax Incense",
-        description = "Holder's evasion is increased by 10%. Breeding: Wobbuffet begets a Wynaut Egg."
-    },
+        name = Localizations.ItemGen4Names.laxIncense,
+        description = Localizations.ItemGen4Descriptions.laxIncense},
     [256] = {
-        name = "Lucky Punch",
-        description = "Raises Chansey's critical hit ratio by two stages."
-    },
+        name = Localizations.ItemGen4Names.luckyPunch,
+        description = Localizations.ItemGen4Descriptions.luckyPunch},
     [257] = {
-        name = "Metal Powder",
-        description = "Raises Ditto's Defense and Special Defense by 50%. The boost is lost after transforming."
-    },
+        name = Localizations.ItemGen4Names.metalPowder,
+        description = Localizations.ItemGen4Descriptions.metalPowder},
     [258] = {
-        name = "Thick Club",
-        description = "Doubles Cubone or Marowak's Attack."
-    },
+        name = Localizations.ItemGen4Names.thickClub,
+        description = Localizations.ItemGen4Descriptions.thickClub},
     [259] = {
-        name = "Stick",
-        description = "Raises Farfetch'd's critical hit ratio by two stages."
-    },
+        name = Localizations.ItemGen4Names.stick,
+        description = Localizations.ItemGen4Descriptions.stick},
     [260] = {
-        name = "Red Scarf",
-        description = "Raises the holder's Coolness while in a contest."
-    },
+        name = Localizations.ItemGen4Names.redScarf,
+        description = Localizations.ItemGen4Descriptions.redScarf},
     [261] = {
-        name = "Blue Scarf",
-        description = "Raises the holder's Beauty while in a contest."
-    },
+        name = Localizations.ItemGen4Names.blueScarf,
+        description = Localizations.ItemGen4Descriptions.blueScarf},
     [262] = {
-        name = "Pink Scarf",
-        description = "Raises the holder's Cuteness while in a contest."
-    },
+        name = Localizations.ItemGen4Names.pinkScarf,
+        description = Localizations.ItemGen4Descriptions.pinkScarf},
     [263] = {
-        name = "Green Scarf",
-        description = "Raises the holder's Smartness while in a contest."
-    },
+        name = Localizations.ItemGen4Names.greenScarf,
+        description = Localizations.ItemGen4Descriptions.greenScarf},
     [264] = {
-        name = "Yellow Scarf",
-        description = "Raises the holder's Toughness while in a contest."
-    },
+        name = Localizations.ItemGen4Names.yellowScarf,
+        description = Localizations.ItemGen4Descriptions.yellowScarf},
     [265] = {
-        name = "Wide Lens",
-        description = "Provides a 1/10 (10%) boost in accuracy to the holder."
-    },
+        name = Localizations.ItemGen4Names.wideLens,
+        description = Localizations.ItemGen4Descriptions.wideLens},
     [266] = {
-        name = "Muscle Band",
-        description = "Boosts the damage of physical moves used by the holder by 10%."
-    },
+        name = Localizations.ItemGen4Names.muscleBand,
+        description = Localizations.ItemGen4Descriptions.muscleBand},
     [267] = {
-        name = "Wise Glasses",
-        description = "Boosts the damage of special moves used by the holder by 1/10 (10%)."
-    },
+        name = Localizations.ItemGen4Names.wiseGlasses,
+        description = Localizations.ItemGen4Descriptions.wiseGlasses},
     [268] = {
-        name = "Expert Belt",
-        description = "Holder's Super Effective moves do 20% extra damage."
-    },
+        name = Localizations.ItemGen4Names.expertBelt,
+        description = Localizations.ItemGen4Descriptions.expertBelt},
     [269] = {
-        name = "Light Clay",
-        description = "Light Screen and Reflect used by the holder last 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen4Names.lightClay,
+        description = Localizations.ItemGen4Descriptions.lightClay},
     [270] = {
-        name = "Life Orb",
-        description = "Holder's moves inflict 30% extra damage, but cost 10% max HP."
-    },
+        name = Localizations.ItemGen4Names.lifeOrb,
+        description = Localizations.ItemGen4Descriptions.lifeOrb},
     [271] = {
-        name = "Power Herb",
-        description = "Both turns of a two-turn charge move happen at once. Consumed upon use."
-    },
+        name = Localizations.ItemGen4Names.powerHerb,
+        description = Localizations.ItemGen4Descriptions.powerHerb},
     [272] = {
-        name = "Toxic Orb",
-        description = "Inflicts Toxic on the holder at the end of the turn. Activates after Poison damage would occur."
-    },
+        name = Localizations.ItemGen4Names.toxicOrb,
+        description = Localizations.ItemGen4Descriptions.toxicOrb},
     [273] = {
-        name = "Flame Orb",
-        description = "Inflicts Burn on the holder at the end of the turn. Activates after Burn damage would occur."
-    },
+        name = Localizations.ItemGen4Names.flameOrb,
+        description = Localizations.ItemGen4Descriptions.flameOrb},
     [274] = {
-        name = "Quick Powder",
-        description = "Doubles Ditto's Speed when held. The boost is lost after transforming."
-    },
+        name = Localizations.ItemGen4Names.quickPowder,
+        description = Localizations.ItemGen4Descriptions.quickPowder},
     [275] = {
-        name = "Focus Sash",
-        description = "Holder survives any single-hit attack at 1 HP if at max HP, then the item is consumed."
-    },
+        name = Localizations.ItemGen4Names.focusSash,
+        description = Localizations.ItemGen4Descriptions.focusSash},
     [276] = {
-        name = "Zoom Lens",
-        description = "Provides a 1/5 (20%) boost in accuracy if the holder moves after the target."
-    },
+        name = Localizations.ItemGen4Names.zoomLens,
+        description = Localizations.ItemGen4Descriptions.zoomLens},
     [277] = {
-        name = "Metronome",
-        description = "Consectutive uses of the same attack have a cumulative damage boost of 10%. Maximum 100% boost."
-    },
+        name = Localizations.ItemGen4Names.metronome,
+        description = Localizations.ItemGen4Descriptions.metronome},
     [278] = {
-        name = "Iron Ball",
-        description = "Holder's Speed is halved. Negates all Ground-type immunities, and makes Flying-types take neutral damage from Ground-type moves. Arena Trap. Spikes, and Toxic Spikes affect the holder."
-    },
+        name = Localizations.ItemGen4Names.ironBall,
+        description = Localizations.ItemGen4Descriptions.ironBall},
     [279] = {
-        name = "Lagging Tail",
-        description = "Holder moves last in its priority bracket."
-    },
+        name = Localizations.ItemGen4Names.laggingTail,
+        description = Localizations.ItemGen4Descriptions.laggingTail},
     [280] = {
-        name = "Destiny Knot",
-        description = "Infatuates opposing Pok" .. Chars.accentedE .. "mon when holder is inflicted with infatuation."
-    },
+        name = Localizations.ItemGen4Names.destinyKnot,
+        description = Localizations.ItemGen4Descriptions.destinyKnot},
     [281] = {
-        name = "Black Sludge",
-        description = "Poison-type holder recovers 1/16 (6.25%) max HP each turn. Non-Poison-Types take 1/8 (12.5%) max HP damage."
-    },
+        name = Localizations.ItemGen4Names.blackSludge,
+        description = Localizations.ItemGen4Descriptions.blackSludge},
     [282] = {
-        name = "Icy Rock",
-        description = "Hail by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen4Names.icyRock,
+        description = Localizations.ItemGen4Descriptions.icyRock},
     [283] = {
-        name = "Smooth Rock",
-        description = "Sandstorm by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen4Names.smoothRock,
+        description = Localizations.ItemGen4Descriptions.smoothRock},
     [284] = {
-        name = "Heat Rock",
-        description = "Sunny Day by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen4Names.heatRock,
+        description = Localizations.ItemGen4Descriptions.heatRock},
     [285] = {
-        name = "Damp Rock",
-        description = "Rain Dance by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen4Names.dampRock,
+        description = Localizations.ItemGen4Descriptions.dampRock},
     [286] = {
-        name = "Grip Claw",
-        description = "Holder's multi-turn trapping moves last 5 turns."
-    },
+        name = Localizations.ItemGen4Names.gripClaw,
+        description = Localizations.ItemGen4Descriptions.gripClaw},
     [287] = {
-        name = "Choice Scarf",
-        description = "Increases Speed by 50%, but restricts the holder to only one move."
-    },
+        name = Localizations.ItemGen4Names.choiceScarf,
+        description = Localizations.ItemGen4Descriptions.choiceScarf},
     [288] = {
-        name = "Sticky Barb",
-        description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok" ..
-            Chars.accentedE .. "mon takes 1/8 its max HP in damage and receive the item if not holding one."
-    },
+        name = Localizations.ItemGen4Names.stickyBarb,
+        description = Localizations.ItemGen4Descriptions.stickyBarb},
     [289] = {
-        name = "Power Bracer",
-        description = "Holder gains 4 Attack effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen4Names.powerBracer,
+        description = Localizations.ItemGen4Descriptions.powerBracer},
     [290] = {
-        name = "Power Belt",
-        description = "Holder gains 4 Defense effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen4Names.powerBelt,
+        description = Localizations.ItemGen4Descriptions.powerBelt},
     [291] = {
-        name = "Power Lens",
-        description = "Holder gains 4 Special Attack effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen4Names.powerLens,
+        description = Localizations.ItemGen4Descriptions.powerLens},
     [292] = {
-        name = "Power Band",
-        description = "Holder gains 4 Special Defense effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen4Names.powerBand,
+        description = Localizations.ItemGen4Descriptions.powerBand},
     [293] = {
-        name = "Power Anklet",
-        description = "Holder gains 4 Speed effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen4Names.powerAnklet,
+        description = Localizations.ItemGen4Descriptions.powerAnklet},
     [294] = {
-        name = "Power Weight",
-        description = "Holder gains 4 HP effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen4Names.powerWeight,
+        description = Localizations.ItemGen4Descriptions.powerWeight},
     [295] = {
-        name = "Shed Shell",
-        description = "Holder can bypass all trapping effects and switch out. Multi-turn moves still cannot be switched out of."
-    },
+        name = Localizations.ItemGen4Names.shedShell,
+        description = Localizations.ItemGen4Descriptions.shedShell},
     [296] = {
-        name = "Big Root",
-        description = "Increases HP recovered from draining moves, Ingrain, and Aqua Ring by 3/10 (30%)."
-    },
+        name = Localizations.ItemGen4Names.bigRoot,
+        description = Localizations.ItemGen4Descriptions.bigRoot},
     [297] = {
-        name = "Choice Specs",
-        description = "Increases Special Attack by 50%, but restricts the holder to only one move."
-    },
+        name = Localizations.ItemGen4Names.choiceSpecs,
+        description = Localizations.ItemGen4Descriptions.choiceSpecs},
     [298] = {
-        name = "Flame Plate",
-        description = "Fire-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Fire."
-    },
+        name = Localizations.ItemGen4Names.flamePlate,
+        description = Localizations.ItemGen4Descriptions.flamePlate},
     [299] = {
-        name = "Splash Plate",
-        description = "Water-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Water."
-    },
+        name = Localizations.ItemGen4Names.splashPlate,
+        description = Localizations.ItemGen4Descriptions.splashPlate},
     [300] = {
-        name = "Zap Plate",
-        description = "Electric-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Electric."
-    },
+        name = Localizations.ItemGen4Names.zapPlate,
+        description = Localizations.ItemGen4Descriptions.zapPlate},
     [301] = {
-        name = "Meadow Plate",
-        description = "Grass-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Grass."
-    },
+        name = Localizations.ItemGen4Names.meadowPlate,
+        description = Localizations.ItemGen4Descriptions.meadowPlate},
     [302] = {
-        name = "Icicle Plate",
-        description = "Ice-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Ice."
-    },
+        name = Localizations.ItemGen4Names.iciclePlate,
+        description = Localizations.ItemGen4Descriptions.iciclePlate},
     [303] = {
-        name = "Fist Plate",
-        description = "Fighting-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Fighting."
-    },
+        name = Localizations.ItemGen4Names.fistPlate,
+        description = Localizations.ItemGen4Descriptions.fistPlate},
     [304] = {
-        name = "Toxic Plate",
-        description = "Posion-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Posion."
-    },
+        name = Localizations.ItemGen4Names.toxicPlate,
+        description = Localizations.ItemGen4Descriptions.toxicPlate},
     [305] = {
-        name = "Earth Plate",
-        description = "Ground-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Ground."
-    },
+        name = Localizations.ItemGen4Names.earthPlate,
+        description = Localizations.ItemGen4Descriptions.earthPlate},
     [306] = {
-        name = "Sky Plate",
-        description = "Flying-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Flying."
-    },
+        name = Localizations.ItemGen4Names.skyPlate,
+        description = Localizations.ItemGen4Descriptions.skyPlate},
     [307] = {
-        name = "Mind Plate",
-        description = "Psychic-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Psychic."
-    },
+        name = Localizations.ItemGen4Names.mindPlate,
+        description = Localizations.ItemGen4Descriptions.mindPlate},
     [308] = {
-        name = "Insect Plate",
-        description = "Bug-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Bug."
-    },
+        name = Localizations.ItemGen4Names.insectPlate,
+        description = Localizations.ItemGen4Descriptions.insectPlate},
     [309] = {
-        name = "Stone Plate",
-        description = "Rock-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Rock."
-    },
+        name = Localizations.ItemGen4Names.stonePlate,
+        description = Localizations.ItemGen4Descriptions.stonePlate},
     [310] = {
-        name = "Spooky Plate",
-        description = "Ghost-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Ghost."
-    },
+        name = Localizations.ItemGen4Names.spookyPlate,
+        description = Localizations.ItemGen4Descriptions.spookyPlate},
     [311] = {
-        name = "Draco Plate",
-        description = "Dragon-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Dragon."
-    },
+        name = Localizations.ItemGen4Names.dracoPlate,
+        description = Localizations.ItemGen4Descriptions.dracoPlate},
     [312] = {
-        name = "Dread Plate",
-        description = "Dark-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Dark."
-    },
+        name = Localizations.ItemGen4Names.dreadPlate,
+        description = Localizations.ItemGen4Descriptions.dreadPlate},
     [313] = {
-        name = "Iron Plate",
-        description = "Steel-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Steel."
-    },
+        name = Localizations.ItemGen4Names.ironPlate,
+        description = Localizations.ItemGen4Descriptions.ironPlate},
     [314] = {
-        name = "Odd Incense",
-        description = "Psychic-Type moves from holder do 20% more damage. Breeding: Mr. Mime begets a Mime Jr. Egg."
-    },
+        name = Localizations.ItemGen4Names.oddIncense,
+        description = Localizations.ItemGen4Descriptions.oddIncense},
     [315] = {
-        name = "Rock Incense",
-        description = "Rock-Type moves from holder do 20% more damage. Breeding: Sudowoodo begets a Bonsly Egg."
-    },
+        name = Localizations.ItemGen4Names.rockIncense,
+        description = Localizations.ItemGen4Descriptions.rockIncense},
     [316] = {
-        name = "Full Incense",
-        description = "Holder moves last in its priority bracket. Breeding: Snorlax begets a Munchlax Egg."
-    },
+        name = Localizations.ItemGen4Names.fullIncense,
+        description = Localizations.ItemGen4Descriptions.fullIncense},
     [317] = {
-        name = "Wave Incense",
-        description = "Water-Type moves from holder do 20% more damage. Breeding: Mantine begets a Mantyke Egg."
-    },
+        name = Localizations.ItemGen4Names.waveIncense,
+        description = Localizations.ItemGen4Descriptions.waveIncense},
     [318] = {
-        name = "Rose Incense",
-        description = "Grass-Type moves from holder do 20% more damage. Breeding: Roselia or Roserade beget a Budew Egg."
-    },
+        name = Localizations.ItemGen4Names.roseIncense,
+        description = Localizations.ItemGen4Descriptions.roseIncense},
     [319] = {
-        name = "Luck Incense",
-        description = "Doubles the money earned from a battle. Does not stack with Amulet Coin. Breeding: Chansey and Blissey beget a Happiny Egg."
-    },
+        name = Localizations.ItemGen4Names.luckIncense,
+        description = Localizations.ItemGen4Descriptions.luckIncense},
     [320] = {
-        name = "Pure Incense",
-        description = "Prevents wild encounters of level lower than your party's lead Pokemon. Breeding: Chimecho begets a Chingling Egg."
-    },
+        name = Localizations.ItemGen4Names.pureIncense,
+        description = Localizations.ItemGen4Descriptions.pureIncense},
     [321] = {
-        name = "Protector",
-        description = "Traded on a Rhydon: Holder evolves into Rhyperior."
-    },
+        name = Localizations.ItemGen4Names.protector,
+        description = Localizations.ItemGen4Descriptions.protector},
     [322] = {
-        name = "Electirizer",
-        description = "Traded on an Electabuzz: Holder evolves into Electivire."
-    },
+        name = Localizations.ItemGen4Names.electirizer,
+        description = Localizations.ItemGen4Descriptions.electirizer},
     [323] = {
-        name = "Magmarizer",
-        description = "Traded on a Magmar: Holder evolves into Magmortar."
-    },
+        name = Localizations.ItemGen4Names.magmarizer,
+        description = Localizations.ItemGen4Descriptions.magmarizer},
     [324] = {
-        name = "Dubious Disc",
-        description = "Traded on a Porygon2: Holder evolves into Porygon-Z."
-    },
+        name = Localizations.ItemGen4Names.dubiousDisc,
+        description = Localizations.ItemGen4Descriptions.dubiousDisc},
     [325] = {
-        name = "Reaper Cloth",
-        description = "Traded on a Dusclops: Holder evolves into Dusknoir."
-    },
+        name = Localizations.ItemGen4Names.reaperCloth,
+        description = Localizations.ItemGen4Descriptions.reaperCloth},
     [326] = {
-        name = "Razor Claw",
-        description = "Raises the holder's critical hit ratio by one stage. Held by a Sneasel while levelling up at night: Holder evolves into Weavile."
-    },
+        name = Localizations.ItemGen4Names.razorClaw,
+        description = Localizations.ItemGen4Descriptions.razorClaw},
     [327] = {
-        name = "Razor Fang",
-        description = "Damaging moves gain a 10% chance to make their target flinch. Held by a Gligar while levelling up: Holder evolves into Gliscor."
-    },
+        name = Localizations.ItemGen4Names.razorFang,
+        description = Localizations.ItemGen4Descriptions.razorFang},
     [328] = {
-        name = "TM01",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM01,
+        description = Localizations.ItemGen4Descriptions.tM01},
     [329] = {
-        name = "TM02",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM02,
+        description = Localizations.ItemGen4Descriptions.tM02},
     [330] = {
-        name = "TM03",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM03,
+        description = Localizations.ItemGen4Descriptions.tM03},
     [331] = {
-        name = "TM04",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM04,
+        description = Localizations.ItemGen4Descriptions.tM04},
     [332] = {
-        name = "TM05",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM05,
+        description = Localizations.ItemGen4Descriptions.tM05},
     [333] = {
-        name = "TM06",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM06,
+        description = Localizations.ItemGen4Descriptions.tM06},
     [334] = {
-        name = "TM07",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM07,
+        description = Localizations.ItemGen4Descriptions.tM07},
     [335] = {
-        name = "TM08",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM08,
+        description = Localizations.ItemGen4Descriptions.tM08},
     [336] = {
-        name = "TM09",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM09,
+        description = Localizations.ItemGen4Descriptions.tM09},
     [337] = {
-        name = "TM10",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM10,
+        description = Localizations.ItemGen4Descriptions.tM10},
     [338] = {
-        name = "TM11",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM11,
+        description = Localizations.ItemGen4Descriptions.tM11},
     [339] = {
-        name = "TM12",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM12,
+        description = Localizations.ItemGen4Descriptions.tM12},
     [340] = {
-        name = "TM13",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM13,
+        description = Localizations.ItemGen4Descriptions.tM13},
     [341] = {
-        name = "TM14",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM14,
+        description = Localizations.ItemGen4Descriptions.tM14},
     [342] = {
-        name = "TM15",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM15,
+        description = Localizations.ItemGen4Descriptions.tM15},
     [343] = {
-        name = "TM16",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM16,
+        description = Localizations.ItemGen4Descriptions.tM16},
     [344] = {
-        name = "TM17",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM17,
+        description = Localizations.ItemGen4Descriptions.tM17},
     [345] = {
-        name = "TM18",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM18,
+        description = Localizations.ItemGen4Descriptions.tM18},
     [346] = {
-        name = "TM19",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM19,
+        description = Localizations.ItemGen4Descriptions.tM19},
     [347] = {
-        name = "TM20",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM20,
+        description = Localizations.ItemGen4Descriptions.tM20},
     [348] = {
-        name = "TM21",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM21,
+        description = Localizations.ItemGen4Descriptions.tM21},
     [349] = {
-        name = "TM22",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM22,
+        description = Localizations.ItemGen4Descriptions.tM22},
     [350] = {
-        name = "TM23",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM23,
+        description = Localizations.ItemGen4Descriptions.tM23},
     [351] = {
-        name = "TM24",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM24,
+        description = Localizations.ItemGen4Descriptions.tM24},
     [352] = {
-        name = "TM25",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM25,
+        description = Localizations.ItemGen4Descriptions.tM25},
     [353] = {
-        name = "TM26",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM26,
+        description = Localizations.ItemGen4Descriptions.tM26},
     [354] = {
-        name = "TM27",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM27,
+        description = Localizations.ItemGen4Descriptions.tM27},
     [355] = {
-        name = "TM28",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM28,
+        description = Localizations.ItemGen4Descriptions.tM28},
     [356] = {
-        name = "TM29",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM29,
+        description = Localizations.ItemGen4Descriptions.tM29},
     [357] = {
-        name = "TM30",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM30,
+        description = Localizations.ItemGen4Descriptions.tM30},
     [358] = {
-        name = "TM31",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM31,
+        description = Localizations.ItemGen4Descriptions.tM31},
     [359] = {
-        name = "TM32",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM32,
+        description = Localizations.ItemGen4Descriptions.tM32},
     [360] = {
-        name = "TM33",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM33,
+        description = Localizations.ItemGen4Descriptions.tM33},
     [361] = {
-        name = "TM34",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM34,
+        description = Localizations.ItemGen4Descriptions.tM34},
     [362] = {
-        name = "TM35",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM35,
+        description = Localizations.ItemGen4Descriptions.tM35},
     [363] = {
-        name = "TM36",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM36,
+        description = Localizations.ItemGen4Descriptions.tM36},
     [364] = {
-        name = "TM37",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM37,
+        description = Localizations.ItemGen4Descriptions.tM37},
     [365] = {
-        name = "TM38",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM38,
+        description = Localizations.ItemGen4Descriptions.tM38},
     [366] = {
-        name = "TM39",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM39,
+        description = Localizations.ItemGen4Descriptions.tM39},
     [367] = {
-        name = "TM40",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM40,
+        description = Localizations.ItemGen4Descriptions.tM40},
     [368] = {
-        name = "TM41",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM41,
+        description = Localizations.ItemGen4Descriptions.tM41},
     [369] = {
-        name = "TM42",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM42,
+        description = Localizations.ItemGen4Descriptions.tM42},
     [370] = {
-        name = "TM43",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM43,
+        description = Localizations.ItemGen4Descriptions.tM43},
     [371] = {
-        name = "TM44",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM44,
+        description = Localizations.ItemGen4Descriptions.tM44},
     [372] = {
-        name = "TM45",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM45,
+        description = Localizations.ItemGen4Descriptions.tM45},
     [373] = {
-        name = "TM46",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM46,
+        description = Localizations.ItemGen4Descriptions.tM46},
     [374] = {
-        name = "TM47",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM47,
+        description = Localizations.ItemGen4Descriptions.tM47},
     [375] = {
-        name = "TM48",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM48,
+        description = Localizations.ItemGen4Descriptions.tM48},
     [376] = {
-        name = "TM49",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM49,
+        description = Localizations.ItemGen4Descriptions.tM49},
     [377] = {
-        name = "TM50",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM50,
+        description = Localizations.ItemGen4Descriptions.tM50},
     [378] = {
-        name = "TM51",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM51,
+        description = Localizations.ItemGen4Descriptions.tM51},
     [379] = {
-        name = "TM52",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM52,
+        description = Localizations.ItemGen4Descriptions.tM52},
     [380] = {
-        name = "TM53",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM53,
+        description = Localizations.ItemGen4Descriptions.tM53},
     [381] = {
-        name = "TM54",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM54,
+        description = Localizations.ItemGen4Descriptions.tM54},
     [382] = {
-        name = "TM55",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM55,
+        description = Localizations.ItemGen4Descriptions.tM55},
     [383] = {
-        name = "TM56",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM56,
+        description = Localizations.ItemGen4Descriptions.tM56},
     [384] = {
-        name = "TM57",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM57,
+        description = Localizations.ItemGen4Descriptions.tM57},
     [385] = {
-        name = "TM58",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM58,
+        description = Localizations.ItemGen4Descriptions.tM58},
     [386] = {
-        name = "TM59",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM59,
+        description = Localizations.ItemGen4Descriptions.tM59},
     [387] = {
-        name = "TM60",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM60,
+        description = Localizations.ItemGen4Descriptions.tM60},
     [388] = {
-        name = "TM61",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM61,
+        description = Localizations.ItemGen4Descriptions.tM61},
     [389] = {
-        name = "TM62",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM62,
+        description = Localizations.ItemGen4Descriptions.tM62},
     [390] = {
-        name = "TM63",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM63,
+        description = Localizations.ItemGen4Descriptions.tM63},
     [391] = {
-        name = "TM64",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM64,
+        description = Localizations.ItemGen4Descriptions.tM64},
     [392] = {
-        name = "TM65",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM65,
+        description = Localizations.ItemGen4Descriptions.tM65},
     [393] = {
-        name = "TM66",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM66,
+        description = Localizations.ItemGen4Descriptions.tM66},
     [394] = {
-        name = "TM67",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM67,
+        description = Localizations.ItemGen4Descriptions.tM67},
     [395] = {
-        name = "TM68",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM68,
+        description = Localizations.ItemGen4Descriptions.tM68},
     [396] = {
-        name = "TM69",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM69,
+        description = Localizations.ItemGen4Descriptions.tM69},
     [397] = {
-        name = "TM70",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM70,
+        description = Localizations.ItemGen4Descriptions.tM70},
     [398] = {
-        name = "TM71",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM71,
+        description = Localizations.ItemGen4Descriptions.tM71},
     [399] = {
-        name = "TM72",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM72,
+        description = Localizations.ItemGen4Descriptions.tM72},
     [400] = {
-        name = "TM73",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM73,
+        description = Localizations.ItemGen4Descriptions.tM73},
     [401] = {
-        name = "TM74",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM74,
+        description = Localizations.ItemGen4Descriptions.tM74},
     [402] = {
-        name = "TM75",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM75,
+        description = Localizations.ItemGen4Descriptions.tM75},
     [403] = {
-        name = "TM76",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM76,
+        description = Localizations.ItemGen4Descriptions.tM76},
     [404] = {
-        name = "TM77",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM77,
+        description = Localizations.ItemGen4Descriptions.tM77},
     [405] = {
-        name = "TM78",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM78,
+        description = Localizations.ItemGen4Descriptions.tM78},
     [406] = {
-        name = "TM79",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM79,
+        description = Localizations.ItemGen4Descriptions.tM79},
     [407] = {
-        name = "TM80",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM80,
+        description = Localizations.ItemGen4Descriptions.tM80},
     [408] = {
-        name = "TM81",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM81,
+        description = Localizations.ItemGen4Descriptions.tM81},
     [409] = {
-        name = "TM82",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM82,
+        description = Localizations.ItemGen4Descriptions.tM82},
     [410] = {
-        name = "TM83",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM83,
+        description = Localizations.ItemGen4Descriptions.tM83},
     [411] = {
-        name = "TM84",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM84,
+        description = Localizations.ItemGen4Descriptions.tM84},
     [412] = {
-        name = "TM85",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM85,
+        description = Localizations.ItemGen4Descriptions.tM85},
     [413] = {
-        name = "TM86",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM86,
+        description = Localizations.ItemGen4Descriptions.tM86},
     [414] = {
-        name = "TM87",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM87,
+        description = Localizations.ItemGen4Descriptions.tM87},
     [415] = {
-        name = "TM88",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM88,
+        description = Localizations.ItemGen4Descriptions.tM88},
     [416] = {
-        name = "TM89",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM89,
+        description = Localizations.ItemGen4Descriptions.tM89},
     [417] = {
-        name = "TM90",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM90,
+        description = Localizations.ItemGen4Descriptions.tM90},
     [418] = {
-        name = "TM91",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM91,
+        description = Localizations.ItemGen4Descriptions.tM91},
     [419] = {
-        name = "TM92",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.tM92,
+        description = Localizations.ItemGen4Descriptions.tM92},
     [420] = {
-        name = "HM01",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM01,
+        description = Localizations.ItemGen4Descriptions.hM01},
     [421] = {
-        name = "HM02",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM02,
+        description = Localizations.ItemGen4Descriptions.hM02},
     [422] = {
-        name = "HM03",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM03,
+        description = Localizations.ItemGen4Descriptions.hM03},
     [423] = {
-        name = "HM04",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM04,
+        description = Localizations.ItemGen4Descriptions.hM04},
     [424] = {
-        name = "HM05",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM05,
+        description = Localizations.ItemGen4Descriptions.hM05},
     [425] = {
-        name = "HM06",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM06,
+        description = Localizations.ItemGen4Descriptions.hM06},
     [426] = {
-        name = "HM07",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM07,
+        description = Localizations.ItemGen4Descriptions.hM07},
     [427] = {
-        name = "HM08",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen4Names.hM08,
+        description = Localizations.ItemGen4Descriptions.hM08},
     [428] = {
-        name = "Explorer Kit",
-        description = "Allows visiting the Underground."
-    },
+        name = Localizations.ItemGen4Names.explorerKit,
+        description = Localizations.ItemGen4Descriptions.explorerKit},
     [429] = {
-        name = "Loot Sack",
-        description = "Carries coal mine loot."
-    },
+        name = Localizations.ItemGen4Names.lootSack,
+        description = Localizations.ItemGen4Descriptions.lootSack},
     [430] = {
-        name = "Rule Book",
-        description = "List of battle types and their rules."
-    },
+        name = Localizations.ItemGen4Names.ruleBook,
+        description = Localizations.ItemGen4Descriptions.ruleBook},
     [431] = {
-        name = "Poke Radar",
-        description = "Use to track down rare or shiny Pokemon. 50 steps to recharge."
-    },
+        name = Localizations.ItemGen4Names.pokeRadar,
+        description = Localizations.ItemGen4Descriptions.pokeRadar},
     [432] = {
-        name = "Point Card",
-        description = "Keeps count of Battle Points earned."
-    },
+        name = Localizations.ItemGen4Names.pointCard,
+        description = Localizations.ItemGen4Descriptions.pointCard},
     [433] = {
-        name = "Journal",
-        description = "Records prior significant activities the player took."
-    },
+        name = Localizations.ItemGen4Names.journal,
+        description = Localizations.ItemGen4Descriptions.journal},
     [434] = {
-        name = "Seal Case",
-        description = "Stores Seals that can be applied to Poke Ball capsules."
-    },
+        name = Localizations.ItemGen4Names.sealCase,
+        description = Localizations.ItemGen4Descriptions.sealCase},
     [435] = {
-        name = "Fashion Case",
-        description = "Holds Pok" .. Chars.accentedE .. "mon Accessories for use in Contests."
-    },
+        name = Localizations.ItemGen4Names.fashionCase,
+        description = Localizations.ItemGen4Descriptions.fashionCase},
     [436] = {
-        name = "Seal Bag",
-        description = "Holds ten Seals for Poke Balls."
-    },
+        name = Localizations.ItemGen4Names.sealBag,
+        description = Localizations.ItemGen4Descriptions.sealBag},
     [437] = {
-        name = "Pal Pad",
-        description = "Use to record Friend Codes and check your own."
-    },
+        name = Localizations.ItemGen4Names.palPad,
+        description = Localizations.ItemGen4Descriptions.palPad},
     [438] = {
-        name = "Works Key",
-        description = "Grants access to Valley Windworks."
-    },
+        name = Localizations.ItemGen4Names.worksKey,
+        description = Localizations.ItemGen4Descriptions.worksKey},
     [439] = {
-        name = "Old Charm",
-        description = "Trade to Cynthia's grandmother in Celestic Town for HM04 (Surf)."
-    },
+        name = Localizations.ItemGen4Names.oldCharm,
+        description = Localizations.ItemGen4Descriptions.oldCharm},
     [440] = {
-        name = "Galactic Key",
-        description = "Grants access to Galactic HQ in Veilstone City."
-    },
+        name = Localizations.ItemGen4Names.galacticKey,
+        description = Localizations.ItemGen4Descriptions.galacticKey},
     [441] = {
-        name = "Red Chain",
-        description = "Used to bind Palkia and Dialga."
-    },
+        name = Localizations.ItemGen4Names.redChain,
+        description = Localizations.ItemGen4Descriptions.redChain},
     [442] = {
-        name = "Town Map",
-        description = "Use to see the overworld map."
-    },
+        name = Localizations.ItemGen4Names.townMap,
+        description = Localizations.ItemGen4Descriptions.townMap},
     [443] = {
-        name = "Vs Seeker",
-        description = "Allows rebattling of on-screen trainers. 100 steps to recharge."
-    },
+        name = Localizations.ItemGen4Names.vsSeeker,
+        description = Localizations.ItemGen4Descriptions.vsSeeker},
     [444] = {
-        name = "Coin Case",
-        description = "Holds coins for the Game Corner."
-    },
+        name = Localizations.ItemGen4Names.coinCase,
+        description = Localizations.ItemGen4Descriptions.coinCase},
     [445] = {
-        name = "Old Rod",
-        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
-    },
+        name = Localizations.ItemGen4Names.oldRod,
+        description = Localizations.ItemGen4Descriptions.oldRod},
     [446] = {
-        name = "Good Rod",
-        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
-    },
+        name = Localizations.ItemGen4Names.goodRod,
+        description = Localizations.ItemGen4Descriptions.goodRod},
     [447] = {
-        name = "Super Rod",
-        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
-    },
+        name = Localizations.ItemGen4Names.superRod,
+        description = Localizations.ItemGen4Descriptions.superRod},
     [448] = {
-        name = "Sprayduck",
-        description = "Used to water berries."
-    },
+        name = Localizations.ItemGen4Names.sprayduck,
+        description = Localizations.ItemGen4Descriptions.sprayduck},
     [449] = {
-        name = "Poffin Case",
-        description = "Holds Poffins."
-    },
+        name = Localizations.ItemGen4Names.poffinCase,
+        description = Localizations.ItemGen4Descriptions.poffinCase},
     [450] = {
-        name = "Bicycle",
-        description = "Use for fast transit."
-    },
+        name = Localizations.ItemGen4Names.bicycle,
+        description = Localizations.ItemGen4Descriptions.bicycle},
     [451] = {
-        name = "Suite Key",
-        description = "Opens a locked building in the Lakeside Resort."
-    },
+        name = Localizations.ItemGen4Names.suiteKey,
+        description = Localizations.ItemGen4Descriptions.suiteKey},
     [452] = {
-        name = "Oaks Letter",
-        description = "Allows access to Seabreak path, Flower Paradise, and Shaymin."
-    },
+        name = Localizations.ItemGen4Names.oaksLetter,
+        description = Localizations.ItemGen4Descriptions.oaksLetter},
     [453] = {
-        name = "Lunar Wing",
-        description = "Cures sailor's son of nightmares in Canalave City."
-    },
+        name = Localizations.ItemGen4Names.lunarWing,
+        description = Localizations.ItemGen4Descriptions.lunarWing},
     [454] = {
-        name = "Member Card",
-        description = "Allows access to Newmoon Island and Darkrai."
-    },
+        name = Localizations.ItemGen4Names.memberCard,
+        description = Localizations.ItemGen4Descriptions.memberCard},
     [455] = {
-        name = "Azure Flute",
-        description = "Allows entry into the Hall of Origin. Unreleased."
-    },
+        name = Localizations.ItemGen4Names.azureFlute,
+        description = Localizations.ItemGen4Descriptions.azureFlute},
     [456] = {
-        name = "Ss Ticket",
-        description = "Ticket for a ship. (RSE: S.S. Tidal LF: S.S. Anne HG: S.S. Aqua)"
-    },
+        name = Localizations.ItemGen4Names.ssTicket,
+        description = Localizations.ItemGen4Descriptions.ssTicket},
     [457] = {
-        name = "Contest Pass",
-        description = "Allows participation in Pok" .. Chars.accentedE .. "mon Contests."
-    },
+        name = Localizations.ItemGen4Names.contestPass,
+        description = Localizations.ItemGen4Descriptions.contestPass},
     [458] = {
-        name = "Magma Stone",
-        description = "Magma is sealed inside."
-    },
+        name = Localizations.ItemGen4Names.magmaStone,
+        description = Localizations.ItemGen4Descriptions.magmaStone},
     [459] = {
-        name = "Parcel",
-        description = "Given to the trainer's rival in Jubilife City. Contains Town Maps."
-    },
+        name = Localizations.ItemGen4Names.parcel,
+        description = Localizations.ItemGen4Descriptions.parcel},
     [460] = {
-        name = "Coupon 1",
-        description = "The first of three tickets used to obtain a Poketch."
-    },
+        name = Localizations.ItemGen4Names.coupon1,
+        description = Localizations.ItemGen4Descriptions.coupon1},
     [461] = {
-        name = "Coupon 2",
-        description = "The second of three tickets used to obtain a Poketch."
-    },
+        name = Localizations.ItemGen4Names.coupon2,
+        description = Localizations.ItemGen4Descriptions.coupon2},
     [462] = {
-        name = "Coupon 3",
-        description = "The last of three tickets used to obtain a Poketch."
-    },
+        name = Localizations.ItemGen4Names.coupon3,
+        description = Localizations.ItemGen4Descriptions.coupon3},
     [463] = {
-        name = "Storage Key",
-        description = "Grants access to the Team Galactic warehouse in Veilstone City."
-    },
+        name = Localizations.ItemGen4Names.storageKey,
+        description = Localizations.ItemGen4Descriptions.storageKey},
     [464] = {
-        name = "Secret Potion",
-        description = "Used to heal the Ampharos at the top of Olivine Lighthouse."
-    },
+        name = Localizations.ItemGen4Names.secretPotion,
+        description = Localizations.ItemGen4Descriptions.secretPotion},
     [112] = {
-        name = "Griseous Orb",
-        description = "Boosts the damage from Giratina's Dragon-type and Ghost-type moves by 20%, and transforms it into Origin Forme."
-    },
+        name = Localizations.ItemGen4Names.griseousOrb,
+        description = Localizations.ItemGen4Descriptions.griseousOrb},
     [465] = {
-        name = "Vs Recorder",
-        description = "Records wireless, Wi-Fi, or Battle Frontier battles, and stores points."
-    },
+        name = Localizations.ItemGen4Names.vsRecorder,
+        description = Localizations.ItemGen4Descriptions.vsRecorder},
     [466] = {
-        name = "Gracidea",
-        description = "Changes an unfrozen Shaymin to Sky Forme in the day."
-    },
+        name = Localizations.ItemGen4Names.gracidea,
+        description = Localizations.ItemGen4Descriptions.gracidea},
     [467] = {
-        name = "Secret Key",
-        description = "Gen IV: The key to Rotom's appliance room. "
-    },
+        name = Localizations.ItemGen4Names.secretKey,
+        description = Localizations.ItemGen4Descriptions.secretKey},
     [468] = {
-        name = "Apricorn Box",
-        description = "Holds Apricorns."
-    },
+        name = Localizations.ItemGen4Names.apricornBox,
+        description = Localizations.ItemGen4Descriptions.apricornBox},
     [470] = {
-        name = "Berry Pots",
-        description = "Allows portable berry growing."
-    },
+        name = Localizations.ItemGen4Names.berryPots,
+        description = Localizations.ItemGen4Descriptions.berryPots},
     [477] = {
-        name = "Squirt Bottle",
-        description = "Use on Sudowoodo blocking the path on Route 36. Also waters berries."
-    },
+        name = Localizations.ItemGen4Names.squirtBottle,
+        description = Localizations.ItemGen4Descriptions.squirtBottle},
     [494] = {
-        name = "Lure Ball",
-        description = "3x effectiveness while fishing. Made from Blu Apricorn."
-    },
+        name = Localizations.ItemGen4Names.lureBall,
+        description = Localizations.ItemGen4Descriptions.lureBall},
     [493] = {
-        name = "Level Ball",
-        description = "Success rate based off of fraction target Pok" ..
-            Chars.accentedE .. "mon is of user's Pokemon. Made from Red Apricorn."
-    },
+        name = Localizations.ItemGen4Names.levelBall,
+        description = Localizations.ItemGen4Descriptions.levelBall},
     [498] = {
-        name = "Moon Ball",
-        description = "4x effectiveness on familes of Pok" ..
-            Chars.accentedE .. "mon with a Moon Stone evolution. Made from Ylw Apricorn."
-    },
+        name = Localizations.ItemGen4Names.moonBall,
+        description = Localizations.ItemGen4Descriptions.moonBall},
     [495] = {
-        name = "Heavy Ball",
-        description = "Has flat bonus or penalty to catch rate depending on weight class of target. Made from Blk Apricorn."
-    },
+        name = Localizations.ItemGen4Names.heavyBall,
+        description = Localizations.ItemGen4Descriptions.heavyBall},
     [492] = {
-        name = "Fast Ball",
-        description = "4x effectiveness on Pok" ..
-            Chars.accentedE .. "mon with 100 or greater base speed. Made from Wht Apricorn."
-    },
+        name = Localizations.ItemGen4Names.fastBall,
+        description = Localizations.ItemGen4Descriptions.fastBall},
     [497] = {
-        name = "Friend Ball",
-        description = "Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness. Made from Grn Apricorn."
-    },
+        name = Localizations.ItemGen4Names.friendBall,
+        description = Localizations.ItemGen4Descriptions.friendBall},
     [496] = {
-        name = "Love Ball",
-        description = "8x effectiveness on opposite sex, same species targets of the Active Pokemon. Made from Pnk Apricorn."
-    },
+        name = Localizations.ItemGen4Names.loveBall,
+        description = Localizations.ItemGen4Descriptions.loveBall},
     [500] = {
-        name = "Park Ball",
-        description = "Catches Pok" .. Chars.accentedE .. "mon in the Pal Park every time."
-    },
+        name = Localizations.ItemGen4Names.parkBall,
+        description = Localizations.ItemGen4Descriptions.parkBall},
     [499] = {
-        name = "Sport Ball",
-        description = "Tries to catch a Pok" .. Chars.accentedE .. "mon in the Bug-Catching contest in National Park. "
-    },
+        name = Localizations.ItemGen4Names.sportBall,
+        description = Localizations.ItemGen4Descriptions.sportBall},
     [485] = {
-        name = "Red Apricorn",
-        description = "Used to make a Level Ball."
-    },
+        name = Localizations.ItemGen4Names.redApricorn,
+        description = Localizations.ItemGen4Descriptions.redApricorn},
     [487] = {
-        name = "Blue Apricorn",
-        description = "Used to make a Lure Ball."
-    },
+        name = Localizations.ItemGen4Names.blueApricorn,
+        description = Localizations.ItemGen4Descriptions.blueApricorn},
     [486] = {
-        name = "Yellow Apricorn",
-        description = "Used to make a Moon Ball."
-    },
+        name = Localizations.ItemGen4Names.yellowApricorn,
+        description = Localizations.ItemGen4Descriptions.yellowApricorn},
     [488] = {
-        name = "Green Apricorn",
-        description = "Used to make a Friend Ball."
-    },
+        name = Localizations.ItemGen4Names.greenApricorn,
+        description = Localizations.ItemGen4Descriptions.greenApricorn},
     [489] = {
-        name = "Pink Apricorn",
-        description = "Used to make a Love Ball."
-    },
+        name = Localizations.ItemGen4Names.pinkApricorn,
+        description = Localizations.ItemGen4Descriptions.pinkApricorn},
     [490] = {
-        name = "White Apricorn",
-        description = "Used to make a Fast Ball."
-    },
+        name = Localizations.ItemGen4Names.whiteApricorn,
+        description = Localizations.ItemGen4Descriptions.whiteApricorn},
     [491] = {
-        name = "Black Apricorn",
-        description = "Used to make a Heavy Ball."
-    },
+        name = Localizations.ItemGen4Names.blackApricorn,
+        description = Localizations.ItemGen4Descriptions.blackApricorn},
     [471] = {
-        name = "Dowsing Machine",
-        description = "Use to find hidden items on the field. AKA Itemfinder."
-    },
+        name = Localizations.ItemGen4Names.dowsingMachine,
+        description = Localizations.ItemGen4Descriptions.dowsingMachine},
     [504] = {
-        name = "RageCandyBar",
-        description = "Traded for TM64."
-    },
+        name = Localizations.ItemGen4Names.rageCandyBar,
+        description = Localizations.ItemGen4Descriptions.rageCandyBar},
     [534] = {
-        name = "Red Orb",
-        description = "Summons Groudon to the Embedded Tower."
-    },
+        name = Localizations.ItemGen4Names.redOrb,
+        description = Localizations.ItemGen4Descriptions.redOrb},
     [535] = {
-        name = "Blue Orb",
-        description = "Summons Kyogre to the Embedded Tower."
-    },
+        name = Localizations.ItemGen4Names.blueOrb,
+        description = Localizations.ItemGen4Descriptions.blueOrb},
     [532] = {
-        name = "Jade Orb",
-        description = "Summons Rayquaza to the Embedded Tower."
-    },
+        name = Localizations.ItemGen4Names.jadeOrb,
+        description = Localizations.ItemGen4Descriptions.jadeOrb},
     [536] = {
-        name = "Enigma Stone",
-        description = "S: Summons Latias H: Summons Latios."
-    },
+        name = Localizations.ItemGen4Names.enigmaStone,
+        description = Localizations.ItemGen4Descriptions.enigmaStone},
     [469] = {
-        name = "Unown Report",
-        description = "Keeps track of Unown types caught."
-    },
+        name = Localizations.ItemGen4Names.unownReport,
+        description = Localizations.ItemGen4Descriptions.unownReport},
     [472] = {
-        name = "Blue Card",
-        description = "Keeps track of points from Buena's show."
-    },
+        name = Localizations.ItemGen4Names.blueCard,
+        description = Localizations.ItemGen4Descriptions.blueCard},
     [473] = {
-        name = "Slowpoke Tail",
-        description = "A tasty tail that sells for a high price."
-    },
+        name = Localizations.ItemGen4Names.slowpokeTail,
+        description = Localizations.ItemGen4Descriptions.slowpokeTail},
     [474] = {
-        name = "Clear Bell",
-        description = "HS: Allows Kimono-girls to summon Ho-oh. C: Summons Suicune to the Tin Tower."
-    },
+        name = Localizations.ItemGen4Names.clearBell,
+        description = Localizations.ItemGen4Descriptions.clearBell},
     [475] = {
-        name = "Card Key",
-        description = "HS: Opens doors in the Radio Tower. "
-    },
+        name = Localizations.ItemGen4Names.cardKey,
+        description = Localizations.ItemGen4Descriptions.cardKey},
     [476] = {
-        name = "Basement Key",
-        description = "HS: Key to the tunnel under Goldenrod City. "
-    },
+        name = Localizations.ItemGen4Names.basementKey,
+        description = Localizations.ItemGen4Descriptions.basementKey},
     [478] = {
-        name = "Red Scale",
-        description = "Trade to Mr. Pok" .. Chars.accentedE .. "mon for an Exp. Share."
-    },
+        name = Localizations.ItemGen4Names.redScale,
+        description = Localizations.ItemGen4Descriptions.redScale},
     [479] = {
-        name = "Lost Item",
-        description = "A Poke Doll lost by the Copycat who lives in Saffron City. Trade for a Pass."
-    },
+        name = Localizations.ItemGen4Names.lostItem,
+        description = Localizations.ItemGen4Descriptions.lostItem},
     [480] = {
-        name = "Pass",
-        description = "Grants access to ride the Magnet Train between Goldenrod City and Saffron City."
-    },
+        name = Localizations.ItemGen4Names.pass,
+        description = Localizations.ItemGen4Descriptions.pass},
     [481] = {
-        name = "Machine Part",
-        description = "Must be replaced in the Power Plant to power the Magnet Train."
-    },
+        name = Localizations.ItemGen4Names.machinePart,
+        description = Localizations.ItemGen4Descriptions.machinePart},
     [482] = {
-        name = "Silver Wing",
-        description = "Summons Lugia to the Whirl Islands."
-    },
+        name = Localizations.ItemGen4Names.silverWing,
+        description = Localizations.ItemGen4Descriptions.silverWing},
     [483] = {
-        name = "Rainbow Wing",
-        description = "Summons Ho-Oh at the top of the Bell Tower."
-    },
+        name = Localizations.ItemGen4Names.rainbowWing,
+        description = Localizations.ItemGen4Descriptions.rainbowWing},
     [484] = {
-        name = "Mystery Egg",
-        description = "Deliver to Professor Elm."
-    },
+        name = Localizations.ItemGen4Names.mysteryEgg,
+        description = Localizations.ItemGen4Descriptions.mysteryEgg},
     [502] = {
-        name = "Gb Sounds",
-        description = "Use to listen to GameBoy era audio."
-    },
+        name = Localizations.ItemGen4Names.gbSounds,
+        description = Localizations.ItemGen4Descriptions.gbSounds},
     [503] = {
-        name = "Tidal Bell",
-        description = "Allows Kimono-girls to summon Lugia."
-    },
+        name = Localizations.ItemGen4Names.tidalBell,
+        description = Localizations.ItemGen4Descriptions.tidalBell},
     [505] = {
-        name = "Data Card-01",
-        description = "Records the number of times the trainer has come in first place overall in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard01,
+        description = Localizations.ItemGen4Descriptions.dataCard01},
     [506] = {
-        name = "Data Card-02",
-        description = "Records the number of times the trainer has come in last place overall in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard02,
+        description = Localizations.ItemGen4Descriptions.dataCard02},
     [507] = {
-        name = "Data Card-03",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have dashed in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard03,
+        description = Localizations.ItemGen4Descriptions.dataCard03},
     [508] = {
-        name = "Data Card-04",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have jumped in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard04,
+        description = Localizations.ItemGen4Descriptions.dataCard04},
     [509] = {
-        name = "Data Card-05",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Hurdle Dash."
-    },
+        name = Localizations.ItemGen4Names.dataCard05,
+        description = Localizations.ItemGen4Descriptions.dataCard05},
     [510] = {
-        name = "Data Card-06",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Relay Run."
-    },
+        name = Localizations.ItemGen4Names.dataCard06,
+        description = Localizations.ItemGen4Descriptions.dataCard06},
     [511] = {
-        name = "Data Card-07",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Pennant Capture."
-    },
+        name = Localizations.ItemGen4Names.dataCard07,
+        description = Localizations.ItemGen4Descriptions.dataCard07},
     [512] = {
-        name = "Data Card-08",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Block Smash."
-    },
+        name = Localizations.ItemGen4Names.dataCard08,
+        description = Localizations.ItemGen4Descriptions.dataCard08},
     [513] = {
-        name = "Data Card-09",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Disc Catch."
-    },
+        name = Localizations.ItemGen4Names.dataCard09,
+        description = Localizations.ItemGen4Descriptions.dataCard09},
     [514] = {
-        name = "Data Card-10",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Snow Throw."
-    },
+        name = Localizations.ItemGen4Names.dataCard10,
+        description = Localizations.ItemGen4Descriptions.dataCard10},
     [515] = {
-        name = "Data Card-11",
-        description = "Records the number of points the trainer has earned in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard11,
+        description = Localizations.ItemGen4Descriptions.dataCard11},
     [516] = {
-        name = "Data Card-12",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have messed up in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard12,
+        description = Localizations.ItemGen4Descriptions.dataCard12},
     [517] = {
-        name = "Data Card-13",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have defeated themselves in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard13,
+        description = Localizations.ItemGen4Descriptions.dataCard13},
     [518] = {
-        name = "Data Card-14",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have tackled in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard14,
+        description = Localizations.ItemGen4Descriptions.dataCard14},
     [519] = {
-        name = "Data Card-15",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have fallen in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard15,
+        description = Localizations.ItemGen4Descriptions.dataCard15},
     [520] = {
-        name = "Data Card-16",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Ring Drop."
-    },
+        name = Localizations.ItemGen4Names.dataCard16,
+        description = Localizations.ItemGen4Descriptions.dataCard16},
     [521] = {
-        name = "Data Card-17",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Lamp Jump."
-    },
+        name = Localizations.ItemGen4Names.dataCard17,
+        description = Localizations.ItemGen4Descriptions.dataCard17},
     [522] = {
-        name = "Data Card-18",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Circle Push."
-    },
+        name = Localizations.ItemGen4Names.dataCard18,
+        description = Localizations.ItemGen4Descriptions.dataCard18},
     [523] = {
-        name = "Data Card-19",
-        description = "Records the number of times the trainer has come in first place overall in the Pokeathlon over wirelss."
-    },
+        name = Localizations.ItemGen4Names.dataCard19,
+        description = Localizations.ItemGen4Descriptions.dataCard19},
     [524] = {
-        name = "Data Card-20",
-        description = "Records the number of times the trainer has come in last place overall in the Pokeathlon over wireless."
-    },
+        name = Localizations.ItemGen4Names.dataCard20,
+        description = Localizations.ItemGen4Descriptions.dataCard20},
     [525] = {
-        name = "Data Card-21",
-        description = "Records the number of times the trainer has come in first across all Pokeathlon events."
-    },
+        name = Localizations.ItemGen4Names.dataCard21,
+        description = Localizations.ItemGen4Descriptions.dataCard21},
     [526] = {
-        name = "Data Card-22",
-        description = "Records the number of times the trainer has come in last across all Pokeathlon events."
-    },
+        name = Localizations.ItemGen4Names.dataCard22,
+        description = Localizations.ItemGen4Descriptions.dataCard22},
     [527] = {
-        name = "Data Card-23",
-        description = "Records the number of times the trainer has switched Pok" ..
-            Chars.accentedE .. "mon in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard23,
+        description = Localizations.ItemGen4Descriptions.dataCard23},
     [528] = {
-        name = "Data Card-24",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Goal Roll."
-    },
+        name = Localizations.ItemGen4Names.dataCard24,
+        description = Localizations.ItemGen4Descriptions.dataCard24},
     [529] = {
-        name = "Data Card-25",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon received prizes in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard25,
+        description = Localizations.ItemGen4Descriptions.dataCard25},
     [530] = {
-        name = "Data Card-26",
-        description = "Records the number of times the trainer has instructed Pok" ..
-            Chars.accentedE .. "mon in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard26,
+        description = Localizations.ItemGen4Descriptions.dataCard26},
     [531] = {
-        name = "Data Card-27",
-        description = "Records the total time spent in the Pokeathlon."
-    },
+        name = Localizations.ItemGen4Names.dataCard27,
+        description = Localizations.ItemGen4Descriptions.dataCard27},
     [533] = {
-        name = "Lock Capsule",
-        description = "Contains TM95 (Snarl)."
-    },
+        name = Localizations.ItemGen4Names.lockCapsule,
+        description = Localizations.ItemGen4Descriptions.lockCapsule},
     [501] = {
-        name = "Photo Album",
-        description = "Stores photos from your adventure."
-    }
+        name = Localizations.ItemGen4Names.photoAlbum,
+        description = Localizations.ItemGen4Descriptions.photoAlbum}
 }
 
 ItemData.GEN_5_ITEMS = {
     [0] = {
         name = "---",
-        description = ""
-    },
+        description = ""},
     [1] = {
-        name = "Master Ball",
-        description = "Catches a wild Pok" .. Chars.accentedE .. "mon every time."
-    },
+        name = Localizations.ItemGen5Names.masterBall,
+        description = Localizations.ItemGen5Descriptions.masterBall},
     [2] = {
-        name = "Ultra Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 2x."
-    },
+        name = Localizations.ItemGen5Names.ultraBall,
+        description = Localizations.ItemGen5Descriptions.ultraBall},
     [3] = {
-        name = "Great Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 1.5x."
-    },
+        name = Localizations.ItemGen5Names.greatBall,
+        description = Localizations.ItemGen5Descriptions.greatBall},
     [4] = {
-        name = "Poke Ball",
-        description = "Tries to catch a wild Pokemon."
-    },
+        name = Localizations.ItemGen5Names.pokeBall,
+        description = Localizations.ItemGen5Descriptions.pokeBall},
     [5] = {
-        name = "Safari Ball",
-        description = "Tries to catch a wild Pok" ..
-            Chars.accentedE .. "mon in the Great Marsh or Safari Zone. Success rate is 1.5x."
-    },
+        name = Localizations.ItemGen5Names.safariBall,
+        description = Localizations.ItemGen5Descriptions.safariBall},
     [6] = {
-        name = "Net Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3x for water and bug Pokemon."
-    },
+        name = Localizations.ItemGen5Names.netBall,
+        description = Localizations.ItemGen5Descriptions.netBall},
     [7] = {
-        name = "Dive Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3.5x when underwater, fishing, or surfing."
-    },
+        name = Localizations.ItemGen5Names.diveBall,
+        description = Localizations.ItemGen5Descriptions.diveBall},
     [8] = {
-        name = "Nest Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3.9x for level 1 Pokemon, and drops steadily to 1x at level 30."
-    },
+        name = Localizations.ItemGen5Names.nestBall,
+        description = Localizations.ItemGen5Descriptions.nestBall},
     [9] = {
-        name = "Repeat Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3x for previously-caught Pokemon."
-    },
+        name = Localizations.ItemGen5Names.repeatBall,
+        description = Localizations.ItemGen5Descriptions.repeatBall},
     [10] = {
-        name = "Timer Ball",
-        description = "Tries to catch a wild Pokemon. Success rate increases by 0.1x (Gen V: 0.3x) every turn, to a max of 4x."
-    },
+        name = Localizations.ItemGen5Names.timerBall,
+        description = Localizations.ItemGen5Descriptions.timerBall},
     [11] = {
-        name = "Luxury Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness."
-    },
+        name = Localizations.ItemGen5Names.luxuryBall,
+        description = Localizations.ItemGen5Descriptions.luxuryBall},
     [12] = {
-        name = "Premier Ball",
-        description = "Tries to catch a wild Pokemon."
-    },
+        name = Localizations.ItemGen5Names.premierBall,
+        description = Localizations.ItemGen5Descriptions.premierBall},
     [13] = {
-        name = "Dusk Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 3.5x at night and in caves."
-    },
+        name = Localizations.ItemGen5Names.duskBall,
+        description = Localizations.ItemGen5Descriptions.duskBall},
     [14] = {
-        name = "Heal Ball",
-        description = "Tries to catch a wild Pokemon. Caught Pok" .. Chars.accentedE .. "mon are immediately healed."
-    },
+        name = Localizations.ItemGen5Names.healBall,
+        description = Localizations.ItemGen5Descriptions.healBall},
     [15] = {
-        name = "Quick Ball",
-        description = "Tries to catch a wild Pokemon. Success rate is 4x (Gen V: 5x), but only on the first turn."
-    },
+        name = Localizations.ItemGen5Names.quickBall,
+        description = Localizations.ItemGen5Descriptions.quickBall},
     [16] = {
-        name = "Cherish Ball",
-        description = "Tries to catch a wild Pokemon."
-    },
+        name = Localizations.ItemGen5Names.cherishBall,
+        description = Localizations.ItemGen5Descriptions.cherishBall},
     [17] = {
-        name = "Potion",
-        description = "Restores 20 HP."
-    },
+        name = Localizations.ItemGen5Names.potion,
+        description = Localizations.ItemGen5Descriptions.potion},
     [18] = {
-        name = "Antidote",
-        description = "Cures poison."
-    },
+        name = Localizations.ItemGen5Names.antidote,
+        description = Localizations.ItemGen5Descriptions.antidote},
     [19] = {
-        name = "Burn Heal",
-        description = "Cures a burn."
-    },
+        name = Localizations.ItemGen5Names.burnHeal,
+        description = Localizations.ItemGen5Descriptions.burnHeal},
     [20] = {
-        name = "Ice Heal",
-        description = "Cures freezing."
-    },
+        name = Localizations.ItemGen5Names.iceHeal,
+        description = Localizations.ItemGen5Descriptions.iceHeal},
     [21] = {
-        name = "Awakening",
-        description = "Cures sleep."
-    },
+        name = Localizations.ItemGen5Names.awakening,
+        description = Localizations.ItemGen5Descriptions.awakening},
     [22] = {
-        name = "Paralyze Heal",
-        description = "Cures paralysis."
-    },
+        name = Localizations.ItemGen5Names.paralyzeHeal,
+        description = Localizations.ItemGen5Descriptions.paralyzeHeal},
     [23] = {
-        name = "Full Restore",
-        description = "Restores HP to full and cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen5Names.fullRestore,
+        description = Localizations.ItemGen5Descriptions.fullRestore},
     [24] = {
-        name = "Max Potion",
-        description = "Restores HP to full."
-    },
+        name = Localizations.ItemGen5Names.maxPotion,
+        description = Localizations.ItemGen5Descriptions.maxPotion},
     [25] = {
-        name = "Hyper Potion",
-        description = "Restores 200 HP."
-    },
+        name = Localizations.ItemGen5Names.hyperPotion,
+        description = Localizations.ItemGen5Descriptions.hyperPotion},
     [26] = {
-        name = "Super Potion",
-        description = "Restores 50 HP."
-    },
+        name = Localizations.ItemGen5Names.superPotion,
+        description = Localizations.ItemGen5Descriptions.superPotion},
     [27] = {
-        name = "Full Heal",
-        description = "Cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen5Names.fullHeal,
+        description = Localizations.ItemGen5Descriptions.fullHeal},
     [28] = {
-        name = "Revive",
-        description = "Revives with half HP."
-    },
+        name = Localizations.ItemGen5Names.revive,
+        description = Localizations.ItemGen5Descriptions.revive},
     [29] = {
-        name = "Max Revive",
-        description = "Revives with full HP."
-    },
+        name = Localizations.ItemGen5Names.maxRevive,
+        description = Localizations.ItemGen5Descriptions.maxRevive},
     [30] = {
-        name = "Fresh Water",
-        description = "Restores 50 HP."
-    },
+        name = Localizations.ItemGen5Names.freshWater,
+        description = Localizations.ItemGen5Descriptions.freshWater},
     [31] = {
-        name = "Soda Pop",
-        description = "Restores 60 HP."
-    },
+        name = Localizations.ItemGen5Names.sodaPop,
+        description = Localizations.ItemGen5Descriptions.sodaPop},
     [32] = {
-        name = "Lemonade",
-        description = "Restores 80 HP."
-    },
+        name = Localizations.ItemGen5Names.lemonade,
+        description = Localizations.ItemGen5Descriptions.lemonade},
     [33] = {
-        name = "Moomoo Milk",
-        description = "Restores 100 HP."
-    },
+        name = Localizations.ItemGen5Names.moomooMilk,
+        description = Localizations.ItemGen5Descriptions.moomooMilk},
     [34] = {
-        name = "Energy Powder",
-        description = "Restores 50 HP, but lowers happiness."
-    },
+        name = Localizations.ItemGen5Names.energyPowder,
+        description = Localizations.ItemGen5Descriptions.energyPowder},
     [35] = {
-        name = "Energy Root",
-        description = "Restores 200 HP, but lowers happiness."
-    },
+        name = Localizations.ItemGen5Names.energyRoot,
+        description = Localizations.ItemGen5Descriptions.energyRoot},
     [36] = {
-        name = "Heal Powder",
-        description = "Cures any status ailment, but lowers happiness."
-    },
+        name = Localizations.ItemGen5Names.healPowder,
+        description = Localizations.ItemGen5Descriptions.healPowder},
     [37] = {
-        name = "Revival Herb",
-        description = "Revives with full HP, but lowers happiness."
-    },
+        name = Localizations.ItemGen5Names.revivalHerb,
+        description = Localizations.ItemGen5Descriptions.revivalHerb},
     [38] = {
-        name = "Ether",
-        description = "Restores 10 PP for one move."
-    },
+        name = Localizations.ItemGen5Names.ether,
+        description = Localizations.ItemGen5Descriptions.ether},
     [39] = {
-        name = "Max Ether",
-        description = "Restores PP to full for one move."
-    },
+        name = Localizations.ItemGen5Names.maxEther,
+        description = Localizations.ItemGen5Descriptions.maxEther},
     [40] = {
-        name = "Elixir",
-        description = "Restores 10 PP for each move."
-    },
+        name = Localizations.ItemGen5Names.elixir,
+        description = Localizations.ItemGen5Descriptions.elixir},
     [41] = {
-        name = "Max Elixir",
-        description = "Restores PP to full for each move."
-    },
+        name = Localizations.ItemGen5Names.maxElixir,
+        description = Localizations.ItemGen5Descriptions.maxElixir},
     [42] = {
-        name = "Lava Cookie",
-        description = "Cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen5Names.lavaCookie,
+        description = Localizations.ItemGen5Descriptions.lavaCookie},
     [43] = {
-        name = "Berry Juice",
-        description = "Restores 20 HP."
-    },
+        name = Localizations.ItemGen5Names.berryJuice,
+        description = Localizations.ItemGen5Descriptions.berryJuice},
     [44] = {
-        name = "Sacred Ash",
-        description = "Revives all fainted Pok" .. Chars.accentedE .. "mon with full HP."
-    },
+        name = Localizations.ItemGen5Names.sacredAsh,
+        description = Localizations.ItemGen5Descriptions.sacredAsh},
     [45] = {
-        name = "Hp Up",
-        description = "Raises HP effort and happiness."
-    },
+        name = Localizations.ItemGen5Names.hpUp,
+        description = Localizations.ItemGen5Descriptions.hpUp},
     [46] = {
-        name = "Protein",
-        description = "Raises Attack effort and happiness."
-    },
+        name = Localizations.ItemGen5Names.protein,
+        description = Localizations.ItemGen5Descriptions.protein},
     [47] = {
-        name = "Iron",
-        description = "Raises Defense effort and happiness."
-    },
+        name = Localizations.ItemGen5Names.iron,
+        description = Localizations.ItemGen5Descriptions.iron},
     [48] = {
-        name = "Carbos",
-        description = "Raises Speed effort and happiness."
-    },
+        name = Localizations.ItemGen5Names.carbos,
+        description = Localizations.ItemGen5Descriptions.carbos},
     [49] = {
-        name = "Calcium",
-        description = "Raises Special Attack effort and happiness."
-    },
+        name = Localizations.ItemGen5Names.calcium,
+        description = Localizations.ItemGen5Descriptions.calcium},
     [50] = {
-        name = "Rare Candy",
-        description = "Causes a level-up and raises happiness."
-    },
+        name = Localizations.ItemGen5Names.rareCandy,
+        description = Localizations.ItemGen5Descriptions.rareCandy},
     [51] = {
-        name = "PP Up",
-        description = "Raises a move's max PP by 20%."
-    },
+        name = Localizations.ItemGen5Names.pPUp,
+        description = Localizations.ItemGen5Descriptions.pPUp},
     [52] = {
-        name = "Zinc",
-        description = "Raises Special Defense and happiness."
-    },
+        name = Localizations.ItemGen5Names.zinc,
+        description = Localizations.ItemGen5Descriptions.zinc},
     [53] = {
-        name = "PP Max",
-        description = "Raises a move's max PP by 60%."
-    },
+        name = Localizations.ItemGen5Names.pPMax,
+        description = Localizations.ItemGen5Descriptions.pPMax},
     [54] = {
-        name = "Old Gateau",
-        description = "Cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen5Names.oldGateau,
+        description = Localizations.ItemGen5Descriptions.oldGateau},
     [55] = {
-        name = "Guard Spec",
-        description = "Prevents stat changes in battle for five turns in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.guardSpec,
+        description = Localizations.ItemGen5Descriptions.guardSpec},
     [56] = {
-        name = "Dire Hit",
-        description = "Increases the chance of a critical hit in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.direHit,
+        description = Localizations.ItemGen5Descriptions.direHit},
     [57] = {
-        name = "X Attack",
-        description = "Raises Attack by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.xAttack,
+        description = Localizations.ItemGen5Descriptions.xAttack},
     [58] = {
-        name = "X Defense",
-        description = "Raises Defense by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.xDefense,
+        description = Localizations.ItemGen5Descriptions.xDefense},
     [59] = {
-        name = "X Speed",
-        description = "Raises Speed by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.xSpeed,
+        description = Localizations.ItemGen5Descriptions.xSpeed},
     [60] = {
-        name = "X Accuracy",
-        description = "Raises accuracy by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.xAccuracy,
+        description = Localizations.ItemGen5Descriptions.xAccuracy},
     [61] = {
-        name = "X Sp-atk",
-        description = "Raises Special Attack by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.xSpAtk,
+        description = Localizations.ItemGen5Descriptions.xSpAtk},
     [62] = {
-        name = "X Sp-def",
-        description = "Raises Special Defense by one stage in battle. Raises happiness."
-    },
+        name = Localizations.ItemGen5Names.xSpDef,
+        description = Localizations.ItemGen5Descriptions.xSpDef},
     [63] = {
-        name = "Poke Doll",
-        description = "Ends a wild battle."
-    },
+        name = Localizations.ItemGen5Names.pokeDoll,
+        description = Localizations.ItemGen5Descriptions.pokeDoll},
     [64] = {
-        name = "Fluffy Tail",
-        description = "Ends a wild battle."
-    },
+        name = Localizations.ItemGen5Names.fluffyTail,
+        description = Localizations.ItemGen5Descriptions.fluffyTail},
     [65] = {
-        name = "Blue Flute",
-        description = "Cures sleep."
-    },
+        name = Localizations.ItemGen5Names.blueFlute,
+        description = Localizations.ItemGen5Descriptions.blueFlute},
     [66] = {
-        name = "Yellow Flute",
-        description = "Cures confusion."
-    },
+        name = Localizations.ItemGen5Names.yellowFlute,
+        description = Localizations.ItemGen5Descriptions.yellowFlute},
     [67] = {
-        name = "Red Flute",
-        description = "Cures attraction."
-    },
+        name = Localizations.ItemGen5Names.redFlute,
+        description = Localizations.ItemGen5Descriptions.redFlute},
     [68] = {
-        name = "Black Flute",
-        description = "Halves the wild Pok" .. Chars.accentedE .. "mon encounter rate."
-    },
+        name = Localizations.ItemGen5Names.blackFlute,
+        description = Localizations.ItemGen5Descriptions.blackFlute},
     [69] = {
-        name = "White Flute",
-        description = "Doubles the wild Pok" .. Chars.accentedE .. "mon encounter rate."
-    },
+        name = Localizations.ItemGen5Names.whiteFlute,
+        description = Localizations.ItemGen5Descriptions.whiteFlute},
     [70] = {
-        name = "Shoal Salt",
-        description = "No effect. "
-    },
+        name = Localizations.ItemGen5Names.shoalSalt,
+        description = Localizations.ItemGen5Descriptions.shoalSalt},
     [71] = {
-        name = "Shoal Shell",
-        description = "No effect. "
-    },
+        name = Localizations.ItemGen5Names.shoalShell,
+        description = Localizations.ItemGen5Descriptions.shoalShell},
     [72] = {
-        name = "Red Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen5Names.redShard,
+        description = Localizations.ItemGen5Descriptions.redShard},
     [73] = {
-        name = "Blue Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen5Names.blueShard,
+        description = Localizations.ItemGen5Descriptions.blueShard},
     [74] = {
-        name = "Yellow Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen5Names.yellowShard,
+        description = Localizations.ItemGen5Descriptions.yellowShard},
     [75] = {
-        name = "Green Shard",
-        description = "No effect. Can be traded for items or moves."
-    },
+        name = Localizations.ItemGen5Names.greenShard,
+        description = Localizations.ItemGen5Descriptions.greenShard},
     [76] = {
-        name = "Super Repel",
-        description = "For 200 steps, prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen5Names.superRepel,
+        description = Localizations.ItemGen5Descriptions.superRepel},
     [77] = {
-        name = "Max Repel",
-        description = "For 250 steps, prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen5Names.maxRepel,
+        description = Localizations.ItemGen5Descriptions.maxRepel},
     [78] = {
-        name = "Escape Rope",
-        description = "Transports user to the outside entrance of a cave."
-    },
+        name = Localizations.ItemGen5Names.escapeRope,
+        description = Localizations.ItemGen5Descriptions.escapeRope},
     [79] = {
-        name = "Repel",
-        description = "For 100 steps, prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen5Names.repel,
+        description = Localizations.ItemGen5Descriptions.repel},
     [80] = {
-        name = "Sun Stone",
-        description = "Evolves a Cottonee into Whimsicott, a Gloom into Bellossom, a Petilil into Lilligant, or a Sunkern into Sunflora."
-    },
+        name = Localizations.ItemGen5Names.sunStone,
+        description = Localizations.ItemGen5Descriptions.sunStone},
     [81] = {
-        name = "Moon Stone",
-        description = "Evolves a Clefairy into Clefable, a Jigglypuff into Wigglytuff, a Munna into Musharna, a Nidorina into Nidoqueen, a Nidorino into Nidoking, or a Skitty into Delcatty."
-    },
+        name = Localizations.ItemGen5Names.moonStone,
+        description = Localizations.ItemGen5Descriptions.moonStone},
     [82] = {
-        name = "Fire Stone",
-        description = "Evolves an Eevee into Flareon, a Growlithe into Arcanine, a Pansear into Simisear, or a Vulpix into Ninetales."
-    },
+        name = Localizations.ItemGen5Names.fireStone,
+        description = Localizations.ItemGen5Descriptions.fireStone},
     [83] = {
-        name = "Thunder Stone",
-        description = "Evolves an Eelektrik into Eelektross, an Eevee into Jolteon, or a Pikachu into Raichu."
-    },
+        name = Localizations.ItemGen5Names.thunderStone,
+        description = Localizations.ItemGen5Descriptions.thunderStone},
     [84] = {
-        name = "Water Stone",
-        description = "Evolves an Eevee into Vaporeon, a Lombre into Ludicolo, a Panpour into Simipour, a Poliwhirl into Poliwrath, a Shellder into Cloyster, or a Staryu into Starmie."
-    },
+        name = Localizations.ItemGen5Names.waterStone,
+        description = Localizations.ItemGen5Descriptions.waterStone},
     [85] = {
-        name = "Leaf Stone",
-        description = "Evolves an Exeggcute into Exeggutor, a Gloom into Vileplume, a Nuzleaf into Shiftry, a Pansage into Simisage, or a Weepinbell into Victreebel."
-    },
+        name = Localizations.ItemGen5Names.leafStone,
+        description = Localizations.ItemGen5Descriptions.leafStone},
     [86] = {
-        name = "Tiny Mushroom",
-        description = "Fire Red and Leaf Green: Trade two for prior Level-up moves. Sell for 250 Pokedollars, or to Hungry Maid for 500 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.tinyMushroom,
+        description = Localizations.ItemGen5Descriptions.tinyMushroom},
     [87] = {
-        name = "Big Mushroom",
-        description = "Fire Red and Leaf Green: Trade for prior Level-up moves. Sell for 2500 Pokedollars, or to Hungry Maid for 5000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.bigMushroom,
+        description = Localizations.ItemGen5Descriptions.bigMushroom},
     [88] = {
-        name = "Pearl",
-        description = "Sell for 700 Pokedollars, or to Ore Collector for 1400 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.pearl,
+        description = Localizations.ItemGen5Descriptions.pearl},
     [89] = {
-        name = "Big Pearl",
-        description = "Sell for 3750 Pokedollars, or to Ore Collector for 7500 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.bigPearl,
+        description = Localizations.ItemGen5Descriptions.bigPearl},
     [90] = {
-        name = "Stardust",
-        description = "Sell for 1000 Pokedollars, or to Ore Collector for 2000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.stardust,
+        description = Localizations.ItemGen5Descriptions.stardust},
     [91] = {
-        name = "Star Piece",
-        description = "Platinum: Trade for one of each color Shard. Black and White: Trade for PP Up. Sell for 4900 Pokedollars, or to Ore Collector for 9800 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.starPiece,
+        description = Localizations.ItemGen5Descriptions.starPiece},
     [92] = {
-        name = "Nugget",
-        description = "Sell for 5000 Pokedollars, or to Ore Collector for 10000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.nugget,
+        description = Localizations.ItemGen5Descriptions.nugget},
     [93] = {
-        name = "Heart Scale",
-        description = "No effect. Can be traded for prior Level-up moves."
-    },
+        name = Localizations.ItemGen5Names.heartScale,
+        description = Localizations.ItemGen5Descriptions.heartScale},
     [94] = {
-        name = "Honey",
-        description = "Used to attract Wild Pok" .. Chars.accentedE .. "mon."
-    },
+        name = Localizations.ItemGen5Names.honey,
+        description = Localizations.ItemGen5Descriptions.honey},
     [95] = {
-        name = "Growth Mulch",
-        description = "Growing time of berries is reduced, but the soil dries out faster."
-    },
+        name = Localizations.ItemGen5Names.growthMulch,
+        description = Localizations.ItemGen5Descriptions.growthMulch},
     [96] = {
-        name = "Damp Mulch",
-        description = "Growing time of berries is increased, but the soil dries out slower."
-    },
+        name = Localizations.ItemGen5Names.dampMulch,
+        description = Localizations.ItemGen5Descriptions.dampMulch},
     [97] = {
-        name = "Stable Mulch",
-        description = "Berries stay on the plant for longer than their usual time."
-    },
+        name = Localizations.ItemGen5Names.stableMulch,
+        description = Localizations.ItemGen5Descriptions.stableMulch},
     [98] = {
-        name = "Gooey Mulch",
-        description = "Berries regrow from dead plants an increased number of times."
-    },
+        name = Localizations.ItemGen5Names.gooeyMulch,
+        description = Localizations.ItemGen5Descriptions.gooeyMulch},
     [99] = {
-        name = "Root Fossil",
-        description = "Can be revived into a Lileep."
-    },
+        name = Localizations.ItemGen5Names.rootFossil,
+        description = Localizations.ItemGen5Descriptions.rootFossil},
     [100] = {
-        name = "Claw Fossil",
-        description = "Can be revived into an Anorith."
-    },
+        name = Localizations.ItemGen5Names.clawFossil,
+        description = Localizations.ItemGen5Descriptions.clawFossil},
     [101] = {
-        name = "Helix Fossil",
-        description = "Can be revived into an Omanyte."
-    },
+        name = Localizations.ItemGen5Names.helixFossil,
+        description = Localizations.ItemGen5Descriptions.helixFossil},
     [102] = {
-        name = "Dome Fossil",
-        description = "Can be revived into a Kabuto."
-    },
+        name = Localizations.ItemGen5Names.domeFossil,
+        description = Localizations.ItemGen5Descriptions.domeFossil},
     [103] = {
-        name = "Old Amber",
-        description = "Can be revived into an Aerodactyl."
-    },
+        name = Localizations.ItemGen5Names.oldAmber,
+        description = Localizations.ItemGen5Descriptions.oldAmber},
     [104] = {
-        name = "Armor Fossil",
-        description = "Can be revived into a Shieldon."
-    },
+        name = Localizations.ItemGen5Names.armorFossil,
+        description = Localizations.ItemGen5Descriptions.armorFossil},
     [105] = {
-        name = "Skull Fossil",
-        description = "Can be revived into a Cranidos."
-    },
+        name = Localizations.ItemGen5Names.skullFossil,
+        description = Localizations.ItemGen5Descriptions.skullFossil},
     [106] = {
-        name = "Rare Bone",
-        description = "Sell for 5000 Pokedollars, or to Bone Man for 10000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.rareBone,
+        description = Localizations.ItemGen5Descriptions.rareBone},
     [107] = {
-        name = "Shiny Stone",
-        description = "Evolves a Minccino into Cinccino, a Roselia into Roserade, or a Togetic into Togekiss."
-    },
+        name = Localizations.ItemGen5Names.shinyStone,
+        description = Localizations.ItemGen5Descriptions.shinyStone},
     [108] = {
-        name = "Dusk Stone",
-        description = "Evolves a Lampent into Chandelure, a Misdreavus into Mismagius, or a Murkrow into Honchkrow."
-    },
+        name = Localizations.ItemGen5Names.duskStone,
+        description = Localizations.ItemGen5Descriptions.duskStone},
     [109] = {
-        name = "Dawn Stone",
-        description = "Evolves a male Kirlia into Gallade or a female Snorunt into Froslass."
-    },
+        name = Localizations.ItemGen5Names.dawnStone,
+        description = Localizations.ItemGen5Descriptions.dawnStone},
     [110] = {
-        name = "Oval Stone",
-        description = "Level-up during Day on a Happiny: Holder evolves into Chansey."
-    },
+        name = Localizations.ItemGen5Names.ovalStone,
+        description = Localizations.ItemGen5Descriptions.ovalStone},
     [111] = {
-        name = "Odd Keystone",
-        description = "Use on the tower on Route 209 to encounter Spiritomb if you have at least 32 Underground greetings."
-    },
+        name = Localizations.ItemGen5Names.oddKeystone,
+        description = Localizations.ItemGen5Descriptions.oddKeystone},
     [135] = {
-        name = "Adamant Orb",
-        description = "Boosts the damage from Dialga's Dragon-type and Steel-type moves by 20%."
-    },
+        name = Localizations.ItemGen5Names.adamantOrb,
+        description = Localizations.ItemGen5Descriptions.adamantOrb},
     [136] = {
-        name = "Lustrous Orb",
-        description = "Boosts the damage from Palkia's Dragon-type and Water-type moves by 20%."
-    },
+        name = Localizations.ItemGen5Names.lustrousOrb,
+        description = Localizations.ItemGen5Descriptions.lustrousOrb},
     [149] = {
-        name = "Cheri Berry",
-        description = "Consumed when paralyzed to cure paralysis."
-    },
+        name = Localizations.ItemGen5Names.cheriBerry,
+        description = Localizations.ItemGen5Descriptions.cheriBerry},
     [150] = {
-        name = "Chesto Berry",
-        description = "Consumed when asleep to cure sleep."
-    },
+        name = Localizations.ItemGen5Names.chestoBerry,
+        description = Localizations.ItemGen5Descriptions.chestoBerry},
     [151] = {
-        name = "Pecha Berry",
-        description = "Consumed when poisoned to cure poison."
-    },
+        name = Localizations.ItemGen5Names.pechaBerry,
+        description = Localizations.ItemGen5Descriptions.pechaBerry},
     [152] = {
-        name = "Rawst Berry",
-        description = "Consumed when burned to cure a burn."
-    },
+        name = Localizations.ItemGen5Names.rawstBerry,
+        description = Localizations.ItemGen5Descriptions.rawstBerry},
     [153] = {
-        name = "Aspear Berry",
-        description = "Consumed when frozen to cure frozen."
-    },
+        name = Localizations.ItemGen5Names.aspearBerry,
+        description = Localizations.ItemGen5Descriptions.aspearBerry},
     [154] = {
-        name = "Leppa Berry",
-        description = "Consumed when a move runs out of PP to restore its PP by 10."
-    },
+        name = Localizations.ItemGen5Names.leppaBerry,
+        description = Localizations.ItemGen5Descriptions.leppaBerry},
     [155] = {
-        name = "Oran Berry",
-        description = "Consumed at 1/2 max HP to recover 10 HP."
-    },
+        name = Localizations.ItemGen5Names.oranBerry,
+        description = Localizations.ItemGen5Descriptions.oranBerry},
     [156] = {
-        name = "Persim Berry",
-        description = "Consumed when confused to cure confusion."
-    },
+        name = Localizations.ItemGen5Names.persimBerry,
+        description = Localizations.ItemGen5Descriptions.persimBerry},
     [157] = {
-        name = "Lum Berry",
-        description = "Consumed to cure any status condition or confusion."
-    },
+        name = Localizations.ItemGen5Names.lumBerry,
+        description = Localizations.ItemGen5Descriptions.lumBerry},
     [158] = {
-        name = "Sitrus Berry",
-        description = "Consumed at 1/2 max HP to recover 1/4 max HP."
-    },
+        name = Localizations.ItemGen5Names.sitrusBerry,
+        description = Localizations.ItemGen5Descriptions.sitrusBerry},
     [159] = {
-        name = "Figy Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike spicy flavor."
-    },
+        name = Localizations.ItemGen5Names.figyBerry,
+        description = Localizations.ItemGen5Descriptions.figyBerry},
     [160] = {
-        name = "Wiki Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike dry flavor."
-    },
+        name = Localizations.ItemGen5Names.wikiBerry,
+        description = Localizations.ItemGen5Descriptions.wikiBerry},
     [161] = {
-        name = "Mago Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike sweet flavor."
-    },
+        name = Localizations.ItemGen5Names.magoBerry,
+        description = Localizations.ItemGen5Descriptions.magoBerry},
     [162] = {
-        name = "Aguav Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike bitter flavor."
-    },
+        name = Localizations.ItemGen5Names.aguavBerry,
+        description = Localizations.ItemGen5Descriptions.aguavBerry},
     [163] = {
-        name = "Iapapa Berry",
-        description = "Consumed at 1/2 max HP to restore 1/8 max HP. Confuses Pok" ..
-            Chars.accentedE .. "mon that dislike sour flavor."
-    },
+        name = Localizations.ItemGen5Names.iapapaBerry,
+        description = Localizations.ItemGen5Descriptions.iapapaBerry},
     [164] = {
-        name = "Razz Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.razzBerry,
+        description = Localizations.ItemGen5Descriptions.razzBerry},
     [165] = {
-        name = "Bluk Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.blukBerry,
+        description = Localizations.ItemGen5Descriptions.blukBerry},
     [166] = {
-        name = "Nanab Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.nanabBerry,
+        description = Localizations.ItemGen5Descriptions.nanabBerry},
     [167] = {
-        name = "Wepear Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.wepearBerry,
+        description = Localizations.ItemGen5Descriptions.wepearBerry},
     [168] = {
-        name = "Pinap Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.pinapBerry,
+        description = Localizations.ItemGen5Descriptions.pinapBerry},
     [169] = {
-        name = "Pomeg Berry",
-        description = "Drops HP Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen5Names.pomegBerry,
+        description = Localizations.ItemGen5Descriptions.pomegBerry},
     [170] = {
-        name = "Kelpsy Berry",
-        description = "Drops Attack Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen5Names.kelpsyBerry,
+        description = Localizations.ItemGen5Descriptions.kelpsyBerry},
     [171] = {
-        name = "Qualot Berry",
-        description = "Drops Defense Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen5Names.qualotBerry,
+        description = Localizations.ItemGen5Descriptions.qualotBerry},
     [172] = {
-        name = "Hondew Berry",
-        description = "Drops Special Attack Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen5Names.hondewBerry,
+        description = Localizations.ItemGen5Descriptions.hondewBerry},
     [173] = {
-        name = "Grepa Berry",
-        description = "Drops Special Defense Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen5Names.grepaBerry,
+        description = Localizations.ItemGen5Descriptions.grepaBerry},
     [174] = {
-        name = "Tamato Berry",
-        description = "Drops Speed Effort Values by 10 and raises happiness."
-    },
+        name = Localizations.ItemGen5Names.tamatoBerry,
+        description = Localizations.ItemGen5Descriptions.tamatoBerry},
     [175] = {
-        name = "Cornn Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.cornnBerry,
+        description = Localizations.ItemGen5Descriptions.cornnBerry},
     [176] = {
-        name = "Magost Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.magostBerry,
+        description = Localizations.ItemGen5Descriptions.magostBerry},
     [177] = {
-        name = "Rabuta Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.rabutaBerry,
+        description = Localizations.ItemGen5Descriptions.rabutaBerry},
     [178] = {
-        name = "Nomel Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.nomelBerry,
+        description = Localizations.ItemGen5Descriptions.nomelBerry},
     [179] = {
-        name = "Spelon Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.spelonBerry,
+        description = Localizations.ItemGen5Descriptions.spelonBerry},
     [180] = {
-        name = "Pamtre Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.pamtreBerry,
+        description = Localizations.ItemGen5Descriptions.pamtreBerry},
     [181] = {
-        name = "Watmel Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.watmelBerry,
+        description = Localizations.ItemGen5Descriptions.watmelBerry},
     [182] = {
-        name = "Durin Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.durinBerry,
+        description = Localizations.ItemGen5Descriptions.durinBerry},
     [183] = {
-        name = "Belue Berry",
-        description = "Used for creating PokeBlocks and Poffins."
-    },
+        name = Localizations.ItemGen5Names.belueBerry,
+        description = Localizations.ItemGen5Descriptions.belueBerry},
     [184] = {
-        name = "Occa Berry",
-        description = "Consumed when struck by a super-effective Fire-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.occaBerry,
+        description = Localizations.ItemGen5Descriptions.occaBerry},
     [185] = {
-        name = "Passho Berry",
-        description = "Consumed when struck by a super-effective Water-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.passhoBerry,
+        description = Localizations.ItemGen5Descriptions.passhoBerry},
     [186] = {
-        name = "Wacan Berry",
-        description = "Consumed when struck by a super-effective Electric-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.wacanBerry,
+        description = Localizations.ItemGen5Descriptions.wacanBerry},
     [187] = {
-        name = "Rindo Berry",
-        description = "Consumed when struck by a super-effective Grass-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.rindoBerry,
+        description = Localizations.ItemGen5Descriptions.rindoBerry},
     [188] = {
-        name = "Yache Berry",
-        description = "Consumed when struck by a super-effective Ice-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.yacheBerry,
+        description = Localizations.ItemGen5Descriptions.yacheBerry},
     [189] = {
-        name = "Chople Berry",
-        description = "Consumed when struck by a super-effective Fighting-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.chopleBerry,
+        description = Localizations.ItemGen5Descriptions.chopleBerry},
     [190] = {
-        name = "Kebia Berry",
-        description = "Consumed when struck by a super-effective Poison-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.kebiaBerry,
+        description = Localizations.ItemGen5Descriptions.kebiaBerry},
     [191] = {
-        name = "Shuca Berry",
-        description = "Consumed when struck by a super-effective Ground-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.shucaBerry,
+        description = Localizations.ItemGen5Descriptions.shucaBerry},
     [192] = {
-        name = "Coba Berry",
-        description = "Consumed when struck by a super-effective Flying-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.cobaBerry,
+        description = Localizations.ItemGen5Descriptions.cobaBerry},
     [193] = {
-        name = "Payapa Berry",
-        description = "Consumed when struck by a super-effective Psychic-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.payapaBerry,
+        description = Localizations.ItemGen5Descriptions.payapaBerry},
     [194] = {
-        name = "Tanga Berry",
-        description = "Consumed when struck by a super-effective Bug-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.tangaBerry,
+        description = Localizations.ItemGen5Descriptions.tangaBerry},
     [195] = {
-        name = "Charti Berry",
-        description = "Consumed when struck by a super-effective Rock-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.chartiBerry,
+        description = Localizations.ItemGen5Descriptions.chartiBerry},
     [196] = {
-        name = "Kasib Berry",
-        description = "Consumed when struck by a super-effective Ghost-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.kasibBerry,
+        description = Localizations.ItemGen5Descriptions.kasibBerry},
     [197] = {
-        name = "Haban Berry",
-        description = "Consumed when struck by a super-effective Dragon-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.habanBerry,
+        description = Localizations.ItemGen5Descriptions.habanBerry},
     [198] = {
-        name = "Colbur Berry",
-        description = "Consumed when struck by a super-effective Dark-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.colburBerry,
+        description = Localizations.ItemGen5Descriptions.colburBerry},
     [199] = {
-        name = "Babiri Berry",
-        description = "Consumed when struck by a super-effective Steel-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.babiriBerry,
+        description = Localizations.ItemGen5Descriptions.babiriBerry},
     [200] = {
-        name = "Chilan Berry",
-        description = "Consumed when struck by a Normal-type attack to halve the damage."
-    },
+        name = Localizations.ItemGen5Names.chilanBerry,
+        description = Localizations.ItemGen5Descriptions.chilanBerry},
     [201] = {
-        name = "Liechi Berry",
-        description = "Consumed at 1/4 max HP to boost Attack."
-    },
+        name = Localizations.ItemGen5Names.liechiBerry,
+        description = Localizations.ItemGen5Descriptions.liechiBerry},
     [202] = {
-        name = "Ganlon Berry",
-        description = "Consumed at 1/4 max HP to boost Defense."
-    },
+        name = Localizations.ItemGen5Names.ganlonBerry,
+        description = Localizations.ItemGen5Descriptions.ganlonBerry},
     [203] = {
-        name = "Salac Berry",
-        description = "Consumed at 1/4 max HP to boost Speed."
-    },
+        name = Localizations.ItemGen5Names.salacBerry,
+        description = Localizations.ItemGen5Descriptions.salacBerry},
     [204] = {
-        name = "Petaya Berry",
-        description = "Consumed at 1/4 max HP to boost Special Attack."
-    },
+        name = Localizations.ItemGen5Names.petayaBerry,
+        description = Localizations.ItemGen5Descriptions.petayaBerry},
     [205] = {
-        name = "Apicot Berry",
-        description = "Consumed at 1/4 max HP to boost Special Defense."
-    },
+        name = Localizations.ItemGen5Names.apicotBerry,
+        description = Localizations.ItemGen5Descriptions.apicotBerry},
     [206] = {
-        name = "Lansat Berry",
-        description = "Consumed at 1/4 max HP to boost critical hit ratio by two stages."
-    },
+        name = Localizations.ItemGen5Names.lansatBerry,
+        description = Localizations.ItemGen5Descriptions.lansatBerry},
     [207] = {
-        name = "Starf Berry",
-        description = "Consumed at 1/4 max HP to boost a random stat by two stages."
-    },
+        name = Localizations.ItemGen5Names.starfBerry,
+        description = Localizations.ItemGen5Descriptions.starfBerry},
     [208] = {
-        name = "Enigma Berry",
-        description = "Consumed when struck by a super-effective attack to restore 1/4 max HP."
-    },
+        name = Localizations.ItemGen5Names.enigmaBerry,
+        description = Localizations.ItemGen5Descriptions.enigmaBerry},
     [209] = {
-        name = "Micle Berry",
-        description = "Consumed at 1/4 max HP to boost accuracy of next move by 20%."
-    },
+        name = Localizations.ItemGen5Names.micleBerry,
+        description = Localizations.ItemGen5Descriptions.micleBerry},
     [210] = {
-        name = "Custap Berry",
-        description = "Consumed at 1/4 max HP when using a move to go first."
-    },
+        name = Localizations.ItemGen5Names.custapBerry,
+        description = Localizations.ItemGen5Descriptions.custapBerry},
     [211] = {
-        name = "Jaboca Berry",
-        description = "Consumed to deal 1/8 attacker's max HP when holder is struck by a physical attack."
-    },
+        name = Localizations.ItemGen5Names.jabocaBerry,
+        description = Localizations.ItemGen5Descriptions.jabocaBerry},
     [212] = {
-        name = "Rowap Berry",
-        description = "Consumed to deal 1/8 attacker's max HP when holder is struck by a special attack."
-    },
+        name = Localizations.ItemGen5Names.rowapBerry,
+        description = Localizations.ItemGen5Descriptions.rowapBerry},
     [213] = {
-        name = "BrightPowder",
-        description = "Increases the holder's evasion by 1/9 (11 1/9%)."
-    },
+        name = Localizations.ItemGen5Names.brightPowder,
+        description = Localizations.ItemGen5Descriptions.brightPowder},
     [214] = {
-        name = "White Herb",
-        description = "Resets all lowered stats to normal at end of turn. Consumed after use."
-    },
+        name = Localizations.ItemGen5Names.whiteHerb,
+        description = Localizations.ItemGen5Descriptions.whiteHerb},
     [215] = {
-        name = "Macho Brace",
-        description = "Holder gains double effort values from battles, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen5Names.machoBrace,
+        description = Localizations.ItemGen5Descriptions.machoBrace},
     [216] = {
-        name = "Exp Share",
-        description = "Half the experience from a battle is split between Pok" .. Chars.accentedE .. "mon holding this item."
-    },
+        name = Localizations.ItemGen5Names.expShare,
+        description = Localizations.ItemGen5Descriptions.expShare},
     [217] = {
-        name = "Quick Claw",
-        description = "Holder has a 3/16 (18.75%) chance to move first."
-    },
+        name = Localizations.ItemGen5Names.quickClaw,
+        description = Localizations.ItemGen5Descriptions.quickClaw},
     [218] = {
-        name = "Soothe Bell",
-        description = "Doubles the happiness earned by the holder."
-    },
+        name = Localizations.ItemGen5Names.sootheBell,
+        description = Localizations.ItemGen5Descriptions.sootheBell},
     [219] = {
-        name = "Mental Herb",
-        description = "Consumed to cure infatuation. Gen V: Also removes Taunt, Encore, Torment, Disable, and Cursed Body."
-    },
+        name = Localizations.ItemGen5Names.mentalHerb,
+        description = Localizations.ItemGen5Descriptions.mentalHerb},
     [220] = {
-        name = "Choice Band",
-        description = "Increases Attack by 50%, but restricts the holder to only one move."
-    },
+        name = Localizations.ItemGen5Names.choiceBand,
+        description = Localizations.ItemGen5Descriptions.choiceBand},
     [221] = {
-        name = "King's Rock",
-        description = "Damaging moves gain a 10% chance to make their target flinch. Traded on a Poliwhirl: Holder evolves into Politoed. Traded on a Slowpoke: Holder evolves into Slowking."
-    },
+        name = Localizations.ItemGen5Names.kingSRock,
+        description = Localizations.ItemGen5Descriptions.kingSRock},
     [222] = {
-        name = "Silver Powder",
-        description = "Bug-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.silverPowder,
+        description = Localizations.ItemGen5Descriptions.silverPowder},
     [223] = {
-        name = "Amulet Coin",
-        description = "Doubles the money earned from a battle. Does not stack with Luck Incense."
-    },
+        name = Localizations.ItemGen5Names.amuletCoin,
+        description = Localizations.ItemGen5Descriptions.amuletCoin},
     [224] = {
-        name = "Cleanse Tag",
-        description = "Prevents wild encounters of level lower than your party's lead Pokemon."
-    },
+        name = Localizations.ItemGen5Names.cleanseTag,
+        description = Localizations.ItemGen5Descriptions.cleanseTag},
     [225] = {
-        name = "Soul Dew",
-        description = "Raises Latias and Latios's Special Attack and Special Defense by 50%."
-    },
+        name = Localizations.ItemGen5Names.soulDew,
+        description = Localizations.ItemGen5Descriptions.soulDew},
     [226] = {
-        name = "Deep Sea-tooth",
-        description = "Doubles Clamperl's Special Attack. Traded on a Clamperl: Holder evolves into Huntail."
-    },
+        name = Localizations.ItemGen5Names.deepSeaTooth,
+        description = Localizations.ItemGen5Descriptions.deepSeaTooth},
     [227] = {
-        name = "Deep Sea-scale",
-        description = "Doubles Clamperl's Special Defense. Traded on a Clamperl: Holder evolves into Gorebyss."
-    },
+        name = Localizations.ItemGen5Names.deepSeaScale,
+        description = Localizations.ItemGen5Descriptions.deepSeaScale},
     [228] = {
-        name = "Smoke Ball",
-        description = "Allows the Holder to escape from any wild battle."
-    },
+        name = Localizations.ItemGen5Names.smokeBall,
+        description = Localizations.ItemGen5Descriptions.smokeBall},
     [229] = {
-        name = "Everstone",
-        description = "Prevents level-based evolution from occuring."
-    },
+        name = Localizations.ItemGen5Names.everstone,
+        description = Localizations.ItemGen5Descriptions.everstone},
     [230] = {
-        name = "Focus Band",
-        description = "Holder has 10% chance to survive attacks or self-inflicted damage at 1 HP."
-    },
+        name = Localizations.ItemGen5Names.focusBand,
+        description = Localizations.ItemGen5Descriptions.focusBand},
     [231] = {
-        name = "Lucky Egg",
-        description = "Increases EXP earned in battle by 50%."
-    },
+        name = Localizations.ItemGen5Names.luckyEgg,
+        description = Localizations.ItemGen5Descriptions.luckyEgg},
     [232] = {
-        name = "Scope Lens",
-        description = "Raises the holder's critical hit ratio by one stage."
-    },
+        name = Localizations.ItemGen5Names.scopeLens,
+        description = Localizations.ItemGen5Descriptions.scopeLens},
     [233] = {
-        name = "Metal Coat",
-        description = "Steel-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.metalCoat,
+        description = Localizations.ItemGen5Descriptions.metalCoat},
     [234] = {
-        name = "Leftovers",
-        description = "Restores 1/16 (6.25%) holder's max HP at the end of each turn."
-    },
+        name = Localizations.ItemGen5Names.leftovers,
+        description = Localizations.ItemGen5Descriptions.leftovers},
     [235] = {
-        name = "Dragon Scale",
-        description = "Traded on a Seadra: Holder evolves into Kingdra."
-    },
+        name = Localizations.ItemGen5Names.dragonScale,
+        description = Localizations.ItemGen5Descriptions.dragonScale},
     [236] = {
-        name = "Light Ball",
-        description = "Doubles Pikachu's Attack and Special Attack. Breed on Pikachu or Raichu: Pichu Egg will have Volt Tackle."
-    },
+        name = Localizations.ItemGen5Names.lightBall,
+        description = Localizations.ItemGen5Descriptions.lightBall},
     [237] = {
-        name = "Soft Sand",
-        description = "Ground-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.softSand,
+        description = Localizations.ItemGen5Descriptions.softSand},
     [238] = {
-        name = "Hard Stone",
-        description = "Rock-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.hardStone,
+        description = Localizations.ItemGen5Descriptions.hardStone},
     [239] = {
-        name = "Miracle Seed",
-        description = "Grass-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.miracleSeed,
+        description = Localizations.ItemGen5Descriptions.miracleSeed},
     [240] = {
-        name = "BlackGlasses",
-        description = "Dark-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.blackGlasses,
+        description = Localizations.ItemGen5Descriptions.blackGlasses},
     [241] = {
-        name = "Black Belt",
-        description = "Fighting-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.blackBelt,
+        description = Localizations.ItemGen5Descriptions.blackBelt},
     [242] = {
-        name = "Magnet",
-        description = "Electric-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.magnet,
+        description = Localizations.ItemGen5Descriptions.magnet},
     [243] = {
-        name = "Mystic Water",
-        description = "Water-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.mysticWater,
+        description = Localizations.ItemGen5Descriptions.mysticWater},
     [244] = {
-        name = "Sharp Beak",
-        description = "Flying-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.sharpBeak,
+        description = Localizations.ItemGen5Descriptions.sharpBeak},
     [245] = {
-        name = "Poison Barb",
-        description = "Poison-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.poisonBarb,
+        description = Localizations.ItemGen5Descriptions.poisonBarb},
     [246] = {
-        name = "Never Melt-ice",
-        description = "Ice-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.neverMeltIce,
+        description = Localizations.ItemGen5Descriptions.neverMeltIce},
     [247] = {
-        name = "Spell Tag",
-        description = "Ghost-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.spellTag,
+        description = Localizations.ItemGen5Descriptions.spellTag},
     [248] = {
-        name = "Twisted Spoon",
-        description = "Psychic-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.twistedSpoon,
+        description = Localizations.ItemGen5Descriptions.twistedSpoon},
     [249] = {
-        name = "Charcoal",
-        description = "Fire-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.charcoal,
+        description = Localizations.ItemGen5Descriptions.charcoal},
     [250] = {
-        name = "Dragon Fang",
-        description = "Dragon-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.dragonFang,
+        description = Localizations.ItemGen5Descriptions.dragonFang},
     [251] = {
-        name = "Silk Scarf",
-        description = "Normal-Type moves from holder do 20% more damage."
-    },
+        name = Localizations.ItemGen5Names.silkScarf,
+        description = Localizations.ItemGen5Descriptions.silkScarf},
     [252] = {
-        name = "Up Grade",
-        description = "Traded on a Porygon: Holder evolves into Porygon2."
-    },
+        name = Localizations.ItemGen5Names.upGrade,
+        description = Localizations.ItemGen5Descriptions.upGrade},
     [253] = {
-        name = "Shell Bell",
-        description = "Holder receives 1/8 of the damage it deals when attacking."
-    },
+        name = Localizations.ItemGen5Names.shellBell,
+        description = Localizations.ItemGen5Descriptions.shellBell},
     [254] = {
-        name = "Sea Incense",
-        description = "Water-Type moves from holder do 20% more damage. Breeding: Marill or Azumarill beget an Azurill Egg."
-    },
+        name = Localizations.ItemGen5Names.seaIncense,
+        description = Localizations.ItemGen5Descriptions.seaIncense},
     [255] = {
-        name = "Lax Incense",
-        description = "Holder's evasion is increased by 5%. Breeding: Wobbuffet begets a Wynaut Egg."
-    },
+        name = Localizations.ItemGen5Names.laxIncense,
+        description = Localizations.ItemGen5Descriptions.laxIncense},
     [256] = {
-        name = "Lucky Punch",
-        description = "Raises Chansey's critical hit ratio by two stages."
-    },
+        name = Localizations.ItemGen5Names.luckyPunch,
+        description = Localizations.ItemGen5Descriptions.luckyPunch},
     [257] = {
-        name = "Metal Powder",
-        description = "Raises Ditto's Defense and Special Defense by 50%. The boost is lost after transforming."
-    },
+        name = Localizations.ItemGen5Names.metalPowder,
+        description = Localizations.ItemGen5Descriptions.metalPowder},
     [258] = {
-        name = "Thick Club",
-        description = "Doubles Cubone or Marowak's Attack."
-    },
+        name = Localizations.ItemGen5Names.thickClub,
+        description = Localizations.ItemGen5Descriptions.thickClub},
     [259] = {
-        name = "Stick",
-        description = "Raises Farfetch'd's critical hit ratio by two stages."
-    },
+        name = Localizations.ItemGen5Names.stick,
+        description = Localizations.ItemGen5Descriptions.stick},
     [260] = {
-        name = "Red Scarf",
-        description = "Raises the holder's Coolness while in a contest."
-    },
+        name = Localizations.ItemGen5Names.redScarf,
+        description = Localizations.ItemGen5Descriptions.redScarf},
     [261] = {
-        name = "Blue Scarf",
-        description = "Raises the holder's Beauty while in a contest."
-    },
+        name = Localizations.ItemGen5Names.blueScarf,
+        description = Localizations.ItemGen5Descriptions.blueScarf},
     [262] = {
-        name = "Pink Scarf",
-        description = "Raises the holder's Cuteness while in a contest."
-    },
+        name = Localizations.ItemGen5Names.pinkScarf,
+        description = Localizations.ItemGen5Descriptions.pinkScarf},
     [263] = {
-        name = "Green Scarf",
-        description = "Raises the holder's Smartness while in a contest."
-    },
+        name = Localizations.ItemGen5Names.greenScarf,
+        description = Localizations.ItemGen5Descriptions.greenScarf},
     [264] = {
-        name = "Yellow Scarf",
-        description = "Raises the holder's Toughness while in a contest."
-    },
+        name = Localizations.ItemGen5Names.yellowScarf,
+        description = Localizations.ItemGen5Descriptions.yellowScarf},
     [265] = {
-        name = "Wide Lens",
-        description = "Provides a 1/10 (10%) boost in accuracy to the holder."
-    },
+        name = Localizations.ItemGen5Names.wideLens,
+        description = Localizations.ItemGen5Descriptions.wideLens},
     [266] = {
-        name = "Muscle Band",
-        description = "Boosts the damage of physical moves used by the holder by 10%."
-    },
+        name = Localizations.ItemGen5Names.muscleBand,
+        description = Localizations.ItemGen5Descriptions.muscleBand},
     [267] = {
-        name = "Wise Glasses",
-        description = "Boosts the damage of special moves used by the holder by 1/10 (10%)."
-    },
+        name = Localizations.ItemGen5Names.wiseGlasses,
+        description = Localizations.ItemGen5Descriptions.wiseGlasses},
     [268] = {
-        name = "Expert Belt",
-        description = "Holder's Super Effective moves do 20% extra damage."
-    },
+        name = Localizations.ItemGen5Names.expertBelt,
+        description = Localizations.ItemGen5Descriptions.expertBelt},
     [269] = {
-        name = "Light Clay",
-        description = "Light Screen and Reflect used by the holder last 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen5Names.lightClay,
+        description = Localizations.ItemGen5Descriptions.lightClay},
     [270] = {
-        name = "Life Orb",
-        description = "Holder's moves inflict 30% extra damage, but cost 10% max HP."
-    },
+        name = Localizations.ItemGen5Names.lifeOrb,
+        description = Localizations.ItemGen5Descriptions.lifeOrb},
     [271] = {
-        name = "Power Herb",
-        description = "Both turns of a two-turn charge move happen at once. Consumed upon use."
-    },
+        name = Localizations.ItemGen5Names.powerHerb,
+        description = Localizations.ItemGen5Descriptions.powerHerb},
     [272] = {
-        name = "Toxic Orb",
-        description = "Inflicts Toxic on the holder at the end of the turn. Activates after Poison damage would occur."
-    },
+        name = Localizations.ItemGen5Names.toxicOrb,
+        description = Localizations.ItemGen5Descriptions.toxicOrb},
     [273] = {
-        name = "Flame Orb",
-        description = "Inflicts Burn on the holder at the end of the turn. Activates after Burn damage would occur."
-    },
+        name = Localizations.ItemGen5Names.flameOrb,
+        description = Localizations.ItemGen5Descriptions.flameOrb},
     [274] = {
-        name = "Quick Powder",
-        description = "Doubles Ditto's Speed when held. The boost is lost after transforming."
-    },
+        name = Localizations.ItemGen5Names.quickPowder,
+        description = Localizations.ItemGen5Descriptions.quickPowder},
     [275] = {
-        name = "Focus Sash",
-        description = "Holder survives any single-hit attack at 1 HP if at max HP, then the item is consumed."
-    },
+        name = Localizations.ItemGen5Names.focusSash,
+        description = Localizations.ItemGen5Descriptions.focusSash},
     [276] = {
-        name = "Zoom Lens",
-        description = "Provides a 1/5 (20%) boost in accuracy if the holder moves after the target."
-    },
+        name = Localizations.ItemGen5Names.zoomLens,
+        description = Localizations.ItemGen5Descriptions.zoomLens},
     [277] = {
-        name = "Metronome",
-        description = "Consectutive uses of the same attack have a cumulative damage boost of 10%. Maximum 100% boost."
-    },
+        name = Localizations.ItemGen5Names.metronome,
+        description = Localizations.ItemGen5Descriptions.metronome},
     [278] = {
-        name = "Iron Ball",
-        description = "Holder's Speed is halved. Negates all Ground-type immunities, and makes Flying-types take neutral damage from Ground-type moves. Arena Trap. Spikes, and Toxic Spikes affect the holder."
-    },
+        name = Localizations.ItemGen5Names.ironBall,
+        description = Localizations.ItemGen5Descriptions.ironBall},
     [279] = {
-        name = "Lagging Tail",
-        description = "Holder moves last in its priority bracket."
-    },
+        name = Localizations.ItemGen5Names.laggingTail,
+        description = Localizations.ItemGen5Descriptions.laggingTail},
     [280] = {
-        name = "Destiny Knot",
-        description = "Infatuates opposing Pok" .. Chars.accentedE .. "mon when holder is inflicted with infatuation."
-    },
+        name = Localizations.ItemGen5Names.destinyKnot,
+        description = Localizations.ItemGen5Descriptions.destinyKnot},
     [281] = {
-        name = "Black Sludge",
-        description = "Poison-type holder recovers 1/16 (6.25%) max HP each turn. Non-Poison-Types take 1/8 (12.5%) max HP damage."
-    },
+        name = Localizations.ItemGen5Names.blackSludge,
+        description = Localizations.ItemGen5Descriptions.blackSludge},
     [282] = {
-        name = "Icy Rock",
-        description = "Hail by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen5Names.icyRock,
+        description = Localizations.ItemGen5Descriptions.icyRock},
     [283] = {
-        name = "Smooth Rock",
-        description = "Sandstorm by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen5Names.smoothRock,
+        description = Localizations.ItemGen5Descriptions.smoothRock},
     [284] = {
-        name = "Heat Rock",
-        description = "Sunny Day by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen5Names.heatRock,
+        description = Localizations.ItemGen5Descriptions.heatRock},
     [285] = {
-        name = "Damp Rock",
-        description = "Rain Dance by the holder lasts 8 rounds instead of 5."
-    },
+        name = Localizations.ItemGen5Names.dampRock,
+        description = Localizations.ItemGen5Descriptions.dampRock},
     [286] = {
-        name = "Grip Claw",
-        description = "Holder's multi-turn trapping moves last 5 turns."
-    },
+        name = Localizations.ItemGen5Names.gripClaw,
+        description = Localizations.ItemGen5Descriptions.gripClaw},
     [287] = {
-        name = "Choice Scarf",
-        description = "Increases Speed by 50%, but restricts the holder to only one move."
-    },
+        name = Localizations.ItemGen5Names.choiceScarf,
+        description = Localizations.ItemGen5Descriptions.choiceScarf},
     [288] = {
-        name = "Sticky Barb",
-        description = "Holder takes 1/8 (12.5%) its max HP at the end of each turn. When the holder is hit by a contact move, the attacking Pok" ..
-            Chars.accentedE .. "mon takes 1/8 its max HP in damage and receive the item if not holding one."
-    },
+        name = Localizations.ItemGen5Names.stickyBarb,
+        description = Localizations.ItemGen5Descriptions.stickyBarb},
     [289] = {
-        name = "Power Bracer",
-        description = "Holder gains 4 Attack effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen5Names.powerBracer,
+        description = Localizations.ItemGen5Descriptions.powerBracer},
     [290] = {
-        name = "Power Belt",
-        description = "Holder gains 4 Defense effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen5Names.powerBelt,
+        description = Localizations.ItemGen5Descriptions.powerBelt},
     [291] = {
-        name = "Power Lens",
-        description = "Holder gains 4 Special Attack effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen5Names.powerLens,
+        description = Localizations.ItemGen5Descriptions.powerLens},
     [292] = {
-        name = "Power Band",
-        description = "Holder gains 4 Special Defense effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen5Names.powerBand,
+        description = Localizations.ItemGen5Descriptions.powerBand},
     [293] = {
-        name = "Power Anklet",
-        description = "Holder gains 4 Speed effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen5Names.powerAnklet,
+        description = Localizations.ItemGen5Descriptions.powerAnklet},
     [294] = {
-        name = "Power Weight",
-        description = "Holder gains 4 HP effort values, but has halved Speed in battle."
-    },
+        name = Localizations.ItemGen5Names.powerWeight,
+        description = Localizations.ItemGen5Descriptions.powerWeight},
     [295] = {
-        name = "Shed Shell",
-        description = "Holder can bypass all trapping effects and switch out. Multi-turn moves still cannot be switched out of."
-    },
+        name = Localizations.ItemGen5Names.shedShell,
+        description = Localizations.ItemGen5Descriptions.shedShell},
     [296] = {
-        name = "Big Root",
-        description = "Increases HP recovered from draining moves, Ingrain, and Aqua Ring by 3/10 (30%)."
-    },
+        name = Localizations.ItemGen5Names.bigRoot,
+        description = Localizations.ItemGen5Descriptions.bigRoot},
     [297] = {
-        name = "Choice Specs",
-        description = "Increases Special Attack by 50%, but restricts the holder to only one move."
-    },
+        name = Localizations.ItemGen5Names.choiceSpecs,
+        description = Localizations.ItemGen5Descriptions.choiceSpecs},
     [298] = {
-        name = "Flame Plate",
-        description = "Fire-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Fire."
-    },
+        name = Localizations.ItemGen5Names.flamePlate,
+        description = Localizations.ItemGen5Descriptions.flamePlate},
     [299] = {
-        name = "Splash Plate",
-        description = "Water-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Water."
-    },
+        name = Localizations.ItemGen5Names.splashPlate,
+        description = Localizations.ItemGen5Descriptions.splashPlate},
     [300] = {
-        name = "Zap Plate",
-        description = "Electric-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Electric."
-    },
+        name = Localizations.ItemGen5Names.zapPlate,
+        description = Localizations.ItemGen5Descriptions.zapPlate},
     [301] = {
-        name = "Meadow Plate",
-        description = "Grass-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Grass."
-    },
+        name = Localizations.ItemGen5Names.meadowPlate,
+        description = Localizations.ItemGen5Descriptions.meadowPlate},
     [302] = {
-        name = "Icicle Plate",
-        description = "Ice-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Ice."
-    },
+        name = Localizations.ItemGen5Names.iciclePlate,
+        description = Localizations.ItemGen5Descriptions.iciclePlate},
     [303] = {
-        name = "Fist Plate",
-        description = "Fighting-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Fighting."
-    },
+        name = Localizations.ItemGen5Names.fistPlate,
+        description = Localizations.ItemGen5Descriptions.fistPlate},
     [304] = {
-        name = "Toxic Plate",
-        description = "Posion-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Posion."
-    },
+        name = Localizations.ItemGen5Names.toxicPlate,
+        description = Localizations.ItemGen5Descriptions.toxicPlate},
     [305] = {
-        name = "Earth Plate",
-        description = "Ground-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Ground."
-    },
+        name = Localizations.ItemGen5Names.earthPlate,
+        description = Localizations.ItemGen5Descriptions.earthPlate},
     [306] = {
-        name = "Sky Plate",
-        description = "Flying-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Flying."
-    },
+        name = Localizations.ItemGen5Names.skyPlate,
+        description = Localizations.ItemGen5Descriptions.skyPlate},
     [307] = {
-        name = "Mind Plate",
-        description = "Psychic-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Psychic."
-    },
+        name = Localizations.ItemGen5Names.mindPlate,
+        description = Localizations.ItemGen5Descriptions.mindPlate},
     [308] = {
-        name = "Insect Plate",
-        description = "Bug-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Bug."
-    },
+        name = Localizations.ItemGen5Names.insectPlate,
+        description = Localizations.ItemGen5Descriptions.insectPlate},
     [309] = {
-        name = "Stone Plate",
-        description = "Rock-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Rock."
-    },
+        name = Localizations.ItemGen5Names.stonePlate,
+        description = Localizations.ItemGen5Descriptions.stonePlate},
     [310] = {
-        name = "Spooky Plate",
-        description = "Ghost-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Ghost."
-    },
+        name = Localizations.ItemGen5Names.spookyPlate,
+        description = Localizations.ItemGen5Descriptions.spookyPlate},
     [311] = {
-        name = "Draco Plate",
-        description = "Dragon-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Dragon."
-    },
+        name = Localizations.ItemGen5Names.dracoPlate,
+        description = Localizations.ItemGen5Descriptions.dracoPlate},
     [312] = {
-        name = "Dread Plate",
-        description = "Dark-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Dark."
-    },
+        name = Localizations.ItemGen5Names.dreadPlate,
+        description = Localizations.ItemGen5Descriptions.dreadPlate},
     [313] = {
-        name = "Iron Plate",
-        description = "Steel-Type moves from holder do 20% more damage. Changes Arceus's and Judgment's type to Steel."
-    },
+        name = Localizations.ItemGen5Names.ironPlate,
+        description = Localizations.ItemGen5Descriptions.ironPlate},
     [314] = {
-        name = "Odd Incense",
-        description = "Psychic-Type moves from holder do 20% more damage. Breeding: Mr. Mime begets a Mime Jr. Egg."
-    },
+        name = Localizations.ItemGen5Names.oddIncense,
+        description = Localizations.ItemGen5Descriptions.oddIncense},
     [315] = {
-        name = "Rock Incense",
-        description = "Rock-Type moves from holder do 20% more damage. Breeding: Sudowoodo begets a Bonsly Egg."
-    },
+        name = Localizations.ItemGen5Names.rockIncense,
+        description = Localizations.ItemGen5Descriptions.rockIncense},
     [316] = {
-        name = "Full Incense",
-        description = "Holder moves last in its priority bracket. Breeding: Snorlax begets a Munchlax Egg."
-    },
+        name = Localizations.ItemGen5Names.fullIncense,
+        description = Localizations.ItemGen5Descriptions.fullIncense},
     [317] = {
-        name = "Wave Incense",
-        description = "Water-Type moves from holder do 20% more damage. Breeding: Mantine begets a Mantyke Egg."
-    },
+        name = Localizations.ItemGen5Names.waveIncense,
+        description = Localizations.ItemGen5Descriptions.waveIncense},
     [318] = {
-        name = "Rose Incense",
-        description = "Grass-Type moves from holder do 20% more damage. Breeding: Roselia or Roserade beget a Budew Egg."
-    },
+        name = Localizations.ItemGen5Names.roseIncense,
+        description = Localizations.ItemGen5Descriptions.roseIncense},
     [319] = {
-        name = "Luck Incense",
-        description = "Doubles the money earned from a battle. Does not stack with Amulet Coin. Breeding: Chansey and Blissey beget a Happiny Egg."
-    },
+        name = Localizations.ItemGen5Names.luckIncense,
+        description = Localizations.ItemGen5Descriptions.luckIncense},
     [320] = {
-        name = "Pure Incense",
-        description = "Prevents wild encounters of level lower than your party's lead Pokemon. Breeding: Chimecho begets a Chingling Egg."
-    },
+        name = Localizations.ItemGen5Names.pureIncense,
+        description = Localizations.ItemGen5Descriptions.pureIncense},
     [321] = {
-        name = "Protector",
-        description = "Traded on a Rhydon: Holder evolves into Rhyperior."
-    },
+        name = Localizations.ItemGen5Names.protector,
+        description = Localizations.ItemGen5Descriptions.protector},
     [322] = {
-        name = "Electirizer",
-        description = "Traded on an Electabuzz: Holder evolves into Electivire."
-    },
+        name = Localizations.ItemGen5Names.electirizer,
+        description = Localizations.ItemGen5Descriptions.electirizer},
     [323] = {
-        name = "Magmarizer",
-        description = "Traded on a Magmar: Holder evolves into Magmortar."
-    },
+        name = Localizations.ItemGen5Names.magmarizer,
+        description = Localizations.ItemGen5Descriptions.magmarizer},
     [324] = {
-        name = "Dubious Disc",
-        description = "Traded on a Porygon2: Holder evolves into Porygon-Z."
-    },
+        name = Localizations.ItemGen5Names.dubiousDisc,
+        description = Localizations.ItemGen5Descriptions.dubiousDisc},
     [325] = {
-        name = "Reaper Cloth",
-        description = "Traded on a Dusclops: Holder evolves into Dusknoir."
-    },
+        name = Localizations.ItemGen5Names.reaperCloth,
+        description = Localizations.ItemGen5Descriptions.reaperCloth},
     [326] = {
-        name = "Razor Claw",
-        description = "Raises the holder's critical hit ratio by one stage. Held by a Sneasel while levelling up at night: Holder evolves into Weavile."
-    },
+        name = Localizations.ItemGen5Names.razorClaw,
+        description = Localizations.ItemGen5Descriptions.razorClaw},
     [327] = {
-        name = "Razor Fang",
-        description = "Damaging moves gain a 10% chance to make their target flinch. Held by a Gligar while levelling up: Holder evolves into Gliscor."
-    },
+        name = Localizations.ItemGen5Names.razorFang,
+        description = Localizations.ItemGen5Descriptions.razorFang},
     [328] = {
-        name = "TM01",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM01,
+        description = Localizations.ItemGen5Descriptions.tM01},
     [329] = {
-        name = "TM02",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM02,
+        description = Localizations.ItemGen5Descriptions.tM02},
     [330] = {
-        name = "TM03",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM03,
+        description = Localizations.ItemGen5Descriptions.tM03},
     [331] = {
-        name = "TM04",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM04,
+        description = Localizations.ItemGen5Descriptions.tM04},
     [332] = {
-        name = "TM05",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM05,
+        description = Localizations.ItemGen5Descriptions.tM05},
     [333] = {
-        name = "TM06",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM06,
+        description = Localizations.ItemGen5Descriptions.tM06},
     [334] = {
-        name = "TM07",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM07,
+        description = Localizations.ItemGen5Descriptions.tM07},
     [335] = {
-        name = "TM08",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM08,
+        description = Localizations.ItemGen5Descriptions.tM08},
     [336] = {
-        name = "TM09",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM09,
+        description = Localizations.ItemGen5Descriptions.tM09},
     [337] = {
-        name = "TM10",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM10,
+        description = Localizations.ItemGen5Descriptions.tM10},
     [338] = {
-        name = "TM11",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM11,
+        description = Localizations.ItemGen5Descriptions.tM11},
     [339] = {
-        name = "TM12",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM12,
+        description = Localizations.ItemGen5Descriptions.tM12},
     [340] = {
-        name = "TM13",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM13,
+        description = Localizations.ItemGen5Descriptions.tM13},
     [341] = {
-        name = "TM14",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM14,
+        description = Localizations.ItemGen5Descriptions.tM14},
     [342] = {
-        name = "TM15",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM15,
+        description = Localizations.ItemGen5Descriptions.tM15},
     [343] = {
-        name = "TM16",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM16,
+        description = Localizations.ItemGen5Descriptions.tM16},
     [344] = {
-        name = "TM17",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM17,
+        description = Localizations.ItemGen5Descriptions.tM17},
     [345] = {
-        name = "TM18",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM18,
+        description = Localizations.ItemGen5Descriptions.tM18},
     [346] = {
-        name = "TM19",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM19,
+        description = Localizations.ItemGen5Descriptions.tM19},
     [347] = {
-        name = "TM20",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM20,
+        description = Localizations.ItemGen5Descriptions.tM20},
     [348] = {
-        name = "TM21",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM21,
+        description = Localizations.ItemGen5Descriptions.tM21},
     [349] = {
-        name = "TM22",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM22,
+        description = Localizations.ItemGen5Descriptions.tM22},
     [350] = {
-        name = "TM23",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM23,
+        description = Localizations.ItemGen5Descriptions.tM23},
     [351] = {
-        name = "TM24",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM24,
+        description = Localizations.ItemGen5Descriptions.tM24},
     [352] = {
-        name = "TM25",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM25,
+        description = Localizations.ItemGen5Descriptions.tM25},
     [353] = {
-        name = "TM26",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM26,
+        description = Localizations.ItemGen5Descriptions.tM26},
     [354] = {
-        name = "TM27",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM27,
+        description = Localizations.ItemGen5Descriptions.tM27},
     [355] = {
-        name = "TM28",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM28,
+        description = Localizations.ItemGen5Descriptions.tM28},
     [356] = {
-        name = "TM29",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM29,
+        description = Localizations.ItemGen5Descriptions.tM29},
     [357] = {
-        name = "TM30",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM30,
+        description = Localizations.ItemGen5Descriptions.tM30},
     [358] = {
-        name = "TM31",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM31,
+        description = Localizations.ItemGen5Descriptions.tM31},
     [359] = {
-        name = "TM32",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM32,
+        description = Localizations.ItemGen5Descriptions.tM32},
     [360] = {
-        name = "TM33",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM33,
+        description = Localizations.ItemGen5Descriptions.tM33},
     [361] = {
-        name = "TM34",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM34,
+        description = Localizations.ItemGen5Descriptions.tM34},
     [362] = {
-        name = "TM35",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM35,
+        description = Localizations.ItemGen5Descriptions.tM35},
     [363] = {
-        name = "TM36",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM36,
+        description = Localizations.ItemGen5Descriptions.tM36},
     [364] = {
-        name = "TM37",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM37,
+        description = Localizations.ItemGen5Descriptions.tM37},
     [365] = {
-        name = "TM38",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM38,
+        description = Localizations.ItemGen5Descriptions.tM38},
     [366] = {
-        name = "TM39",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM39,
+        description = Localizations.ItemGen5Descriptions.tM39},
     [367] = {
-        name = "TM40",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM40,
+        description = Localizations.ItemGen5Descriptions.tM40},
     [368] = {
-        name = "TM41",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM41,
+        description = Localizations.ItemGen5Descriptions.tM41},
     [369] = {
-        name = "TM42",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM42,
+        description = Localizations.ItemGen5Descriptions.tM42},
     [370] = {
-        name = "TM43",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM43,
+        description = Localizations.ItemGen5Descriptions.tM43},
     [371] = {
-        name = "TM44",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM44,
+        description = Localizations.ItemGen5Descriptions.tM44},
     [372] = {
-        name = "TM45",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM45,
+        description = Localizations.ItemGen5Descriptions.tM45},
     [373] = {
-        name = "TM46",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM46,
+        description = Localizations.ItemGen5Descriptions.tM46},
     [374] = {
-        name = "TM47",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM47,
+        description = Localizations.ItemGen5Descriptions.tM47},
     [375] = {
-        name = "TM48",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM48,
+        description = Localizations.ItemGen5Descriptions.tM48},
     [376] = {
-        name = "TM49",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM49,
+        description = Localizations.ItemGen5Descriptions.tM49},
     [377] = {
-        name = "TM50",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM50,
+        description = Localizations.ItemGen5Descriptions.tM50},
     [378] = {
-        name = "TM51",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM51,
+        description = Localizations.ItemGen5Descriptions.tM51},
     [379] = {
-        name = "TM52",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM52,
+        description = Localizations.ItemGen5Descriptions.tM52},
     [380] = {
-        name = "TM53",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM53,
+        description = Localizations.ItemGen5Descriptions.tM53},
     [381] = {
-        name = "TM54",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM54,
+        description = Localizations.ItemGen5Descriptions.tM54},
     [382] = {
-        name = "TM55",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM55,
+        description = Localizations.ItemGen5Descriptions.tM55},
     [383] = {
-        name = "TM56",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM56,
+        description = Localizations.ItemGen5Descriptions.tM56},
     [384] = {
-        name = "TM57",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM57,
+        description = Localizations.ItemGen5Descriptions.tM57},
     [385] = {
-        name = "TM58",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM58,
+        description = Localizations.ItemGen5Descriptions.tM58},
     [386] = {
-        name = "TM59",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM59,
+        description = Localizations.ItemGen5Descriptions.tM59},
     [387] = {
-        name = "TM60",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM60,
+        description = Localizations.ItemGen5Descriptions.tM60},
     [388] = {
-        name = "TM61",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM61,
+        description = Localizations.ItemGen5Descriptions.tM61},
     [389] = {
-        name = "TM62",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM62,
+        description = Localizations.ItemGen5Descriptions.tM62},
     [390] = {
-        name = "TM63",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM63,
+        description = Localizations.ItemGen5Descriptions.tM63},
     [391] = {
-        name = "TM64",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM64,
+        description = Localizations.ItemGen5Descriptions.tM64},
     [392] = {
-        name = "TM65",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM65,
+        description = Localizations.ItemGen5Descriptions.tM65},
     [393] = {
-        name = "TM66",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM66,
+        description = Localizations.ItemGen5Descriptions.tM66},
     [394] = {
-        name = "TM67",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM67,
+        description = Localizations.ItemGen5Descriptions.tM67},
     [395] = {
-        name = "TM68",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM68,
+        description = Localizations.ItemGen5Descriptions.tM68},
     [396] = {
-        name = "TM69",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM69,
+        description = Localizations.ItemGen5Descriptions.tM69},
     [397] = {
-        name = "TM70",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM70,
+        description = Localizations.ItemGen5Descriptions.tM70},
     [398] = {
-        name = "TM71",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM71,
+        description = Localizations.ItemGen5Descriptions.tM71},
     [399] = {
-        name = "TM72",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM72,
+        description = Localizations.ItemGen5Descriptions.tM72},
     [400] = {
-        name = "TM73",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM73,
+        description = Localizations.ItemGen5Descriptions.tM73},
     [401] = {
-        name = "TM74",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM74,
+        description = Localizations.ItemGen5Descriptions.tM74},
     [402] = {
-        name = "TM75",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM75,
+        description = Localizations.ItemGen5Descriptions.tM75},
     [403] = {
-        name = "TM76",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM76,
+        description = Localizations.ItemGen5Descriptions.tM76},
     [404] = {
-        name = "TM77",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM77,
+        description = Localizations.ItemGen5Descriptions.tM77},
     [405] = {
-        name = "TM78",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM78,
+        description = Localizations.ItemGen5Descriptions.tM78},
     [406] = {
-        name = "TM79",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM79,
+        description = Localizations.ItemGen5Descriptions.tM79},
     [407] = {
-        name = "TM80",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM80,
+        description = Localizations.ItemGen5Descriptions.tM80},
     [408] = {
-        name = "TM81",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM81,
+        description = Localizations.ItemGen5Descriptions.tM81},
     [409] = {
-        name = "TM82",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM82,
+        description = Localizations.ItemGen5Descriptions.tM82},
     [410] = {
-        name = "TM83",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM83,
+        description = Localizations.ItemGen5Descriptions.tM83},
     [411] = {
-        name = "TM84",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM84,
+        description = Localizations.ItemGen5Descriptions.tM84},
     [412] = {
-        name = "TM85",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM85,
+        description = Localizations.ItemGen5Descriptions.tM85},
     [413] = {
-        name = "TM86",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM86,
+        description = Localizations.ItemGen5Descriptions.tM86},
     [414] = {
-        name = "TM87",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM87,
+        description = Localizations.ItemGen5Descriptions.tM87},
     [415] = {
-        name = "TM88",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM88,
+        description = Localizations.ItemGen5Descriptions.tM88},
     [416] = {
-        name = "TM89",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM89,
+        description = Localizations.ItemGen5Descriptions.tM89},
     [417] = {
-        name = "TM90",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM90,
+        description = Localizations.ItemGen5Descriptions.tM90},
     [418] = {
-        name = "TM91",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM91,
+        description = Localizations.ItemGen5Descriptions.tM91},
     [419] = {
-        name = "TM92",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM92,
+        description = Localizations.ItemGen5Descriptions.tM92},
     [420] = {
-        name = "HM01",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.hM01,
+        description = Localizations.ItemGen5Descriptions.hM01},
     [421] = {
-        name = "HM02",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.hM02,
+        description = Localizations.ItemGen5Descriptions.hM02},
     [422] = {
-        name = "HM03",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.hM03,
+        description = Localizations.ItemGen5Descriptions.hM03},
     [423] = {
-        name = "HM04",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.hM04,
+        description = Localizations.ItemGen5Descriptions.hM04},
     [424] = {
-        name = "HM05",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.hM05,
+        description = Localizations.ItemGen5Descriptions.hM05},
     [425] = {
-        name = "HM06",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.hM06,
+        description = Localizations.ItemGen5Descriptions.hM06},
     [428] = {
-        name = "Explorer Kit",
-        description = "Allows visiting the Underground."
-    },
+        name = Localizations.ItemGen5Names.explorerKit,
+        description = Localizations.ItemGen5Descriptions.explorerKit},
     [429] = {
-        name = "Loot Sack",
-        description = "Carries coal mine loot."
-    },
+        name = Localizations.ItemGen5Names.lootSack,
+        description = Localizations.ItemGen5Descriptions.lootSack},
     [430] = {
-        name = "Rule Book",
-        description = "List of battle types and their rules."
-    },
+        name = Localizations.ItemGen5Names.ruleBook,
+        description = Localizations.ItemGen5Descriptions.ruleBook},
     [431] = {
-        name = "Poke Radar",
-        description = "Use to track down rare or shiny Pokemon. 50 steps to recharge."
-    },
+        name = Localizations.ItemGen5Names.pokeRadar,
+        description = Localizations.ItemGen5Descriptions.pokeRadar},
     [432] = {
-        name = "Point Card",
-        description = "Keeps count of Battle Points earned."
-    },
+        name = Localizations.ItemGen5Names.pointCard,
+        description = Localizations.ItemGen5Descriptions.pointCard},
     [433] = {
-        name = "Journal",
-        description = "Records prior significant activities the player took."
-    },
+        name = Localizations.ItemGen5Names.journal,
+        description = Localizations.ItemGen5Descriptions.journal},
     [434] = {
-        name = "Seal Case",
-        description = "Stores Seals that can be applied to Poke Ball capsules."
-    },
+        name = Localizations.ItemGen5Names.sealCase,
+        description = Localizations.ItemGen5Descriptions.sealCase},
     [435] = {
-        name = "Fashion Case",
-        description = "Holds Pok" .. Chars.accentedE .. "mon Accessories for use in Contests."
-    },
+        name = Localizations.ItemGen5Names.fashionCase,
+        description = Localizations.ItemGen5Descriptions.fashionCase},
     [436] = {
-        name = "Seal Bag",
-        description = "Holds ten Seals for Poke Balls."
-    },
+        name = Localizations.ItemGen5Names.sealBag,
+        description = Localizations.ItemGen5Descriptions.sealBag},
     [437] = {
-        name = "Pal Pad",
-        description = "Use to record Friend Codes and check your own."
-    },
+        name = Localizations.ItemGen5Names.palPad,
+        description = Localizations.ItemGen5Descriptions.palPad},
     [438] = {
-        name = "Works Key",
-        description = "Grants access to Valley Windworks."
-    },
+        name = Localizations.ItemGen5Names.worksKey,
+        description = Localizations.ItemGen5Descriptions.worksKey},
     [439] = {
-        name = "Old Charm",
-        description = "Trade to Cynthia's grandmother in Celestic Town for HM04 (Surf)."
-    },
+        name = Localizations.ItemGen5Names.oldCharm,
+        description = Localizations.ItemGen5Descriptions.oldCharm},
     [440] = {
-        name = "Galactic Key",
-        description = "Grants access to Galactic HQ in Veilstone City."
-    },
+        name = Localizations.ItemGen5Names.galacticKey,
+        description = Localizations.ItemGen5Descriptions.galacticKey},
     [441] = {
-        name = "Red Chain",
-        description = "Used to bind Palkia and Dialga."
-    },
+        name = Localizations.ItemGen5Names.redChain,
+        description = Localizations.ItemGen5Descriptions.redChain},
     [442] = {
-        name = "Town Map",
-        description = "Use to see the overworld map."
-    },
+        name = Localizations.ItemGen5Names.townMap,
+        description = Localizations.ItemGen5Descriptions.townMap},
     [443] = {
-        name = "Vs Seeker",
-        description = "Allows rebattling of on-screen trainers. 100 steps to recharge."
-    },
+        name = Localizations.ItemGen5Names.vsSeeker,
+        description = Localizations.ItemGen5Descriptions.vsSeeker},
     [444] = {
-        name = "Coin Case",
-        description = "Holds coins for the Game Corner."
-    },
+        name = Localizations.ItemGen5Names.coinCase,
+        description = Localizations.ItemGen5Descriptions.coinCase},
     [445] = {
-        name = "Old Rod",
-        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
-    },
+        name = Localizations.ItemGen5Names.oldRod,
+        description = Localizations.ItemGen5Descriptions.oldRod},
     [446] = {
-        name = "Good Rod",
-        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
-    },
+        name = Localizations.ItemGen5Names.goodRod,
+        description = Localizations.ItemGen5Descriptions.goodRod},
     [447] = {
-        name = "Super Rod",
-        description = "Used to catch Pok" .. Chars.accentedE .. "mon in bodies of water."
-    },
+        name = Localizations.ItemGen5Names.superRod,
+        description = Localizations.ItemGen5Descriptions.superRod},
     [448] = {
-        name = "Sprayduck",
-        description = "Used to water berries."
-    },
+        name = Localizations.ItemGen5Names.sprayduck,
+        description = Localizations.ItemGen5Descriptions.sprayduck},
     [449] = {
-        name = "Poffin Case",
-        description = "Holds Poffins."
-    },
+        name = Localizations.ItemGen5Names.poffinCase,
+        description = Localizations.ItemGen5Descriptions.poffinCase},
     [450] = {
-        name = "Bicycle",
-        description = "Use for fast transit."
-    },
+        name = Localizations.ItemGen5Names.bicycle,
+        description = Localizations.ItemGen5Descriptions.bicycle},
     [451] = {
-        name = "Suite Key",
-        description = "Opens a locked building in the Lakeside Resort."
-    },
+        name = Localizations.ItemGen5Names.suiteKey,
+        description = Localizations.ItemGen5Descriptions.suiteKey},
     [452] = {
-        name = "Oaks Letter",
-        description = "Allows access to Seabreak path, Flower Paradise, and Shaymin."
-    },
+        name = Localizations.ItemGen5Names.oaksLetter,
+        description = Localizations.ItemGen5Descriptions.oaksLetter},
     [453] = {
-        name = "Lunar Wing",
-        description = "Cures sailor's son of nightmares in Canalave City."
-    },
+        name = Localizations.ItemGen5Names.lunarWing,
+        description = Localizations.ItemGen5Descriptions.lunarWing},
     [454] = {
-        name = "Member Card",
-        description = "Allows access to Newmoon Island and Darkrai."
-    },
+        name = Localizations.ItemGen5Names.memberCard,
+        description = Localizations.ItemGen5Descriptions.memberCard},
     [455] = {
-        name = "Azure Flute",
-        description = "Allows entry into the Hall of Origin. Unreleased."
-    },
+        name = Localizations.ItemGen5Names.azureFlute,
+        description = Localizations.ItemGen5Descriptions.azureFlute},
     [456] = {
-        name = "Ss Ticket",
-        description = "Ticket for a ship. (RSE: S.S. Tidal LF: S.S. Anne HG: S.S. Aqua)"
-    },
+        name = Localizations.ItemGen5Names.ssTicket,
+        description = Localizations.ItemGen5Descriptions.ssTicket},
     [457] = {
-        name = "Contest Pass",
-        description = "Allows participation in Pok" .. Chars.accentedE .. "mon Contests."
-    },
+        name = Localizations.ItemGen5Names.contestPass,
+        description = Localizations.ItemGen5Descriptions.contestPass},
     [458] = {
-        name = "Magma Stone",
-        description = "Magma is sealed inside."
-    },
+        name = Localizations.ItemGen5Names.magmaStone,
+        description = Localizations.ItemGen5Descriptions.magmaStone},
     [459] = {
-        name = "Parcel",
-        description = "Given to the trainer's rival in Jubilife City. Contains Town Maps."
-    },
+        name = Localizations.ItemGen5Names.parcel,
+        description = Localizations.ItemGen5Descriptions.parcel},
     [460] = {
-        name = "Coupon 1",
-        description = "The first of three tickets used to obtain a Poketch."
-    },
+        name = Localizations.ItemGen5Names.coupon1,
+        description = Localizations.ItemGen5Descriptions.coupon1},
     [461] = {
-        name = "Coupon 2",
-        description = "The second of three tickets used to obtain a Poketch."
-    },
+        name = Localizations.ItemGen5Names.coupon2,
+        description = Localizations.ItemGen5Descriptions.coupon2},
     [462] = {
-        name = "Coupon 3",
-        description = "The last of three tickets used to obtain a Poketch."
-    },
+        name = Localizations.ItemGen5Names.coupon3,
+        description = Localizations.ItemGen5Descriptions.coupon3},
     [463] = {
-        name = "Storage Key",
-        description = "Grants access to the Team Galactic warehouse in Veilstone City."
-    },
+        name = Localizations.ItemGen5Names.storageKey,
+        description = Localizations.ItemGen5Descriptions.storageKey},
     [464] = {
-        name = "Secret Potion",
-        description = "Used to heal the Ampharos at the top of Olivine Lighthouse."
-    },
+        name = Localizations.ItemGen5Names.secretPotion,
+        description = Localizations.ItemGen5Descriptions.secretPotion},
     [112] = {
-        name = "Griseous Orb",
-        description = "Boosts the damage from Giratina's Dragon-type and Ghost-type moves by 20%, and transforms it into Origin Forme."
-    },
+        name = Localizations.ItemGen5Names.griseousOrb,
+        description = Localizations.ItemGen5Descriptions.griseousOrb},
     [465] = {
-        name = "Vs Recorder",
-        description = "Records wireless, Wi-Fi, or Battle Frontier battles, and stores points."
-    },
+        name = Localizations.ItemGen5Names.vsRecorder,
+        description = Localizations.ItemGen5Descriptions.vsRecorder},
     [466] = {
-        name = "Gracidea",
-        description = "Changes an unfrozen Shaymin to Sky Forme in the day."
-    },
+        name = Localizations.ItemGen5Names.gracidea,
+        description = Localizations.ItemGen5Descriptions.gracidea},
     [467] = {
-        name = "Secret Key",
-        description = "Gen IV: The key to Rotom's appliance room. "
-    },
+        name = Localizations.ItemGen5Names.secretKey,
+        description = Localizations.ItemGen5Descriptions.secretKey},
     [468] = {
-        name = "Apricorn Box",
-        description = "Holds Apricorns."
-    },
+        name = Localizations.ItemGen5Names.apricornBox,
+        description = Localizations.ItemGen5Descriptions.apricornBox},
     [470] = {
-        name = "Berry Pots",
-        description = "Allows portable berry growing."
-    },
+        name = Localizations.ItemGen5Names.berryPots,
+        description = Localizations.ItemGen5Descriptions.berryPots},
     [477] = {
-        name = "Squirt Bottle",
-        description = "Use on Sudowoodo blocking the path on Route 36. Also waters berries."
-    },
+        name = Localizations.ItemGen5Names.squirtBottle,
+        description = Localizations.ItemGen5Descriptions.squirtBottle},
     [494] = {
-        name = "Lure Ball",
-        description = "3x effectiveness while fishing. Made from Blu Apricorn."
-    },
+        name = Localizations.ItemGen5Names.lureBall,
+        description = Localizations.ItemGen5Descriptions.lureBall},
     [493] = {
-        name = "Level Ball",
-        description = "Success rate based off of fraction target Pok" ..
-            Chars.accentedE .. "mon is of user's Pokemon. Made from Red Apricorn."
-    },
+        name = Localizations.ItemGen5Names.levelBall,
+        description = Localizations.ItemGen5Descriptions.levelBall},
     [498] = {
-        name = "Moon Ball",
-        description = "4x effectiveness on familes of Pok" ..
-            Chars.accentedE .. "mon with a Moon Stone evolution. Made from Ylw Apricorn."
-    },
+        name = Localizations.ItemGen5Names.moonBall,
+        description = Localizations.ItemGen5Descriptions.moonBall},
     [495] = {
-        name = "Heavy Ball",
-        description = "Has flat bonus or penalty to catch rate depending on weight class of target. Made from Blk Apricorn."
-    },
+        name = Localizations.ItemGen5Names.heavyBall,
+        description = Localizations.ItemGen5Descriptions.heavyBall},
     [492] = {
-        name = "Fast Ball",
-        description = "4x effectiveness on Pok" ..
-            Chars.accentedE .. "mon with 100 or greater base speed. Made from Wht Apricorn."
-    },
+        name = Localizations.ItemGen5Names.fastBall,
+        description = Localizations.ItemGen5Descriptions.fastBall},
     [497] = {
-        name = "Friend Ball",
-        description = "Caught Pok" .. Chars.accentedE .. "mon start with 200 happiness. Made from Grn Apricorn."
-    },
+        name = Localizations.ItemGen5Names.friendBall,
+        description = Localizations.ItemGen5Descriptions.friendBall},
     [496] = {
-        name = "Love Ball",
-        description = "8x effectiveness on opposite sex, same species targets of the Active Pokemon. Made from Pnk Apricorn."
-    },
+        name = Localizations.ItemGen5Names.loveBall,
+        description = Localizations.ItemGen5Descriptions.loveBall},
     [500] = {
-        name = "Park Ball",
-        description = "Catches Pok" .. Chars.accentedE .. "mon in the Pal Park every time."
-    },
+        name = Localizations.ItemGen5Names.parkBall,
+        description = Localizations.ItemGen5Descriptions.parkBall},
     [499] = {
-        name = "Sport Ball",
-        description = "Tries to catch a Pok" .. Chars.accentedE .. "mon in the Bug-Catching contest in National Park."
-    },
+        name = Localizations.ItemGen5Names.sportBall,
+        description = Localizations.ItemGen5Descriptions.sportBall},
     [485] = {
-        name = "Red Apricorn",
-        description = "Used to make a Level Ball."
-    },
+        name = Localizations.ItemGen5Names.redApricorn,
+        description = Localizations.ItemGen5Descriptions.redApricorn},
     [486] = {
-        name = "Blue Apricorn",
-        description = "Used to make a Lure Ball."
-    },
+        name = Localizations.ItemGen5Names.blueApricorn,
+        description = Localizations.ItemGen5Descriptions.blueApricorn},
     [487] = {
-        name = "Yellow Apricorn",
-        description = "Used to make a Moon Ball."
-    },
+        name = Localizations.ItemGen5Names.yellowApricorn,
+        description = Localizations.ItemGen5Descriptions.yellowApricorn},
     [488] = {
-        name = "Green Apricorn",
-        description = "Used to make a Friend Ball."
-    },
+        name = Localizations.ItemGen5Names.greenApricorn,
+        description = Localizations.ItemGen5Descriptions.greenApricorn},
     [489] = {
-        name = "Pink Apricorn",
-        description = "Used to make a Love Ball."
-    },
+        name = Localizations.ItemGen5Names.pinkApricorn,
+        description = Localizations.ItemGen5Descriptions.pinkApricorn},
     [490] = {
-        name = "White Apricorn",
-        description = "Used to make a Fast Ball."
-    },
+        name = Localizations.ItemGen5Names.whiteApricorn,
+        description = Localizations.ItemGen5Descriptions.whiteApricorn},
     [491] = {
-        name = "Black Apricorn",
-        description = "Used to make a Heavy Ball."
-    },
+        name = Localizations.ItemGen5Names.blackApricorn,
+        description = Localizations.ItemGen5Descriptions.blackApricorn},
     [471] = {
-        name = "Dowsing Machine",
-        description = "Use to find hidden items on the field. AKA Itemfinder."
-    },
+        name = Localizations.ItemGen5Names.dowsingMachine,
+        description = Localizations.ItemGen5Descriptions.dowsingMachine},
     [504] = {
-        name = "RageCandyBar",
-        description = "Acts as a Potion."
-    },
+        name = Localizations.ItemGen5Names.rageCandyBar,
+        description = Localizations.ItemGen5Descriptions.rageCandyBar},
     [534] = {
-        name = "Red Orb",
-        description = "Summons Groudon to the Embedded Tower."
-    },
+        name = Localizations.ItemGen5Names.redOrb,
+        description = Localizations.ItemGen5Descriptions.redOrb},
     [535] = {
-        name = "Blue Orb",
-        description = "Summons Kyogre to the Embedded Tower."
-    },
+        name = Localizations.ItemGen5Names.blueOrb,
+        description = Localizations.ItemGen5Descriptions.blueOrb},
     [532] = {
-        name = "Jade Orb",
-        description = "Summons Rayquaza to the Embedded Tower."
-    },
+        name = Localizations.ItemGen5Names.jadeOrb,
+        description = Localizations.ItemGen5Descriptions.jadeOrb},
     [536] = {
-        name = "Enigma Stone",
-        description = "S: Summons Latias H: Summons Latios."
-    },
+        name = Localizations.ItemGen5Names.enigmaStone,
+        description = Localizations.ItemGen5Descriptions.enigmaStone},
     [469] = {
-        name = "Unown Report",
-        description = "Keeps track of Unown types caught."
-    },
+        name = Localizations.ItemGen5Names.unownReport,
+        description = Localizations.ItemGen5Descriptions.unownReport},
     [472] = {
-        name = "Blue Card",
-        description = "Keeps track of points from Buena's show."
-    },
+        name = Localizations.ItemGen5Names.blueCard,
+        description = Localizations.ItemGen5Descriptions.blueCard},
     [473] = {
-        name = "Slowpoke Tail",
-        description = "A tasty tail that sells for a high price."
-    },
+        name = Localizations.ItemGen5Names.slowpokeTail,
+        description = Localizations.ItemGen5Descriptions.slowpokeTail},
     [474] = {
-        name = "Clear Bell",
-        description = "HS: Allows Kimono-girls to summon Ho-oh. C: Summons Suicune to the Tin Tower."
-    },
+        name = Localizations.ItemGen5Names.clearBell,
+        description = Localizations.ItemGen5Descriptions.clearBell},
     [475] = {
-        name = "Card Key",
-        description = "HS: Opens doors in the Radio Tower. "
-    },
+        name = Localizations.ItemGen5Names.cardKey,
+        description = Localizations.ItemGen5Descriptions.cardKey},
     [476] = {
-        name = "Basement Key",
-        description = "HS: Key to the tunnel under Goldenrod City. "
-    },
+        name = Localizations.ItemGen5Names.basementKey,
+        description = Localizations.ItemGen5Descriptions.basementKey},
     [478] = {
-        name = "Red Scale",
-        description = "Trade to Mr. Pok" .. Chars.accentedE .. "mon for an Exp. Share."
-    },
+        name = Localizations.ItemGen5Names.redScale,
+        description = Localizations.ItemGen5Descriptions.redScale},
     [479] = {
-        name = "Lost Item",
-        description = "A Poke Doll lost by the Copycat who lives in Saffron City. Trade for a Pass."
-    },
+        name = Localizations.ItemGen5Names.lostItem,
+        description = Localizations.ItemGen5Descriptions.lostItem},
     [480] = {
-        name = "Pass",
-        description = "Grants access to ride the Magnet Train between Goldenrod City and Saffron City."
-    },
+        name = Localizations.ItemGen5Names.pass,
+        description = Localizations.ItemGen5Descriptions.pass},
     [481] = {
-        name = "Machine Part",
-        description = "Must be replaced in the Power Plant to power the Magnet Train."
-    },
+        name = Localizations.ItemGen5Names.machinePart,
+        description = Localizations.ItemGen5Descriptions.machinePart},
     [482] = {
-        name = "Silver Wing",
-        description = "Summons Lugia to the Whirl Islands."
-    },
+        name = Localizations.ItemGen5Names.silverWing,
+        description = Localizations.ItemGen5Descriptions.silverWing},
     [483] = {
-        name = "Rainbow Wing",
-        description = "Summons Ho-Oh at the top of the Bell Tower."
-    },
+        name = Localizations.ItemGen5Names.rainbowWing,
+        description = Localizations.ItemGen5Descriptions.rainbowWing},
     [484] = {
-        name = "Mystery Egg",
-        description = "Deliver to Professor Elm."
-    },
+        name = Localizations.ItemGen5Names.mysteryEgg,
+        description = Localizations.ItemGen5Descriptions.mysteryEgg},
     [502] = {
-        name = "Gb Sounds",
-        description = "Use to listen to GameBoy era audio."
-    },
+        name = Localizations.ItemGen5Names.gbSounds,
+        description = Localizations.ItemGen5Descriptions.gbSounds},
     [503] = {
-        name = "Tidal Bell",
-        description = "Allows Kimono-girls to summon Lugia."
-    },
+        name = Localizations.ItemGen5Names.tidalBell,
+        description = Localizations.ItemGen5Descriptions.tidalBell},
     [505] = {
-        name = "Data Card-01",
-        description = "Records the number of times the trainer has come in first place overall in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard01,
+        description = Localizations.ItemGen5Descriptions.dataCard01},
     [506] = {
-        name = "Data Card-02",
-        description = "Records the number of times the trainer has come in last place overall in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard02,
+        description = Localizations.ItemGen5Descriptions.dataCard02},
     [507] = {
-        name = "Data Card-03",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have dashed in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard03,
+        description = Localizations.ItemGen5Descriptions.dataCard03},
     [508] = {
-        name = "Data Card-04",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have jumped in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard04,
+        description = Localizations.ItemGen5Descriptions.dataCard04},
     [509] = {
-        name = "Data Card-05",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Hurdle Dash."
-    },
+        name = Localizations.ItemGen5Names.dataCard05,
+        description = Localizations.ItemGen5Descriptions.dataCard05},
     [510] = {
-        name = "Data Card-06",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Relay Run."
-    },
+        name = Localizations.ItemGen5Names.dataCard06,
+        description = Localizations.ItemGen5Descriptions.dataCard06},
     [511] = {
-        name = "Data Card-07",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Pennant Capture."
-    },
+        name = Localizations.ItemGen5Names.dataCard07,
+        description = Localizations.ItemGen5Descriptions.dataCard07},
     [512] = {
-        name = "Data Card-08",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Block Smash."
-    },
+        name = Localizations.ItemGen5Names.dataCard08,
+        description = Localizations.ItemGen5Descriptions.dataCard08},
     [513] = {
-        name = "Data Card-09",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Disc Catch."
-    },
+        name = Localizations.ItemGen5Names.dataCard09,
+        description = Localizations.ItemGen5Descriptions.dataCard09},
     [514] = {
-        name = "Data Card-10",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Snow Throw."
-    },
+        name = Localizations.ItemGen5Names.dataCard10,
+        description = Localizations.ItemGen5Descriptions.dataCard10},
     [515] = {
-        name = "Data Card-11",
-        description = "Records the number of points the trainer has earned in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard11,
+        description = Localizations.ItemGen5Descriptions.dataCard11},
     [516] = {
-        name = "Data Card-12",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have messed up in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard12,
+        description = Localizations.ItemGen5Descriptions.dataCard12},
     [517] = {
-        name = "Data Card-13",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have defeated themselves in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard13,
+        description = Localizations.ItemGen5Descriptions.dataCard13},
     [518] = {
-        name = "Data Card-14",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have tackled in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard14,
+        description = Localizations.ItemGen5Descriptions.dataCard14},
     [519] = {
-        name = "Data Card-15",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon have fallen in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard15,
+        description = Localizations.ItemGen5Descriptions.dataCard15},
     [520] = {
-        name = "Data Card-16",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Ring Drop."
-    },
+        name = Localizations.ItemGen5Names.dataCard16,
+        description = Localizations.ItemGen5Descriptions.dataCard16},
     [521] = {
-        name = "Data Card-17",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Lamp Jump."
-    },
+        name = Localizations.ItemGen5Names.dataCard17,
+        description = Localizations.ItemGen5Descriptions.dataCard17},
     [522] = {
-        name = "Data Card-18",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Circle Push."
-    },
+        name = Localizations.ItemGen5Names.dataCard18,
+        description = Localizations.ItemGen5Descriptions.dataCard18},
     [523] = {
-        name = "Data Card-19",
-        description = "Records the number of times the trainer has come in first place overall in the Pokeathlon over wirelss."
-    },
+        name = Localizations.ItemGen5Names.dataCard19,
+        description = Localizations.ItemGen5Descriptions.dataCard19},
     [524] = {
-        name = "Data Card-20",
-        description = "Records the number of times the trainer has come in last place overall in the Pokeathlon over wireless."
-    },
+        name = Localizations.ItemGen5Names.dataCard20,
+        description = Localizations.ItemGen5Descriptions.dataCard20},
     [525] = {
-        name = "Data Card-21",
-        description = "Records the number of times the trainer has come in first across all Pokeathlon events."
-    },
+        name = Localizations.ItemGen5Names.dataCard21,
+        description = Localizations.ItemGen5Descriptions.dataCard21},
     [526] = {
-        name = "Data Card-22",
-        description = "Records the number of times the trainer has come in last across all Pokeathlon events."
-    },
+        name = Localizations.ItemGen5Names.dataCard22,
+        description = Localizations.ItemGen5Descriptions.dataCard22},
     [527] = {
-        name = "Data Card-23",
-        description = "Records the number of times the trainer has switched Pok" ..
-            Chars.accentedE .. "mon in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard23,
+        description = Localizations.ItemGen5Descriptions.dataCard23},
     [528] = {
-        name = "Data Card-24",
-        description = "Records the number of times the trainer has come in first in the Pokeathlon Goal Roll."
-    },
+        name = Localizations.ItemGen5Names.dataCard24,
+        description = Localizations.ItemGen5Descriptions.dataCard24},
     [529] = {
-        name = "Data Card-25",
-        description = "Records the number of times the trainer's Pok" ..
-            Chars.accentedE .. "mon received prizes in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard25,
+        description = Localizations.ItemGen5Descriptions.dataCard25},
     [530] = {
-        name = "Data Card-26",
-        description = "Records the number of times the trainer has instructed Pok" ..
-            Chars.accentedE .. "mon in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard26,
+        description = Localizations.ItemGen5Descriptions.dataCard26},
     [531] = {
-        name = "Data Card-27",
-        description = "Records the total time spent in the Pokeathlon."
-    },
+        name = Localizations.ItemGen5Names.dataCard27,
+        description = Localizations.ItemGen5Descriptions.dataCard27},
     [533] = {
-        name = "Lock Capsule",
-        description = "Contains TM95 (Snarl)."
-    },
+        name = Localizations.ItemGen5Names.lockCapsule,
+        description = Localizations.ItemGen5Descriptions.lockCapsule},
     [501] = {
-        name = "Photo Album",
-        description = "Stores photos from your adventure."
-    },
+        name = Localizations.ItemGen5Names.photoAlbum,
+        description = Localizations.ItemGen5Descriptions.photoAlbum},
     [116] = {
-        name = "Douse Drive",
-        description = "Grants Genesect a blue, Water-type Techno Blast."
-    },
+        name = Localizations.ItemGen5Names.douseDrive,
+        description = Localizations.ItemGen5Descriptions.douseDrive},
     [117] = {
-        name = "Shock Drive",
-        description = "Grants Genesect a yellow, Electric-type Techno Blast."
-    },
+        name = Localizations.ItemGen5Names.shockDrive,
+        description = Localizations.ItemGen5Descriptions.shockDrive},
     [118] = {
-        name = "Burn Drive",
-        description = "Grants Genesect a red, Fire-type Techno Blast."
-    },
+        name = Localizations.ItemGen5Names.burnDrive,
+        description = Localizations.ItemGen5Descriptions.burnDrive},
     [119] = {
-        name = "Chill Drive",
-        description = "Grants Genesect a white, Ice-type Techno Blast."
-    },
+        name = Localizations.ItemGen5Names.chillDrive,
+        description = Localizations.ItemGen5Descriptions.chillDrive},
     [134] = {
-        name = "Sweet Heart",
-        description = "Restores 20 HP."
-    },
+        name = Localizations.ItemGen5Names.sweetHeart,
+        description = Localizations.ItemGen5Descriptions.sweetHeart},
     [137] = {
-        name = "Greet Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.greetMail,
+        description = Localizations.ItemGen5Descriptions.greetMail},
     [138] = {
-        name = "Favored Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.favoredMail,
+        description = Localizations.ItemGen5Descriptions.favoredMail},
     [139] = {
-        name = "Rsvp Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.rsvpMail,
+        description = Localizations.ItemGen5Descriptions.rsvpMail},
     [140] = {
-        name = "Thanks Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.thanksMail,
+        description = Localizations.ItemGen5Descriptions.thanksMail},
     [141] = {
-        name = "Inquiry Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.inquiryMail,
+        description = Localizations.ItemGen5Descriptions.inquiryMail},
     [142] = {
-        name = "Like Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.likeMail,
+        description = Localizations.ItemGen5Descriptions.likeMail},
     [143] = {
-        name = "Reply Mail",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.replyMail,
+        description = Localizations.ItemGen5Descriptions.replyMail},
     [144] = {
-        name = "Bridge Mail-s",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.bridgeMailS,
+        description = Localizations.ItemGen5Descriptions.bridgeMailS},
     [145] = {
-        name = "Bridge Mail-d",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.bridgeMailD,
+        description = Localizations.ItemGen5Descriptions.bridgeMailD},
     [146] = {
-        name = "Bridge Mail-t",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.bridgeMailT,
+        description = Localizations.ItemGen5Descriptions.bridgeMailT},
     [147] = {
-        name = "Bridge Mail-v",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.bridgeMailV,
+        description = Localizations.ItemGen5Descriptions.bridgeMailV},
     [148] = {
-        name = "Bridge Mail-m",
-        description = "Lets a Trainer write a message and send it via Pok" .. Chars.accentedE .. "mon trade."
-    },
+        name = Localizations.ItemGen5Names.bridgeMailM,
+        description = Localizations.ItemGen5Descriptions.bridgeMailM},
     [537] = {
-        name = "Prism Scale",
-        description = "Traded on a Feebas: Holder evolves into Milotic."
-    },
+        name = Localizations.ItemGen5Names.prismScale,
+        description = Localizations.ItemGen5Descriptions.prismScale},
     [538] = {
-        name = "Eviolite",
-        description = "Holder has 1.5x Defense and Special Defense, as long as it's not fully evolved."
-    },
+        name = Localizations.ItemGen5Names.eviolite,
+        description = Localizations.ItemGen5Descriptions.eviolite},
     [539] = {
-        name = "Float Stone",
-        description = "Holder has 0.5x weight."
-    },
+        name = Localizations.ItemGen5Names.floatStone,
+        description = Localizations.ItemGen5Descriptions.floatStone},
     [540] = {
-        name = "Rocky Helmet",
-        description = "When the holder is hit by a contact move, the attacking Pok" ..
-            Chars.accentedE .. "mon takes 1/6 its max HP in damage."
-    },
+        name = Localizations.ItemGen5Names.rockyHelmet,
+        description = Localizations.ItemGen5Descriptions.rockyHelmet},
     [541] = {
-        name = "Air Balloon",
-        description = "Grants immunity to Ground-type moves, Spikes, and Toxic Spikes. Consumed when the holder takes damage from a move."
-    },
+        name = Localizations.ItemGen5Names.airBalloon,
+        description = Localizations.ItemGen5Descriptions.airBalloon},
     [542] = {
-        name = "Red Card",
-        description = "When the holder takes damage from a move, the opponent switches out for another random party Pokemon. Consumed after use."
-    },
+        name = Localizations.ItemGen5Names.redCard,
+        description = Localizations.ItemGen5Descriptions.redCard},
     [543] = {
-        name = "Ring Target",
-        description = "Negates the holder's type immunities. Ability immunities are not removed."
-    },
+        name = Localizations.ItemGen5Names.ringTarget,
+        description = Localizations.ItemGen5Descriptions.ringTarget},
     [544] = {
-        name = "Binding Band",
-        description = "Doubles the per-turn damage of multi-turn trapping moves."
-    },
+        name = Localizations.ItemGen5Names.bindingBand,
+        description = Localizations.ItemGen5Descriptions.bindingBand},
     [545] = {
-        name = "Absorb Bulb",
-        description = "Raises the holder's Special Attack by one stage when it takes Water-type damage."
-    },
+        name = Localizations.ItemGen5Names.absorbBulb,
+        description = Localizations.ItemGen5Descriptions.absorbBulb},
     [546] = {
-        name = "Cell Battery",
-        description = "Raises the holder's Attack by one stage when it takes Electric-type damage."
-    },
+        name = Localizations.ItemGen5Names.cellBattery,
+        description = Localizations.ItemGen5Descriptions.cellBattery},
     [547] = {
-        name = "Eject Button",
-        description = "When the holder takes damage from a move, it switches out for a party Pok" ..
-            Chars.accentedE .. "mon of the Trainer's choice."
-    },
+        name = Localizations.ItemGen5Names.ejectButton,
+        description = Localizations.ItemGen5Descriptions.ejectButton},
     [548] = {
-        name = "Fire Gem",
-        description = "When the holder uses a damaging fire-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.fireGem,
+        description = Localizations.ItemGen5Descriptions.fireGem},
     [549] = {
-        name = "Water Gem",
-        description = "When the holder uses a damaging water-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.waterGem,
+        description = Localizations.ItemGen5Descriptions.waterGem},
     [550] = {
-        name = "Electric Gem",
-        description = "When the holder uses a damaging electric-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.electricGem,
+        description = Localizations.ItemGen5Descriptions.electricGem},
     [551] = {
-        name = "Grass Gem",
-        description = "When the holder uses a damaging grass-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.grassGem,
+        description = Localizations.ItemGen5Descriptions.grassGem},
     [552] = {
-        name = "Ice Gem",
-        description = "When the holder uses a damaging ice-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.iceGem,
+        description = Localizations.ItemGen5Descriptions.iceGem},
     [553] = {
-        name = "Fighting Gem",
-        description = "When the holder uses a damaging fighting-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.fightingGem,
+        description = Localizations.ItemGen5Descriptions.fightingGem},
     [554] = {
-        name = "Poison Gem",
-        description = "When the holder uses a damaging poison-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.poisonGem,
+        description = Localizations.ItemGen5Descriptions.poisonGem},
     [555] = {
-        name = "Ground Gem",
-        description = "When the holder uses a damaging ground-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.groundGem,
+        description = Localizations.ItemGen5Descriptions.groundGem},
     [556] = {
-        name = "Flying Gem",
-        description = "When the holder uses a damaging flying-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.flyingGem,
+        description = Localizations.ItemGen5Descriptions.flyingGem},
     [557] = {
-        name = "Psychic Gem",
-        description = "When the holder uses a damaging psychic-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.psychicGem,
+        description = Localizations.ItemGen5Descriptions.psychicGem},
     [558] = {
-        name = "Bug Gem",
-        description = "When the holder uses a damaging bug-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.bugGem,
+        description = Localizations.ItemGen5Descriptions.bugGem},
     [559] = {
-        name = "Rock Gem",
-        description = "When the holder uses a damaging rock-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.rockGem,
+        description = Localizations.ItemGen5Descriptions.rockGem},
     [560] = {
-        name = "Ghost Gem",
-        description = "When the holder uses a damaging ghost-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.ghostGem,
+        description = Localizations.ItemGen5Descriptions.ghostGem},
     [561] = {
-        name = "Dragon Gem",
-        description = "When the holder uses a damaging dragon-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.dragonGem,
+        description = Localizations.ItemGen5Descriptions.dragonGem},
     [562] = {
-        name = "Dark Gem",
-        description = "When the holder uses a damaging dark-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.darkGem,
+        description = Localizations.ItemGen5Descriptions.darkGem},
     [563] = {
-        name = "Steel Gem",
-        description = "When the holder uses a damaging steel-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.steelGem,
+        description = Localizations.ItemGen5Descriptions.steelGem},
     [564] = {
-        name = "Normal Gem",
-        description = "When the holder uses a damaging normal-type move, the move has 1.5x power and this item is consumed."
-    },
+        name = Localizations.ItemGen5Names.normalGem,
+        description = Localizations.ItemGen5Descriptions.normalGem},
     [565] = {
-        name = "Health Wing",
-        description = "Increases HP effort by 1."
-    },
+        name = Localizations.ItemGen5Names.healthWing,
+        description = Localizations.ItemGen5Descriptions.healthWing},
     [566] = {
-        name = "Muscle Wing",
-        description = "Increases Attack effort by 1."
-    },
+        name = Localizations.ItemGen5Names.muscleWing,
+        description = Localizations.ItemGen5Descriptions.muscleWing},
     [567] = {
-        name = "Resist Wing",
-        description = "Increases Defense effort by 1."
-    },
+        name = Localizations.ItemGen5Names.resistWing,
+        description = Localizations.ItemGen5Descriptions.resistWing},
     [568] = {
-        name = "Genius Wing",
-        description = "Increases Special Attack effort by 1."
-    },
+        name = Localizations.ItemGen5Names.geniusWing,
+        description = Localizations.ItemGen5Descriptions.geniusWing},
     [569] = {
-        name = "Clever Wing",
-        description = "Increases Special Defense effort by 1."
-    },
+        name = Localizations.ItemGen5Names.cleverWing,
+        description = Localizations.ItemGen5Descriptions.cleverWing},
     [570] = {
-        name = "Swift Wing",
-        description = "Increases Speed effort by 1."
-    },
+        name = Localizations.ItemGen5Names.swiftWing,
+        description = Localizations.ItemGen5Descriptions.swiftWing},
     [571] = {
-        name = "Pretty Wing",
-        description = "Sell for 100 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.prettyWing,
+        description = Localizations.ItemGen5Descriptions.prettyWing},
     [572] = {
-        name = "Cover Fossil",
-        description = "Can be revived into a tirtouga."
-    },
+        name = Localizations.ItemGen5Names.coverFossil,
+        description = Localizations.ItemGen5Descriptions.coverFossil},
     [573] = {
-        name = "Plume Fossil",
-        description = "Can be revived into a archen."
-    },
+        name = Localizations.ItemGen5Names.plumeFossil,
+        description = Localizations.ItemGen5Descriptions.plumeFossil},
     [574] = {
-        name = "Liberty Pass",
-        description = "Allows access to Liberty Garden and Victini."
-    },
+        name = Localizations.ItemGen5Names.libertyPass,
+        description = Localizations.ItemGen5Descriptions.libertyPass},
     [575] = {
-        name = "Pass Orb",
-        description = "Activates Pass Powers."
-    },
+        name = Localizations.ItemGen5Names.passOrb,
+        description = Localizations.ItemGen5Descriptions.passOrb},
     [576] = {
-        name = "Dream Ball",
-        description = "Catches Pok" .. Chars.accentedE .. "mon found in the Dream World."
-    },
+        name = Localizations.ItemGen5Names.dreamBall,
+        description = Localizations.ItemGen5Descriptions.dreamBall},
     [577] = {
-        name = "Poke Toy",
-        description = "Ends a wild battle."
-    },
+        name = Localizations.ItemGen5Names.pokeToy,
+        description = Localizations.ItemGen5Descriptions.pokeToy},
     [578] = {
-        name = "Prop Case",
-        description = "Stores props for the Pok" .. Chars.accentedE .. "mon Musical."
-    },
+        name = Localizations.ItemGen5Names.propCase,
+        description = Localizations.ItemGen5Descriptions.propCase},
     [579] = {
-        name = "Dragon Skull",
-        description = "Return to the museum in Nacrene City."
-    },
+        name = Localizations.ItemGen5Names.dragonSkull,
+        description = Localizations.ItemGen5Descriptions.dragonSkull},
     [580] = {
-        name = "Balm Mushroom",
-        description = "Sell to Hungry Maid for 25000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.balmMushroom,
+        description = Localizations.ItemGen5Descriptions.balmMushroom},
     [581] = {
-        name = "Big Nugget",
-        description = "Sell to Ore Collector for 30000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.bigNugget,
+        description = Localizations.ItemGen5Descriptions.bigNugget},
     [582] = {
-        name = "Pearl String",
-        description = "Sell to Ore Collector for 25000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.pearlString,
+        description = Localizations.ItemGen5Descriptions.pearlString},
     [583] = {
-        name = "Comet Shard",
-        description = "Sell to Ore Collector for 60000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.cometShard,
+        description = Localizations.ItemGen5Descriptions.cometShard},
     [584] = {
-        name = "Relic Copper",
-        description = "Sell to Villa Owner for 1000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.relicCopper,
+        description = Localizations.ItemGen5Descriptions.relicCopper},
     [585] = {
-        name = "Relic Silver",
-        description = "Sell to Villa Owner 5000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.relicSilver,
+        description = Localizations.ItemGen5Descriptions.relicSilver},
     [586] = {
-        name = "Relic Gold",
-        description = "Sell to Villa Owner 10000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.relicGold,
+        description = Localizations.ItemGen5Descriptions.relicGold},
     [587] = {
-        name = "Relic Vase",
-        description = "Sell to Villa Owner 50000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.relicVase,
+        description = Localizations.ItemGen5Descriptions.relicVase},
     [588] = {
-        name = "Relic Band",
-        description = "Sell to Villa Owner for 100000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.relicBand,
+        description = Localizations.ItemGen5Descriptions.relicBand},
     [589] = {
-        name = "Relic Statue",
-        description = "Sell to Villa Owner 200000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.relicStatue,
+        description = Localizations.ItemGen5Descriptions.relicStatue},
     [590] = {
-        name = "Relic Crown",
-        description = "Sell to Villa Owner for 300000 Pokedollars."
-    },
+        name = Localizations.ItemGen5Names.relicCrown,
+        description = Localizations.ItemGen5Descriptions.relicCrown},
     [591] = {
-        name = "Casteliacone",
-        description = "Cures any status ailment and confusion."
-    },
+        name = Localizations.ItemGen5Names.casteliacone,
+        description = Localizations.ItemGen5Descriptions.casteliacone},
     [592] = {
-        name = "Dire Hit-2",
-        description = "Raises critical hit rate by two stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.direHit2,
+        description = Localizations.ItemGen5Descriptions.direHit2},
     [593] = {
-        name = "X Speed-2",
-        description = "Raises Speed by two stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpeed2,
+        description = Localizations.ItemGen5Descriptions.xSpeed2},
     [594] = {
-        name = "X Sp-atk-2",
-        description = "Raises Special Attack by two stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpAtk2,
+        description = Localizations.ItemGen5Descriptions.xSpAtk2},
     [595] = {
-        name = "X Sp-def-2",
-        description = "Raises Special Defense by two stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpDef2,
+        description = Localizations.ItemGen5Descriptions.xSpDef2},
     [596] = {
-        name = "X Defense-2",
-        description = "Raises Defense by two stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xDefense2,
+        description = Localizations.ItemGen5Descriptions.xDefense2},
     [597] = {
-        name = "X Attack-2",
-        description = "Raises Attack by two stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xAttack2,
+        description = Localizations.ItemGen5Descriptions.xAttack2},
     [598] = {
-        name = "X Accuracy-2",
-        description = "Raises accuracy by two stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xAccuracy2,
+        description = Localizations.ItemGen5Descriptions.xAccuracy2},
     [599] = {
-        name = "X Speed-3",
-        description = "Raises Speed by three stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpeed3,
+        description = Localizations.ItemGen5Descriptions.xSpeed3},
     [600] = {
-        name = "X Sp-atk-3",
-        description = "Raises Special Attack by three stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpAtk3,
+        description = Localizations.ItemGen5Descriptions.xSpAtk3},
     [601] = {
-        name = "X Sp-def-3",
-        description = "Raises Special Defense by three stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpDef3,
+        description = Localizations.ItemGen5Descriptions.xSpDef3},
     [602] = {
-        name = "X Defense-3",
-        description = "Raises Defense by three stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xDefense3,
+        description = Localizations.ItemGen5Descriptions.xDefense3},
     [603] = {
-        name = "X Attack-3",
-        description = "Raises Attack by three stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xAttack3,
+        description = Localizations.ItemGen5Descriptions.xAttack3},
     [604] = {
-        name = "X Accuracy-3",
-        description = "Raises accuracy by three stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xAccuracy3,
+        description = Localizations.ItemGen5Descriptions.xAccuracy3},
     [605] = {
-        name = "X Speed-6",
-        description = "Raises Speed by six stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpeed6,
+        description = Localizations.ItemGen5Descriptions.xSpeed6},
     [606] = {
-        name = "X Sp-atk-6",
-        description = "Raises Special Attack by six stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpAtk6,
+        description = Localizations.ItemGen5Descriptions.xSpAtk6},
     [607] = {
-        name = "X Sp-def-6",
-        description = "Raises Special Defense by six stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xSpDef6,
+        description = Localizations.ItemGen5Descriptions.xSpDef6},
     [608] = {
-        name = "X Defense-6",
-        description = "Raises Defense by six stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xDefense6,
+        description = Localizations.ItemGen5Descriptions.xDefense6},
     [609] = {
-        name = "X Attack-6",
-        description = "Raises Attack by six stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xAttack6,
+        description = Localizations.ItemGen5Descriptions.xAttack6},
     [610] = {
-        name = "X Accuracy-6",
-        description = "Raises accuracy by six stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.xAccuracy6,
+        description = Localizations.ItemGen5Descriptions.xAccuracy6},
     [611] = {
-        name = "Ability Urge",
-        description = "Forcibly activates a friendly Pokemon's ability."
-    },
+        name = Localizations.ItemGen5Names.abilityUrge,
+        description = Localizations.ItemGen5Descriptions.abilityUrge},
     [612] = {
-        name = "Item Drop",
-        description = "Forces a friendly Pok" .. Chars.accentedE .. "mon to drop its held item."
-    },
+        name = Localizations.ItemGen5Names.itemDrop,
+        description = Localizations.ItemGen5Descriptions.itemDrop},
     [613] = {
-        name = "Item Urge",
-        description = "Forcibly activates a friendly Pokemon's held item."
-    },
+        name = Localizations.ItemGen5Names.itemUrge,
+        description = Localizations.ItemGen5Descriptions.itemUrge},
     [614] = {
-        name = "Reset Urge",
-        description = "Resets a friendly Pokemon's stat changes."
-    },
+        name = Localizations.ItemGen5Names.resetUrge,
+        description = Localizations.ItemGen5Descriptions.resetUrge},
     [615] = {
-        name = "Dire Hit-3",
-        description = "Raises critical hit rate by three stages in battle. Wonder Launcher only."
-    },
+        name = Localizations.ItemGen5Names.direHit3,
+        description = Localizations.ItemGen5Descriptions.direHit3},
     [616] = {
-        name = "Light Stone",
-        description = "Summons Reshiram for the final battle against N."
-    },
+        name = Localizations.ItemGen5Names.lightStone,
+        description = Localizations.ItemGen5Descriptions.lightStone},
     [617] = {
-        name = "Dark Stone",
-        description = "Summons Zekrom for the final battle against N."
-    },
+        name = Localizations.ItemGen5Names.darkStone,
+        description = Localizations.ItemGen5Descriptions.darkStone},
     [618] = {
-        name = "TM93",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM93,
+        description = Localizations.ItemGen5Descriptions.tM93},
     [619] = {
-        name = "TM94",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM94,
+        description = Localizations.ItemGen5Descriptions.tM94},
     [620] = {
-        name = "TM95",
-        description = "Teaches a move to a compatible Pokemon."
-    },
+        name = Localizations.ItemGen5Names.tM95,
+        description = Localizations.ItemGen5Descriptions.tM95},
     [621] = {
-        name = "Xtransceiver",
-        description = "Makes four-way video calls."
-    },
+        name = Localizations.ItemGen5Names.xtransceiver,
+        description = Localizations.ItemGen5Descriptions.xtransceiver},
     [622] = {
-        name = "God Stone",
-        description = "Unknown. Currently unused."
-    },
+        name = Localizations.ItemGen5Names.godStone,
+        description = Localizations.ItemGen5Descriptions.godStone},
     [623] = {
-        name = "Gram 1",
-        description = "Part of a sidequest to obtain tm89."
-    },
+        name = Localizations.ItemGen5Names.gram1,
+        description = Localizations.ItemGen5Descriptions.gram1},
     [624] = {
-        name = "Gram 2",
-        description = "Part of a sidequest to obtain tm89."
-    },
+        name = Localizations.ItemGen5Names.gram2,
+        description = Localizations.ItemGen5Descriptions.gram2},
     [625] = {
-        name = "Gram 3",
-        description = "Part of a sidequest to obtain tm89."
-    }
+        name = Localizations.ItemGen5Names.gram3,
+        description = Localizations.ItemGen5Descriptions.gram3}
 }
+

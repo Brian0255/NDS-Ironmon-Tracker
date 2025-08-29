@@ -107,7 +107,11 @@ MiscConstants.DEFAULT_SETTINGS = {
         TRANSPARENT = false,
         XPOS = 0,
         YPOS = 180.5
+    },
+    localization = {
+        LANGUAGE = "English"
     }
+
 }
 
 MiscConstants.DEFAULT_POKEMON = {

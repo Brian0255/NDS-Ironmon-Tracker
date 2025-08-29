@@ -89,7 +89,7 @@ local function Tracker()
 
 	function self.getTotalHoursPlayed()
 		local hours = totalSeconds / 3600
-		return (string.format("%.1f hours", hours))
+		return (string.format("%.1f " .. Localizations.Misc.hours, hours))
 	end
 
 	function self.updatePlaytime(gameName)
