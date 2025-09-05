@@ -9017,7 +9017,7 @@ PokemonData.POKEMON_MASTER_LIST = {
         theme = "FFFFFF 000000 C9E3FE FEC9CA FFF184 FFFFFF 593E2E 714F3C CDAD56 F0D7A4 BD5563 000000 000000 FFFFFF 0 1 1 1 0 1"
     },
     {
-        name = Localizations.PokemonNames.sawtooth,
+        name = Localizations.PokemonNames.sawsbuck,
         type = {PokemonData.POKEMON_TYPES.NORMAL, PokemonData.POKEMON_TYPES.GRASS},
         evolution = PokemonData.EVOLUTION_TYPES.NONE,
         bst = "475",
