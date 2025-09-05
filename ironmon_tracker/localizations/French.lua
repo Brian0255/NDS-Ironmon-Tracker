@@ -4352,7 +4352,8 @@ Localizations = {
         fusionBolt = "Éclair Croix",
       },
   
-      MoveDescriptions = {
+    MoveDescriptions = {
+
         pound = "Sans effet supplémentaire.",
         karateChop = "Attaque 'Poing'. Taux de coups critiques +1.",
         doubleslap = "Touche 2 à 5 fois.",
@@ -4371,23 +4372,35 @@ Localizations = {
         gust = "La puissance est doublée si la cible est dans les airs (Vol, Rebond et Chute Libre)",
         wingAttack = "Sans effet supplémentaire.",
         whirlwind = {
-                    "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
-                    "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur."
-                },
+            "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur."
+        },
         fly = "Attaque en 2 tours. Le lanceur est invulnérable pendant le chargement.",
         bind = {
-                    "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
-                    "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
-                },
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
+
+        },
         slam = "Sans effet supplémentaire.",
         vineWhip = "Sans effet supplémentaire.",
         stomp = "30% de chance d'apeurer la cible.",
         doubleKick = "Touche 2 fois.",
         megaKick = "Sans effet supplémentaire.",
         jumpKick = {
-                    "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
-                    "Le lanceur perd 50% de ses PV max s'il rate l'attaque."
-                },
+
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% de ses PV max s'il rate l'attaque."
+
+        },
         rollingKick = "30% de chance d'apeurer la cible.",
         sandattack = "Baisse la Précision de la cible d'un niveau.",
         headbutt = "30% de chance d'apeurer la cible.",
@@ -4397,9 +4410,13 @@ Localizations = {
         tackle = "Sans effet supplémentaire.",
         bodySlam = "30% de chance de paralyser la cible.",
         wrap = {
-                    "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
-                    "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
-                },
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Ligote la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
+
+        },
         takeDown = "Attaque 'à contrecoup'. Les dégâts de recul sont équivalents à 1/4 des dégâts infligés à la cible.",
         thrash = "Le lanceur se bloque sur la capacité pendant 2 à 3 tours, puis devient confus.",
         doubleedge = "Attaque 'à contrecoup'. Les dégâts de recul sont équivalents à 1/3 des dégâts infligés à la cible.",
@@ -4411,13 +4428,18 @@ Localizations = {
         bite = "Attaque 'Croc'. 30% de chance d'apeurer la cible.",
         growl = "Attaque sonore. Baisse l'Attaque des cibles d'un niveau.",
         roar = {
-                    "Attaque sonore. Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
-                    "Attaque sonore. Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur."
-                },
+            "Attaque sonore. Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Attaque sonore. Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Attaque sonore. Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Attaque sonore. Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat.",
+            "Attaque sonore. Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur."
+
+        },
         sing = "Attaque sonore. Endort la cible.",
         supersonic = "Attaque sonore. Rend confus la cible.",
         sonicboom = "Inflige toujours 20 PV.",
-        disable = "Empêche la cible d'utiliser sa dernière capacité utilisée depuis qu'elle est rentrée sur le terrain pendant 4 à 7 tours.",
+        disable =
+        "Empêche la cible d'utiliser sa dernière capacité utilisée depuis qu'elle est rentrée sur le terrain pendant 4 à 7 tours.",
         acid = "10% de chance de baisser la Défense Spéciale des cibles d'un niveau.",
         ember = "10% de chance de brûler la cible.",
         flamethrower = "10% de chance de brûler la cible.",
@@ -4440,11 +4462,17 @@ Localizations = {
         strength = "Sans effet supplémentaire.",
         absorb = "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
         megaDrain = "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
-        leechSeed = "Infecte la cible avec des graines qui infligent 1/8 des PV max à la fin de chaque tour, et régénère le lanceur du même montant de PV.",
+        leechSeed =
+        "Infecte la cible avec des graines qui infligent 1/8 des PV max à la fin de chaque tour, et régénère le lanceur du même montant de PV.",
         growth = {
-                    "Augmente l'Attaque Spéciale du lanceur d'un niveau.",
-                    "Augmente l'Attaque et l'Attaque Spéciale du lanceur d'un niveau, l'effet étant doublé par temps de soleil."
-                },
+
+            "Augmente l'Attaque Spéciale du lanceur d'un niveau.",
+            "Augmente l'Attaque Spéciale du lanceur d'un niveau.",
+            "Augmente l'Attaque Spéciale du lanceur d'un niveau.",
+            "Augmente l'Attaque Spéciale du lanceur d'un niveau.",
+            "Augmente l'Attaque et l'Attaque Spéciale du lanceur d'un niveau, l'effet étant doublé par temps de soleil."
+
+        },
         razorLeaf = "Taux de coups critiques +1.",
         solarbeam = "Attaque en 2 tours. L'attaque se fait en 1 tour par temps de soleil.",
         poisonpowder = "Attaque 'Poudre'. Empoisonne la cible.",
@@ -4454,15 +4482,20 @@ Localizations = {
         stringShot = "Baisse la Vitesse des cibles d'un niveau.",
         dragonRage = "Inflige toujours 40 PV.",
         fireSpin = {
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
-                },
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
+
+        },
         thundershock = "10% de chance de paralyser la cible.",
         thunderbolt = "10% de chance de paralyser la cible.",
         thunderWave = "Paralyse la cible.",
         thunder = "30% de chance de paralyser la cible.",
         rockThrow = "Sans effet supplémentaire.",
-        earthquake = "La puissance est doublée si la cible est sous terre (Tunnel). Elle est divisée par 2 si le Champ Herbu est actif.",
+        earthquake =
+        "La puissance est doublée si la cible est sous terre (Tunnel). Elle est divisée par 2 si le Champ Herbu est actif.",
         fissure = "Met K.O. en un coup. Les Pokémon ayant un niveau strictement supérieur sont immunisés.",
         dig = "Attaque en 2 tours. Le lanceur est invulnérable pendant le chargement.",
         toxic = "Empoisonne gravement la cible.",
@@ -4473,7 +4506,8 @@ Localizations = {
         agility = "Augmente la Vitesse du lanceur de 2 niveaux.",
         quickAttack = "Priorité +1.",
         rage = "Augmente l'Attaque du lanceur d'un niveau à chaque coup reçu.",
-        teleport = "Aucun effet dans un combat de Dresseurs. Quand cette capacité est utilisée par un Pokémon sauvage, celui-ci fuit le combat.",
+        teleport =
+        "Aucun effet dans un combat de Dresseurs. Quand cette capacité est utilisée par un Pokémon sauvage, celui-ci fuit le combat.",
         nightShade = "Inflige des dégâts équivalents au niveau du lanceur.",
         mimic = "Le lanceur copie la dernière capacité utilisée par la cible et la conserve tant qu'il reste au combat.",
         screech = "Attaque sonore. Baisse la Défense de la cible de 2 niveaux.",
@@ -4481,25 +4515,37 @@ Localizations = {
         recover = "Le lanceur récupère 50% de ses PV max.",
         harden = "Augmente la Défense du lanceur d'un niveau.",
         minimize = {
-                    "Augmente l'Esquive du lanceur d'un niveau.",
-                    "Augmente l'Esquive du lanceur de 2 niveaux."
-                },
+
+            "Augmente l'Esquive du lanceur d'un niveau.",
+            "Augmente l'Esquive du lanceur d'un niveau.",
+            "Augmente l'Esquive du lanceur d'un niveau.",
+            "Augmente l'Esquive du lanceur d'un niveau.",
+            "Augmente l'Esquive du lanceur de 2 niveaux."
+
+        },
         smokescreen = "Baisse la Précision de la cible d'un niveau.",
         confuseRay = "Rend confus la cible.",
         withdraw = "Augmente la Défense du lanceur d'un niveau.",
-        defenseCurl = "Augmente la Défense du lanceur d'un niveau. Après utilisation, double la puissance de Ball'Glace et Roulade jusqu'a ce que le lanceur quitte le terrain.",
+        defenseCurl =
+        "Augmente la Défense du lanceur d'un niveau. Après utilisation, double la puissance de Ball'Glace et Roulade jusqu'a ce que le lanceur quitte le terrain.",
         barrier = "Augmente la Défense du lanceur de 2 niveaux.",
-        lightScreen = "Crée un mur qui réduit de 50% les dégâts spéciaux subis par les Pokémon de l'équipe. La réduction est de 33% en combat Duo.",
+        lightScreen =
+        "Crée un mur qui réduit de 50% les dégâts spéciaux subis par les Pokémon de l'équipe. La réduction est de 33% en combat Duo.",
         haze = "Annule les changements de stats de tous les Pokémon au combat.",
-        reflect = "Crée un mur qui réduit de 50% les dégâts physiques subis par les Pokémon de l'équipe. La réduction est de 33% en combat Duo.",
+        reflect =
+        "Crée un mur qui réduit de 50% les dégâts physiques subis par les Pokémon de l'équipe. La réduction est de 33% en combat Duo.",
         focusEnergy = "Augmente le taux de coups critiques de 2 niveaux.",
         bide = "Priorité +1. Se concentre pendant 2 tours et renvoie le double des dégâts subis le troisième tour.",
         metronome = "Le lanceur utilise une capacité aléatoire du jeu.",
         mirrorMove = "Utilise la dernière capacité qui a ciblé le lanceur.",
         selfdestruct = {
-                    "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
-                    "Le lanceur tombe K.O. avant d'attaquer."
-                },
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer."
+
+        },
         eggBomb = "Attaque 'Bombe'.",
         lick = "30% de chance de paralyser la cible.",
         smog = "40% de chance d'empoisonner la cible.",
@@ -4508,20 +4554,30 @@ Localizations = {
         fireBlast = "10% de chance de brûler la cible.",
         waterfall = "20% de chance d'apeurer la cible.",
         clamp = {
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
-                },
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
+
+        },
         swift = "Sans effet supplémentaire.",
-        skullBash = "Attaque en 2 tours. Augmente la Défense du lanceur d'un niveau le premier tour et attaque le second tour.",
+        skullBash =
+        "Attaque en 2 tours. Augmente la Défense du lanceur d'un niveau le premier tour et attaque le second tour.",
         spikeCannon = "Touche 2 à 5 fois.",
         constrict = "10% de chance de baisser la Vitesse de la cible d'un niveau.",
         amnesia = "Augmente la Défense Spéciale du lanceur 2 niveaux.",
         kinesis = "Baisse la Précision de la cible d'un niveau.",
         softboiled = "Le lanceur récupère 50% de ses PV max.",
         hiJumpKick = {
-                    "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
-                    "Le lanceur perd 50% de ses PV max s'il rate l'attaque."
-                },
+
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% des PV max de la cible s'il rate l'attaque.",
+            "Le lanceur perd 50% de ses PV max s'il rate l'attaque."
+
+        },
         glare = "Paralyse la cible.",
         dreamEater = "Le lanceur mange le rêve de l'ennemi endormi et récupère en PV la moitié des dégâts infligés.",
         poisonGas = "Un nuage de gaz toxique est projeté au visage de l'ennemi pour l'empoisonner.",
@@ -4529,7 +4585,8 @@ Localizations = {
         leechLife = "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
         lovelyKiss = "Endort la cible.",
         skyAttack = "Attaque en 2 tours. 30% de chance d'apeurer la cible. Taux de coups critiques +1.",
-        transform = "Se transforme en le Pokémon adverse, copiant toutes ses statistiques (sauf les PV), toutes ses capacités (avec 5 PP) et son talent.",
+        transform =
+        "Se transforme en le Pokémon adverse, copiant toutes ses statistiques (sauf les PV), toutes ses capacités (avec 5 PP) et son talent.",
         bubble = "10% de chance de baisser la Vitesse des cibles d'un niveau.",
         dizzyPunch = "Attaque 'Poing'. 20% de chance de rendre confus la cible.",
         spore = "Attaque 'Poudre'. Endort la cible.",
@@ -4539,9 +4596,13 @@ Localizations = {
         acidArmor = "Augmente la Défense du lanceur de 2 niveaux.",
         crabhammer = "Taux de coups critiques +1.",
         explosion = {
-                    "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
-                    "Le lanceur tombe K.O. avant d'attaquer."
-                },
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer. Lors de cette attaque, la Défense des cibles est divisée par 2.",
+            "Le lanceur tombe K.O. avant d'attaquer."
+
+        },
         furySwipes = "Touche 2 à 5 fois.",
         bonemerang = "Touche 2 fois.",
         rest = "Le lanceur récupère 100% de ses PV max et s'endort pendant 2 tours.",
@@ -4552,34 +4613,52 @@ Localizations = {
         triAttack = "20% de chance d'infliger une brûlure, une paralysie ou un gel (6.67% chacun).",
         superFang = "Inflige des dégâts équivalents à 50% des PV restants de la cible.",
         slash = "Taux de coups critiques +1.",
-        substitute = "Sacrifie 25% des PV max du lanceur pour créer un Clone qui encaisse les dommages à la place du lanceur. Le clone est notamment immunisé aux problèmes de statut, baisses de statistiques et autres capacités de statut.",
-        struggle = "Capacité par défaut lorsque le lanceur peut utiliser aucune capacité qu'il connaît. Le lanceur perd 25% de ses PV max après l'attaque.",
+        substitute =
+        "Sacrifie 25% des PV max du lanceur pour créer un Clone qui encaisse les dommages à la place du lanceur. Le clone est notamment immunisé aux problèmes de statut, baisses de statistiques et autres capacités de statut.",
+        struggle =
+        "Capacité par défaut lorsque le lanceur peut utiliser aucune capacité qu'il connaît. Le lanceur perd 25% de ses PV max après l'attaque.",
         sketch = "Le lanceur copie de manière permanente la dernière capacité utilisée par la cible.",
         tripleKick = "Touche jusqu'à 3 fois. Le premier coup a une puissance de 10, le second 20 et le dernier 30.",
         thief = "Vole l'objet de la cible si le lanceur n'en tient pas.",
         spiderWeb = "Empêche la cible de fuir.",
         mindReader = "Le lanceur analyse la cible pour être sûr de toucher au tour suivant.",
-        nightmare = "Plonge la cible dans un cauchemar qui inflige 1/4 de dégâts à la fin de chaque tour. Ne fonctionne que si la cible est endormie.",
+        nightmare =
+        "Plonge la cible dans un cauchemar qui inflige 1/4 de dégâts à la fin de chaque tour. Ne fonctionne que si la cible est endormie.",
         flameWheel = "10% de chance de brûler la cible.",
         snore = "Attaque sonore. 30% de chance d'apeurer la cible. Ne fonctionne que si le lanceur est endormi.",
-        curse = "Le lanceur sacrifie 50% de ses PV max pour maudir sa cible, ce qui lui inflige 25% de ses PV max à la fin de chaque tour.",
+        curse =
+        "Le lanceur sacrifie 50% de ses PV max pour maudir sa cible, ce qui lui inflige 25% de ses PV max à la fin de chaque tour.",
         flail = {
-                    "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
-                    "Plus les PV du lanceur sont bas, plus l'attaque est puissante. La puissance varie entre 20 et 200."
-                },
+
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante. La puissance varie entre 20 et 200."
+
+        },
         conversion2 = "Le lanceur change de type pour être résistant au type de la dernière attaque lancée par sa cible.",
         aeroblast = "Taux de coups critiques +1.",
         cottonSpore = "Attaque 'Poudre'. Baisse la Vitesse de la cible de 2 niveaux.",
         reversal = {
-                    "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
-                    "Plus les PV du lanceur sont bas, plus l'attaque est puissante. La puissance varie entre 20 et 200."
-                },
+
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante.",
+            "Plus les PV du lanceur sont bas, plus l'attaque est puissante. La puissance varie entre 20 et 200."
+
+        },
         spite = "Réduit les PP de la dernière capacitée utilisée par la cible de 4.",
         powderSnow = "10% de chance de geler les cibles.",
         protect = {
-                    "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
-                    "Priorité +4. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive."
-                },
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +4. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive."
+
+        },
         machPunch = "Attaque 'Poing'. Priorité +1.",
         scaryFace = "Baisse la Vitesse de la cible de 2 niveaux.",
         faintAttack = "Sans effet supplémentaire.",
@@ -4588,52 +4667,78 @@ Localizations = {
         sludgeBomb = "Attaque 'Bombe'. 30% de chances d'empoisonner la cible.",
         mudslap = "100% de chance de baisser la Précision de la cible d'un niveau.",
         octazooka = "Attaque 'Balle'. 50% de chance de baisser la Précision de la cible d'un niveau.",
-        spikes = "Pose un piège sur le terrain adverse, qui inflige 12.5% des PV max aux Pokémon non volant qui entrent sur son terrain. Cumulable 3 fois, auquel cas les dégâts passent à 18.75% puis à 25% des PV max.",
+        spikes =
+        "Pose un piège sur le terrain adverse, qui inflige 12.5% des PV max aux Pokémon non volant qui entrent sur son terrain. Cumulable 3 fois, auquel cas les dégâts passent à 18.75% puis à 25% des PV max.",
         zapCannon = "Attaque 'Balle'. 100% de chance de paralyser la cible.",
-        foresight = "Permet de toucher un Pokémon Spectre avec des attaques Normal et Combat et d'ignorer ses augmentations d'Esquive.",
-        destinyBond = "Si le lanceur est mis K.O. par une capacité offensive avant sa prochaine attaque, l'assaillant tombe K.O. à son tour. Peut être répété sans échouer.",
+        foresight =
+        "Permet de toucher un Pokémon Spectre avec des attaques Normal et Combat et d'ignorer ses augmentations d'Esquive.",
+        destinyBond =
+        "Si le lanceur est mis K.O. par une capacité offensive avant sa prochaine attaque, l'assaillant tombe K.O. à son tour. Peut être répété sans échouer.",
         perishSong = "Attaque sonore. Tous les Pokémon sur le terrain tombent K.O après 3 tours.",
         icyWind = "100% de chance de baisser la Vitesse des cibles d'un niveau.",
         detect = {
-                    "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
-                    "Priorité +4. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive."
-                },
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +4. Protège le lanceur de la plupart des attaques pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive."
+
+        },
         boneRush = "Touche 2 à 5 fois.",
         lockon = "Le lanceur analyse la cible pour être sûr de toucher au tour suivant.",
         outrage = "Le lanceur se bloque sur la capacité pendant 2 à 3 tours, puis devient confus.",
-        sandstorm = "Crée une tempête de sable de 5 tours qui blesse tous les Pokémon, sauf ceux de type Roche, Sol ou Acier, et qui augmente la Défense Spéciale des Pokémon Roche.",
+        sandstorm =
+        "Crée une tempête de sable de 5 tours qui blesse tous les Pokémon, sauf ceux de type Roche, Sol ou Acier, et qui augmente la Défense Spéciale des Pokémon Roche.",
         gigaDrain = "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
         endure = {
-                    "Priorité +3. Le lanceur résiste aux attaques offensives avec 1 PV durant le tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
-                    "Priorité +4. Le lanceur résiste aux attaques offensives avec 1 PV durant le tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive."
-                },
+            "Priorité +3. Le lanceur résiste aux attaques offensives avec 1 PV durant le tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Le lanceur résiste aux attaques offensives avec 1 PV durant le tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Le lanceur résiste aux attaques offensives avec 1 PV durant le tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +3. Le lanceur résiste aux attaques offensives avec 1 PV durant le tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+            "Priorité +4. Le lanceur résiste aux attaques offensives avec 1 PV durant le tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive."
+
+        },
         charm = "Baisse l'Attaque de la cible de 2 niveaux.",
-        rollout = "Le lanceur se bloque sur la capacité pendant 5 tour ou jusqu'à que l'attaque rate. La puissance double à chaque attaque successive.",
-        falseSwipe = "Le lanceur retient ses coups pour que la cible garde au moins 1 PV en cas de coup normalement fatal.",
+        rollout =
+        "Le lanceur se bloque sur la capacité pendant 5 tour ou jusqu'à que l'attaque rate. La puissance double à chaque attaque successive.",
+        falseSwipe =
+        "Le lanceur retient ses coups pour que la cible garde au moins 1 PV en cas de coup normalement fatal.",
         swagger = "Fait enrager la cible et la plonge dans la confusion, mais augmente beaucoup son Attaque.",
         milkDrink = "Le lanceur récupère 50% de ses PV max.",
         spark = "30% de chance de paralyser la cible",
-        furyCutter = "La puissance de cette capacité double à chaque tour d'affilée où elle est utilisée, jusqu'à un maximum de 160.",
+        furyCutter =
+        "La puissance de cette capacité double à chaque tour d'affilée où elle est utilisée, jusqu'à un maximum de 160.",
         steelWing = "10% de chance d'augmenter la Défense du lanceur d'un niveau.",
         meanLook = "Empêche la cible de fuir.",
         attract = "Rend amoureux la cible. Ne fonctionne que sur les cibles de sexe opposé au lanceur.",
-        sleepTalk = "Le lanceur utilise une autre de ses capacités au hasard. Ne fonctionne que si le lanceur est endormi.",
-        healBell = "Attaque sonore. Guérit la brûlure, le gel, la paralysie, le poison et le sommeil de tous les Pokémon dans l'équipe du lanceur.",
+        sleepTalk =
+        "Le lanceur utilise une autre de ses capacités au hasard. Ne fonctionne que si le lanceur est endormi.",
+        healBell =
+        "Attaque sonore. Guérit la brûlure, le gel, la paralysie, le poison et le sommeil de tous les Pokémon dans l'équipe du lanceur.",
         returnMove = "Plus le lanceur est heureux, plus l'attaque est puissante. La puissance varie entre 1 et 102.",
-        present = "Effectue aléatoirement une attaque à 40, 80 ou 120 de puissance, ou soigne 25% des PV max de la cible.",
+        present =
+        "Effectue aléatoirement une attaque à 40, 80 ou 120 de puissance, ou soigne 25% des PV max de la cible.",
         frustration = "Plus le lanceur est malheureux, plus l'attaque est puissante. La puissance varie entre 1 et 102.",
-        safeguard = "Crée un champ protecteur qui protège l'équipe du lanceur contre les problèmes de statut et la confusion pendant 5 tours.",
+        safeguard =
+        "Crée un champ protecteur qui protège l'équipe du lanceur contre les problèmes de statut et la confusion pendant 5 tours.",
         painSplit = "Additionne les PV du lanceur et de la cible, et redistribue la moitié à chacun.",
         sacredFire = "50% de chance de brûler la cible.",
-        magnitude = "La puissance d'Ampleur est variable et aléatoire entre 10 et 150. La puissance est doublée si la cible est sous terre (Tunnel). Elle est divisée par 2 si le Champ Herbu est actif.",
+        magnitude =
+        "La puissance d'Ampleur est variable et aléatoire entre 10 et 150. La puissance est doublée si la cible est sous terre (Tunnel). Elle est divisée par 2 si le Champ Herbu est actif.",
         dynamicpunch = "Attaque 'Poing'. 100% de chance de rendre confus la cible.",
         megahorn = "Sans effet supplémentaire.",
         dragonbreath = "30% de chance de paralyser la cible.",
-        batonPass = "Le lanceur échange sa place avec un Pokémon de l'équipe, tout en lui relayant ses changements de statistiques et certains effets.",
+        batonPass =
+        "Le lanceur échange sa place avec un Pokémon de l'équipe, tout en lui relayant ses changements de statistiques et certains effets.",
         encore = {
-                    "Force la cible à répéter la dernière capacité utilisée pendant 3 à 7 tours.",
-                    "Force la cible à répéter la dernière capacité utilisée pendant 3 tours."
-                },
+
+            "Force la cible à répéter la dernière capacité utilisée pendant 3 à 7 tours.",
+            "Force la cible à répéter la dernière capacité utilisée pendant 3 à 7 tours.",
+            "Force la cible à répéter la dernière capacité utilisée pendant 3 à 7 tours.",
+            "Force la cible à répéter la dernière capacité utilisée pendant 3 à 7 tours.",
+            "Force la cible à répéter la dernière capacité utilisée pendant 3 tours."
+
+        },
         pursuit = "L'attaque devient prioritaire et double de puissance si la cible souhaite se retirer du terrain.",
         rapidSpin = "Dissipe certains effets du côté du lanceur comme Vampigraine, Picots ou Piège de Roc.",
         sweetScent = "Baisse l'Esquive des cibles d'un niveau.",
@@ -4643,41 +4748,71 @@ Localizations = {
         morningSun = "Le lanceur récupère 50% de ses PV max, 67% sous le soleil, 25% sous les autres climats.",
         synthesis = "Le lanceur récupère 50% de ses PV max, 67% sous le soleil, 25% sous les autres climats.",
         moonlight = "Le lanceur récupère 50% de ses PV max, 67% sous le soleil, 25% sous les autres climats.",
-        hiddenPower = "La puissance et le type de l'attaque dépend de la parité des IV du lanceur. La puissance varie entre 30 et 70.",
+        hiddenPower =
+        "La puissance et le type de l'attaque dépend de la parité des IV du lanceur. La puissance varie entre 30 et 70.",
         crossChop = "Taux de coups critiques +1.",
         twister = "20% de chances d'apeurer les cibles.",
-        rainDance = "Invoque de fortes pluies pendant 5 tours, augmentant la puissance des capacités de type Eau et baissant celle des capacités de type Feu.",
-        sunnyDay = "Fait briller le soleil pendant 5 tours, augmentant la puissance des capacités de type Feu et baissant celle des capacités de type Eau.",
+        rainDance =
+        "Invoque de fortes pluies pendant 5 tours, augmentant la puissance des capacités de type Eau et baissant celle des capacités de type Feu.",
+        sunnyDay =
+        "Fait briller le soleil pendant 5 tours, augmentant la puissance des capacités de type Feu et baissant celle des capacités de type Eau.",
         crunch = "Attaque 'Croc'. 20% de chance de baisser la Défense de la cible d'un niveau.",
         mirrorCoat = "Priorité -5. Inflige le double de dégâts à une cible si elle a attaqué avec une attaque spéciale.",
         psychUp = "Copie les augmentations et les baisses de statistiques de la cible.",
         extremespeed = {
-                    "Priorité +1.",
-                    "Priorité +2."
-                },
-        ancientpower = "10% de chance d'augmenter l'Attaque, la Défense, l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
+
+            "Priorité +1.",
+            "Priorité +1.",
+            "Priorité +1.",
+            "Priorité +1.",
+            "Priorité +2."
+
+        },
+        ancientpower =
+        "10% de chance d'augmenter l'Attaque, la Défense, l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
         shadowBall = "Attaque 'Balle'. 20% de chances de baisser la Défense Spéciale de la cible d'un niveau.",
         futureSight = {
-                    "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
-                    "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité."
-                },
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité."
+
+        },
         rockSmash = "50% de chance de baisser la Défense de la cible d'un niveau.",
         whirlpool = {
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
-                },
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
+
+        },
         beatUp = {
-                    "Le lanceur appelle tous les Pokémon en forme de son équipe pour attaquer. Chaque coup porté a une puissance de 10 et n'avait pas de type.",
-                    "Le lanceur appelle tous les Pokémon en forme de son équipe pour attaquer. La puissance de chaque coup dépend de l'Attaque de base du Pokémon appelé."
-                },
+            "Le lanceur appelle tous les Pokémon en forme de son équipe pour attaquer. Chaque coup porté a une puissance de 10 et n'avait pas de type.",
+            "Le lanceur appelle tous les Pokémon en forme de son équipe pour attaquer. Chaque coup porté a une puissance de 10 et n'avait pas de type.",
+            "Le lanceur appelle tous les Pokémon en forme de son équipe pour attaquer. Chaque coup porté a une puissance de 10 et n'avait pas de type.",
+            "Le lanceur appelle tous les Pokémon en forme de son équipe pour attaquer. Chaque coup porté a une puissance de 10 et n'avait pas de type.",
+            "Le lanceur appelle tous les Pokémon en forme de son équipe pour attaquer. La puissance de chaque coup dépend de l'Attaque de base du Pokémon appelé."
+
+        },
         fakeOut = {
-                    "Priorité +1. 100% de chance d'apeurer la cible. Ne fonctionne qu'au premier tour.",
-                    "Priorité +3. 100% de chance d'apeurer la cible. Ne fonctionne qu'au premier tour."
-                },
-        uproar = "Le lanceur se bloque sur l'attaque pendant 3 tours. Cela réveille les Pokémon endormis et empêche les Pokémon sur le terrain de s'endormir.",
-        stockpile = "Augmente la Défense et la Défense Spéciale du lanceur d'un niveau, et accumule une charge de Stockage (3 maximum) qui permettent d'utiliser Avale et Relâche.",
-        spitUp = "Possède une puissance de 100, 200 ou 300 selon le nombre de charges accumulées avec la capacité Stockage. Après l'attaque, les charges sont perdues et les Défense et Défense Spéciale du lanceur baissent d'un niveau.",
-        swallow = "Restaure entre 25%, 50% ou 100% des PV max selon le nombre de charges accumulées avec la capacité Stockage. Après l'attaque, les charges sont perdues et les Défense et Défense Spéciale du lanceur baissent d'un niveau.",
+
+            "Priorité +1. 100% de chance d'apeurer la cible. Ne fonctionne qu'au premier tour.",
+            "Priorité +1. 100% de chance d'apeurer la cible. Ne fonctionne qu'au premier tour.",
+            "Priorité +1. 100% de chance d'apeurer la cible. Ne fonctionne qu'au premier tour.",
+            "Priorité +1. 100% de chance d'apeurer la cible. Ne fonctionne qu'au premier tour.",
+            "Priorité +3. 100% de chance d'apeurer la cible. Ne fonctionne qu'au premier tour."
+
+        },
+        uproar =
+        "Le lanceur se bloque sur l'attaque pendant 3 tours. Cela réveille les Pokémon endormis et empêche les Pokémon sur le terrain de s'endormir.",
+        stockpile =
+        "Augmente la Défense et la Défense Spéciale du lanceur d'un niveau, et accumule une charge de Stockage (3 maximum) qui permettent d'utiliser Avale et Relâche.",
+        spitUp =
+        "Possède une puissance de 100, 200 ou 300 selon le nombre de charges accumulées avec la capacité Stockage. Après l'attaque, les charges sont perdues et les Défense et Défense Spéciale du lanceur baissent d'un niveau.",
+        swallow =
+        "Restaure entre 25%, 50% ou 100% des PV max selon le nombre de charges accumulées avec la capacité Stockage. Après l'attaque, les charges sont perdues et les Défense et Défense Spéciale du lanceur baissent d'un niveau.",
         heatWave = "10% de chance de brûler les cibles.",
         hail = "Invoque une tempête de grêle pendant 5 tours qui blesse tous les Pokémon, sauf ceux de type Glace.",
         torment = "Inflige une tourmente à la cible, ce qui l'empêche d'utiliser 2 fois d'affilée la même capacité.",
@@ -4685,53 +4820,76 @@ Localizations = {
         willowisp = "Brûle la cible.",
         memento = "Le lanceur tombe K.O. et baisse l'Attaque et l'Attaque Spéciale de la cible de 2 niveaux.",
         facade = "La puissance est doublée lorsque le lanceur est empoisonné, paralysé ou brûlé.",
-        focusPunch = "Attaque 'Poing'. Priorité -3. Le lanceur charge au début du tour : s'il est blessé par une capacité offensive, Mitra-Poing échoue.",
+        focusPunch =
+        "Attaque 'Poing'. Priorité -3. Le lanceur charge au début du tour : s'il est blessé par une capacité offensive, Mitra-Poing échoue.",
         smellingsalt = "La puissance est doublée si la cible est paralysée. Dans ce cas, cela soigne sa paralysie.",
         followMe = "Priorité +3. Attire l'attention des ennemis pour les forcer à n'attaquer que le lanceur.",
         naturePower = "Le type de la capacité varie selon le terrain.",
-        charge = "Le lanceur se charge pour doubler la puissance de sa prochaine attaque si elle est Électrik. Augmente aussi la Défense Spéciale du lanceur d'un niveau.",
+        charge =
+        "Le lanceur se charge pour doubler la puissance de sa prochaine attaque si elle est Électrik. Augmente aussi la Défense Spéciale du lanceur d'un niveau.",
         taunt = {
-                    "Provoque la cible pendant 3 à 5 tours, ce qui l'empêche d'utiliser des capacités de statut.",
-                    "Provoque la cible pendant 3 tours, ce qui l'empêche d'utiliser des capacités de statut."
-                },
+
+            "Provoque la cible pendant 3 à 5 tours, ce qui l'empêche d'utiliser des capacités de statut.",
+            "Provoque la cible pendant 3 à 5 tours, ce qui l'empêche d'utiliser des capacités de statut.",
+            "Provoque la cible pendant 3 à 5 tours, ce qui l'empêche d'utiliser des capacités de statut.",
+            "Provoque la cible pendant 3 à 5 tours, ce qui l'empêche d'utiliser des capacités de statut.",
+            "Provoque la cible pendant 3 tours, ce qui l'empêche d'utiliser des capacités de statut."
+
+        },
         helpingHand = "Priorité +5. Augmente la puissance des capacités d'un allié de 50% jusqu'à la fin du tour.",
         trick = "Échange l'objet du lanceur avec celui de la cible.",
         rolePlay = "Le lanceur imite le talent de la cible.",
         wish = {
-                    "Restaure 50% des PV max du Pokémon présent sur le terrain au prochain tour.",
-                    "Restaure 50% des PV max du lanceur au Pokémon présent sur le terrain au prochain tour."
-                },
+
+            "Restaure 50% des PV max du Pokémon présent sur le terrain au prochain tour.",
+            "Restaure 50% des PV max du Pokémon présent sur le terrain au prochain tour.",
+            "Restaure 50% des PV max du Pokémon présent sur le terrain au prochain tour.",
+            "Restaure 50% des PV max du Pokémon présent sur le terrain au prochain tour.",
+            "Restaure 50% des PV max du lanceur au Pokémon présent sur le terrain au prochain tour."
+
+        },
         assist = "Le lanceur utilise une capacité aléatoire parmi les capacités des alliées.",
-        ingrain = "Le lanceur plante ses racines et récupère 1/8 de ses PV max à chaque tour. De plus, le lanceur ne peut plus fuir.",
+        ingrain =
+        "Le lanceur plante ses racines et récupère 1/8 de ses PV max à chaque tour. De plus, le lanceur ne peut plus fuir.",
         superpower = "Baisse l'Attaque et la Défense du lanceur d'un niveau après l'attaque.",
         magicCoat = "Priorité +4. Renvoie la plupart des capacités de statut de l'adversaire à lui-même.",
-        recycle = "Permet de récupérer les objets utilisés, consommés, lancés avec Dégommage ou les Baies utilisées pour Don Naturel.",
+        recycle =
+        "Permet de récupérer les objets utilisés, consommés, lancés avec Dégommage ou les Baies utilisées pour Don Naturel.",
         revenge = "Priorité -4. La puissance est doublée si le lanceur a été blessée par une attaque dans le tour.",
         brickBreak = "Inflige des dégâts et brise les barrières comme Mur Lumière ou Protection du côté de la cible.",
         yawn = "Fait somnoler la cible, ce qui l'endort à la fin du prochain tour.",
         knockOff = "La puissance augmente de 50% si la cible tient un objet et fait tomber l'objet.",
-        endeavor = "Si la cible possède plus de PV que le lanceur, alors l'attaque réduit les PV de la cible jusqu'au même montant que le lanceur.",
+        endeavor =
+        "Si la cible possède plus de PV que le lanceur, alors l'attaque réduit les PV de la cible jusqu'au même montant que le lanceur.",
         eruption = "Plus les PV du lanceur sont bas (en %), moins l'attaque est puissante.",
         skillSwap = "Échange le talent du lanceur avec celui de la cible.",
         imprison = "Empêche les adversaires d'utiliser les capacités connues par le lanceur.",
         refresh = "Soigne un empoisonnement, une paralysie ou une brûlure.",
         grudge = "Si le lanceur est mis K.O. par une capacité offensive, les PP de cette capacité tombent à 0.",
-        snatch = "Priorité +4. Vole les effets de certaines capacités de statut (bénéfiques) utilisées par l'adversaire, notamment, les augmentations de statistiques et les soins.",
+        snatch =
+        "Priorité +4. Vole les effets de certaines capacités de statut (bénéfiques) utilisées par l'adversaire, notamment, les augmentations de statistiques et les soins.",
         secretPower = "30% de chance de déclencher un effet secondaire, qui dépend du lieu.",
         dive = "Attaque en 2 tours. Le lanceur est invulnérable pendant le chargement.",
         armThrust = "Touche 2 à 5 fois.",
         camouflage = "Remplace le type du lanceur par un type qui dépend du lieu.",
         tailGlow = {
-                    "Augmente l'Attaque Spéciale du lanceur de 2 niveaux.",
-                    "Augmente l'Attaque Spéciale du lanceur de 3 niveaux."
-                },
+
+            "Augmente l'Attaque Spéciale du lanceur de 2 niveaux.",
+            "Augmente l'Attaque Spéciale du lanceur de 2 niveaux.",
+            "Augmente l'Attaque Spéciale du lanceur de 2 niveaux.",
+            "Augmente l'Attaque Spéciale du lanceur de 2 niveaux.",
+            "Augmente l'Attaque Spéciale du lanceur de 3 niveaux."
+
+        },
         lusterPurge = "50% de chance de baisser la Défense Spéciale de la cible d'un niveau.",
         mistBall = "Attaque 'Balle'. 50% de chance de baisser l'Attaque Spéciale de la cible d'un niveau.",
         featherdance = "Attaque 'Danse'. Baisse l'Attaque de la cible de 2 niveaux.",
         teeterDance = "Attaque 'Danse'.",
         blazeKick = "Taux de coups critiques +1. 10% de chance de brûler la cible.",
-        mudSport = "Réduit la puissance des attaques Électrik de 67% de tous les Pokémon jusqu'à que le lanceur est retiré.",
-        iceBall = "Attaque 'Balle'. Le lanceur se bloque sur la capacité pendant 5 tour ou jusqu'à que l'attaque rate. La puissance double à chaque attaque successive.",
+        mudSport =
+        "Réduit la puissance des attaques Électrik de 67% de tous les Pokémon jusqu'à que le lanceur est retiré.",
+        iceBall =
+        "Attaque 'Balle'. Le lanceur se bloque sur la capacité pendant 5 tour ou jusqu'à que l'attaque rate. La puissance double à chaque attaque successive.",
         needleArm = "Attaque 'Poing'. 30% de chance d'apeurer la cible.",
         slackOff = "Le lanceur récupère 50% de ses PV max.",
         hyperVoice = "Attaque sonore.",
@@ -4742,13 +4900,16 @@ Localizations = {
         meteorMash = "Attaque 'Poing'. 20% de chance d'augmenter l'Attaque du lanceur d'un niveau.",
         astonish = "30% de chance d'apeurer la cible.",
         weatherBall = "Attaque 'Balle'. La puissance est doublée et le type change avec la présence d'un climat.",
-        aromatherapy = "Guérit la brûlure, le gel, la paralysie, le poison et le sommeil de tous les Pokémon dans l'équipe du lanceur.",
+        aromatherapy =
+        "Guérit la brûlure, le gel, la paralysie, le poison et le sommeil de tous les Pokémon dans l'équipe du lanceur.",
         fakeTears = "Baisse la Défense Spéciale de la cible de 2 niveaux.",
         airCutter = "Taux de coups critiques +1.",
         overheat = "Baisse l'Attaque Spéciale du lanceur de 2 niveaux après l'attaque.",
-        odorSleuth = "Permet de toucher un Pokémon Spectre avec des attaques Normal et Combat et d'ignorer ses augmentations d'Esquive.",
+        odorSleuth =
+        "Permet de toucher un Pokémon Spectre avec des attaques Normal et Combat et d'ignorer ses augmentations d'Esquive.",
         rockTomb = "100% de chance de baisser la vitesse de la cible d'un niveau.",
-        silverWind = "10% de chance d'augmenter l'Attaque, la Défense, l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
+        silverWind =
+        "10% de chance d'augmenter l'Attaque, la Défense, l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
         metalSound = "Attaque sonore. Baisse la Défense Spéciale de la cible de 2 niveaux.",
         grasswhistle = "Endort la cible.",
         tickle = "Baisse l'Attaque et la Défense de la cible d'un niveau.",
@@ -4759,9 +4920,13 @@ Localizations = {
         extrasensory = "10% de chance d'apeurer la cible.",
         skyUppercut = "Attaque 'Poing'.",
         sandTomb = {
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
-                },
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
+
+        },
         sheerCold = "Met K.O. en un coup. Les Pokémon ayant un niveau strictement supérieur sont immunisés.",
         muddyWater = "30% de chance de baisser la Précision des cibles d'un niveau.",
         bulletSeed = "Attaque 'Balle'. Touche 2 à 5 fois.",
@@ -4773,11 +4938,13 @@ Localizations = {
         dragonClaw = "Sans effet supplémentaire.",
         frenzyPlant = "Le lanceur doit se reposer au tour suivant.",
         bulkUp = "Augmente l'Attaque et la Défense du lanceur d'un niveau.",
-        bounce = "Attaque en 2 tours. Le lanceur est invulnérable pendant le chargement. 30% de chance de paralyser la cible.",
+        bounce =
+        "Attaque en 2 tours. Le lanceur est invulnérable pendant le chargement. 30% de chance de paralyser la cible.",
         mudShot = "100% de chance de baisser la Vitesse de la cible d'un niveau.",
         poisonTail = "10% de chance d'empoisonner la cible. Taux de coups critiques +1.",
         covet = "Vole l'objet de la cible si le lanceur n'en tient pas.",
-        voltTackle = "Attaque 'à contrecoup'. 10% de chance de paralyser la cible. Les dégâts de recul sont équivalents à 1/3 des dégâts infligés à la cible.",
+        voltTackle =
+        "Attaque 'à contrecoup'. 10% de chance de paralyser la cible. Les dégâts de recul sont équivalents à 1/3 des dégâts infligés à la cible.",
         magicalLeaf = "Sans effet supplémentaire.",
         waterSport = "Réduit la puissance des attaques Feu de 67% de tous les Pokémon jusqu'à que le lanceur est retiré.",
         calmMind = "Augmente l'Attaque Spéciale et la Défense Spéciale du lanceur d'un niveau.",
@@ -4787,68 +4954,112 @@ Localizations = {
         shockWave = "Sans effet supplémentaire.",
         waterPulse = "Attaque 'Vibration'. 20% de chance de rendre confus la cible.",
         doomDesire = {
-                    "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
-                    "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité."
-                },
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité. L'attaque inflige des dégâts neutres peu importe le type de la cible.",
+            "Lance une attaque qui frappera la cible 2 tours après l'utilisation de cette capacité."
+
+        },
         psychoBoost = "Baisse l'Attaque Spéciale du lanceur de 2 niveaux après l'attaque.",
         roost = "Le lanceur récupère 50% de ses PV max, et perd son éventuel type Vol jusqu'à la fin du tour.",
-        gravity = "Le lanceur crée une gravité qui rendent les Pokémon Vol et ceux qui ont Lévitation sensibles aux capacités Sol, et qui augmente la Précision de tous les Pokémon de 67% pendant 5 tours.",
-        miracleEye = "Permet de toucher un Pokémon Ténèbres avec des attaques Psy et d'ignorer ses augmentations d'Esquive.",
+        gravity =
+        "Le lanceur crée une gravité qui rendent les Pokémon Vol et ceux qui ont Lévitation sensibles aux capacités Sol, et qui augmente la Précision de tous les Pokémon de 67% pendant 5 tours.",
+        miracleEye =
+        "Permet de toucher un Pokémon Ténèbres avec des attaques Psy et d'ignorer ses augmentations d'Esquive.",
         wakeupSlap = "La puissance est doublée si la cible est endormie. Dans ce cas, cela la réveille.",
         hammerArm = "Attaque 'Poing'. Baisse la Vitesse du lanceur d'un niveau après l'attaque.",
-        gyroBall = "Attaque 'Balle'. Plus le lanceur est lent par rapport à la cible, plus l'attaque est puissante. La puissance varie entre 1 et 150.",
-        healingWish = {      
-                    "Le lanceur tombe K.O. pour soigner les PV et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
-                    "Le lanceur tombe K.O. pour soigner les PV et le statut du Pokémon qui est envoyé après lui."
-                },
+        gyroBall =
+        "Attaque 'Balle'. Plus le lanceur est lent par rapport à la cible, plus l'attaque est puissante. La puissance varie entre 1 et 150.",
+        healingWish = {
+            "Le lanceur tombe K.O. pour soigner les PV et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Le lanceur tombe K.O. pour soigner les PV et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Le lanceur tombe K.O. pour soigner les PV et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Le lanceur tombe K.O. pour soigner les PV et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Le lanceur tombe K.O. pour soigner les PV et le statut du Pokémon qui est envoyé après lui."
+
+        },
         brine = "La puissance est doublée si la cible possède moins de 50% de ses PV max.",
         naturalGift = "La puissance et le type dépend de la Baie tenue.",
         feint = {
-                    "Priorité +2. Dissipe l'effet de Détection et Abri puis attaque. Ne fonctionne que si la cible se protège.",
-                    "Priorité +2. Dissipe l'effet des protections comme Abri ou Garde Large puis attaque."
-                },
+            "Priorité +2. Dissipe l'effet de Détection et Abri puis attaque. Ne fonctionne que si la cible se protège.",
+            "Priorité +2. Dissipe l'effet de Détection et Abri puis attaque. Ne fonctionne que si la cible se protège.",
+            "Priorité +2. Dissipe l'effet de Détection et Abri puis attaque. Ne fonctionne que si la cible se protège.",
+            "Priorité +2. Dissipe l'effet de Détection et Abri puis attaque. Ne fonctionne que si la cible se protège.",
+            "Priorité +2. Dissipe l'effet des protections comme Abri ou Garde Large puis attaque."
+
+        },
         pluck = "Si la cible tient une Baie, le lanceur la vole et la consomme.",
         tailwind = {
-                    "Génère une rafale de vent qui double la Vitesse des Pokémon de l'équipe pendant 3 tours.",
-                    "Génère une rafale de vent qui augmente la Vitesse des Pokémon de l'équipe pendant 4 tours."
-                },
-        acupressure = "Augmente une statistique de la cible au hasard (parmi celles qui ne sont pas au max) de 2 niveaux.",
-        metalBurst = "Priorité +0. Renvoie 150% des dégâts (physiques ou spéciaux) de la dernière capacité adverse subie durant le tour.",
+
+            "Génère une rafale de vent qui double la Vitesse des Pokémon de l'équipe pendant 3 tours.",
+            "Génère une rafale de vent qui double la Vitesse des Pokémon de l'équipe pendant 3 tours.",
+            "Génère une rafale de vent qui double la Vitesse des Pokémon de l'équipe pendant 3 tours.",
+            "Génère une rafale de vent qui double la Vitesse des Pokémon de l'équipe pendant 3 tours.",
+            "Génère une rafale de vent qui augmente la Vitesse des Pokémon de l'équipe pendant 4 tours."
+
+        },
+        acupressure =
+        "Augmente une statistique de la cible au hasard (parmi celles qui ne sont pas au max) de 2 niveaux.",
+        metalBurst =
+        "Priorité +0. Renvoie 150% des dégâts (physiques ou spéciaux) de la dernière capacité adverse subie durant le tour.",
         uturn = "Après l'attaque, le lanceur change de place avec un Pokémon de l'équipe.",
         closeCombat = "Baisse la Défense et la Défense Spéciale du lanceur d'un niveau après l'attaque.",
         payback = {
-                    "La puissance est doublée si le lanceur attaque après sa cible, ou si la cible se retire du terrain.",
-                    "La puissance est doublée si le lanceur attaque après sa cible."
-                },
+
+            "La puissance est doublée si le lanceur attaque après sa cible, ou si la cible se retire du terrain.",
+            "La puissance est doublée si le lanceur attaque après sa cible, ou si la cible se retire du terrain.",
+            "La puissance est doublée si le lanceur attaque après sa cible, ou si la cible se retire du terrain.",
+            "La puissance est doublée si le lanceur attaque après sa cible, ou si la cible se retire du terrain.",
+            "La puissance est doublée si le lanceur attaque après sa cible."
+
+        },
         assurance = "La puissance est doublée si la cible a déjà été blessé durant le tour.",
-        embargo = "Met un embargo sur la cible, ce qui l'empêche d'utiliser des objets ou de bénéficier des effets des objets tenus pendant 5 tours.",
+        embargo =
+        "Met un embargo sur la cible, ce qui l'empêche d'utiliser des objets ou de bénéficier des effets des objets tenus pendant 5 tours.",
         fling = "Le lanceur envoie l'objet qu'il tient sur sa cible. La puissance et les effets dépendent de l'objet.",
         psychoShift = "Transfère le problème de statut du lanceur à la cible.",
         trumpCard = "Moins la capacité possède de PP, plus l'attaque est puissante. La puissance varie entre 40 et 200.",
         healBlock = {
-                    "Empêche la cible de restaurer des PV (sauf via un objet ou une capacité spéciale) et d'utiliser les capacités restaurant des PV pendant 5 tours.",
-                    "Empêche la cible de restaurer des PV et d'utiliser les capacités restaurant des PV pendant 5 tours."
-                },
+            "Empêche la cible de restaurer des PV (sauf via un objet ou une capacité spéciale) et d'utiliser les capacités restaurant des PV pendant 5 tours.",
+            "Empêche la cible de restaurer des PV (sauf via un objet ou une capacité spéciale) et d'utiliser les capacités restaurant des PV pendant 5 tours.",
+            "Empêche la cible de restaurer des PV (sauf via un objet ou une capacité spéciale) et d'utiliser les capacités restaurant des PV pendant 5 tours.",
+            "Empêche la cible de restaurer des PV (sauf via un objet ou une capacité spéciale) et d'utiliser les capacités restaurant des PV pendant 5 tours.",
+            "Empêche la cible de restaurer des PV et d'utiliser les capacités restaurant des PV pendant 5 tours."
+
+        },
         wringOut = {
-                    "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
-                    "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 120."
-                },
-        powerTrick = "Échange sa statistique (hors changement de stats, talent et objet) de Défense du lanceur avec sa statistique d'Attaque.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 120."
+
+        },
+        powerTrick =
+        "Échange sa statistique (hors changement de stats, talent et objet) de Défense du lanceur avec sa statistique d'Attaque.",
         gastroAcid = "Neutralise le talent de la cible.",
         luckyChant = "Le lanceur crée un voile qui empêche l'équipe de subir de coups critiques pendant 5 tours.",
-        meFirst = "Si la cible utilise une attaque offensive et que le lanceur est plus rapide, alors il lancera l'attaque adverse avec une puissance boostée de 50%.",
+        meFirst =
+        "Si la cible utilise une attaque offensive et que le lanceur est plus rapide, alors il lancera l'attaque adverse avec une puissance boostée de 50%.",
         copycat = "Le lanceur utilise la dernière capacité lancée. Échoue si aucune capacité n'a été utilisée.",
         powerSwap = "Échange les changements d'Attaque et d'Attaque Spéciale du lanceur avec ceux de la cible.",
         guardSwap = "Échange les changements de Défense et de Défense Spéciale du lanceur avec ceux de la cible.",
-        punishment = "La puissance augmente de 20 pour chaque augmentation de statistique de la cible, pour un maximum de 200.",
-        lastResort = "Utilisable uniquement si le lanceur a déjà utilisé au moins une fois ses autres capacités. Ne fonctionne pas s'il s'agit de la seule capacité du lanceur.",
+        punishment =
+        "La puissance augmente de 20 pour chaque augmentation de statistique de la cible, pour un maximum de 200.",
+        lastResort =
+        "Utilisable uniquement si le lanceur a déjà utilisé au moins une fois ses autres capacités. Ne fonctionne pas s'il s'agit de la seule capacité du lanceur.",
         worrySeed = "Remplace le talent de la cible par Insomnia, ce qui l'empêche de s'endormir.",
-        suckerPunch = "Priorité +1. Échoue si la cible n'utilise pas une capacité offensive ou si elle attaque avant le lanceur.",
-        toxicSpikes = "Pose un piège sur le terrain adverse, qui empoisonne les Pokémon entrant sur son terrain. Cumulable 2 fois, auquel cas l'empoisonnement devient un empoisonnement grave.",
+        suckerPunch =
+        "Priorité +1. Échoue si la cible n'utilise pas une capacité offensive ou si elle attaque avant le lanceur.",
+        toxicSpikes =
+        "Pose un piège sur le terrain adverse, qui empoisonne les Pokémon entrant sur son terrain. Cumulable 2 fois, auquel cas l'empoisonnement devient un empoisonnement grave.",
         heartSwap = "Échange les changements de stats du lanceur avec ceux de la cible.",
         aquaRing = "Le lanceur crée un voile qui régénère 6.25% de ses PV max à la fin de chaque tour.",
-        magnetRise = "Fait léviter le lanceur pendant 5 tours, ce qui l'immunise notamment aux attaques Sol et aux pièges.",
-        flareBlitz = "Attaque 'à contrecoup'. 10% de chance de brûler la cible. Les dégâts de recul sont équivalents à 1/3 des dégâts infligés à la cible.",
+        magnetRise =
+        "Fait léviter le lanceur pendant 5 tours, ce qui l'immunise notamment aux attaques Sol et aux pièges.",
+        flareBlitz =
+        "Attaque 'à contrecoup'. 10% de chance de brûler la cible. Les dégâts de recul sont équivalents à 1/3 des dégâts infligés à la cible.",
         forcePalm = "30% de chance de paralyser la cible.",
         auraSphere = "Attaque 'Balle' et attaque 'Vibration'.",
         rockPolish = "Augmente la Vitesse du lanceur de 2 niveaux.",
@@ -4873,10 +5084,12 @@ Localizations = {
         gigaImpact = "Le lanceur doit se reposer au tour suivant.",
         nastyPlot = "Augmente l'Attaque Spéciale du lanceur de 2 niveaux.",
         bulletPunch = "Attaque 'Poing'. Priorité +1.",
-        avalanche = "Priorité -4. La puissance est doublée si la cible a blessé le lanceur avec une capacité offensive durant le tour.",
+        avalanche =
+        "Priorité -4. La puissance est doublée si la cible a blessé le lanceur avec une capacité offensive durant le tour.",
         iceShard = "Priorité +1.",
         shadowClaw = "Taux de coups critiques +1.",
-        thunderFang = "Attaque 'Croc'. 10% de chance d'apeurer et 10% de chance de paralyser la cible. Effets cumulables.",
+        thunderFang =
+        "Attaque 'Croc'. 10% de chance d'apeurer et 10% de chance de paralyser la cible. Effets cumulables.",
         iceFang = "Attaque 'Croc'. 10% de chance d'apeurer et 10% de chance de geler sa cible. Effets cumulables.",
         fireFang = "Attaque 'Croc'. 10% de chance d'apeurer et 10% de chance de brûler sa cible. Effets cumulables.",
         shadowSneak = "Priorité +1.",
@@ -4887,10 +5100,15 @@ Localizations = {
         flashCannon = "10% de chance de baisser la Défense Spéciale de la cible d'un niveau.",
         rockClimb = "20% de chance de rendre confus la cible.",
         defog = {
-                    "Baisse l'Esquive de la cible d'un niveau. Retire les murs de protections ainsi que les pièges posés sur le côté adverse.",
-                    "Baisse l'Esquive de la cible d'un niveau. Retire les murs de protections de l'adversaire, ainsi que les pièges des 2 côtés du terrain."
-                },
-        trickRoom = "Priorité -7. Pose la Distorsion, qui inverse l'ordre d'actions des Pokémon selon leurs Vitesses pendant 5 tours. Les Pokémon les plus rapides attaquent en dernier, mais les priorités d'attaque restent les mêmes.",
+            "Baisse l'Esquive de la cible d'un niveau. Retire les murs de protections ainsi que les pièges posés sur le côté adverse.",
+            "Baisse l'Esquive de la cible d'un niveau. Retire les murs de protections ainsi que les pièges posés sur le côté adverse.",
+            "Baisse l'Esquive de la cible d'un niveau. Retire les murs de protections ainsi que les pièges posés sur le côté adverse.",
+            "Baisse l'Esquive de la cible d'un niveau. Retire les murs de protections ainsi que les pièges posés sur le côté adverse.",
+            "Baisse l'Esquive de la cible d'un niveau. Retire les murs de protections de l'adversaire, ainsi que les pièges des 2 côtés du terrain."
+
+        },
+        trickRoom =
+        "Priorité -7. Pose la Distorsion, qui inverse l'ordre d'actions des Pokémon selon leurs Vitesses pendant 5 tours. Les Pokémon les plus rapides attaquent en dernier, mais les priorités d'attaque restent les mêmes.",
         dracoMeteor = "Baisse l'Attaque Spéciale du lanceur de 2 niveaux après l'attaque.",
         discharge = "30% de chance de paralyser les cibles.",
         lavaPlume = "30% de chance de brûlure les cibles.",
@@ -4902,13 +5120,19 @@ Localizations = {
         ironHead = "30% de chance d'apeurer la cible.",
         magnetBomb = "Attaque 'Bombe'.",
         stoneEdge = "Taux de coups critiques +1.",
-        captivate = "Baisse l'Attaque Spéciale des cibles de 2 niveaux. Ne fonctionne que si les cibles sont de sexe opposé au lanceur.",
-        stealthRock = "Pose un piège sur le terrain adverse, qui inflige 12.5% des PV max aux Pokémon qui entrent sur son terrain. Ces dégâts sont variables selon la faiblesse ou la résistance du Pokémon adverse au type Roche.",
+        captivate =
+        "Baisse l'Attaque Spéciale des cibles de 2 niveaux. Ne fonctionne que si les cibles sont de sexe opposé au lanceur.",
+        stealthRock =
+        "Pose un piège sur le terrain adverse, qui inflige 12.5% des PV max aux Pokémon qui entrent sur son terrain. Ces dégâts sont variables selon la faiblesse ou la résistance du Pokémon adverse au type Roche.",
         grassKnot = "Plus la cible est lourde, plus l'attaque est puissante. La puissance varie entre 20 et 120.",
         chatter = {
-                    "Attaque sonore. 1%, 11% ou 31% de chance de rendre confus la cible selon le volume du son enregistré.",
-                    "Attaque sonore. 0% ou 10% de chance de rendre confus la cible selon le volume du son enregistré."
-                },
+            "Attaque sonore. 1%, 11% ou 31% de chance de rendre confus la cible selon le volume du son enregistré.",
+            "Attaque sonore. 1%, 11% ou 31% de chance de rendre confus la cible selon le volume du son enregistré.",
+            "Attaque sonore. 1%, 11% ou 31% de chance de rendre confus la cible selon le volume du son enregistré.",
+            "Attaque sonore. 1%, 11% ou 31% de chance de rendre confus la cible selon le volume du son enregistré.",
+            "Attaque sonore. 0% ou 10% de chance de rendre confus la cible selon le volume du son enregistré."
+
+        },
         judgment = "Le type de l'attaque varie selon la Plaque tenue par le lanceur.",
         bugBite = "Si la cible tient une Baie, le lanceur la vole et la consomme.",
         chargeBeam = "70% de chance d'augmenter l'Attaque Spéciale du lanceur d'un niveau.",
@@ -4922,79 +5146,119 @@ Localizations = {
         roarOfTime = "Le lanceur doit se reposer au tour suivant.",
         spacialRend = "Taux de coups critiques +1.",
         lunarDance = {
-                    "Attaque 'Danse'. Le lanceur tombe K.O. pour soigner les PV, les PP et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
-                    "Attaque 'Danse'. Le lanceur tombe K.O., et le Pokémon suivant voit ses PV et PP restaurés et son problème de statut guérit."
-                },
+            "Attaque 'Danse'. Le lanceur tombe K.O. pour soigner les PV, les PP et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Attaque 'Danse'. Le lanceur tombe K.O. pour soigner les PV, les PP et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Attaque 'Danse'. Le lanceur tombe K.O. pour soigner les PV, les PP et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Attaque 'Danse'. Le lanceur tombe K.O. pour soigner les PV, les PP et le statut du Pokémon qui est envoyé après lui, dans le même tour.",
+            "Attaque 'Danse'. Le lanceur tombe K.O., et le Pokémon suivant voit ses PV et PP restaurés et son problème de statut guérit."
+
+        },
         crushGrip = {
-                    "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
-                    "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 120."
-                },
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 121.",
+            "Plus la cible possède de PV restants, plus l'attaque est puissante. La puissance varie entre 1 et 120."
+
+        },
         magmaStorm = {
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
-                    "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
-                },
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 2 à 5 tours. L'empêche aussi de fuir.",
+            "Piège la cible pour lui infliger 1/16 de ses PV max à la fin de chaque tour pendant 4 à 5 tours. L'empêche aussi de fuir."
+
+        },
         darkVoid = "Endort les cibles.",
         seedFlare = "40% de chance de baisser la Défense Spéciale de la cible de 2 niveaux.",
-        ominousWind = "10% de chance d'augmenter l'Attaque, la Défense, l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
-        shadowForce = "Attaque en 2 tours. Le lanceur est invulnérable pendant le chargement. L'attaque dissipe les protections comme Abri.",
+        ominousWind =
+        "10% de chance d'augmenter l'Attaque, la Défense, l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
+        shadowForce =
+        "Attaque en 2 tours. Le lanceur est invulnérable pendant le chargement. L'attaque dissipe les protections comme Abri.",
         honeClaws = "Augmente l'Attaque et la Précision du lanceur d'un niveau.",
-        wideGuard = "Priorité +3. Protège l'équipe contre les capacités de zone (en combat multiple) pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
-        guardSplit = "Additionne la Défense et la Défense Spéciale du lanceur et de sa cible et les redistribue équitablement entre les deux.",
-        powerSplit = "Additionne l'Attaque Spéciale et l'Attaque du lanceur et de sa cible et les redistribue équitablement entre les deux.",
-        wonderRoom = "Priorité -7. Pose la Zone Étrange, qui inverse la statistique de Défense avec celle de Défense Spéciale (avant application des changements de stats, des talents et des objets) pendant 5 tours.",
-        psyshock = "Utilise la statistique de Défense de la cible pour le calcul des dégâts, au lieu de sa Défense Spéciale.",
+        wideGuard =
+        "Priorité +3. Protège l'équipe contre les capacités de zone (en combat multiple) pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+        guardSplit =
+        "Additionne la Défense et la Défense Spéciale du lanceur et de sa cible et les redistribue équitablement entre les deux.",
+        powerSplit =
+        "Additionne l'Attaque Spéciale et l'Attaque du lanceur et de sa cible et les redistribue équitablement entre les deux.",
+        wonderRoom =
+        "Priorité -7. Pose la Zone Étrange, qui inverse la statistique de Défense avec celle de Défense Spéciale (avant application des changements de stats, des talents et des objets) pendant 5 tours.",
+        psyshock =
+        "Utilise la statistique de Défense de la cible pour le calcul des dégâts, au lieu de sa Défense Spéciale.",
         venoshock = "La puissance est doublée si la cible est empoisonnée.",
         autotomize = "Augmente la Vitesse du lanceur de 2 niveaux. Diminue son poids de 100 kg (minimim 0.1 kg).",
-        ragePowder = "Attaque 'Poudre'. Priorité +3. Attire l'attention des ennemis pour les forcer à n'attaquer que le lanceur. N'affecte pas les Pokémon Plante.",
-        telekinesis = "Le lanceur fait flotter la cible dans les airs pendant 3 tours, ce qui permet à toutes les capacités de le toucher à coup sûr (sauf celles qui met K.O. en un coup) et l'immunise aux attaques Sol notamment.",
+        ragePowder =
+        "Attaque 'Poudre'. Priorité +3. Attire l'attention des ennemis pour les forcer à n'attaquer que le lanceur. N'affecte pas les Pokémon Plante.",
+        telekinesis =
+        "Le lanceur fait flotter la cible dans les airs pendant 3 tours, ce qui permet à toutes les capacités de le toucher à coup sûr (sauf celles qui met K.O. en un coup) et l'immunise aux attaques Sol notamment.",
         magicRoom = "Priorité -7. Pose la Zone Magique, qui annule les effets des objets tenus pendant 5 tours.",
-        smackDown = "Fait tomber la cible au sol si elle est de type Vol ou possède le talent Lévitation, ce qui la rend sensible aux attaques Sol.",
+        smackDown =
+        "Fait tomber la cible au sol si elle est de type Vol ou possède le talent Lévitation, ce qui la rend sensible aux attaques Sol.",
         stormThrow = "Inflige toujours un coups critiques.",
         flameBurst = "Dans un combat multiple, inflige aussi 1/16 des PV max aux Pokémon adjacents à la cible",
         sludgeWave = "10% de chance d'empoisonner les cibles.",
-        quiverDance = "Attaque 'Danse'. Augmente l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
-        heavySlam = "Plus le lanceur est lourd par rapport à sa cible, plus l'attaque est puissante. La puissance varie entre 40 et 120.",
+        quiverDance =
+        "Attaque 'Danse'. Augmente l'Attaque Spéciale, la Défense Spéciale et la Vitesse du lanceur d'un niveau.",
+        heavySlam =
+        "Plus le lanceur est lourd par rapport à sa cible, plus l'attaque est puissante. La puissance varie entre 40 et 120.",
         synchronoise = "N'affecte que les cibles qui possèdent un type en commun avec le lanceur.",
-        electroBall = "Attaque 'Balle'. Plus le lanceur est rapide par rapport à sa cible, plus l'attaque est puissante. La puissance varie entre 40 et 150.",
+        electroBall =
+        "Attaque 'Balle'. Plus le lanceur est rapide par rapport à sa cible, plus l'attaque est puissante. La puissance varie entre 40 et 150.",
         soak = "Remplace le type de la cible par le type Eau.",
         flameCharge = "100% de chance d'augmenter la Vitesse du lanceur d'un niveau.",
         coil = "Augmente l'Attaque, la Défense et la Précision du lanceur d'un niveau.",
         lowSweep = "100% de chance de baisser la Vitesse de la cible d'un niveau.",
         acidSpray = "Attaque 'Bombe'. 100% de chance de baisser la Défense Spéciale de la cible de 2 niveaux.",
-        foulPlay = "Utilise la statistique d'Attaque de la cible pour le calcul des dégâts, au lieu de l'Attaque du lanceur. Tient compte des changements de stats de la cible, mais des objets, du talent et du statut du lanceur.",
+        foulPlay =
+        "Utilise la statistique d'Attaque de la cible pour le calcul des dégâts, au lieu de l'Attaque du lanceur. Tient compte des changements de stats de la cible, mais des objets, du talent et du statut du lanceur.",
         simpleBeam = "Remplace le talent de la cible par le talent Simple, qui double les changements de statistiques.",
         entrainment = "Remplace le talent du lanceur par celui de la cible.",
         afterYou = "Permet à la cible d'agir juste après le lanceur. Échoue si elle a déjà attaqué dans le tour.",
-        round = "Attaque sonore. Permet aux autres Pokémon d'utiliser immédiatement Chant Canon après le lanceur, avec une puissance de 120.",
-        echoedVoice = "Attaque sonore. La puissance augmente de 40 à chaque tour consécutif où la capacité est utilisée, même si la capacité échoue, jusqu'à un maximum de 200.",
+        round =
+        "Attaque sonore. Permet aux autres Pokémon d'utiliser immédiatement Chant Canon après le lanceur, avec une puissance de 120.",
+        echoedVoice =
+        "Attaque sonore. La puissance augmente de 40 à chaque tour consécutif où la capacité est utilisée, même si la capacité échoue, jusqu'à un maximum de 200.",
         chipAway = "Inflige des dégâts en ignorant la Défense et l'Esquive de la cible.",
         clearSmog = "Annule les changements de stats de la cible.",
-        storedPower = "La puissance augmente de 20 pour chaque augmentation de statistique du lanceur, pour un maximum de 840.",
-        quickGuard = "Priorité +3. Protège l'équipe contre les capacités prioritaires pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
-        allySwitch = "Priorité +1. Échange la place du lanceur avec celui de l'allié en combat multiple pour que les attaques visant le lanceur ciblent l'allié et inversement.",
+        storedPower =
+        "La puissance augmente de 20 pour chaque augmentation de statistique du lanceur, pour un maximum de 840.",
+        quickGuard =
+        "Priorité +3. Protège l'équipe contre les capacités prioritaires pendant un tour. Les chances de réussir l'attaque sont divisées par 2 à chaque utilisation consécutive.",
+        allySwitch =
+        "Priorité +1. Échange la place du lanceur avec celui de l'allié en combat multiple pour que les attaques visant le lanceur ciblent l'allié et inversement.",
         scald = "30% de chance de brûler la cible.",
-        shellSmash = "Baisse la Défense et la Défense Spéciale du lanceur d'un niveau et augmente son Attaque, son Attaque Spéciale et sa Vitesse de 2 niveaux.",
-        healPulse = "Attaque 'Vibration'. Restaure 50% des PV max de la cible, et 75% si le lanceur possède le talent Méga-Blaster.",
+        shellSmash =
+        "Baisse la Défense et la Défense Spéciale du lanceur d'un niveau et augmente son Attaque, son Attaque Spéciale et sa Vitesse de 2 niveaux.",
+        healPulse =
+        "Attaque 'Vibration'. Restaure 50% des PV max de la cible, et 75% si le lanceur possède le talent Méga-Blaster.",
         hex = "La puissance est doublée si la cible est brûlée, paralysée, endormie, empoisonnée ou gelée.",
-        skyDrop = "Attaque en 2 tours. Le lanceur prend la cible dans les airs, ce qui l'empêche d'agir et rend les 2 Pokémon invulnérables pendant le chargement.",
+        skyDrop =
+        "Attaque en 2 tours. Le lanceur prend la cible dans les airs, ce qui l'empêche d'agir et rend les 2 Pokémon invulnérables pendant le chargement.",
         shiftGear = "Augmente l'Attaque du lanceur d'un niveau et sa Vitesse de 2 niveaux.",
-        circleThrow = "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur.",
+        circleThrow =
+        "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur.",
         incinerate = "Si la cible tient une Baie, l'attaque détruit l'objet.",
         quash = "Retient la cible de force, l'obligeant à agir en dernier.",
         acrobatics = "La puissance est doublée si le lanceur ne tient pas d'objet au moment où l'attaque est lancée.",
         reflectType = "Remplace le type du lanceur par le type de la cible.",
         retaliate = "La puissance est doublée si un allié est tombé K.O. au tour précédent.",
-        finalGambit = "Le lanceur tombe K.O. et inflige à la cible des dégâts équivalents au nombre de PV restants du lanceur. Si l'attaque échoue, le lanceur ne tombe pas K.O..",
+        finalGambit =
+        "Le lanceur tombe K.O. et inflige à la cible des dégâts équivalents au nombre de PV restants du lanceur. Si l'attaque échoue, le lanceur ne tombe pas K.O..",
         bestow = "Si la cible ne tient pas d'objet, le lanceur lui donne l'objet qu'il porte.",
         inferno = "100% de chance de brûler la cible.",
-        waterPledge = "La puissance passe à 150 si un allié prépare Aire de Feu (son attaque ne se lancera pas) et cela crée un Arc-en-ciel qui double les chances d'activation des effets secondaires. Non cumulable avec Sérénité.",
-        firePledge = "La puissance passe à 150 si un allié prépare Aire d'Herbe (son attaque ne se lancera pas) et cela crée une Mer de Feu qui inflige 1/8 des PV max aux adversaires s'ils ne sont pas de type Feu à la fin de chaque tour.",
-        grassPledge = "La puissance passe à 150 si un allié prépare Aire d'Eau (son attaque ne se lancera pas) et cela crée un Marécage qui divise par 4 la Vitesse des adversaires.",
+        waterPledge =
+        "La puissance passe à 150 si un allié prépare Aire de Feu (son attaque ne se lancera pas) et cela crée un Arc-en-ciel qui double les chances d'activation des effets secondaires. Non cumulable avec Sérénité.",
+        firePledge =
+        "La puissance passe à 150 si un allié prépare Aire d'Herbe (son attaque ne se lancera pas) et cela crée une Mer de Feu qui inflige 1/8 des PV max aux adversaires s'ils ne sont pas de type Feu à la fin de chaque tour.",
+        grassPledge =
+        "La puissance passe à 150 si un allié prépare Aire d'Eau (son attaque ne se lancera pas) et cela crée un Marécage qui divise par 4 la Vitesse des adversaires.",
         voltSwitch = "Après l'attaque, le lanceur change de place avec un Pokémon de l'équipe.",
         struggleBug = "100% de chance de baisser l'Attaque Spéciale des cibles d'un niveau.",
         bulldoze = "100% de chance de baisser la Vitesse des cibles d'un niveau.",
         frostBreath = "Inflige toujours un coups critiques.",
-        dragonTail = "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur.",
+        dragonTail =
+        "Priorité -6. Éjecte le Pokémon adverse et le remplace par un autre. Lorsqu'un Pokémon sauvage seul l'utilise, cela met fin au combat, sauf si votre Pokémon a un niveau strictement supérieur.",
         workUp = "Augmente l'Attaque et l'Attaque Spéciale du lanceur d'un niveau.",
         electroweb = "100% de chance de baisser la Vitesse des cibles d'un niveau.",
         wildCharge = "Attaque 'à contrecoup'. Les dégâts de recul sont équivalents à 1/4 des dégâts infligés à la cible.",
@@ -5004,20 +5268,24 @@ Localizations = {
         hornLeech = "Convertit 50% des dégâts infligés aux cibles en PV pour le lanceur.",
         sacredSword = "Inflige des dégâts en ignorant la Défense et l'Esquive de la cible.",
         razorShell = "50% de chance de baisser la Défense de la cible d'un niveau.",
-        heatCrash = "Plus le lanceur est lourd par rapport à sa cible, plus l'attaque est puissante. La puissance varie entre 40 et 120.",
+        heatCrash =
+        "Plus le lanceur est lourd par rapport à sa cible, plus l'attaque est puissante. La puissance varie entre 40 et 120.",
         leafTornado = "50% de chance de baisser la Précision de la cible d'un niveau.",
         steamroller = "30% de chance d'apeurer la cible.",
         cottonGuard = "Augmente la Défense du lanceur de 3 niveaux.",
         nightDaze = "40% de chance de baisser la Précision de la cible d'un niveau.",
-        psystrike = "Utilise la statistique de Défense de la cible pour le calcul des dégâts, au lieu de sa Défense Spéciale.",
+        psystrike =
+        "Utilise la statistique de Défense de la cible pour le calcul des dégâts, au lieu de sa Défense Spéciale.",
         tailSlap = "Touche 2 à 5 fois.",
         hurricane = "30% de chance de rendre confus la cible.",
         headCharge = "Attaque 'à contrecoup'. Les dégâts de recul sont équivalents à 1/4 des dégâts infligés à la cible.",
         gearGrind = "Touche 2 fois.",
         searingShot = "Attaque 'Bombe'. 30% de chance de brûler la cible.",
         technoBlast = "Le type de l'attaque varie selon le Module tenu par le lanceur.",
-        relicSong = "Attaque sonore. 10% de chance d'endormir les cibles. Change la forme de Meloetta à chaque utilisation par ce dernier.",
-        secretSword = "Utilise la statistique de Défense de la cible pour le calcul des dégâts, au lieu de sa Défense Spéciale.",
+        relicSong =
+        "Attaque sonore. 10% de chance d'endormir les cibles. Change la forme de Meloetta à chaque utilisation par ce dernier.",
+        secretSword =
+        "Utilise la statistique de Défense de la cible pour le calcul des dégâts, au lieu de sa Défense Spéciale.",
         glaciate = "100% de chance de baisser la Vitesse des cibles d'un niveau.",
         boltStrike = "20% de chance de paralyser la cible.",
         blueFlare = "20% de chance de brûler la cible.",
@@ -5029,7 +5297,7 @@ Localizations = {
         vcreate = "Baisse la Défense, la Défense Spéciale et la Vitesse du lanceur après l'attaque.",
         fusionFlare = "La puissance est doublée si la capacité est utilisée juste après Éclair Croix.",
         fusionBolt = "La puissance est doublée si la capacité est utilisée juste après Flamme Croix.",
-      },
+    },
 
       AbilitiesName = {
         stench = "Puanteur",
