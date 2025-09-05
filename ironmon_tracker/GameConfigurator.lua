@@ -69,7 +69,6 @@ end
 
 function GameConfigurator.initMoveData(gameInfo)
 	MoveData.MOVES = {}
-	local versionDifferenceIndex = gameInfo.GEN - 3
 	for index, move in pairs(MoveData.MOVES_MASTER_LIST) do
 		if gameInfo.GEN == 4 and index == 469 then
 			return
@@ -85,7 +84,7 @@ function GameConfigurator.initMoveData(gameInfo)
 		}
 		for name, moveAttribute in pairs(move) do
 			if type(moveAttribute) == "table" then
-				moveToInsert[name] = moveAttribute[versionDifferenceIndex]
+				moveToInsert[name] = moveAttribute[gameInfo.GEN]
 			else
 				moveToInsert[name] = moveAttribute
 			end
