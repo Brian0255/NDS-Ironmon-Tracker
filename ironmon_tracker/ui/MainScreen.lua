@@ -265,11 +265,18 @@ local function MainScreen(initialSettings, initialTracker, initialProgram)
         if ui.frames.healFrame.isVisible() then
             local items = params.items
             local itemType = params.itemType
+            local noItemsInBag = ""
+            if itemType == "Healing" then
+                noItemsInBag = Localizations.MainScreenUI.noItemsInBagHealing
+            elseif itemType == "Status" then
+                noItemsInBag = Localizations.MainScreenUI.noItemsInBagStatus
+            end
+
             if items == nil or next(items) == nil then
                 local infoHoverParams = {
                     BGColorKey = "Top box background color",
                     BGColorFillKey = "Top box border color",
-                    text = Localizations.MainScreenUI.noItemsInBag:format(itemType:lower()),
+                    text = noItemsInBag,
                     textColorKey = "Top box text color",
                     width = 114,
                     alignment = Graphics.HOVER_ALIGNMENT_TYPE.ALIGN_ABOVE

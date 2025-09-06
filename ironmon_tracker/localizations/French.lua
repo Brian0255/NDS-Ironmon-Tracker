@@ -260,7 +260,8 @@ Localizations = {
         noData = "Aucune donnée trouvée.",
         youWon = "Tu as gagné !",
         noMovesLearned = "Ce Pokémon n'apprend pas de capacités.",
-        noItemsInBag = "Vous n'avez actuellement aucun %s."
+        noItemsInBagHealing = "Vous n'avez actuellement aucun objet de soin.",
+        noItemsInBagStatus = "Vous n'avez actuellement aucun objet de soin de statut."
     },
 
     PastRunsScreen = {
@@ -351,7 +352,7 @@ Localizations = {
         editFavorites = "Modifier les favoris",
         favorites = "Favoris",
         funStatisticsWillBeShown = "Des statistiques amusantes seront affichées ici une fois que tu auras joué suffisamment.",
-        didYouKnow = "Did you know?",
+        didYouKnow = "Le savais-tu ?",
         youGetOutOfTheLab = "Tu sors du laboratoire %percent% du temps.",
         youRunSub300BST = "Tu utilises des Pokémons ayant moins de 300 BST %percent% du temps.",
         youRun300To400BST = "Tu utilises des Pokémons ayant 300-400 BST %percent% du temps.",

@@ -259,7 +259,8 @@ Localizations = {
         noData = "No data was found.",
         youWon = "You won!",
         noMovesLearned = "This Pok" .. Chars.accentedE .. "mon does not learn any moves.",
-        noItemsInBag = "You currently do not have any %s items."
+        noItemsInBagHealing = "You currently do not have any healing items.",
+        noItemsInBagStatus = "You currently do not have any status items."
     },
 
     PastRunsScreen = {
