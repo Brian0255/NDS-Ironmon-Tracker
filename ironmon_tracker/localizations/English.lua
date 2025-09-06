@@ -247,6 +247,10 @@ Localizations = {
         baseStats = "Base Stats"
     },
 
+    FriendshipBar = {
+        friendshipBarOffset = 0,
+    },
+
     IconDrawer = {
         friendShipIconOrder = {
             "F1",
