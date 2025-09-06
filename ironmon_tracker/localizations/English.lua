@@ -247,6 +247,40 @@ Localizations = {
         baseStats = "Base Stats"
     },
 
+    IconDrawer = {
+        friendShipIconOrder = {
+            "F1",
+            "F2",
+            "F3",
+            "F4",
+            "",
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5",
+            "",
+            "I",
+            "",
+            "E1",
+            "E2",
+            "E3",
+            "E4",
+            "",
+            "N1",
+            "N2",
+            "N3",
+            "N4",
+            "N5",
+            "",
+            "D1",
+            "D2",
+            "D3",
+            "D4",
+            "D5"
+        }
+    },
+
     MainScreenUI = {
         healsInBag = "Heals in bag: ",
         totalSeen = "Total seen: ",

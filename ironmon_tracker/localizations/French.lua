@@ -248,6 +248,40 @@ Localizations = {
         baseStats = "Base Stats"
     },
 
+    IconDrawer = {
+        friendShipIconOrder = {
+            "B1",
+            "B2",
+            "B3",
+            "B4",
+            "",
+            "N1",
+            "N2",
+            "N3",
+            "N4",
+            "N5",
+            "",
+            "H",
+            "",
+            "E2",
+            "E3",
+            "E4",
+            "E5",
+            "",
+            "U1",
+            "U2",
+            "U3",
+            "U4",
+            "U5",
+            "",
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "R5"
+        }
+    },
+
     MainScreenUI = {
         healsInBag = "Objets de soins",
         totalSeen = "Total vu : ",
@@ -3024,7 +3058,7 @@ Localizations = {
     },
 
     PokemonEvolutionType = { -- Max 7 characters
-        friend = "BONH", -- High friendship
+        friend = "BNHEUR", -- High friendship
         various = "DIVERS", -- Various evolution stone items
         thunder = "FOUDRE", -- Thunder stone item
         fire = "FEU", -- Fire stone item
