@@ -374,7 +374,7 @@ Localizations = {
 
     RunOverScreen = {
         openLog = "Ouvrir Log",
-        viewTourneyScores = "Voir les scores des tournois",
+        viewTourneyScores = "Voir Scores Tournoi",
         runOver = "Fin de partie !"
     },
 
