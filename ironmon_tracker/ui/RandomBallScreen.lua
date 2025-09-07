@@ -74,6 +74,12 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 			0
 		}
 		ui.controls.pokeballs = {}
+		ui.controls.bstLabels = {}
+		local colors = {
+			[1] = "WATER",
+			[2] = "BUG",
+			[3] = "FIGHTING"
+		}
 		local info = program.getGameInfo()
 		for i = 1, 3, 1 do
 			local offset = 12
@@ -87,6 +93,41 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 					Box({x = 0, y = 0}, {width = constants.POKEBALL_SIZE, height = constants.POKEBALL_SIZE}, nil, nil)
 				),
 				ImageField("ironmon_tracker/images/trainers/pokeball_large_off.png", {x = 1, y = offset}, nil)
+			)
+			local pokeballWidth = constants.POKEBALL_SIZE
+			local bstText = ""
+
+			local id = 0;
+			-- Order of the pokeball and starters is 3, 1, 2
+			if i == 1 and PokemonData.STARTERS[3] then
+				id = PokemonData.STARTERS[3] + 1
+				bstText = tostring(PokemonData.POKEMON[id].bst)
+			elseif i == 2 and PokemonData.STARTERS[1] then
+				id = PokemonData.STARTERS[1] + 1
+				bstText = tostring(PokemonData.POKEMON[id].bst)
+			elseif i == 3 and PokemonData.STARTERS[2] then
+				id = PokemonData.STARTERS[2] + 1
+				bstText = tostring(PokemonData.POKEMON[id].bst)
+			end
+			
+			local textWidth = DrawingUtils.calculateWordPixelLength(bstText)
+			local centerX = - pokeballWidth * 2 - textWidth/2
+			ui.controls.bstLabels[i] =
+				TextLabel(
+				Component(
+					ui.frames.pokeballFrame,
+					Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false, nil, nil, 100)
+				),
+				TextField(
+					bstText,
+					{x = centerX, y = offset}, 
+					TextStyle(
+						Graphics.FONT.DEFAULT_FONT_SIZE,
+						Graphics.FONT.DEFAULT_FONT_FAMILY,
+						colors[i],
+						"Top box background color"
+					)				
+				)
 			)
 		end
 	end

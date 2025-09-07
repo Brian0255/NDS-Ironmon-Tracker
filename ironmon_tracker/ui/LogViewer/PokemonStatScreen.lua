@@ -273,7 +273,11 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         local pokemonImageParams = pokemonImageListener.getOnHoverParams()
         pokemonImageParams.pokemon = pokemon
         pokemonImageListener.setOnHoverParams(pokemonImageParams)
-        local heading = "Base Stats (" .. pokemon.bst .. " total)"
+        local bst = dataSet[1][2] + dataSet[2][2] + dataSet[3][2] + dataSet[4][2] + dataSet[5][2] + dataSet[6][2]
+        local heading = "Base Stats (" .. bst .. " total)"
+        if tonumber(PokemonData.POKEMON_MASTER_LIST[currentID + 1].bst) ~= tonumber(bst) then
+            heading = "Base Stats (" .. bst .. " total / orig. " .. PokemonData.POKEMON_MASTER_LIST[currentID + 1].bst .. ")"
+        end
         ui.controls.statBarGraph.setDataSet(dataSet)
         ui.controls.statBarGraph.setHeadingText(heading)
         currentEvoList = pokemon.evolutions
