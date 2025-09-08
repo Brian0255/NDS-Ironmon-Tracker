@@ -234,13 +234,20 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
                 DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, evolution, ui.controls.evoImage)
                 local evoInfo = PokemonData.POKEMON[currentID + 1].evolution
+
                 if PokemonData.EVO_LONGER_NAMES[evoInfo] then
                     evoInfo = PokemonData.EVO_LONGER_NAMES[evoInfo][currentEvoIndex]
                 end
                 if tonumber(evoInfo) ~= nil then
                     evoInfo = Localizations.Misc.level .. " " .. evoInfo
                 end
-                ui.controls.evoInfoLabel.setText(evoInfo)
+                if type(evoInfo) == "string" then
+                    ui.controls.evoInfoLabel.setText(evoInfo)
+                else 
+                    if type(evoInfo) == "table" then
+                        ui.controls.evoInfoLabel.setText(evoInfo[currentEvoIndex])
+                    end
+                end
                 eventListeners.evoImageListener.setOnClickParams(evolution)
             end
         end

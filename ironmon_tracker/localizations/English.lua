@@ -3090,8 +3090,8 @@ Localizations = {
         metalCoat = "MTL CT", --Metal Coat held item
         kingsRock = "KNG RCK", --King's Rock held item
         clamperl = "DST/DSS",
-        snorunt = {"42", "42/DWN"},
-        kirlia = {"30/DWN", "30"},
+        snorunt = "42/42DWN",
+        kirlia = "30/30DWN",
         slowpoke = "37/WTR",
         poliwhirl = "RCK/WTR",
         mantyke = "RMRAID",
@@ -3103,15 +3103,7 @@ Localizations = {
 
     PokemonEvoLongerNames = {
         friend = {"High friendship"},
-        thunder = {"Thunder stone"},
-        fire = {"Fire stone"},
-        water = {"Water stone"},
-        moon = {"Moon stone"},
-        dawn = {"Dawn stone"},
-        dusk = {"Dusk stone"},
-        leaf = {"Leaf stone"},
-        sun = {"Sun stone"},
-        oval = {"Oval stone"},
+        various = {"Thunder stone", "Fire stone", "Water stone", "Moon stone", "Dawn stone", "Dusk stone", "Leaf stone", "Sun stone", "Oval stone"},
         leafSun = {"Leaf stone", "Sun stone"},
         protector = {"Protector"},
         electirizer = {"Electirizer"},
@@ -3135,7 +3127,6 @@ Localizations = {
         shelmet = {"Level w/ Karrablast"},
         burmy = {"Level 20, F", "Level 20, M"},
         combee = {"Level 21, F only"}
-
     },
 
     PokemonNames = {

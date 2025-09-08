@@ -244,7 +244,7 @@ Localizations = {
         bst = "BST",
         abilities = "Talents",
         moves = "Capacités",
-        evos = "Evos :",
+        evos = "Evos : ",
         baseStats = "Base Stats"
     },
 
@@ -3091,8 +3091,8 @@ Localizations = {
         metalCoat = "P METAL", --Metal Coat held item
         kingsRock = "ROCHE R", --King's Rock held item
         clamperl = "D/E OCEAN",
-        snorunt = {"42", "42/AUB"},
-        kirlia = {"30/AUB", "30"},
+        snorunt = "42/42AUB",
+        kirlia = "30/30AUB",
         slowpoke = "37/ROR",
         poliwhirl = "EAU/ROR",
         mantyke = "RMRAID",
@@ -3104,15 +3104,7 @@ Localizations = {
 
     PokemonEvoLongerNames = {
         friend = {"Bonheur"},
-        thunder = {"Pierre Foudre"},
-        fire = {"Pierre Feu"},
-        water = {"Pierre Eau"},
-        moon = {"Pierre Lune"},
-        dawn = {"Pierre Aube"},
-        dusk = {"Pierre Nuit"},
-        leaf = {"Pierre Plante"},
-        sun = {"Pierresoleil"},
-        oval = {"Pierre Ovale"},
+        various = {"Pierre Foudre", "Pierre Feu", "Pierre Eau", "Pierre Lune", "Pierre Aube", "Pierre Nuit", "Pierre Plante", "Pierresoleil", "Pierre Ovale"},
         leafSun = {"Pierre Plante", "Pierresoleil"},
         protector = {"Protecteur"},
         electirizer = {"Electiriseur"},
@@ -3135,8 +3127,7 @@ Localizations = {
         karrablast = {"Niveau w/ Escargaume"},
         shelmet = {"Niveau w/ Carabing"},
         burmy = {"Niveau 20, F", "Niveau 20, M"},
-        combee = {"Niveau 21, F seulement"}
-
+        combee = {"Niveau 21, F"}
     },
 
     PokemonNames = {

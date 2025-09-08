@@ -151,21 +151,13 @@ PokemonData.EVOLUTION_TYPES =
         KARRABLAST = Localizations.PokemonEvolutionType.karrablast,
         SHELMET = Localizations.PokemonEvolutionType.shelmet,
         BURMY = Localizations.PokemonEvolutionType.burmy,
-        COMBEE = {Graphics.TEXT.PLACEHOLDER, Localizations.PokemonEvolutionType.combee}
+        COMBEE = Localizations.PokemonEvolutionType.combee
     }
 )
 
 PokemonData.EVO_LONGER_NAMES = {
     [PokemonData.EVOLUTION_TYPES.FRIEND] = Localizations.PokemonEvoLongerNames.friend,
-    [PokemonData.EVOLUTION_TYPES.VARIOUS] = {
-        Localizations.PokemonEvoLongerNames.leaf,
-        Localizations.PokemonEvoLongerNames.dawn,
-        Localizations.PokemonEvoLongerNames.thunder,
-        Localizations.PokemonEvoLongerNames.water,
-        Localizations.PokemonEvoLongerNames.fire,
-        Localizations.PokemonEvoLongerNames.sun,
-        Localizations.PokemonEvoLongerNames.moon
-    },
+    [PokemonData.EVOLUTION_TYPES.VARIOUS] = Localizations.PokemonEvoLongerNames.various,
     [PokemonData.EVOLUTION_TYPES.THUNDER] = Localizations.PokemonEvoLongerNames.thunder,
     [PokemonData.EVOLUTION_TYPES.FIRE] = Localizations.PokemonEvoLongerNames.fire,
     [PokemonData.EVOLUTION_TYPES.WATER] = Localizations.PokemonEvoLongerNames.water,
