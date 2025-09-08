@@ -170,7 +170,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 if TM ~= -1 then
                     moveID = logInfo.getTMs()[TM]
                     local moveName = MoveData.MOVES[moveID + 1].name
-                    moveString = string.format("TM %02d " .. moveName, TM)
+                    moveString = string.format(Localizations.Misc.tm .. " %02d " .. moveName, TM)
                     local textColorKey = getMoveTMTextColor(moveID)
                     label.setUseStrikethrough(not canLearn)
                     if not canLearn then
