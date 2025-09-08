@@ -36,6 +36,12 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 		local centerX = (94 - DrawingUtils.calculateWordPixelLength(text)) / 2
 		ui.controls.ballLabel.setText(text)
 		ui.controls.ballLabel.setTextOffset({x = centerX, y = 4})
+        local colors = {
+            [1] = "WATER",
+            [2] = "GRASS",
+            [3] = "FIGHTING"
+        }
+        ui.controls.ballLabel.setTextColorKey(colors[randomBall])
 	end
 
 	local function initDiceBallLabel()
@@ -77,7 +83,7 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 		ui.controls.bstLabels = {}
 		local colors = {
 			[1] = "WATER",
-			[2] = "BUG",
+			[2] = "GRASS",
 			[3] = "FIGHTING"
 		}
 		local info = program.getGameInfo()
