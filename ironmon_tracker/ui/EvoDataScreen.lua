@@ -47,8 +47,8 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		table.sort(
 			evoData[currentID],
 			function(a, b)
-				if sorting.sortType == SORT_TYPES.BST and PokemonData.POKEMON[a.id + 1].bst ~= PokemonData.POKEMON[b.id + 1].bst then
-					return PokemonData.POKEMON[a.id + 1].bst > PokemonData.POKEMON[b.id + 1].bst
+				if sorting.sortType == SORT_TYPES.BST and tonumber(PokemonData.POKEMON[a.id + 1].bst) ~= tonumber(PokemonData.POKEMON[b.id + 1].bst) then
+					return tonumber(PokemonData.POKEMON[a.id + 1].bst) > tonumber(PokemonData.POKEMON[b.id + 1].bst)
 				elseif sorting.sortType == SORT_TYPES.NAME then
 					return PokemonData.POKEMON[a.id + 1].name < PokemonData.POKEMON[b.id + 1].name
 				else
