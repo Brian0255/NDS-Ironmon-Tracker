@@ -114,7 +114,8 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 			local bstText = ""
 
 			local id = 0;
-		
+	
+
 			if info.VERSION_GROUP == 3 then
 			-- Order of the pokeball and starters is 3, 1, 2 in HGSS
 				if i == 1 and PokemonData.STARTERS[3] then
@@ -145,8 +146,8 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 			if info.VERSION_GROUP == 3 then
 				centerX = - pokeballWidth * 2 - textWidth/2
 			else
-				centerX = 0
-				offsetBSTY = offsetY + 5
+				centerX = - pokeballWidth - textWidth/2
+				offsetBSTY = offsetY - 12
 			end
 			ui.controls.bstLabels[i] =
 				TextLabel(
