@@ -618,7 +618,7 @@ Localizations = {
     },
 
     LocationDataDPPt = {
-        lakeVerity = "Lac Verité",
+        lakeVerity = "Lac Vérité",
         route201 = "Route 201",
         route202 = "Route 202",
         route203 = "Route 203",
@@ -648,8 +648,8 @@ Localizations = {
         dreamyard = "Vestiges du Rêve",
         route3 = "Route 3",
         wellspringCave = "Veine Souterraine",
-        pinwheelExterior = "Empoigne Exterieur",
-        pinwheelInterior = "Empoigne Interieur"
+        pinwheelExterior = "Forêt d'Empoigne Ext.",
+        pinwheelInterior = "Forêt d'Empoigne Int."
     },
 
     LocationDataBW2 = {

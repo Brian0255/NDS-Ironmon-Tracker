@@ -40,7 +40,7 @@ local function PivotsScreen(initialSettings, initialTracker, initialProgram, ini
         {key = "Int. Grass", text = Localizations.PivotsScreen.intGrass},
         {key = "Cave", text = Localizations.PivotsScreen.cave},
         {key = "ShakingSpots", text = Localizations.PivotsScreen.shakingSpots},
-        {key = "OldRod", text = Localizations.PivotsScreen.oldRod},
+        {key = "Old Rod", text = Localizations.PivotsScreen.oldRod},
         {key = "Headbutt(C)", text = Localizations.PivotsScreen.headbuttC},
         {key = "Headbutt(R)", text = Localizations.PivotsScreen.headbuttR},
         {key = "Dark Grass", text = Localizations.PivotsScreen.darkGrass},

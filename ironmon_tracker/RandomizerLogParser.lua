@@ -113,12 +113,12 @@ local function RandomizerLogParser(initialProgram)
         --indexed by game's version group. 4 is black/white
         ROUTE_NUMBER_TO_CORRECT_NAME = {
             [4] = {
-                ["18"] = "Pinwheel Exterior",
-                ["19"] = "Pinwheel Exterior",
-                ["20"] = "Pinwheel Exterior",
-                ["21"] = "Pinwheel Interior",
-                ["22"] = "Pinwheel Interior",
-                ["23"] = "Pinwheel Interior",
+                ["18"] = Localizations.LocationDataBW.pinwheelExterior,
+                ["19"] = Localizations.LocationDataBW.pinwheelExterior,
+                ["20"] = Localizations.LocationDataBW.pinwheelExterior,
+                ["21"] = Localizations.LocationDataBW.pinwheelInterior,
+                ["22"] = Localizations.LocationDataBW.pinwheelInterior,
+                ["23"] = Localizations.LocationDataBW.pinwheelInterior,
             }
         }
     }
