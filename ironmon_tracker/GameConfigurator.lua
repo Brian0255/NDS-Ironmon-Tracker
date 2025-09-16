@@ -135,7 +135,7 @@ function GameConfigurator.initAlternateForms(gameInfo)
 		local formTable = PokemonData.ALTERNATE_FORMS[baseForm]
 		formTable.index = currentIndex
 		for i, form in pairs(formTable.forms) do
-			if baseForm == "Rotom" and gameInfo.GEN == 4 then
+			if baseForm == Localizations.PokemonNames.rotom and gameInfo.GEN == 4 then
 				form.type = {PokemonData.POKEMON_TYPES.ELECTRIC, PokemonData.POKEMON_TYPES.GHOST}
 			end
 			PokemonData.POKEMON[currentIndex] = form
