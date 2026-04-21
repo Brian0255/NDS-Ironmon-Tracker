@@ -27,7 +27,6 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 	local CoverageCalcScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/CoverageCalcScreen.lua")
     local TimerScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/TimerScreen.lua")
 	local StreamerbotConfigScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/StreamerbotConfigScreen.lua")
-
 	local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
 	local PokemonDataReader = dofile(Paths.FOLDERS.DATA_FOLDER .. "/PokemonDataReader.lua")
 	local JoypadEventListener = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/JoypadEventListener.lua")
@@ -455,7 +454,7 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 
 	function self.checkForAlternateForm(pokemon)
 		local data = PokemonData.POKEMON[pokemon.pokemonID + 1]
-		local genderForms = {["Unfezant M"] = true, ["Frillish M"] = true, ["Jellicent M"] = true}
+		local genderForms = {[Localizations.PokemonNames.unfezant] = true, [Localizations.PokemonNames.frillish] = true, [Localizations.PokemonNames.jellicent] = true}
 		if genderForms[data.name] then
 			pokemon.alternateForm = 0x00
 			if pokemon.isFemale == 1 then

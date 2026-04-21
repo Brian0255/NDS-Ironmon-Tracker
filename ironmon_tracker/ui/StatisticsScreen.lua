@@ -47,13 +47,74 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram)
         currentStatistic = statisticSet[currentIndex]
         local name = currentStatistic[1]
         local dataSet = currentStatistic[2]
+
+        if(name == "Overall Progress") then
+            name = Localizations.Playthrough.overallProgress
+        elseif(name == "BST Ranges You Ran") then
+            name = Localizations.Playthrough.bstRangesYouRan
+        elseif(name == "BST Ranges You Lost to") then
+            name = Localizations.Playthrough.bstRangesYouLostTo
+        elseif(name == "Types You Ran") then
+            name = Localizations.Playthrough.typesYouRan
+        elseif(name == "Types You Lost to") then
+            name = Localizations.Playthrough.typesYouLostTo
+        elseif(name == "Pok" .. Chars.accentedE .. "mon You Ran") then
+            name = Localizations.Playthrough.pokemonYouRan
+        elseif(name == "Pok" .. Chars.accentedE .. "mon You Lost to") then
+            name = Localizations.Playthrough.pokemonYouLostTo
+        elseif(name == "Moves You Had") then
+            name = Localizations.Playthrough.movesYouHad
+        elseif(name == "Moves Your Enemies Had") then
+            name = Localizations.Playthrough.movesYourEnemiesHad
+        elseif(name == "Abilities You Had") then
+            name = Localizations.Playthrough.abilitiesYouHad
+        elseif(name == "Abilities You Lost to") then
+            name = Localizations.Playthrough.abilitiesYouLostTo
+        end
+
         ui.controls.mainBarGraph.setMaxValue(totalRunsPastLab)
-        if name == "Overall Progress" then
+        if name == Localizations.Playthrough.overallProgress then
             if program.getGameInfo().VERSION_GROUP == 4 then
-                dataSet[1][1] = "Past N"
+                dataSet[1][1] = Localizations.Playthrough.pastN
+                dataSet[2][1] = Localizations.Playthrough.pastLab
+                dataSet[3][1] = Localizations.Playthrough.oneBadge
+                dataSet[4][1] = Localizations.Playthrough.twoBadges
+                dataSet[5][1] = Localizations.Playthrough.threeBadges
+                dataSet[6][1] = Localizations.Playthrough.fourBadges
+                dataSet[7][1] = Localizations.Playthrough.fiveBadges
+                dataSet[8][1] = Localizations.Playthrough.sixBadges
+                dataSet[9][1] = Localizations.Playthrough.sevenBadges
+                dataSet[10][1] = Localizations.Playthrough.eightBadges
+                dataSet[11][1] = Localizations.Playthrough.won
+            else
+                dataSet[1][1] = Localizations.Playthrough.pastLab
+                dataSet[2][1] = Localizations.Playthrough.oneBadge
+                dataSet[3][1] = Localizations.Playthrough.twoBadges
+                dataSet[4][1] = Localizations.Playthrough.threeBadges
+                dataSet[5][1] = Localizations.Playthrough.fourBadges
+                dataSet[6][1] = Localizations.Playthrough.fiveBadges
+                dataSet[7][1] = Localizations.Playthrough.sixBadges
+                dataSet[8][1] = Localizations.Playthrough.sevenBadges
+                dataSet[9][1] = Localizations.Playthrough.eightBadges
+                dataSet[10][1] = Localizations.Playthrough.won
             end
+
+            if name == Localizations.Playthrough.bstRangesYouRan then
+                dataSet[1][1] = Localizations.Playthrough.sub300
+                dataSet[2][1] = Localizations.Playthrough.threeHundredToThreeNinetyNine
+                dataSet[3][1] = Localizations.Playthrough.fourHundredToFourNinetyNine
+                dataSet[4][1] = Localizations.Playthrough.fiveHundredPlus
+            end
+            if name == Localizations.Playthrough.bstRangesYouLostTo then
+                dataSet[1][1] = Localizations.Playthrough.sub300
+                dataSet[2][1] = Localizations.Playthrough.threeHundredToThreeNinetyNine
+                dataSet[3][1] = Localizations.Playthrough.fourHundredToFourNinetyNine
+                dataSet[4][1] = Localizations.Playthrough.fiveHundredPlus
+            end
+
             ui.controls.mainBarGraph.setMaxValue(totalRuns)
         end
+
         local nameLength = DrawingUtils.calculateWordPixelLength(name)
         if constants.TOP_LABEL_FONT_SIZE == 11 then
             nameLength = nameLength + #name
@@ -257,8 +318,8 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -316,8 +377,8 @@ local function StatisticsScreen(initialSettings, initialTracker, initialProgram)
         statisticSet = seedLogger.getPastRunStatistics()
         totalRuns = seedLogger.getTotalRuns()
         totalRunsPastLab = seedLogger.getTotalRunsPastLab()
-        ui.controls.totalRunsLabel.setText("Total runs: " .. totalRuns)
-        ui.controls.totalPlaytimeLabel.setText("Playtime: " .. tracker.getTotalHoursPlayed())
+        ui.controls.totalRunsLabel.setText(Localizations.StatisticsScreen.totalRuns .. totalRuns)
+        ui.controls.totalPlaytimeLabel.setText(Localizations.StatisticsScreen.playtime .. tracker.getTotalHoursPlayed())
         reset()
     end
 

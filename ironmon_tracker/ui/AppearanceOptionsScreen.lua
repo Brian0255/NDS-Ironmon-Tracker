@@ -17,7 +17,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         TOGGLE_FRAME_WIDTH = 200,
         TOGGLE_FRAME_HEIGHT = 12,
         BUTTON_SIZE = 10,
-        MAIN_BUTTON_WIDTH = 106,
+        MAIN_BUTTON_WIDTH = Localizations.AppearanceOptionsScreen.MainButtonWidth,
         MAIN_BUTTON_HEIGHT = 19,
         BADGE_COLOR_FRAME_HEIGHT = 84,
         BUTTONS_FRAME_HEIGHT = 124
@@ -58,7 +58,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
         client.SetGameExtraPadding(0, 0, Graphics.SIZES.MAIN_SCREEN_PADDING, 0)
     end
 
-    local function createToggleRow(key, settingsKey, parentFrame)
+    local function createToggleRow(key, settingsKey, parentFrame, labelName)
         local frame =
             Frame(
             Box({x = 0, y = 0}, {width = constants.TOGGLE_FRAME_WIDTH, height = constants.TOGGLE_FRAME_HEIGHT}, nil, nil),
@@ -85,13 +85,8 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             true,
             program.saveSettings
         )
-        local labelName
-        labelName = key:gsub("_", " "):lower()
-        labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
-        labelName = labelName:gsub("poke", "Pok" .. Chars.accentedE)
-        labelName = labelName:gsub("hp", "HP")
         if key == "BLIND_MODE" then
-            labelName = "Blind mode (hides stats/ability)"
+            labelName = Localizations.AppearanceOptionsScreen.blindMode
         end
         TextLabel(
             Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
@@ -111,22 +106,23 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
 
     local function initAppearanceToggleButtons()
         local orderedKeys = {
-            "AUTO_POKEMON_THEMES",
-            "EXPERIENCE_BAR",
-            "RANDOM_BALL_PICKER",
-            "REPEL_ICON",
-            "RIGHT_JUSTIFIED_NUMBERS",
-            "SHOW_POKECENTER_HEALS",
-            "SHOW_ACCURACY_AND_EVASION",
-            "SHOW_NICKNAME",
-            "BAG_HEALS_SHOW_HP_INSTEAD"
+            {key ="AUTO_POKEMON_THEMES", labelName = Localizations.AppearanceOptionsScreen.autoPokemonThemes},
+            {key ="EXPERIENCE_BAR", labelName = Localizations.AppearanceOptionsScreen.experienceBar},
+            {key ="RANDOM_BALL_PICKER", labelName = Localizations.AppearanceOptionsScreen.randomBallPicker},
+            {key ="REPEL_ICON", labelName = Localizations.AppearanceOptionsScreen.repelIcon},
+            {key ="RIGHT_JUSTIFIED_NUMBERS", labelName = Localizations.AppearanceOptionsScreen.rightJustifiedNumbers},
+            {key ="SHOW_POKECENTER_HEALS", labelName = Localizations.AppearanceOptionsScreen.showPokecenterHeals},
+            {key ="SHOW_ACCURACY_AND_EVASION", labelName = Localizations.AppearanceOptionsScreen.showAccuracyAndEvasion},
+            {key ="SHOW_NICKNAME", labelName = Localizations.AppearanceOptionsScreen.showNickname},
+            {key ="BAG_HEALS_SHOW_HP_INSTEAD", labelName = Localizations.AppearanceOptionsScreen.bagHealsShowHpInstead}
         }
+
         ui.frames.buttonsFrame =
             Frame(
             Box(
                 {x = 0, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.BUTTONS_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -136,7 +132,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             ui.frames.mainInnerFrame
         )
         for _, key in pairs(orderedKeys) do
-            createToggleRow(key, settings.appearance, ui.frames.buttonsFrame)
+            createToggleRow(key.key, settings.appearance, ui.frames.buttonsFrame, key.labelName)
         end
     end
 
@@ -146,7 +142,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Box(
                 {x = 0, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.BADGE_COLOR_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -156,9 +152,9 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             ui.frames.mainInnerFrame
         )
         local buttons = {
-            badgesAppearanceButton = {name = "Badges Appearance", iconName = program.getGameInfo().BADGE_PREFIX},
-            colorThemeButton = {name = "Edit Color Theme", iconName = "PAINTBRUSH"},
-            pokemonIconsButton = {name = "Pok" .. Chars.accentedE .. "mon Icon Sets", iconName = "POKEBALL"}
+            badgesAppearanceButton = {name = Localizations.AppearanceOptionsScreen.badgesAppearance, iconName = program.getGameInfo().BADGE_PREFIX},
+            colorThemeButton = {name = Localizations.AppearanceOptionsScreen.editColorTheme, iconName = "PAINTBRUSH"},
+            pokemonIconsButton = {name = Localizations.AppearanceOptionsScreen.pokemonIconSets, iconName = "POKEBALL"}
         }
         local order = {"pokemonIconsButton", "badgesAppearanceButton", "colorThemeButton"}
         for i, key in pairs(order) do
@@ -209,7 +205,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Box(
                 {x = 0, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = 54
                 },
                 "Top box background color",
@@ -240,7 +236,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             TextLabel(
             Component(iconHeadingFrame, Box({x = 0, y = 0}, {width = 0, height = 0})),
             TextField(
-                "Timer",
+                Localizations.AppearanceOptionsScreen.timer,
                 {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE + 2,
@@ -251,11 +247,11 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             )
         )
         local orderedKeys = {
-            "ENABLED",
-            "TRANSPARENT"
+            {key ="ENABLED", labelName = Localizations.AppearanceOptionsScreen.enabled},
+            {key ="TRANSPARENT", labelName = Localizations.AppearanceOptionsScreen.transparent}
         }
         for _, key in pairs(orderedKeys) do
-            createToggleRow(key, settings.timer, ui.frames.timerFrame)
+            createToggleRow(key.key, settings.timer, ui.frames.timerFrame, key.labelName)
         end
     end
 
@@ -265,7 +261,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Box(
                 {x = 0, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 10,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 10,
                     height = 24
                 },
                 "Top box background color",
@@ -279,7 +275,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Component(
                 ui.frames.bottomFrame,
                 Box(
-                    {x = 0, y = 0},
+                    {x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 10 + Localizations.MainOptionsScreen.MainFrameOffset, y = 0},
                     {width = 40, height = 14},
                     "Top box background color",
                     "Top box border color",
@@ -288,8 +284,8 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -311,7 +307,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Frame(
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_HEIGHT},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.MAIN_HEIGHT},
                 "Main background color",
                 nil
             ),
@@ -323,7 +319,7 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
             Box(
                 {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.MAIN_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
                 },
                 "Top box background color",
@@ -338,15 +334,15 @@ local function AppearanceOptionsScreen(initialSettings, initialTracker, initialP
                 ui.frames.mainFrame,
                 Box(
                     {x = 5, y = 5},
-                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
+                    {width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
                     "Top box background color",
                     "Top box border color",
                     false
                 )
             ),
             TextField(
-                "Tracker Appearance",
-                {x = 14, y = 1},
+                Localizations.AppearanceOptionsScreen.trackerAppearance,
+                {x = Localizations.AppearanceOptionsScreen.trackerAppearanceTextPosX, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )

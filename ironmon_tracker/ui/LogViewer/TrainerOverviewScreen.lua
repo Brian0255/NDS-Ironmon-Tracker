@@ -55,7 +55,7 @@ local function TrainerOverviewScreen(initialSettings, initialTracker, initialPro
                 newTrainerGroupScreen.setTrainerGroup(trainerGroup)
                 mainScreenStack.addScreen(newTrainerGroupScreen)
             end
-            local tabName = trainerGroup.groupName
+            local tabName = trainerGroup.groupNameLocalized or trainerGroup.groupName
             local nameBoxLength = DrawingUtils.calculateWordPixelLength(tabName) + 6
             local spacerLength = 7
             totalWidth = totalWidth + nameBoxLength

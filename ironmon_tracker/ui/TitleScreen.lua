@@ -82,47 +82,47 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 
 	local percentStatisticMappings = {
 		{
-			title = "You get out of the lab %percent% of the time.",
+			title = Localizations.TitleScreen.youGetOutOfTheLab,
 			statKey = 1,
 			dataEntryKey = 1
 		},
 		{
-			title = "You run sub 300 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youRunSub300BST,
 			statKey = 2,
 			dataEntryKey = 1
 		},
 		{
-			title = "You run 300 - 400 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youRun300To400BST,
 			statKey = 2,
 			dataEntryKey = 2
 		},
 		{
-			title = "You run 400 - 500 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youRun400To500BST,
 			statKey = 2,
 			dataEntryKey = 3
 		},
 		{
-			title = "You run 500+ BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youRun500PlusBST,
 			statKey = 2,
 			dataEntryKey = 4
 		},
 		{
-			title = "You lose to sub 300 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youLoseToSub300BST,
 			statKey = 3,
 			dataEntryKey = 1
 		},
 		{
-			title = "You lose to 300 - 400 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youLoseTo300To400BST,
 			statKey = 3,
 			dataEntryKey = 2
 		},
 		{
-			title = "You lose to 400 - 500 BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youLoseTo400To500BST,
 			statKey = 3,
 			dataEntryKey = 3
 		},
 		{
-			title = "You lose to 500+ BST Pok" .. Chars.accentedE .. "mon %percent% of the time.",
+			title = Localizations.TitleScreen.youLoseTo500PlusBST,
 			statKey = 3,
 			dataEntryKey = 4
 		}
@@ -131,45 +131,45 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	local basicStatisticMappings = {
 		--types
 		{
-			title = "You use %data% types the most.",
+			title = Localizations.TitleScreen.youUseTypes,
 			statKey = 4,
 			amount = 3
 		},
 		{
-			title = "You lose to %data% types the most.",
+			title = Localizations.TitleScreen.youLoseToTypes,
 			statKey = 5,
 			amount = 3
 		},
 		--pokemon
 		{
-			title = "You run %data% the most.",
+			title = Localizations.TitleScreen.youRunPokemon,
 			statKey = 6,
 			amount = 3
 		},
 		{
-			title = "You lose to %data% the most.",
+			title = Localizations.TitleScreen.youLoseToPokemon,
 			statKey = 7,
 			amount = 3
 		},
 		--moves
 		{
-			title = "Your moves are %data% the most.",
+			title = Localizations.TitleScreen.yourMovesAre,
 			statKey = 8,
 			amount = 3
 		},
 		{
-			title = "Your enemies have %data% the most.",
+			title = Localizations.TitleScreen.yourEnemiesHave,
 			statKey = 9,
 			amount = 3
 		},
 		--abilities
 		{
-			title = "Your abilities are %data% the most.",
+			title = Localizations.TitleScreen.yourAbilitiesAre,
 			statKey = 10,
 			amount = 3
 		},
 		{
-			title = "Your enemies have %data% the most.",
+			title = Localizations.TitleScreen.yourEnemiesHaveAbilities,
 			statKey = 11,
 			amount = 3
 		}
@@ -177,7 +177,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 
 	local function getRandomStatistic()
 		local statistics = seedLogger.getPastRunStatistics()
-		local completeText = "Fun statistics will be shown here once you play enough."
+		local completeText = Localizations.TitleScreen.funStatisticsWillBeShown
 		if hasEnoughData(statistics) then
 			local choices = {}
 			for _, mapping in pairs(basicStatisticMappings) do
@@ -193,7 +193,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				table.insert(choices, description)
 			end
 			local text = MiscUtils.randomTableValue(choices)
-			completeText = "Did you know? " .. text
+			completeText = Localizations.TitleScreen.didYouKnow .. " " .. text
 		end
 		local array = DrawingUtils.textToWrappedArray(completeText, ui.frames.mainInnerFrame.getSize().width - 10)
 		for i = 1, 3, 1 do
@@ -258,7 +258,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 		for i = 1, program.getGameInfo().GEN, 1 do
 			local pokemonID = favorites[i]
 			local name = PokemonData.POKEMON[pokemonID + 1].name
-			ui.favoritesRows[i].nameLabel.setText("Favorite " .. i .. ": " .. name)
+			ui.favoritesRows[i].nameLabel.setText(Localizations.TitleScreen.favorite .. i .. Localizations.Misc.colon .. " " .. name)
 		end
 	end
 
@@ -283,7 +283,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function readAttemptsIntoUI()
-		local attemptsText = "Attempts: " .. attempts
+		local attemptsText = Localizations.Misc.attempts .. Localizations.Misc.colon .. " " .. attempts
 		ui.controls.attemptsLabel.setText(attemptsText)
 		program.drawCurrentScreens()
 	end
@@ -342,7 +342,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 			TextLabel(
 			Component(rowFrame, Box({x = 0, y = 0}, {width = constants.FAVORITES_LABEL_WIDTH, height = 0})),
 			TextField(
-				"Favorite " .. index .. ":",
+				Localizations.TitleScreen.favorite .. index .. Localizations.Misc.colon,
 				{x = 2, y = 0},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -365,7 +365,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"Set",
+				Localizations.Misc.set,
 				{x = 4, y = 1},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -409,7 +409,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"Close",
+				Localizations.Misc.close,
 				{x = 8, y = 2},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -449,7 +449,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"Edit Favorites",
+				Localizations.TitleScreen.editFavorites,
 				{x = 36, y = 0},
 				TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
@@ -506,7 +506,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"Favorites",
+				Localizations.TitleScreen.favorites,
 				{x = 3, y = 0},
 				TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)
@@ -596,7 +596,7 @@ local function TitleScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function initTopUI()
-		local versionText = "NDS Ironmon Tracker " .. MiscConstants.TRACKER_VERSION
+		local versionText = Localizations.Misc.ndsIronmonTracker .. MiscConstants.TRACKER_VERSION
 		ui.frames.topFrame =
 			Frame(
 			Box(

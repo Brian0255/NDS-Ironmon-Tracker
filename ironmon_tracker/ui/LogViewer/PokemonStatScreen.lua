@@ -153,7 +153,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             ui.controls.moveLabels[i].setText(moveString)
             ui.controls.moveLabels[i].setUseStrikethrough(false)
         end
-        ui.controls.movesLabel.setText("Moves")
+        ui.controls.movesLabel.setText(Localizations.PokemonStats.moves)
         ui.controls.movesLabel.setTextOffset({x = 16, y = -1})
         program.drawCurrentScreens()
     end
@@ -170,7 +170,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 if TM ~= -1 then
                     moveID = logInfo.getTMs()[TM]
                     local moveName = MoveData.MOVES[moveID + 1].name
-                    moveString = string.format("TM %02d " .. moveName, TM)
+                    moveString = string.format(Localizations.Misc.tm .. " %02d " .. moveName, TM)
                     local textColorKey = getMoveTMTextColor(moveID)
                     label.setUseStrikethrough(not canLearn)
                     if not canLearn then
@@ -186,7 +186,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
             end
             label.setText(moveString)
         end
-        ui.controls.movesLabel.setText("Gym TMs")
+        ui.controls.movesLabel.setText(Localizations.LogViewerScreen.gymTMs)
         ui.controls.movesLabel.setTextOffset({x = 9, y = -1})
         program.drawCurrentScreens()
     end
@@ -234,13 +234,20 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 local currentIconSet = IconSets.SETS[settings.appearance.ICON_SET_INDEX]
                 DrawingUtils.readPokemonIDIntoImageLabel(currentIconSet, evolution, ui.controls.evoImage)
                 local evoInfo = PokemonData.POKEMON[currentID + 1].evolution
+
                 if PokemonData.EVO_LONGER_NAMES[evoInfo] then
                     evoInfo = PokemonData.EVO_LONGER_NAMES[evoInfo][currentEvoIndex]
                 end
                 if tonumber(evoInfo) ~= nil then
-                    evoInfo = "Level " .. evoInfo
+                    evoInfo = Localizations.Misc.level .. " " .. evoInfo
                 end
-                ui.controls.evoInfoLabel.setText(evoInfo)
+                if type(evoInfo) == "string" then
+                    ui.controls.evoInfoLabel.setText(evoInfo)
+                else 
+                    if type(evoInfo) == "table" then
+                        ui.controls.evoInfoLabel.setText(evoInfo[currentEvoIndex])
+                    end
+                end
                 eventListeners.evoImageListener.setOnClickParams(evolution)
             end
         end
@@ -250,7 +257,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         ui.controls.evoLeftButton.setVisibility(totalEvos > 1)
         ui.controls.evoImage.setVisibility(totalEvos ~= 0)
         if totalEvos == 0 then
-            ui.controls.evoInfoLabel.setText("None")
+            ui.controls.evoInfoLabel.setText(Localizations.Misc.none)
         end
     end
 
@@ -273,7 +280,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
         local pokemonImageParams = pokemonImageListener.getOnHoverParams()
         pokemonImageParams.pokemon = pokemon
         pokemonImageListener.setOnHoverParams(pokemonImageParams)
-        local heading = "Base Stats (" .. pokemon.bst .. " total)"
+        local heading = Localizations.PokemonStats.baseStats .. " (" .. pokemon.bst .. " " .. Localizations.Misc.total .. ")"
         ui.controls.statBarGraph.setDataSet(dataSet)
         ui.controls.statBarGraph.setHeadingText(heading)
         currentEvoList = pokemon.evolutions
@@ -383,7 +390,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Abilities",
+                Localizations.PokemonStats.abilities,
                 {x = 25, y = -1},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -498,7 +505,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Moves",
+                Localizations.PokemonStats.moves,
                 {x = 11, y = -1},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -725,7 +732,7 @@ local function PokemonStatScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Evos:",
+                Localizations.PokemonStats.evos,
                 {x = 3, y = 10},
                 TextStyle(9, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )

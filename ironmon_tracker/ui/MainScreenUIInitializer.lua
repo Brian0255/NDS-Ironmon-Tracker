@@ -788,7 +788,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 )
             ),
             TextField(
-                "PP",
+                Localizations.PokemonStats.pp,
                 Graphics.SIZES.DEFAULT_TEXT_OFFSET,
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -811,7 +811,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 )
             ),
             TextField(
-                "Pow",
+                Localizations.MainScreenUI.pow,
                 Graphics.SIZES.DEFAULT_TEXT_OFFSET,
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -834,7 +834,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 )
             ),
             TextField(
-                "Acc",
+                Localizations.PokemonStats.acc,
                 Graphics.SIZES.DEFAULT_TEXT_OFFSET,
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -847,9 +847,9 @@ local function MainScreenUIInitializer(ui, gameInfo)
     end
 
     function self.initStatControls()
-        local stats = {"HP", "ATK", "DEF", "SPA", "SPD", "SPE"}
+        local stats = {{key = "HP", text = Localizations.PokemonStats.hp}, { key = "ATK", text = Localizations.PokemonStats.atk}, { key = "DEF", text = Localizations.PokemonStats.def}, { key = "SPA", text = Localizations.PokemonStats.spa}, { key = "SPD", text = Localizations.PokemonStats.spd}, { key = "SPE", text = Localizations.PokemonStats.spe}}
         for _, stat in pairs(stats) do
-            local frameName = stat .. "Frame"
+            local frameName = stat.key .. "Frame"
             ui.frames[frameName] =
                 Frame(
                 Box(
@@ -863,12 +863,12 @@ local function MainScreenUIInitializer(ui, gameInfo)
                 Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 1, y = 0}),
                 ui.frames.mainStatsFrame
             )
-            local labelName = stat .. "StatName"
+            local labelName = stat.key .. "StatName"
             ui.controls[labelName] =
                 TextLabel(
                 Component(ui.frames[frameName], Box({x = 0, y = 0}, {width = 25, height = 10}, nil, nil, nil)),
                 TextField(
-                    stat,
+                    stat.text,
                     {x = 0, y = -2},
                     TextStyle(
                         Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -878,7 +878,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                     )
                 )
             )
-            local numberLabelName = stat .. "StatNumber"
+            local numberLabelName = stat.key .. "StatNumber"
             ui.controls[numberLabelName] =
                 TextLabel(
                 Component(ui.frames[frameName], Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, nil)),
@@ -894,7 +894,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
                     true
                 )
             )
-            local predictionLabel = stat .. "StatPrediction"
+            local predictionLabel = stat.key .. "StatPrediction"
             ui.controls[predictionLabel] =
                 TextLabel(
                 Component(
@@ -939,7 +939,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
             TextLabel(
             Component(ui.frames.BSTFrame, Box({x = 0, y = 0}, {width = 25, height = 10}, nil, nil)),
             TextField(
-                "BST",
+                Localizations.PokemonStats.bst,
                 Graphics.SIZES.DEFAULT_TEXT_OFFSET,
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -995,7 +995,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
             TextLabel(
             Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
             TextField(
-                "ACC",
+                Localizations.PokemonStats.ACC,
                 {x = 0, y = -2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -1009,7 +1009,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
             TextLabel(
             Component(ui.frames.accEvaFrame, Box({x = 0, y = 0}, {width = 0, height = 9}, nil, nil)),
             TextField(
-                "EVA",
+                Localizations.PokemonStats.EVA,
                 {x = 0, y = -2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -1023,7 +1023,7 @@ local function MainScreenUIInitializer(ui, gameInfo)
             TextLabel(
             Component(ui.frames.healFrame, Box({x = 0, y = 0}, {width = 80, height = 9}, nil, nil)),
             TextField(
-                "Heals in bag:",
+                Localizations.MainScreenUI.healsInBag,
                 {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

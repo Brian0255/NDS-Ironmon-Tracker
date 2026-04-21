@@ -27,7 +27,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
         BADGE_FRAME_HEIGHT = 74,
         BADGE_BUTTON_FRAME_HEIGHT = 32,
         SORT_BUTTONS_FRAME_HEIGHT = 26,
-        SWAP_BUTTON_WIDTH = 30,
+        SWAP_BUTTON_WIDTH = Localizations.PastRunsScreen.SwapButtonWidth,
         SWAP_BUTTON_HEIGHT = 14
     }
     local ui = {}
@@ -218,7 +218,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Swap",
+                Localizations.PastRunsScreen.swap,
                 {x = 3, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -277,7 +277,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Delete 0 Badge Runs",
+                Localizations.PastRunsScreen.deleteNoBadgeRuns,
                 {x = 2, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -301,8 +301,8 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -342,7 +342,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Minimum Badges",
+                Localizations.PastRunsScreen.minimumBadges,
                 {x = 28, y = 2},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -390,7 +390,7 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
                 )
             ),
             TextField(
-                "Sort By",
+                Localizations.Misc.sortBy,
                 {x = 54, y = 2},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -402,9 +402,9 @@ local function PastRunsScreen(initialSettings, initialTracker, initialProgram)
             sortFrame
         )
         local buttonNames = {
-            "Newest",
-            "Oldest",
-            "A - Z"
+            Localizations.Misc.newest,
+            Localizations.Misc.oldest,
+            Localizations.Misc.aZ
         }
         local widths = {
             37,

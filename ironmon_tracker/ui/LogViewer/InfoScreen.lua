@@ -125,9 +125,9 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
     local function readInfoIntoRows()
         --rows are left label, right label
         local infoRows = {
-            {"Game Name:", program.getGameInfo().NAME:gsub("Pokemon","Pok"..Chars.accentedE.."mon")},
-            {"Randomizer Version:", miscInfo.version},
-            {"Random Seed:", miscInfo.seed}
+            {Localizations.InfoScreen.gameName, program.getGameInfo().NAME:gsub("Pokemon","Pok"..Chars.accentedE.."mon")},
+            {Localizations.InfoScreen.randomizerVersion, miscInfo.version},
+            {Localizations.InfoScreen.randomSeed, miscInfo.seed}
         }
         for index, row in pairs(infoRows) do
             readRow(index, row)
@@ -157,7 +157,7 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
                 )
             ),
             TextField(
-                "Settings String:",
+                Localizations.InfoScreen.settingsString,
                 {x = 1, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -221,21 +221,21 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
             forms.newform(
             formWidth,
             formHeight,
-            "Seed Info"
+            Localizations.InfoScreen.seedInfo
         )
         local centerPosition = FormsUtils.getCenter(formWidth, formHeight)
         forms.setlocation(copyForm, centerPosition.xPos, centerPosition.yPos)
         local textBoxLines = {
-            "Game Name: "..program.getGameInfo().NAME:gsub("Pokemon","Pok"..Chars.accentedE.."mon").." ",
-            "Randomizer Version: "..miscInfo.version.." ",
-            "Random Seed: " ..miscInfo.seed.. " ",
-            "Settings String: "..miscInfo.settingsString.. " "
+            Localizations.InfoScreen.gameName .. program.getGameInfo().NAME:gsub("Pokemon","Pok"..Chars.accentedE.."mon") .. " ",
+            Localizations.InfoScreen.randomizerVersion .. miscInfo.version .. " ",
+            Localizations.InfoScreen.randomSeed .. miscInfo.seed.. " ",
+            Localizations.InfoScreen.settingsString .. miscInfo.settingsString.. " "
         }
         local completeLines = table.concat(textBoxLines,"\r\n")
         forms.textbox(copyForm, completeLines, formWidth-36, formHeight-100, nil, 10, 10, true, false)
         forms.button(
             copyForm,
-            "Close",
+            Localizations.Misc.close,
             function()
                 forms.destroyall()
             end,
@@ -277,7 +277,7 @@ local function InfoScreen(initialSettings, initialTracker, initialProgram, initi
                 )
             ),
             TextField(
-                "Copy info",
+                Localizations.InfoScreen.copyInfo,
                 {x = 4, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

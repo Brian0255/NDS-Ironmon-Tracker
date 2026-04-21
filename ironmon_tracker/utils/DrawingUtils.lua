@@ -341,7 +341,7 @@ function DrawingUtils.convertColorKeyToColor(colorKey, transparentOverride)
     end
     local color = settings.colorScheme[colorKey]
     if color == nil then
-        color = Graphics.TYPE_COLORS[colorKey]
+        color = Graphics.TYPE_COLORS[PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[colorKey]]
     end
     return color
 end
@@ -544,7 +544,7 @@ function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
         DrawingUtils.drawExperienceBar(x, y, percent)
     elseif extraThingsToDraw.friendshipBar ~= nil then
         local x, y, progress =
-            extraThingsToDraw.friendshipBar.x,
+            extraThingsToDraw.friendshipBar.x + Localizations.FriendshipBar.friendshipBarOffset,
             extraThingsToDraw.friendshipBar.y,
             extraThingsToDraw.friendshipBar.progress
         if progress < 1 then
@@ -557,7 +557,7 @@ function DrawingUtils.drawExtraMainScreenStuff(extraThingsToDraw)
                 "Positive text color",
                 "Top box background color"
             )
-            DrawingUtils.drawText(x - 2, y - 3, "READY", style, DrawingUtils.calcShadowColor("Top box background color"))
+            DrawingUtils.drawText(x - 2 + Localizations.FriendshipBar.friendshipBarOffset, y - 3, Localizations.MainScreenUI.ready, style, DrawingUtils.calcShadowColor("Top box background color"))
         end
     end
     if extraThingsToDraw.statStages ~= nil then

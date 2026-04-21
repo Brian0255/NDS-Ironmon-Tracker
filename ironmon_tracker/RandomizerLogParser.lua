@@ -62,33 +62,33 @@ local function RandomizerLogParser(initialProgram)
         --indexed by version group, see GameInfo.lua
         ROUTE_NAME_TO_CORRECT_SET = {
              [1] = {
-                ["Lake Verity"] = {
+                [Localizations.LocationDataDPPt.lakeVerity] = {
                     ["Grass/Cave"] = "341"
                 },
-                ["Route 204"] = {
+                [Localizations.LocationDataDPPt.route204] = {
                     ["Grass/Cave"] = "379",
                     ["Old Rod"] = "382"
                 }
             },
             [2] = {
-                ["Lake Verity"] = {
+                [Localizations.LocationDataDPPt.lakeVerity] = {
                     ["Grass/Cave"] = "345"
                 },
-                ["Route 204"] = {
+                [Localizations.LocationDataDPPt.route204] = {
                     ["Grass/Cave"] = "383",
                     ["Old Rod"] = "386"
                 }
             },
             [3] = {
-                ["Ruins of Alph"] = {
+                [Localizations.LocationDataHGSS.ruinsOfAlph] = {
                     ["Grass/Cave"] = "68"
                 },
-                ["Dark Cave"] = {
+                [Localizations.LocationDataHGSS.darkCave] = {
                     ["Grass/Cave"] = "365"
                 }
             },
             [4] = {
-                ["Wellspring Cave"] = {
+                [Localizations.LocationDataBW.wellspringCave] = {
                     ["Grass/Cave"] = "181",
                     ["Shaking Spots"] = "182"
                 }
@@ -96,12 +96,12 @@ local function RandomizerLogParser(initialProgram)
         },
         EXCLUDED_ROUTE_PIVOTS = {
             [1] = {
-                ["Route 218"] = {
+                [Localizations.LocationDataDPPt.route218] = {
                     ["Grass/Cave"] = true
                 }
             },
             [2] = {
-                ["Route 218"] = {
+                [Localizations.LocationDataDPPt.route218] = {
                     ["Grass/Cave"] = true
                 }
             },
@@ -113,12 +113,12 @@ local function RandomizerLogParser(initialProgram)
         --indexed by game's version group. 4 is black/white
         ROUTE_NUMBER_TO_CORRECT_NAME = {
             [4] = {
-                ["18"] = "Pinwheel Exterior",
-                ["19"] = "Pinwheel Exterior",
-                ["20"] = "Pinwheel Exterior",
-                ["21"] = "Pinwheel Interior",
-                ["22"] = "Pinwheel Interior",
-                ["23"] = "Pinwheel Interior",
+                ["18"] = Localizations.LocationDataBW.pinwheelExterior,
+                ["19"] = Localizations.LocationDataBW.pinwheelExterior,
+                ["20"] = Localizations.LocationDataBW.pinwheelExterior,
+                ["21"] = Localizations.LocationDataBW.pinwheelInterior,
+                ["22"] = Localizations.LocationDataBW.pinwheelInterior,
+                ["23"] = Localizations.LocationDataBW.pinwheelInterior,
             }
         }
     }
@@ -167,7 +167,7 @@ local function RandomizerLogParser(initialProgram)
         local heldItem = nil
         if nameItemSplit[2] ~= nil then
             local heldItemName = nameItemSplit[2]
-            heldItemName = heldItemName:gsub("’", "'")
+            heldItemName = heldItemName:gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")
             if itemIDMappings[heldItemName] then
                 heldItem = itemIDMappings[heldItemName]
             end
@@ -219,7 +219,7 @@ local function RandomizerLogParser(initialProgram)
                 local moveInfo = MiscUtils.split(currentLine, ":", true)
                 local level = moveInfo[1]:match("%d+")
                 local name = moveInfo[2]
-                local id = moveIDMappings[name]
+                local id = moveIDMappings[name:gsub("É", "E"):gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")]
                 table.insert(
                     pokemonList[pokemonID].moves,
                     {
@@ -242,7 +242,7 @@ local function RandomizerLogParser(initialProgram)
         while lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines do
             local currentLine = lines[currentLineIndex]
             local moveName = currentLine:match("[%a%d]+ (.*)")
-            local moveID = moveIDMappings[moveName]
+            local moveID = moveIDMappings[moveName:gsub("É", "E"):gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")]
             table.insert(TMs, moveID)
             currentLineIndex = currentLineIndex + 1
         end
@@ -300,7 +300,7 @@ local function RandomizerLogParser(initialProgram)
                 local abilityNames = {pokemonData[10], pokemonData[11], pokemonData[12]}
                 pokemon.abilities = {}
                 for _, abilityName in pairs(abilityNames) do
-                    table.insert(pokemon.abilities, abilityIDMappings[abilityName] or 0)
+                    table.insert(pokemon.abilities, abilityIDMappings[abilityName:gsub("É", "E"):gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")] or 0)
                 end
             end
             currentLineIndex = currentLineIndex + 1
@@ -319,7 +319,7 @@ local function RandomizerLogParser(initialProgram)
             while (lines[currentLineIndex] ~= nil and lines[currentLineIndex] ~= "" and currentLineIndex <= totalLines) do
                 local lineInfo = MiscUtils.split(lines[currentLineIndex], "|", true)
                 local id, moveName = tonumber(lineInfo[1]), lineInfo[2]
-                moveIDMappings[moveName] = id
+                moveIDMappings[moveName:gsub("É", "E"):gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")] = id
                 currentLineIndex = currentLineIndex + 1
             end
         end
@@ -412,8 +412,8 @@ local function RandomizerLogParser(initialProgram)
             "Thursday",
             "Saturday"
         }
-        if not pivotData["Bug Catching"] then
-            pivotData["Bug Catching"] = {}
+        if not pivotData[Localizations.RandomizerLogParser.bugCatching] then
+            pivotData[Localizations.RandomizerLogParser.bugCatching] = {}
         end
         line = line + 1
         local startIndex = line
@@ -424,7 +424,7 @@ local function RandomizerLogParser(initialProgram)
                     readNonstandardEncounter(lines, line, startIndex, data, "Bug Catching")
                     line = line + 1
                 end
-                pivotData["Bug Catching"][day] = data
+                pivotData[Localizations.RandomizerLogParser.bugCatching][day] = data
             end
         end
     end
@@ -491,7 +491,7 @@ local function RandomizerLogParser(initialProgram)
                     else
                         local number, areaName = routeInfo:match("Set #(%d+) %- (.+) " .. pivotType)
                         --very dumb but idk what else to do
-                        if areaName == "Sprout Tower" then
+                        if areaName == Localizations.RandomizerLogParser.sproutTower then
                             timesSeenSprout = timesSeenSprout + 1
                             areaName = areaName .. " " .. timesSeenSprout .. "F"
                         end
@@ -561,13 +561,13 @@ local function RandomizerLogParser(initialProgram)
 
     local function setUpMappings()
         for _, abilityInfo in pairs(AbilityData.ABILITIES) do
-            abilityIDMappings[abilityInfo.name] = abilityInfo.id
+            abilityIDMappings[abilityInfo.name:gsub("É", "E"):gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")] = abilityInfo.id
         end
         for _, moveInfo in pairs(MoveData.MOVES) do
-            moveIDMappings[moveInfo.name] = tonumber(moveInfo.id)
+            moveIDMappings[moveInfo.name:gsub("É", "E"):gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")] = tonumber(moveInfo.id)
         end
         for id, itemInfo in pairs(ItemData.ITEMS) do
-            itemIDMappings[itemInfo.name] = id
+            itemIDMappings[itemInfo.name:gsub("É", "E"):gsub("’", "'"):gsub("Œ", "Oe"):gsub("œ", "oe")] = id
         end
     end
 

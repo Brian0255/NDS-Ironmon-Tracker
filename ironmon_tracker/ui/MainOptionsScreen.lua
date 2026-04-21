@@ -16,7 +16,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 		MAIN_BUTTONS_Y_OFFSET = 23,
 		MAIN_BUTTONS_X_OFFSET = 15,
 		MAIN_BUTTON_SPACING = 5,
-		MAIN_BUTTON_WIDTH = 110,
+		MAIN_BUTTON_WIDTH = Localizations.MainOptionsScreen.MainButtonWidth,
 		MAIN_BUTTON_HEIGHT = 19
 	}
 	local ui = {}
@@ -58,9 +58,9 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 
 	local function initBottomFrameControls()
 		TextLabel(
-			Component(ui.frames.bottomFrame, Box({x = 0, y = 0}, {width = 92, height = 18}, nil, nil)),
+			Component(ui.frames.bottomFrame, Box({x = 0, y = 0}, {width = 92 + Localizations.MainOptionsScreen.MainFrameOffset, height = 18}, nil, nil)),
 			TextField(
-				"Tracker version: " .. MiscConstants.TRACKER_VERSION,
+				Localizations.MainOptionsScreen.trackerVersion .. MiscConstants.TRACKER_VERSION,
 				{x = 4, y = 1},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -84,8 +84,8 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 				)
 			),
 			TextField(
-				"Go back",
-				{x = 3, y = 1},
+				Localizations.Misc.goBack,
+				{x = Localizations.Misc.goBackTextPosX, y = 1},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
 					Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -97,13 +97,13 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 	end
 	local function initMainButtons()
 		local buttonNames = {
-			battleSettingsButton = "Battle Settings",
-			trackerAppearanceButton = "Tracker Appearance",
-			trackedInfoButton = "Tracked Info",
-			trackerSetupButton = "Tracker Setup",
-			quickLoadButton = "New Run Settings",
-			updaterButton = "Check for Updates",
-			extrasButton = "Extras"
+			battleSettingsButton = Localizations.MainOptionsScreen.battleSettings,
+			trackerAppearanceButton = Localizations.MainOptionsScreen.trackerAppearance,
+			trackedInfoButton = Localizations.MainOptionsScreen.trackedInfo,
+			trackerSetupButton = Localizations.MainOptionsScreen.trackerSetup,
+			quickLoadButton = Localizations.MainOptionsScreen.quickLoad,
+			updaterButton = Localizations.MainOptionsScreen.updater,
+			extrasButton = Localizations.MainOptionsScreen.extras
 		}
 		local icons = {"SWORD", "SPARKLES", "TRACKED_INFO_ICON", "CONTROLLER", "LIGHTNING_BOLT", "UPDATER_ICON", "EXTRAS_ICON"}
 		local order = {
@@ -148,7 +148,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			Frame(
 			Box(
 				{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_OPTIONS_HEIGHT},
+				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.MAIN_OPTIONS_HEIGHT},
 				"Main background color",
 				nil
 			),
@@ -160,7 +160,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			Box(
 				{x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN},
 				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = constants.MAIN_OPTIONS_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
 				},
 				"Top box background color",
@@ -180,7 +180,7 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 			Box(
 				{x = 0, y = constants.MAIN_BUTTONS_Y_OFFSET + 168},
 				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = 21
 				},
 				nil,
@@ -195,14 +195,14 @@ local function MainOptionsScreen(initialSettings, initialTracker, initialProgram
 				ui.frames.mainInnerFrame,
 				Box(
 					{x = 0, y = 0},
-					{width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
+					{width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
 					"Top box background color",
 					"Top box border color",
 					false
 				)
 			),
 			TextField(
-				"Config",
+				Localizations.Misc.config,
 				{x = 48, y = 1},
 				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)

@@ -139,7 +139,7 @@ local function updatenotesscreen(initialSettings, initialTracker, initialProgram
 				)
 			),
 			TextField(
-				"Close",
+				Localizations.Misc.close,
 				{x = 8, y = 3},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -193,7 +193,7 @@ local function updatenotesscreen(initialSettings, initialTracker, initialProgram
 				)
 			),
 			TextField(
-				"Update " .. MiscConstants.TRACKER_VERSION,
+				Localizations.Misc.update .. " " .. MiscConstants.TRACKER_VERSION,
 				{x = 36, y = 1},
 				TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)

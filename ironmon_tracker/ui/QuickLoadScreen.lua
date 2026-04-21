@@ -22,9 +22,9 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         TEXT_HEADER_HEIGHT = 18,
         FOLDER_LABEL_WIDTH = 96,
         BUTTON_SIZE = 10,
-        SET_BUTTON_WIDTH = 34,
+        SET_BUTTON_WIDTH = Localizations.QuickLoadScreen.setButtonWidth,
         SET_BUTTON_HEIGHT = 14,
-        SAVE_LOAD_BUTTON_WIDTH = 62,
+        SAVE_LOAD_BUTTON_WIDTH = Localizations.QuickLoadScreen.saveLoadButtonWidth,
         SAVE_LOAD_BUTTON_HEIGHT = 16,
         CHOOSE_TYPE_FRAME_HEIGHT = 89,
         PATH_SETUP_FRAME_HEIGHT = 36,
@@ -99,7 +99,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.PATH_SETUP_FRAME_HEIGHT
                 },
                 nil,
@@ -129,7 +129,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = 80,
+                        width = Localizations.QuickLoadScreen.settingLabelWidth,
                         height = 0
                     },
                     nil,
@@ -165,8 +165,8 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Set",
-                {x = 9, y = 1},
+                Localizations.Misc.set,
+                {x = Localizations.Misc.setTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -221,7 +221,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.TYPE_OPTION_FRAME_HEIGHT
                 },
                 nil,
@@ -285,7 +285,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = 0, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = 0
                 },
                 nil,
@@ -301,7 +301,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = 12
                     },
                     nil,
@@ -310,7 +310,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "New Run Combo:",
+                Localizations.QuickLoadScreen.newRunCombo,
                 {x = 0, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -327,7 +327,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = constants.TEXT_HEADER_HEIGHT
                     },
                     nil,
@@ -354,7 +354,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.CHOOSE_TYPE_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -370,7 +370,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = constants.TEXT_HEADER_HEIGHT
                     },
                     nil,
@@ -379,15 +379,15 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "New Run Type",
+                Localizations.QuickLoadScreen.newRunType,
                 {x = -1, y = 0},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
         local setting = "LOAD_TYPE"
         local typeSettings = {
-            ["USE_BATCH"] = "Use batch of seeds",
-            ["GENERATE_ROMS"] = "Generate ROMs"
+            ["USE_BATCH"] = Localizations.QuickLoadScreen.useBatch,
+            ["GENERATE_ROMS"] = Localizations.QuickLoadScreen.generateRoms
         }
         local order = {"USE_BATCH", "GENERATE_ROMS"}
         for _, settingValue in pairs(order) do
@@ -402,7 +402,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.BATCH_SETUP_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -418,7 +418,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = constants.TEXT_HEADER_HEIGHT
                     },
                     "Top box background color",
@@ -427,12 +427,12 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Batch Setup",
+                Localizations.QuickLoadScreen.batchSetup,
                 {x = 36, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
-        createPathSetupFrame(ui.frames.mainBatchFrame, "ROMs Folder", "ROMS_FOLDER_PATH", ".nds", "", true, true)
+        createPathSetupFrame(ui.frames.mainBatchFrame, Localizations.QuickLoadScreen.romsFolder, "ROMS_FOLDER_PATH", ".nds", "", true, true)
     end
 
     local function saveProfile(filePath)
@@ -504,7 +504,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 6, {x = 5, y = 0}),
             ui.frames.mainROMGenerateFrame
         )
-        local names = {"Save Profile", "Load Profile"}
+        local names = {Localizations.QuickLoadScreen.saveProfile, Localizations.QuickLoadScreen.loadProfile}
         local functions = {onSaveProfileClick, onLoadProfileClick}
         for i = 1, 2, 1 do
             local button =
@@ -544,7 +544,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.GENERATE_ROM_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -560,7 +560,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = constants.TEXT_HEADER_HEIGHT
                     },
                     "Top box background color",
@@ -569,7 +569,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "ROM Creation",
+                Localizations.QuickLoadScreen.romCreation,
                 {x = 30, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -577,19 +577,19 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         local settingsData = {
             {
                 settingKey = "ROM_PATH",
-                labelName = "ROM to randomize",
+                labelName = Localizations.QuickLoadScreen.romToRandomize,
                 extension = ".nds",
                 relativePath = ""
             },
             {
                 settingKey = "JAR_PATH",
-                labelName = "Randomizer JAR",
+                labelName = Localizations.QuickLoadScreen.randomizerJar,
                 extension = ".jar",
                 relativePath = ""
             },
             {
                 settingKey = "SETTINGS_PATH",
-                labelName = "Settings file",
+                labelName = Localizations.QuickLoadScreen.settingsFile,
                 extension = ".rnqs",
                 relativePath = Paths.SLASH .. "ironmon_tracker" .. Paths.SLASH .. "settings"
             }
@@ -612,7 +612,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Frame(
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.MAIN_FRAME_HEIGHT},
                 "Main background color",
                 nil
             ),
@@ -626,7 +626,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 5, y = 5},
                     {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = constants.TEXT_HEADER_HEIGHT
                     },
                     "Top box background color",
@@ -635,8 +635,8 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "New Run Settings",
-                {x = 22, y = 1},
+                Localizations.QuickLoadScreen.newRunSettings,
+                {x = Localizations.QuickLoadScreen.titlePosX, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )
@@ -649,7 +649,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.BOTTOM_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -672,8 +672,8 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,

@@ -28,12 +28,12 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         TEXT_HEADER_HEIGHT = 18,
         BIND_BUTTON_FRAME_HEIGHT = 14,
         LOAD_NEXT_FRAME_HEIGHT = 54,
-        CONTROL_LABEL_WIDTH = 64,
+        CONTROL_LABEL_WIDTH = Localizations.TrackerSetupScreen.controlLabelWidth,
         CONTROL_VALUE_WIDTH = 26,
         BIND_BUTTON_WIDTH = 30,
         BIND_BUTTON_HEIGHT = 14,
-        ADD_BUTTON_WIDTH = 54,
-        CLEAR_BUTTON_WIDTH = 32
+        ADD_BUTTON_WIDTH = Localizations.TrackerSetupScreen.addButtonWidth,
+        CLEAR_BUTTON_WIDTH = Localizations.TrackerSetupScreen.clearButtonWidth
     }
     local ui = {}
     local eventListeners = {}
@@ -118,7 +118,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         local bindFrame =
             Frame(
             Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, y = 0},
+                {x = (Graphics.SIZES.SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, y = 0},
                 {width = 0, height = constants.BIND_BUTTON_FRAME_HEIGHT},
                 nil,
                 nil
@@ -195,7 +195,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Bind",
+                Localizations.Misc.bind,
                 {x = 5, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -215,9 +215,9 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         ui.frames.controlEditFrame =
             Frame(
             Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
+                {x = Graphics.SIZES.SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.CONTROL_EDIT_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -235,9 +235,9 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         local loadNextSeedFrame =
             Frame(
             Box(
-                {x = Graphics.SIZES.SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, y = 0},
+                {x = (Graphics.SIZES.SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.LOAD_NEXT_FRAME_HEIGHT
                 },
                 "Top box background color",
@@ -262,7 +262,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Start New Run:",
+                Localizations.TrackerSetupScreen.startNewRun,
                 {x = 0, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -321,7 +321,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Add button",
+                Localizations.Misc.addButton,
                 {x = 5, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -349,7 +349,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Clear",
+                Localizations.Misc.clear,
                 {x = 5, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -367,7 +367,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Frame(
             Box(
                 {x = 0, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 10, height = 24},
+                {width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 10, height = 24},
                 "Top box background color",
                 "Top box border color"
             ),
@@ -381,7 +381,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 0, y = 0},
                     {
-                        width = 64,
+                        width = Localizations.TrackerSetupScreen.editFavoritesButtonWidth,
                         height = constants.BIND_BUTTON_HEIGHT
                     },
                     "Top box background color",
@@ -391,7 +391,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Edit Favorites",
+                Localizations.TitleScreen.editFavorites,
                 {x = 5, y = 2},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -414,7 +414,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Frame(
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT},
+                {width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset), height = constants.MAIN_FRAME_HEIGHT},
                 "Main background color",
                 nil
             ),
@@ -428,7 +428,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 Box(
                     {x = 5, y = 5},
                     {
-                        width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                        width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                         height = constants.TEXT_HEADER_HEIGHT
                     },
                     "Top box background color",
@@ -437,7 +437,7 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Tracker Setup",
+                Localizations.TrackerSetupScreen.trackerSetup,
                 {x = 30, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -449,13 +449,13 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
             Box(
                 {x = 0, y = 0},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = 0
                 },
                 nil,
                 nil
             ),
-            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 95, y = 0}),
+            Layout(Graphics.ALIGNMENT_TYPE.HORIZONTAL, 0, {x = 95 + Localizations.MainOptionsScreen.MainFrameOffset, y = 0}),
             ui.frames.controlEditFrame
         )
         ui.controls.goBackButton =
@@ -472,8 +472,8 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,

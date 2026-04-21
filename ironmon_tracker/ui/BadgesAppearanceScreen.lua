@@ -46,9 +46,23 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
     end
 
     local function createDoubleBadgeRadioButtons(frames)
-        local rows = {{"BOTH_ABOVE", "BOTH_BELOW"}, {"BOTH_RIGHT", "BOTH_LEFT"}, {"LEFT_AND_RIGHT", "ABOVE_AND_BELOW"}}
+        local rows = {
+            {
+                {key ="BOTH_ABOVE", labelName = Localizations.BadgesAppearanceScreen.bothAbove},
+                {key ="BOTH_BELOW", labelName = Localizations.BadgesAppearanceScreen.bothBelow}
+            }, 
+            {
+                {key ="BOTH_RIGHT", labelName = Localizations.BadgesAppearanceScreen.bothRight},
+                {key ="BOTH_LEFT", labelName = Localizations.BadgesAppearanceScreen.bothLeft}
+            }, 
+            {
+                {key ="LEFT_AND_RIGHT", labelName = Localizations.BadgesAppearanceScreen.leftAndRight},
+                {key ="ABOVE_AND_BELOW", labelName = Localizations.BadgesAppearanceScreen.aboveAndBelow}
+            }
+        }
+
         for i, rowPair in pairs(rows) do
-            for _, settingName in pairs(rowPair) do
+            for _, key in pairs(rowPair) do
                 local radioButton =
                     SettingToggleButton(
                     Component(
@@ -64,16 +78,13 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                     ),
                     settings.badgesAppearance,
                     "DOUBLE_BADGE_ALIGNMENT",
-                    settingName,
+                    key.key,
                     true,
                     true,
                     program.saveSettings
                 )
                 table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
-                local text = settingName
-                text = text:gsub("_AND_", "/")
-                text = text:gsub("_", " ")
-                text = text:sub(1, 1):upper() .. text:sub(2):lower()
+                local text = key.labelName
                 TextLabel(
                     Component(frames[i], Box({x = 0, y = 0}, {width = 50, height = constants.MAIN_BUTTON_HEIGHT}, nil, nil)),
                     TextField(
@@ -138,7 +149,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 program.saveSettings
             )
             table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
-            local text = settingName .. " first"
+            local text = settingName .. " " .. Localizations.Misc.first
             text = text:sub(1, 1):upper() .. text:sub(2):lower()
             TextLabel(
                 Component(
@@ -198,7 +209,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 )
             ),
             TextField(
-                "Double Badge Alignment",
+                Localizations.BadgesAppearanceScreen.doubleBadgeAlignment,
                 {x = 7, y = 3},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -215,7 +226,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 )
             ),
             TextField(
-                "Double Badge Order",
+                Localizations.BadgesAppearanceScreen.doubleBadgeOrder,
                 {x = 20, y = 2},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -278,8 +289,8 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -314,9 +325,18 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
     end
 
     local function createSingleBadgeRadioButtons(singleBadgeFrames)
-        local rows = {{"ABOVE", "BELOW"}, {"RIGHT", "LEFT"}}
+        local rows = {
+            {
+                {key ="ABOVE", labelName = Localizations.BadgesAppearanceScreen.above},
+                {key ="BELOW", labelName = Localizations.BadgesAppearanceScreen.below}
+            }, 
+            {
+                {key ="RIGHT", labelName = Localizations.BadgesAppearanceScreen.right},
+                {key ="LEFT", labelName = Localizations.BadgesAppearanceScreen.left}
+            }
+        }
         for i, rowPair in pairs(rows) do
-            for _, settingName in pairs(rowPair) do
+            for _, key in pairs(rowPair) do
                 local radioButton =
                     SettingToggleButton(
                     Component(
@@ -332,13 +352,13 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                     ),
                     settings.badgesAppearance,
                     "SINGLE_BADGE_ALIGNMENT",
-                    settingName,
+                    key.key,
                     true,
                     true,
                     program.saveSettings
                 )
                 table.insert(eventListeners, MouseClickEventListener(radioButton, onRadioButtonClick, radioButton))
-                local text = settingName:sub(1, 1):upper() .. settingName:sub(2):lower()
+                local text = key.labelName
                 TextLabel(
                     Component(
                         singleBadgeFrames[i],
@@ -398,7 +418,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
             TextLabel(
             Component(spacerFrame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
             TextField(
-                "Spacer",
+                Localizations.BadgesAppearanceScreen.spacer,
                 {x = 0, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -439,7 +459,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 )
             ),
             TextField(
-                "Alignment",
+                Localizations.BadgesAppearanceScreen.alignment,
                 {x = 42, y = 3},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -451,7 +471,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
 
     local function createHGSSChooseButtons(frames)
         local HGSS_showBoth = {true, false}
-        local settingNames = {"Show both Johto/Kanto", "Show one (will auto swap)"}
+        local settingNames = {Localizations.BadgesAppearanceScreen.showBothJohtoKanto, Localizations.BadgesAppearanceScreen.showOne}
         for i, state in pairs(HGSS_showBoth) do
             local radioButton =
                 SettingToggleButton(
@@ -552,7 +572,7 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 )
             ),
             TextField(
-                "HGSS Settings",
+                Localizations.BadgesAppearanceScreen.hgssSettings,
                 {x = 34, y = 3},
                 TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -602,8 +622,8 @@ local function BadgesAppearanceScreen(initialSettings, initialTracker, initialPr
                 )
             ),
             TextField(
-                "Badges Appearance",
-                {x = 14, y = 1},
+                Localizations.AppearanceOptionsScreen.badgesAppearance,
+                {x = Localizations.AppearanceOptionsScreen.badgesAppearanceTextPosX, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
         )

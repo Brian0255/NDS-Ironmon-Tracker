@@ -18,7 +18,6 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local SearchScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/SearchScreen.lua")
     local PivotsScreen = dofile(Paths.FOLDERS.UI_FOLDER .. "/LogViewer/PivotsScreen.lua")
     local ScreenStack = dofile(Paths.FOLDERS.UI_BASE_CLASSES .. "/ScreenStack.lua")
-
     local tabScreenStack
     local settings = initialSettings
     local tracker = initialTracker
@@ -40,12 +39,12 @@ local function LogViewerScreen(initialSettings, initialTracker, initialProgram)
     local trainerGroups
     local currentIndex = 1
     local tabs = {
-        "Pok" .. Chars.accentedE .. "mon",
-        "Trainers",
-        "Pivots",
-        "Gym TMs",
-        "Info",
-        "Search"
+        Localizations.LogViewerScreen.pokemons,
+        Localizations.LogViewerScreen.trainers,
+        Localizations.LogViewerScreen.pivots,
+        Localizations.LogViewerScreen.gymTMs,
+        Localizations.LogViewerScreen.info,
+        Localizations.LogViewerScreen.search
     }
     local tabControls = {}
     local ui = {}

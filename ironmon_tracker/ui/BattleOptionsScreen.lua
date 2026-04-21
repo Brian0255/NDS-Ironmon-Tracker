@@ -33,13 +33,13 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
     end
     local function initBattleToggleButtons()
         local orderedKeys = {
-            "AUTO_SWAP_TO_ENEMY",
-            "SHOW_MOVE_EFFECTIVENESS",
-            "CALCULATE_VARIABLE_DAMAGE",
-            "SHOW_ACTUAL_ENEMY_PP",
-            "SHOW_1ST_FIGHT_STATS_PLATINUM",
-            "ENABLE_ENEMY_LOCKING",
-            "DOUBLES_MODE"
+            {key ="AUTO_SWAP_TO_ENEMY", labelName = Localizations.BattleOptionsScreen.autoSwapToEnemy},
+            {key ="SHOW_MOVE_EFFECTIVENESS", labelName = Localizations.BattleOptionsScreen.showMoveEffectiveness},
+            {key ="CALCULATE_VARIABLE_DAMAGE", labelName = Localizations.BattleOptionsScreen.calculateVariableDamage},
+            {key ="SHOW_ACTUAL_ENEMY_PP", labelName = Localizations.BattleOptionsScreen.showActualEnemyPP},
+            {key ="SHOW_1ST_FIGHT_STATS_PLATINUM", labelName = Localizations.BattleOptionsScreen.showFirstFightStatsPlatinum},
+            {key ="ENABLE_ENEMY_LOCKING", labelName = Localizations.BattleOptionsScreen.enableEnemyLocking},
+            {key ="DOUBLES_MODE", labelName = Localizations.BattleOptionsScreen.doublesMode}
         }
         for _, key in pairs(orderedKeys) do
             local frame =
@@ -62,7 +62,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
                     )
                 ),
                 settings.battle,
-                key,
+                key.key,
                 nil,
                 false,
                 true,
@@ -70,10 +70,9 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
             )
             local labelName
             if key == "SHOW_1ST_FIGHT_STATS_PLATINUM" then
-                labelName = "Platinum: Show 1st fight stats"
+                labelName = Localizations.BattleOptionsScreen.showFirstFightStatsPlatinum
             else
-                labelName = key:gsub("_", " "):lower()
-                labelName = labelName:sub(1, 1):upper() .. labelName:sub(2)
+                labelName = key.labelName
             end
             TextLabel(
                 Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
@@ -98,7 +97,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
             Frame(
             Box(
                 {x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.BATTLE_OPTIONS_HEIGHT},
+                {width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.BATTLE_OPTIONS_HEIGHT},
                 "Main background color",
                 nil
             ),
@@ -110,7 +109,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
             Box(
                 {x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN},
                 {
-                    width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+                    width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN,
                     height = constants.BATTLE_OPTIONS_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
                 },
                 "Top box background color",
@@ -125,14 +124,14 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
                 ui.frames.mainFrame,
                 Box(
                     {x = 5, y = 5},
-                    {width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
+                    {width = (Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset) - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
                     "Top box background color",
                     "Top box border color",
                     false
                 )
             ),
             TextField(
-                "Battle Settings",
+                Localizations.BattleOptionsScreen.battleSettings,
                 {x = 28, y = 1},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -142,7 +141,7 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
             Component(
                 ui.frames.mainFrame,
                 Box(
-                    {x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 49, y = constants.BATTLE_OPTIONS_HEIGHT - 23},
+                    {x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 49 + Localizations.MainOptionsScreen.MainFrameOffset, y = constants.BATTLE_OPTIONS_HEIGHT - 23},
                     {width = 40, height = 14},
                     "Top box background color",
                     "Top box border color",
@@ -151,8 +150,8 @@ local function BattleOptionsScreen(initialSettings, initialTracker, initialProgr
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,

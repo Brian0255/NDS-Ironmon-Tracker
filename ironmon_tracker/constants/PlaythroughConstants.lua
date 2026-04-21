@@ -8,7 +8,7 @@ PlaythroughConstants.PROGRESS = {
 
 PlaythroughConstants.EMPTY_PAST_RUN_STATISTICS = {
     {
-        "Overall Progress",
+        Localizations.Playthrough.overallProgress,
         {
             {"Past Lab", 0},
             {"1 Badge", 0},
@@ -90,29 +90,29 @@ PlaythroughConstants.FAINT_DETECTIONS = {
 
 --in case the death quotes file is nil or something dumb like that
 PlaythroughConstants.DEFAULT_STANDARD_MESSAGES = {
-    "There's always next time...",
-    "Some things were just not meant to be.",
-    "Oh well.",
-    "Could have been worse, I guess. Or not.",
-    "Against all odds... you did not triumph.",
-    "How unfortunate.",
-    "That's just the way it goes sometimes.",
-    "You should definitely pick the left ball next attempt.",
-    "Having fun yet?",
-    "The house always wins.",
-    "Anything that can go wrong, will go wrong.",
-    "Looks like your luck finally ran out."
+    Localizations.Playthrough.thereIsAlwaysNextTime,
+    Localizations.Playthrough.someThingsWereJustNotMeantToBe,
+    Localizations.Playthrough.ohWell,
+    Localizations.Playthrough.couldHaveBeenWorse,
+    Localizations.Playthrough.againstAllOddsYouDidNotTriumph,
+    Localizations.Playthrough.howUnfortunate,
+    Localizations.Playthrough.thatIsJustTheWayItGoesSometimes,
+    Localizations.Playthrough.youShouldDefinitelyPickTheLeftBallNextAttempt,
+    Localizations.Playthrough.havingFunYet,
+    Localizations.Playthrough.theHouseAlwaysWins,
+    Localizations.Playthrough.anythingThatCanGoWrongWillGoWrong,
+    Localizations.Playthrough.looksLikeYourLuckFinallyRanOut
 }
 
 PlaythroughConstants.RUN_OVER_MESSAGES = {
     [PlaythroughConstants.CAUSES.WON] = {
         exclusive = true,
         messages = {
-            "Congratulations!",
-            "My god... you actually did it...",
-            "I'm speechless.",
-            "The end of a long, arduous journey...",
-            "On this day, the planets aligned..."
+            Localizations.Playthrough.congratulations,
+            Localizations.Playthrough.myGodYouActuallyDidIt,
+            Localizations.Playthrough.imSpeechless,
+            Localizations.Playthrough.theEndOfALongArduousJourney,
+            Localizations.Playthrough.onThisDayThePlanetsAligned
         }
     },
     [PlaythroughConstants.CAUSES.STANDARD] = {
@@ -121,30 +121,30 @@ PlaythroughConstants.RUN_OVER_MESSAGES = {
     [PlaythroughConstants.CAUSES.IMPOSTER] = {
         exclusive = true,
         messages = {
-            "Sometimes, you really just can't face yourself.",
-            "Looking in the mirror really is that painful.",
-            "Dark Link was a lot easier than this...",
-            "Does this mean we can ban it now?"
+            Localizations.Playthrough.sometimesYouJustCantFaceYourself,
+            Localizations.Playthrough.lookingInTheMirrorReallyIsThatPainful,
+            Localizations.Playthrough.darkLinkWasALotEasierThanThis,
+            Localizations.Playthrough.doesThisMeanWeCanBanItNow
         }
     },
     [PlaythroughConstants.CAUSES.ENEMY_LOWER_BST] = {
         exclusive = true,
         messages = {
-            "Sometimes, the weaker triumph.",
-            "A surprising outcome.",
-            "Miracles really can happen.",
-            "I don't think anyone saw that coming.",
-            "Huh?",
-            "Surely that Pok" .. Chars.accentedE .. "mon had Huge Power.",
+            Localizations.Playthrough.sometimesTheWeakerTriumph,
+            Localizations.Playthrough.aSurprisingOutcome,
+            Localizations.Playthrough.miraclesReallyCanHappen,
+            Localizations.Playthrough.iDontThinkAnyoneSawThatComing,
+            Localizations.Playthrough.huh,
+            Localizations.Playthrough.surelyThatPokemonHadHugePower
         }
     },
     [PlaythroughConstants.CAUSES.SHEDINJA] = {
         exclusive = true,
         messages = {
-            "Never feels good to lose to that.",
-            "There are over 20 fire moves in the game, and you didn't roll a single one.",
-            "It was bound to happen at some point.",
-            "The one Pok" .. Chars.accentedE .. "mon you didn't want to see..."
+            Localizations.Playthrough.neverFeelsGoodToLoseToThat,
+            Localizations.Playthrough.thereAreOver20FireMovesInTheGameAndYouDidntRollASingleOne,
+            Localizations.Playthrough.itWasBoundToHappenAtSomePoint,
+            Localizations.Playthrough.theOnePokemonYouDidntWantToSee
         }
     }
 }

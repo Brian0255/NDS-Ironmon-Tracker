@@ -54,6 +54,39 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.HEART_GOLD] = {
     }
 }
 
+MemoryAddresses[GameInfo.VERSION_NUMBER.HEART_GOLD_FR] = {
+    GLOBAL_POINTER = 0xBA8,
+    VERSION_POINTER_OFFSET = 0x20,
+    VERSION_POINTER_OFFSETS = {
+        childMapHeader = 0x25FE4,
+        parentMapHeader = 0x25FE4,
+        enemyTrainerID = 0x440AA,
+        playerBase = 0xA8,
+        playerBattleBase = 0x4EA98,
+        enemyBase = 0x4F068,
+        playerBattleMonPID = 0x49E7C,
+        enemyBattleMonPID = 0x49F3C,
+        itemStartNoBattle = 0xB74,
+        itemStartBattle = 0x46AD8,
+        statStagesPlayer = 0x49E2C,
+        statStagesEnemy = 0x49EEC,
+        enemyPokemonID = 0x49ED4,
+        berryBagStart = 0xC14,
+        berryBagStartBattle = 0x46B78,
+        johtoBadges = 0x8E,
+        kantoBadges = 0x93,
+        leagueBeaten = 0x1000,
+        facingDirection = 0x25DA8,
+        repelSteps = 0x6919,
+        battleSubscriptMsgs = 0x47184,
+        abilityMessage = 0x471C8,
+        dayOfWeek = 0xDF4
+    },
+    GLOBAL = {
+        battleStatus = 0x246F48
+    }
+}
+
 MemoryAddresses[GameInfo.VERSION_NUMBER.SOUL_SILVER] = {
     GLOBAL_POINTER = 0xBA8,
     VERSION_POINTER_OFFSET = 0x20,
@@ -206,6 +239,39 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK] = {
     }
 }
 
+MemoryAddresses[GameInfo.VERSION_NUMBER.BLACK_FR] = {
+    GLOBAL = {
+        childMapHeader = 0x2592B2 - 0x80,
+        parentMapHeader = 0x2592B4 - 0x80,
+        playerBase = 0x2349B4 - 0x80,
+        playerBattleBase = 0x26A794 - 0x80,
+        enemyTrainerID = 0x2697BE - 0x80,
+        enemyBase = 0x26B254 - 0x80,
+        playerBattleMonPID = 0x2A7E14 - 0x80,
+        enemyBattleMonPID = 0x2A7E70 - 0x80,
+        battleStatus = 0x1D0798 - 0x80,
+        itemStartNoBattle = 0x234784 - 0x80,
+        itemStartBattle = 0x234784 - 0x80,
+        statStagesStart = 0x26D7A0 - 0x80,
+        statStagesEnemy = 0x26D9C4 - 0x80,
+        HPBattlePlayer = 0x26D6B2 - 0x80,
+        curHPBattlePlayer = 0x26D6B4 - 0x80,
+        curBattleLevel = 0x26D6BC - 0x80,
+        curBattleStats = 0x26D792 - 0x80,
+        totalMonsParty = 0x2349B0 - 0x80,
+        berryBagStart = 0x234844 - 0x80,
+        berryBagStartBattle = 0x234844 - 0x80,
+        badges = 0x23CDB0 - 0x80,
+        repelSteps = 0x23D6DD - 0x80,
+        facingDirection = 0x2521FC - 0x80,
+        mapNPCIDStart = 0x2521EC - 0x80,
+        abilityTriggerStart = 0x2A6354 - 0x80,
+        mainBattleDataPtr = 0x269838 - 0x80,
+        doubleTripleFlag = 0x2A62F8 - 0x80,
+        someBattleUIPtr = 0x294854 - 0x80
+    }
+}
+
 MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE] = {
     GLOBAL = {
         childMapHeader = 0x2592B2 + 0x20,
@@ -236,6 +302,39 @@ MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE] = {
         mainBattleDataPtr = 0x269838 + 0x20,
         doubleTripleFlag = 0x2A62F8 + 0x20,
         someBattleUIPtr = 0x294854 + 0x20
+    }
+}
+
+MemoryAddresses[GameInfo.VERSION_NUMBER.WHITE_FR] = {
+    GLOBAL = {
+        childMapHeader = 0x2592B2 - 0x60,
+        parentMapHeader = 0x2592B4 - 0x60,
+        playerBase = 0x2349B4 - 0x60,
+        playerBattleBase = 0x26A794 - 0x60,
+        enemyTrainerID = 0x2697BE - 0x60,
+        enemyBase = 0x26B254 - 0x60,
+        playerBattleMonPID = 0x2A7E14 - 0x60,
+        enemyBattleMonPID = 0x2A7E70 - 0x60,
+        battleStatus = 0x1D0798 - 0x60,
+        itemStartNoBattle = 0x234784 - 0x60,
+        itemStartBattle = 0x234784 - 0x60,
+        statStagesStart = 0x26D7A0 - 0x60,
+        statStagesEnemy = 0x26D9C4 - 0x60,
+        HPBattlePlayer = 0x26D6B2 - 0x60,
+        curHPBattlePlayer = 0x26D6B4 - 0x60,
+        curBattleLevel = 0x26D6BC - 0x60,
+        curBattleStats = 0x26D792 - 0x60,
+        totalMonsParty = 0x2349B0 - 0x60,
+        berryBagStart = 0x234844 - 0x60,
+        berryBagStartBattle = 0x234844 - 0x60,
+        badges = 0x23CDB0 - 0x60,
+        repelSteps = 0x23D6DD - 0x60,
+        facingDirection = 0x2521FC - 0x60,
+        mapNPCIDStart = 0x2521EC - 0x60,
+        abilityTriggerStart = 0x2A6354 - 0x60,
+        mainBattleDataPtr = 0x269838 - 0x60,
+        doubleTripleFlag = 0x2A62F8 - 0x60,
+		someBattleUIPtr = 0x294854 - 0x60
     }
 }
 

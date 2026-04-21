@@ -23,7 +23,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 		EXTRAS_HEIGHT = 256,
 		EXTRA_ENTRY_TITLE_ROW_HEIGHT = 21,
 		EXTRA_ENTRY_TEXT_ROW_HEIGHT = 10,
-		EXTRA_WIDTH = 124,
+		EXTRA_WIDTH = 124 + Localizations.MainOptionsScreen.MainFrameOffset - 2 * Graphics.SIZES.BORDER_MARGIN,
 		EXTRA_HEIGHT = 90,
 		BUTTON_SIZE = 10
 	}
@@ -56,7 +56,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 			Component(
 				ui.frames.goBackFrame,
 				Box(
-					{x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 54, y = 8},
+					{x = Graphics.SIZES.MAIN_SCREEN_WIDTH - 54 + Localizations.MainOptionsScreen.MainFrameOffset, y = 8},
 					{width = 40, height = 14},
 					"Top box background color",
 					"Top box border color",
@@ -65,8 +65,8 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 				)
 			),
 			TextField(
-				"Go back",
-				{x = 3, y = 1},
+				Localizations.Misc.goBack,
+				{x = Localizations.Misc.goBackTextPosX, y = 1},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
 					Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -95,41 +95,32 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 
 	local extras = {
 		{
-			name = "Coverage Calc",
+			name = Localizations.ExtrasScreen.coverageCalc,
 			iconImage = "coverageCalc.png",
 			imageOffset = {x = 2, y = 2},
-			descriptionRows = {
-				"Shows how many Pok" .. Chars.accentedE .. "mon",
-				"your moves can hit."
-			},
+			descriptionRows = Localizations.ExtrasScreen.coverageCalcDescriptionRows,
 			settingsKey = "coverageCalc",
 			useEnabledButton = false,
-			buttonText = "Open",
+			buttonText = Localizations.Misc.open,
 			buttonFunction = onCoverageCalc
 		},
 		{
-			name = "Tourney Tracker",
+			name = Localizations.ExtrasScreen.tourneyTracker,
 			iconImage = "trophy.png",
 			imageOffset = {x = 0, y = 0},
-			descriptionRows = {
-				"Auto tracks your scores",
-				"for Crozwords' tourneys."
-			},
+			descriptionRows = Localizations.ExtrasScreen.tourneyTrackerDescriptionRows,
 			settingsKey = "tourneyTracker",
 			useEnabledButton = true,
-			buttonText = "Clear Tourney Scores",
+			buttonText = Localizations.ExtrasScreen.clearTourneyScores,
 			buttonFunction = onClearClick
         },
         {
-			name = "Stream Connect",
+			name = Localizations.ExtrasScreen.streamConnect,
 			iconImage = "streamerbot.png",
 			imageOffset = {x = 1, y = 1},
-			descriptionRows = {
-				"Connects to streaming",
-				"services for chat interaction."
-			},
+			descriptionRows = Localizations.ExtrasScreen.streamConnectDescriptionRows,
 			settingsKey = "streamerbot",
-			buttonText = "Open Config",
+			buttonText = Localizations.ExtrasScreen.openConfig,
 			buttonFunction = OpenStreamerBotConfig
 		}
 	}
@@ -166,7 +157,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 			TextLabel(
 			Component(enabledFrame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
 			TextField(
-				"Enabled",
+				Localizations.Misc.enabled,
 				{x = 0, y = 0},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -312,7 +303,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 			Frame(
 			Box(
 				{x = Graphics.SIZES.SCREEN_WIDTH, y = 0},
-				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = constants.MAIN_FRAME_HEIGHT},
+				{width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset, height = constants.MAIN_FRAME_HEIGHT},
 				"Main background color",
 				nil
 			),
@@ -324,7 +315,7 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 			Box(
 				{x = Graphics.SIZES.BORDER_MARGIN, y = Graphics.SIZES.BORDER_MARGIN},
 				{
-					width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN,
+					width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset - 2 * Graphics.SIZES.BORDER_MARGIN,
 					height = constants.MAIN_FRAME_HEIGHT - 2 * Graphics.SIZES.BORDER_MARGIN
 				},
 				"Top box background color",
@@ -339,14 +330,14 @@ local function ExtrasScreen(initialSettings, initialTracker, initialProgram)
 				ui.frames.mainInnerFrame,
 				Box(
 					{x = 0, y = 0},
-					{width = Graphics.SIZES.MAIN_SCREEN_WIDTH - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
+					{width = Graphics.SIZES.MAIN_SCREEN_WIDTH + Localizations.MainOptionsScreen.MainFrameOffset - 2 * Graphics.SIZES.BORDER_MARGIN, height = 18},
 					"Top box background color",
 					"Top box border color",
 					false
 				)
 			),
 			TextField(
-				"Extras",
+				Localizations.ExtrasScreen.extras,
 				{x = 50, y = 1},
 				TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
 			)

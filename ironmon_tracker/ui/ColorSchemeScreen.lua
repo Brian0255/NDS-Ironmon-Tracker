@@ -217,7 +217,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Import theme",
+                Localizations.ColorSchemeScreen.importTheme,
                 {x = 5, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -241,7 +241,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Export theme",
+                Localizations.ColorSchemeScreen.exportTheme,
                 {x = 5, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -290,7 +290,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Restore defaults",
+                Localizations.Misc.restoreDefaults,
                 {x = 5, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -314,8 +314,8 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -375,7 +375,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Save theme",
+                Localizations.ColorSchemeScreen.saveTheme,
                 {x = 5, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -399,7 +399,7 @@ local function ColorSchemeScreen(initialSettings, initialTracker, initialProgram
                 )
             ),
             TextField(
-                "Load theme",
+                Localizations.ColorSchemeScreen.loadTheme,
                 {x = 5, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

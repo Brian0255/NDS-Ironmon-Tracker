@@ -83,7 +83,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 		notifPlaying = true
 		ui.frames.notificationFrame.setVisibility(true)
 		local notificationText = milestone.getName() .. "! +" .. milestone.getPoints()
-		local newScoreText = "New total: " .. newPoints .. " point"
+		local newScoreText = Localizations.TourneyTrackerScreen.newTotal .. newPoints .. " " .. Localizations.Misc.point
 		if newPoints > 1 then
 			newScoreText = newScoreText .. "s"
 		end
@@ -210,7 +210,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 		readBonusScrollerItems()
 		readMilestoneScrollerItems()
 		ui.controls.seedScore.setText(tourneyTracker.getTotalPoints(tourneyData))
-		ui.controls.seedHeading.setText("Seed " .. currentIndex .. "/" .. #tourneyScores)
+		ui.controls.seedHeading.setText(Localizations.TourneyTrackerScreen.seedHeading .. currentIndex .. "/" .. #tourneyScores)
 		ui.controls.cumulativeScore.setText(tourneyTracker.getCumulativePoints())
 		program.drawCurrentScreens()
 	end
@@ -227,7 +227,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 		table.remove(tourneyScores[currentIndex].completedBonusIDs, bonusesScroller.getBaseIndex() + index - 1)
 		tourneyTracker.saveData()
 		setAddRemoveBonusVisibility(true)
-		ui.controls.bonusesTitle.setText("Bonuses")
+		ui.controls.bonusesTitle.setText(Localizations.TourneyTrackerScreen.bonuses)
 		loadCurrentIndex()
 	end
 
@@ -240,7 +240,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 		table.insert(tourneyData.completedBonusIDs, items[index])
 		tourneyTracker.saveData()
 		setAddRemoveBonusVisibility(true)
-		ui.controls.bonusesTitle.setText("Bonuses")
+		ui.controls.bonusesTitle.setText(Localizations.TourneyTrackerScreen.bonuses)
 		loadCurrentIndex()
 	end
 
@@ -250,7 +250,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 		end
 		addingBonus = false
 		removingBonus = true
-		bonusesFrameInfo.titleLabel.setText("Select One to Remove:")
+		bonusesFrameInfo.titleLabel.setText(Localizations.TourneyTrackerScreen.selectOneToRemove)
 		setAddRemoveBonusVisibility(false)
 		program.drawCurrentScreens()
 	end
@@ -258,7 +258,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 	local function onAddBonusClick(bonusesFrameInfo)
 		addingBonus = true
 		removingBonus = false
-		bonusesFrameInfo.titleLabel.setText("Select One to Add:")
+		bonusesFrameInfo.titleLabel.setText(Localizations.TourneyTrackerScreen.selectOneToAdd)
 		setAddRemoveBonusVisibility(false)
 		local bonusIDs = {}
 		for id, bonus in pairs(tourneyTracker.BONUSES) do
@@ -519,17 +519,17 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 			ui.frames.mainInnerFrame
 		)
 		local milestoneFrameInfo =
-			createGoalBreakdownFrame(constants.MILESTONES_BREAKDOWN_HEIGHT, "Milestones", milestonesFrameList, 8)
+			createGoalBreakdownFrame(constants.MILESTONES_BREAKDOWN_HEIGHT, Localizations.TourneyTrackerScreen.milestones, milestonesFrameList, 8)
 		ui.frames.milestonesBreakdown = milestoneFrameInfo.mainFrame
-		local bonusesFrameInfo = createGoalBreakdownFrame(constants.BONUSES_BREAKDOWN_HEIGHT, "Bonuses", bonusesFrameList, 5)
+		local bonusesFrameInfo = createGoalBreakdownFrame(constants.BONUSES_BREAKDOWN_HEIGHT, Localizations.TourneyTrackerScreen.bonuses, bonusesFrameList, 5)
 		ui.controls.bonusesTitle = bonusesFrameInfo.titleLabel
 		addToBonusesUI(bonusesFrameInfo)
 		ui.frames.bonusesBreakdown = bonusesFrameInfo.mainFrame
 		milestonesScroller = ScrollBar(milestoneFrameInfo.scrollerFrame, 8, {})
 		bonusesScroller = ScrollBar(bonusesFrameInfo.scrollerFrame, 5, {})
 
-		createMainScoreRowFrame("Seed Score:", "seedScore")
-		createMainScoreRowFrame("Cumulative Score:", "cumulativeScore")
+		createMainScoreRowFrame(Localizations.TourneyTrackerScreen.seedScore, "seedScore")
+		createMainScoreRowFrame(Localizations.TourneyTrackerScreen.cumulativeScore, "cumulativeScore")
 	end
 
 	local function onClose()
@@ -565,7 +565,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 				)
 			),
 			TextField(
-				"Export Scores",
+				Localizations.TourneyTrackerScreen.exportScores,
 				{x = 4, y = 2},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -590,7 +590,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 				)
 			),
 			TextField(
-				"Close",
+				Localizations.Misc.close,
 				{x = 20, y = 2},
 				TextStyle(
 					Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -655,7 +655,7 @@ local function TourneyTrackerScreen(initialSettings, initialTracker, initialProg
 		addingBonus = false
 		removingBonus = false
 		setAddRemoveBonusVisibility(true)
-		ui.controls.bonusesTitle.setText("Bonuses")
+		ui.controls.bonusesTitle.setText(Localizations.TourneyTrackerScreen.bonuses)
 		loadCurrentIndex()
 	end
 

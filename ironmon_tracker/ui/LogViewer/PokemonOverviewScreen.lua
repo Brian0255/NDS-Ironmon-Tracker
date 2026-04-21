@@ -241,7 +241,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
                 )
             ),
             TextField(
-                "Click the keys below to search any pokemon:",
+                Localizations.PokemonOverviewScreen.searchHeading,
                 {x = 0, y = 10},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -340,7 +340,7 @@ local function PokemonOverviewScreen(initialSettings, initialTracker, initialPro
                 )
             ),
             TextField(
-                "Stats",
+                Localizations.Misc.stats,
                 {x = 4, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,

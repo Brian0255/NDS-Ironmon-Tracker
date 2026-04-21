@@ -107,7 +107,7 @@ local function findPokemonType(name, threshold)
 	end
 	threshold = threshold or 3
 	local _, type, distance = NetworkUtils.getClosestWord(name:upper(), PokemonData.TYPE_LIST, threshold)
-	if not PokemonData.POKEMON_TYPES[type or false] then
+	if not PokemonData.POKEMON_TYPES_TEXT[type or false] then
 		return nil, -1
 	end
 	return type, distance
@@ -575,7 +575,7 @@ function EventData.getCoverage(params)
 				onlyFullyEvolved = true
 			else
 				local moveType = findPokemonType(word)
-				if moveType and PokemonData.POKEMON_TYPES[moveType] and moveType ~= "EMPTY" then
+				if moveType and PokemonData.POKEMON_TYPES[PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType]] and moveType ~= PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[PokemonData.POKEMON_TYPES.EMPTY] then
 					calcFromLead = false
 					table.insert(moveTypes, PokemonData.POKEMON_TYPES[moveType])
 				end
@@ -588,7 +588,7 @@ function EventData.getCoverage(params)
 			if moveID > 0 then
 				local moveData = MoveData.MOVES[moveID + 1]
 				local moveType = moveData.type
-				if moveData.name == "Hidden Power" then
+				if moveData.name == Localizations.MoveNames.hiddenPower then
 					moveType = Network.Data.tracker.getCurrentHiddenPowerType()
 				end
 				if moveData.category ~= MoveData.MOVE_CATEGORIES.STATUS and moveData.power ~= "---" then
@@ -619,7 +619,7 @@ function EventData.getCoverage(params)
 				effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][defenseType]
 			end
 		end
-		if pokemonData.name == "Shedinja" and effectiveness < 2.0 then
+		if pokemonData.name == Localizations.PokemonStats.shedinja and effectiveness < 2.0 then
 			return 0.0
 		end
 		return effectiveness

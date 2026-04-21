@@ -273,8 +273,8 @@ local function SearchKeyboard(
                 )
             ),
             TextField(
-                "Clear",
-                {x = 4, y = 1},
+                Localizations.Misc.clear,
+                {x = Localizations.SearchKeyboard.clearTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,

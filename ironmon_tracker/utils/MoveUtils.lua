@@ -34,21 +34,21 @@ function MoveUtils.netEffectiveness(move, pkmnData, isEnemy, hiddenPowerType)
         end
         return 1.0
     end
-    if move.name == "Future Sight" or move.name == "Doom Desire" and move.accuracy == 100 then
+    if move.name == Localizations.MoveNames.futureSight or move.name == Localizations.MoveNames.doomDesire and move.accuracy == 100 then
         return 1.0
     end
     local effectiveness = 1.0
     for _, type in ipairs(pkmnData["type"]) do
         local moveType = move.type
-        if move.name == "Hidden Power" and not isEnemy then
+        if move.name == Localizations.MoveNames.hiddenPower and not isEnemy then
             moveType = hiddenPowerType
         end
-        if move.name == "Judgment" and not isEnemy and PokemonData.PLATE_TO_TYPE[tonumber(pkmnData.heldItem)] ~= nil then
+        if move.name == Localizations.MoveNames.judgment and not isEnemy and PokemonData.PLATE_TO_TYPE[tonumber(pkmnData.heldItem)] ~= nil then
             moveType = PokemonData.PLATE_TO_TYPE[tonumber(pkmnData.heldItem)]
         end
         if moveType ~= "---" then
-            if MoveData.EFFECTIVE_DATA[moveType][type] ~= nil then
-                effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][type]
+            if MoveData.EFFECTIVE_DATA[PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType]][PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[type]] ~= nil then
+                effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType]][PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[type]]
             end
         end
     end
@@ -144,7 +144,7 @@ function MoveUtils.getMoveHeader(pokemon)
     if count ~= #pokemon.movelvls then
         extra = " (" .. pokemon.movelvls[count + 1] .. ")"
     end
-    local header = "Moves: " .. count .. "/" .. #pokemon.movelvls .. extra
+    local header = Localizations.PokemonStats.moves .. Localizations.Misc.colon .. " " .. count .. "/" .. #pokemon.movelvls .. extra
     return header
 end
 
@@ -174,30 +174,30 @@ function MoveUtils.calculateVariableDamage(moveName, movePPs, index, currentPoke
         end
     }
     local moveNamesToCalcFunctions = {
-        ["Flail"] = lowHPCalcEntry,
-        ["Reversal"] = lowHPCalcEntry,
-        ["Water Spout"] = highHPCalcEntry,
-        ["Eruption"] = highHPCalcEntry,
-        ["Trump Card"] = {
+        [Localizations.MoveNames.flail] = lowHPCalcEntry,
+        [Localizations.MoveNames.reversal] = lowHPCalcEntry,
+        [Localizations.MoveNames.waterSpout] = highHPCalcEntry,
+        [Localizations.MoveNames.eruption] = highHPCalcEntry,
+        [Localizations.MoveNames.trumpCard] = {
             requirement = true,
             calcFunction = function(movePP)
                 return MoveUtils.calculateTrumpCardPower(movePP)
             end
         },
-        ["Heat Crash"] = weightDifferenceEntry,
-        ["Heavy Slam"] = weightDifferenceEntry,
-        ["Punishment"] = {
+        [Localizations.MoveNames.heatCrash] = weightDifferenceEntry,
+        [Localizations.MoveNames.heavySlam] = weightDifferenceEntry,
+        [Localizations.MoveNames.punishment] = {
             requirement = inBattle and opposingPokemon ~= nil,
             calcFunction = function()
                 return MoveUtils.calculatePunishmentPower(opposingPokemon)
             end
         },
-        ["Grass Knot"] = weightBasedEntry,
-        ["Low Kick"] = weightBasedEntry
+        [Localizations.MoveNames.grassKnot] = weightBasedEntry,
+        [Localizations.MoveNames.lowKick] = weightBasedEntry
     }
     local entry = moveNamesToCalcFunctions[moveName]
     if entry then
-        if moveName ~= "Trump Card" then
+        if moveName ~= Localizations.MoveNames.trumpCard then
             if entry.requirement then
                 return entry.calcFunction()
             end
@@ -246,8 +246,8 @@ function MoveUtils.getTypeDefensesTable(pokemonData)
         local effectiveness = 1.0
         for _, type in pairs(pokemonData.type) do
             if type ~= "" then
-                if MoveData.EFFECTIVE_DATA[moveType][type] ~= nil then
-                    effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][type]
+                if MoveData.EFFECTIVE_DATA[moveType][PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[type]] ~= nil then
+                    effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[type]]
                 end
             end
         end
@@ -262,10 +262,10 @@ end
 function MoveUtils.isSTAB(move, pokemon, isEnemy, hiddenPowerType)
     for _, type in pairs(pokemon["type"]) do
         local moveType = move.type
-        if move.name == "Hidden Power" and not isEnemy then
+        if move.name == Localizations.MoveNames.hiddenPower and not isEnemy then
             moveType = hiddenPowerType
         end
-        if move.name == "Judgment" and not isEnemy and PokemonData.PLATE_TO_TYPE[tonumber(pokemon.heldItem)] ~= nil then
+        if move.name == Localizations.MoveNames.judgment and not isEnemy and PokemonData.PLATE_TO_TYPE[tonumber(pokemon.heldItem)] ~= nil then
             moveType = PokemonData.PLATE_TO_TYPE[tonumber(pokemon.heldItem)]
         end
         if move.power ~= Graphics.TEXT.NO_POWER and moveType == type then

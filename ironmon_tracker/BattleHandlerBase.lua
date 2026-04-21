@@ -5,7 +5,8 @@ BattleHandlerBase = {
     BATTLE_STATUS_TYPES = {
         [0x2100] = true,
         [0x2101] = true,
-        [0x2800] = false
+        [0x2800] = false,
+        [0xF7F3] = true
     },
     _frameCounters = {},
     _joypadEvents = {},

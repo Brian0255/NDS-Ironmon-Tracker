@@ -315,8 +315,8 @@ LocationData.LOCATION_DATA = {
             [308] = {name = "Galactic HQ"},
             [309] = {name = "Galactic HQ"},
             [310] = {name = "Galactic HQ"},
-            [311] = {name = "Lake Verity"},
-            [312] = {name = "Lake Verity"},
+            [311] = {name = Localizations.LocationDataHGSS.lakeVerity},
+            [312] = {name = Localizations.LocationDataHGSS.lakeVerity},
             [313] = {name = "Verity Cavern"},
             [314] = {name = "Lake Valor"},
             [315] = {name = "Lake Valor"},
@@ -346,11 +346,11 @@ LocationData.LOCATION_DATA = {
             [339] = {name = "Grand Lake"},
             [340] = {name = "Acuity Lakefront"},
             [341] = {name = "Spring Path"},
-            [342] = {name = "Route 201"},
-            [343] = {name = "Route 202"},
-            [344] = {name = "Route 203"},
-            [345] = {name = "Route 204"},
-            [346] = {name = "Route 204"},
+            [342] = {name = Localizations.LocationDataHGSS.route201},
+            [343] = {name = Localizations.LocationDataHGSS.route202},
+            [344] = {name = Localizations.LocationDataHGSS.route203},
+            [345] = {name = Localizations.LocationDataHGSS.route204},
+            [346] = {name = Localizations.LocationDataHGSS.route204},
             [347] = {name = "Route 205"},
             [348] = {name = "Route 205"},
             [349] = {name = "Route 205"},
@@ -392,10 +392,10 @@ LocationData.LOCATION_DATA = {
             [385] = {name = "Route 217"},
             [386] = {name = "Route 217"},
             [387] = {name = "Route 217"},
-            [388] = {name = "Route 218"},
-            [389] = {name = "Route 218"},
-            [390] = {name = "Route 218"},
-            [391] = {name = "Route 219"},
+            [388] = {name = Localizations.LocationDataHGSS.route218},
+            [389] = {name = Localizations.LocationDataHGSS.route218},
+            [390] = {name = Localizations.LocationDataHGSS.route218},
+            [391] = {name = Localizations.LocationDataHGSS.route219},
             [392] = {name = "Route 221"},
             [393] = {name = "Pal Park"},
             [394] = {name = "Route 221"},
@@ -415,13 +415,13 @@ LocationData.LOCATION_DATA = {
             [408] = {name = "Mystery Zone"},
             [409] = {name = "Mystery Zone"},
             [410] = {name = "Mystery Zone"},
-            [411] = {name = "Twinleaf Town"},
-            [412] = {name = "Twinleaf Town"},
-            [413] = {name = "Twinleaf Town"},
-            [414] = {name = "Twinleaf Town"},
-            [415] = {name = "Twinleaf Town"},
-            [416] = {name = "Twinleaf Town"},
-            [417] = {name = "Twinleaf Town"},
+            [411] = {name = Localizations.LocationDataHGSS.twinleafTown},
+            [412] = {name = Localizations.LocationDataHGSS.twinleafTown},
+            [413] = {name = Localizations.LocationDataHGSS.twinleafTown},
+            [414] = {name = Localizations.LocationDataHGSS.twinleafTown},
+            [415] = {name = Localizations.LocationDataHGSS.twinleafTown},
+            [416] = {name = Localizations.LocationDataHGSS.twinleafTown},
+            [417] = {name = Localizations.LocationDataHGSS.twinleafTown},
             [418] = {name = "Sandgem Town"},
             [419] = {name = "Sandgem Town"},
             [420] = {name = "Sandgem Town"},
@@ -599,7 +599,7 @@ LocationData.LOCATION_DATA = {
             [592] = {name = "Rpck Peak Ruins"}
         },
         encounters = {
-            ["Route 202"] = {
+            [Localizations.LocationDataDPPt.route202] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
@@ -620,7 +620,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 201"] = {
+            [Localizations.LocationDataDPPt.route201] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -636,7 +636,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Lake Verity"] = {
+            [Localizations.LocationDataDPPt.lakeVerity] = {
                 totalPokemon = 2,
                 vanillaData = {
                     {
@@ -651,7 +651,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 203"] = {
+            [Localizations.LocationDataDPPt.route203] = {
                 totalPokemon = 5,
                 vanillaData = {
                     {
@@ -678,7 +678,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 204"] = {
+            [Localizations.LocationDataDPPt.route204] = {
                 totalPokemon = 6,
                 vanillaData = {
                     {
@@ -709,14 +709,14 @@ LocationData.LOCATION_DATA = {
             }
         },
         encounterAreaOrder = {
-            "Lake Verity",
-            "Route 201",
-            "Route 202",
-            "Route 203",
-            "Route 204",
-            "Twinleaf Town",
-            "Route 218",
-            "Route 219"
+            Localizations.LocationDataDPPt.lakeVerity,
+            Localizations.LocationDataDPPt.route201,
+            Localizations.LocationDataDPPt.route202,
+            Localizations.LocationDataDPPt.route203,
+            Localizations.LocationDataDPPt.route204,
+            Localizations.LocationDataDPPt.twinleafTown,
+            Localizations.LocationDataDPPt.route218,
+            Localizations.LocationDataDPPt.route219
         }
     },
     --heartgold/soulsilver
@@ -730,7 +730,7 @@ LocationData.LOCATION_DATA = {
             [5] = {name = "Mystery Zone"},
             [6] = {name = "Bellchime Trail"},
             [7] = {name = "Burned Tower"},
-            [8] = {name = "Ruins of Alph"},
+            [8] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
             [9] = {name = "Route 1"},
             [10] = {name = "Route 2"},
             [11] = {name = "Route 3"},
@@ -755,10 +755,10 @@ LocationData.LOCATION_DATA = {
             [30] = {name = "Route 26"},
             [31] = {name = "Route 27"},
             [32] = {name = "Route 28"},
-            [33] = {name = "Route 29"},
-            [34] = {name = "Route 30"},
-            [35] = {name = "Route 31"},
-            [36] = {name = "Route 32"},
+            [33] = {name = Localizations.LocationDataHGSS.route29},
+            [34] = {name = Localizations.LocationDataHGSS.route30},
+            [35] = {name = Localizations.LocationDataHGSS.route31},
+            [36] = {name = Localizations.LocationDataHGSS.route32},
             [37] = {name = "Route 33"},
             [38] = {name = "Route 34"},
             [39] = {name = "Route 35"},
@@ -770,7 +770,7 @@ LocationData.LOCATION_DATA = {
             [45] = {name = "Route 43"},
             [46] = {name = "Route 44"},
             [47] = {name = "Route 45"},
-            [48] = {name = "Route 46"},
+            [48] = {name = Localizations.LocationDataHGSS.route46},
             [49] = {name = "Pallet Town"},
             [50] = {name = "Viridian City"},
             [51] = {name = "Pewter City"},
@@ -789,12 +789,12 @@ LocationData.LOCATION_DATA = {
             [64] = {name = "New Bark Town"},
             [65] = {name = "New Bark Town"},
             [66] = {name = "New Bark Town"},
-            [67] = {name = "Cherrygrove City"},
-            [68] = {name = "Cherrygrove City"},
-            [69] = {name = "Cherrygrove City"},
-            [70] = {name = "Cherrygrove City"},
-            [71] = {name = "Cherrygrove City"},
-            [72] = {name = "Cherrygrove City"},
+            [67] = {name = Localizations.LocationDataHGSS.cherrygroveCity},
+            [68] = {name = Localizations.LocationDataHGSS.cherrygroveCity},
+            [69] = {name = Localizations.LocationDataHGSS.cherrygroveCity},
+            [70] = {name = Localizations.LocationDataHGSS.cherrygroveCity},
+            [71] = {name = Localizations.LocationDataHGSS.cherrygroveCity},
+            [72] = {name = Localizations.LocationDataHGSS.cherrygroveCity},
             [73] = {name = "Violet City"},
             [74] = {name = "Azalea Town"},
             [75] = {name = "Cianwood City"},
@@ -819,8 +819,8 @@ LocationData.LOCATION_DATA = {
             [94] = {name = "Route 40"},
             [95] = {name = "Route 41"},
             [96] = {name = "National Park"},
-            [97] = {name = "Route 31"},
-            [98] = {name = "Route 32"},
+            [97] = {name = Localizations.LocationDataHGSS.route31},
+            [98] = {name = Localizations.LocationDataHGSS.route32},
             [99] = {name = "Union Cave"},
             [100] = {name = "Azalea Town"},
             [101] = {name = "Route 35"},
@@ -835,7 +835,7 @@ LocationData.LOCATION_DATA = {
             [110] = {name = "Sprout Tower"},
             [111] = {name = "Bell Tower"},
             [112] = {name = "Radio Tower"},
-            [113] = {name = "Ruins of Alph"},
+            [113] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
             [114] = {name = "Slowpoke Well"},
             [115] = {name = "Lighthouse"},
             [116] = {name = "Mahogany Town"},
@@ -849,14 +849,14 @@ LocationData.LOCATION_DATA = {
             [124] = {name = "Victory Road"},
             [125] = {name = "Dragon's Den"},
             [126] = {name = "Tohjo Falls"},
-            [127] = {name = "Route 30"},
+            [127] = {name = Localizations.LocationDataHGSS.route30},
             [128] = {name = "Ecruteak City"},
             [129] = {name = "Ecruteak City"},
             [130] = {name = "Ecruteak City"},
             [131] = {name = "Ecruteak City"},
             [132] = {name = "Route 42"},
             [133] = {name = "Mahogany Town"},
-            [134] = {name = "Route 29"},
+            [134] = {name = Localizations.LocationDataHGSS.route29},
             [135] = {name = "Violet City's gym"},
             [136] = {name = "Azalea Town's gym"},
             [137] = {name = "Goldenrod City's gym"},
@@ -865,7 +865,7 @@ LocationData.LOCATION_DATA = {
             [140] = {name = "Mahogany Town's gym"},
             [141] = {name = "Blackthorn City's gym"},
             [142] = {name = "Route 43"},
-            [143] = {name = "Route 30"},
+            [143] = {name = Localizations.LocationDataHGSS.route30},
             [144] = {name = "Cherrygrove City"},
             [145] = {name = "Cerulean Cave"},
             [146] = {name = "Seafoam Islands"},
@@ -877,8 +877,8 @@ LocationData.LOCATION_DATA = {
             [152] = {name = "Route 48"},
             [153] = {name = "Union Cave"},
             [154] = {name = "Union Cave"},
-            [155] = {name = "Sprout Tower 1F"},
-            [156] = {name = "Sprout Tower 2F"},
+            [155] = {name = Localizations.LocationDataHGSS.sproutTower1F},
+            [156] = {name = Localizations.LocationDataHGSS.sproutTower2F},
             [157] = {name = "Violet City"},
             [158] = {name = "Violet City"},
             [159] = {name = "Violet City"},
@@ -898,7 +898,7 @@ LocationData.LOCATION_DATA = {
             [173] = {name = "Safari Zone Gate"},
             [174] = {name = "Safari Zone Gate"},
             [175] = {name = "Jubilife City"},
-            [176] = {name = "Dark Cave"},
+            [176] = {name = Localizations.LocationDataHGSS.darkCave},
             [177] = {name = "Slowpoke Well"},
             [178] = {name = "Victory Road"},
             [179] = {name = "Victory Road"},
@@ -940,7 +940,7 @@ LocationData.LOCATION_DATA = {
             [215] = {name = "Route 39"},
             [216] = {name = "Ecruteak City"},
             [217] = {name = "Burned Tower"},
-            [218] = {name = "Ruins of Alph"},
+            [218] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
             [219] = {name = "Goldenrod City"},
             [220] = {name = "Lighthouse"},
             [221] = {name = "Lighthouse"},
@@ -1034,22 +1034,22 @@ LocationData.LOCATION_DATA = {
             [309] = {name = "S.S. Aqua"},
             [310] = {name = "S.S. Aqua"},
             [311] = {name = "S.S. Aqua"},
-            [312] = {name = "Ruins of Alph"},
-            [313] = {name = "Ruins of Alph"},
-            [314] = {name = "Ruins of Alph"},
-            [315] = {name = "Ruins of Alph"},
-            [316] = {name = "Ruins of Alph"},
-            [317] = {name = "Ruins of Alph"},
-            [318] = {name = "Ruins of Alph"},
-            [319] = {name = "Ruins of Alph"},
-            [320] = {name = "Ruins of Alph"},
-            [321] = {name = "Ruins of Alph"},
+            [312] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [313] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [314] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [315] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [316] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [317] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [318] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [319] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [320] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [321] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
             [322] = {name = "Route 27"},
-            [323] = {name = "Ruins of Alph"},
-            [324] = {name = "Ruins of Alph"},
-            [325] = {name = "Ruins of Alph"},
-            [326] = {name = "Ruins of Alph"},
-            [327] = {name = "Ruins of Alph"},
+            [323] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [324] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [325] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [326] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [327] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
             [328] = {name = "S.S. Aqua"},
             [329] = {name = "S.S. Aqua"},
             [330] = {name = "Olivine City"},
@@ -1209,12 +1209,12 @@ LocationData.LOCATION_DATA = {
             [484] = {name = "Route 10"},
             [485] = {name = "Fuchsia City"},
             [486] = {name = "Whirl Islands"},
-            [487] = {name = "Bug Catching"},
+            [487] = {name = Localizations.LocationDataHGSS.bugCatching},
             [488] = {name = "National Park"},
             [489] = {name = "Power Plant"},
-            [490] = {name = "Ruins of Alph"},
-            [491] = {name = "Ruins of Alph"},
-            [492] = {name = "Ruins of Alph"},
+            [490] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [491] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
+            [492] = {name = Localizations.LocationDataHGSS.ruinsOfAlph},
             [493] = {name = "Route 7"},
             [494] = {name = "Lavender Town"},
             [495] = {name = "Cerulean City"},
@@ -1264,7 +1264,7 @@ LocationData.LOCATION_DATA = {
             [539] = {name = "Pok" .. Chars.accentedE .. "mon League"}
         },
         encounters = {
-            ["Route 29"] = {
+            [Localizations.LocationDataHGSS.route29] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1281,7 +1281,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 46"] = {
+            [Localizations.LocationDataHGSS.route46] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1298,7 +1298,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 30"] = {
+            [Localizations.LocationDataHGSS.route30] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1314,7 +1314,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 31"] = {
+            [Localizations.LocationDataHGSS.route31] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
@@ -1332,7 +1332,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 32"] = {
+            [Localizations.LocationDataHGSS.route32] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {
@@ -1350,7 +1350,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Dark Cave"] = {
+            [Localizations.LocationDataHGSS.darkCave] = {
                 totalPokemon = 3,
                 vanillaData = {
                     {
@@ -1473,7 +1473,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Ruins of Alph"] = {
+            [Localizations.LocationDataHGSS.ruinsOfAlph] = {
                 totalPokemon = 1,
                 vanillaData = {
                     {
@@ -1481,7 +1481,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Sprout Tower 1F"] = {
+            [Localizations.LocationDataHGSS.sproutTower1F] = {
                 totalPokemon = 1,
                 vanillaData = {
                     {
@@ -1492,7 +1492,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Sprout Tower 2F"] = {
+            [Localizations.LocationDataHGSS.sproutTower2F] = {
                 totalPokemon = 1,
                 vanillaData = {
                     {
@@ -1503,20 +1503,20 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Cherrygrove City"] = nil
+            [Localizations.LocationDataHGSS.cherrygroveCity] = nil
         },
         encounterAreaOrder = {
-            "Route 29",
-            "Route 46",
-            "Cherrygrove City",
-            "Route 30",
-            "Route 31",
-            "Route 32",
-            "Ruins of Alph",
-            "Sprout Tower 1F",
-            "Sprout Tower 2F",
-            "Dark Cave",
-            "Bug Catching"
+            Localizations.LocationDataHGSS.route29,
+            Localizations.LocationDataHGSS.route46,
+            Localizations.LocationDataHGSS.cherrygroveCity,
+            Localizations.LocationDataHGSS.route30,
+            Localizations.LocationDataHGSS.route31,
+            Localizations.LocationDataHGSS.route32,
+            Localizations.LocationDataHGSS.ruinsOfAlph,
+            Localizations.LocationDataHGSS.sproutTower1F,
+            Localizations.LocationDataHGSS.sproutTower2F,
+            Localizations.LocationDataHGSS.darkCave,
+            Localizations.LocationDataHGSS.bugCatching,
         }
     },
     --black/white
@@ -1542,9 +1542,9 @@ LocationData.LOCATION_DATA = {
             [121] = {name = "Opelucid City's gym"},
             [136] = {name = "Pok" .. Chars.accentedE .. "mon League"},
             [147] = {name = "Unity Tower"},
-            [152] = {name = "Dreamyard"},
-            [154] = {name = "Pinwheel Exterior"},
-            [155] = {name = "Pinwheel Interior"},
+            [152] = {name = Localizations.LocationDataBW.dreamyard},
+            [154] = {name = Localizations.LocationDataBW.pinwheelExterior},
+            [155] = {name = Localizations.LocationDataBW.pinwheelInterior},
             [157] = {name = "Desert Resort"},
             [160] = {name = "Relic Castle"},
             [191] = {name = "Cold Storage"},
@@ -1592,10 +1592,10 @@ LocationData.LOCATION_DATA = {
             [314] = {name = "Route 16"},
             [315] = {name = "Lacunosa Town"},
             [316] = {name = "Undella Town"},
-            [317] = {name = "Route 1"},
-            [319] = {name = "Route 2"},
-            [321] = {name = "Route 3"},
-            [324] = {name = "Wellspring Cave"},
+            [317] = {name = Localizations.LocationDataBW.route1},
+            [319] = {name = Localizations.LocationDataBW.route2},
+            [321] = {name = Localizations.LocationDataBW.route3},
+            [324] = {name = Localizations.LocationDataBW.wellspringCave},
             [326] = {name = "Route 4"},
             [329] = {name = "Route 5"},
             [331] = {name = "Route 6"},
@@ -1627,7 +1627,7 @@ LocationData.LOCATION_DATA = {
             [424] = {name = "White Forest"}
         },
         encounters = {
-            ["Route 1"] = {
+            [Localizations.LocationDataBW.route1] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1668,7 +1668,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 2"] = {
+            [Localizations.LocationDataBW.route2] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1709,7 +1709,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Dreamyard"] = {
+            [Localizations.LocationDataBW.dreamyard] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1750,7 +1750,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 3"] = {
+            [Localizations.LocationDataBW.route3] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1791,7 +1791,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Wellspring Cave"] = {
+            [Localizations.LocationDataBW.wellspringCave] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1832,7 +1832,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Pinwheel Exterior"] = {
+            [Localizations.LocationDataBW.pinwheelExterior] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1873,7 +1873,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Pinwheel Interior"] = {
+            [Localizations.LocationDataBW.pinwheelInterior] = {
                 totalPokemon = 12,
                 vanillaData = {
                     {
@@ -1915,7 +1915,7 @@ LocationData.LOCATION_DATA = {
                 }
             },
         },
-        encounterAreaOrder = {"Route 1", "Route 2", "Dreamyard", "Route 3", "Wellspring Cave","Pinwheel Exterior","Pinwheel Interior"}
+        encounterAreaOrder = {Localizations.LocationDataBW.route1, Localizations.LocationDataBW.route2, Localizations.LocationDataBW.dreamyard, Localizations.LocationDataBW.route3, Localizations.LocationDataBW.wellspringCave, Localizations.LocationDataBW.pinwheelExterior, Localizations.LocationDataBW.pinwheelInterior}
     },
     --black2/white2
     [0x4F455249] = {
@@ -1937,8 +1937,8 @@ LocationData.LOCATION_DATA = {
             [136] = {name = "Pok" .. Chars.accentedE .. "mon League"},
             [147] = {name = "Unity Tower"},
             [152] = {name = "Dreamyard"},
-            [154] = {name = "Pinwheel Exterior"},
-            [155] = {name = "Pinwheel Forest"},
+            [154] = {name = Localizations.LocationDataBW.pinwheelExterior},
+            [155] = {name = Localizations.LocationDataBW.pinwheelInterior},
             [157] = {name = "Desert Resort"},
             [160] = {name = "Relic Castle"},
             [191] = {name = "Cold Storage"},
@@ -2020,13 +2020,13 @@ LocationData.LOCATION_DATA = {
             [424] = {name = "White Forest"},
             [427] = {name = "Aspertia City"},
             [165] = {name = "Aspertia City's gym"},
-            [437] = {name = "Route 19"},
+            [437] = {name = Localizations.LocationDataBW2.route19},
             [439] = {name = "Floccesy Town"},
-            [444] = {name = "Floccesy Ranch"},
-            [446] = {name = "Route 20"},
+            [444] = {name = Localizations.LocationDataBW2.floccesyRanch},
+            [446] = {name = Localizations.LocationDataBW2.route20},
             [448] = {name = "Virbank City"},
             [176] = {name = "Virbank City's gym"},
-            [456] = {name = "Virbank Complex"},
+            [456] = {name = Localizations.LocationDataBW2.virbankComplex},
             [458] = {name = "Lentimas Town"},
             [461] = {name = "Reversal Mountain"},
             [462] = {name = "Strange House"},
@@ -2049,9 +2049,9 @@ LocationData.LOCATION_DATA = {
             [584] = {name = "Nature Preserve"},
             [573] = {name = "Victory Road"}
         },
-        encounterAreaOrder = {"Route 19", "Route 20", "Floccesy Ranch", "Virbank Complex"},
+        encounterAreaOrder = {Localizations.LocationDataBW2.route19, Localizations.LocationDataBW2.route20, Localizations.LocationDataBW2.floccesyRanch, Localizations.LocationDataBW2.virbankComplex},
         encounters = {
-            ["Route 19"] = {
+            [Localizations.LocationDataBW2.route19] = {
                 totalPokemon = 2,
                 vanillaData = {
                     {
@@ -2066,7 +2066,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Route 20"] = {
+            [Localizations.LocationDataBW2.route20] = {
                 totalPokemon = 5,
                 vanillaData = {
                     {
@@ -2090,7 +2090,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Floccesy Ranch"] = {
+            [Localizations.LocationDataBW2.floccesyRanch] = {
                 totalPokemon = 7,
                 vanillaData = {
                     {
@@ -2120,7 +2120,7 @@ LocationData.LOCATION_DATA = {
                     }
                 }
             },
-            ["Virbank Complex"] = {
+            [Localizations.LocationDataBW2.virbankComplex] = {
                 totalPokemon = 4,
                 vanillaData = {
                     {

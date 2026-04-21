@@ -1890,7 +1890,202 @@ IconDrawer.ICONS =
             },
             colorKey = "Top box text color",
             backgroundColorKey = "Top box background color"
-        }
+        },
+        B1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        B2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {1},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        B3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {1},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        B4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {0},
+                {1},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        B5 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {1},
+                {0},
+                {1},
+                {1},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        H1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        H2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {1},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        H3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {1},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        H4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {1},
+                {0},
+                {0},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        H5 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        U1 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        U2 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {0},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        U3 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {0},
+                {0},
+                {0},
+                {0},
+                {0},
+                {1}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        U4 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
+        U5 = {
+            iconType = IconDrawer.ICON_TYPES.STANDARD,
+            imageArray = {
+                {1},
+                {1},
+                {1},
+                {1},
+                {1},
+                {0}
+            },
+            colorKey = "Top box text color",
+            backgroundColorKey = "Top box background color"
+        },
     }
 )
 
@@ -1974,37 +2169,7 @@ function IconDrawer.drawIcon(iconName, x, y, BGColorKeyOverride, colorKeyOverrid
 end
 
 function IconDrawer.drawFriendshipProgress(x, y, progress)
-    local iconOrder = {
-        "F1",
-        "F2",
-        "F3",
-        "F4",
-        "",
-        "R1",
-        "R2",
-        "R3",
-        "R4",
-        "R5",
-        "",
-        "I",
-        "",
-        "E1",
-        "E2",
-        "E3",
-        "E4",
-        "",
-        "N1",
-        "N2",
-        "N3",
-        "N4",
-        "N5",
-        "",
-        "D1",
-        "D2",
-        "D3",
-        "D4",
-        "D5"
-    }
+    local iconOrder = Localizations.IconDrawer.friendShipIconOrder
     local totalIcons = #iconOrder
     local currentX = x
     for index, iconName in pairs(iconOrder) do

@@ -25,14 +25,14 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 
 	local function selectAndReadRandomBall()
 		local randomBall = math.random(1, 3)
-		local labels = {"Left", "Middle", "Right"}
+		local labels = {Localizations.RandomBallScreen.left, Localizations.RandomBallScreen.middle, Localizations.RandomBallScreen.right}
 		local HGSSImageIcons = {"pokeball_blue.png", "pokeball_green.png", "pokeball_red.png"}
 		local icon = "pokeball_red.png"
 		if program.getGameInfo().VERSION_GROUP == 3 then
 			icon = HGSSImageIcons[randomBall]
 		end
 		ui.controls.pokeballs[randomBall].setPath("ironmon_tracker/images/icons/" .. icon)
-		local text = "Random ball: " .. labels[randomBall]
+		local text = Localizations.RandomBallScreen.randomBall .. " " .. labels[randomBall]
 		local centerX = (94 - DrawingUtils.calculateWordPixelLength(text)) / 2
 		ui.controls.ballLabel.setText(text)
 		ui.controls.ballLabel.setTextOffset({x = centerX, y = 4})

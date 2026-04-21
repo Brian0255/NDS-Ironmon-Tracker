@@ -6,8 +6,24 @@ local function Main()
     dofile("ironmon_tracker/constants/Chars.lua")
 
 	dofile("ironmon_tracker/constants/Paths.lua")
+	dofile("ironmon_tracker/localizations/LocalizationsLoader.lua")
+
 	dofile("ironmon_tracker/utils/FormsUtils.lua")
     dofile("ironmon_tracker/utils/MiscUtils.lua")
+
+	local function initializeLocalizationFromSettings()
+		local INI = dofile(Paths.FOLDERS.DATA_FOLDER .. "/Inifile.lua")
+
+		local language = "English"
+		local file = io.open("Settings.ini")
+		if file ~= nil then
+			local localSettings = INI.parse("Settings.ini")
+			language = localSettings.localization.LANGUAGE or language
+		end
+		LocalizationsLoader.initialize(language)
+	end
+
+	initializeLocalizationFromSettings()
 
     local version = client.getversion()
 	local versionSplit = {}
@@ -18,24 +34,25 @@ local function Main()
 		newerBizhawk = false
 		Chars.accentedE = "\233"
 	end
-	dofile("ironmon_tracker/constants/PlaythroughConstants.lua")
-	dofile("ironmon_tracker/constants/MiscConstants.lua")
 
-	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
-	dofile(Paths.FOLDERS.DATA_FOLDER .. "/QuickLoader.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
-	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Memory.lua")
-	dofile(Paths.FOLDERS.DATA_FOLDER .. "/StatisticsOrganizer.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/CharMap.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/Graphics.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/PokemonData.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/LocationData.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/TrainerData.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/GameInfo.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MemoryAddresses.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/ItemData.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
-	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
+	dofile("ironmon_tracker/constants/PlaythroughConstants.lua")
+    dofile("ironmon_tracker/constants/MiscConstants.lua")
+
+    dofile(Paths.FOLDERS.DATA_FOLDER .. "/Pickle.lua")
+    dofile(Paths.FOLDERS.DATA_FOLDER .. "/QuickLoader.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MiscData.lua")
+    dofile(Paths.FOLDERS.DATA_FOLDER .. "/Memory.lua")
+    dofile(Paths.FOLDERS.DATA_FOLDER .. "/StatisticsOrganizer.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/CharMap.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/Graphics.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/PokemonData.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/LocationData.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/TrainerData.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/GameInfo.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MemoryAddresses.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/ItemData.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/MoveData.lua")
+    dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/AbilityData.lua")
 	dofile(Paths.FOLDERS.CONSTANTS_FOLDER .. "/IconSets.lua")
 	dofile(Paths.FOLDERS.UTILS_FOLDER .. "/UIUtils.lua")
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/Input.lua")

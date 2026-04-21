@@ -57,6 +57,11 @@ local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
                 )
             )
         else
+            local path = "ironmon_tracker/images/types/" .. PokemonData.POKEMON_TYPES[defenseTable[currentTypeIndex]] .. ".png"
+            if not FormsUtils.fileExists(path) then
+                path = "ironmon_tracker/images/types/" .. PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[PokemonData.POKEMON_TYPES[defenseTable[currentTypeIndex]]] .. ".png"
+            end
+
             ImageLabel(
                 Component(
                     currentRowFrame,
@@ -71,7 +76,7 @@ local function fillTypeDefenseFrame(heading, defenseTable, typeDefenseFrame)
                     )
                 ),
                 ImageField(
-                    "ironmon_tracker/images/types/" .. PokemonData.POKEMON_TYPES[defenseTable[currentTypeIndex]] .. ".png",
+                    path,
                     {x = 1, y = 1},
                     {width = 30, height = 12}
                 )
@@ -123,7 +128,7 @@ function HoverFrameFactory.createTypeDefensesFrame(params)
                 Box({x = 0, y = 0}, {width = 144, height = 18}, "Top box background color", "Top box border color")
             ),
             TextField(
-                "Type Defenses",
+                Localizations.HoverFrameFactory.typeDefenses,
                 {x = 28, y = 0},
                 TextStyle(13, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
             )
@@ -301,7 +306,7 @@ function HoverFrameFactory.createMoveLevelsHoverFrame(pokemon, mainFrame)
             )
         ),
         TextField(
-            "Moves Learned",
+            Localizations.HoverFrameFactory.movesLearned,
             {x = 30, y = 1},
             TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
         )
@@ -344,17 +349,13 @@ local function readItemDataIntoFrame(items, itemType, itemHolderFrame)
             local quantity = items[sortedKey]
             local name = itemData.name
             if quantity > 1 then
-                if name:sub(-1) == "y" then
-                    name = name:sub(1, #name - 1) .. "ies"
-                else
-                    name = name .. "s"
-                end
+                name = Localizations.HoverFrameFactory.updateItemNameToPlural(name)
             end
             local extra = ""
             if itemType == "Healing" then
                 extra = itemData.amount
                 if itemData.type == ItemData.HEALING_TYPE.CONSTANT then
-                    extra = extra .. " HP"
+                    extra = extra .. " " .. Localizations.PokemonStats.hp
                 else
                     extra = extra .. "%"
                 end
@@ -420,6 +421,13 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
     if itemType == "Status" then
         xPadding = 29
     end
+	local textItem = itemType .. " Items"
+    if itemType == "Healing" then
+		textItem = Localizations.HoverFrameFactory.healingItems
+	elseif itemType == "Status" then
+		textItem = Localizations.HoverFrameFactory.statusItems
+	end
+
     local textHeader =
         TextLabel(
         Component(
@@ -438,7 +446,7 @@ function HoverFrameFactory.createItemBagHoverFrame(items, mainFrame, itemType)
             )
         ),
         TextField(
-            itemType .. " Items",
+            textItem,
             {x = xPadding, y = 1},
             TextStyle(11, Graphics.FONT.DEFAULT_FONT_FAMILY, "Top box text color", "Top box background color")
         )
@@ -522,10 +530,14 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
         true,
         "Top box background color"
     )
+    local path = "ironmon_tracker/images/types/" .. moveType .. ".png"
+    if not FormsUtils.fileExists(path) then
+        path = "ironmon_tracker/images/types/" .. PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType] .. ".png"
+    end
     local typeLabel =
         ImageLabel(
         Component(categoryTypeFrame, Box({x = 0, y = 0}, {width = 31, height = 13}, nil, "Top box border color")),
-        ImageField("ironmon_tracker/images/types/" .. moveType .. ".png", {x = 1, y = 1}, {width = 30, height = 12})
+        ImageField(path, {x = 1, y = 1}, {width = 30, height = 12})
     )
     local PPLabel =
         TextLabel(
@@ -542,7 +554,7 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
             )
         ),
         TextField(
-            "PP  " .. movePP,
+            Localizations.PokemonStats.pp .. " " .. movePP,
             {x = 5, y = 3},
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -567,7 +579,7 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
             )
         ),
         TextField(
-            "Pow  " .. power,
+            Localizations.PokemonStats.pow .. " " .. power,
             {x = 2, y = 3},
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -595,7 +607,7 @@ local function buildTopInfoFrame(BGColorKey, BGColorFillKey, move, parentFrame)
             )
         ),
         TextField(
-            "Acc  " .. moveAcc,
+            Localizations.PokemonStats.acc .. " " .. moveAcc,
             {x = 2, y = 3},
             TextStyle(
                 Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -667,9 +679,9 @@ end
 local function formatEncounterEntry(entry)
     local prefix = ""
     if entry.level then
-        prefix = "Level " .. entry.level
+        prefix = Localizations.Misc.level .. " " .. entry.level
     elseif entry.levelRange then
-        prefix = "Level " .. entry.levelRange[1] .. " - " .. entry.levelRange[2]
+        prefix = Localizations.Misc.level .. " " .. entry.levelRange[1] .. " - " .. entry.levelRange[2]
     end
     return prefix .. " (" .. entry.percent .. "%)"
 end
@@ -808,9 +820,9 @@ local function fillTrackedEncounterRow(rowFrame, pokemonID, seenData, useRange)
     local levelsText = "?"
     if seenData ~= nil then
         if useRange then
-            levelsText = "Level " .. seenData[1] .. " - " .. seenData[#seenData]
+            levelsText = Localizations.Misc.level .. " " .. seenData[1] .. " - " .. seenData[#seenData]
         else
-            levelsText = "Lv "
+            levelsText = Localizations.Misc.lv .. " "
             for _, level in pairs(seenData) do
                 levelsText = levelsText .. level .. ", "
             end

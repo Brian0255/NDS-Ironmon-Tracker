@@ -82,11 +82,11 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
     local function getMoveEffectivenessAgainstPokemon(moveType, pokemonData)
         local effectiveness = 1.0
         for _, defenseType in pairs(pokemonData.type) do
-            if defenseType ~= PokemonData.POKEMON_TYPES.EMPTY and MoveData.EFFECTIVE_DATA[moveType][defenseType] then
-                effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[moveType][defenseType]
+            if defenseType ~= PokemonData.POKEMON_TYPES.EMPTY and MoveData.EFFECTIVE_DATA[PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType]][PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[defenseType]] then
+                effectiveness = effectiveness * MoveData.EFFECTIVE_DATA[PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType]][PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[defenseType]]
             end
         end
-        if pokemonData.name == "Shedinja" and effectiveness < 2.0 then
+        if pokemonData.name == Localizations.PokemonStats.shedinja and effectiveness < 2.0 then
             return 0.0
         end
         return effectiveness
@@ -122,7 +122,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
             table.sort(
                 data.ids,
                 function(id1, id2)
-                    return PokemonData.POKEMON[id1].bst > PokemonData.POKEMON[id2].bst
+                    return tonumber(PokemonData.POKEMON[id1].bst) > tonumber(PokemonData.POKEMON[id2].bst)
                 end
             )
         end
@@ -146,11 +146,20 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                 if items[index] then
                     if types[2] == PokemonData.POKEMON_TYPES.EMPTY then
                         type2Path = pathPrefix .. types[1] .. ".png"
+                        if not FormsUtils.fileExists(type2Path) then
+                            type2Path = pathPrefix .. PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[types[1]] .. ".png"
+                        end
                         type2Border = "Top box border color"
                     else
                         type1Path = pathPrefix .. types[1] .. ".png"
+                        if not FormsUtils.fileExists(type1Path) then
+                            type1Path = pathPrefix .. PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[types[1]] .. ".png"
+                        end
                         type1Border = "Top box border color"
                         type2Path = pathPrefix .. types[2] .. ".png"
+                        if not FormsUtils.fileExists(type2Path) then
+                            type2Path = pathPrefix .. PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[types[2]] .. ".png"
+                        end
                         type2Border = "Top box border color"
                     end
                 end
@@ -205,7 +214,11 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
         end
         moveSelector.backdrop.setVisibility(not on)
         moveSelector.imageDarkener.setVisibility(not on)
-        moveSelector.image.setPath("ironmon_tracker/images/types/" .. moveType .. pathEnding)
+        local path = "ironmon_tracker/images/types/" .. moveType .. pathEnding
+        if not FormsUtils.fileExists(path) then
+            path = "ironmon_tracker/images/types/" .. PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType] .. pathEnding
+        end
+        moveSelector.image.setPath(path)
         moveSelector.image.setBackgroundFillColorKey(borderColorKey)
         if calculateNewCoverage then
             calculateCurrentEffectiveness()
@@ -233,10 +246,15 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                 Component(frame, Box({x = 0, y = 0}, {width = 31, height = 13}, "Black", "Black", nil, nil, nil, nil, 0x20)),
                 TextField("", {x = 0, y = 0}, TextStyle(Graphics.FONT.DEFAULT_FONT_SIZE, Graphics.FONT.DEFAULT_FONT_FAMILY))
             )
+
+            local path = "ironmon_tracker/images/types/" .. moveType .. "_empty.png"
+            if not FormsUtils.fileExists(path) then
+                path = "ironmon_tracker/images/types/" .. PokemonData.TYPE_LIST_TRANSLATION_TO_KEY[moveType] .. "_empty.png"
+            end
             moveSelectors[index].image =
                 ImageLabel(
                 Component(frame, Box({x = 0, y = 0}, {width = 31, height = 13})),
-                ImageField("ironmon_tracker/images/types/" .. moveType .. "_empty.png", {x = 1, y = 1}, nil)
+                ImageField(path, {x = 1, y = 1}, nil)
             )
 
             moveSelectors[index].imageDarkener =
@@ -293,7 +311,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
         TextLabel(
             Component(frame, Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false)),
             TextField(
-                "Fully evolved only",
+                Localizations.CoverageCalcScreen.fullyEvolvedOnly,
                 {x = 2, y = 0},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
@@ -423,8 +441,8 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                 )
             ),
             TextField(
-                "Go back",
-                {x = 3, y = 1},
+                Localizations.Misc.goBack,
+                {x = Localizations.Misc.goBackTextPosX, y = 1},
                 TextStyle(
                     Graphics.FONT.DEFAULT_FONT_SIZE,
                     Graphics.FONT.DEFAULT_FONT_FAMILY,
@@ -546,7 +564,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
             if moveID ~= 0 then
                 local moveData = MoveData.MOVES[moveID + 1]
                 local moveType = moveData.type
-                if moveData.name == "Hidden Power" then
+                if moveData.name == Localizations.MoveNames.hiddenPower then
                     moveType = tracker.getCurrentHiddenPowerType()
                 end
                 if moveData.category ~= MoveData.MOVE_CATEGORIES.STATUS and moveData.power ~= "---" then
