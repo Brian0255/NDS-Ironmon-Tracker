@@ -171,7 +171,7 @@ local function Main()
 		DrawingUtils.initialize(settings)
 		DrawingUtils.setAppearanceSettings(settings.appearance)
 		IconDrawer.setSettings(settings)
-		local gameConfiguration = GameConfigurator.initialize()
+		local gameConfiguration = GameConfigurator.initialize(settings)
 		if gameConfiguration == nil then
 			print("This game is not currently not supported. Terminating Lua script...")
 			return false

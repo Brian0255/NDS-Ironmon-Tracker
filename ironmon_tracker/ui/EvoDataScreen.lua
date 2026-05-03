@@ -43,11 +43,12 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 	local evoScroller = nil
 
 	local function sortEvos()
+		local currentID = currentTargetIDs[currentIndex]
 		table.sort(
-			evoData,
+			evoData[currentID],
 			function(a, b)
-				if sorting.sortType == SORT_TYPES.BST then
-					return PokemonData.POKEMON[a.id + 1].bst > PokemonData.POKEMON[b.id + 1].bst
+				if sorting.sortType == SORT_TYPES.BST and tonumber(PokemonData.POKEMON[a.id + 1].bst) ~= tonumber(PokemonData.POKEMON[b.id + 1].bst) then
+					return tonumber(PokemonData.POKEMON[a.id + 1].bst) > tonumber(PokemonData.POKEMON[b.id + 1].bst)
 				elseif sorting.sortType == SORT_TYPES.NAME then
 					return PokemonData.POKEMON[a.id + 1].name < PokemonData.POKEMON[b.id + 1].name
 				else
@@ -116,7 +117,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		end
 		evoData = {}
 		evoData = EvoData.EVOLUTIONS[playerPokemon.pokemonID]
-		sortEvos()
+
 		currentTargetIDs = {}
 		currentIndex = 1
 		for targetID, data in pairs(evoData) do
@@ -132,6 +133,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = mainFrameHeight})
 		local size = ui.controls.spacer.getSize()
 		ui.controls.spacer.resize({width = size.width, height = spacerHeight})
+		sortEvos()
 		readCurrentIndex()
 		readScroller()
 	end

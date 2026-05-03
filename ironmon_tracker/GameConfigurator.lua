@@ -54,16 +54,213 @@ GameConfigurator.ALTERNATE_FORM_ORDER_GEN5 = {
 	"Unfezant M"
 }
 
-function GameConfigurator.initPokemon(gameInfo)
+-- Extract Pokemon BST from log files with fallback to default values
+function GameConfigurator.extractBSTFromLogs(pokemonMasterListCopy, endIndex, logFilePath)
+
+	local bstLookup = GameConfigurator.parseAllBSTFromLogFile(logFilePath)
+	local foundCount = 0
+	
+	for i = 1, endIndex, 1 do
+		local pokemonData = pokemonMasterListCopy[i]
+		local pokemonID = i - 1  
+		
+		if bstLookup[pokemonID] then
+			pokemonData.bst = bstLookup[pokemonID]
+			foundCount = foundCount + 1
+		else
+			-- Fallback to original BST if not found in log
+			pokemonData.bst = tonumber(pokemonData.bst)
+		end
+	end
+	
+	return pokemonMasterListCopy
+end
+
+-- Optimized: Parse all Pokemon BST values from log file at once
+function GameConfigurator.parseAllBSTFromLogFile(logFilePath)
+	if not logFilePath or not FormsUtils.fileExists(logFilePath) then
+		print("Log file not found at " .. logFilePath)
+		print("Falling back to displaying default BST...")
+		return {}
+	end
+	-- Read and parse the log file once
+	local lines = MiscUtils.readLinesFromFile(logFilePath, true)
+	if not lines or #lines == 0 then
+		return {}
+	end
+	
+	-- Find the Pokemon Base Stats section
+	local pokemonSectionStart = nil
+	for i, line in pairs(lines) do
+		if line == "--Pokemon Base Stats & Types--" then
+			pokemonSectionStart = i + 1
+			break
+		end
+	end
+	
+	if not pokemonSectionStart then
+		return {}
+	end
+	
+	-- Parse all Pokemon data at once and build BST lookup table
+	local bstLookup = {}
+	local currentLineIndex = pokemonSectionStart + 1
+	
+	while currentLineIndex <= #lines do
+		local line = lines[currentLineIndex]
+		if not line or line == "" then
+			break  -- End of Pokemon section
+		end
+		
+		local pokemonData = MiscUtils.split(line, "|", true)
+		local pokemonID = tonumber(pokemonData[1])
+		
+		if pokemonID then
+			-- Extract stats (positions 4-9 based on original parser)
+			local hp = tonumber(pokemonData[4])
+			local atk = tonumber(pokemonData[5])
+			local def = tonumber(pokemonData[6])
+			local spa = tonumber(pokemonData[7])
+			local spd = tonumber(pokemonData[8])
+			local spe = tonumber(pokemonData[9])
+			
+			if hp and atk and def and spa and spd and spe then
+				bstLookup[pokemonID] = hp + atk + def + spa + spd + spe
+			end
+		end
+		currentLineIndex = currentLineIndex + 1
+	end
+	
+	return bstLookup
+end
+
+local function trim(s)
+	return (s and s:gsub("^%s+", ""):gsub("%s+$", "")) or s
+end
+
+function GameConfigurator.parseNameToIdFromLogFile(logFilePath)
+	if not logFilePath or not FormsUtils.fileExists(logFilePath) then
+		return {}
+	end
+
+	local lines = MiscUtils.readLinesFromFile(logFilePath, true)
+	if not lines or #lines == 0 then
+		return {}
+	end
+
+	local headerIdx = nil
+	for i, line in ipairs(lines) do
+		if line:find("%-%-Pokemon Base Stats %& Types%-%-") or line:find("%-%-Pokemon Base Stats") then
+			headerIdx = i
+			break
+		end
+	end
+	if not headerIdx then
+		return {}
+	end
+
+	local j = headerIdx + 2
+	local nameToId = {}
+
+	while j <= #lines do
+		local line = lines[j]
+		if not line or trim(line) == "" then break end
+		if line:sub(1, 2) == "--" then break end
+
+		local parts = MiscUtils.split(line, "|", true)
+		if #parts >= 2 then
+			local num  = tonumber(trim(parts[1]))
+			local name = trim(parts[2])
+			if num and name and name ~= "" then
+				nameToId[name] = num - 1
+			end
+		end
+		j = j + 1
+	end
+
+	return nameToId
+end
+
+function GameConfigurator.parseStartersFromLogFile(logFilePath, nameToId)
+	if not logFilePath or not FormsUtils.fileExists(logFilePath) then
+		return {}
+	end
+
+	local lines = MiscUtils.readLinesFromFile(logFilePath, true)
+	if not lines or #lines == 0 then
+		return {}
+	end
+
+	local starters = {}
+
+	local sectionIdx = nil
+	for i, line in ipairs(lines) do
+		if line:find("%-%-Random Starters%-%-") or line:find("%-%-Randomized Starters%-%-") then
+			sectionIdx = i
+			break
+		end
+	end
+
+	if sectionIdx then
+		for j = sectionIdx + 1, math.min(sectionIdx + 20, #lines) do
+			local l = lines[j]
+			if not l or trim(l) == "" then break end
+			if l:sub(1, 2) == "--" then break end
+
+			local name = l:match("to%s+(.+)$") or l:match(":%s*(%S.*)$")
+			if name then
+				name = trim(name)
+				local id = nameToId[name] + 1
+				if id ~= nil then
+					table.insert(starters, id)
+					if #starters == 3 then break end
+				end
+			end
+		end
+	else
+		-- Fallback: scan entire file for "Set starter X to NAME"
+		for _, l in ipairs(lines) do
+			local name = l:match("Set starter%s*%d+%s*to%s*(.+)")
+			if name then
+				name = trim(name)
+				local id = nameToId[name] + 1
+				if id ~= nil then
+					table.insert(starters, id)
+					if #starters == 3 then break end
+				end
+			end
+		end
+	end
+
+	return starters
+end
+
+function GameConfigurator.initPokemon(gameInfo, logFilePath)
 	local endIndex = PokemonData.LAST_INDEX_GEN_4
 	if gameInfo.GEN == 5 then
 		endIndex = PokemonData.LAST_INDEX_GEN_5
 	end
 	local pokemon = {}
+	local pokemonMasterListCopy = MiscUtils.deepCopy(PokemonData.POKEMON_MASTER_LIST)
+	
+	if logFilePath then
+		-- Extract BST from logs with fallback to default values
+		pokemonMasterListCopy = GameConfigurator.extractBSTFromLogs(pokemonMasterListCopy, endIndex, logFilePath)
+	end
+
 	for i = 1, endIndex, 1 do
-		table.insert(pokemon, PokemonData.POKEMON_MASTER_LIST[i])
+		local pokemonData = pokemonMasterListCopy[i]
+		table.insert(pokemon, pokemonData)
 	end
 	PokemonData.POKEMON = pokemon
+	local nameToId = {}
+	if logFilePath then
+		nameToId = GameConfigurator.parseNameToIdFromLogFile(logFilePath)
+		PokemonData.STARTERS = GameConfigurator.parseStartersFromLogFile(logFilePath, nameToId)
+	else
+		PokemonData.STARTERS = {}
+	end
+
 	PokemonData.NAMES_MAPPING = {}
 end
 
@@ -149,7 +346,7 @@ function GameConfigurator.initAlternateForms(gameInfo)
 	end
 end
 
-function GameConfigurator.initialize()
+function GameConfigurator.initialize(settings)
 	local memdomain = "Main RAM"
 	memory.usememorydomain(memdomain)
 	local gameCode = Memory.read_u32_le(MemoryAddresses.NDS_CONSTANTS.CARTRIDGE_HEADER + 0x0C)
@@ -165,7 +362,21 @@ function GameConfigurator.initialize()
 	end
 	local gameInfo = GameInfo.GAME_INFO[gameCode]
 	print(gameInfo.NAME .. " detected.")
-	GameConfigurator.initPokemon(gameInfo)
+	local startingFolder = Paths.CURRENT_DIRECTORY .. Paths.SLASH
+	
+	if settings.quickLoad.LOAD_TYPE == "USE_BATCH" then
+		if settings.quickLoad.ROMS_FOLDER_PATH == nil or settings.quickLoad.ROMS_FOLDER_PATH == "" then
+			return
+		end
+		startingFolder = settings.quickLoad.ROMS_FOLDER_PATH .. Paths.SLASH
+	end
+
+	local romName = gameinfo.getromname()	
+	-- Replace spaces with underscores for filename 
+	local safeRomName = romName:gsub(" ", "_")
+	local logPath = startingFolder .. safeRomName .. ".nds.log"
+
+	GameConfigurator.initPokemon(gameInfo, logPath)
 	GameConfigurator.initAlternateForms(gameInfo)
 	for id, pokemonData in pairs(PokemonData.POKEMON) do
 		if id ~= 1 then

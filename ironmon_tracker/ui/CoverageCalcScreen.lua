@@ -122,7 +122,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
             table.sort(
                 data.ids,
                 function(id1, id2)
-                    return PokemonData.POKEMON[id1].bst > PokemonData.POKEMON[id2].bst
+                    return tonumber(PokemonData.POKEMON[id1].bst) > tonumber(PokemonData.POKEMON[id2].bst)
                 end
             )
         end

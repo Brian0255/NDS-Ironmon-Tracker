@@ -36,6 +36,15 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 		local centerX = (94 - DrawingUtils.calculateWordPixelLength(text)) / 2
 		ui.controls.ballLabel.setText(text)
 		ui.controls.ballLabel.setTextOffset({x = centerX, y = 4})
+
+		if program.getGameInfo().VERSION_GROUP == 3 then
+			local colors = {
+				[1] = "WATER",
+				[2] = "GRASS",
+				[3] = "FIGHTING"
+			}
+			ui.controls.ballLabel.setTextColorKey(colors[randomBall])
+		end
 	end
 
 	local function initDiceBallLabel()
@@ -74,11 +83,24 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 			0
 		}
 		ui.controls.pokeballs = {}
+		ui.controls.bstLabels = {}
+
 		local info = program.getGameInfo()
+
+		local colors = {
+			[1] = "WATER",
+			[2] = "GRASS",
+			[3] = "FIGHTING"
+		}
 		for i = 1, 3, 1 do
-			local offset = 12
+			local bstColor = "Top box text color"
 			if info.VERSION_GROUP == 3 then
-				offset = HGSSVerticalOffsets[i]
+				bstColor = colors[i]
+			end
+
+			local offsetY = 12
+			if info.VERSION_GROUP == 3 then
+				offsetY = HGSSVerticalOffsets[i]
 			end
 			ui.controls.pokeballs[i] =
 				ImageLabel(
@@ -86,7 +108,63 @@ local function RandomBallScreen(initialSettings, initialTracker, initialProgram)
 					ui.frames.pokeballFrame,
 					Box({x = 0, y = 0}, {width = constants.POKEBALL_SIZE, height = constants.POKEBALL_SIZE}, nil, nil)
 				),
-				ImageField("ironmon_tracker/images/trainers/pokeball_large_off.png", {x = 1, y = offset}, nil)
+				ImageField("ironmon_tracker/images/trainers/pokeball_large_off.png", {x = 1, y = offsetY}, nil)
+			)
+			local pokeballWidth = constants.POKEBALL_SIZE
+			local bstText = ""
+
+			local id = 0;
+	
+
+			if info.VERSION_GROUP == 3 then
+			-- Order of the pokeball and starters is 3, 1, 2 in HGSS
+				if i == 1 and PokemonData.STARTERS[3] then
+					id = PokemonData.STARTERS[3] + 1
+					bstText = tostring(PokemonData.POKEMON[id].bst)
+				elseif i == 2 and PokemonData.STARTERS[1] then
+					id = PokemonData.STARTERS[1] + 1
+					bstText = tostring(PokemonData.POKEMON[id].bst)
+				elseif i == 3 and PokemonData.STARTERS[2] then
+					id = PokemonData.STARTERS[2] + 1
+					bstText = tostring(PokemonData.POKEMON[id].bst)
+				end
+			else
+				if i == 1 and PokemonData.STARTERS[1] then
+					id = PokemonData.STARTERS[1] + 1
+					bstText = tostring(PokemonData.POKEMON[id].bst)
+				elseif i == 2 and PokemonData.STARTERS[2] then
+					id = PokemonData.STARTERS[2] + 1
+					bstText = tostring(PokemonData.POKEMON[id].bst)
+				elseif i == 3 and PokemonData.STARTERS[3] then
+					id = PokemonData.STARTERS[3] + 1
+					bstText = tostring(PokemonData.POKEMON[id].bst)
+				end
+			end
+			local textWidth = DrawingUtils.calculateWordPixelLength(bstText)
+			local centerX = 0
+			local offsetBSTY = offsetY
+			if info.VERSION_GROUP == 3 then
+				centerX = - pokeballWidth * 2 - textWidth/2
+			else
+				centerX = - pokeballWidth - textWidth/2
+				offsetBSTY = offsetY - 12
+			end
+			ui.controls.bstLabels[i] =
+				TextLabel(
+				Component(
+					ui.frames.pokeballFrame,
+					Box({x = 0, y = 0}, {width = 0, height = 0}, nil, nil, false, nil, nil, 100)
+				),
+				TextField(
+					bstText,
+					{x = centerX, y = offsetBSTY}, 
+					TextStyle(
+						Graphics.FONT.DEFAULT_FONT_SIZE,
+						Graphics.FONT.DEFAULT_FONT_FAMILY,
+						bstColor,
+						"Top box background color"
+					)				
+				)
 			)
 		end
 	end

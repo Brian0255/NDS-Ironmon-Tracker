@@ -178,6 +178,8 @@ PokemonData.EVO_LONGER_NAMES = {
     [PokemonData.EVOLUTION_TYPES.COMBEE] = {"Level 21, F only"}
 }
 
+PokemonData.STARTERS = {}
+
 PokemonData.POKEMON = {}
 
 PokemonData.POKEMON_MASTER_LIST = {
