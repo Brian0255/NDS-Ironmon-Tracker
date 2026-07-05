@@ -112,7 +112,7 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                 valid = valid and (pokemon.evolution == PokemonData.EVOLUTION_TYPES.NONE)
             end
             if PokemonData.ALTERNATE_FORMS[pokemon.name] and PokemonData.ALTERNATE_FORMS[pokemon.name].cosmetic == true then
-                valid = false
+                index = PokemonData.ALTERNATE_FORMS[pokemon.name].baseIndex + 1
             end
             if valid then
                 calculateMovesAgainstPokemon(selectedMoveTypes, index)
@@ -142,6 +142,9 @@ local function CoverageCalcScreen(initialSettings, initialTracker, initialProgra
                 local id = items[index]
                 local data = PokemonData.POKEMON[id]
                 name = data.name
+                if PokemonData.ALTERNATE_FORMS[data.name] and PokemonData.ALTERNATE_FORMS[data.name].cosmetic == true then
+                    name = PokemonData.ALTERNATE_FORMS[data.name].shortenedName
+                end
                 local types = data.type
                 if items[index] then
                     if types[2] == PokemonData.POKEMON_TYPES.EMPTY then
