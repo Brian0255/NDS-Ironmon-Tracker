@@ -42,9 +42,10 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 	local eventListeners = {}
 	local evoScroller = nil
 
-	local function sortEvos()
+    local function sortEvos()
+        local currentID = currentTargetIDs[currentIndex]
 		table.sort(
-			evoData,
+			evoData[currentID],
 			function(a, b)
 				if sorting.sortType == SORT_TYPES.BST then
 					return PokemonData.POKEMON[a.id + 1].bst > PokemonData.POKEMON[b.id + 1].bst
@@ -71,7 +72,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		if not PokemonData.POKEMON[evoEntry.id + 1] then
 			return
 		end
-		local pokemonData = PokemonData.POKEMON[evoEntry.id + 1]
+        local pokemonData = PokemonData.POKEMON[evoEntry.id + 1]
 		row.name.setText(pokemonData.name)
 		row.bst.setText(pokemonData.bst)
 		row.percent.setText(string.format("%.2f%%", evoEntry.percent))
@@ -89,7 +90,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		local items = evoScroller.getViewedItems()
 		for i = 1, 7, 1 do
 			if items[i] then
-				local evoEntry = items[i]
+                local evoEntry = items[i]
 				fillRow(evoEntry, evoRows[i])
 			else
 				clearEvoRow(i)
@@ -99,7 +100,7 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 	end
 
 	local function readCurrentIndex()
-		local currentID = currentTargetIDs[currentIndex]
+        local currentID = currentTargetIDs[currentIndex]
 		evoScroller.setItems(evoData[currentID])
 		local name = PokemonData.POKEMON[currentID + 1].name
 		local xOffset = -2
@@ -116,7 +117,6 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		end
 		evoData = {}
 		evoData = EvoData.EVOLUTIONS[playerPokemon.pokemonID]
-		sortEvos()
 		currentTargetIDs = {}
 		currentIndex = 1
 		for targetID, data in pairs(evoData) do
@@ -132,7 +132,8 @@ local function EvoDataScreen(initialSettings, initialTracker, initialProgram)
 		ui.frames.mainFrame.resize({width = Graphics.SIZES.MAIN_SCREEN_WIDTH, height = mainFrameHeight})
 		local size = ui.controls.spacer.getSize()
 		ui.controls.spacer.resize({width = size.width, height = spacerHeight})
-		readCurrentIndex()
+        readCurrentIndex()
+		sortEvos()
 		readScroller()
 	end
 
