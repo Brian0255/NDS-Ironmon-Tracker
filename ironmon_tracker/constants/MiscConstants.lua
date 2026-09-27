@@ -5,7 +5,7 @@ MiscConstants.TRACKER_VERSION = "6.3.11"
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Updated the memory addresses for Black 2/White 2 to work with the base game and any new patches.",
+    "-- Updated memory addresses for Black 2/White 2 to work with the base game and any new patches (Thank you to SilverstarStream for help with this).",
     "-- Fixed a bug where some alternate forms were missing from the coverage calculator.",
     "-- Fixed a few bugs with the evo data screen."
 }
