@@ -1,11 +1,13 @@
 MiscConstants = {}
 
-MiscConstants.TRACKER_VERSION = "6.3.10"
+MiscConstants.TRACKER_VERSION = "6.3.11"
 
 MiscConstants.BIZHAWK_VERSION = client.getversion()
 
 MiscConstants.UPDATE_NOTES = {
-    "-- Fixed an important issue where the Evo Data website link was linking to a nonexistent website."
+    "-- Updated the memory addresses for Black 2/White 2 to work with the base game and any new patches.",
+    "-- Fixed a bug where some alternate forms were missing from the coverage calculator.",
+    "-- Fixed a few bugs with the evo data screen."
 }
 
 MiscConstants.DEFAULT_SETTINGS = {
