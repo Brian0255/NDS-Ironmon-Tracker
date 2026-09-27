@@ -183,17 +183,21 @@ function GameConfigurator.initialize()
 	return GameConfigurator.initializeMemoryAddresses()
 end
 
+local function readPointerOffsetsIntoConfig(addressConfiguration, pointerAddr, offsets)
+	local versionPtrAddr = Memory.read_u32_le(pointerAddr)
+	versionPtrAddr = bit.band(versionPtrAddr, 0xFFFFFF)
+	for addrName, versionPtrOffset in pairs(offsets) do
+		addressConfiguration[addrName] = versionPtrAddr + versionPtrOffset
+	end
+end
+
 local function readVersionPointerOffsets(memoryInfo, addressConfiguration)
 	local globalPtr = memoryInfo.GLOBAL_POINTER
 	local globalPtrAddr = Memory.read_u32_le(globalPtr)
 	--Don't care about the first 2 bytes.
 	globalPtrAddr = bit.band(globalPtrAddr, 0xFFFFFF)
 	local versionPtr = globalPtrAddr + 0x20
-	local versionPtrAddr = Memory.read_u32_le(versionPtr)
-	versionPtrAddr = bit.band(versionPtrAddr, 0xFFFFFF)
-	for addrName, versionPtrOffset in pairs(memoryInfo.VERSION_POINTER_OFFSETS) do
-		addressConfiguration[addrName] = versionPtrAddr + versionPtrOffset
-	end
+	readPointerOffsetsIntoConfig(addressConfiguration, versionPtr, memoryInfo.VERSION_POINTER_OFFSETS)
 end
 
 function GameConfigurator.initializeMemoryAddresses()
@@ -206,6 +210,9 @@ function GameConfigurator.initializeMemoryAddresses()
 	end
 	if gameInfo.GEN == 4 then
 		readVersionPointerOffsets(memoryInfo, addressConfiguration)
+	--bw2
+	elseif gameInfo.VERSION_GROUP == 5 then
+		readPointerOffsetsIntoConfig(addressConfiguration, memoryInfo.MAIN_POINTER, memoryInfo.POINTER_OFFSETS)
 	end
 	return {
 		["gameInfo"] = gameInfo,

@@ -186,6 +186,7 @@ local function Main()
 		QuickLoader.initialize(settings.quickLoad)
 		program = Program(tracker, gameConfiguration.memoryAddresses, gameConfiguration.gameInfo, settings)
 		local gameInfo = gameConfiguration.gameInfo
+		--[[
 		if settings.trackedInfo.FIRST_TIME_BW2 and (gameInfo.NAME == "Pokemon White 2" or gameInfo.NAME == "Pokemon Black 2") then
 			settings.trackedInfo.FIRST_TIME_BW2 = false
 			program.saveSettings()
@@ -194,7 +195,7 @@ local function Main()
 					gameInfo.NAME ..
 						". As a friendly reminder, this tracker will not work without the intro patch. If you need it, you can find it in the official IronMON discord. Best of luck!"
 			)
-		end
+		end--]]
 		ThemeFactory.setSaveFunction(program.saveSettings)
 		ThemeFactory.setPokemonThemeDisablingFunction(program.turnOffPokemonTheme)
 		event.onexit(program.onProgramExit, "onProgramExit")
