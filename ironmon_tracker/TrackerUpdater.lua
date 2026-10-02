@@ -19,6 +19,24 @@ local function TrackerUpdater(initialSettings)
         return latestVersion.major .. "." .. latestVersion.minor .. "." .. latestVersion.patch
     end
 
+    -- [melonDS-android patch] The real implementation below shells out to
+    -- curl/tar/cp via os.execute(), which isn't usable on Android (see
+    -- LuaScriptManager.cpp's l_os_execute_stub comment -- it SIGSEGVs
+    -- rather than failing cleanly from this app's sandboxed process).
+    -- android.downloadAndExtractUpdate() does the same download+extract
+    -- using Android's own networking instead.
+    local function runBatchCommandAndroid()
+        local TAR_URL = "https://github.com/Brian0255/NDS-Ironmon-Tracker/archive/main.tar.gz"
+        print(string.format("Installing upgrade to version " .. self.getNewestVersionString() .. "."))
+        local success = android.downloadAndExtractUpdate(TAR_URL, Paths.CURRENT_DIRECTORY)
+        if not success then
+            print("Error trying to install: Unable to download, extract, or overwrite files properly.")
+            return false
+        end
+        print("Update completed successfully.")
+        return true
+    end
+
     local function runBatchCommand()
         local archiveName = "NDS-Ironmon-Tracker-main.tar.gz"
         local folderName = "NDS-Ironmon-Tracker-main"
@@ -100,8 +118,13 @@ local function TrackerUpdater(initialSettings)
 
     local function updateLatestVersion()
         local versionURL = "https://api.github.com/repos/Brian0255/NDS-Ironmon-Tracker/releases/latest"
-        local command = "curl " .. versionURL .. " --ssl-no-revoke"
-        local response = MiscUtils.runExecuteCommand(command)
+        local response
+        if android ~= nil and android.httpGet ~= nil then
+            response = android.httpGet(versionURL)
+        else
+            local command = "curl " .. versionURL .. " --ssl-no-revoke"
+            response = MiscUtils.runExecuteCommand(command)
+        end
         if response ~= nil and response ~= "" then
             local latestVersionString = string.match(response, '"tag_name":.*(%d+%.%d+%.%d+)"')
             latestVersion = parseVersionNumber(latestVersionString)
@@ -136,7 +159,12 @@ local function TrackerUpdater(initialSettings)
 
         -- Finally, allow images again and perform the update (this order is intentional)
         DrawingUtils.canDrawImages = true
-        local success = runBatchCommand()
+        local success
+        if android ~= nil and android.downloadAndExtractUpdate ~= nil then
+            success = runBatchCommandAndroid()
+        else
+            success = runBatchCommand()
+        end
 
         if client.GetSoundOn() ~= wasSoundOn then
             client.SetSoundOn(wasSoundOn)

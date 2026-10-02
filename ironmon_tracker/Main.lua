@@ -54,7 +54,13 @@ local function Main()
 	dofile(Paths.FOLDERS.DATA_FOLDER .. "/AnimatedSpriteManager.lua")
 	Graphics.LETTER_PIXEL_LENGTHS[Chars.accentedE] = 4
 
-	if Paths.SLASH == "\\" then
+	-- [melonDS-android patch] os.execute()-based shell commands (pwd/cd)
+	-- aren't usable on Android (see LuaScriptManager.cpp's
+	-- l_os_execute_stub comment) -- android.getScriptDirectory() gives the
+	-- same answer directly, no shelling out required.
+	if android ~= nil and android.getScriptDirectory ~= nil then
+		Paths.CURRENT_DIRECTORY = android.getScriptDirectory()
+	elseif Paths.SLASH == "\\" then
 		Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("cd")
 	else
 		Paths.CURRENT_DIRECTORY = MiscUtils.runExecuteCommand("pwd")
@@ -68,6 +74,13 @@ local function Main()
 
 	local function checkForNextSeedCombo()
 		if program ~= nil and not program.isInControlsMenu() then
+			-- [melonDS-android patch] The real combo below (e.g. Start+Select+A+B
+			-- held simultaneously) isn't practical on a touchscreen -- the
+			-- overlay's "new run" icon sets this flag instead (see
+			-- LuaScriptManager.h's requestNewRun()/newRunRequested comment).
+			if android ~= nil and android.consumeNewRunRequested ~= nil and android.consumeNewRunRequested() then
+				return true
+			end
 			local check = MiscUtils.split(settings.controls.LOAD_NEXT_SEED, " ")
 			local buttons = Input.getJoypad()
 			for _, button in pairs(check) do

@@ -56,7 +56,15 @@ local function UpdaterScreen(initialSettings, initialTracker, initialProgram)
 
     local function onOpenReleaseNotesClick()
         local releaseNotesURL = "https://github.com/Brian0255/NDS-Ironmon-Tracker/releases/latest"
-        os.execute(string.format('start "" "%s"', releaseNotesURL))
+        -- [melonDS-android patch] os.execute()-based "start <url>" is a
+        -- no-op on Android (see LuaScriptManager.cpp's l_os_execute_stub
+        -- comment) -- android.openUrl() fires a real Intent.ACTION_VIEW
+        -- to open the link in the device's browser instead.
+        if android ~= nil and android.openUrl ~= nil then
+            android.openUrl(releaseNotesURL)
+        else
+            os.execute(string.format('start "" "%s"', releaseNotesURL))
+        end
     end
 
     local function finalizeUpdate(success)
