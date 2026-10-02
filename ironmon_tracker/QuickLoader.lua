@@ -91,11 +91,19 @@ local function createBackupOfLog(romName)
 end
 
 local function generateROM()
+    -- melonDS-android: there's no JVM/java binary on Android at all, so the
+    -- JAR-shellout path below can never work there. android.randomizeRom()
+    -- instead calls the randomizer's CLI core directly in-process (compiled
+    -- into the app itself), which also means no JAR_PATH is needed on this
+    -- platform.
+    local useNativeRandomizer = android ~= nil and android.randomizeRom ~= nil
     local paths = {
         ROMPath = quickLoadSettings.ROM_PATH,
-        JARPath = quickLoadSettings.JAR_PATH,
         RNQSPath = quickLoadSettings.SETTINGS_PATH
     }
+    if not useNativeRandomizer then
+        paths.JARPath = quickLoadSettings.JAR_PATH
+    end
     for name, path in pairs(paths) do
         if not FormsUtils.fileExists(path) or path == "" then
             FormsUtils.displayError(
@@ -112,18 +120,27 @@ local function generateROM()
     nextRomName = nextRomName:gsub(" ", "_")
     local nextRomPath = currentDirectory .. Paths.SLASH .. nextRomName
     createBackupOfLog(nextRomName:match("(.*)%.nds"))
-    local randomizerCommand =
-        string.format(
-        'java -Xmx4608M -jar "%s" cli -s "%s" -i "%s" -o "%s" -l',
-        paths.JARPath,
-        paths.RNQSPath,
-        paths.ROMPath,
-        nextRomPath
-    )
+
     print("Generating next ROM...")
-    local command = randomizerCommand
-    MiscUtils.runExecuteCommand(command, "RomGenerationErrorLog.txt")
-    client.unpause()
+    if useNativeRandomizer then
+        local success = android.randomizeRom(paths.RNQSPath, paths.ROMPath, nextRomPath)
+        if not success then
+            FormsUtils.displayError('Next ROM failed to generate.')
+            return nil
+        end
+    else
+        local randomizerCommand =
+            string.format(
+            'java -Xmx4608M -jar "%s" cli -s "%s" -i "%s" -o "%s" -l',
+            paths.JARPath,
+            paths.RNQSPath,
+            paths.ROMPath,
+            nextRomPath
+        )
+        local command = randomizerCommand
+        MiscUtils.runExecuteCommand(command, "RomGenerationErrorLog.txt")
+        client.unpause()
+    end
 
     if not FormsUtils.fileExists(nextRomPath) then
         FormsUtils.displayError('Next ROM failed to generate. Check the "RomGenerationErrorLog" file for more details.')
