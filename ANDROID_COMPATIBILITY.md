@@ -1,9 +1,10 @@
-# Running under melonDS's Android port
+# Running under an Android-based emulator
 
 This fork includes a handful of small, optional patches (see the
-`android-compatibility` branch) that let this tracker run under
-[melonDS](https://melonds.kuribo64.net/)'s Android port, in addition to
-BizHawk on desktop.
+`android-compatibility` branch) that let this tracker run under an
+Android-based emulator, in addition to BizHawk on desktop -- for example,
+[melonDS](https://melonds.kuribo64.net/)'s Android port, which is what these
+patches were originally written against.
 
 ## Why this is needed
 
@@ -11,20 +12,20 @@ A few of the tracker's features shell out to the OS via `os.execute()` /
 `io.popen()` (resolving the tracker's own directory, checking for and
 installing updates, opening the release notes link). That works fine under
 BizHawk on Windows/Linux, but it can't work the same way in a sandboxed
-Android app process -- there's no shell to exec, and on melonDS's Android
-build, the Lua interpreter disables `os.execute()`/`io.popen()` entirely
-rather than let them crash the whole script.
+Android app process -- there's no shell to exec, and an Android build's Lua
+interpreter may disable `os.execute()`/`io.popen()` entirely rather than let
+them crash the whole script (melonDS's Android port does exactly this).
 
 ## The `android` global
 
-To let the tracker use real Android functionality in their place, melonDS's
-Android build defines an extra Lua global, `android`, alongside the usual
-`gui`, `client`, `forms`, etc. tables -- but **only when the script is
-actually running inside melonDS's Android Lua interpreter**. It is never
-defined under real BizHawk, nor under melonDS's own desktop build, so
-`android` is simply `nil` in every other environment.
+To let the tracker use real Android functionality in their place, an
+Android build can define an extra Lua global, `android`, alongside the
+usual `gui`, `client`, `forms`, etc. tables -- but **only when the script is
+actually running inside that Android build's Lua interpreter**. It is never
+defined under real BizHawk, nor under desktop melonDS, so `android` is
+simply `nil` in every other environment.
 
-Currently provided:
+Currently provided (as implemented by melonDS's Android port):
 
 | Function | Purpose |
 |---|---|
@@ -47,14 +48,15 @@ end
 ```
 
 Since an undefined Lua global simply evaluates to `nil` (it doesn't error),
-this check is always safe to write, even in a file that's never run on
-melonDS's Android build at all. Outside of melonDS's Android port, every one
-of these branches is dead code, so the tracker's behavior under BizHawk and
-desktop melonDS is unchanged.
+this check is always safe to write, even in a file that's never run on an
+Android build at all. Outside of an Android emulator that defines this
+global, every one of these branches is dead code, so the tracker's behavior
+under BizHawk and desktop melonDS is unchanged.
 
 ## Where this comes from
 
-`android` and its functions are implemented natively in melonDS's own
-source (`LuaScriptManager.cpp`'s `registerAPI()`), not by this tracker --
-there's nothing to install or configure here beyond running the tracker on
-a build of melonDS that defines it.
+`android` and its functions aren't provided by this tracker -- they're
+implemented natively by whichever emulator is running it. In melonDS's
+Android port, for example, this lives in `LuaScriptManager.cpp`'s
+`registerAPI()`. There's nothing to install or configure here beyond
+running the tracker on a build that defines this global.
