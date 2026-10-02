@@ -874,6 +874,22 @@ local function Program(initialTracker, initialMemoryAddresses, initialGameInfo, 
 		if not canDraw then
 			return
 		end
+		-- [melonDS-android patch] These screens either draw real content
+		-- into the game-aligned side of the overlay (Statistics, Log
+		-- Viewer) or ask for wider padding than the Android overlay's
+		-- default scale comfortably fits on-screen (Badges Appearance,
+		-- Edit Color Theme -- see Graphics.SIZES.BADGE_COLOR_EDIT_PADDING)
+		-- -- let the user manually drag it into view only on these, not on
+		-- every screen (its content is wider than the viewport on all of
+		-- them, so that alone can't distinguish "needs it" from "doesn't").
+		if android ~= nil and android.setOverlayScrollEnabled ~= nil then
+			android.setOverlayScrollEnabled(
+				currentScreens[self.UI_SCREENS.STATISTICS_SCREEN] ~= nil or
+				currentScreens[self.UI_SCREENS.LOG_VIEWER_SCREEN] ~= nil or
+				currentScreens[self.UI_SCREENS.BADGES_APPEARANCE_SCREEN] ~= nil or
+				currentScreens[self.UI_SCREENS.COLOR_SCHEME_SCREEN] ~= nil
+			)
+		end
 		Graphics.SIZES.MAIN_SCREEN_PADDING = 199
 		local total = getScreenTotal()
 		if currentScreens[self.UI_SCREENS.MAIN_SCREEN] and total == 1 then

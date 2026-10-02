@@ -34,6 +34,7 @@ Currently provided (as implemented by melonDS's Android port):
 | `android.downloadAndExtractUpdate(url, destDir)` | Downloads a `.tar.gz` and extracts it into `destDir`, replacing the `curl`/`tar`/`cp` pipeline `os.execute()` would otherwise run. |
 | `android.openUrl(url)` | Opens a URL in the device's browser (an Android `Intent.ACTION_VIEW`), replacing `os.execute('start "" "<url>"')`. |
 | `android.consumeNewRunRequested()` | Returns `true` (once) if the app's touch-friendly "start a new run" button was tapped, as an alternative to holding the real Start+Select+A+B combo on a touchscreen. |
+| `android.setOverlayScrollEnabled(enabled)` | Lets the user manually drag the overlay horizontally to reveal content past its normal right-anchored view (e.g. this tracker's Statistics/Log Viewer screens, which draw into the side of the overlay that's otherwise cropped off-screen). Off by default; call every frame a screen that needs it is shown, same as `client.SetGameExtraPadding()`. |
 
 ## How the patches use it
 

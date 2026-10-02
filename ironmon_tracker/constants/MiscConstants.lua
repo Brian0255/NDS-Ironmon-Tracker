@@ -107,8 +107,20 @@ MiscConstants.DEFAULT_SETTINGS = {
     timer = {
         ENABLED = false,
         TRANSPARENT = false,
-        XPOS = 0,
-        YPOS = 180.5
+        -- [melonDS-android patch] The default (0, 180.5) places this
+        -- draggable timer at NDS-space x=0 -- the "game view" side the
+        -- Android overlay's right-anchored canvas sacrifices off-screen to
+        -- keep the tracker's own panel (x>=256) visible, making a
+        -- freshly-enabled timer invisible (and thus undraggable, since
+        -- touch forwarding uses the same off-screen coordinates) there.
+        -- Default it inside the panel region on Android instead, near the
+        -- bottom (y=2 collided with several panel screens' own headers,
+        -- which all start at/near y=0 same as this did) -- y can't go
+        -- negative here either, same off-canvas-and-invisible problem as
+        -- x=0 did, so this is the other direction's version of "move it
+        -- as far from the content most screens draw as this allows".
+        XPOS = (android ~= nil) and 256 or 0,
+        YPOS = (android ~= nil) and 365 or 180.5
     }
 }
 
