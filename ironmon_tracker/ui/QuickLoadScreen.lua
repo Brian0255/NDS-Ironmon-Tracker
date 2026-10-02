@@ -439,14 +439,21 @@ local function TrackerSetupScreen(initialSettings, initialTracker, initialProgra
         local completeString = ""
         local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
         for _, settingName in pairs(settingsNames) do
-            completeString = completeString .. settings.quickLoad[settingName] .. "\n"
+            completeString = completeString .. (settings.quickLoad[settingName] or "") .. "\n"
         end
         MiscUtils.writeStringToFile(filePath, completeString)
         program.saveSettings()
     end
 
     local function onSaveProfileClick()
-        local settingsNames = {"JAR_PATH", "SETTINGS_PATH", "ROM_PATH"}
+        -- melonDS-android: JAR_PATH isn't required when android.randomizeRom()
+        -- is available -- the randomizer runs in-process, no external jar
+        -- needed (see the same check in QuickLoader.lua's generateROM()).
+        local useNativeRandomizer = android ~= nil and android.randomizeRom ~= nil
+        local settingsNames = {"SETTINGS_PATH", "ROM_PATH"}
+        if not useNativeRandomizer then
+            table.insert(settingsNames, "JAR_PATH")
+        end
         for _, settingName in pairs(settingsNames) do
             if settings.quickLoad[settingName] == nil or settings.quickLoad[settingName] == "" then
                 forms.destroyall()
