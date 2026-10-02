@@ -20,6 +20,14 @@ This tracker is based on the Nintendo DS (NDS) Pokémon games. As such, the foll
 
 This project initially started from https://github.com/besteon/Ironmon-Tracker, so I cannot thank them and all of the project's contributors enough for all the amazing groundwork they did. Also, huge shoutouts to the people over at projectpokemon.org for all their technical documentation on Pokémon data.
 
+## This fork: melonDS Android support
+
+This fork (branch `android-compatibility`) adds optional patches that let
+this tracker also run under [melonDS](https://melonds.kuribo64.net/)'s
+Android port, not just BizHawk. The changes are additive and only take
+effect when running on a build of melonDS that provides them -- see
+[ANDROID_COMPATIBILITY.md](ANDROID_COMPATIBILITY.md) for details.
+
 ## Installation
 
 1. If you don't have BizHawk, [download the emulator](https://tasvideos.org/BizHawk/ReleaseHistory) (v2.8 or higher).
